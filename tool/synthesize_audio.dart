@@ -58,12 +58,12 @@ Future<void> main(List<String> args) async {
   final outDir = Directory('${root.path}/assets/audio/$lang');
   await outDir.create(recursive: true);
 
-  final encoder = await OpusEncoder.detect();
+  final encoder = await SpeechEncoder.detect();
   if (!encoder.available) {
     stdout.writeln(
       '  ! ffmpeg не найден — файлы останутся в WAV.\n'
-      '    На объёме одного языка (~5 000 слов) это примерно вчетверо больше\n'
-      '    бюджета из README. Поставьте ffmpeg и перезапустите с --force.',
+      '    Это в 14 раз больше, чем в AAC: полный курс языка вместо 26 МБ\n'
+      '    занял бы 350. Поставьте ffmpeg и перезапустите с --force.',
     );
   }
 
@@ -160,7 +160,7 @@ List<SpeechItem> _collectItems(ContentSources sources, String lang) {
 Future<AudioEntry?> _synthesizeOne({
   required SpeechItem item,
   required TtsProvider provider,
-  required OpusEncoder encoder,
+  required SpeechEncoder encoder,
   required Directory outDir,
   required String signature,
 }) async {
@@ -170,12 +170,12 @@ Future<AudioEntry?> _synthesizeOne({
   if (!await provider.speakToFile(item.text, wav)) return null;
 
   if (encoder.available) {
-    final opus = File('${outDir.path}/$name.opus');
-    if (await encoder.encode(wav, opus)) {
+    final m4a = File('${outDir.path}/$name.m4a');
+    if (await encoder.encode(wav, m4a)) {
       await wav.delete();
       return AudioEntry(
-        file: '$name.opus',
-        bytes: opus.lengthSync(),
+        file: '$name.m4a',
+        bytes: m4a.lengthSync(),
         signature: signature,
       );
     }

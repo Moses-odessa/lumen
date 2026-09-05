@@ -27,32 +27,41 @@ abstract class TtsProvider {
   Future<bool> speakToFile(String text, File output);
 }
 
-/// Кодирование в Opus. Отдельно от синтеза, потому что TTS и кодек — разные
-/// инструменты, и второго может не быть на машине.
-class OpusEncoder {
-  const OpusEncoder._(this.executable);
+/// Кодирование в AAC-LC (`.m4a`). Отдельно от синтеза, потому что TTS и
+/// кодек — разные инструменты, и второго может не быть на машине.
+///
+/// Почему не Opus, который эффективнее в полтора раза: его не умеет iOS.
+/// AVFoundation декодирует Ogg Opus только в контейнере CAF, а `just_audio`
+/// на iOS — это AVFoundation. Формат, который не играет на половине целевых
+/// платформ, не экономит ничего.
+class SpeechEncoder {
+  const SpeechEncoder._(this.executable);
 
-  const OpusEncoder.unavailable() : executable = null;
+  const SpeechEncoder.unavailable() : executable = null;
 
   final String? executable;
 
   bool get available => executable != null;
 
-  static Future<OpusEncoder> detect() async {
+  static Future<SpeechEncoder> detect() async {
     for (final candidate in ['ffmpeg']) {
       try {
         final result = await Process.run(candidate, ['-version']);
-        if (result.exitCode == 0) return OpusEncoder._(candidate);
+        if (result.exitCode == 0) return SpeechEncoder._(candidate);
       } catch (_) {
         // Не найден — пробуем следующий.
       }
     }
-    return const OpusEncoder.unavailable();
+    return const SpeechEncoder.unavailable();
   }
 
-  /// Opus 24 kbps mono: примерно 3 КБ на секунду звука. Именно из этой цифры
-  /// считается бюджет «один язык ≈ 25 МБ» в README.
-  Future<bool> encode(File wav, File opus) async {
+  /// AAC-LC 24 kbps mono при 16 кГц — измеренные 6 КБ на позицию.
+  ///
+  /// 16 кГц, а не исходные 22: это стандартная широкополосная речь, выше
+  /// 8 кГц у синтезатора почти пусто, и биты, потраченные на пустой диапазон,
+  /// отняты у разборчивости. 32 kbps звучали бы лучше, но пять языков тогда
+  /// упираются в лимит Google Play (198 МБ из 200) — запас нужнее.
+  Future<bool> encode(File wav, File m4a) async {
     final exe = executable;
     if (exe == null) return false;
     try {
@@ -60,15 +69,14 @@ class OpusEncoder {
         '-y',
         '-loglevel', 'error',
         '-i', wav.path,
-        '-c:a', 'libopus',
+        '-c:a', 'aac',
+        '-profile:a', 'aac_low',
         '-b:a', '24k',
         '-ac', '1',
-        '-ar', '24000',
-        // Речь, а не музыка: кодек экономит биты на том, чего в голосе нет.
-        '-application', 'voip',
-        opus.path,
+        '-ar', '16000',
+        m4a.path,
       ]);
-      return result.exitCode == 0 && opus.existsSync();
+      return result.exitCode == 0 && m4a.existsSync();
     } catch (_) {
       return false;
     }

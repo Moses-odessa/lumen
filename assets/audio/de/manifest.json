@@ -1,85 +1,85 @@
 {
   "version": 1,
-  "totalBytes": 70899,
+  "totalBytes": 94016,
   "files": {
     "de/apotheke": {
-      "file": "apotheke.opus",
-      "bytes": 4712,
+      "file": "apotheke.m4a",
+      "bytes": 6042,
       "signature": "7d2d8182245737a1"
     },
     "de/arzt": {
-      "file": "arzt.opus",
-      "bytes": 3715,
+      "file": "arzt.m4a",
+      "bytes": 5025,
       "signature": "699651c10246fbd2"
     },
     "de/bauch": {
-      "file": "bauch.opus",
-      "bytes": 3725,
+      "file": "bauch.m4a",
+      "bytes": 4788,
       "signature": "bafa46438c007b4c"
     },
     "de/fieber": {
-      "file": "fieber.opus",
-      "bytes": 3813,
+      "file": "fieber.m4a",
+      "bytes": 5186,
       "signature": "240a5e9b90104740"
     },
     "de/hand": {
-      "file": "hand.opus",
-      "bytes": 3586,
+      "file": "hand.m4a",
+      "bytes": 4771,
       "signature": "8587283aadd80692"
     },
     "de/hilfe": {
-      "file": "hilfe.opus",
-      "bytes": 3858,
+      "file": "hilfe.m4a",
+      "bytes": 4978,
       "signature": "28a9e735cfb63b4e"
     },
     "de/kopf": {
-      "file": "kopf.opus",
-      "bytes": 3569,
+      "file": "kopf.m4a",
+      "bytes": 4696,
       "signature": "0a4e963da1a6dd53"
     },
     "de/krank": {
-      "file": "krank.opus",
-      "bytes": 3305,
+      "file": "krank.m4a",
+      "bytes": 5448,
       "signature": "35a953d43a0b941f"
     },
     "de/krankenhaus": {
-      "file": "krankenhaus.opus",
-      "bytes": 5301,
+      "file": "krankenhaus.m4a",
+      "bytes": 6968,
       "signature": "e0511797e143ef36"
     },
     "de/medikament": {
-      "file": "medikament.opus",
-      "bytes": 5339,
+      "file": "medikament.m4a",
+      "bytes": 6943,
       "signature": "bd70b18bd8a96db2"
     },
     "de/p_doctor_a0_appointment": {
-      "file": "p_doctor_a0_appointment.opus",
-      "bytes": 5806,
+      "file": "p_doctor_a0_appointment.m4a",
+      "bytes": 7909,
       "signature": "d44047fd58e2b6d3"
     },
     "de/p_doctor_a0_doctor": {
-      "file": "p_doctor_a0_doctor.opus",
-      "bytes": 5146,
+      "file": "p_doctor_a0_doctor.m4a",
+      "bytes": 6732,
       "signature": "55df7dca14e68cdc"
     },
     "de/p_doctor_a0_help": {
-      "file": "p_doctor_a0_help.opus",
-      "bytes": 5514,
+      "file": "p_doctor_a0_help.m4a",
+      "bytes": 7025,
       "signature": "0ee8601a6574dd9e"
     },
     "de/p_doctor_a0_pain": {
-      "file": "p_doctor_a0_pain.opus",
-      "bytes": 5308,
+      "file": "p_doctor_a0_pain.m4a",
+      "bytes": 6851,
       "signature": "1b0d8f4cac802927"
     },
     "de/schmerz": {
-      "file": "schmerz.opus",
-      "bytes": 4262,
+      "file": "schmerz.m4a",
+      "bytes": 5376,
       "signature": "a6d4a86203291db5"
     },
     "de/termin": {
-      "file": "termin.opus",
-      "bytes": 3940,
+      "file": "termin.m4a",
+      "bytes": 5278,
       "signature": "ab44693536478936"
     }
   }
