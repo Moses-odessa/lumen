@@ -1,85 +1,85 @@
 {
   "version": 1,
-  "totalBytes": 71097,
+  "totalBytes": 70899,
   "files": {
     "de/apotheke": {
       "file": "apotheke.opus",
-      "bytes": 4693,
+      "bytes": 4712,
       "signature": "7d2d8182245737a1"
     },
     "de/arzt": {
       "file": "arzt.opus",
-      "bytes": 3725,
+      "bytes": 3715,
       "signature": "699651c10246fbd2"
     },
     "de/bauch": {
       "file": "bauch.opus",
-      "bytes": 3737,
+      "bytes": 3725,
       "signature": "bafa46438c007b4c"
     },
     "de/fieber": {
       "file": "fieber.opus",
-      "bytes": 3812,
+      "bytes": 3813,
       "signature": "240a5e9b90104740"
     },
     "de/hand": {
       "file": "hand.opus",
-      "bytes": 3625,
+      "bytes": 3586,
       "signature": "8587283aadd80692"
     },
     "de/hilfe": {
       "file": "hilfe.opus",
-      "bytes": 3888,
+      "bytes": 3858,
       "signature": "28a9e735cfb63b4e"
     },
     "de/kopf": {
       "file": "kopf.opus",
-      "bytes": 3571,
+      "bytes": 3569,
       "signature": "0a4e963da1a6dd53"
     },
     "de/krank": {
       "file": "krank.opus",
-      "bytes": 3302,
+      "bytes": 3305,
       "signature": "35a953d43a0b941f"
     },
     "de/krankenhaus": {
       "file": "krankenhaus.opus",
-      "bytes": 5342,
+      "bytes": 5301,
       "signature": "e0511797e143ef36"
     },
     "de/medikament": {
       "file": "medikament.opus",
-      "bytes": 5381,
+      "bytes": 5339,
       "signature": "bd70b18bd8a96db2"
     },
     "de/p_doctor_a0_appointment": {
       "file": "p_doctor_a0_appointment.opus",
-      "bytes": 5800,
+      "bytes": 5806,
       "signature": "d44047fd58e2b6d3"
     },
     "de/p_doctor_a0_doctor": {
       "file": "p_doctor_a0_doctor.opus",
-      "bytes": 5143,
+      "bytes": 5146,
       "signature": "55df7dca14e68cdc"
     },
     "de/p_doctor_a0_help": {
       "file": "p_doctor_a0_help.opus",
-      "bytes": 5520,
+      "bytes": 5514,
       "signature": "0ee8601a6574dd9e"
     },
     "de/p_doctor_a0_pain": {
       "file": "p_doctor_a0_pain.opus",
-      "bytes": 5358,
+      "bytes": 5308,
       "signature": "1b0d8f4cac802927"
     },
     "de/schmerz": {
       "file": "schmerz.opus",
-      "bytes": 4249,
+      "bytes": 4262,
       "signature": "a6d4a86203291db5"
     },
     "de/termin": {
       "file": "termin.opus",
-      "bytes": 3951,
+      "bytes": 3940,
       "signature": "ab44693536478936"
     }
   }

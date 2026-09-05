@@ -1,85 +1,85 @@
 {
   "version": 1,
-  "totalBytes": 59631,
+  "totalBytes": 58482,
   "files": {
     "en/appointment": {
       "file": "appointment.opus",
-      "bytes": 4100,
+      "bytes": 4135,
       "signature": "da656914e518fa45"
     },
     "en/belly": {
       "file": "belly.opus",
-      "bytes": 2681,
+      "bytes": 2645,
       "signature": "00d64e53bd316c55"
     },
     "en/doctor": {
       "file": "doctor.opus",
-      "bytes": 2967,
+      "bytes": 2978,
       "signature": "0e2e515912ce62dc"
     },
     "en/fever": {
       "file": "fever.opus",
-      "bytes": 3130,
+      "bytes": 2600,
       "signature": "136bb5edf21ddeac"
     },
     "en/hand": {
       "file": "hand.opus",
-      "bytes": 3008,
+      "bytes": 2997,
       "signature": "262d9a3ee9d8ebea"
     },
     "en/head": {
       "file": "head.opus",
-      "bytes": 2759,
+      "bytes": 2754,
       "signature": "6d0caf5c3b8d561f"
     },
     "en/help": {
       "file": "help.opus",
-      "bytes": 2799,
+      "bytes": 2141,
       "signature": "415dd7c16e8e0b71"
     },
     "en/hospital": {
       "file": "hospital.opus",
-      "bytes": 3672,
+      "bytes": 3669,
       "signature": "30d2a9fc781a4726"
     },
     "en/medicine": {
       "file": "medicine.opus",
-      "bytes": 3682,
+      "bytes": 3663,
       "signature": "94e59f3d28af5487"
     },
     "en/p_doctor_a0_appointment": {
       "file": "p_doctor_a0_appointment.opus",
-      "bytes": 5493,
+      "bytes": 5500,
       "signature": "6cdf1e4e69fce91c"
     },
     "en/p_doctor_a0_doctor": {
       "file": "p_doctor_a0_doctor.opus",
-      "bytes": 5522,
+      "bytes": 5531,
       "signature": "18d3b8880edb879d"
     },
     "en/p_doctor_a0_help": {
       "file": "p_doctor_a0_help.opus",
-      "bytes": 5133,
+      "bytes": 5140,
       "signature": "59d0b3b8c0263d57"
     },
     "en/p_doctor_a0_pain": {
       "file": "p_doctor_a0_pain.opus",
-      "bytes": 5125,
+      "bytes": 5131,
       "signature": "aa57bd2db16e4df2"
     },
     "en/pain": {
       "file": "pain.opus",
-      "bytes": 2875,
+      "bytes": 2905,
       "signature": "1302d173fe480dda"
     },
     "en/pharmacy": {
       "file": "pharmacy.opus",
-      "bytes": 3663,
+      "bytes": 3673,
       "signature": "01a1e20d71c600a1"
     },
     "en/sick": {
       "file": "sick.opus",
-      "bytes": 3022,
+      "bytes": 3020,
       "signature": "fd6044e44291680f"
     }
   }
