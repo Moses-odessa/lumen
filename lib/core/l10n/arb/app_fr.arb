@@ -1,0 +1,17 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Lumen",
+  "tabSky": "Ciel",
+  "tabGame": "Jouer",
+  "tabProfile": "Profil",
+  "tabSettings": "Réglages",
+  "skyTitle": "Votre ciel",
+  "gameTitle": "Rituel quotidien",
+  "profileTitle": "Profil",
+  "settingsTitle": "Réglages",
+  "onboardingTitle": "Trouvons où commence votre ciel",
+  "onboardingSubtitle": "Pas de questionnaire, quelques cercles : vous jouez, nous mesurons.",
+  "onboardingStartCalibration": "Lancer la calibration",
+  "onboardingFromScratch": "Je débute de zéro",
+  "comingSoon": "Bientôt"
+}

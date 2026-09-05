@@ -1,0 +1,85 @@
+# Русские лексемы — язык подсказок. Озвучка родному языку не нужна,
+# дистракторы тоже: в круге варианты всегда на изучаемом языке, кроме режима
+# «Узнавание», где хватает дистракторов far.
+lang: ru
+lexemes:
+  doctor_person:
+    form: врач
+    gender: m
+    plural: врачи
+    distractors:
+      far: [зуб, уход]
+      near: [грач, врал, врозь]
+  pain_noun:
+    form: боль
+    gender: f
+    distractors:
+      far: [рана, кашель]
+      near: [боль в горле, соль, моль]
+  help_noun:
+    form: помощь
+    gender: f
+    distractors:
+      far: [уход, вызов]
+      near: [помощник, помочь, немощь]
+  head_body:
+    form: голова
+    gender: f
+    plural: головы
+    distractors:
+      far: [шея, спина]
+      near: [половина, головка, голод]
+  belly_body:
+    form: живот
+    gender: m
+    plural: животы
+    distractors:
+      far: [грудь, нога]
+      near: [животное, жизнь, живой]
+  hand_body:
+    form: рука
+    gender: f
+    plural: руки
+    distractors:
+      far: [нога, палец]
+      near: [ручка, мука, река]
+  fever_noun:
+    form: жар
+    gender: m
+    distractors:
+      far: [кашель, насморк]
+      near: [жара, пар, шар]
+  medicine_noun:
+    form: лекарство
+    gender: n
+    plural: лекарства
+    distractors:
+      far: [рецепт, мазь]
+      near: [лекарь, лекарственный, лакомство]
+  pharmacy_place:
+    form: аптека
+    gender: f
+    plural: аптеки
+    distractors:
+      far: [приём, клиника]
+      near: [аптекарь, апатия, аптечка]
+  hospital_place:
+    form: больница
+    gender: f
+    plural: больницы
+    distractors:
+      far: [приём, скорая]
+      near: [больной, больничный, лечебница]
+  sick_adj:
+    form: больной
+    note: прилагательное
+    distractors:
+      far: [усталый, здоровый]
+      near: [больно, больница, вольный]
+  appointment_noun:
+    form: приём
+    gender: m
+    plural: приёмы
+    distractors:
+      far: [рецепт, запись]
+      near: [приёмная, приятный, подъём]

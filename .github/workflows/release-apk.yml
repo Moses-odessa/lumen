@@ -1,0 +1,63 @@
+name: Release APK
+
+# Ручной запуск: Actions → Release APK → Run workflow.
+# Требует секретов репозитория:
+#   ANDROID_KEYSTORE_BASE64  — keystore (.jks) в base64
+#   ANDROID_STORE_PASSWORD   — пароль хранилища
+#   ANDROID_KEY_PASSWORD     — пароль ключа
+#   ANDROID_KEY_ALIAS        — алиас ключа
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: '3.47.0-0.3.pre'
+  FLUTTER_CHANNEL: 'beta'
+
+jobs:
+  build-apk:
+    name: Build signed APK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - run: flutter pub get
+      - name: Code generation (Drift, l10n)
+        run: |
+          dart run build_runner build
+          flutter gen-l10n
+
+      - name: Build content database
+        run: dart run tool/build_content.dart --lang de
+
+      - name: Decode keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > android/app/upload-keystore.jks
+
+      - name: Write key.properties
+        run: |
+          cat > android/key.properties <<EOF
+          storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=upload-keystore.jks
+          EOF
+
+      - name: Build signed APK
+        run: >
+          flutter build apk --release
+          --dart-define=SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk

@@ -12,8 +12,11 @@
   новая зависимость, изменение формата контента, новый язык).
 - Перед коммитом: `flutter analyze` — чисто, `flutter test` — зелёные,
   `dart run tool/validate_content.dart` — без ошибок, если трогали контент.
-- Кодоген после правок схемы Drift: `dart run build_runner build --delete-conflicting-outputs`;
-  после правок ARB: `flutter gen-l10n`.
+- Кодоген после правок схемы Drift: `dart run build_runner build`
+  (флаг `--delete-conflicting-outputs` удалён в build_runner 2.15 и
+  игнорируется); после правок ARB: `flutter gen-l10n`.
+- После правок `content/*.yaml`: `dart run tool/build_content.dart --lang de`
+  и коммит пересобранного `assets/content/de.db` вместе с исходниками.
 - Константы баланса живут только в `lib/domain/scoring/balance.dart` и помечаются
   `TODO(balance)`. Данные контента — `TODO(data)` со ссылкой на источник.
 - Пуш и запуск сборок — через GitHub Desktop / вкладку Actions.
@@ -24,6 +27,12 @@
   Drift, сети и `dart:io`.
 - Две базы: `content.db` (read-only, из ассетов, не мигрируется) и `user.db`
   (Drift с миграциями). Ни одна таблица не живёт в обеих.
+- Меняешь схему контента — меняешь её **в двух местах сразу**: DDL в
+  `tool/content_schema.dart` и таблицы в `lib/data/content/content_database.dart`,
+  плюс версию `contentSchemaVersion` = `ContentDatabase.schemaVersion`.
+  Расхождение ловит `test/data/content_schema_test.dart`.
+- В метаданных контента нет и не должно быть метки времени: сборка обязана
+  быть воспроизводимой байт-в-байт, иначе git засоряется пересборками.
 - Источник правды по памяти — тройка FSRS `(difficulty, stability, lastReview)`.
   Яркость `lm` — производная величина, кеш для сортировки.
 - Скоростной множитель — только для слов с яркостью ≥ 40 lm. На новом материале

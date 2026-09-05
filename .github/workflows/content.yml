@@ -1,0 +1,66 @@
+name: Content
+
+# Ручной запуск: Actions → Content → Run workflow.
+# Пересобирает контентную БД из YAML-исходников и коммитит собранный ассет,
+# чтобы приложение оставалось полностью офлайн: контент едет в APK, а не
+# качается с сервера.
+#
+# Синтез озвучки (tool/synthesize_audio.dart) добавляется в этот workflow
+# на M4 — он требует ключей TTS-провайдера и кеша по хешу текста.
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: 'Язык изучения'
+        required: true
+        default: 'de'
+      commit:
+        description: 'Закоммитить собранный ассет'
+        type: boolean
+        default: true
+
+env:
+  FLUTTER_VERSION: '3.47.0-0.3.pre'
+  FLUTTER_CHANNEL: 'beta'
+
+jobs:
+  build-content:
+    name: Build content database
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - run: flutter pub get
+
+      # Валидация до сборки: битые исходники не должны попасть в ассет.
+      - name: Validate content
+        run: dart run tool/validate_content.dart --lang ${{ inputs.lang }}
+
+      - name: Build content database
+        run: dart run tool/build_content.dart --lang ${{ inputs.lang }}
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: content-${{ inputs.lang }}
+          path: assets/content/${{ inputs.lang }}.db
+
+      - name: Commit built asset
+        if: inputs.commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add assets/content/${{ inputs.lang }}.db
+          if git diff --cached --quiet; then
+            echo 'Контент не изменился'
+          else
+            git commit -m 'content: пересборка ${{ inputs.lang }}.db'
+            git push
+          fi

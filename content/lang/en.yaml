@@ -1,0 +1,73 @@
+# English lexemes — hint language. Also the fallback when a concept has no
+# lexeme in the player's native language yet.
+lang: en
+lexemes:
+  doctor_person:
+    form: doctor
+    plural: doctors
+    distractors:
+      far: [tooth, care]
+      near: [doctorate, dockyard, actor]
+  pain_noun:
+    form: pain
+    distractors:
+      far: [wound, cough]
+      near: [pane, rain, plain]
+  help_noun:
+    form: help
+    distractors:
+      far: [care, emergency]
+      near: [held, helm, helpful]
+  head_body:
+    form: head
+    plural: heads
+    distractors:
+      far: [neck, back]
+      near: [heap, heal, bead]
+  belly_body:
+    form: belly
+    plural: bellies
+    distractors:
+      far: [chest, leg]
+      near: [bell, jelly, belt]
+  hand_body:
+    form: hand
+    plural: hands
+    distractors:
+      far: [foot, finger]
+      near: [land, band, hard]
+  fever_noun:
+    form: fever
+    distractors:
+      far: [cough, cold]
+      near: [feather, ever, favour]
+  medicine_noun:
+    form: medicine
+    plural: medicines
+    distractors:
+      far: [prescription, ointment]
+      near: [medical, medicinal, meddling]
+  pharmacy_place:
+    form: pharmacy
+    plural: pharmacies
+    distractors:
+      far: [surgery, clinic]
+      near: [pharmacist, farmacy, phase]
+  hospital_place:
+    form: hospital
+    plural: hospitals
+    distractors:
+      far: [surgery, ambulance]
+      near: [hospitality, hostel, hospice]
+  sick_adj:
+    form: sick
+    note: adjective
+    distractors:
+      far: [tired, healthy]
+      near: [sicken, stick, slick]
+  appointment_noun:
+    form: appointment
+    plural: appointments
+    distractors:
+      far: [prescription, booking]
+      near: [appoint, apportionment, disappointment]

@@ -1,0 +1,84 @@
+# Українські лексеми — мова підказок. Напрямок «українська → німецька» у
+# великих застосунків просто відсутній, тому вона в проєкті з першого дня.
+lang: uk
+lexemes:
+  doctor_person:
+    form: лікар
+    gender: m
+    plural: лікарі
+    distractors:
+      far: [зуб, догляд]
+      near: [лікарня, лікарство, лікоть]
+  pain_noun:
+    form: біль
+    gender: m
+    distractors:
+      far: [рана, кашель]
+      near: [білий, більше, сіль]
+  help_noun:
+    form: допомога
+    gender: f
+    distractors:
+      far: [догляд, виклик]
+      near: [допомогти, домовина, підмога]
+  head_body:
+    form: голова
+    gender: f
+    plural: голови
+    distractors:
+      far: [шия, спина]
+      near: [головка, голод, половина]
+  belly_body:
+    form: живіт
+    gender: m
+    plural: животи
+    distractors:
+      far: [груди, нога]
+      near: [життя, живий, тварина]
+  hand_body:
+    form: рука
+    gender: f
+    plural: руки
+    distractors:
+      far: [нога, палець]
+      near: [ручка, ріка, мука]
+  fever_noun:
+    form: жар
+    gender: m
+    distractors:
+      far: [кашель, нежить]
+      near: [жара, пар, шар]
+  medicine_noun:
+    form: ліки
+    gender: n
+    note: тільки множина
+    distractors:
+      far: [рецепт, мазь]
+      near: [лікар, лікування, лічити]
+  pharmacy_place:
+    form: аптека
+    gender: f
+    plural: аптеки
+    distractors:
+      far: [прийом, клініка]
+      near: [аптекар, аптечка, апатія]
+  hospital_place:
+    form: лікарня
+    gender: f
+    plural: лікарні
+    distractors:
+      far: [прийом, швидка]
+      near: [лікар, лікарський, книгарня]
+  sick_adj:
+    form: хворий
+    note: прикметник
+    distractors:
+      far: [втомлений, здоровий]
+      near: [хвороба, хворіти, хвора]
+  appointment_noun:
+    form: запис
+    gender: m
+    plural: записи
+    distractors:
+      far: [рецепт, прийом]
+      near: [записка, записати, припис]

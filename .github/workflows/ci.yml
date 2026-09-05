@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+env:
+  FLUTTER_VERSION: '3.47.0-0.3.pre'
+  FLUTTER_CHANNEL: 'beta'
+
+jobs:
+  analyze-test:
+    name: Analyze & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - run: flutter --version
+      - run: flutter pub get
+
+      # Кодоген Drift и локализаций — чтобы CI работал на свежих файлах,
+      # а не на том, что случайно закоммитили.
+      - name: Code generation (Drift, l10n)
+        run: |
+          dart run build_runner build
+          flutter gen-l10n
+
+      - name: Analyze
+        run: flutter analyze
+
+      # Контент проверяется до тестов: если исходники сломаны, дальше
+      # смотреть незачем.
+      - name: Validate content
+        run: dart run tool/validate_content.dart --lang de
+
+      # Сборка контентной БД должна быть воспроизводима из исходников.
+      - name: Build content database
+        run: dart run tool/build_content.dart --lang de
+
+      - name: Test with coverage
+        run: flutter test --coverage
+
+      # Инвариант README: покрытие domain/srs и domain/scoring ≥ 90 %.
+      # Гейт включается сам, как только эти модули появятся (M1): до тех пор
+      # в lcov по ним нет ни одной строки, и шаг честно объявляет пропуск,
+      # вместо того чтобы показывать зелёное 0 %.
+      - name: Enforce domain coverage >= 90%
+        run: |
+          awk '
+          /^SF:/ { f=$0; sub("^SF:","",f); gsub("\\\\","/",f) }
+          /^LF:/ { lf=substr($0,4)+0 }
+          /^LH:/ {
+            lh=substr($0,4)+0
+            # Слеши нормализованы: на Windows lcov пишет путь с обратными.
+            if (f ~ /domain\/(srs|scoring)\//) { tot+=lf; hit+=lh }
+          }
+          END {
+            if (tot == 0) {
+              print "SKIP: domain/{srs,scoring} ещё не написаны (M1)"
+              exit 0
+            }
+            pct = 100*hit/tot
+            printf "domain/{srs,scoring} coverage: %.1f%% (%d/%d)\n", pct, hit, tot
+            if (pct < 90) { print "FAIL: покрытие ниже 90%"; exit 1 }
+          }' coverage/lcov.info
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: coverage
+          path: coverage/lcov.info
+
+  build-web:
+    name: Build web
+    runs-on: ubuntu-latest
+    needs: analyze-test
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - run: flutter pub get
+      - name: Code generation (Drift, l10n)
+        run: |
+          dart run build_runner build
+          flutter gen-l10n
+
+      # Web — только проверка компиляции: контентная база на нём не
+      # открывается (нужны wasm-ассеты SQLite), игра целится в Android и iOS.
+      - name: Build web (release)
+        run: >
+          flutter build web --release
+          --dart-define=SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: web-build
+          path: build/web

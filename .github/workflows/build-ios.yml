@@ -1,0 +1,49 @@
+name: Build iOS (unsigned)
+
+# Ручной запуск: Actions → Build iOS (unsigned) → Run workflow.
+# Собирает iOS-версию БЕЗ подписи на macOS-раннере — проверяет, что проект
+# компилируется под iOS. Артефакт Runner.app на устройство не ставится;
+# для TestFlight нужен Apple Developer account и подпись (M7).
+on:
+  workflow_dispatch:
+
+env:
+  FLUTTER_VERSION: '3.47.0-0.3.pre'
+  FLUTTER_CHANNEL: 'beta'
+
+jobs:
+  build:
+    name: Build iOS (no codesign)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: ${{ env.FLUTTER_CHANNEL }}
+          cache: true
+
+      - run: flutter pub get
+      - name: Code generation (Drift, l10n)
+        run: |
+          dart run build_runner build
+          flutter gen-l10n
+
+      - name: Build content database
+        run: dart run tool/build_content.dart --lang de
+
+      - name: Build iOS (release, no codesign)
+        run: >
+          flutter build ios --release --no-codesign
+          --dart-define=SENTRY_DSN=${{ secrets.SENTRY_DSN }}
+
+      - name: Archive Runner.app
+        run: |
+          cd build/ios/iphoneos
+          zip -r Runner.app.zip Runner.app
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ios-app-unsigned
+          path: build/ios/iphoneos/Runner.app.zip

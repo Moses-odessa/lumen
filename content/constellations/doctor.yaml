@@ -1,0 +1,43 @@
+# Созвездие «У врача». Ярусы задают, какие концепты добавляются на каком
+# уровне; размер накопительный — 12 / 24 / 48 / 72 / 96 звёзд.
+#
+# TODO(data): написан только ярус A0 (12 звёзд) — этого достаточно, чтобы
+# собрать content.db и запустить ядро игры на M1. Ярусы A1–B2 приходят на M4
+# вместе с частотными списками и профилями Goethe/ÖSD.
+constellation: doctor
+tiers:
+  a0:
+    concepts:
+      - { id: doctor_person, pos: noun, freq_rank: 1120 }
+      - { id: pain_noun, pos: noun, freq_rank: 1640 }
+      - { id: help_noun, pos: noun, freq_rank: 890 }
+      - { id: head_body, pos: noun, freq_rank: 640 }
+      - { id: belly_body, pos: noun, freq_rank: 2310 }
+      - { id: hand_body, pos: noun, freq_rank: 520 }
+      - { id: fever_noun, pos: noun, freq_rank: 3480 }
+      - { id: medicine_noun, pos: noun, freq_rank: 2760 }
+      - { id: pharmacy_place, pos: noun, freq_rank: 3150 }
+      - { id: hospital_place, pos: noun, freq_rank: 1980 }
+      - { id: sick_adj, pos: adj, freq_rank: 1450 }
+      - { id: appointment_noun, pos: noun, freq_rank: 2040 }
+    phrases:
+      - id: doctor_a0_help
+        template: "Ich brauche {help}."
+        answer: Hilfe
+        register: casual
+        concepts: [help_noun]
+      - id: doctor_a0_pain
+        template: "Ich habe {pain}."
+        answer: Schmerzen
+        register: casual
+        concepts: [pain_noun]
+      - id: doctor_a0_doctor
+        template: "Ich muss zum {doctor}."
+        answer: Arzt
+        register: casual
+        concepts: [doctor_person]
+      - id: doctor_a0_appointment
+        template: "Ich habe einen {appointment}."
+        answer: Termin
+        register: formal
+        concepts: [appointment_noun]

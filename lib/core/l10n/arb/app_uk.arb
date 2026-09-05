@@ -1,0 +1,17 @@
+{
+  "@@locale": "uk",
+  "appTitle": "Lumen",
+  "tabSky": "Небо",
+  "tabGame": "Гра",
+  "tabProfile": "Профіль",
+  "tabSettings": "Налаштування",
+  "skyTitle": "Ваше небо",
+  "gameTitle": "Денний ритуал",
+  "profileTitle": "Профіль",
+  "settingsTitle": "Налаштування",
+  "onboardingTitle": "Знайдемо, де починається ваше небо",
+  "onboardingSubtitle": "Замість анкети — кілька кіл: ви граєте, ми міряємо.",
+  "onboardingStartCalibration": "Почати калібрування",
+  "onboardingFromScratch": "Я з нуля",
+  "comingSoon": "Незабаром"
+}

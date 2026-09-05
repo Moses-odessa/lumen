@@ -1,0 +1,100 @@
+# Немецкие лексемы. Дистракторы: far — та же тема, другое значение;
+# near — созвучные и однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась. Формы взяты из Goethe A1
+# Wortliste, частотность — из корпуса субтитров; перед запуском языка A0–A2
+# вычитываются сплошь.
+lang: de
+lexemes:
+  doctor_person:
+    form: Arzt
+    article: der
+    gender: m
+    plural: Ärzte
+    distractors:
+      far: [Zahn, Pflege]
+      near: [Art, Arm, Ast]
+  pain_noun:
+    form: Schmerz
+    article: der
+    gender: m
+    plural: Schmerzen
+    distractors:
+      far: [Wunde, Husten]
+      near: [Scherz, Schmelz, Schwarz]
+  help_noun:
+    form: Hilfe
+    article: die
+    gender: f
+    distractors:
+      far: [Pflege, Notruf]
+      near: [Hüfte, Hülle, Hilfsmittel]
+  head_body:
+    form: Kopf
+    article: der
+    gender: m
+    plural: Köpfe
+    distractors:
+      far: [Hals, Rücken]
+      near: [Knopf, Kopie, Korb]
+  belly_body:
+    form: Bauch
+    article: der
+    gender: m
+    plural: Bäuche
+    distractors:
+      far: [Brust, Bein]
+      near: [Baum, Rauch, Bauer]
+  hand_body:
+    form: Hand
+    article: die
+    gender: f
+    plural: Hände
+    distractors:
+      far: [Fuß, Finger]
+      near: [Land, Wand, Rand]
+  fever_noun:
+    form: Fieber
+    article: das
+    gender: n
+    distractors:
+      far: [Husten, Schnupfen]
+      near: [Feder, Leber, Fiber]
+  medicine_noun:
+    form: Medikament
+    article: das
+    gender: n
+    plural: Medikamente
+    distractors:
+      far: [Rezept, Salbe]
+      near: [Medikation, Dokument, Instrument]
+  pharmacy_place:
+    form: Apotheke
+    article: die
+    gender: f
+    plural: Apotheken
+    distractors:
+      far: [Praxis, Klinik]
+      near: [Apostel, Bibliothek, Apotheker]
+  hospital_place:
+    form: Krankenhaus
+    article: das
+    gender: n
+    plural: Krankenhäuser
+    distractors:
+      far: [Praxis, Notaufnahme]
+      near: [Krankenkasse, Kaufhaus, Krankenwagen]
+  sick_adj:
+    form: krank
+    note: прилагательное, артикля нет
+    distractors:
+      far: [müde, gesund]
+      near: [Kranz, blank, krallen]
+  appointment_noun:
+    form: Termin
+    article: der
+    gender: m
+    plural: Termine
+    distractors:
+      far: [Rezept, Anmeldung]
+      near: [Termite, Terminal, Terrine]

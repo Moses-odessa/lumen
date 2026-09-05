@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "appTitle": "Lumen",
+  "@appTitle": {
+    "description": "Application name shown in the task switcher"
+  },
+  "tabSky": "Sky",
+  "@tabSky": {
+    "description": "Bottom navigation tab: the constellation map"
+  },
+  "tabGame": "Play",
+  "@tabGame": {
+    "description": "Bottom navigation tab: the daily ritual and runs"
+  },
+  "tabProfile": "Profile",
+  "@tabProfile": {
+    "description": "Bottom navigation tab: orbit, sparks, statistics"
+  },
+  "tabSettings": "Settings",
+  "@tabSettings": {
+    "description": "Bottom navigation tab: languages, sound, pace"
+  },
+  "skyTitle": "Your sky",
+  "gameTitle": "Daily ritual",
+  "profileTitle": "Profile",
+  "settingsTitle": "Settings",
+  "onboardingTitle": "Let's find where your sky begins",
+  "onboardingSubtitle": "A few circles instead of a questionnaire: you play, we measure.",
+  "onboardingStartCalibration": "Start calibration",
+  "onboardingFromScratch": "I'm starting from scratch",
+  "comingSoon": "Coming soon",
+  "@comingSoon": {
+    "description": "Placeholder for screens that arrive in a later milestone"
+  }
+}

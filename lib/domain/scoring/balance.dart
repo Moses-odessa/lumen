@@ -1,0 +1,242 @@
+/// Единственное место, где живут числовые константы геймдизайна: пороги
+/// яркости, множители очков, размеры созвездий, длины сессий.
+///
+/// Правило из AGENT.md: любая цифра баланса меняется здесь и нигде больше,
+/// каждая помечена `TODO(balance)` — значения взяты из docs/CONCEPT.md и
+/// подлежат подстройке на живых данных, а не выведены из чего-либо.
+///
+/// Файл — чистый Dart: ни Flutter, ни Drift, ни `dart:io`.
+library;
+
+import '../entities/game_mode.dart';
+import '../entities/tier.dart';
+
+/// Яркость звезды в люменах: вероятность вспомнить слово прямо сейчас,
+/// умноженная на 100. Производная величина от тройки FSRS.
+typedef Lumens = int;
+
+/// Полосы яркости из docs/CONCEPT.md. Границы — нижние, включительно.
+enum LumenBand {
+  /// 0–14: практически забыто, вернётся как новое.
+  fading(0),
+
+  /// 15–34: тускнеет, попадает в начало завтрашнего Восхода.
+  dimming(15),
+
+  /// 35–59: узнаёте, но не вспоминаете сами.
+  flickering(35),
+
+  /// 60–84: знаете уверенно, режимы на производство.
+  steady(60),
+
+  /// 85–100: всплывает мгновенно, повтор через недели.
+  burning(85);
+
+  const LumenBand(this.minLm);
+
+  /// Нижняя граница полосы включительно. TODO(balance)
+  final Lumens minLm;
+
+  /// Полоса, в которую попадает данная яркость.
+  static LumenBand of(Lumens lm) {
+    var band = LumenBand.fading;
+    for (final b in values) {
+      if (lm >= b.minLm) band = b;
+    }
+    return band;
+  }
+}
+
+/// Пороги и множители очков за одну связь:
+/// `очки = base × k_speed × k_combo × k_mode`.
+abstract final class ScoreBalance {
+  /// Базовая стоимость верной связи. TODO(balance)
+  static const int baseConnectionScore = 10;
+
+  /// Скоростной множитель включается только начиная с этой яркости.
+  /// Инвариант из README: на новом материале таймера нет вообще.
+  /// TODO(balance)
+  static const Lumens speedBonusMinLm = 40;
+
+  /// Порог «автоматизма»: отклик быстрее — максимальный множитель.
+  /// TODO(balance)
+  static const Duration speedFastest = Duration(milliseconds: 1200);
+  static const Duration speedFast = Duration(milliseconds: 2000);
+  static const Duration speedMedium = Duration(milliseconds: 3500);
+
+  /// Множители скорости по порогам выше. Штрафа за медленность нет.
+  /// TODO(balance)
+  static const double kSpeedFastest = 3.0;
+  static const double kSpeedFast = 2.0;
+  static const double kSpeedMedium = 1.5;
+  static const double kSpeedSlow = 1.0;
+
+  /// `k_combo = 1 + comboStep × подряд_верных`, но не больше [kComboMax].
+  /// TODO(balance)
+  static const double comboStep = 0.1;
+  static const double kComboMax = 2.5;
+
+  /// Быстрая ошибка дороже медленной: ответ быстрее [speedFastest],
+  /// оказавшийся неверным, сбрасывает комбо до нуля и блокирует его рост
+  /// на столько следующих связей. TODO(balance)
+  static const int fastErrorComboLock = 3;
+
+  /// Бонус к итогу забега за точность 100 %. TODO(balance)
+  static const double perfectRunBonus = 1.25;
+
+  /// Множитель режима из таблицы docs/CONCEPT.md. TODO(balance)
+  static double modeMultiplier(GameMode mode) => switch (mode) {
+        GameMode.recognition => 1.0,
+        GameMode.circle => 1.4,
+        GameMode.tight => 1.7,
+        GameMode.audio => 1.7,
+        GameMode.typing => 2.0,
+        GameMode.phrase => 2.4,
+      };
+
+  /// Диапазон яркости, на котором режим уместен. Планировщик выбирает режим
+  /// по яркости слова; верхняя граница у «Набора» и «Фразы» отсутствует.
+  /// TODO(balance)
+  static ({Lumens min, Lumens max}) modeLumenRange(GameMode mode) =>
+      switch (mode) {
+        GameMode.recognition => (min: 0, max: 25),
+        GameMode.circle => (min: 20, max: 50),
+        GameMode.tight => (min: 40, max: 70),
+        GameMode.audio => (min: 50, max: 80),
+        GameMode.typing => (min: 60, max: 100),
+        GameMode.phrase => (min: 0, max: 100),
+      };
+
+  /// Митигация «узнавание вместо владения»: выше этой яркости режимы на
+  /// узнавание не приносят очков вообще. TODO(balance)
+  static const Lumens recognitionScoreCapLm = 40;
+
+  /// «Горящее слово»: столько верных подряд быстрее [burningLatency] в
+  /// продуктивном режиме. TODO(balance)
+  static const int burningFastStreak = 3;
+  static const Duration burningLatency = Duration(milliseconds: 1500);
+}
+
+/// Размеры сессий: круг → забег → уровень → ритуал.
+abstract final class SessionBalance {
+  /// Кругов в одном забеге. TODO(balance)
+  static const int circlesPerRunMin = 10;
+  static const int circlesPerRunMax = 14;
+
+  /// Уровень: столько новых слов и столько повторов. TODO(balance)
+  static const int newWordsPerLevel = 6;
+  static const int reviewsPerLevel = 12;
+
+  /// Забегов в уровне плюс один босс. TODO(balance)
+  static const int runsPerLevel = 3;
+
+  /// Планировщик берёт на сессию пул такого размера. TODO(balance)
+  static const int sessionPoolSize = 40;
+
+  /// Восход: только повторения, столько времени. TODO(balance)
+  static const Duration sunriseDuration = Duration(minutes: 2);
+
+  /// Ночной вызов: пар и секунд. TODO(balance)
+  static const int nightChallengePairs = 20;
+  static const Duration nightChallengeDuration = Duration(seconds: 60);
+
+  /// Ограничение доли новых слов, когда игрок включил «свой темп» — иначе
+  /// очередь повторений растёт быстрее, чем он способен её разгребать.
+  /// TODO(balance)
+  static const double maxNewWordShare = 0.35;
+}
+
+/// Прогрессия: размеры созвездий по ярусам и пороги открытия/зажигания.
+abstract final class ProgressionBalance {
+  /// Сколько звёзд у одного созвездия на каждом ярусе. Значения
+  /// накопительные: на A2 в созвездии 48 звёзд, включая 24 с A1.
+  /// TODO(balance)
+  static int starsPerConstellation(Tier tier) => switch (tier) {
+        Tier.a0 => 12,
+        Tier.a1 => 24,
+        Tier.a2 => 48,
+        Tier.b1 => 72,
+        Tier.b2 => 96,
+      };
+
+  /// Сколько фраз у созвездия на ярусе. TODO(balance)
+  static int phrasesPerConstellation(Tier tier) => switch (tier) {
+        Tier.a0 => 4,
+        Tier.a1 => 8,
+        Tier.a2 => 16,
+        Tier.b1 => 24,
+        Tier.b2 => 32,
+      };
+
+  /// Уровней в созвездии на ярусе. TODO(balance)
+  static int levelsPerConstellation(Tier tier) => switch (tier) {
+        Tier.a0 => 2,
+        Tier.a1 => 4,
+        Tier.a2 => 8,
+        Tier.b1 => 12,
+        Tier.b2 => 16,
+      };
+
+  /// Соседние созвездия открываются при такой средней яркости текущего.
+  /// TODO(balance)
+  static const double unlockNeighborsAvgLm = 60;
+
+  /// Созвездие «зажжено», когда у такой доли звёзд текущего яруса яркость
+  /// не ниже [litStarMinLm]. TODO(balance)
+  static const double litStarShare = 0.8;
+  static const Lumens litStarMinLm = 70;
+
+  /// Подъём яруса предлагается при такой доле зажжённых открытых созвездий.
+  /// Только предложение: запертого уровня в игре нет. TODO(balance)
+  static const double tierUpLitShare = 0.7;
+}
+
+/// Калибровка и автокоррекция яруса на первых днях.
+abstract final class CalibrationBalance {
+  /// Гребёнка: по одному кругу с каждого яруса до первого промаха.
+  /// TODO(balance)
+  static int get combStepsMax => Tier.values.length;
+
+  /// Адаптивный поиск: столько кругов, два верных подряд — вверх,
+  /// две ошибки — вниз. TODO(balance)
+  static const int searchCirclesMin = 12;
+  static const int searchCirclesMax = 16;
+  static const int correctToRise = 2;
+  static const int errorsToFall = 2;
+
+  /// Граница яруса подтверждается столько раз, из них минимум один раз
+  /// обязательно в «тесном круге»: шесть вариантов дают 17 % случайного
+  /// попадания. TODO(balance)
+  static const int borderConfirmations = 3;
+
+  /// Финальная проверка фразами; провал сдвигает результат на ярус вниз.
+  /// TODO(balance)
+  static const int finalPhraseChecks = 4;
+
+  /// Подтверждённые слова засеваются такой яркостью и сразу попадают в
+  /// очередь повторений — не с нуля. TODO(balance)
+  static const Lumens seedLmMin = 50;
+  static const Lumens seedLmMax = 60;
+
+  /// Автокоррекция в первые дни: точность выше [suggestUpAccuracy] при
+  /// медианном отклике до [suggestUpLatency] → предложение подняться;
+  /// ниже [suggestDownAccuracy] → предложение опуститься. TODO(balance)
+  static const double suggestUpAccuracy = 0.9;
+  static const Duration suggestUpLatency = Duration(milliseconds: 1500);
+  static const double suggestDownAccuracy = 0.5;
+}
+
+/// Орбита вместо стрика и недельная цель.
+abstract final class RetentionBalance {
+  /// День игры поднимает орбиту на столько, пропуск опускает на столько.
+  /// TODO(balance)
+  static const int orbitGainPerDay = 1;
+  static const int orbitLossPerMiss = 1;
+
+  /// Полный сброс орбиты только после столько пропусков подряд.
+  /// TODO(balance)
+  static const int orbitResetAfterMisses = 3;
+
+  /// Цель недели: столько дней из семи. TODO(balance)
+  static const int weeklyGoalDays = 5;
+}

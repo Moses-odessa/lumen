@@ -72,7 +72,27 @@ calibration_items (
   phrase_id    TEXT,
   kind         TEXT NOT NULL       -- 'word' | 'phrase'
 );
+
+-- Метаданные сборки: из чего собран этот ассет.
+content_meta (
+  key          TEXT PRIMARY KEY,   -- 'lang', 'schema_version', 'concepts',
+  value        TEXT NOT NULL       -- 'source_hash', 'source_revision'
+);
 ```
+
+**Почему `content_meta`, а не просто версия в `PRAGMA user_version`.**
+`user_version` нужен Drift, чтобы не запускать миграции, и больше ни для чего
+не годится. По собранному ассету надо уметь ответить на вопрос «что это за
+контент и из каких исходников он собран» — и из приложения тоже, а не только
+из сборочного лога. Метки времени в метаданных нет намеренно: она сделала бы
+каждую пересборку новым файлом в git и сломала бы правило воспроизводимости
+из [CONTENT_PIPELINE.md](CONTENT_PIPELINE.md). Вместо неё — `source_hash`
+(хеш YAML-исходников) и `source_revision` (короткий git-хеш).
+
+**DDL живёт в `tool/content_schema.dart`.** Он один для сборщика и валидатора,
+и обязан совпадать с тем, что генерирует Drift для `ContentDatabase`.
+Расхождение имён колонок означает падение у игрока на первом запросе, поэтому
+шов закрыт тестом `test/data/content_schema_test.dart`.
 
 **Почему дистракторы лежат в контенте, а не считаются на лету.** Качество круга
 целиком определяется вариантами вокруг: случайные слова превращают игру в
@@ -89,6 +109,7 @@ class Players extends Table {
   IntColumn  get id            => integer().withDefault(const Constant(1))();
   TextColumn get targetLang    => text()();          // что учим
   TextColumn get nativeLang    => text()();          // язык подсказок
+  TextColumn get uiLang        => text().nullable()(); // язык интерфейса, null = системный
   TextColumn get tier          => text()();          // текущий ярус
   BoolColumn get calibrated    => boolean().withDefault(const Constant(false))();
   IntColumn  get orbit         => integer().withDefault(const Constant(0))();
