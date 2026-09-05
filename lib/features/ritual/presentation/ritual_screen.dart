@@ -46,6 +46,7 @@ class RitualScreen extends ConsumerWidget {
       ),
       body: switch (state.phase) {
         RitualPhase.idle => _RitualHome(
+            l10n: l10n,
             error: state.error,
             onStart: controller.startRitual,
             onLevelOnly: controller.startLevelOnly,
@@ -54,15 +55,18 @@ class RitualScreen extends ConsumerWidget {
           const Center(child: CircularProgressIndicator()),
         RitualPhase.sunrise || RitualPhase.level => const RunScreen(),
         RitualPhase.sunriseResult => _SunriseResult(
+            l10n: l10n,
             lumens: state.lumensReturned,
             onNext: controller.next,
           ),
         RitualPhase.levelResult => _LevelResult(
+            l10n: l10n,
             state: state,
             onNext: controller.next,
           ),
         RitualPhase.challenge => ChallengeScreen(onClose: controller.next),
         RitualPhase.done => _RitualDone(
+            l10n: l10n,
             state: state,
             onFinish: () {
               controller.reset();
@@ -74,20 +78,24 @@ class RitualScreen extends ConsumerWidget {
   }
 
   String _title(AppLocalizations l10n, RitualPhase phase) => switch (phase) {
-        RitualPhase.sunrise || RitualPhase.sunriseResult => 'Восход',
-        RitualPhase.level || RitualPhase.levelResult => 'Уровень',
-        RitualPhase.challenge => 'Ночной вызов',
+        RitualPhase.sunrise ||
+        RitualPhase.sunriseResult =>
+          l10n.ritualSunrise,
+        RitualPhase.level || RitualPhase.levelResult => l10n.ritualLevel,
+        RitualPhase.challenge => l10n.ritualChallenge,
         _ => l10n.gameTitle,
       };
 }
 
 class _RitualHome extends StatelessWidget {
   const _RitualHome({
+    required this.l10n,
     required this.onStart,
     required this.onLevelOnly,
     this.error,
   });
 
+  final AppLocalizations l10n;
   final VoidCallback onStart;
   final VoidCallback onLevelOnly;
   final String? error;
@@ -105,11 +113,10 @@ class _RitualHome extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Дневной ритуал', style: theme.textTheme.titleMedium),
+                Text(l10n.ritualHeading, style: theme.textTheme.titleMedium),
                 const SizedBox(height: 8),
                 Text(
-                  'Восход — уровень — ночной вызов. Шесть минут с началом и '
-                  'концом.',
+                  l10n.ritualSubtitle,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -119,7 +126,7 @@ class _RitualHome extends StatelessWidget {
                   width: double.infinity,
                   child: FilledButton(
                     onPressed: onStart,
-                    child: const Text('Начать'),
+                    child: Text(l10n.ritualStart),
                   ),
                 ),
               ],
@@ -129,8 +136,8 @@ class _RitualHome extends StatelessWidget {
         const SizedBox(height: 12),
         ListTile(
           leading: const Icon(Icons.auto_awesome),
-          title: const Text('Только уровень'),
-          subtitle: const Text('Пропустить Восход и сразу взять новое'),
+          title: Text(l10n.ritualLevelOnly),
+          subtitle: Text(l10n.ritualLevelOnlySubtitle),
           onTap: onLevelOnly,
         ),
         if (error != null) ...[
@@ -150,8 +157,13 @@ class _RitualHome extends StatelessWidget {
 ///
 /// Никаких очков: Восход не про очки, а про то, что часть неба снова горит.
 class _SunriseResult extends StatelessWidget {
-  const _SunriseResult({required this.lumens, required this.onNext});
+  const _SunriseResult({
+    required this.l10n,
+    required this.lumens,
+    required this.onNext,
+  });
 
+  final AppLocalizations l10n;
   final int lumens;
   final VoidCallback onNext;
 
@@ -175,9 +187,7 @@ class _SunriseResult extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              lumens > 0
-                  ? 'вернулось небу'
-                  : 'небо и так горело — повторять было нечего',
+              lumens > 0 ? l10n.sunriseReturned : l10n.sunriseNothing,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -186,7 +196,7 @@ class _SunriseResult extends StatelessWidget {
             const SizedBox(height: 36),
             FilledButton(
               onPressed: onNext,
-              child: const Text('К новому уровню'),
+              child: Text(l10n.sunriseNext),
             ),
           ],
         ),
@@ -196,8 +206,13 @@ class _SunriseResult extends StatelessWidget {
 }
 
 class _LevelResult extends StatelessWidget {
-  const _LevelResult({required this.state, required this.onNext});
+  const _LevelResult({
+    required this.l10n,
+    required this.state,
+    required this.onNext,
+  });
 
+  final AppLocalizations l10n;
   final RitualState state;
   final VoidCallback onNext;
 
@@ -217,17 +232,20 @@ class _LevelResult extends StatelessWidget {
                   ?.copyWith(color: LumenPalette.starlight),
             ),
             const SizedBox(height: 4),
-            Text('очков за ритуал', style: theme.textTheme.bodyMedium),
+            Text(l10n.ritualScore, style: theme.textTheme.bodyMedium),
             const SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _Stat(value: '${state.newWords}', label: 'новых слов'),
-                _Stat(value: '+${state.lumensReturned}', label: 'люменов'),
+                _Stat(value: '${state.newWords}', label: l10n.ritualNewWords),
+                _Stat(
+                  value: '+${state.lumensReturned}',
+                  label: l10n.ritualLumens,
+                ),
               ],
             ),
             const SizedBox(height: 36),
-            FilledButton(onPressed: onNext, child: const Text('Дальше')),
+            FilledButton(onPressed: onNext, child: Text(l10n.commonNext)),
           ],
         ),
       ),
@@ -236,8 +254,13 @@ class _LevelResult extends StatelessWidget {
 }
 
 class _RitualDone extends StatelessWidget {
-  const _RitualDone({required this.state, required this.onFinish});
+  const _RitualDone({
+    required this.l10n,
+    required this.state,
+    required this.onFinish,
+  });
 
+  final AppLocalizations l10n;
   final RitualState state;
   final VoidCallback onFinish;
 
@@ -253,18 +276,17 @@ class _RitualDone extends StatelessWidget {
           children: [
             const Icon(Icons.done_all, size: 48, color: LumenPalette.correct),
             const SizedBox(height: 16),
-            Text('Ритуал пройден', style: theme.textTheme.titleMedium),
+            Text(l10n.ritualDoneTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'Небу вернулось ${state.lumensReturned} lm, выучено '
-              '${state.newWords} новых слов.',
+              l10n.ritualDoneBody(state.lumensReturned, state.newWords),
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 32),
-            FilledButton(onPressed: onFinish, child: const Text('К небу')),
+            FilledButton(onPressed: onFinish, child: Text(l10n.ritualToSky)),
           ],
         ),
       ),

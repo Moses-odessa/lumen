@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/analytics/analytics.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../data/repositories/player_repository.dart';
 
@@ -31,9 +32,10 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     'en': 'English',
   };
 
-  /// Язык интерфейса; `null` — как в системе.
-  static const _interface = {
-    null: 'Как в системе',
+  /// Язык интерфейса. `null` в ключе — «как в системе», `null` в
+  /// значении означает, что подпись берётся из локализации.
+  static const Map<String?, String?> _interface = {
+    null: null,
     'en': 'English',
     'ru': 'Русский',
     'uk': 'Українська',
@@ -49,6 +51,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       decoration: const BoxDecoration(
@@ -65,39 +68,42 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
             padding: const EdgeInsets.all(24),
             children: [
               const SizedBox(height: 12),
-              Text('Языки', style: theme.textTheme.headlineSmall),
+              Text(l10n.languagesTitle, style: theme.textTheme.headlineSmall),
               const SizedBox(height: 8),
               Text(
-                'Язык подсказок и язык интерфейса — разные настройки.',
+                l10n.languagesSubtitle,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 28),
               _Group(
-                title: 'Учу',
+                title: l10n.languagesLearning,
                 options: _targets,
                 selected: _target,
                 onSelect: (value) => setState(() => _target = value!),
               ),
               const SizedBox(height: 20),
               _Group(
-                title: 'Подсказки на',
+                title: l10n.languagesHints,
                 options: _natives,
                 selected: _native,
                 onSelect: (value) => setState(() => _native = value!),
               ),
               const SizedBox(height: 20),
               _Group(
-                title: 'Интерфейс',
-                options: _interface,
+                title: l10n.languagesInterface,
+                options: {
+                  for (final e in _interface.entries)
+                    e.key: e.value ?? l10n.languagesSystem,
+                },
                 selected: _ui,
                 onSelect: (value) => setState(() => _ui = value),
               ),
               const SizedBox(height: 36),
               FilledButton(
                 onPressed: _save,
-                child: const Text('Дальше'),
+                child: Text(l10n.commonNext),
               ),
             ],
           ),

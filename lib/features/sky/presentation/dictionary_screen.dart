@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/scoring/balance.dart';
 import '../application/dictionary_controller.dart';
@@ -15,13 +16,14 @@ class DictionaryScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final entries = ref.watch(dictionaryProvider);
     final filter = ref.watch(dictionaryFilterProvider);
     final controller = ref.read(dictionaryFilterProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Словарь'),
+        title: Text(l10n.dictionaryTitle),
         actions: [
           if (filter.constellation != null ||
               filter.band != null ||
@@ -29,7 +31,7 @@ class DictionaryScreen extends ConsumerWidget {
               filter.query.isNotEmpty)
             IconButton(
               icon: const Icon(Icons.filter_alt_off),
-              tooltip: 'Сбросить фильтры',
+              tooltip: l10n.dictionaryResetFilters,
               onPressed: controller.clear,
             ),
         ],
@@ -39,14 +41,22 @@ class DictionaryScreen extends ConsumerWidget {
             children: [
               _SearchField(
                 value: filter.query,
+                hint: l10n.dictionarySearchHint,
                 onChanged: controller.setQuery,
               ),
               _Filters(
+                l10n: l10n,
                 entries: value,
                 filter: filter,
                 controller: controller,
               ),
-              Expanded(child: _EntryList(entries: value, filter: filter)),
+              Expanded(
+                child: _EntryList(
+                  l10n: l10n,
+                  entries: value,
+                  filter: filter,
+                ),
+              ),
             ],
           ),
         AsyncError(:final error) => Center(child: Text('$error')),
@@ -57,8 +67,13 @@ class DictionaryScreen extends ConsumerWidget {
 }
 
 class _SearchField extends StatelessWidget {
-  const _SearchField({required this.value, required this.onChanged});
+  const _SearchField({
+    required this.value,
+    required this.hint,
+    required this.onChanged,
+  });
 
+  final String hint;
   final String value;
   final ValueChanged<String> onChanged;
 
@@ -67,11 +82,11 @@ class _SearchField extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
         child: TextField(
           onChanged: onChanged,
-          decoration: const InputDecoration(
-            prefixIcon: Icon(Icons.search),
-            hintText: 'Слово на любом из двух языков',
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.search),
+            hintText: hint,
             isDense: true,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
           ),
         ),
       );
@@ -79,11 +94,13 @@ class _SearchField extends StatelessWidget {
 
 class _Filters extends StatelessWidget {
   const _Filters({
+    required this.l10n,
     required this.entries,
     required this.filter,
     required this.controller,
   });
 
+  final AppLocalizations l10n;
   final List<DictionaryEntry> entries;
   final DictionaryFilter filter;
   final DictionaryFilterController controller;
@@ -100,7 +117,7 @@ class _Filters extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         children: [
           FilterChip(
-            label: const Text('горят'),
+            label: Text(l10n.dictionaryBurningFilter),
             selected: filter.onlyBurning,
             avatar: const Icon(Icons.local_fire_department, size: 18),
             onSelected: (_) => controller.toggleBurning(),
@@ -108,7 +125,7 @@ class _Filters extends StatelessWidget {
           const SizedBox(width: 8),
           for (final band in LumenBand.values.reversed) ...[
             FilterChip(
-              label: Text(_bandLabel(band)),
+              label: Text(_bandLabel(l10n, band)),
               selected: filter.band == band,
               avatar: CircleAvatar(
                 radius: 6,
@@ -131,18 +148,24 @@ class _Filters extends StatelessWidget {
     );
   }
 
-  static String _bandLabel(LumenBand band) => switch (band) {
-        LumenBand.burning => 'горит',
-        LumenBand.steady => 'ровный свет',
-        LumenBand.flickering => 'мерцает',
-        LumenBand.dimming => 'тускнеет',
-        LumenBand.fading => 'гаснет',
+  static String _bandLabel(AppLocalizations l10n, LumenBand band) =>
+      switch (band) {
+        LumenBand.burning => l10n.bandBurning,
+        LumenBand.steady => l10n.bandSteady,
+        LumenBand.flickering => l10n.bandFlickering,
+        LumenBand.dimming => l10n.bandDimming,
+        LumenBand.fading => l10n.bandFading,
       };
 }
 
 class _EntryList extends StatelessWidget {
-  const _EntryList({required this.entries, required this.filter});
+  const _EntryList({
+    required this.l10n,
+    required this.entries,
+    required this.filter,
+  });
 
+  final AppLocalizations l10n;
   final List<DictionaryEntry> entries;
   final DictionaryFilter filter;
 
@@ -151,7 +174,7 @@ class _EntryList extends StatelessWidget {
     final visible = entries.where(filter.test).toList();
 
     if (visible.isEmpty) {
-      return const Center(child: Text('Ничего не нашлось'));
+      return Center(child: Text(l10n.dictionaryNothing));
     }
 
     return ListView.builder(

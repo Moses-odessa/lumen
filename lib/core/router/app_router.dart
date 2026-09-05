@@ -10,6 +10,7 @@ import '../../features/profile/presentation/custom_words_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
+import '../../features/settings/presentation/about_screen.dart';
 import '../../features/settings/presentation/audio_spike_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
@@ -23,6 +24,9 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// О проекте, донаты, лицензии.
+  static const about = '/about';
 
   /// Облако: вход и синхронизация. Аккаунт необязателен.
   static const cloud = '/cloud';
@@ -112,6 +116,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.cloud,
         builder: (_, _) => const CloudScreen(),
+      ),
+      GoRoute(
+        path: Routes.about,
+        builder: (_, _) => const AboutScreen(),
       ),
       GoRoute(
         path: Routes.recalibrate,

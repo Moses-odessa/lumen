@@ -40,7 +40,7 @@ class SkyScreen extends ConsumerWidget {
           actions: [
             IconButton(
               icon: const Icon(Icons.list_alt_outlined),
-              tooltip: 'Словарь',
+              tooltip: l10n.skyDictionary,
               onPressed: () => context.push(Routes.dictionary),
             ),
             switch (snapshot) {
@@ -119,6 +119,7 @@ class _TierSuggestionBanner extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
     final suggestion = Progression.suggest(
       constellations: snapshot.states.values.toList(),
       current: snapshot.tier,
@@ -151,10 +152,11 @@ class _TierSuggestionBanner extends ConsumerWidget {
               Expanded(
                 child: Text(
                   suggestion == TierSuggestion.up
-                      ? 'Большая часть неба горит. Перейти на ${target.label}? '
-                          'Старые звёзды останутся на местах.'
-                      : 'Похоже, ${snapshot.tier.label} даётся тяжело. '
-                          'Попробовать ${target.label}?',
+                      ? l10n.tierSuggestUp(target.label)
+                      : l10n.tierSuggestDown(
+                          snapshot.tier.label,
+                          target.label,
+                        ),
                   style: theme.textTheme.bodySmall,
                 ),
               ),
@@ -186,6 +188,8 @@ class _SkySummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+
     // Сводка лежит поверх ночного неба, поэтому всегда светлая, независимо
     // от темы интерфейса.
     return DefaultTextStyle.merge(
@@ -205,18 +209,18 @@ class _SkySummary extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _Metric(value: '${snapshot.totalStars}', label: 'звёзд'),
+            _Metric(value: '${snapshot.totalStars}', label: l10n.skyStars),
             // Горящие слова, а не XP — главная цифра.
             _Metric(
               value: '${snapshot.burningStars}',
-              label: 'горят',
+              label: l10n.skyBurning,
               highlight: true,
             ),
             _Metric(
               value:
                   '${snapshot.litConstellations}'
                   '/${snapshot.unlockedConstellations}',
-              label: 'созвездий',
+              label: l10n.skyConstellations,
             ),
           ],
         ),
@@ -267,6 +271,7 @@ class _ConstellationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final constellation = state;
     if (constellation == null) return const SizedBox.shrink();
 
@@ -301,9 +306,11 @@ class _ConstellationCard extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               constellation.unlocked
-                  ? '${constellation.litStars} из ${constellation.starCount} '
-                        'звёзд горят'
-                  : 'Ещё не открыто',
+                  ? l10n.constellationLitOf(
+                      constellation.litStars,
+                      constellation.starCount,
+                    )
+                  : l10n.constellationLocked,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -320,8 +327,8 @@ class _ConstellationCard extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 constellation.starsToLight == 0
-                    ? 'Созвездие вот-вот зажжётся'
-                    : 'До зажжения — ещё ${constellation.starsToLight} звёзд',
+                    ? l10n.constellationAboutToLight
+                    : l10n.constellationToLight(constellation.starsToLight),
                 style: theme.textTheme.bodySmall,
               ),
             ],
@@ -339,6 +346,7 @@ class _EmptySky extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
@@ -347,11 +355,10 @@ class _EmptySky extends StatelessWidget {
           children: [
             const Icon(Icons.cloud_off, size: 44, color: Colors.white38),
             const SizedBox(height: 16),
-            Text('Небо пустое', style: theme.textTheme.titleMedium),
+            Text(l10n.skyEmptyTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'В контентной базе нет созвездий для этого яруса. '
-              'Соберите контент: dart run tool/build_content.dart',
+              l10n.skyEmptyBody,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall,
             ),

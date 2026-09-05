@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
 import '../../../domain/entities/game_mode.dart';
@@ -98,7 +99,7 @@ class _Arena extends StatelessWidget {
               iconSize: 40,
               onPressed: enabled ? onReplay : null,
               icon: const Icon(Icons.volume_up),
-              tooltip: 'Прослушать ещё раз',
+              tooltip: AppLocalizations.of(context).audioReplay,
             ),
           ),
         ],

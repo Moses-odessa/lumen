@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../application/cloud_controller.dart';
 
 /// Облако: вход, выход, синхронизация.
@@ -31,27 +32,27 @@ class _CloudScreenState extends ConsumerState<CloudScreen> {
     final state = ref.watch(cloudControllerProvider);
     final controller = ref.read(cloudControllerProvider.notifier);
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Облако')),
+      appBar: AppBar(title: Text(l10n.cloudTitle)),
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
           Text(
-            'Аккаунт нужен только для того, чтобы продолжить на другом '
-            'устройстве. Без него игра работает полностью — и это не '
-            'урезанный режим.',
+            l10n.cloudIntro,
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           const SizedBox(height: 24),
           if (!state.configured)
-            const _NotConfigured()
+            _NotConfigured(l10n: l10n)
           else if (state.signedIn)
-            _SignedIn(state: state, controller: controller)
+            _SignedIn(l10n: l10n, state: state, controller: controller)
           else
             _SignIn(
+              l10n: l10n,
               email: _email,
               password: _password,
               busy: state.syncing,
@@ -76,7 +77,9 @@ class _CloudScreenState extends ConsumerState<CloudScreen> {
 }
 
 class _NotConfigured extends StatelessWidget {
-  const _NotConfigured();
+  const _NotConfigured({required this.l10n});
+
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -87,12 +90,11 @@ class _NotConfigured extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Облако не подключено', style: theme.textTheme.titleMedium),
+            Text(l10n.cloudNotConfiguredTitle,
+                style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'Сервер появится, только если донаты покроют хостинг. До тех '
-              'пор данные живут на устройстве, и их можно выгрузить файлом '
-              'в настройках.',
+              l10n.cloudNotConfiguredBody,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -106,6 +108,7 @@ class _NotConfigured extends StatelessWidget {
 
 class _SignIn extends StatelessWidget {
   const _SignIn({
+    required this.l10n,
     required this.email,
     required this.password,
     required this.busy,
@@ -114,6 +117,7 @@ class _SignIn extends StatelessWidget {
     required this.onReset,
   });
 
+  final AppLocalizations l10n;
   final TextEditingController email;
   final TextEditingController password;
   final bool busy;
@@ -130,34 +134,34 @@ class _SignIn extends StatelessWidget {
           controller: email,
           keyboardType: TextInputType.emailAddress,
           autocorrect: false,
-          decoration: const InputDecoration(
-            labelText: 'E-mail',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: l10n.cloudEmail,
+            border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: 12),
         TextField(
           controller: password,
           obscureText: true,
-          decoration: const InputDecoration(
-            labelText: 'Пароль',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: l10n.cloudPassword,
+            border: const OutlineInputBorder(),
           ),
         ),
         const SizedBox(height: 20),
         FilledButton(
           onPressed: busy ? null : onSignIn,
-          child: const Text('Войти'),
+          child: Text(l10n.cloudSignIn),
         ),
         const SizedBox(height: 8),
         OutlinedButton(
           onPressed: busy ? null : onSignUp,
-          child: const Text('Создать аккаунт'),
+          child: Text(l10n.cloudSignUp),
         ),
         const SizedBox(height: 8),
         TextButton(
           onPressed: busy ? null : onReset,
-          child: const Text('Забыли пароль?'),
+          child: Text(l10n.cloudForgot),
         ),
       ],
     );
@@ -165,8 +169,13 @@ class _SignIn extends StatelessWidget {
 }
 
 class _SignedIn extends StatelessWidget {
-  const _SignedIn({required this.state, required this.controller});
+  const _SignedIn({
+    required this.l10n,
+    required this.state,
+    required this.controller,
+  });
 
+  final AppLocalizations l10n;
   final CloudState state;
   final CloudController controller;
 
@@ -180,32 +189,34 @@ class _SignedIn extends StatelessWidget {
       children: [
         ListTile(
           leading: const Icon(Icons.cloud_done_outlined),
-          title: const Text('Синхронизация включена'),
+          title: Text(l10n.cloudSyncOn),
           subtitle: Text(
             synced == null
-                ? 'Ещё не синхронизировано'
-                : 'Последний раз: ${synced.hour.toString().padLeft(2, '0')}:'
+                ? l10n.cloudNeverSynced
+                : l10n.cloudLastSync(
+                    '${synced.hour.toString().padLeft(2, '0')}:'
                     '${synced.minute.toString().padLeft(2, '0')}',
+                  ),
           ),
         ),
         const SizedBox(height: 12),
         FilledButton.tonal(
           onPressed: state.syncing ? null : controller.push,
-          child: const Text('Выгрузить сейчас'),
+          child: Text(l10n.cloudPushNow),
         ),
         const SizedBox(height: 8),
         OutlinedButton(
           onPressed: state.syncing ? null : controller.pull,
-          child: const Text('Забрать из облака'),
+          child: Text(l10n.cloudPull),
         ),
         const SizedBox(height: 24),
         TextButton(
           onPressed: controller.signOut,
-          child: const Text('Выйти'),
+          child: Text(l10n.cloudSignOut),
         ),
         const SizedBox(height: 8),
         Text(
-          'Выход не удаляет локальные данные.',
+          l10n.cloudSignOutNote,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
@@ -217,7 +228,7 @@ class _SignedIn extends StatelessWidget {
           style: TextButton.styleFrom(
             foregroundColor: theme.colorScheme.error,
           ),
-          child: const Text('Удалить копию в облаке'),
+          child: Text(l10n.cloudDeleteRemote),
         ),
       ],
     );

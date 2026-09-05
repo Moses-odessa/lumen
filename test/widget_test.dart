@@ -54,7 +54,8 @@ void main() {
 
     await tester.tap(tab(Icons.play_circle_outline));
     await settle(tester);
-    expect(find.text('Daily ritual'), findsOneWidget);
+    // Заголовок вкладки и заголовок карточки ритуала — одна и та же строка.
+    expect(find.text('Daily ritual'), findsWidgets);
 
     await tester.tap(tab(Icons.person_outline));
     await settle(tester);
@@ -99,7 +100,7 @@ void main() {
     await settle(tester);
 
     // Ритуал должен иметь начало и конец — значит, и явную кнопку старта.
-    expect(find.text('Дневной ритуал'), findsOneWidget);
-    expect(find.text('Начать'), findsOneWidget);
+    expect(find.text('Daily ritual'), findsWidgets);
+    expect(find.text('Start'), findsOneWidget);
   });
 }

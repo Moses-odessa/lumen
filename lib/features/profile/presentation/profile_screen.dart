@@ -27,7 +27,7 @@ class ProfileScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.style_outlined),
-            tooltip: 'Свои слова',
+            tooltip: l10n.customWordsTitle,
             onPressed: () => context.push(Routes.customWords),
           ),
         ],
@@ -38,21 +38,21 @@ class ProfileScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
-                _OrbitCard(stats: value),
+                _OrbitCard(l10n: l10n, stats: value),
                 const SizedBox(height: 12),
-                _KeyNumbers(stats: value),
+                _KeyNumbers(l10n: l10n, stats: value),
                 const SizedBox(height: 20),
                 Text(
-                  'Яркость по созвездиям',
+                  l10n.profileBrightness,
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(height: 8),
                 for (final c in value.constellations)
-                  _ConstellationRow(brightness: c),
+                  _ConstellationRow(l10n: l10n, brightness: c),
                 if (value.constellations.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 12),
-                    child: Text('Пока пусто — сыграйте первый уровень.'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: Text(l10n.profileEmpty),
                   ),
               ],
             ),
@@ -66,8 +66,9 @@ class ProfileScreen extends ConsumerWidget {
 
 /// Орбита: высота, недельная цель и честное предупреждение о сбросе.
 class _OrbitCard extends StatelessWidget {
-  const _OrbitCard({required this.stats});
+  const _OrbitCard({required this.l10n, required this.stats});
 
+  final AppLocalizations l10n;
   final PlayerStats stats;
 
   @override
@@ -92,12 +93,12 @@ class _OrbitCard extends StatelessWidget {
                       ?.copyWith(color: LumenPalette.starlight),
                 ),
                 const SizedBox(width: 8),
-                Text('орбита', style: theme.textTheme.bodyMedium),
+                Text(l10n.profileOrbit, style: theme.textTheme.bodyMedium),
                 const Spacer(),
                 if (orbit.eclipseUntil != null &&
                     orbit.eclipsedAt(DateTime.now()))
-                  const Chip(
-                    label: Text('затмение'),
+                  Chip(
+                    label: Text(l10n.profileEclipse),
                     visualDensity: VisualDensity.compact,
                   ),
               ],
@@ -106,8 +107,7 @@ class _OrbitCard extends StatelessWidget {
             Text(
               // Пропуск опускает, а не обнуляет: это главное отличие от
               // стрика, и о нём стоит сказать прямо.
-              'Пропуск опускает на один. Полный сброс — только после трёх '
-              'пропусков подряд.',
+              l10n.profileOrbitExplain,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -115,7 +115,7 @@ class _OrbitCard extends StatelessWidget {
             if (risky) ...[
               const SizedBox(height: 10),
               Text(
-                'Ещё один пропуск — и орбита обнулится.',
+                l10n.profileOrbitRisk,
                 style: theme.textTheme.bodySmall
                     ?.copyWith(color: theme.colorScheme.error),
               ),
@@ -123,7 +123,7 @@ class _OrbitCard extends StatelessWidget {
             const SizedBox(height: 18),
             Row(
               children: [
-                Text('Неделя', style: theme.textTheme.labelLarge),
+                Text(l10n.profileWeek, style: theme.textTheme.labelLarge),
                 const SizedBox(width: 12),
                 for (var i = 0; i < 7; i++)
                   Padding(
@@ -142,9 +142,8 @@ class _OrbitCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               stats.weeklyGoalMet
-                  ? 'Цель недели выполнена'
-                  : 'Цель недели — ${RetentionBalance.weeklyGoalDays} дней '
-                      'из 7. Два выходных законны.',
+                  ? l10n.profileWeeklyGoalMet
+                  : l10n.profileWeeklyGoal(RetentionBalance.weeklyGoalDays),
               style: theme.textTheme.bodySmall?.copyWith(
                 color: stats.weeklyGoalMet
                     ? LumenPalette.correct
@@ -159,8 +158,9 @@ class _OrbitCard extends StatelessWidget {
 }
 
 class _KeyNumbers extends StatelessWidget {
-  const _KeyNumbers({required this.stats});
+  const _KeyNumbers({required this.l10n, required this.stats});
 
+  final AppLocalizations l10n;
   final PlayerStats stats;
 
   @override
@@ -175,20 +175,25 @@ class _KeyNumbers extends StatelessWidget {
           children: [
             _Number(
               value: '${stats.burningWords}',
-              label: 'горят',
+              label: l10n.profileBurning,
               highlight: true,
             ),
-            _Number(value: '${stats.knownWords}', label: 'слов в работе'),
+            _Number(
+              value: '${stats.knownWords}',
+              label: l10n.profileWordsInWork,
+            ),
             _Number(
               value: latency == null
                   ? '—'
-                  : '${(latency.inMilliseconds / 1000).toStringAsFixed(1)} с',
-              label: 'отклик',
+                  : l10n.unitSeconds(
+                      (latency.inMilliseconds / 1000).toStringAsFixed(1),
+                    ),
+              label: l10n.profileLatency,
               // Целевая метрика из CONCEPT.md — медиана меньше 1.8 с.
               highlight: latency != null &&
                   latency <= const Duration(milliseconds: 1800),
             ),
-            _Number(value: '${stats.sparks}', label: 'искр'),
+            _Number(value: '${stats.sparks}', label: l10n.profileSparks),
           ],
         ),
       ),
@@ -232,8 +237,9 @@ class _Number extends StatelessWidget {
 }
 
 class _ConstellationRow extends StatelessWidget {
-  const _ConstellationRow({required this.brightness});
+  const _ConstellationRow({required this.l10n, required this.brightness});
 
+  final AppLocalizations l10n;
   final ConstellationBrightness brightness;
 
   @override
@@ -271,7 +277,7 @@ class _ConstellationRow extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '${brightness.burning} из ${brightness.stars} горят',
+            l10n.profileBurningOf(brightness.burning, brightness.stars),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),

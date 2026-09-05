@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../application/challenge_controller.dart';
 import 'challenge_share.dart';
@@ -31,10 +32,11 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(challengeControllerProvider);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ночной вызов'),
+        title: Text(l10n.challengeTitle),
         leading: widget.onClose == null
             ? null
             : IconButton(
@@ -62,6 +64,7 @@ class _Running extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final question = state.current;
     if (question == null) return const SizedBox.shrink();
 
@@ -74,7 +77,7 @@ class _Running extends ConsumerWidget {
           child: Row(
             children: [
               Text(
-                '$seconds с',
+                l10n.challengeSeconds(seconds),
                 style: theme.textTheme.titleLarge?.copyWith(
                   // Последние десять секунд — единственное место в игре,
                   // где время давит намеренно.
@@ -121,6 +124,7 @@ class _Finished extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Center(
       child: Padding(
@@ -136,7 +140,7 @@ class _Finished extends StatelessWidget {
             const SizedBox(height: 20),
             if (state.sparksEarned > 0)
               Text(
-                '+${state.sparksEarned} искр',
+                l10n.challengeSparks(state.sparksEarned),
                 style: theme.textTheme.titleMedium
                     ?.copyWith(color: LumenPalette.starlight),
               ),
@@ -157,6 +161,7 @@ class _AlreadyPlayed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final previous = state.previous;
 
     return Center(
@@ -168,19 +173,22 @@ class _AlreadyPlayed extends StatelessWidget {
             const Icon(Icons.nightlight_round,
                 size: 44, color: LumenPalette.starlight),
             const SizedBox(height: 16),
-            Text('Сегодня уже сыграно', style: theme.textTheme.titleMedium),
+            Text(l10n.challengeAlreadyTitle,
+                style: theme.textTheme.titleMedium),
             if (previous != null) ...[
               const SizedBox(height: 8),
               Text(
-                '${previous.correct} из ${previous.total} за '
-                '${(previous.timeMs / 1000).round()} с',
+                l10n.challengeAlreadyResult(
+                  previous.correct,
+                  previous.total,
+                  (previous.timeMs / 1000).round(),
+                ),
                 style: theme.textTheme.bodyMedium,
               ),
             ],
             const SizedBox(height: 8),
             Text(
-              'Один заход в день. Завтра будет новый набор — тот же самый '
-              'у всех.',
+              l10n.challengeAlreadyBody,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
@@ -200,6 +208,7 @@ class _Unavailable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Center(
       child: Padding(
@@ -209,14 +218,13 @@ class _Unavailable extends StatelessWidget {
           children: [
             const Icon(Icons.cloud_off, size: 44),
             const SizedBox(height: 16),
-            Text('Вызов недоступен', style: theme.textTheme.titleMedium),
+            Text(l10n.challengeUnavailableTitle,
+                style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
               challengeBaseUrl.isEmpty
-                  ? 'CDN с вызовами ещё не настроен. Всё остальное в игре '
-                      'работает без сети.'
-                  : 'Нет связи. Всё остальное в игре работает без сети — '
-                      'вызов вернётся сам.',
+                  ? l10n.challengeUnavailableNotConfigured
+                  : l10n.challengeUnavailableOffline,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,

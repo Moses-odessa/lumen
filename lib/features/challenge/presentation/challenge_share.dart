@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../core/analytics/analytics.dart';
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 
 /// Ключ карточки результата: по нему её снимают в картинку.
@@ -34,6 +35,7 @@ class ChallengeShareCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return RepaintBoundary(
       key: challengeShareKey,
@@ -51,9 +53,9 @@ class ChallengeShareCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
-              'Ночной вызов',
-              style: TextStyle(color: Colors.white70, fontSize: 13),
+            Text(
+              l10n.challengeTitle,
+              style: const TextStyle(color: Colors.white70, fontSize: 13),
             ),
             const SizedBox(height: 16),
             Text(
@@ -64,7 +66,9 @@ class ChallengeShareCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'за ${(elapsed.inMilliseconds / 1000).toStringAsFixed(1)} с',
+              l10n.challengeCardSeconds(
+                (elapsed.inMilliseconds / 1000).toStringAsFixed(1),
+              ),
               style: const TextStyle(color: Colors.white70, fontSize: 13),
             ),
             const SizedBox(height: 24),
@@ -105,7 +109,7 @@ class ShareChallengeButton extends ConsumerWidget {
     return FilledButton.icon(
       onPressed: () => _share(ref),
       icon: const Icon(Icons.ios_share),
-      label: const Text('Поделиться'),
+      label: Text(AppLocalizations.of(context).challengeShare),
     );
   }
 

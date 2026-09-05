@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/calibration/calibration.dart';
 import '../../game/presentation/circle_arena.dart';
@@ -39,6 +40,7 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
     });
 
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       decoration: const BoxDecoration(
@@ -66,7 +68,7 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      _hint(state.calibration.phase),
+                      _hint(l10n, state.calibration.phase),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -100,7 +102,7 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
                     controller.skip();
                     widget.onDone();
                   },
-                  child: const Text('Я с нуля'),
+                  child: Text(l10n.onboardingFromScratch),
                 ),
               ),
             ],
@@ -110,11 +112,12 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
     );
   }
 
-  String _hint(CalibrationPhase phase) => switch (phase) {
-        CalibrationPhase.comb => 'Просто соединяйте то, что знаете',
-        CalibrationPhase.search => 'Подбираем, с чего начать',
-        CalibrationPhase.confirm => 'Проверяем ещё раз',
-        CalibrationPhase.phrases => 'Теперь целые фразы',
-        CalibrationPhase.done => 'Готово',
+  String _hint(AppLocalizations l10n, CalibrationPhase phase) =>
+      switch (phase) {
+        CalibrationPhase.comb => l10n.calibrationHintComb,
+        CalibrationPhase.search => l10n.calibrationHintSearch,
+        CalibrationPhase.confirm => l10n.calibrationHintConfirm,
+        CalibrationPhase.phrases => l10n.calibrationHintPhrases,
+        CalibrationPhase.done => l10n.calibrationHintDone,
       };
 }

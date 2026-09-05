@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -30,26 +31,28 @@ class SettingsScreen extends ConsumerWidget {
       body: ListView(
         children: [
           if (player != null) ...[
-            _TierTile(player: player, controller: controller),
+            _TierTile(
+              l10n: l10n,
+              player: player,
+              controller: controller,
+            ),
             const Divider(),
             SwitchListTile(
               value: player.soundEnabled,
               onChanged: controller.setSoundEnabled,
-              title: const Text('Звук'),
-              subtitle: const Text(
-                'Без звука верный ответ отмечается вибрацией',
-              ),
+              title: Text(l10n.settingsSound),
+              subtitle: Text(l10n.settingsSoundSubtitle),
               secondary: const Icon(Icons.volume_up_outlined),
             ),
             SwitchListTile(
               value: player.freePace,
-              onChanged: (value) => _setPace(context, controller, value),
-              title: const Text('Свой темп'),
+              onChanged: (value) =>
+                  _setPace(context, controller, l10n, value),
+              title: Text(l10n.settingsPace),
               subtitle: Text(
                 player.freePace
-                    ? 'Новые слова не ограничены одним уровнем в день'
-                    : 'Один уровень в день — дидактическое ограничение, '
-                        'а не платная стена',
+                    ? l10n.settingsPaceOn
+                    : l10n.settingsPaceOff,
               ),
               secondary: const Icon(Icons.speed_outlined),
             ),
@@ -57,51 +60,58 @@ class SettingsScreen extends ConsumerWidget {
           ],
           ListTile(
             leading: const Icon(Icons.explore_outlined),
-            title: const Text('Перекалибровка'),
-            subtitle: const Text(
-              'Пройти тест заново — доступно в любой момент',
-            ),
+            title: Text(l10n.settingsRecalibrate),
+            subtitle: Text(l10n.settingsRecalibrateSubtitle),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.recalibrate),
           ),
-          ListTile(
-            leading: const Icon(Icons.timer_outlined),
-            title: const Text('Задержка звука'),
-            subtitle: const Text('Спайк M1 — мерить на реальном телефоне'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push(Routes.audioSpike),
-          ),
+          // Инструменты разработчика в релиз не едут: игроку нечего делать
+          // ни в замере задержки звука, ни в схеме базы.
+          if (kDebugMode)
+            ListTile(
+              leading: const Icon(Icons.timer_outlined),
+              title: const Text('Задержка звука'),
+              subtitle: const Text('Спайк M1 — мерить на реальном телефоне'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => context.push(Routes.audioSpike),
+            ),
           if (player != null)
             SwitchListTile(
               value: player.notificationsEnabled,
-              onChanged: (value) => _setNotifications(context, ref, value),
-              title: const Text('Напоминание'),
-              subtitle: const Text(
-                'Одно в день, в тот час, когда вы обычно играете',
-              ),
+              onChanged: (value) =>
+                  _setNotifications(context, ref, l10n, value),
+              title: Text(l10n.settingsNotifications),
+              subtitle: Text(l10n.settingsNotificationsSubtitle),
               secondary: const Icon(Icons.notifications_outlined),
             ),
           const Divider(),
           ListTile(
             leading: const Icon(Icons.cloud_outlined),
-            title: const Text('Облако'),
-            subtitle: const Text('Аккаунт нужен только для мультидевайса'),
+            title: Text(l10n.settingsCloud),
+            subtitle: Text(l10n.settingsCloudSubtitle),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.cloud),
           ),
           ListTile(
             leading: const Icon(Icons.download_outlined),
-            title: const Text('Экспорт данных'),
-            subtitle: const Text('Весь прогресс одним файлом'),
-            onTap: () => _export(context, ref),
+            title: Text(l10n.settingsExport),
+            subtitle: Text(l10n.settingsExportSubtitle),
+            onTap: () => _export(context, ref, l10n),
           ),
           ListTile(
             leading: const Icon(Icons.delete_forever_outlined),
-            title: const Text('Удалить все данные'),
-            subtitle: const Text('Без возможности восстановить'),
-            onTap: () => _wipe(context, ref),
+            title: Text(l10n.settingsWipe),
+            subtitle: Text(l10n.settingsWipeSubtitle),
+            onTap: () => _wipe(context, ref, l10n),
           ),
-          const _DiagnosticsTile(),
+          ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: Text(l10n.settingsAbout),
+            subtitle: Text(l10n.settingsAboutSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push(Routes.about),
+          ),
+          if (kDebugMode) const _DiagnosticsTile(),
         ],
       ),
     );
@@ -114,6 +124,7 @@ class SettingsScreen extends ConsumerWidget {
 Future<void> _setNotifications(
   BuildContext context,
   WidgetRef ref,
+  AppLocalizations l10n,
   bool value,
 ) async {
   final controller = ref.read(playerControllerProvider.notifier);
@@ -132,9 +143,7 @@ Future<void> _setNotifications(
 
   if (!granted) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Система не дала разрешения на уведомления'),
-      ),
+      SnackBar(content: Text(l10n.settingsNotificationsDenied)),
     );
     return;
   }
@@ -144,7 +153,11 @@ Future<void> _setNotifications(
 }
 
 /// Экспорт: показываем JSON и отдаём системе через шаринг.
-Future<void> _export(BuildContext context, WidgetRef ref) async {
+Future<void> _export(
+  BuildContext context,
+  WidgetRef ref,
+  AppLocalizations l10n,
+) async {
   try {
     final json = await ref.read(dataControllerProvider).export();
     if (!context.mounted) return;
@@ -154,33 +167,33 @@ Future<void> _export(BuildContext context, WidgetRef ref) async {
   } catch (e) {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Не удалось выгрузить: $e')),
+      SnackBar(content: Text(l10n.settingsExportFailed('$e'))),
     );
   }
 }
 
 /// Удаление данных: подтверждение обязательно и формулируется прямо.
-Future<void> _wipe(BuildContext context, WidgetRef ref) async {
+Future<void> _wipe(
+  BuildContext context,
+  WidgetRef ref,
+  AppLocalizations l10n,
+) async {
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Удалить все данные?'),
-      content: const Text(
-        'Прогресс, история ответов и свои слова будут стёрты без '
-        'возможности восстановить. Придётся начать заново, включая '
-        'калибровку.',
-      ),
+      title: Text(l10n.settingsWipeDialogTitle),
+      content: Text(l10n.settingsWipeDialogBody),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Отмена'),
+          child: Text(l10n.commonCancel),
         ),
         FilledButton(
           style: FilledButton.styleFrom(
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Удалить'),
+          child: Text(l10n.settingsWipeConfirm),
         ),
       ],
     ),
@@ -199,6 +212,7 @@ Future<void> _wipe(BuildContext context, WidgetRef ref) async {
 Future<void> _setPace(
   BuildContext context,
   PlayerController controller,
+  AppLocalizations l10n,
   bool value,
 ) async {
   if (!value) {
@@ -209,21 +223,16 @@ Future<void> _setPace(
   final confirmed = await showDialog<bool>(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text('Свой темп'),
-      content: const Text(
-        'Каждое новое слово возвращается на повторение — и завтра, и через '
-        'неделю. Если брать много нового сразу, очередь повторений вырастет '
-        'быстрее, чем вы успеваете её разгребать.\n\n'
-        'Доля новых слов в сессии всё равно останется ограниченной.',
-      ),
+      title: Text(l10n.settingsPaceDialogTitle),
+      content: Text(l10n.settingsPaceDialogBody),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text('Оставить как есть'),
+          child: Text(l10n.settingsPaceKeep),
         ),
         FilledButton(
           onPressed: () => Navigator.of(context).pop(true),
-          child: const Text('Включить'),
+          child: Text(l10n.settingsPaceEnable),
         ),
       ],
     ),
@@ -237,8 +246,13 @@ Future<void> _setPace(
 /// Запертого уровня в игре нет: результат калибровки — предложение, а не
 /// приговор, и сменить ярус можно в любой момент без объяснений.
 class _TierTile extends ConsumerWidget {
-  const _TierTile({required this.player, required this.controller});
+  const _TierTile({
+    required this.l10n,
+    required this.player,
+    required this.controller,
+  });
 
+  final AppLocalizations l10n;
   final Player player;
   final PlayerController controller;
 
@@ -256,15 +270,14 @@ class _TierTile extends ConsumerWidget {
             children: [
               const Icon(Icons.stairs_outlined),
               const SizedBox(width: 16),
-              Text('Ярус', style: theme.textTheme.titleMedium),
+              Text(l10n.settingsTier, style: theme.textTheme.titleMedium),
             ],
           ),
           const SizedBox(height: 4),
           Padding(
             padding: const EdgeInsets.only(left: 40),
             child: Text(
-              'Размер созвездий растёт вместе с ярусом. Старые звёзды '
-              'остаются на местах.',
+              l10n.settingsTierExplain,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -293,8 +306,7 @@ class _TierTile extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.only(left: 40, top: 8),
               child: Text(
-                'Ярусы выше ${maxTier.label} ещё не вычитаны носителем и '
-                'поэтому недоступны.',
+                l10n.settingsTierLocked(maxTier.label),
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: theme.colorScheme.onSurfaceVariant,
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/scoring/score.dart';
 
@@ -17,6 +18,7 @@ class RunSummaryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final result = summary;
 
     if (result == null) {
@@ -38,7 +40,7 @@ class RunSummaryView extends StatelessWidget {
             if (result.isPerfect) ...[
               const SizedBox(height: 4),
               Text(
-                'без ошибок · ×${result.accuracyBonus}',
+                '${l10n.runPerfect} · ×${result.accuracyBonus}',
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: LumenPalette.correct,
                 ),
@@ -49,18 +51,18 @@ class RunSummaryView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _Stat(
-                  label: 'точность',
+                  label: l10n.runAccuracy,
                   value: '${(result.accuracy * 100).round()}%',
                 ),
-                _Stat(label: 'кругов', value: '${result.circles}'),
-                _Stat(label: 'комбо', value: '×${result.maxCombo}'),
+                _Stat(label: l10n.runCircles, value: '${result.circles}'),
+                _Stat(label: l10n.runCombo, value: '×${result.maxCombo}'),
               ],
             ),
             const SizedBox(height: 36),
             if (onContinue != null)
               FilledButton(
                 onPressed: onContinue,
-                child: const Text('Дальше'),
+                child: Text(l10n.runContinue),
               ),
           ],
         ),

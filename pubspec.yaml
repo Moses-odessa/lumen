@@ -54,6 +54,8 @@ dev_dependencies:
   drift_dev: ^2.34.0
   build_runner: ^2.15.1
   flutter_launcher_icons: ^0.14.4
+  # Сплеш: экран запуска — это ночное небо, а не белый прямоугольник.
+  flutter_native_splash: ^2.4.6
 
   # Только для tool/ и тестов: сборка read-only контентной БД из YAML.
   sqlite3: ^3.5.2
@@ -63,7 +65,19 @@ dev_dependencies:
   # пересборка без правок давала байт-в-байт тот же ассет.
   crypto: ^3.0.6
 
-# Иконка приложения: временная (M0), финальная — на M7.
+# Экран запуска: тот же зенит неба, что и в теме, чтобы приложение не
+# мигало белым перед первым кадром.
+flutter_native_splash:
+  color: "#05070F"
+  image: assets/icon/app_icon_foreground.png
+  android_12:
+    color: "#05070F"
+    image: assets/icon/app_icon_foreground.png
+  android: true
+  ios: true
+  web: false
+
+# Иконка приложения.
 flutter_launcher_icons:
   image_path: "assets/icon/app_icon.png"
   android: true

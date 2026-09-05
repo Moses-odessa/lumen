@@ -1,35 +1,303 @@
 {
   "@@locale": "en",
+
   "appTitle": "Lumen",
   "@appTitle": {
     "description": "Application name shown in the task switcher"
   },
+
   "tabSky": "Sky",
   "@tabSky": {
     "description": "Bottom navigation tab: the constellation map"
   },
   "tabGame": "Play",
-  "@tabGame": {
-    "description": "Bottom navigation tab: the daily ritual and runs"
-  },
   "tabProfile": "Profile",
-  "@tabProfile": {
-    "description": "Bottom navigation tab: orbit, sparks, statistics"
-  },
   "tabSettings": "Settings",
-  "@tabSettings": {
-    "description": "Bottom navigation tab: languages, sound, pace"
-  },
+
   "skyTitle": "Your sky",
   "gameTitle": "Daily ritual",
   "profileTitle": "Profile",
   "settingsTitle": "Settings",
+
+  "commonNext": "Next",
+  "commonBack": "Back",
+  "commonCancel": "Cancel",
+  "commonClose": "Close",
+  "comingSoon": "Coming soon",
+  "@comingSoon": {
+    "description": "Placeholder for screens that arrive in a later milestone"
+  },
+
   "onboardingTitle": "Let's find where your sky begins",
   "onboardingSubtitle": "A few circles instead of a questionnaire: you play, we measure.",
   "onboardingStartCalibration": "Start calibration",
   "onboardingFromScratch": "I'm starting from scratch",
-  "comingSoon": "Coming soon",
-  "@comingSoon": {
-    "description": "Placeholder for screens that arrive in a later milestone"
+
+  "languagesTitle": "Languages",
+  "languagesSubtitle": "The hint language and the interface language are separate settings.",
+  "languagesLearning": "Learning",
+  "languagesHints": "Hints in",
+  "languagesInterface": "Interface",
+  "languagesSystem": "Same as system",
+
+  "calibrationHintComb": "Just connect what you know",
+  "calibrationHintSearch": "Finding where to start",
+  "calibrationHintConfirm": "Checking once more",
+  "calibrationHintPhrases": "Now whole phrases",
+  "calibrationHintDone": "Done",
+  "calibrationResultTitle": "Your sky begins here",
+  "calibrationResultVocabulary": "You already know about {count} words — they become stars that are already lit.",
+  "@calibrationResultVocabulary": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "calibrationResultTierChangeable": "You can change the tier in settings at any time.",
+  "calibrationResultOpen": "Open the sky",
+
+  "ritualHeading": "Daily ritual",
+  "ritualSubtitle": "Sunrise — level — night challenge. Six minutes with a beginning and an end.",
+  "ritualStart": "Start",
+  "ritualLevelOnly": "Level only",
+  "ritualLevelOnlySubtitle": "Skip Sunrise and take something new",
+  "ritualSunrise": "Sunrise",
+  "ritualLevel": "Level",
+  "ritualChallenge": "Night challenge",
+  "sunriseReturned": "returned to the sky",
+  "sunriseNothing": "the sky was already lit — nothing to review",
+  "sunriseNext": "On to a new level",
+  "ritualScore": "points for the ritual",
+  "ritualNewWords": "new words",
+  "ritualLumens": "lumens",
+  "ritualDoneTitle": "Ritual complete",
+  "ritualDoneBody": "{lumens} lm returned to the sky, {words} new words learned.",
+  "@ritualDoneBody": {
+    "placeholders": {
+      "lumens": { "type": "int" },
+      "words": { "type": "int" }
+    }
+  },
+  "ritualToSky": "To the sky",
+
+  "runAccuracy": "accuracy",
+  "runCircles": "circles",
+  "runCombo": "combo",
+  "runPerfect": "no mistakes",
+  "runContinue": "Continue",
+  "audioReplay": "Listen again",
+
+  "skyStars": "stars",
+  "skyBurning": "burning",
+  "skyConstellations": "constellations",
+  "skyEmptyTitle": "The sky is empty",
+  "skyEmptyBody": "There are no constellations for this tier in the content database.",
+  "skyDictionary": "Dictionary",
+  "constellationLitOf": "{lit} of {total} stars are burning",
+  "@constellationLitOf": {
+    "placeholders": {
+      "lit": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "constellationLocked": "Not unlocked yet",
+  "constellationToLight": "{count} more stars until it lights up",
+  "@constellationToLight": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "constellationAboutToLight": "About to light up",
+  "tierSuggestUp": "Most of the sky is burning. Move to {tier}? Old stars stay where they are.",
+  "@tierSuggestUp": {
+    "placeholders": {
+      "tier": { "type": "String" }
+    }
+  },
+  "tierSuggestDown": "{current} seems hard. Try {target}?",
+  "@tierSuggestDown": {
+    "placeholders": {
+      "current": { "type": "String" },
+      "target": { "type": "String" }
+    }
+  },
+
+  "dictionaryTitle": "Dictionary",
+  "dictionarySearchHint": "A word in either language",
+  "dictionaryNothing": "Nothing found",
+  "dictionaryResetFilters": "Reset filters",
+  "dictionaryBurningFilter": "burning",
+  "bandBurning": "burning",
+  "bandSteady": "steady light",
+  "bandFlickering": "flickering",
+  "bandDimming": "dimming",
+  "bandFading": "fading",
+
+  "profileOrbit": "orbit",
+  "profileOrbitExplain": "A missed day lowers it by one. A full reset happens only after three misses in a row.",
+  "profileOrbitRisk": "One more miss and the orbit resets.",
+  "profileEclipse": "eclipse",
+  "profileWeek": "Week",
+  "profileWeeklyGoalMet": "Weekly goal met",
+  "profileWeeklyGoal": "Weekly goal — {days} days out of 7. Two days off are legitimate.",
+  "@profileWeeklyGoal": {
+    "placeholders": {
+      "days": { "type": "int" }
+    }
+  },
+  "profileBurning": "burning",
+  "profileWordsInWork": "words in progress",
+  "profileLatency": "response",
+  "profileSparks": "sparks",
+  "profileBrightness": "Brightness by constellation",
+  "profileEmpty": "Nothing yet — play your first level.",
+  "profileBurningOf": "{burning} of {total} burning",
+  "@profileBurningOf": {
+    "placeholders": {
+      "burning": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+
+  "customWordsTitle": "Your own words",
+  "customWordsHint": "A list from your textbook, a letter or your notes. One pair per line: \"Wort — word\".",
+  "customWordsAdd": "Add",
+  "customWordsAdded": "Added: {count}",
+  "@customWordsAdded": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "customWordsNoPairs": "No pairs found. Format: \"Wort — word\", one pair per line.",
+  "customWordsCount": "In your own constellation: {count}",
+  "@customWordsCount": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+
+  "challengeTitle": "Night challenge",
+  "challengeSeconds": "{seconds} s",
+  "@challengeSeconds": {
+    "placeholders": {
+      "seconds": { "type": "int" }
+    }
+  },
+  "challengeUnavailableTitle": "Challenge unavailable",
+  "challengeUnavailableNotConfigured": "The challenge CDN is not set up yet. Everything else works without a network.",
+  "challengeUnavailableOffline": "No connection. Everything else works without a network — the challenge will come back on its own.",
+  "challengeAlreadyTitle": "Already played today",
+  "challengeAlreadyBody": "One run per day. Tomorrow brings a new set — the same one for everyone.",
+  "challengeAlreadyResult": "{correct} out of {total} in {seconds} s",
+  "@challengeAlreadyResult": {
+    "placeholders": {
+      "correct": { "type": "int" },
+      "total": { "type": "int" },
+      "seconds": { "type": "int" }
+    }
+  },
+  "challengeSparks": "+{count} sparks",
+  "@challengeSparks": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "challengeShare": "Share",
+  "challengeCardSeconds": "in {seconds} s",
+  "@challengeCardSeconds": {
+    "placeholders": {
+      "seconds": { "type": "String" }
+    }
+  },
+
+  "settingsTier": "Tier",
+  "settingsTierExplain": "Constellations grow with the tier. Old stars stay where they are.",
+  "settingsTierLocked": "Tiers above {tier} have not been reviewed by a native speaker yet and are unavailable.",
+  "@settingsTierLocked": {
+    "placeholders": {
+      "tier": { "type": "String" }
+    }
+  },
+  "settingsSound": "Sound",
+  "settingsSoundSubtitle": "Without sound a correct answer is marked by vibration",
+  "settingsPace": "Your own pace",
+  "settingsPaceOn": "New words are not limited to one level per day",
+  "settingsPaceOff": "One level a day is a teaching limit, not a paywall",
+  "settingsPaceDialogTitle": "Your own pace",
+  "settingsPaceDialogBody": "Every new word comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new words in a session stays limited anyway.",
+  "settingsPaceKeep": "Leave it as is",
+  "settingsPaceEnable": "Turn on",
+  "settingsNotifications": "Reminder",
+  "settingsNotificationsSubtitle": "One a day, at the hour you usually play",
+  "settingsNotificationsDenied": "The system did not grant notification permission",
+  "settingsRecalibrate": "Recalibrate",
+  "settingsRecalibrateSubtitle": "Take the test again — available at any time",
+  "settingsCloud": "Cloud",
+  "settingsCloudSubtitle": "An account is only needed for multiple devices",
+  "settingsExport": "Export data",
+  "settingsExportSubtitle": "All your progress in one file",
+  "settingsExportFailed": "Export failed: {error}",
+  "@settingsExportFailed": {
+    "placeholders": {
+      "error": { "type": "String" }
+    }
+  },
+  "settingsWipe": "Delete all data",
+  "settingsWipeSubtitle": "Without any way to restore",
+  "settingsWipeDialogTitle": "Delete all data?",
+  "settingsWipeDialogBody": "Progress, answer history and your own words will be erased with no way to restore them. You will start over, including calibration.",
+  "settingsWipeConfirm": "Delete",
+  "settingsAbout": "About",
+  "settingsAboutSubtitle": "Completely free · donations · licences",
+
+  "cloudTitle": "Cloud",
+  "cloudIntro": "An account is only needed to continue on another device. Without one the game works fully — and that is not a limited mode.",
+  "cloudNotConfiguredTitle": "Cloud is not connected",
+  "cloudNotConfiguredBody": "A server will appear only if donations cover the hosting. Until then data lives on the device and can be exported to a file in settings.",
+  "cloudEmail": "E-mail",
+  "cloudPassword": "Password",
+  "cloudSignIn": "Sign in",
+  "cloudSignUp": "Create an account",
+  "cloudForgot": "Forgot your password?",
+  "cloudSyncOn": "Sync is on",
+  "cloudNeverSynced": "Not synced yet",
+  "cloudLastSync": "Last sync: {time}",
+  "@cloudLastSync": {
+    "placeholders": {
+      "time": { "type": "String" }
+    }
+  },
+  "cloudPushNow": "Upload now",
+  "cloudPull": "Fetch from cloud",
+  "cloudSignOut": "Sign out",
+  "cloudSignOutNote": "Signing out does not delete local data.",
+  "cloudDeleteRemote": "Delete the cloud copy",
+
+  "aboutTitle": "About",
+  "aboutTagline": "A vocabulary as a night sky. A star's brightness is the probability of recalling a word right now.",
+  "aboutFreeTitle": "Completely free",
+  "aboutFreeBody": "No subscription, no paid tiers, no ads, no currency for money. Everything in the game is available to everyone, always.",
+  "aboutCostBody": "This holds because one user costs the project close to nothing: content and audio live inside the app, there is no server, and the only network request is the night challenge — one static file a day.",
+  "aboutDonate": "Support the project",
+  "aboutDonateNote": "A donor gets a badge and a name in the credits — and nothing that gives an advantage in the game or in learning.",
+  "aboutExpenses": "Where the money goes",
+  "aboutExpensesSubtitle": "Public expenses page",
+  "aboutSource": "Source code",
+  "aboutSourceSubtitle": "Code — MIT, content — CC BY-SA 4.0",
+  "aboutNotHereTitle": "What the game deliberately does not have",
+  "aboutNoLives": "Lives, hearts and energy — a mistake costs points, not access",
+  "aboutNoStreakReset": "Streak resets: one missed day does not erase half a year",
+  "aboutNoTimer": "A timer on new material",
+  "aboutNoXp": "Ranking by XP",
+  "aboutNoBots": "Bots posing as live opponents",
+  "aboutNoForcedOrder": "A mandatory order of topics",
+  "aboutNoAds": "Ads and trackers",
+  "aboutPrivacy": "Privacy: Sentry with no personal data and no tracing, no analytics over the network. Export and deletion are in settings.",
+
+  "unitSeconds": "{value} s",
+  "customWordsPlaceholder": "Rechnung — invoice\nQuittung — receipt",
+  "@unitSeconds": {
+    "placeholders": {
+      "value": { "type": "String" }
+    }
   }
 }

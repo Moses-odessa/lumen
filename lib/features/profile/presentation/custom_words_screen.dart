@@ -2,6 +2,7 @@ import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../data/local/app_database.dart';
 import '../../../data/local/database_provider.dart';
 
@@ -59,7 +60,7 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
   /// Принимаются любые разумные разделители: люди копируют списки из
   /// учебников, таблиц и заметок, и заставлять их приводить формат к одному
   /// виду — верный способ, чтобы импортом никто не воспользовался.
-  Future<void> _import() async {
+  Future<void> _import(AppLocalizations l10n) async {
     final lines = _controller.text.split('\n');
     final parsed = <CustomConceptsCompanion>[];
 
@@ -83,9 +84,7 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
     }
 
     if (parsed.isEmpty) {
-      setState(() => _message =
-          'Не нашлось ни одной пары. Формат: «Wort — слово», по строке на '
-          'пару.');
+      setState(() => _message = l10n.customWordsNoPairs);
       return;
     }
 
@@ -105,7 +104,7 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
 
       await db.replaceCustomConcepts(merged.values.toList());
       _controller.clear();
-      setState(() => _message = 'Добавлено: ${parsed.length}');
+      setState(() => _message = l10n.customWordsAdded(parsed.length));
       await _load();
     } catch (e) {
       setState(() => _message = '$e');
@@ -115,17 +114,17 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Свои слова')),
+      appBar: AppBar(title: Text(l10n.customWordsTitle)),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : ListView(
               padding: const EdgeInsets.all(16),
               children: [
                 Text(
-                  'Список из вашего учебника, письма или заметок. По строке '
-                  'на пару: «Wort — слово».',
+                  l10n.customWordsHint,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -134,16 +133,16 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
                 TextField(
                   controller: _controller,
                   maxLines: 6,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Rechnung — счёт\nQuittung — квитанция',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    hintText: l10n.customWordsPlaceholder,
                   ),
                 ),
                 const SizedBox(height: 12),
                 FilledButton.icon(
-                  onPressed: _import,
+                  onPressed: () => _import(l10n),
                   icon: const Icon(Icons.playlist_add),
-                  label: const Text('Добавить'),
+                  label: Text(l10n.customWordsAdd),
                 ),
                 if (_message != null) ...[
                   const SizedBox(height: 12),
@@ -151,7 +150,7 @@ class _CustomWordsScreenState extends ConsumerState<CustomWordsScreen> {
                 ],
                 const SizedBox(height: 24),
                 Text(
-                  'В личном созвездии: ${_words.length}',
+                  l10n.customWordsCount(_words.length),
                   style: theme.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 8),

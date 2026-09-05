@@ -135,6 +135,7 @@ class _Result extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final state = ref.watch(calibrationControllerProvider);
     final tier = state.calibration.result ??
         ref.watch(playerControllerProvider)?.tier ??
@@ -164,13 +165,12 @@ class _Result extends ConsumerWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Ваше небо начинается здесь',
+                  l10n.calibrationResultTitle,
                   style: theme.textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Вы уже знаете примерно $vocabulary слов — они станут '
-                  'звёздами, которые уже горят.',
+                  l10n.calibrationResultVocabulary(vocabulary),
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
@@ -178,7 +178,7 @@ class _Result extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Ярус можно сменить в настройках в любой момент.',
+                  l10n.calibrationResultTierChangeable,
                   textAlign: TextAlign.center,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
@@ -191,7 +191,7 @@ class _Result extends ConsumerWidget {
                   onPressed: () => ref
                       .read(playerControllerProvider.notifier)
                       .completeCalibration(tier),
-                  child: const Text('Открыть небо'),
+                  child: Text(l10n.calibrationResultOpen),
                 ),
               ],
             ),

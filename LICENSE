@@ -1,0 +1,42 @@
+MIT License
+
+Copyright (c) 2026 Volodymyr Zadorozhnyi
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+ЛИЦЕНЗИЯ НА КОНТЕНТ
+
+Код в этом репозитории распространяется по лицензии MIT (выше).
+
+Учебный контент — всё, что лежит в каталоге `content/`, и собранные из него
+`assets/content/*.db` — распространяется отдельно, по лицензии
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0):
+
+    https://creativecommons.org/licenses/by-sa/4.0/
+
+Почему по-разному. Код может пригодиться кому угодно и в любом виде, включая
+закрытый продукт, — от этого проект ничего не теряет. А вычитанный контент
+стоит дороже кода и создаётся сообществом: ShareAlike гарантирует, что
+улучшения к нему вернутся, а не уйдут в чужой закрытый словарь.
+
+Озвучка в `assets/audio/` синтезирована системным TTS и не является
+результатом творческого труда; на неё распространяются условия использования
+соответствующего голосового движка.
