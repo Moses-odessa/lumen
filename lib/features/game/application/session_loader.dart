@@ -177,6 +177,15 @@ final sessionLoaderProvider = Provider<SessionLoader>((ref) {
   final player = ref.watch(playerControllerProvider);
   final content = ref.watch(currentContentDatabaseProvider);
 
+  // Ярус урезается до запущенного, даже если в базе игрока записан выше.
+  //
+  // Это последняя линия обороны, а не единственная: калибровка тоже не
+  // должна поднимать выше потолка. Но записи уже могут лежать на
+  // устройствах, а невычитанный ярус — это ещё и ярус без озвучки, и
+  // выглядит он для игрока не как «контент не готов», а как «звук сломался».
+  final maxTier = ref.watch(maxTierProvider);
+  final tier = player?.tier ?? Tier.a0;
+
   return SessionLoader(
     words: ref.watch(wordStateRepositoryProvider),
     builder: QuestionBuilder(
@@ -184,7 +193,7 @@ final sessionLoaderProvider = Provider<SessionLoader>((ref) {
       targetLang: player?.targetLang ?? defaultTargetLang,
       nativeLang: player?.nativeLang ?? defaultNativeLang,
     ),
-    tier: player?.tier ?? Tier.a0,
+    tier: tier.atMost(maxTier),
     freePace: player?.freePace ?? false,
     capabilities: SessionCapabilities(
       audioEnabled: player?.soundEnabled ?? true,

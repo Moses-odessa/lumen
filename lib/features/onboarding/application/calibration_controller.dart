@@ -188,7 +188,12 @@ class CalibrationController extends Notifier<CalibrationUiState> {
   /// повторений. Игрок видит небо, где часть звёзд уже горит, а планировщик
   /// с первого дня работает с реальным словарём человека.
   Future<void> _finish(CalibrationState calibration) async {
-    final tier = calibration.result ?? Tier.a0;
+    // Замеренный ярус может оказаться выше запущенного: гребёнка нарочно
+    // спрашивает выше текущего уровня, иначе не найдёт потолок. Но выдать
+    // игроку ярус, который не вычитан и не озвучен, нельзя — правило
+    // «ярус не запускается без вычитки» касается и калибровки.
+    final measured = calibration.result ?? Tier.a0;
+    final tier = measured.atMost(ref.read(maxTierProvider));
 
     try {
       await ref.read(wordStateRepositoryProvider).seed(
