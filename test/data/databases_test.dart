@@ -7,6 +7,7 @@ import 'package:lumen/data/content/content_database.dart';
 import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/domain/entities/player.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scoring/balance.dart';
 
 /// Критерий приёмки M0: обе базы открываются. Проверяется на настоящем
 /// ассете `assets/content/de.db` и на настоящей Drift-схеме `user.db`, а не
@@ -105,11 +106,20 @@ void main() {
       // Метки времени в метаданных нет намеренно: сборка воспроизводима.
       expect(meta.containsKey('built_at'), isFalse);
       expect(meta['source_hash'], isNotEmpty);
+      // Запущен только вычитанный ярус: играть по черновому контенту нельзя.
+      expect(await db.launchedTiers(), {Tier.a0});
 
-      // Созвездие «У врача» написано целиком на A0 — 12 звёзд по балансу.
-      expect(await db.countConcepts(), 12);
-      final onA0 = await db.conceptsFor('doctor', Tier.a0);
-      expect(onA0.length, 12);
+      // Созвездие «У врача» написано целиком на всех пяти ярусах: размеры
+      // накопительные, 12 / 24 / 48 / 72 / 96 (docs/CONCEPT.md).
+      expect(await db.countConcepts(),
+          ProgressionBalance.starsPerConstellation(Tier.b2));
+      for (final tier in Tier.values) {
+        expect(
+          (await db.conceptsFor('doctor', tier)).length,
+          ProgressionBalance.starsPerConstellation(tier),
+          reason: 'ярус ${tier.label}',
+        );
+      }
 
       // Файл действительно лёг в support-директорию.
       expect(File('${support.path}/content/de.db').existsSync(), isTrue);
@@ -148,7 +158,7 @@ void main() {
 
       final second = ContentDatabase.forLanguage('de');
       addTearDown(second.close);
-      expect(await second.countConcepts(), 12);
+      expect(await second.countConcepts(), greaterThan(0));
       expect(file.lastModifiedSync(), stamp);
     });
   });

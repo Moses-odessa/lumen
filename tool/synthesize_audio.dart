@@ -30,7 +30,10 @@ Future<void> main(List<String> args) async {
 
   final ContentSources sources;
   try {
-    sources = ContentSources.load(Directory('${root.path}/content'));
+    sources = ContentSources.load(
+      Directory('${root.path}/content'),
+      lang: lang,
+    );
   } on ContentSourceException catch (e) {
     stderr.writeln('Ошибка в исходниках: ${e.message}');
     exitCode = 1;
@@ -118,11 +121,19 @@ Future<void> main(List<String> args) async {
 ///
 /// Подсказки на родном языке не озвучиваются — игрок и так их читает, а
 /// вес и время синтеза растут вдвое.
+///
+/// Незапущенные ярусы тоже пропускаются: их контент ещё не вычитан, и
+/// синтезировать его — значит класть в репозиторий мегабайты, которые
+/// придётся пересинтезировать после первой же правки.
 List<SpeechItem> _collectItems(ContentSources sources, String lang) {
   final items = <SpeechItem>[];
 
+  bool launched(String? tier) =>
+      tier != null && sources.launch.isLaunched(tier);
+
   final lexemes = sources.lexemes[lang]?.values ?? const <LexemeSource>[];
   for (final lexeme in lexemes) {
+    if (!launched(sources.concepts[lexeme.conceptId]?.tier)) continue;
     items.add(SpeechItem(
       audioId: audioIdFor(lang, lexeme.form),
       // Артикль произносится вместе со словом: в немецком род — часть слова,
@@ -134,6 +145,7 @@ List<SpeechItem> _collectItems(ContentSources sources, String lang) {
   }
 
   for (final phrase in sources.phrases) {
+    if (!launched(phrase.tier)) continue;
     items.add(SpeechItem(
       audioId: audioIdForPhrase(lang, phrase.id),
       text: phraseSpeech(phrase.template, phrase.answer),

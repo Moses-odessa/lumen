@@ -15,7 +15,10 @@ Future<void> main(List<String> args) async {
 
   final ContentSources sources;
   try {
-    sources = ContentSources.load(Directory('${root.path}/content'));
+    sources = ContentSources.load(
+      Directory('${root.path}/content'),
+      lang: lang,
+    );
   } on ContentSourceException catch (e) {
     stderr.writeln('✗ исходники: ${e.message}');
     exitCode = 1;
@@ -24,6 +27,17 @@ Future<void> main(List<String> args) async {
 
   final report = _Report();
 
+  final launched = sources.launch.launched;
+  if (launched.isEmpty) {
+    report.pending(
+      'в content/launch.yaml не объявлен ни один запущенный ярус для $lang — '
+      'проверяется только структура',
+    );
+  } else {
+    stdout.writeln('Запущенные ярусы $lang: ${launched.join(', ')}');
+  }
+
+  _checkLaunchPolicy(sources, report);
   _checkLexemeCoverage(sources, report);
   _checkOrphanLexemes(sources, report);
   _checkDistractors(sources, lang, report);
@@ -111,9 +125,9 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
 /// три вещи: общее начало, общее окончание и расстояние Левенштейна.
 ///
 /// Окончание здесь не менее важно, чем начало: в немецком созвучие часто идёт
-/// по суффиксу (Medikament / Instrument, Apotheke / Bibliothek,
-/// Krankenhaus / Kaufhaus), и проверка только по префиксу такие пары
-/// отбрасывает зря. Всё сомнительное выводится списком на ручную проверку,
+/// по суффиксу — и по короткому. Три буквы, а не четыре, потому что рифму
+/// дают именно трёхбуквенные окончания: Diagnose / Narkose, Temperatur /
+/// Struktur, Impfung / Umformung. Всё сомнительное выводится списком на ручную проверку,
 /// а не молча пропускается.
 void _checkNearSoundalike(ContentSources sources, String lang, _Report report) {
   final byConcept = sources.lexemes[lang];
@@ -127,7 +141,7 @@ void _checkNearSoundalike(ContentSources sources, String lang, _Report report) {
       final sharedSuffix = _commonSuffix(a, b);
       final distance = _levenshtein(a, b);
       final looksClose = sharedPrefix >= 3 ||
-          sharedSuffix >= 4 ||
+          sharedSuffix >= 3 ||
           distance <= 2 ||
           distance <= (a.length / 3).ceil();
       if (!looksClose) {
@@ -164,10 +178,16 @@ void _checkConstellationSizes(ContentSources sources, _Report report) {
       }
       cumulative += added;
       final expected = starsPerTier[tier]!;
-      if (cumulative != expected) {
-        report.error(
-          'созвездие $name, ярус $tier: $cumulative звёзд, ожидается $expected',
-        );
+      if (cumulative == expected) continue;
+
+      final message =
+          'созвездие $name, ярус $tier: $cumulative звёзд, ожидается $expected';
+      // С незапущенного яруса полноты не требуем: он пишется постепенно и
+      // блокировать им мерж бессмысленно.
+      if (sources.launch.isLaunched(tier)) {
+        report.error(message);
+      } else {
+        report.pending('$message (ярус не запущен)');
       }
     }
   }
@@ -218,17 +238,36 @@ void _checkPhrases(ContentSources sources, _Report report) {
 void _checkCalibration(ContentSources sources, String lang, _Report report) {
   final items = sources.calibration[lang];
   if (items == null || items.isEmpty) {
+    // Считаем, из чего вообще можно собрать набор: 30 позиций на ярус
+    // требуют примерно трёх созвездий, одного не хватает физически.
+    final possible = <String, int>{};
+    for (final c in sources.concepts.values) {
+      possible[c.tier] = (possible[c.tier] ?? 0) + 1;
+    }
+    final shortage = sources.launch.launched
+        .where((t) => (possible[t] ?? 0) < 30)
+        .map((t) => '$t: ${possible[t] ?? 0} концептов')
+        .toList();
+
     report.pending(
-      'набор калибровки для $lang не написан — калибровка приходит на M3, '
-      'контент к ней на M4',
+      shortage.isEmpty
+          ? 'набор калибровки для $lang не написан'
+          : 'набор калибровки для $lang не написан: на запущенных ярусах '
+              'не хватает материала (${shortage.join(', ')}) — нужно '
+              'минимум три созвездия на ярус',
     );
     return;
   }
 
   for (final tier in tiers) {
     final count = items.where((i) => i.tier == tier).length;
-    if (count < 30) {
-      report.error('калибровка $lang, ярус $tier: $count позиций из 30');
+    if (count >= 30) continue;
+
+    final message = 'калибровка $lang, ярус $tier: $count позиций из 30';
+    if (sources.launch.isLaunched(tier)) {
+      report.error(message);
+    } else {
+      report.pending('$message (ярус не запущен)');
     }
   }
   for (final item in items) {
@@ -281,19 +320,55 @@ void _checkAudio(
   }
 
   final missing = <String>[];
+  final missingDraft = <String>[];
+
   for (final lex in sources.lexemes[lang]?.values ?? const <LexemeSource>[]) {
-    if (!present(audioIdFor(lang, lex.form))) missing.add(lex.form);
+    if (present(audioIdFor(lang, lex.form))) continue;
+    final tier = sources.concepts[lex.conceptId]?.tier;
+    (tier != null && sources.launch.isLaunched(tier) ? missing : missingDraft)
+        .add(lex.form);
   }
   for (final phrase in sources.phrases) {
-    if (!present(audioIdForPhrase(lang, phrase.id))) missing.add(phrase.id);
+    if (present(audioIdForPhrase(lang, phrase.id))) continue;
+    (sources.launch.isLaunched(phrase.tier) ? missing : missingDraft)
+        .add(phrase.id);
   }
 
   if (missing.isNotEmpty) {
     // Концепт без озвучки не проходит валидацию: звук верного ответа — часть
     // ядра игры, а не украшение.
     report.error(
-      'нет озвучки для ${missing.length} позиций (${_head(missing)})',
+      'нет озвучки для ${missing.length} позиций запущенных ярусов '
+      '(${_head(missing)})',
     );
+  }
+  if (missingDraft.isNotEmpty) {
+    report.pending(
+      'нет озвучки для ${missingDraft.length} позиций незапущенных ярусов',
+    );
+  }
+}
+
+/// Ярус не может быть одновременно запущенным и черновым, а запущенный
+/// обязан иметь хоть какой-то контент.
+void _checkLaunchPolicy(ContentSources sources, _Report report) {
+  final both = sources.launch.launched.intersection(sources.launch.drafted);
+  if (both.isNotEmpty) {
+    report.error(
+      'ярусы ${both.join(', ')} помечены и запущенными, и черновыми',
+    );
+  }
+
+  for (final tier in sources.launch.launched) {
+    if (!tiers.contains(tier)) {
+      report.error('в launch.yaml неизвестный ярус "$tier"');
+      continue;
+    }
+    final hasContent =
+        sources.concepts.values.any((c) => c.tier == tier);
+    if (!hasContent) {
+      report.error('ярус $tier запущен, но контента на нём нет');
+    }
   }
 }
 

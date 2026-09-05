@@ -1,9 +1,15 @@
-# Созвездие «У врача». Ярусы задают, какие концепты добавляются на каком
-# уровне; размер накопительный — 12 / 24 / 48 / 72 / 96 звёзд.
+# Созвездие «У врача» — эталонное. Написано целиком на всех пяти ярусах,
+# чтобы измерить реальную цену контента и умножить на 30 (PLAN.md, M4).
 #
-# TODO(data): написан только ярус A0 (12 звёзд) — этого достаточно, чтобы
-# собрать content.db и запустить ядро игры на M1. Ярусы A1–B2 приходят на M4
-# вместе с частотными списками и профилями Goethe/ÖSD.
+# Размеры накопительные: 12 / 24 / 48 / 72 / 96 звёзд.
+#
+# TODO(data): вычитан носителем только ярус A0 (см. content/launch.yaml).
+# Ярусы A1–B2 написаны, но до вычитки не запускаются — правило «лучше меньше
+# ярусов, чем плохие» из docs/CONTENT_PIPELINE.md.
+#
+# Источники: Goethe/ÖSD Wortlisten A1–B1 для ярусов A0–A2, частотные списки
+# по субтитрам для freq_rank, немецкая медицинско-страховая терминология
+# (Krankenkasse, Widerspruch, Zuzahlung) для B1–B2.
 constellation: doctor
 tiers:
   a0:
@@ -41,3 +47,323 @@ tiers:
         answer: Termin
         register: formal
         concepts: [appointment_noun]
+
+  a1:
+    concepts:
+      - { id: tooth_body, pos: noun, freq_rank: 2890 }
+      - { id: back_body, pos: noun, freq_rank: 1730 }
+      - { id: leg_body, pos: noun, freq_rank: 1210 }
+      - { id: throat_body, pos: noun, freq_rank: 1560 }
+      - { id: cough_noun, pos: noun, freq_rank: 4120 }
+      - { id: cold_illness, pos: noun, freq_rank: 4560 }
+      - { id: prescription_noun, pos: noun, freq_rank: 3620 }
+      - { id: nurse_person, pos: noun, freq_rank: 3890 }
+      - { id: waiting_room, pos: noun, freq_rank: 5210 }
+      - { id: insurance_card, pos: noun, freq_rank: 6740 }
+      - { id: healthy_adj, pos: adj, freq_rank: 2210 }
+      - { id: temperature_noun, pos: noun, freq_rank: 3040 }
+    phrases:
+      - id: doctor_a1_prescription
+        template: "Brauche ich ein {prescription}?"
+        answer: Rezept
+        register: formal
+        concepts: [prescription_noun]
+      - id: doctor_a1_throat
+        template: "Mein {throat} tut weh."
+        answer: Hals
+        register: casual
+        concepts: [throat_body]
+      - id: doctor_a1_card
+        template: "Hier ist meine {card}."
+        answer: Versichertenkarte
+        register: formal
+        concepts: [insurance_card]
+      - id: doctor_a1_cough
+        template: "Ich habe seit drei Tagen {cough}."
+        answer: Husten
+        register: casual
+        concepts: [cough_noun]
+      - id: doctor_a1_healthy
+        template: "Ich bin wieder {healthy}."
+        answer: gesund
+        register: casual
+        concepts: [healthy_adj]
+      - id: doctor_a1_waiting
+        template: "Bitte warten Sie im {room}."
+        answer: Wartezimmer
+        register: formal
+        concepts: [waiting_room]
+      - id: doctor_a1_temperature
+        template: "Haben Sie {temperature} gemessen?"
+        answer: Temperatur
+        register: formal
+        concepts: [temperature_noun]
+      - id: doctor_a1_tooth
+        template: "Der {tooth} tut seit gestern weh."
+        answer: Zahn
+        register: casual
+        concepts: [tooth_body]
+
+  a2:
+    concepts:
+      - { id: sick_note, pos: noun, freq_rank: 7120 }
+      - { id: dosage_noun, pos: noun, freq_rank: 8340 }
+      - { id: side_effect, pos: noun, freq_rank: 6980 }
+      - { id: allergy_noun, pos: noun, freq_rank: 5870 }
+      - { id: blood_noun, pos: noun, freq_rank: 1890 }
+      - { id: plaster_noun, pos: noun, freq_rank: 7650 }
+      - { id: ointment_noun, pos: noun, freq_rank: 8210 }
+      - { id: tablet_noun, pos: noun, freq_rank: 4780 }
+      - { id: injection_noun, pos: noun, freq_rank: 5340 }
+      - { id: vaccination_noun, pos: noun, freq_rank: 6120 }
+      - { id: emergency_noun, pos: noun, freq_rank: 3410 }
+      - { id: ambulance_noun, pos: noun, freq_rank: 4930 }
+      - { id: surgery_place, pos: noun, freq_rank: 2670 }
+      - { id: dentist_person, pos: noun, freq_rank: 5010 }
+      - { id: examination_noun, pos: noun, freq_rank: 3280 }
+      - { id: treatment_noun, pos: noun, freq_rank: 3760 }
+      - { id: painkiller_noun, pos: noun, freq_rank: 7890 }
+      - { id: flu_illness, pos: noun, freq_rank: 5620 }
+      - { id: wound_noun, pos: noun, freq_rank: 3920 }
+      - { id: dizzy_adj, pos: adj, freq_rank: 8760 }
+      - { id: breath_noun, pos: noun, freq_rank: 4310 }
+      - { id: heart_body, pos: noun, freq_rank: 980 }
+      - { id: stomach_organ, pos: noun, freq_rank: 4650 }
+      - { id: skin_body, pos: noun, freq_rank: 2540 }
+    phrases:
+      - id: doctor_a2_sicknote
+        template: "Ich brauche eine {note} für den Arbeitgeber."
+        answer: Krankmeldung
+        register: formal
+        concepts: [sick_note]
+      - id: doctor_a2_allergy
+        template: "Ich habe eine {allergy} gegen Penicillin."
+        answer: Allergie
+        register: formal
+        concepts: [allergy_noun]
+      - id: doctor_a2_dosage
+        template: "Wie hoch ist die {dosage}?"
+        answer: Dosis
+        register: formal
+        concepts: [dosage_noun]
+      - id: doctor_a2_emergency
+        template: "Das ist ein {emergency}."
+        answer: Notfall
+        register: formal
+        concepts: [emergency_noun]
+      - id: doctor_a2_appointment
+        template: "Ich möchte einen Termin in Ihrer {practice}."
+        answer: Praxis
+        register: formal
+        concepts: [surgery_place]
+      - id: doctor_a2_sideeffect
+        template: "Welche {effect} hat das Medikament?"
+        answer: Nebenwirkungen
+        register: formal
+        concepts: [side_effect]
+      - id: doctor_a2_wound
+        template: "Die {wound} muss sauber bleiben."
+        answer: Wunde
+        register: formal
+        concepts: [wound_noun]
+      - id: doctor_a2_blood
+        template: "Wir nehmen Ihnen {blood} ab."
+        answer: Blut
+        register: formal
+        concepts: [blood_noun]
+      - id: doctor_a2_dizzy
+        template: "Mir ist seit heute Morgen {dizzy}."
+        answer: schwindelig
+        register: casual
+        concepts: [dizzy_adj]
+      - id: doctor_a2_vaccination
+        template: "Ist die {vaccination} noch gültig?"
+        answer: Impfung
+        register: formal
+        concepts: [vaccination_noun]
+      - id: doctor_a2_tablet
+        template: "Nehmen Sie eine {tablet} nach dem Essen."
+        answer: Tablette
+        register: formal
+        concepts: [tablet_noun]
+      - id: doctor_a2_heart
+        template: "Mein {heart} schlägt zu schnell."
+        answer: Herz
+        register: casual
+        concepts: [heart_body]
+
+  b1:
+    concepts:
+      - { id: cost_coverage, pos: noun, freq_rank: 11200 }
+      - { id: referral_noun, pos: noun, freq_rank: 9840 }
+      - { id: lab_result, pos: noun, freq_rank: 12100 }
+      - { id: diagnosis_noun, pos: noun, freq_rank: 6430 }
+      - { id: therapy_noun, pos: noun, freq_rank: 5180 }
+      - { id: specialist_person, pos: noun, freq_rank: 7340 }
+      - { id: health_insurance, pos: noun, freq_rank: 6890 }
+      - { id: medical_report, pos: noun, freq_rank: 10400 }
+      - { id: chronic_adj, pos: adj, freq_rank: 8930 }
+      - { id: inflammation_noun, pos: noun, freq_rank: 7810 }
+      - { id: infection_noun, pos: noun, freq_rank: 5960 }
+      - { id: antibiotic_noun, pos: noun, freq_rank: 8450 }
+      - { id: blood_pressure, pos: noun, freq_rank: 7020 }
+      - { id: blood_draw, pos: noun, freq_rank: 11800 }
+      - { id: ultrasound_noun, pos: noun, freq_rank: 9210 }
+      - { id: xray_noun, pos: noun, freq_rank: 8670 }
+      - { id: operation_noun, pos: noun, freq_rank: 4520 }
+      - { id: anesthesia_noun, pos: noun, freq_rank: 9530 }
+      - { id: rehab_noun, pos: noun, freq_rank: 10100 }
+      - { id: physiotherapy_noun, pos: noun, freq_rank: 10700 }
+      - { id: symptom_noun, pos: noun, freq_rank: 6210 }
+      - { id: complaints_noun, pos: noun, freq_rank: 7480 }
+      - { id: medical_history, pos: noun, freq_rank: 11500 }
+      - { id: discharge_noun, pos: noun, freq_rank: 9070 }
+    phrases:
+      - id: doctor_b1_referral
+        template: "Ich brauche eine {referral} zum Facharzt."
+        answer: Überweisung
+        register: formal
+        concepts: [referral_noun]
+      - id: doctor_b1_coverage
+        template: "Übernimmt die Kasse die {coverage}?"
+        answer: Kosten
+        register: formal
+        concepts: [cost_coverage]
+      - id: doctor_b1_diagnosis
+        template: "Wie lautet die {diagnosis}?"
+        answer: Diagnose
+        register: formal
+        concepts: [diagnosis_noun]
+      - id: doctor_b1_pressure
+        template: "Ihr {pressure} ist zu hoch."
+        answer: Blutdruck
+        register: formal
+        concepts: [blood_pressure]
+      - id: doctor_b1_infection
+        template: "Es handelt sich um eine bakterielle {infection}."
+        answer: Infektion
+        register: formal
+        concepts: [infection_noun]
+      - id: doctor_b1_report
+        template: "Schicken Sie mir bitte den {report} zu."
+        answer: Arztbericht
+        register: formal
+        concepts: [medical_report]
+      - id: doctor_b1_chronic
+        template: "Die Erkrankung ist {chronic}."
+        answer: chronisch
+        register: formal
+        concepts: [chronic_adj]
+      - id: doctor_b1_operation
+        template: "Die {operation} dauert etwa zwei Stunden."
+        answer: Operation
+        register: formal
+        concepts: [operation_noun]
+      - id: doctor_b1_symptom
+        template: "Seit wann haben Sie dieses {symptom}?"
+        answer: Symptom
+        register: formal
+        concepts: [symptom_noun]
+      - id: doctor_b1_discharge
+        template: "Die {discharge} ist für Freitag geplant."
+        answer: Entlassung
+        register: formal
+        concepts: [discharge_noun]
+      - id: doctor_b1_lab
+        template: "Der {result} liegt noch nicht vor."
+        answer: Laborbefund
+        register: formal
+        concepts: [lab_result]
+      - id: doctor_b1_rehab
+        template: "Nach der Operation folgt die {rehab}."
+        answer: Reha
+        register: formal
+        concepts: [rehab_noun]
+
+  b2:
+    concepts:
+      - { id: copayment_noun, pos: noun, freq_rank: 14200 }
+      - { id: objection_noun, pos: noun, freq_rank: 9640 }
+      - { id: findings_report, pos: noun, freq_rank: 13800 }
+      - { id: reimbursement_noun, pos: noun, freq_rank: 12400 }
+      - { id: supplementary_insurance, pos: noun, freq_rank: 15100 }
+      - { id: contribution_noun, pos: noun, freq_rank: 6120 }
+      - { id: certificate_noun, pos: noun, freq_rank: 10900 }
+      - { id: incapacity_noun, pos: noun, freq_rank: 14800 }
+      - { id: expert_opinion, pos: noun, freq_rank: 9380 }
+      - { id: consent_noun, pos: noun, freq_rank: 11300 }
+      - { id: liability_noun, pos: noun, freq_rank: 10200 }
+      - { id: malpractice_noun, pos: noun, freq_rank: 16400 }
+      - { id: prognosis_noun, pos: noun, freq_rank: 10600 }
+      - { id: contraindication_noun, pos: noun, freq_rank: 17200 }
+      - { id: interaction_noun, pos: noun, freq_rank: 13100 }
+      - { id: dosage_form, pos: noun, freq_rank: 18000 }
+      - { id: prescription_only, pos: adj, freq_rank: 15600 }
+      - { id: outpatient_adj, pos: adj, freq_rank: 12800 }
+      - { id: inpatient_adj, pos: adj, freq_rank: 12900 }
+      - { id: patient_file, pos: noun, freq_rank: 13500 }
+      - { id: data_protection, pos: noun, freq_rank: 8240 }
+      - { id: second_opinion, pos: noun, freq_rank: 14600 }
+      - { id: waiting_period, pos: noun, freq_rank: 11700 }
+      - { id: cost_estimate, pos: noun, freq_rank: 13200 }
+    phrases:
+      - id: doctor_b2_objection
+        template: "Ich lege gegen den Bescheid {objection} ein."
+        answer: Widerspruch
+        register: formal
+        concepts: [objection_noun]
+      - id: doctor_b2_copayment
+        template: "Wie hoch ist die {copayment}?"
+        answer: Zuzahlung
+        register: formal
+        concepts: [copayment_noun]
+      - id: doctor_b2_secondopinion
+        template: "Ich möchte eine {opinion} einholen."
+        answer: Zweitmeinung
+        register: formal
+        concepts: [second_opinion]
+      - id: doctor_b2_outpatient
+        template: "Der Eingriff erfolgt {outpatient}."
+        answer: ambulant
+        register: formal
+        concepts: [outpatient_adj]
+      - id: doctor_b2_consent
+        template: "Bitte unterschreiben Sie die {consent}."
+        answer: Einwilligung
+        register: formal
+        concepts: [consent_noun]
+      - id: doctor_b2_reimbursement
+        template: "Die {reimbursement} dauert bis zu vier Wochen."
+        answer: Erstattung
+        register: formal
+        concepts: [reimbursement_noun]
+      - id: doctor_b2_interaction
+        template: "Es gibt eine {interaction} mit Ihrem Blutdruckmittel."
+        answer: Wechselwirkung
+        register: formal
+        concepts: [interaction_noun]
+      - id: doctor_b2_incapacity
+        template: "Die {incapacity} gilt bis zum Monatsende."
+        answer: Arbeitsunfähigkeit
+        register: formal
+        concepts: [incapacity_noun]
+      - id: doctor_b2_estimate
+        template: "Bitte erstellen Sie einen {estimate}."
+        answer: Kostenvoranschlag
+        register: formal
+        concepts: [cost_estimate]
+      - id: doctor_b2_opinion
+        template: "Das {opinion} liegt der Kasse bereits vor."
+        answer: Gutachten
+        register: formal
+        concepts: [expert_opinion]
+      - id: doctor_b2_privacy
+        template: "Der {protection} verbietet die Weitergabe."
+        answer: Datenschutz
+        register: formal
+        concepts: [data_protection]
+      - id: doctor_b2_file
+        template: "Ich beantrage Einsicht in meine {file}."
+        answer: Patientenakte
+        register: formal
+        concepts: [patient_file]

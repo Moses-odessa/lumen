@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/app_router.dart';
+import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../domain/entities/player.dart';
 import '../../../domain/entities/tier.dart';
@@ -118,15 +119,16 @@ Future<void> _setPace(
 ///
 /// Запертого уровня в игре нет: результат калибровки — предложение, а не
 /// приговор, и сменить ярус можно в любой момент без объяснений.
-class _TierTile extends StatelessWidget {
+class _TierTile extends ConsumerWidget {
   const _TierTile({required this.player, required this.controller});
 
   final Player player;
   final PlayerController controller;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final maxTier = ref.watch(maxTierProvider);
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
@@ -157,7 +159,12 @@ class _TierTile extends StatelessWidget {
             child: SegmentedButton<Tier>(
               segments: [
                 for (final tier in Tier.values)
-                  ButtonSegment(value: tier, label: Text(tier.label)),
+                  ButtonSegment(
+                    value: tier,
+                    label: Text(tier.label),
+                    // Выше вычитанного играть нельзя: контент там черновой.
+                    enabled: tier.index <= maxTier.index,
+                  ),
               ],
               selected: {player.tier},
               showSelectedIcon: false,
@@ -165,6 +172,17 @@ class _TierTile extends StatelessWidget {
                   controller.setTier(selection.first),
             ),
           ),
+          if (maxTier != Tier.b2)
+            Padding(
+              padding: const EdgeInsets.only(left: 40, top: 8),
+              child: Text(
+                'Ярусы выше ${maxTier.label} ещё не вычитаны носителем и '
+                'поэтому недоступны.',
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ),
         ],
       ),
     );

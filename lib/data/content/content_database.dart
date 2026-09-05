@@ -141,6 +141,18 @@ class ContentDatabase extends _$ContentDatabase {
         ),
       );
 
+  /// Ярусы, вычитанные и разрешённые к игре.
+  ///
+  /// Правило «язык не запускается, пока его ярусы не вычитаны человеком»
+  /// действует и в рантайме: приложение не предлагает подняться туда, где
+  /// контент ещё черновой. Пустой список означает старую сборку без этого
+  /// поля — тогда разрешаем всё, иначе обновление ассета сломало бы игру.
+  Future<Set<Tier>> launchedTiers() async {
+    final raw = (await loadMeta())['launched_tiers'];
+    if (raw == null || raw.isEmpty) return Tier.values.toSet();
+    return raw.split(',').map(Tier.fromCode).toSet();
+  }
+
   /// Значения из таблицы метаданных сборки.
   Future<Map<String, String>> loadMeta() async {
     final rows = await select(contentMeta).get();

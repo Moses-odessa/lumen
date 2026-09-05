@@ -101,6 +101,37 @@ class CalibrationItemSource {
   final String? phraseId;
 }
 
+/// Какие ярусы языка запущены, а какие только написаны.
+///
+/// Машинная форма правила «язык не запускается, пока его ярусы не вычитаны
+/// человеком»: валидатор требует полноты только от запущенных ярусов.
+class LaunchPolicy {
+  const LaunchPolicy({this.launched = const {}, this.drafted = const {}});
+
+  final Set<String> launched;
+  final Set<String> drafted;
+
+  bool isLaunched(String tier) => launched.contains(tier);
+
+  /// Ярус написан, но не вычитан: структуру проверяем, полноту — нет.
+  bool isDrafted(String tier) => drafted.contains(tier);
+
+  static LaunchPolicy read(File file, String lang) {
+    if (!file.existsSync()) return const LaunchPolicy();
+    final doc = loadYaml(file.readAsStringSync());
+    if (doc is! YamlMap) return const LaunchPolicy();
+    final byLang = doc[lang];
+    if (byLang is! YamlMap) return const LaunchPolicy();
+
+    Set<String> read(String key) {
+      final node = byLang[key];
+      return node is YamlList ? {for (final e in node) '$e'} : <String>{};
+    }
+
+    return LaunchPolicy(launched: read('launched'), drafted: read('drafted'));
+  }
+}
+
 /// Всё, что прочитано из `content/`.
 class ContentSources {
   ContentSources({
@@ -110,7 +141,11 @@ class ContentSources {
     required this.phrases,
     required this.calibration,
     required this.hash,
+    this.launch = const LaunchPolicy(),
   });
+
+  /// Политика запуска ярусов.
+  final LaunchPolicy launch;
 
   /// Хеш всех прочитанных файлов: попадает в `content_meta.source_hash` и
   /// позволяет по собранному ассету понять, из чего он собран, не полагаясь
@@ -131,7 +166,7 @@ class ContentSources {
   /// Набор калибровки по языку изучения.
   final Map<String, List<CalibrationItemSource>> calibration;
 
-  static ContentSources load(Directory root) {
+  static ContentSources load(Directory root, {String lang = targetLang}) {
     if (!root.existsSync()) {
       throw ContentSourceException(
         'нет каталога исходников ${root.path} — см. docs/CONTENT_PIPELINE.md',
@@ -183,10 +218,12 @@ class ContentSources {
       lexemes: lexemes,
       phrases: phrases,
       calibration: calibration,
+      launch: LaunchPolicy.read(File('${root.path}/launch.yaml'), lang),
       hash: _hashOf([
         ...constellationFiles,
         ...langFiles,
         ...calibrationFiles,
+        File('${root.path}/launch.yaml'),
       ]),
     );
   }
@@ -209,6 +246,7 @@ class ContentSources {
     // памяти дешевле, чем возиться с потоковым хешированием.
     final buffer = BytesBuilder(copy: false);
     for (final file in files) {
+      if (!file.existsSync()) continue;
       buffer.add(utf8.encode(file.uri.pathSegments.last));
       buffer.add(file.readAsBytesSync());
     }

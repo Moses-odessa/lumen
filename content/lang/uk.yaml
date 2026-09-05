@@ -1,14 +1,18 @@
-# Українські лексеми — мова підказок. Напрямок «українська → німецька» у
-# великих застосунків просто відсутній, тому вона в проєкті з першого дня.
+# Українські лексеми — мова підказок.
+#
+# Напрямок «українська → німецька» у великих застосунків просто відсутній,
+# тому вона в проєкті з першого дня. Дистрактори задані лише для A0 — див.
+# пояснення у ru.yaml.
 lang: uk
 lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:
     form: лікар
     gender: m
     plural: лікарі
     distractors:
       far: [зуб, догляд]
-      near: [лікарня, лікарство, лікоть]
+      near: [лікарня, лікоть, ліки]
   pain_noun:
     form: біль
     gender: m
@@ -20,7 +24,7 @@ lexemes:
     gender: f
     distractors:
       far: [догляд, виклик]
-      near: [допомогти, домовина, підмога]
+      near: [допомогти, підмога, домовина]
   head_body:
     form: голова
     gender: f
@@ -68,7 +72,7 @@ lexemes:
     plural: лікарні
     distractors:
       far: [прийом, швидка]
-      near: [лікар, лікарський, книгарня]
+      near: [лікарський, книгарня, пекарня]
   sick_adj:
     form: хворий
     note: прикметник
@@ -82,3 +86,95 @@ lexemes:
     distractors:
       far: [рецепт, прийом]
       near: [записка, записати, припис]
+
+  # ── A1 ────────────────────────────────────────────────────────────────
+  tooth_body: { form: зуб, gender: m, plural: зуби }
+  back_body: { form: спина, gender: f, plural: спини }
+  leg_body: { form: нога, gender: f, plural: ноги }
+  throat_body: { form: горло, gender: n, plural: горла }
+  cough_noun: { form: кашель, gender: m }
+  cold_illness: { form: застуда, gender: f, plural: застуди }
+  prescription_noun: { form: рецепт, gender: m, plural: рецепти }
+  nurse_person: { form: медсестра, gender: f, plural: медсестри }
+  waiting_room: { form: приймальня, gender: f }
+  insurance_card: { form: страхова картка, gender: f }
+  healthy_adj: { form: здоровий, note: прикметник }
+  temperature_noun: { form: температура, gender: f }
+
+  # ── A2 ────────────────────────────────────────────────────────────────
+  sick_note: { form: лікарняний лист, gender: m }
+  dosage_noun: { form: доза, gender: f, plural: дози }
+  side_effect: { form: побічна дія, gender: f }
+  allergy_noun: { form: алергія, gender: f }
+  blood_noun: { form: кров, gender: f }
+  plaster_noun: { form: пластир, gender: m, plural: пластирі }
+  ointment_noun: { form: мазь, gender: f, plural: мазі }
+  tablet_noun: { form: таблетка, gender: f, plural: таблетки }
+  injection_noun: { form: укол, gender: m, plural: уколи }
+  vaccination_noun: { form: щеплення, gender: n }
+  emergency_noun: { form: невідкладний випадок, gender: m }
+  ambulance_noun: { form: швидка допомога, gender: f }
+  surgery_place: { form: лікарська практика, gender: f }
+  dentist_person: { form: стоматолог, gender: m, plural: стоматологи }
+  examination_noun: { form: обстеження, gender: n }
+  treatment_noun: { form: лікування, gender: n }
+  painkiller_noun: { form: знеболювальне, gender: n }
+  flu_illness: { form: грип, gender: m }
+  wound_noun: { form: рана, gender: f, plural: рани }
+  dizzy_adj: { form: запаморочення, note: «мені паморочиться» }
+  breath_noun: { form: дихання, gender: n }
+  heart_body: { form: серце, gender: n, plural: серця }
+  stomach_organ: { form: шлунок, gender: m, plural: шлунки }
+  skin_body: { form: шкіра, gender: f }
+
+  # ── B1 ────────────────────────────────────────────────────────────────
+  cost_coverage: { form: покриття витрат, gender: n }
+  referral_noun: { form: направлення, gender: n }
+  lab_result: { form: результат аналізів, gender: m }
+  diagnosis_noun: { form: діагноз, gender: m, plural: діагнози }
+  therapy_noun: { form: терапія, gender: f }
+  specialist_person: { form: профільний лікар, gender: m }
+  health_insurance: { form: лікарняна каса, gender: f }
+  medical_report: { form: висновок лікаря, gender: m }
+  chronic_adj: { form: хронічний, note: прикметник }
+  inflammation_noun: { form: запалення, gender: n }
+  infection_noun: { form: інфекція, gender: f }
+  antibiotic_noun: { form: антибіотик, gender: m, plural: антибіотики }
+  blood_pressure: { form: тиск, gender: m }
+  blood_draw: { form: забір крові, gender: m }
+  ultrasound_noun: { form: УЗД, gender: n }
+  xray_noun: { form: рентгенівський знімок, gender: m }
+  operation_noun: { form: операція, gender: f, plural: операції }
+  anesthesia_noun: { form: наркоз, gender: m }
+  rehab_noun: { form: реабілітація, gender: f }
+  physiotherapy_noun: { form: фізіотерапія, gender: f }
+  symptom_noun: { form: симптом, gender: m, plural: симптоми }
+  complaints_noun: { form: скарги, gender: f, note: множина }
+  medical_history: { form: анамнез, gender: m }
+  discharge_noun: { form: виписка, gender: f }
+
+  # ── B2 ────────────────────────────────────────────────────────────────
+  copayment_noun: { form: доплата, gender: f, plural: доплати }
+  objection_noun: { form: заперечення, gender: n }
+  findings_report: { form: звіт про результати, gender: m }
+  reimbursement_noun: { form: відшкодування, gender: n }
+  supplementary_insurance: { form: додаткове страхування, gender: n }
+  contribution_noun: { form: внесок, gender: m, plural: внески }
+  certificate_noun: { form: довідка, gender: f, plural: довідки }
+  incapacity_noun: { form: непрацездатність, gender: f }
+  expert_opinion: { form: експертний висновок, gender: m }
+  consent_noun: { form: згода, gender: f }
+  liability_noun: { form: відповідальність, gender: f }
+  malpractice_noun: { form: лікарська помилка, gender: f }
+  prognosis_noun: { form: прогноз, gender: m, plural: прогнози }
+  contraindication_noun: { form: протипоказання, gender: n }
+  interaction_noun: { form: взаємодія, gender: f }
+  dosage_form: { form: форма випуску, gender: f }
+  prescription_only: { form: рецептурний, note: прикметник }
+  outpatient_adj: { form: амбулаторний, note: прикметник }
+  inpatient_adj: { form: стаціонарний, note: прикметник }
+  patient_file: { form: медична картка, gender: f }
+  data_protection: { form: захист даних, gender: m }
+  second_opinion: { form: друга думка, gender: f }
+  waiting_period: { form: строк очікування, gender: m }
+  cost_estimate: { form: кошторис витрат, gender: m }

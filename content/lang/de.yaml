@@ -1,11 +1,13 @@
 # Немецкие лексемы. Дистракторы: far — та же тема, другое значение;
 # near — созвучные и однокоренные (docs/CONTENT_PIPELINE.md).
 #
-# TODO(data): вычитка носителем не проводилась. Формы взяты из Goethe A1
-# Wortliste, частотность — из корпуса субтитров; перед запуском языка A0–A2
-# вычитываются сплошь.
+# TODO(data): вычитка носителем не проводилась. Формы для A0–A2 взяты из
+# Goethe/ÖSD Wortlisten, для B1–B2 — из терминологии Krankenkassen
+# (Widerspruch, Zuzahlung, Kostenübernahme). Запущен только ярус A0,
+# см. content/launch.yaml.
 lang: de
 lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:
     form: Arzt
     article: der
@@ -28,7 +30,7 @@ lexemes:
     gender: f
     distractors:
       far: [Pflege, Notruf]
-      near: [Hüfte, Hülle, Hilfsmittel]
+      near: [Hilfsmittel, Hilfskraft, Hilflos]
   head_body:
     form: Kopf
     article: der
@@ -75,7 +77,7 @@ lexemes:
     plural: Apotheken
     distractors:
       far: [Praxis, Klinik]
-      near: [Apostel, Bibliothek, Apotheker]
+      near: [Apotheker, Bibliothek, Kartothek]
   hospital_place:
     form: Krankenhaus
     article: das
@@ -98,3 +100,654 @@ lexemes:
     distractors:
       far: [Rezept, Anmeldung]
       near: [Termite, Terminal, Terrine]
+
+  # ── A1 ────────────────────────────────────────────────────────────────
+  tooth_body:
+    form: Zahn
+    article: der
+    gender: m
+    plural: Zähne
+    distractors:
+      far: [Kiefer, Zunge]
+      near: [Zaun, Bahn, Hahn]
+  back_body:
+    form: Rücken
+    article: der
+    gender: m
+    distractors:
+      far: [Schulter, Nacken]
+      near: [Rucksack, Brücken, Rücktritt]
+  leg_body:
+    form: Bein
+    article: das
+    gender: n
+    plural: Beine
+    distractors:
+      far: [Knie, Ferse]
+      near: [Wein, Stein, klein]
+  throat_body:
+    form: Hals
+    article: der
+    gender: m
+    plural: Hälse
+    distractors:
+      far: [Nase, Ohr]
+      near: [Halt, Salz, falls]
+  cough_noun:
+    form: Husten
+    article: der
+    gender: m
+    distractors:
+      far: [Fieber, Schnupfen]
+      near: [Küsten, Kosten, Hasten]
+  cold_illness:
+    form: Erkältung
+    article: die
+    gender: f
+    plural: Erkältungen
+    distractors:
+      far: [Grippe, Halsschmerzen]
+      near: [Erklärung, Erkennung, Verkühlung]
+  prescription_noun:
+    form: Rezept
+    article: das
+    gender: n
+    plural: Rezepte
+    distractors:
+      far: [Salbe, Tablette]
+      near: [Konzept, Rezeption, Respekt]
+  nurse_person:
+    form: Krankenschwester
+    article: die
+    gender: f
+    plural: Krankenschwestern
+    distractors:
+      far: [Pfleger, Assistentin]
+      near: [Krankenkasse, Krankenwagen, Schwester]
+  waiting_room:
+    form: Wartezimmer
+    article: das
+    gender: n
+    distractors:
+      far: [Behandlungsraum, Empfang]
+      near: [Wartezeit, Wohnzimmer, Warteliste]
+  insurance_card:
+    form: Versichertenkarte
+    article: die
+    gender: f
+    plural: Versichertenkarten
+    distractors:
+      far: [Ausweis, Impfpass]
+      near: [Versicherung, Kundenkarte, Speisekarte]
+  healthy_adj:
+    form: gesund
+    note: прилагательное, артикля нет
+    distractors:
+      far: [munter, fit]
+      near: [gesendet, Gesundheit, gesungen]
+  temperature_noun:
+    form: Temperatur
+    article: die
+    gender: f
+    plural: Temperaturen
+    distractors:
+      far: [Puls, Gewicht]
+      near: [Literatur, Struktur, Natur]
+
+  # ── A2 ────────────────────────────────────────────────────────────────
+  sick_note:
+    form: Krankmeldung
+    article: die
+    gender: f
+    plural: Krankmeldungen
+    distractors:
+      far: [Attest, Nachweis]
+      near: [Anmeldung, Meldung, Krankmeldungspflicht]
+  dosage_noun:
+    form: Dosis
+    article: die
+    gender: f
+    plural: Dosen
+    distractors:
+      far: [Menge, Packung]
+      near: [Dose, Basis, Dosierung]
+  side_effect:
+    form: Nebenwirkung
+    article: die
+    gender: f
+    plural: Nebenwirkungen
+    distractors:
+      far: [Risiko, Vorteil]
+      near: [Auswirkung, Nebensache, Nebenkosten]
+  allergy_noun:
+    form: Allergie
+    article: die
+    gender: f
+    plural: Allergien
+    distractors:
+      far: [Unverträglichkeit, Ausschlag]
+      near: [Energie, Chirurgie, Alchemie]
+  blood_noun:
+    form: Blut
+    article: das
+    gender: n
+    distractors:
+      far: [Urin, Speichel]
+      near: [Blüte, Glut, Flut]
+  plaster_noun:
+    form: Pflaster
+    article: das
+    gender: n
+    distractors:
+      far: [Verband, Binde]
+      near: [Pflanze, Laster, Muster]
+  ointment_noun:
+    form: Salbe
+    article: die
+    gender: f
+    plural: Salben
+    distractors:
+      far: [Creme, Tropfen]
+      near: [Farbe, Halbe, Schwalbe]
+  tablet_noun:
+    form: Tablette
+    article: die
+    gender: f
+    plural: Tabletten
+    distractors:
+      far: [Kapsel, Zäpfchen]
+      near: [Tafel, Toilette, Manschette]
+  injection_noun:
+    form: Spritze
+    article: die
+    gender: f
+    plural: Spritzen
+    distractors:
+      far: [Infusion, Kanüle]
+      near: [Spitze, Skizze, Hitze]
+  vaccination_noun:
+    form: Impfung
+    article: die
+    gender: f
+    plural: Impfungen
+    distractors:
+      far: [Auffrischung, Titer]
+      near: [Impfstoff, Umformung, Prüfung]
+  emergency_noun:
+    form: Notfall
+    article: der
+    gender: m
+    plural: Notfälle
+    distractors:
+      far: [Unfall, Zwischenfall]
+      near: [Notruf, Zufall, Ausfall]
+  ambulance_noun:
+    form: Krankenwagen
+    article: der
+    gender: m
+    distractors:
+      far: [Notarzt, Rettung]
+      near: [Kinderwagen, Lastwagen, Krankenpfleger]
+  surgery_place:
+    form: Praxis
+    article: die
+    gender: f
+    plural: Praxen
+    distractors:
+      far: [Klinik, Ambulanz]
+      near: [Praktikum, Taxis, Achse]
+  dentist_person:
+    form: Zahnarzt
+    article: der
+    gender: m
+    plural: Zahnärzte
+    distractors:
+      far: [Kieferchirurg, Prophylaxe]
+      near: [Zahnbürste, Hausarzt, Zahnschmerz]
+  examination_noun:
+    form: Untersuchung
+    article: die
+    gender: f
+    plural: Untersuchungen
+    distractors:
+      far: [Beratung, Kontrolle]
+      near: [Unterhaltung, Unterbrechung, Versuchung]
+  treatment_noun:
+    form: Behandlung
+    article: die
+    gender: f
+    plural: Behandlungen
+    distractors:
+      far: [Pflege, Betreuung]
+      near: [Verhandlung, Behauptung, Abhandlung]
+  painkiller_noun:
+    form: Schmerzmittel
+    article: das
+    gender: n
+    distractors:
+      far: [Beruhigungsmittel, Schlafmittel]
+      near: [Schmerzensgeld, Hilfsmittel, Lebensmittel]
+  flu_illness:
+    form: Grippe
+    article: die
+    gender: f
+    plural: Grippen
+    distractors:
+      far: [Lungenentzündung, Fieberkrampf]
+      near: [Gruppe, Krippe, Rippe]
+  wound_noun:
+    form: Wunde
+    article: die
+    gender: f
+    plural: Wunden
+    distractors:
+      far: [Narbe, Bluterguss]
+      near: [Stunde, Kunde, Wunder]
+  dizzy_adj:
+    form: schwindelig
+    note: прилагательное, артикля нет
+    distractors:
+      far: [übel, benommen]
+      near: [Schwindel, schwierig, windig]
+  breath_noun:
+    form: Atem
+    article: der
+    gender: m
+    distractors:
+      far: [Puls, Herzschlag]
+      near: [Atemnot, Atmung, Ampel]
+  heart_body:
+    form: Herz
+    article: das
+    gender: n
+    plural: Herzen
+    distractors:
+      far: [Lunge, Leber]
+      near: [Herd, Harz, Hertz]
+  stomach_organ:
+    form: Magen
+    article: der
+    gender: m
+    plural: Mägen
+    distractors:
+      far: [Darm, Niere]
+      near: [Wagen, Magie, Magnet]
+  skin_body:
+    form: Haut
+    article: die
+    gender: f
+    plural: Häute
+    distractors:
+      far: [Nagel, Haar]
+      near: [Laut, Braut, Haus]
+
+  # ── B1 ────────────────────────────────────────────────────────────────
+  cost_coverage:
+    form: Kostenübernahme
+    article: die
+    gender: f
+    distractors:
+      far: [Zuschuss, Beihilfe]
+      near: [Übernahme, Kostenstelle, Kostenfalle]
+  referral_noun:
+    form: Überweisung
+    article: die
+    gender: f
+    plural: Überweisungen
+    distractors:
+      far: [Einweisung, Verordnung]
+      near: [Anweisung, Überraschung, Verweisung]
+  lab_result:
+    form: Laborbefund
+    article: der
+    gender: m
+    plural: Laborbefunde
+    distractors:
+      far: [Blutwerte, Analyse]
+      near: [Laborwert, Fundbüro, Laborarzt]
+  diagnosis_noun:
+    form: Diagnose
+    article: die
+    gender: f
+    plural: Diagnosen
+    distractors:
+      far: [Verdacht, Anamnese]
+      near: [Narkose, Dose, Diagnostik]
+  therapy_noun:
+    form: Therapie
+    article: die
+    gender: f
+    plural: Therapien
+    distractors:
+      far: [Kur, Nachsorge]
+      near: [Chirurgie, Energie, Serie]
+  specialist_person:
+    form: Facharzt
+    article: der
+    gender: m
+    plural: Fachärzte
+    distractors:
+      far: [Hausarzt, Chefarzt]
+      near: [Fachmann, Facharbeit, Fachbereich]
+  health_insurance:
+    form: Krankenkasse
+    article: die
+    gender: f
+    plural: Krankenkassen
+    distractors:
+      far: [Beihilfe, Beitragssatz]
+      near: [Sparkasse, Krankenpflege, Krankenakte]
+  medical_report:
+    form: Arztbericht
+    article: der
+    gender: m
+    plural: Arztberichte
+    distractors:
+      far: [Attest, Entlassungsbrief]
+      near: [Arztpraxis, Bericht, Arztwahl]
+  chronic_adj:
+    form: chronisch
+    note: прилагательное, артикля нет
+    distractors:
+      far: [akut, dauerhaft]
+      near: [chronologisch, Chronik, ironisch]
+  inflammation_noun:
+    form: Entzündung
+    article: die
+    gender: f
+    plural: Entzündungen
+    distractors:
+      far: [Schwellung, Reizung]
+      near: [Entscheidung, Zündung, Entladung]
+  infection_noun:
+    form: Infektion
+    article: die
+    gender: f
+    plural: Infektionen
+    distractors:
+      far: [Ansteckung, Erreger]
+      near: [Injektion, Inspektion, Funktion]
+  antibiotic_noun:
+    form: Antibiotikum
+    article: das
+    gender: n
+    plural: Antibiotika
+    distractors:
+      far: [Impfstoff, Wirkstoff]
+      near: [Antiseptikum, Antikörper, Publikum]
+  blood_pressure:
+    form: Blutdruck
+    article: der
+    gender: m
+    distractors:
+      far: [Puls, Cholesterin]
+      near: [Ausdruck, Blutzucker, Blutbild]
+  blood_draw:
+    form: Blutabnahme
+    article: die
+    gender: f
+    plural: Blutabnahmen
+    distractors:
+      far: [Infusion, Punktion]
+      near: [Abnahme, Blutspende, Blutgruppe]
+  ultrasound_noun:
+    form: Ultraschall
+    article: der
+    gender: m
+    distractors:
+      far: [Kernspin, Szintigrafie]
+      near: [Widerhall, Nachhall, Schallwelle]
+  xray_noun:
+    form: Röntgenbild
+    article: das
+    gender: n
+    plural: Röntgenbilder
+    distractors:
+      far: [Aufnahme, Kontrastmittel]
+      near: [Röntgengerät, Vorbild, Röntgenraum]
+  operation_noun:
+    form: Operation
+    article: die
+    gender: f
+    plural: Operationen
+    distractors:
+      far: [Eingriff, Sedierung]
+      near: [Kooperation, Organisation, Ration]
+  anesthesia_noun:
+    form: Narkose
+    article: die
+    gender: f
+    plural: Narkosen
+    distractors:
+      far: [Betäubung, Beruhigung]
+      near: [Nekrose, Narkotikum, Narbe]
+  rehab_noun:
+    form: Reha
+    article: die
+    gender: f
+    distractors:
+      far: [Kur, Nachsorge]
+      near: [Rehe, Reihe, Rehabilitation]
+  physiotherapy_noun:
+    form: Physiotherapie
+    article: die
+    gender: f
+    plural: Physiotherapien
+    distractors:
+      far: [Ergotherapie, Massage]
+      near: [Psychotherapie, Chemotherapie, Physiologie]
+  symptom_noun:
+    form: Symptom
+    article: das
+    gender: n
+    plural: Symptome
+    distractors:
+      far: [Anzeichen, Verlauf]
+      near: [System, Sympathie, Syndrom]
+  complaints_noun:
+    form: Beschwerden
+    article: die
+    gender: f
+    note: обычно во множественном числе
+    distractors:
+      far: [Symptome, Anzeichen]
+      near: [Beschwerde, Beschreibung, Bescheidenheit]
+  medical_history:
+    form: Vorgeschichte
+    article: die
+    gender: f
+    plural: Vorgeschichten
+    distractors:
+      far: [Anamnese, Verlauf]
+      near: [Geschichte, Vorsorge, Vorschrift]
+  discharge_noun:
+    form: Entlassung
+    article: die
+    gender: f
+    plural: Entlassungen
+    distractors:
+      far: [Aufnahme, Verlegung]
+      near: [Zulassung, Belastung, Entlastung]
+
+  # ── B2 ────────────────────────────────────────────────────────────────
+  copayment_noun:
+    form: Zuzahlung
+    article: die
+    gender: f
+    plural: Zuzahlungen
+    distractors:
+      far: [Eigenanteil, Selbstbeteiligung]
+      near: [Auszahlung, Bezahlung, Anzahlung]
+  objection_noun:
+    form: Widerspruch
+    article: der
+    gender: m
+    plural: Widersprüche
+    distractors:
+      far: [Beschwerde, Klage]
+      near: [Widerstand, Anspruch, Widerruf]
+  findings_report:
+    form: Befundbericht
+    article: der
+    gender: m
+    plural: Befundberichte
+    distractors:
+      far: [Arztbrief, Kurzbrief]
+      near: [Fundstelle, Befunderhebung, Befundung]
+  reimbursement_noun:
+    form: Erstattung
+    article: die
+    gender: f
+    plural: Erstattungen
+    distractors:
+      far: [Rückzahlung, Vergütung]
+      near: [Bestattung, Ausstattung, Gestaltung]
+  supplementary_insurance:
+    form: Zusatzversicherung
+    article: die
+    gender: f
+    plural: Zusatzversicherungen
+    distractors:
+      far: [Pflegeversicherung, Auslandsschutz]
+      near: [Rentenversicherung, Zusatzbeitrag, Zusatzleistung]
+  contribution_noun:
+    form: Beitrag
+    article: der
+    gender: m
+    plural: Beiträge
+    distractors:
+      far: [Gebühr, Prämie]
+      near: [Betrag, Vertrag, Auftrag]
+  certificate_noun:
+    form: Bescheinigung
+    article: die
+    gender: f
+    plural: Bescheinigungen
+    distractors:
+      far: [Attest, Nachweis]
+      near: [Bescheid, Beschichtung, Erscheinung]
+  incapacity_noun:
+    form: Arbeitsunfähigkeit
+    article: die
+    gender: f
+    distractors:
+      far: [Berufsunfähigkeit, Krankschreibung]
+      near: [Arbeitslosigkeit, Unfähigkeit, Arbeitszeit]
+  expert_opinion:
+    form: Gutachten
+    article: das
+    gender: n
+    distractors:
+      far: [Stellungnahme, Empfehlung]
+      near: [Gutachter, Verhalten, Vorhaben]
+  consent_noun:
+    form: Einwilligung
+    article: die
+    gender: f
+    plural: Einwilligungen
+    distractors:
+      far: [Zustimmung, Vollmacht]
+      near: [Bewilligung, Einladung, Einweihung]
+  liability_noun:
+    form: Haftung
+    article: die
+    gender: f
+    distractors:
+      far: [Verantwortung, Schuld]
+      near: [Haltung, Heftung, Achtung]
+  malpractice_noun:
+    form: Behandlungsfehler
+    article: der
+    gender: m
+    distractors:
+      far: [Kunstfehler, Versäumnis]
+      near: [Behandlungsraum, Denkfehler, Bedienungsfehler]
+  prognosis_noun:
+    form: Prognose
+    article: die
+    gender: f
+    plural: Prognosen
+    distractors:
+      far: [Aussicht, Verlauf]
+      near: [Prothese, Prognostik, Progression]
+  contraindication_noun:
+    form: Gegenanzeige
+    article: die
+    gender: f
+    plural: Gegenanzeigen
+    distractors:
+      far: [Warnhinweis, Vorsichtsmaßnahme]
+      near: [Anzeige, Gegenmittel, Gegenwehr]
+  interaction_noun:
+    form: Wechselwirkung
+    article: die
+    gender: f
+    plural: Wechselwirkungen
+    distractors:
+      far: [Unverträglichkeit, Überdosierung]
+      near: [Wechselgeld, Wechseljahre, Rückwirkung]
+  dosage_form:
+    form: Darreichungsform
+    article: die
+    gender: f
+    plural: Darreichungsformen
+    distractors:
+      far: [Wirkstoff, Packungsgröße]
+      near: [Darreichung, Verpackungsform, Erscheinungsform]
+  prescription_only:
+    form: verschreibungspflichtig
+    note: прилагательное, артикля нет
+    distractors:
+      far: [rezeptfrei, apothekenpflichtig]
+      near: [versicherungspflichtig, verschreiben, verschwiegen]
+  outpatient_adj:
+    form: ambulant
+    note: прилагательное, артикля нет
+    distractors:
+      far: [teilstationär, tagesklinisch]
+      near: [Ambulanz, amüsant, brillant]
+  inpatient_adj:
+    form: stationär
+    note: прилагательное, артикля нет
+    distractors:
+      far: [teilstationär, tagesklinisch]
+      near: [Station, stationieren, sanitär]
+  patient_file:
+    form: Patientenakte
+    article: die
+    gender: f
+    plural: Patientenakten
+    distractors:
+      far: [Krankenblatt, Karteikarte]
+      near: [Personalakte, Patientin, Patientenkarte]
+  data_protection:
+    form: Datenschutz
+    article: der
+    gender: m
+    distractors:
+      far: [Schweigepflicht, Vertraulichkeit]
+      near: [Brandschutz, Datenbank, Datenschutzerklärung]
+  second_opinion:
+    form: Zweitmeinung
+    article: die
+    gender: f
+    plural: Zweitmeinungen
+    distractors:
+      far: [Rücksprache, Konsil]
+      near: [Meinung, Zweitschrift, Zeitung]
+  waiting_period:
+    form: Wartezeit
+    article: die
+    gender: f
+    plural: Wartezeiten
+    distractors:
+      far: [Frist, Bearbeitungsdauer]
+      near: [Warteliste, Arbeitszeit, Wartung]
+  cost_estimate:
+    form: Kostenvoranschlag
+    article: der
+    gender: m
+    plural: Kostenvoranschläge
+    distractors:
+      far: [Angebot, Rechnung]
+      near: [Vorschlag, Kostenplan, Kostenpunkt]

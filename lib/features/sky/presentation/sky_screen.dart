@@ -6,6 +6,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/palette.dart';
+import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../domain/sky/progression.dart';
 import '../application/sky_controller.dart';
@@ -128,6 +129,12 @@ class _TierSuggestionBanner extends ConsumerWidget {
         ? snapshot.tier.up
         : snapshot.tier.down;
     if (target == null) return const SizedBox.shrink();
+
+    // Подниматься некуда, если верхний ярус ещё не вычитан.
+    if (suggestion == TierSuggestion.up &&
+        target.index > ref.watch(maxTierProvider).index) {
+      return const SizedBox.shrink();
+    }
 
     final theme = Theme.of(context);
 

@@ -22,7 +22,10 @@ Future<void> main(List<String> args) async {
 
   final ContentSources sources;
   try {
-    sources = ContentSources.load(Directory('${root.path}/content'));
+    sources = ContentSources.load(
+      Directory('${root.path}/content'),
+      lang: lang,
+    );
   } on ContentSourceException catch (e) {
     stderr.writeln('Ошибка в исходниках: ${e.message}');
     exitCode = 1;
@@ -204,6 +207,9 @@ void _insertMeta(
     'concepts': '${sources.concepts.length}',
     'phrases': '${sources.phrases.length}',
     'constellations': sources.constellations.join(','),
+    // Запущенные ярусы: приложение не предлагает подниматься выше того,
+    // что вычитано.
+    'launched_tiers': (sources.launch.launched.toList()..sort()).join(','),
     'source_hash': sourceHash,
     'source_revision': _gitRevision(),
   };

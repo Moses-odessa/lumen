@@ -1,7 +1,10 @@
-# English lexemes — hint language. Also the fallback when a concept has no
+# English lexemes — hint language, and the fallback when a concept has no
 # lexeme in the player's native language yet.
+#
+# Distractors are only defined for A0; see the note in ru.yaml.
 lang: en
 lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:
     form: doctor
     plural: doctors
@@ -71,3 +74,95 @@ lexemes:
     distractors:
       far: [prescription, booking]
       near: [appoint, apportionment, disappointment]
+
+  # ── A1 ────────────────────────────────────────────────────────────────
+  tooth_body: { form: tooth, plural: teeth }
+  back_body: { form: back, plural: backs }
+  leg_body: { form: leg, plural: legs }
+  throat_body: { form: throat, plural: throats }
+  cough_noun: { form: cough }
+  cold_illness: { form: a cold }
+  prescription_noun: { form: prescription, plural: prescriptions }
+  nurse_person: { form: nurse, plural: nurses }
+  waiting_room: { form: waiting room }
+  insurance_card: { form: insurance card }
+  healthy_adj: { form: healthy, note: adjective }
+  temperature_noun: { form: temperature }
+
+  # ── A2 ────────────────────────────────────────────────────────────────
+  sick_note: { form: sick note }
+  dosage_noun: { form: dose, plural: doses }
+  side_effect: { form: side effect, plural: side effects }
+  allergy_noun: { form: allergy, plural: allergies }
+  blood_noun: { form: blood }
+  plaster_noun: { form: plaster, plural: plasters }
+  ointment_noun: { form: ointment, plural: ointments }
+  tablet_noun: { form: tablet, plural: tablets }
+  injection_noun: { form: injection, plural: injections }
+  vaccination_noun: { form: vaccination, plural: vaccinations }
+  emergency_noun: { form: emergency, plural: emergencies }
+  ambulance_noun: { form: ambulance, plural: ambulances }
+  surgery_place: { form: surgery, note: doctor's practice }
+  dentist_person: { form: dentist, plural: dentists }
+  examination_noun: { form: examination, plural: examinations }
+  treatment_noun: { form: treatment, plural: treatments }
+  painkiller_noun: { form: painkiller, plural: painkillers }
+  flu_illness: { form: flu }
+  wound_noun: { form: wound, plural: wounds }
+  dizzy_adj: { form: dizzy, note: adjective }
+  breath_noun: { form: breath }
+  heart_body: { form: heart, plural: hearts }
+  stomach_organ: { form: stomach, plural: stomachs }
+  skin_body: { form: skin }
+
+  # ── B1 ────────────────────────────────────────────────────────────────
+  cost_coverage: { form: cost coverage }
+  referral_noun: { form: referral, plural: referrals }
+  lab_result: { form: lab result, plural: lab results }
+  diagnosis_noun: { form: diagnosis, plural: diagnoses }
+  therapy_noun: { form: therapy, plural: therapies }
+  specialist_person: { form: specialist, plural: specialists }
+  health_insurance: { form: health insurer }
+  medical_report: { form: medical report }
+  chronic_adj: { form: chronic, note: adjective }
+  inflammation_noun: { form: inflammation }
+  infection_noun: { form: infection, plural: infections }
+  antibiotic_noun: { form: antibiotic, plural: antibiotics }
+  blood_pressure: { form: blood pressure }
+  blood_draw: { form: blood draw }
+  ultrasound_noun: { form: ultrasound }
+  xray_noun: { form: X-ray, plural: X-rays }
+  operation_noun: { form: operation, plural: operations }
+  anesthesia_noun: { form: anaesthetic }
+  rehab_noun: { form: rehab }
+  physiotherapy_noun: { form: physiotherapy }
+  symptom_noun: { form: symptom, plural: symptoms }
+  complaints_noun: { form: complaints, note: usually plural }
+  medical_history: { form: medical history }
+  discharge_noun: { form: discharge }
+
+  # ── B2 ────────────────────────────────────────────────────────────────
+  copayment_noun: { form: co-payment, plural: co-payments }
+  objection_noun: { form: appeal, plural: appeals }
+  findings_report: { form: findings report }
+  reimbursement_noun: { form: reimbursement }
+  supplementary_insurance: { form: supplementary insurance }
+  contribution_noun: { form: contribution, plural: contributions }
+  certificate_noun: { form: certificate, plural: certificates }
+  incapacity_noun: { form: incapacity for work }
+  expert_opinion: { form: expert opinion }
+  consent_noun: { form: consent }
+  liability_noun: { form: liability }
+  malpractice_noun: { form: medical error }
+  prognosis_noun: { form: prognosis, plural: prognoses }
+  contraindication_noun: { form: contraindication }
+  interaction_noun: { form: drug interaction }
+  dosage_form: { form: dosage form }
+  prescription_only: { form: prescription-only, note: adjective }
+  outpatient_adj: { form: outpatient, note: adjective }
+  inpatient_adj: { form: inpatient, note: adjective }
+  patient_file: { form: patient file }
+  data_protection: { form: data protection }
+  second_opinion: { form: second opinion }
+  waiting_period: { form: waiting period }
+  cost_estimate: { form: cost estimate }

@@ -1,8 +1,12 @@
-# Русские лексемы — язык подсказок. Озвучка родному языку не нужна,
-# дистракторы тоже: в круге варианты всегда на изучаемом языке, кроме режима
-# «Узнавание», где хватает дистракторов far.
+# Русские лексемы — язык подсказок.
+#
+# Дистракторы здесь необязательны и заданы только для A0: в круге варианты
+# всегда на изучаемом языке, кроме режима «Узнавание», а там нехватку
+# закрывают соседи по созвездию. Тратить вычитку на дистракторы родного
+# языка — значит тратить её не туда.
 lang: ru
 lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:
     form: врач
     gender: m
@@ -15,7 +19,7 @@ lexemes:
     gender: f
     distractors:
       far: [рана, кашель]
-      near: [боль в горле, соль, моль]
+      near: [соль, моль, роль]
   help_noun:
     form: помощь
     gender: f
@@ -83,3 +87,95 @@ lexemes:
     distractors:
       far: [рецепт, запись]
       near: [приёмная, приятный, подъём]
+
+  # ── A1 ────────────────────────────────────────────────────────────────
+  tooth_body: { form: зуб, gender: m, plural: зубы }
+  back_body: { form: спина, gender: f, plural: спины }
+  leg_body: { form: нога, gender: f, plural: ноги }
+  throat_body: { form: горло, gender: n, plural: горла }
+  cough_noun: { form: кашель, gender: m }
+  cold_illness: { form: простуда, gender: f, plural: простуды }
+  prescription_noun: { form: рецепт, gender: m, plural: рецепты }
+  nurse_person: { form: медсестра, gender: f, plural: медсёстры }
+  waiting_room: { form: приёмная, gender: f }
+  insurance_card: { form: страховая карта, gender: f }
+  healthy_adj: { form: здоровый, note: прилагательное }
+  temperature_noun: { form: температура, gender: f }
+
+  # ── A2 ────────────────────────────────────────────────────────────────
+  sick_note: { form: больничный лист, gender: m }
+  dosage_noun: { form: доза, gender: f, plural: дозы }
+  side_effect: { form: побочный эффект, gender: m }
+  allergy_noun: { form: аллергия, gender: f }
+  blood_noun: { form: кровь, gender: f }
+  plaster_noun: { form: пластырь, gender: m, plural: пластыри }
+  ointment_noun: { form: мазь, gender: f, plural: мази }
+  tablet_noun: { form: таблетка, gender: f, plural: таблетки }
+  injection_noun: { form: укол, gender: m, plural: уколы }
+  vaccination_noun: { form: прививка, gender: f, plural: прививки }
+  emergency_noun: { form: экстренный случай, gender: m }
+  ambulance_noun: { form: скорая помощь, gender: f }
+  surgery_place: { form: врачебная практика, gender: f }
+  dentist_person: { form: стоматолог, gender: m, plural: стоматологи }
+  examination_noun: { form: обследование, gender: n }
+  treatment_noun: { form: лечение, gender: n }
+  painkiller_noun: { form: обезболивающее, gender: n }
+  flu_illness: { form: грипп, gender: m }
+  wound_noun: { form: рана, gender: f, plural: раны }
+  dizzy_adj: { form: головокружение, note: «мне дурно» }
+  breath_noun: { form: дыхание, gender: n }
+  heart_body: { form: сердце, gender: n, plural: сердца }
+  stomach_organ: { form: желудок, gender: m, plural: желудки }
+  skin_body: { form: кожа, gender: f }
+
+  # ── B1 ────────────────────────────────────────────────────────────────
+  cost_coverage: { form: покрытие расходов, gender: n }
+  referral_noun: { form: направление, gender: n }
+  lab_result: { form: результат анализов, gender: m }
+  diagnosis_noun: { form: диагноз, gender: m, plural: диагнозы }
+  therapy_noun: { form: терапия, gender: f }
+  specialist_person: { form: профильный врач, gender: m }
+  health_insurance: { form: больничная касса, gender: f }
+  medical_report: { form: заключение врача, gender: n }
+  chronic_adj: { form: хронический, note: прилагательное }
+  inflammation_noun: { form: воспаление, gender: n }
+  infection_noun: { form: инфекция, gender: f }
+  antibiotic_noun: { form: антибиотик, gender: m, plural: антибиотики }
+  blood_pressure: { form: давление, gender: n }
+  blood_draw: { form: забор крови, gender: m }
+  ultrasound_noun: { form: УЗИ, gender: n }
+  xray_noun: { form: рентгеновский снимок, gender: m }
+  operation_noun: { form: операция, gender: f, plural: операции }
+  anesthesia_noun: { form: наркоз, gender: m }
+  rehab_noun: { form: реабилитация, gender: f }
+  physiotherapy_noun: { form: физиотерапия, gender: f }
+  symptom_noun: { form: симптом, gender: m, plural: симптомы }
+  complaints_noun: { form: жалобы, gender: f, note: множественное число }
+  medical_history: { form: анамнез, gender: m }
+  discharge_noun: { form: выписка, gender: f }
+
+  # ── B2 ────────────────────────────────────────────────────────────────
+  copayment_noun: { form: доплата, gender: f, plural: доплаты }
+  objection_noun: { form: возражение, gender: n }
+  findings_report: { form: отчёт о результатах, gender: m }
+  reimbursement_noun: { form: возмещение, gender: n }
+  supplementary_insurance: { form: дополнительная страховка, gender: f }
+  contribution_noun: { form: взнос, gender: m, plural: взносы }
+  certificate_noun: { form: справка, gender: f, plural: справки }
+  incapacity_noun: { form: нетрудоспособность, gender: f }
+  expert_opinion: { form: экспертное заключение, gender: n }
+  consent_noun: { form: согласие, gender: n }
+  liability_noun: { form: ответственность, gender: f }
+  malpractice_noun: { form: врачебная ошибка, gender: f }
+  prognosis_noun: { form: прогноз, gender: m, plural: прогнозы }
+  contraindication_noun: { form: противопоказание, gender: n }
+  interaction_noun: { form: взаимодействие, gender: n }
+  dosage_form: { form: форма выпуска, gender: f }
+  prescription_only: { form: рецептурный, note: прилагательное }
+  outpatient_adj: { form: амбулаторный, note: прилагательное }
+  inpatient_adj: { form: стационарный, note: прилагательное }
+  patient_file: { form: медицинская карта, gender: f }
+  data_protection: { form: защита данных, gender: f }
+  second_opinion: { form: второе мнение, gender: n }
+  waiting_period: { form: срок ожидания, gender: m }
+  cost_estimate: { form: смета расходов, gender: f }
