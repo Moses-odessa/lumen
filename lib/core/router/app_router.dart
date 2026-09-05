@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/player_repository.dart';
 import '../../features/challenge/presentation/challenge_screen.dart';
+import '../../features/cloud/presentation/cloud_screen.dart';
 import '../../features/onboarding/presentation/calibration_screen.dart';
 import '../../features/profile/presentation/custom_words_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
@@ -22,6 +23,9 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// Облако: вход и синхронизация. Аккаунт необязателен.
+  static const cloud = '/cloud';
 
   /// Ночной вызов — единственный экран, который ходит в сеть.
   static const challenge = '/challenge';
@@ -104,6 +108,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.customWords,
         builder: (_, _) => const CustomWordsScreen(),
+      ),
+      GoRoute(
+        path: Routes.cloud,
+        builder: (_, _) => const CloudScreen(),
       ),
       GoRoute(
         path: Routes.recalibrate,

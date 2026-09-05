@@ -83,6 +83,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
           const Divider(),
           ListTile(
+            leading: const Icon(Icons.cloud_outlined),
+            title: const Text('Облако'),
+            subtitle: const Text('Аккаунт нужен только для мультидевайса'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push(Routes.cloud),
+          ),
+          ListTile(
             leading: const Icon(Icons.download_outlined),
             title: const Text('Экспорт данных'),
             subtitle: const Text('Весь прогресс одним файлом'),
