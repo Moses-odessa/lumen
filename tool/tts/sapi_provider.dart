@@ -31,13 +31,12 @@ class SapiProvider implements TtsProvider {
 
   /// Первый установленный голос нужной культуры.
   static Future<String?> findVoice(String lang) async {
-    final script = '''
-Add-Type -AssemblyName System.Speech
-\$s = New-Object System.Speech.Synthesis.SpeechSynthesizer
-\$s.GetInstalledVoices() |
-  Where-Object { \$_.VoiceInfo.Culture.TwoLetterISOLanguageName -eq '$lang' } |
-  ForEach-Object { \$_.VoiceInfo.Name }
-''';
+    final script = 'Add-Type -AssemblyName System.Speech; '
+        '(New-Object System.Speech.Synthesis.SpeechSynthesizer)'
+        '.GetInstalledVoices() | '
+        'Where-Object { \$_.VoiceInfo.Culture.TwoLetterISOLanguageName '
+        "-eq '${_quote(lang)}' } | "
+        'ForEach-Object { \$_.VoiceInfo.Name }';
     final result = await _runPowerShell(script);
     if (result == null) return null;
     final voices = result
@@ -50,36 +49,54 @@ Add-Type -AssemblyName System.Speech
 
   @override
   Future<bool> speakToFile(String text, File output) async {
-    // Текст передаётся base64: в словах есть кавычки, апострофы и умляуты,
-    // а экранирование их в PowerShell — источник тихих ошибок.
-    final encoded = base64.encode(utf8.encode(text));
-    final script = '''
-Add-Type -AssemblyName System.Speech
-\$bytes = [System.Convert]::FromBase64String('$encoded')
-\$text = [System.Text.Encoding]::UTF8.GetString(\$bytes)
-\$s = New-Object System.Speech.Synthesis.SpeechSynthesizer
-\$s.SelectVoice('$voiceName')
-\$s.Rate = -1
-\$s.SetOutputToWaveFile('${output.path.replaceAll(r'\', r'\\')}')
-\$s.Speak(\$text)
-\$s.Dispose()
-''';
-    final result = await _runPowerShell(script);
-    return result != null && output.existsSync() && output.lengthSync() > 0;
+    // Текст едет через временный файл в UTF-8, а не внутри команды: в словах
+    // есть кавычки, апострофы и умляуты, и экранировать их в командной строке
+    // — источник тихих ошибок. Файл заодно оставляет команду читаемой.
+    final carrier = File(
+      '${Directory.systemTemp.path}${Platform.pathSeparator}'
+      'lumen_tts_${output.uri.pathSegments.last}.txt',
+    );
+    await carrier.writeAsString(text, encoding: utf8);
+
+    final script = 'Add-Type -AssemblyName System.Speech; '
+        "\$t = [System.IO.File]::ReadAllText('${_quote(carrier.path)}', "
+        '[System.Text.Encoding]::UTF8); '
+        '\$s = New-Object System.Speech.Synthesis.SpeechSynthesizer; '
+        "\$s.SelectVoice('${_quote(voiceName)}'); "
+        '\$s.Rate = -1; '
+        "\$s.SetOutputToWaveFile('${_quote(output.path)}'); "
+        '\$s.Speak(\$t); '
+        '\$s.Dispose()';
+
+    try {
+      final result = await _runPowerShell(script);
+      return result != null && output.existsSync() && output.lengthSync() > 0;
+    } finally {
+      if (carrier.existsSync()) carrier.deleteSync();
+    }
   }
 }
 
-/// Запуск PowerShell со скриптом в base64 — единственный способ передать
-/// многострочный текст без войны с экранированием.
+/// Экранирование для одинарных кавычек PowerShell: внутри них специальных
+/// символов нет, достаточно удвоить сам апостроф.
+String _quote(String value) => value.replaceAll("'", "''");
+
+/// Запуск PowerShell с открытым текстом команды.
+///
+/// Сознательно НЕ используется `-EncodedCommand`: base64-скрипт в командной
+/// строке PowerShell — самый ходовой способ доставки вредоносного кода, и
+/// поведенческие эвристики антивирусов (Avast `IDP.HELU.PSE*` и родня)
+/// блокируют такой запуск не разбирая содержимого. Инструмент сборки не
+/// должен выглядеть как малварь: команда идёт читаемой, а единственное, что
+/// требовало кодирования — текст для озвучки — передаётся файлом.
+///
+/// Файл-скрипт (`-File`) тоже не годится: политика выполнения по умолчанию
+/// `Restricted`, и `.ps1` просто не запустится. На `-Command` она не влияет.
 Future<String?> _runPowerShell(String script) async {
   try {
-    final encoded = base64.encode(
-      // PowerShell ждёт UTF-16LE для -EncodedCommand.
-      Uint16Encoding.encode(script),
-    );
     final result = await Process.run(
       'powershell',
-      ['-NoProfile', '-NonInteractive', '-EncodedCommand', encoded],
+      ['-NoProfile', '-NonInteractive', '-Command', script],
       stdoutEncoding: const SystemEncoding(),
     );
     if (result.exitCode != 0) {
@@ -90,17 +107,5 @@ Future<String?> _runPowerShell(String script) async {
   } catch (e) {
     stderr.writeln('powershell: $e');
     return null;
-  }
-}
-
-/// UTF-16LE без BOM — формат, который требует `-EncodedCommand`.
-abstract final class Uint16Encoding {
-  static List<int> encode(String value) {
-    final bytes = <int>[];
-    for (final unit in value.codeUnits) {
-      bytes.add(unit & 0xFF);
-      bytes.add((unit >> 8) & 0xFF);
-    }
-    return bytes;
   }
 }
