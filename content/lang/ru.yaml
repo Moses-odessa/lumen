@@ -179,3 +179,407 @@ lexemes:
   second_opinion: { form: второе мнение, gender: n }
   waiting_period: { form: срок ожидания, gender: m }
   cost_estimate: { form: смета расходов, gender: f }
+
+  # ── Созвездие «Еда», A0 ───────────────────────────────────────────────
+  bread_food: { form: хлеб, gender: m, plural: хлеба }
+  water_drink: { form: вода, gender: f, plural: воды }
+  milk_drink: { form: молоко, gender: n }
+  coffee_drink: { form: кофе, gender: m }
+  apple_food: { form: яблоко, gender: n, plural: яблоки }
+  meat_food: { form: мясо, gender: n }
+  fish_food: { form: рыба, gender: f, plural: рыбы }
+  soup_food: { form: суп, gender: m, plural: супы }
+  salt_food: { form: соль, gender: f }
+  sugar_food: { form: сахар, gender: m }
+  hunger_noun: { form: голод, gender: m }
+  restaurant_place: { form: ресторан, gender: m, plural: рестораны }
+
+  # ── Созвездие «Транспорт», A0 ─────────────────────────────────────────
+  train_transport: { form: поезд, gender: m, plural: поезда }
+  bus_transport: { form: автобус, gender: m, plural: автобусы }
+  car_transport: { form: машина, gender: f, plural: машины }
+  ticket_transport: { form: билет, gender: m, plural: билеты }
+  station_place: { form: вокзал, gender: m, plural: вокзалы }
+  street_place: { form: улица, gender: f, plural: улицы }
+  bicycle_transport: { form: велосипед, gender: m, plural: велосипеды }
+  airplane_transport: { form: самолёт, gender: m, plural: самолёты }
+  way_noun: { form: путь, gender: m, plural: пути }
+  driver_person: { form: водитель, gender: m, plural: водители }
+  stop_place: { form: остановка, gender: f, plural: остановки }
+  late_adj: { form: поздно, note: наречие }
+
+  # ── Созвездие «Дом», A0 ───────────────────────────────────────────────
+  house_place: { form: дом, gender: m, plural: дома }
+  door_object: { form: дверь, gender: f, plural: двери }
+  window_object: { form: окно, gender: n, plural: окна }
+  table_object: { form: стол, gender: m, plural: столы }
+  chair_object: { form: стул, gender: m, plural: стулья }
+  bed_object: { form: кровать, gender: f, plural: кровати }
+  kitchen_room: { form: кухня, gender: f, plural: кухни }
+  room_place: { form: комната, gender: f, plural: комнаты }
+  key_object: { form: ключ, gender: m, plural: ключи }
+  rent_noun: { form: аренда, gender: f }
+  neighbour_person: { form: сосед, gender: m, plural: соседи }
+  light_object: { form: свет, gender: m }
+
+  # ── Созвездие «Магазин», A0 ───────────────────────────────────────────
+  shop_place: { form: магазин, gender: m, plural: магазины }
+  money_noun: { form: деньги, gender: m, plural: деньги }
+  price_noun: { form: цена, gender: f, plural: цены }
+  card_object: { form: карта, gender: f, plural: карты }
+  checkout_place: { form: касса, gender: f, plural: кассы }
+  bag_object: { form: пакет, gender: m, plural: пакеты }
+  purchase_noun: { form: покупка, gender: f, plural: покупки }
+  receipt_noun: { form: чек, gender: m, plural: чеки }
+  customer_person: { form: покупатель, gender: m, plural: покупатели }
+  cheap_adj: { form: дешёвый, note: прилагательное }
+  expensive_adj: { form: дорогой, note: прилагательное }
+  open_adj: { form: открыто, note: наречие }
+
+  # ── Созвездие «Семья», A0 ─────────────────────────────────────────────
+  mother_person: { form: мать, gender: f, plural: матери }
+  father_person: { form: отец, gender: m, plural: отцы }
+  child_person: { form: ребёнок, gender: m, plural: дети }
+  son_person: { form: сын, gender: m, plural: сыновья }
+  daughter_person: { form: дочь, gender: f, plural: дочери }
+  sister_person: { form: сестра, gender: f, plural: сёстры }
+  friend_person: { form: друг, gender: m, plural: друзья }
+  name_noun: { form: имя, gender: n, plural: имена }
+  family_noun: { form: семья, gender: f, plural: семьи }
+  man_person: { form: мужчина, gender: m, plural: мужчины }
+  woman_person: { form: женщина, gender: f, plural: женщины }
+  old_adj: { form: старый, note: прилагательное }
+
+  # ── Созвездие «Время», A0 ─────────────────────────────────────────────
+  day_time: { form: день, gender: m, plural: дни }
+  night_time: { form: ночь, gender: f, plural: ночи }
+  hour_time: { form: час, gender: m, plural: часы }
+  minute_time: { form: минута, gender: f, plural: минуты }
+  week_time: { form: неделя, gender: f, plural: недели }
+  month_time: { form: месяц, gender: m, plural: месяцы }
+  year_time: { form: год, gender: m, plural: годы }
+  morning_time: { form: утро, gender: n }
+  evening_time: { form: вечер, gender: m, plural: вечера }
+  clock_object: { form: часы, gender: m, plural: часы }
+  today_adv: { form: сегодня, note: наречие }
+  yesterday_adv: { form: вчера, note: наречие }
+
+  # ── Созвездие «Город», A0 ─────────────────────────────────────────────
+  city_place: { form: город, gender: m, plural: города }
+  square_place: { form: площадь, gender: f, plural: площади }
+  park_place: { form: парк, gender: m, plural: парки }
+  bank_place: { form: банк, gender: m, plural: банки }
+  church_place: { form: церковь, gender: f, plural: церкви }
+  market_place: { form: рынок, gender: m, plural: рынки }
+  museum_place: { form: музей, gender: m, plural: музеи }
+  post_place: { form: почта, gender: f }
+  hotel_place: { form: гостиница, gender: f, plural: гостиницы }
+  centre_place: { form: центр, gender: m, plural: центры }
+  map_object: { form: карта города, gender: f }
+  right_adv: { form: направо, note: наречие }
+
+  # ── Созвездие «Работа», A0 ────────────────────────────────────────────
+  work_noun: { form: работа, gender: f, plural: работы }
+  job_noun: { form: профессия, gender: f, plural: профессии }
+  boss_person: { form: начальник, gender: m, plural: начальники }
+  colleague_person: { form: коллега, gender: m, plural: коллеги }
+  office_place: { form: офис, gender: m, plural: офисы }
+  company_noun: { form: фирма, gender: f, plural: фирмы }
+  salary_noun: { form: зарплата, gender: f, plural: зарплаты }
+  contract_noun: { form: договор, gender: m, plural: договоры }
+  meeting_noun: { form: совещание, gender: n, plural: совещания }
+  holiday_noun: { form: отпуск, gender: m, plural: отпуска }
+  free_adj: { form: свободный, note: прилагательное }
+  tired_adj: { form: усталый, note: прилагательное }
+
+  # ── A1, все созвездия ─────────────────────────────────────────────────
+  breakfast_meal: { form: завтрак, gender: m, plural: завтраки }
+  lunch_meal: { form: обед, gender: m, plural: обеды }
+  dinner_meal: { form: ужин, gender: m, plural: ужины }
+  plate_object: { form: тарелка, gender: f, plural: тарелки }
+  glass_object: { form: стакан, gender: m, plural: стаканы }
+  fork_object: { form: вилка, gender: f, plural: вилки }
+  knife_object: { form: нож, gender: m, plural: ножи }
+  spoon_object: { form: ложка, gender: f, plural: ложки }
+  cheese_food: { form: сыр, gender: m, plural: сыры }
+  butter_food: { form: сливочное масло, gender: n }
+  egg_food: { form: яйцо, gender: n, plural: яйца }
+  vegetable_food: { form: овощи, gender: m, plural: овощи }
+  platform_place: { form: платформа, gender: f, plural: платформы }
+  delay_noun: { form: опоздание, gender: n, plural: опоздания }
+  connection_noun: { form: пересадка, gender: f, plural: пересадки }
+  timetable_object: { form: расписание, gender: n, plural: расписания }
+  luggage_noun: { form: багаж, gender: m }
+  taxi_transport: { form: такси, gender: n }
+  tram_transport: { form: трамвай, gender: m, plural: трамваи }
+  metro_transport: { form: метро, gender: n }
+  seat_object: { form: место, gender: n, plural: места }
+  journey_noun: { form: поездка, gender: f, plural: поездки }
+  arrival_noun: { form: прибытие, gender: n }
+  departure_noun: { form: отправление, gender: n }
+  flat_place: { form: квартира, gender: f, plural: квартиры }
+  floor_object: { form: пол, gender: m, plural: полы }
+  wall_object: { form: стена, gender: f, plural: стены }
+  roof_object: { form: крыша, gender: f, plural: крыши }
+  garden_place: { form: сад, gender: m, plural: сады }
+  cellar_place: { form: подвал, gender: m, plural: подвалы }
+  stairs_object: { form: лестница, gender: f, plural: лестницы }
+  bathroom_room: { form: ванная, gender: f, plural: ванные }
+  shower_object: { form: душ, gender: m }
+  wardrobe_object: { form: шкаф, gender: m, plural: шкафы }
+  lamp_object: { form: лампа, gender: f, plural: лампы }
+  heating_object: { form: отопление, gender: n }
+  cash_noun: { form: наличные, gender: m, plural: наличные }
+  change_noun: { form: сдача, gender: f }
+  discount_noun: { form: скидка, gender: f, plural: скидки }
+  size_noun: { form: размер, gender: m, plural: размеры }
+  basket_object: { form: корзина, gender: f, plural: корзины }
+  fitting_room: { form: примерочная, gender: f, plural: примерочные }
+  offer_noun: { form: предложение, gender: n, plural: предложения }
+  quality_noun: { form: качество, gender: n }
+  product_noun: { form: товар, gender: m, plural: товары }
+  brand_noun: { form: марка, gender: f, plural: марки }
+  delivery_noun: { form: доставка, gender: f, plural: доставки }
+  exchange_noun: { form: обмен, gender: m, plural: обмены }
+  brother_person: { form: брат, gender: m, plural: братья }
+  grandmother_person: { form: бабушка, gender: f, plural: бабушки }
+  grandfather_person: { form: дедушка, gender: m, plural: дедушки }
+  husband_person: { form: муж, gender: m, plural: мужья }
+  wife_person: { form: жена, gender: f, plural: жёны }
+  aunt_person: { form: тётя, gender: f, plural: тёти }
+  uncle_person: { form: дядя, gender: m, plural: дяди }
+  cousin_person: { form: двоюродный брат, gender: m }
+  grandchild_person: { form: внук, gender: m, plural: внуки }
+  birthday_noun: { form: день рождения, gender: m }
+  wedding_noun: { form: свадьба, gender: f, plural: свадьбы }
+  young_adj: { form: молодой, note: прилагательное }
+  weekend_time: { form: выходные, gender: m, plural: выходные }
+  date_noun: { form: дата, gender: f, plural: даты }
+  calendar_object: { form: календарь, gender: m, plural: календари }
+  noon_time: { form: полдень, gender: m }
+  tomorrow_adv: { form: завтра, note: наречие }
+  always_adv: { form: всегда, note: наречие }
+  never_adv: { form: никогда, note: наречие }
+  often_adv: { form: часто, note: наречие }
+  sometimes_adv: { form: иногда, note: наречие }
+  early_adv: { form: рано, note: наречие }
+  now_adv: { form: сейчас, note: наречие }
+  soon_adv: { form: скоро, note: наречие }
+  crossing_place: { form: перекрёсток, gender: m, plural: перекрёстки }
+  traffic_light: { form: светофор, gender: m, plural: светофоры }
+  pedestrian_person: { form: пешеход, gender: m, plural: пешеходы }
+  bridge_place: { form: мост, gender: m, plural: мосты }
+  river_place: { form: река, gender: f, plural: реки }
+  corner_place: { form: угол, gender: m, plural: углы }
+  direction_noun: { form: направление, gender: n, plural: направления }
+  address_noun: { form: адрес, gender: m, plural: адреса }
+  district_place: { form: район, gender: m, plural: районы }
+  townhall_place: { form: ратуша, gender: f, plural: ратуши }
+  entrance_place: { form: вход, gender: m, plural: входы }
+  exit_place: { form: выход, gender: m, plural: выходы }
+  application_noun: { form: заявка на работу, gender: f }
+  cv_noun: { form: резюме, gender: n }
+  interview_noun: { form: собеседование, gender: n, plural: собеседования }
+  employee_person: { form: сотрудник, gender: m, plural: сотрудники }
+  employer_person: { form: работодатель, gender: m, plural: работодатели }
+  department_noun: { form: отдел, gender: m, plural: отделы }
+  project_noun: { form: проект, gender: m, plural: проекты }
+  deadline_noun: { form: срок, gender: m, plural: сроки }
+  overtime_noun: { form: сверхурочные, gender: m, plural: сверхурочные }
+  break_noun: { form: перерыв, gender: m, plural: перерывы }
+  task_noun: { form: задача, gender: f, plural: задачи }
+  experience_noun: { form: опыт, gender: m }
+
+  # ── A2, все созвездия ─────────────────────────────────────────────────
+  fruit_food: { form: фрукты, gender: m, plural: фрукты }
+  potato_food: { form: картофель, gender: m }
+  rice_food: { form: рис, gender: m }
+  pasta_food: { form: макароны, gender: m, plural: макароны }
+  chicken_food: { form: курица, gender: f }
+  beef_food: { form: говядина, gender: f }
+  pork_food: { form: свинина, gender: f }
+  sausage_food: { form: колбаса, gender: f, plural: колбасы }
+  sauce_food: { form: соус, gender: m, plural: соусы }
+  pepper_food: { form: перец, gender: m }
+  oil_food: { form: масло, gender: n }
+  flour_food: { form: мука, gender: f }
+  cake_food: { form: пирог, gender: m, plural: пироги }
+  chocolate_food: { form: шоколад, gender: m }
+  icecream_food: { form: мороженое, gender: n }
+  juice_drink: { form: сок, gender: m, plural: соки }
+  tea_drink: { form: чай, gender: m }
+  beer_drink: { form: пиво, gender: n }
+  wine_drink: { form: вино, gender: n, plural: вина }
+  menu_object: { form: меню, gender: n }
+  waiter_person: { form: официант, gender: m, plural: официанты }
+  bill_noun: { form: счёт, gender: m, plural: счета }
+  order_noun: { form: заказ, gender: m, plural: заказы }
+  tip_noun: { form: чаевые, gender: m, plural: чаевые }
+  motorway_place: { form: автобан, gender: m, plural: автобаны }
+  petrol_station: { form: заправка, gender: f, plural: заправки }
+  petrol_noun: { form: бензин, gender: m }
+  licence_noun: { form: водительские права, gender: m }
+  accident_noun: { form: авария, gender: f, plural: аварии }
+  jam_noun: { form: пробка, gender: f, plural: пробки }
+  diversion_noun: { form: объезд, gender: m, plural: объезды }
+  roadworks_noun: { form: дорожные работы, gender: f }
+  parking_place: { form: парковка, gender: f, plural: парковки }
+  garage_place: { form: паркинг, gender: m, plural: паркинги }
+  kilometre_noun: { form: километр, gender: m, plural: километры }
+  speed_noun: { form: скорость, gender: f, plural: скорости }
+  tyre_object: { form: шина, gender: f, plural: шины }
+  engine_object: { form: двигатель, gender: m, plural: двигатели }
+  workshop_place: { form: автомастерская, gender: f }
+  insurance_noun: { form: страховка, gender: f, plural: страховки }
+  seatbelt_object: { form: ремень безопасности, gender: m }
+  vehicle_papers: { form: техпаспорт, gender: m }
+  ferry_transport: { form: паром, gender: m, plural: паромы }
+  harbour_place: { form: порт, gender: m, plural: порты }
+  airport_place: { form: аэропорт, gender: m, plural: аэропорты }
+  takeoff_noun: { form: вылет, gender: m, plural: вылеты }
+  landing_noun: { form: посадка, gender: f, plural: посадки }
+  carpool_noun: { form: попутка, gender: f, plural: попутки }
+  landlord_person: { form: арендодатель, gender: m, plural: арендодатели }
+  lease_noun: { form: договор аренды, gender: m }
+  deposit_noun: { form: залог, gender: m, plural: залоги }
+  utilities_noun: { form: коммунальные расходы, gender: m }
+  caretaker_person: { form: комендант, gender: m, plural: коменданты }
+  houserules_noun: { form: правила дома, gender: n }
+  balcony_place: { form: балкон, gender: m, plural: балконы }
+  terrace_place: { form: терраса, gender: f, plural: террасы }
+  furniture_noun: { form: мебель, gender: f }
+  sofa_object: { form: диван, gender: m, plural: диваны }
+  carpet_object: { form: ковёр, gender: m, plural: ковры }
+  curtain_object: { form: занавеска, gender: f, plural: занавески }
+  mirror_object: { form: зеркало, gender: n, plural: зеркала }
+  shelf_object: { form: полка, gender: f, plural: полки }
+  washing_machine: { form: стиральная машина, gender: f }
+  fridge_object: { form: холодильник, gender: m, plural: холодильники }
+  stove_object: { form: плита, gender: f, plural: плиты }
+  oven_object: { form: духовка, gender: f, plural: духовки }
+  socket_object: { form: розетка, gender: f, plural: розетки }
+  electricity_noun: { form: электричество, gender: n }
+  tap_object: { form: кран, gender: m, plural: краны }
+  rubbish_noun: { form: мусор, gender: m }
+  bin_object: { form: мусорный бак, gender: m }
+  move_noun: { form: переезд, gender: m, plural: переезды }
+  seller_person: { form: продавец, gender: m, plural: продавцы }
+  receipt_slip: { form: кассовый чек, gender: m }
+  creditcard_object: { form: кредитная карта, gender: f }
+  transfer_noun: { form: перевод, gender: m, plural: переводы }
+  voucher_noun: { form: ваучер, gender: m, plural: ваучеры }
+  special_offer: { form: спецпредложение, gender: n }
+  clearance_noun: { form: распродажа, gender: f, plural: распродажи }
+  warehouse_place: { form: склад, gender: m, plural: склады }
+  assortment_noun: { form: ассортимент, gender: m }
+  warranty_noun: { form: гарантия, gender: f, plural: гарантии }
+  complaint_noun: { form: рекламация, gender: f, plural: рекламации }
+  return_noun: { form: возврат, gender: m, plural: возвраты }
+  shipping_noun: { form: пересылка, gender: f }
+  packaging_noun: { form: упаковка, gender: f, plural: упаковки }
+  label_object: { form: этикетка, gender: f, plural: этикетки }
+  pricetag_object: { form: ценник, gender: m, plural: ценники }
+  vat_noun: { form: НДС, gender: m }
+  instalment_noun: { form: рассрочка, gender: f }
+  downpayment_noun: { form: предоплата, gender: f }
+  ordernumber_noun: { form: номер заказа, gender: m }
+  cart_object: { form: корзина покупок, gender: f }
+  support_noun: { form: служба поддержки, gender: f }
+  openinghours_noun: { form: часы работы, gender: m }
+  publicholiday_noun: { form: праздничный день, gender: m }
+  relatives_noun: { form: родственники, gender: m, plural: родственники }
+  brotherinlaw_person: { form: шурин, gender: m, plural: шурины }
+  sisterinlaw_person: { form: невестка, gender: f, plural: невестки }
+  niece_person: { form: племянница, gender: f, plural: племянницы }
+  nephew_person: { form: племянник, gender: m, plural: племянники }
+  motherinlaw_person: { form: свекровь, gender: f }
+  fatherinlaw_person: { form: свёкор, gender: m }
+  stepfather_person: { form: отчим, gender: m, plural: отчимы }
+  twin_person: { form: близнец, gender: m, plural: близнецы }
+  siblings_noun: { form: братья и сёстры, gender: m }
+  engagement_noun: { form: помолвка, gender: f, plural: помолвки }
+  divorce_noun: { form: развод, gender: m, plural: разводы }
+  marriage_noun: { form: брак, gender: m, plural: браки }
+  upbringing_noun: { form: воспитание, gender: n }
+  childhood_noun: { form: детство, gender: n }
+  youth_noun: { form: юность, gender: f }
+  pension_noun: { form: пенсия, gender: f, plural: пенсии }
+  surname_noun: { form: фамилия, gender: f, plural: фамилии }
+  firstname_noun: { form: имя, gender: n, plural: имена }
+  birthplace_noun: { form: место рождения, gender: n }
+  citizenship_noun: { form: гражданство, gender: n }
+  maritalstatus_noun: { form: семейное положение, gender: n }
+  household_noun: { form: домашнее хозяйство, gender: n }
+  kindergarten_place: { form: детский сад, gender: m }
+  monday_time: { form: понедельник, gender: m, plural: понедельники }
+  tuesday_time: { form: вторник, gender: m, plural: вторники }
+  wednesday_time: { form: среда, gender: f, plural: среды }
+  thursday_time: { form: четверг, gender: m, plural: четверги }
+  friday_time: { form: пятница, gender: f, plural: пятницы }
+  saturday_time: { form: суббота, gender: f, plural: субботы }
+  sunday_time: { form: воскресенье, gender: n }
+  season_time: { form: время года, gender: n }
+  spring_time: { form: весна, gender: f }
+  summer_time: { form: лето, gender: n }
+  autumn_time: { form: осень, gender: f }
+  winter_time: { form: зима, gender: f }
+  vacation_time: { form: каникулы, gender: m, plural: каникулы }
+  appointment_meeting: { form: договорённость, gender: f }
+  duration_noun: { form: продолжительность, gender: f }
+  beginning_noun: { form: начало, gender: n }
+  ending_noun: { form: конец, gender: m, plural: концы }
+  future_noun: { form: будущее, gender: n }
+  past_noun: { form: прошлое, gender: n }
+  present_noun: { form: настоящее, gender: n }
+  moment_noun: { form: мгновение, gender: n }
+  century_noun: { form: век, gender: m, plural: века }
+  clocktime_noun: { form: время суток, gender: n }
+  alarm_object: { form: будильник, gender: m, plural: будильники }
+  suburb_place: { form: пригород, gender: m, plural: пригороды }
+  settlement_place: { form: посёлок, gender: m, plural: посёлки }
+  pavement_place: { form: тротуар, gender: m, plural: тротуары }
+  cyclepath_place: { form: велодорожка, gender: f, plural: велодорожки }
+  crosswalk_place: { form: пешеходный переход, gender: m }
+  streetlamp_object: { form: фонарь, gender: m, plural: фонари }
+  monument_place: { form: памятник, gender: m, plural: памятники }
+  fountain_place: { form: колодец, gender: m, plural: колодцы }
+  cemetery_place: { form: кладбище, gender: n, plural: кладбища }
+  library_place: { form: библиотека, gender: f, plural: библиотеки }
+  school_place: { form: школа, gender: f, plural: школы }
+  cinema_place: { form: кинотеатр, gender: m, plural: кинотеатры }
+  theatre_place: { form: театр, gender: m, plural: театры }
+  stadium_place: { form: стадион, gender: m, plural: стадионы }
+  pool_place: { form: бассейн, gender: m, plural: бассейны }
+  playground_place: { form: детская площадка, gender: f }
+  pedestrian_zone: { form: пешеходная зона, gender: f }
+  resident_person: { form: житель, gender: m, plural: жители }
+  administration_noun: { form: администрация, gender: f }
+  citizenoffice_place: { form: бюро регистрации, gender: n }
+  police_noun: { form: полиция, gender: f }
+  firebrigade_noun: { form: пожарная охрана, gender: f }
+  emergency_call: { form: номер экстренной службы, gender: m }
+  sight_noun: { form: достопримечательность, gender: f }
+  employment_contract: { form: трудовой договор, gender: m }
+  probation_noun: { form: испытательный срок, gender: m }
+  dismissal_noun: { form: увольнение, gender: n }
+  reference_noun: { form: характеристика, gender: f }
+  raise_noun: { form: повышение зарплаты, gender: n }
+  fulltime_noun: { form: полная занятость, gender: f }
+  parttime_noun: { form: частичная занятость, gender: f }
+  shift_noun: { form: смена, gender: f, plural: смены }
+  homeoffice_noun: { form: работа из дома, gender: f }
+  conference_noun: { form: конференция, gender: f, plural: конференции }
+  colleague_female: { form: коллега, gender: f, plural: коллеги }
+  supervisor_person: { form: руководитель, gender: m, plural: руководители }
+  internship_noun: { form: стажировка, gender: f, plural: стажировки }
+  training_noun: { form: профобучение, gender: n }
+  furthertraining_noun: { form: повышение квалификации, gender: n }
+  studies_noun: { form: учёба, gender: f }
+  union_noun: { form: профсоюз, gender: m, plural: профсоюзы }
+  workscouncil_noun: { form: производственный совет, gender: m }
+  sicknote_noun: { form: больничный лист, gender: m }
+  workinghours_noun: { form: рабочее время, gender: n }
+  endofday_noun: { form: конец рабочего дня, gender: m }
+  tax_noun: { form: налог, gender: m, plural: налоги }
+  socialcontribution_noun: { form: социальный взнос, gender: m }
+  payslip_noun: { form: расчётный лист, gender: m }

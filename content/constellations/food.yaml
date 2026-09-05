@@ -1,0 +1,192 @@
+# Созвездие «Еда» — базовая бытовая тема.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: food
+tiers:
+  a0:
+    concepts:
+      - { id: bread_food, pos: noun, freq_rank: 1870 }
+      - { id: water_drink, pos: noun, freq_rank: 610 }
+      - { id: milk_drink, pos: noun, freq_rank: 2450 }
+      - { id: coffee_drink, pos: noun, freq_rank: 2180 }
+      - { id: apple_food, pos: noun, freq_rank: 3240 }
+      - { id: meat_food, pos: noun, freq_rank: 2760 }
+      - { id: fish_food, pos: noun, freq_rank: 2090 }
+      - { id: soup_food, pos: noun, freq_rank: 3510 }
+      - { id: salt_food, pos: noun, freq_rank: 3020 }
+      - { id: sugar_food, pos: noun, freq_rank: 3380 }
+      - { id: hunger_noun, pos: noun, freq_rank: 2640 }
+      - { id: restaurant_place, pos: noun, freq_rank: 1930 }
+    phrases:
+      - id: food_a0_bread
+        template: "Ich kaufe {bread}."
+        answer: Brot
+        register: casual
+        concepts: [bread_food]
+      - id: food_a0_water
+        template: "Ich trinke {water}."
+        answer: Wasser
+        register: casual
+        concepts: [water_drink]
+      - id: food_a0_hunger
+        template: "Ich habe {hunger}."
+        answer: Hunger
+        register: casual
+        concepts: [hunger_noun]
+      - id: food_a0_restaurant
+        template: "Wir gehen ins {restaurant}."
+        answer: Restaurant
+        register: casual
+        concepts: [restaurant_place]
+
+  a1:
+    concepts:
+      - { id: breakfast_meal, pos: noun, freq_rank: 3120 }
+      - { id: lunch_meal, pos: noun, freq_rank: 3450 }
+      - { id: dinner_meal, pos: noun, freq_rank: 3280 }
+      - { id: plate_object, pos: noun, freq_rank: 4210 }
+      - { id: glass_object, pos: noun, freq_rank: 2380 }
+      - { id: fork_object, pos: noun, freq_rank: 5140 }
+      - { id: knife_object, pos: noun, freq_rank: 3960 }
+      - { id: spoon_object, pos: noun, freq_rank: 5320 }
+      - { id: cheese_food, pos: noun, freq_rank: 3870 }
+      - { id: butter_food, pos: noun, freq_rank: 4090 }
+      - { id: egg_food, pos: noun, freq_rank: 3640 }
+      - { id: vegetable_food, pos: noun, freq_rank: 3790 }
+    phrases:
+      - id: food_a1_breakfast
+        template: "Ich mache das {breakfast}."
+        answer: Frühstück
+        register: casual
+        concepts: [breakfast_meal]
+      - id: food_a1_cheese
+        template: "Ich hätte gern etwas {cheese}."
+        answer: Käse
+        register: formal
+        concepts: [cheese_food]
+      - id: food_a1_egg
+        template: "Möchtest du ein {egg}?"
+        answer: Ei
+        register: casual
+        concepts: [egg_food]
+      - id: food_a1_glass
+        template: "Bringen Sie mir ein {glass}."
+        answer: Glas
+        register: formal
+        concepts: [glass_object]
+      - id: food_a1_vegetable
+        template: "Ich esse viel {vegetable}."
+        answer: Gemüse
+        register: casual
+        concepts: [vegetable_food]
+      - id: food_a1_dinner
+        template: "Das {dinner} ist fertig."
+        answer: Abendessen
+        register: casual
+        concepts: [dinner_meal]
+      - id: food_a1_fork
+        template: "Mir fehlt eine {fork}."
+        answer: Gabel
+        register: casual
+        concepts: [fork_object]
+      - id: food_a1_lunch
+        template: "Wir treffen uns zum {lunch}."
+        answer: Mittagessen
+        register: casual
+        concepts: [lunch_meal]
+
+  a2:
+    concepts:
+      - { id: fruit_food, pos: noun, freq_rank: 3410 }
+      - { id: potato_food, pos: noun, freq_rank: 4120 }
+      - { id: rice_food, pos: noun, freq_rank: 4380 }
+      - { id: pasta_food, pos: noun, freq_rank: 4760 }
+      - { id: chicken_food, pos: noun, freq_rank: 4210 }
+      - { id: beef_food, pos: noun, freq_rank: 5140 }
+      - { id: pork_food, pos: noun, freq_rank: 5320 }
+      - { id: sausage_food, pos: noun, freq_rank: 3980 }
+      - { id: sauce_food, pos: noun, freq_rank: 4890 }
+      - { id: pepper_food, pos: noun, freq_rank: 5060 }
+      - { id: oil_food, pos: noun, freq_rank: 3640 }
+      - { id: flour_food, pos: noun, freq_rank: 5480 }
+      - { id: cake_food, pos: noun, freq_rank: 4030 }
+      - { id: chocolate_food, pos: noun, freq_rank: 4570 }
+      - { id: icecream_food, pos: noun, freq_rank: 4940 }
+      - { id: juice_drink, pos: noun, freq_rank: 4260 }
+      - { id: tea_drink, pos: noun, freq_rank: 3520 }
+      - { id: beer_drink, pos: noun, freq_rank: 3170 }
+      - { id: wine_drink, pos: noun, freq_rank: 3060 }
+      - { id: menu_object, pos: noun, freq_rank: 5210 }
+      - { id: waiter_person, pos: noun, freq_rank: 4830 }
+      - { id: bill_noun, pos: noun, freq_rank: 3290 }
+      - { id: order_noun, pos: noun, freq_rank: 3750 }
+      - { id: tip_noun, pos: noun, freq_rank: 5390 }
+    phrases:
+      - id: food_a2_menu
+        template: "Bringen Sie mir bitte die {menu}."
+        answer: Speisekarte
+        register: formal
+        concepts: [menu_object]
+      - id: food_a2_bill
+        template: "Die {bill}, bitte."
+        answer: Rechnung
+        register: formal
+        concepts: [bill_noun]
+      - id: food_a2_order
+        template: "Meine {order} ist noch nicht da."
+        answer: Bestellung
+        register: casual
+        concepts: [order_noun]
+      - id: food_a2_wine
+        template: "Ein Glas {wine}, bitte."
+        answer: Wein
+        register: formal
+        concepts: [wine_drink]
+      - id: food_a2_tea
+        template: "Ich trinke lieber {tea}."
+        answer: Tee
+        register: casual
+        concepts: [tea_drink]
+      - id: food_a2_potato
+        template: "Dazu nehme ich {potato}."
+        answer: Kartoffeln
+        register: casual
+        concepts: [potato_food]
+      - id: food_a2_cake
+        template: "Der {cake} ist selbst gebacken."
+        answer: Kuchen
+        register: casual
+        concepts: [cake_food]
+      - id: food_a2_waiter
+        template: "Der {waiter} kommt gleich."
+        answer: Kellner
+        register: casual
+        concepts: [waiter_person]
+      - id: food_a2_tip
+        template: "Das {tip} ist schon dabei."
+        answer: Trinkgeld
+        register: casual
+        concepts: [tip_noun]
+      - id: food_a2_sausage
+        template: "Ich hätte gern eine {sausage}."
+        answer: Wurst
+        register: formal
+        concepts: [sausage_food]
+      - id: food_a2_juice
+        template: "Für das Kind einen {juice}."
+        answer: Saft
+        register: casual
+        concepts: [juice_drink]
+      - id: food_a2_chocolate
+        template: "Magst du dunkle {chocolate}?"
+        answer: Schokolade
+        register: casual
+        concepts: [chocolate_food]

@@ -178,3 +178,407 @@ lexemes:
   second_opinion: { form: друга думка, gender: f }
   waiting_period: { form: строк очікування, gender: m }
   cost_estimate: { form: кошторис витрат, gender: m }
+
+  # ── Сузір'я «Їжа», A0 ─────────────────────────────────────────────────
+  bread_food: { form: хліб, gender: m, plural: хліби }
+  water_drink: { form: вода, gender: f, plural: води }
+  milk_drink: { form: молоко, gender: n }
+  coffee_drink: { form: кава, gender: f }
+  apple_food: { form: яблуко, gender: n, plural: яблука }
+  meat_food: { form: м'ясо, gender: n }
+  fish_food: { form: риба, gender: f, plural: риби }
+  soup_food: { form: суп, gender: m, plural: супи }
+  salt_food: { form: сіль, gender: f }
+  sugar_food: { form: цукор, gender: m }
+  hunger_noun: { form: голод, gender: m }
+  restaurant_place: { form: ресторан, gender: m, plural: ресторани }
+
+  # ── Сузір'я «Транспорт», A0 ───────────────────────────────────────────
+  train_transport: { form: потяг, gender: m, plural: потяги }
+  bus_transport: { form: автобус, gender: m, plural: автобуси }
+  car_transport: { form: машина, gender: f, plural: машини }
+  ticket_transport: { form: квиток, gender: m, plural: квитки }
+  station_place: { form: вокзал, gender: m, plural: вокзали }
+  street_place: { form: вулиця, gender: f, plural: вулиці }
+  bicycle_transport: { form: велосипед, gender: m, plural: велосипеди }
+  airplane_transport: { form: літак, gender: m, plural: літаки }
+  way_noun: { form: шлях, gender: m, plural: шляхи }
+  driver_person: { form: водій, gender: m, plural: водії }
+  stop_place: { form: зупинка, gender: f, plural: зупинки }
+  late_adj: { form: пізно, note: прислівник }
+
+  # ── Сузір'я «Дім», A0 ─────────────────────────────────────────────────
+  house_place: { form: будинок, gender: m, plural: будинки }
+  door_object: { form: двері, gender: f, plural: двері }
+  window_object: { form: вікно, gender: n, plural: вікна }
+  table_object: { form: стіл, gender: m, plural: столи }
+  chair_object: { form: стілець, gender: m, plural: стільці }
+  bed_object: { form: ліжко, gender: n, plural: ліжка }
+  kitchen_room: { form: кухня, gender: f, plural: кухні }
+  room_place: { form: кімната, gender: f, plural: кімнати }
+  key_object: { form: ключ, gender: m, plural: ключі }
+  rent_noun: { form: оренда, gender: f }
+  neighbour_person: { form: сусід, gender: m, plural: сусіди }
+  light_object: { form: світло, gender: n }
+
+  # ── Сузір'я «Магазин», A0 ─────────────────────────────────────────────
+  shop_place: { form: магазин, gender: m, plural: магазини }
+  money_noun: { form: гроші, gender: m, plural: гроші }
+  price_noun: { form: ціна, gender: f, plural: ціни }
+  card_object: { form: картка, gender: f, plural: картки }
+  checkout_place: { form: каса, gender: f, plural: каси }
+  bag_object: { form: пакет, gender: m, plural: пакети }
+  purchase_noun: { form: покупка, gender: f, plural: покупки }
+  receipt_noun: { form: чек, gender: m, plural: чеки }
+  customer_person: { form: покупець, gender: m, plural: покупці }
+  cheap_adj: { form: дешевий, note: прикметник }
+  expensive_adj: { form: дорогий, note: прикметник }
+  open_adj: { form: відчинено, note: прислівник }
+
+  # ── Сузір'я «Сім'я», A0 ───────────────────────────────────────────────
+  mother_person: { form: мати, gender: f, plural: матері }
+  father_person: { form: батько, gender: m, plural: батьки }
+  child_person: { form: дитина, gender: f, plural: діти }
+  son_person: { form: син, gender: m, plural: сини }
+  daughter_person: { form: дочка, gender: f, plural: дочки }
+  sister_person: { form: сестра, gender: f, plural: сестри }
+  friend_person: { form: друг, gender: m, plural: друзі }
+  name_noun: { form: ім'я, gender: n, plural: імена }
+  family_noun: { form: сім'я, gender: f, plural: сім'ї }
+  man_person: { form: чоловік, gender: m, plural: чоловіки }
+  woman_person: { form: жінка, gender: f, plural: жінки }
+  old_adj: { form: старий, note: прикметник }
+
+  # ── Сузір'я «Час», A0 ─────────────────────────────────────────────────
+  day_time: { form: день, gender: m, plural: дні }
+  night_time: { form: ніч, gender: f, plural: ночі }
+  hour_time: { form: година, gender: f, plural: години }
+  minute_time: { form: хвилина, gender: f, plural: хвилини }
+  week_time: { form: тиждень, gender: m, plural: тижні }
+  month_time: { form: місяць, gender: m, plural: місяці }
+  year_time: { form: рік, gender: m, plural: роки }
+  morning_time: { form: ранок, gender: m, plural: ранки }
+  evening_time: { form: вечір, gender: m, plural: вечори }
+  clock_object: { form: годинник, gender: m, plural: годинники }
+  today_adv: { form: сьогодні, note: прислівник }
+  yesterday_adv: { form: вчора, note: прислівник }
+
+  # ── Сузір'я «Місто», A0 ───────────────────────────────────────────────
+  city_place: { form: місто, gender: n, plural: міста }
+  square_place: { form: площа, gender: f, plural: площі }
+  park_place: { form: парк, gender: m, plural: парки }
+  bank_place: { form: банк, gender: m, plural: банки }
+  church_place: { form: церква, gender: f, plural: церкви }
+  market_place: { form: ринок, gender: m, plural: ринки }
+  museum_place: { form: музей, gender: m, plural: музеї }
+  post_place: { form: пошта, gender: f }
+  hotel_place: { form: готель, gender: m, plural: готелі }
+  centre_place: { form: центр, gender: m, plural: центри }
+  map_object: { form: карта міста, gender: f }
+  right_adv: { form: праворуч, note: прислівник }
+
+  # ── Сузір'я «Робота», A0 ──────────────────────────────────────────────
+  work_noun: { form: робота, gender: f, plural: роботи }
+  job_noun: { form: професія, gender: f, plural: професії }
+  boss_person: { form: начальник, gender: m, plural: начальники }
+  colleague_person: { form: колега, gender: m, plural: колеги }
+  office_place: { form: офіс, gender: m, plural: офіси }
+  company_noun: { form: фірма, gender: f, plural: фірми }
+  salary_noun: { form: зарплата, gender: f, plural: зарплати }
+  contract_noun: { form: договір, gender: m, plural: договори }
+  meeting_noun: { form: нарада, gender: f, plural: наради }
+  holiday_noun: { form: відпустка, gender: f, plural: відпустки }
+  free_adj: { form: вільний, note: прикметник }
+  tired_adj: { form: втомлений, note: прикметник }
+
+  # ── A1, всі сузір'я ───────────────────────────────────────────────────
+  breakfast_meal: { form: сніданок, gender: m, plural: сніданки }
+  lunch_meal: { form: обід, gender: m, plural: обіди }
+  dinner_meal: { form: вечеря, gender: f, plural: вечері }
+  plate_object: { form: тарілка, gender: f, plural: тарілки }
+  glass_object: { form: склянка, gender: f, plural: склянки }
+  fork_object: { form: виделка, gender: f, plural: виделки }
+  knife_object: { form: ніж, gender: m, plural: ножі }
+  spoon_object: { form: ложка, gender: f, plural: ложки }
+  cheese_food: { form: сир, gender: m, plural: сири }
+  butter_food: { form: вершкове масло, gender: n }
+  egg_food: { form: яйце, gender: n, plural: яйця }
+  vegetable_food: { form: овочі, gender: m, plural: овочі }
+  platform_place: { form: платформа, gender: f, plural: платформи }
+  delay_noun: { form: запізнення, gender: n }
+  connection_noun: { form: пересадка, gender: f, plural: пересадки }
+  timetable_object: { form: розклад, gender: m, plural: розклади }
+  luggage_noun: { form: багаж, gender: m }
+  taxi_transport: { form: таксі, gender: n }
+  tram_transport: { form: трамвай, gender: m, plural: трамваї }
+  metro_transport: { form: метро, gender: n }
+  seat_object: { form: місце, gender: n, plural: місця }
+  journey_noun: { form: подорож, gender: f, plural: подорожі }
+  arrival_noun: { form: прибуття, gender: n }
+  departure_noun: { form: відправлення, gender: n }
+  flat_place: { form: квартира, gender: f, plural: квартири }
+  floor_object: { form: підлога, gender: f, plural: підлоги }
+  wall_object: { form: стіна, gender: f, plural: стіни }
+  roof_object: { form: дах, gender: m, plural: дахи }
+  garden_place: { form: сад, gender: m, plural: сади }
+  cellar_place: { form: підвал, gender: m, plural: підвали }
+  stairs_object: { form: сходи, gender: m, plural: сходи }
+  bathroom_room: { form: ванна кімната, gender: f }
+  shower_object: { form: душ, gender: m }
+  wardrobe_object: { form: шафа, gender: f, plural: шафи }
+  lamp_object: { form: лампа, gender: f, plural: лампи }
+  heating_object: { form: опалення, gender: n }
+  cash_noun: { form: готівка, gender: f }
+  change_noun: { form: решта, gender: f }
+  discount_noun: { form: знижка, gender: f, plural: знижки }
+  size_noun: { form: розмір, gender: m, plural: розміри }
+  basket_object: { form: кошик, gender: m, plural: кошики }
+  fitting_room: { form: примірочна, gender: f, plural: примірочні }
+  offer_noun: { form: пропозиція, gender: f, plural: пропозиції }
+  quality_noun: { form: якість, gender: f }
+  product_noun: { form: товар, gender: m, plural: товари }
+  brand_noun: { form: марка, gender: f, plural: марки }
+  delivery_noun: { form: доставка, gender: f, plural: доставки }
+  exchange_noun: { form: обмін, gender: m, plural: обміни }
+  brother_person: { form: брат, gender: m, plural: брати }
+  grandmother_person: { form: бабуся, gender: f, plural: бабусі }
+  grandfather_person: { form: дідусь, gender: m, plural: дідусі }
+  husband_person: { form: чоловік, gender: m, plural: чоловіки }
+  wife_person: { form: дружина, gender: f, plural: дружини }
+  aunt_person: { form: тітка, gender: f, plural: тітки }
+  uncle_person: { form: дядько, gender: m, plural: дядьки }
+  cousin_person: { form: двоюрідний брат, gender: m }
+  grandchild_person: { form: онук, gender: m, plural: онуки }
+  birthday_noun: { form: день народження, gender: m }
+  wedding_noun: { form: весілля, gender: n, plural: весілля }
+  young_adj: { form: молодий, note: прикметник }
+  weekend_time: { form: вихідні, gender: m, plural: вихідні }
+  date_noun: { form: дата, gender: f, plural: дати }
+  calendar_object: { form: календар, gender: m, plural: календарі }
+  noon_time: { form: полудень, gender: m }
+  tomorrow_adv: { form: завтра, note: прислівник }
+  always_adv: { form: завжди, note: прислівник }
+  never_adv: { form: ніколи, note: прислівник }
+  often_adv: { form: часто, note: прислівник }
+  sometimes_adv: { form: іноді, note: прислівник }
+  early_adv: { form: рано, note: прислівник }
+  now_adv: { form: зараз, note: прислівник }
+  soon_adv: { form: скоро, note: прислівник }
+  crossing_place: { form: перехрестя, gender: n }
+  traffic_light: { form: світлофор, gender: m, plural: світлофори }
+  pedestrian_person: { form: пішохід, gender: m, plural: пішоходи }
+  bridge_place: { form: міст, gender: m, plural: мости }
+  river_place: { form: річка, gender: f, plural: річки }
+  corner_place: { form: ріг, gender: m, plural: роги }
+  direction_noun: { form: напрямок, gender: m, plural: напрямки }
+  address_noun: { form: адреса, gender: f, plural: адреси }
+  district_place: { form: район, gender: m, plural: райони }
+  townhall_place: { form: ратуша, gender: f, plural: ратуші }
+  entrance_place: { form: вхід, gender: m, plural: входи }
+  exit_place: { form: вихід, gender: m, plural: виходи }
+  application_noun: { form: заявка на роботу, gender: f }
+  cv_noun: { form: резюме, gender: n }
+  interview_noun: { form: співбесіда, gender: f, plural: співбесіди }
+  employee_person: { form: співробітник, gender: m, plural: співробітники }
+  employer_person: { form: роботодавець, gender: m, plural: роботодавці }
+  department_noun: { form: відділ, gender: m, plural: відділи }
+  project_noun: { form: проєкт, gender: m, plural: проєкти }
+  deadline_noun: { form: термін, gender: m, plural: терміни }
+  overtime_noun: { form: понаднормові, gender: m, plural: понаднормові }
+  break_noun: { form: перерва, gender: f, plural: перерви }
+  task_noun: { form: завдання, gender: n, plural: завдання }
+  experience_noun: { form: досвід, gender: m }
+
+  # ── A2, всі сузір'я ───────────────────────────────────────────────────
+  fruit_food: { form: фрукти, gender: m, plural: фрукти }
+  potato_food: { form: картопля, gender: f }
+  rice_food: { form: рис, gender: m }
+  pasta_food: { form: макарони, gender: m, plural: макарони }
+  chicken_food: { form: курка, gender: f }
+  beef_food: { form: яловичина, gender: f }
+  pork_food: { form: свинина, gender: f }
+  sausage_food: { form: ковбаса, gender: f, plural: ковбаси }
+  sauce_food: { form: соус, gender: m, plural: соуси }
+  pepper_food: { form: перець, gender: m }
+  oil_food: { form: олія, gender: f }
+  flour_food: { form: борошно, gender: n }
+  cake_food: { form: пиріг, gender: m, plural: пироги }
+  chocolate_food: { form: шоколад, gender: m }
+  icecream_food: { form: морозиво, gender: n }
+  juice_drink: { form: сік, gender: m, plural: соки }
+  tea_drink: { form: чай, gender: m }
+  beer_drink: { form: пиво, gender: n }
+  wine_drink: { form: вино, gender: n, plural: вина }
+  menu_object: { form: меню, gender: n }
+  waiter_person: { form: офіціант, gender: m, plural: офіціанти }
+  bill_noun: { form: рахунок, gender: m, plural: рахунки }
+  order_noun: { form: замовлення, gender: n }
+  tip_noun: { form: чайові, gender: m, plural: чайові }
+  motorway_place: { form: автобан, gender: m, plural: автобани }
+  petrol_station: { form: заправка, gender: f, plural: заправки }
+  petrol_noun: { form: бензин, gender: m }
+  licence_noun: { form: водійські права, gender: n }
+  accident_noun: { form: аварія, gender: f, plural: аварії }
+  jam_noun: { form: затор, gender: m, plural: затори }
+  diversion_noun: { form: об'їзд, gender: m, plural: об'їзди }
+  roadworks_noun: { form: дорожні роботи, gender: f }
+  parking_place: { form: парковка, gender: f, plural: парковки }
+  garage_place: { form: паркінг, gender: m, plural: паркінги }
+  kilometre_noun: { form: кілометр, gender: m, plural: кілометри }
+  speed_noun: { form: швидкість, gender: f, plural: швидкості }
+  tyre_object: { form: шина, gender: f, plural: шини }
+  engine_object: { form: двигун, gender: m, plural: двигуни }
+  workshop_place: { form: автомайстерня, gender: f }
+  insurance_noun: { form: страховка, gender: f, plural: страховки }
+  seatbelt_object: { form: ремінь безпеки, gender: m }
+  vehicle_papers: { form: техпаспорт, gender: m }
+  ferry_transport: { form: пором, gender: m, plural: пороми }
+  harbour_place: { form: порт, gender: m, plural: порти }
+  airport_place: { form: аеропорт, gender: m, plural: аеропорти }
+  takeoff_noun: { form: виліт, gender: m, plural: вильоти }
+  landing_noun: { form: посадка, gender: f, plural: посадки }
+  carpool_noun: { form: попутка, gender: f, plural: попутки }
+  landlord_person: { form: орендодавець, gender: m, plural: орендодавці }
+  lease_noun: { form: договір оренди, gender: m }
+  deposit_noun: { form: застава, gender: f, plural: застави }
+  utilities_noun: { form: комунальні витрати, gender: f }
+  caretaker_person: { form: комендант, gender: m, plural: коменданти }
+  houserules_noun: { form: правила будинку, gender: n }
+  balcony_place: { form: балкон, gender: m, plural: балкони }
+  terrace_place: { form: тераса, gender: f, plural: тераси }
+  furniture_noun: { form: меблі, gender: m, plural: меблі }
+  sofa_object: { form: диван, gender: m, plural: дивани }
+  carpet_object: { form: килим, gender: m, plural: килими }
+  curtain_object: { form: штора, gender: f, plural: штори }
+  mirror_object: { form: дзеркало, gender: n, plural: дзеркала }
+  shelf_object: { form: полиця, gender: f, plural: полиці }
+  washing_machine: { form: пральна машина, gender: f }
+  fridge_object: { form: холодильник, gender: m, plural: холодильники }
+  stove_object: { form: плита, gender: f, plural: плити }
+  oven_object: { form: духовка, gender: f, plural: духовки }
+  socket_object: { form: розетка, gender: f, plural: розетки }
+  electricity_noun: { form: електрика, gender: f }
+  tap_object: { form: кран, gender: m, plural: крани }
+  rubbish_noun: { form: сміття, gender: n }
+  bin_object: { form: смітник, gender: m, plural: смітники }
+  move_noun: { form: переїзд, gender: m, plural: переїзди }
+  seller_person: { form: продавець, gender: m, plural: продавці }
+  receipt_slip: { form: касовий чек, gender: m }
+  creditcard_object: { form: кредитна картка, gender: f }
+  transfer_noun: { form: переказ, gender: m, plural: перекази }
+  voucher_noun: { form: ваучер, gender: m, plural: ваучери }
+  special_offer: { form: спецпропозиція, gender: f }
+  clearance_noun: { form: розпродаж, gender: m, plural: розпродажі }
+  warehouse_place: { form: склад, gender: m, plural: склади }
+  assortment_noun: { form: асортимент, gender: m }
+  warranty_noun: { form: гарантія, gender: f, plural: гарантії }
+  complaint_noun: { form: рекламація, gender: f, plural: рекламації }
+  return_noun: { form: повернення, gender: n }
+  shipping_noun: { form: пересилка, gender: f }
+  packaging_noun: { form: упаковка, gender: f, plural: упаковки }
+  label_object: { form: етикетка, gender: f, plural: етикетки }
+  pricetag_object: { form: цінник, gender: m, plural: цінники }
+  vat_noun: { form: ПДВ, gender: m }
+  instalment_noun: { form: розстрочка, gender: f }
+  downpayment_noun: { form: передоплата, gender: f }
+  ordernumber_noun: { form: номер замовлення, gender: m }
+  cart_object: { form: кошик покупок, gender: m }
+  support_noun: { form: служба підтримки, gender: f }
+  openinghours_noun: { form: години роботи, gender: f }
+  publicholiday_noun: { form: святковий день, gender: m }
+  relatives_noun: { form: родичі, gender: m, plural: родичі }
+  brotherinlaw_person: { form: шурин, gender: m, plural: шурини }
+  sisterinlaw_person: { form: невістка, gender: f, plural: невістки }
+  niece_person: { form: племінниця, gender: f, plural: племінниці }
+  nephew_person: { form: племінник, gender: m, plural: племінники }
+  motherinlaw_person: { form: свекруха, gender: f }
+  fatherinlaw_person: { form: свекор, gender: m }
+  stepfather_person: { form: вітчим, gender: m, plural: вітчими }
+  twin_person: { form: близнюк, gender: m, plural: близнюки }
+  siblings_noun: { form: брати і сестри, gender: m }
+  engagement_noun: { form: заручини, gender: f, plural: заручини }
+  divorce_noun: { form: розлучення, gender: n }
+  marriage_noun: { form: шлюб, gender: m, plural: шлюби }
+  upbringing_noun: { form: виховання, gender: n }
+  childhood_noun: { form: дитинство, gender: n }
+  youth_noun: { form: юність, gender: f }
+  pension_noun: { form: пенсія, gender: f, plural: пенсії }
+  surname_noun: { form: прізвище, gender: n, plural: прізвища }
+  firstname_noun: { form: ім'я, gender: n, plural: імена }
+  birthplace_noun: { form: місце народження, gender: n }
+  citizenship_noun: { form: громадянство, gender: n }
+  maritalstatus_noun: { form: сімейний стан, gender: m }
+  household_noun: { form: домашнє господарство, gender: n }
+  kindergarten_place: { form: дитячий садок, gender: m }
+  monday_time: { form: понеділок, gender: m, plural: понеділки }
+  tuesday_time: { form: вівторок, gender: m, plural: вівторки }
+  wednesday_time: { form: середа, gender: f, plural: середи }
+  thursday_time: { form: четвер, gender: m, plural: четверги }
+  friday_time: { form: п'ятниця, gender: f, plural: п'ятниці }
+  saturday_time: { form: субота, gender: f, plural: суботи }
+  sunday_time: { form: неділя, gender: f, plural: неділі }
+  season_time: { form: пора року, gender: f }
+  spring_time: { form: весна, gender: f }
+  summer_time: { form: літо, gender: n }
+  autumn_time: { form: осінь, gender: f }
+  winter_time: { form: зима, gender: f }
+  vacation_time: { form: канікули, gender: m, plural: канікули }
+  appointment_meeting: { form: домовленість, gender: f }
+  duration_noun: { form: тривалість, gender: f }
+  beginning_noun: { form: початок, gender: m }
+  ending_noun: { form: кінець, gender: m, plural: кінці }
+  future_noun: { form: майбутнє, gender: n }
+  past_noun: { form: минуле, gender: n }
+  present_noun: { form: сьогодення, gender: n }
+  moment_noun: { form: мить, gender: f }
+  century_noun: { form: століття, gender: n, plural: століття }
+  clocktime_noun: { form: час доби, gender: m }
+  alarm_object: { form: будильник, gender: m, plural: будильники }
+  suburb_place: { form: передмістя, gender: n }
+  settlement_place: { form: селище, gender: n, plural: селища }
+  pavement_place: { form: тротуар, gender: m, plural: тротуари }
+  cyclepath_place: { form: велодоріжка, gender: f, plural: велодоріжки }
+  crosswalk_place: { form: пішохідний перехід, gender: m }
+  streetlamp_object: { form: ліхтар, gender: m, plural: ліхтарі }
+  monument_place: { form: пам'ятник, gender: m, plural: пам'ятники }
+  fountain_place: { form: криниця, gender: f, plural: криниці }
+  cemetery_place: { form: цвинтар, gender: m, plural: цвинтарі }
+  library_place: { form: бібліотека, gender: f, plural: бібліотеки }
+  school_place: { form: школа, gender: f, plural: школи }
+  cinema_place: { form: кінотеатр, gender: m, plural: кінотеатри }
+  theatre_place: { form: театр, gender: m, plural: театри }
+  stadium_place: { form: стадіон, gender: m, plural: стадіони }
+  pool_place: { form: басейн, gender: m, plural: басейни }
+  playground_place: { form: дитячий майданчик, gender: m }
+  pedestrian_zone: { form: пішохідна зона, gender: f }
+  resident_person: { form: мешканець, gender: m, plural: мешканці }
+  administration_noun: { form: адміністрація, gender: f }
+  citizenoffice_place: { form: бюро реєстрації, gender: n }
+  police_noun: { form: поліція, gender: f }
+  firebrigade_noun: { form: пожежна охорона, gender: f }
+  emergency_call: { form: номер екстреної служби, gender: m }
+  sight_noun: { form: визначна пам'ятка, gender: f }
+  employment_contract: { form: трудовий договір, gender: m }
+  probation_noun: { form: випробувальний термін, gender: m }
+  dismissal_noun: { form: звільнення, gender: n }
+  reference_noun: { form: характеристика, gender: f }
+  raise_noun: { form: підвищення зарплати, gender: n }
+  fulltime_noun: { form: повна зайнятість, gender: f }
+  parttime_noun: { form: часткова зайнятість, gender: f }
+  shift_noun: { form: зміна, gender: f, plural: зміни }
+  homeoffice_noun: { form: робота з дому, gender: f }
+  conference_noun: { form: конференція, gender: f, plural: конференції }
+  colleague_female: { form: колега, gender: f, plural: колеги }
+  supervisor_person: { form: керівник, gender: m, plural: керівники }
+  internship_noun: { form: стажування, gender: n }
+  training_noun: { form: профнавчання, gender: n }
+  furthertraining_noun: { form: підвищення кваліфікації, gender: n }
+  studies_noun: { form: навчання, gender: n }
+  union_noun: { form: профспілка, gender: f, plural: профспілки }
+  workscouncil_noun: { form: виробнича рада, gender: f }
+  sicknote_noun: { form: лікарняний лист, gender: m }
+  workinghours_noun: { form: робочий час, gender: m }
+  endofday_noun: { form: кінець робочого дня, gender: m }
+  tax_noun: { form: податок, gender: m, plural: податки }
+  socialcontribution_noun: { form: соціальний внесок, gender: m }
+  payslip_noun: { form: розрахунковий лист, gender: m }

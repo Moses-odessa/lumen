@@ -166,3 +166,879 @@ lexemes:
   second_opinion: { form: second opinion }
   waiting_period: { form: waiting period }
   cost_estimate: { form: cost estimate }
+
+  # ── Constellation "food", A0 ──────────────────────────────────────────
+  bread_food:
+    form: bread
+    plural: breads
+    distractors:
+      far: [butter, cheese]
+      near: [breath, broad, thread]
+  water_drink:
+    form: water
+    plural: waters
+    distractors:
+      far: [juice, tea]
+      near: [waiter, wader, otter]
+  milk_drink:
+    form: milk
+    distractors:
+      far: [cream, yoghurt]
+      near: [silk, milt, mild]
+  coffee_drink:
+    form: coffee
+    plural: coffees
+    distractors:
+      far: [tea, cocoa]
+      near: [coffer, toffee, copy]
+  apple_food:
+    form: apple
+    plural: apples
+    distractors:
+      far: [pear, grape]
+      near: [ample, ripple, chapel]
+  meat_food:
+    form: meat
+    distractors:
+      far: [sausage, ham]
+      near: [neat, mead, moat]
+  fish_food:
+    form: fish
+    plural: fish
+    distractors:
+      far: [crab, mussel]
+      near: [dish, fist, wish]
+  soup_food:
+    form: soup
+    plural: soups
+    distractors:
+      far: [salad, sauce]
+      near: [soap, scoop, sour]
+  salt_food:
+    form: salt
+    distractors:
+      far: [pepper, vinegar]
+      near: [halt, silt, sale]
+  sugar_food:
+    form: sugar
+    distractors:
+      far: [honey, syrup]
+      near: [cigar, sucker, saga]
+  hunger_noun:
+    form: hunger
+    distractors:
+      far: [thirst, appetite]
+      near: [hanger, hunter, hinge]
+  restaurant_place:
+    form: restaurant
+    plural: restaurants
+    distractors:
+      far: [canteen, snack bar]
+      near: [restraint, resonant, reluctant]
+
+  # ── Constellation "transport", A0 ─────────────────────────────────────
+  train_transport:
+    form: train
+    plural: trains
+    distractors:
+      far: [track, carriage]
+      near: [trait, drain, grain]
+  bus_transport:
+    form: bus
+    plural: buses
+    distractors:
+      far: [tram, taxi]
+      near: [bush, bust, buzz]
+  car_transport:
+    form: car
+    plural: cars
+    distractors:
+      far: [motorbike, scooter]
+      near: [card, cart, jar]
+  ticket_transport:
+    form: ticket
+    plural: tickets
+    distractors:
+      far: [passport, luggage]
+      near: [thicket, picket, tickle]
+  station_place:
+    form: station
+    plural: stations
+    distractors:
+      far: [airport, harbour]
+      near: [stallion, ration, statue]
+  street_place:
+    form: street
+    plural: streets
+    distractors:
+      far: [lane, square]
+      near: [streak, stress, sheet]
+  bicycle_transport:
+    form: bicycle
+    plural: bicycles
+    distractors:
+      far: [scooter, trailer]
+      near: [bifocal, icicle, cycle]
+  airplane_transport:
+    form: airplane
+    plural: airplanes
+    distractors:
+      far: [helicopter, rocket]
+      near: [airline, aeroplane, airfield]
+  way_noun:
+    form: way
+    plural: ways
+    distractors:
+      far: [path, route]
+      near: [wave, sway, wag]
+  driver_person:
+    form: driver
+    plural: drivers
+    distractors:
+      far: [conductor, pilot]
+      near: [diver, drier, river]
+  stop_place:
+    form: stop
+    plural: stops
+    distractors:
+      far: [platform, shelter]
+      near: [step, shop, stoop]
+  late_adj:
+    form: late
+    note: adjective
+    distractors:
+      far: [punctual, early]
+      near: [lace, rate, plate]
+
+  # ── Constellation "home", A0 ──────────────────────────────────────────
+  house_place:
+    form: house
+    plural: houses
+    distractors:
+      far: [flat, garden]
+      near: [mouse, hose, horse]
+  door_object:
+    form: door
+    plural: doors
+    distractors:
+      far: [wall, stairs]
+      near: [floor, doom, deer]
+  window_object:
+    form: window
+    plural: windows
+    distractors:
+      far: [balcony, curtain]
+      near: [widow, winnow, winter]
+  table_object:
+    form: table
+    plural: tables
+    distractors:
+      far: [wardrobe, shelf]
+      near: [cable, stable, tablet]
+  chair_object:
+    form: chair
+    plural: chairs
+    distractors:
+      far: [armchair, bench]
+      near: [chain, char, hair]
+  bed_object:
+    form: bed
+    plural: beds
+    distractors:
+      far: [blanket, pillow]
+      near: [bead, bad, bet]
+  kitchen_room:
+    form: kitchen
+    plural: kitchens
+    distractors:
+      far: [bathroom, hallway]
+      near: [kitten, chicken, kitsch]
+  room_place:
+    form: room
+    plural: rooms
+    distractors:
+      far: [flat, cellar]
+      near: [broom, roam, boom]
+  key_object:
+    form: key
+    plural: keys
+    distractors:
+      far: [lock, doorbell]
+      near: [quay, kev, keg]
+  rent_noun:
+    form: rent
+    distractors:
+      far: [deposit, utilities]
+      near: [rant, rend, dent]
+  neighbour_person:
+    form: neighbour
+    plural: neighbours
+    distractors:
+      far: [landlord, caretaker]
+      near: [neighbourhood, labour, harbour]
+  light_object:
+    form: light
+    plural: lights
+    distractors:
+      far: [lamp, candle]
+      near: [night, sight, slight]
+
+  # ── Constellation "shop", A0 ──────────────────────────────────────────
+  shop_place:
+    form: shop
+    plural: shops
+    distractors:
+      far: [market, kiosk]
+      near: [chop, ship, shot]
+  money_noun:
+    form: money
+    distractors:
+      far: [coin, note]
+      near: [monkey, honey, moody]
+  price_noun:
+    form: price
+    plural: prices
+    distractors:
+      far: [discount, offer]
+      near: [prize, pride, rice]
+  card_object:
+    form: card
+    plural: cards
+    distractors:
+      far: [cash, account]
+      near: [cart, cord, guard]
+  checkout_place:
+    form: checkout
+    plural: checkouts
+    distractors:
+      far: [shelf, entrance]
+      near: [checkup, blackout, checklist]
+  bag_object:
+    form: bag
+    plural: bags
+    distractors:
+      far: [basket, pouch]
+      near: [bug, beg, bang]
+  purchase_noun:
+    form: purchase
+    plural: purchases
+    distractors:
+      far: [order, delivery]
+      near: [perch, pursue, purpose]
+  receipt_noun:
+    form: receipt
+    plural: receipts
+    distractors:
+      far: [invoice, warranty]
+      near: [recipe, receive, deceit]
+  customer_person:
+    form: customer
+    plural: customers
+    distractors:
+      far: [seller, owner]
+      near: [custom, costume, customs]
+  cheap_adj:
+    form: cheap
+    note: adjective
+    distractors:
+      far: [free, secondhand]
+      near: [cheat, heap, chip]
+  expensive_adj:
+    form: expensive
+    note: adjective
+    distractors:
+      far: [valuable, scarce]
+      near: [expansive, extensive, expression]
+  open_adj:
+    form: open
+    note: adjective
+    distractors:
+      far: [closed, occupied]
+      near: [oven, often, opera]
+
+  # ── Constellation "family", A0 ────────────────────────────────────────
+  mother_person:
+    form: mother
+    plural: mothers
+    distractors:
+      far: [grandmother, aunt]
+      near: [smother, bother, mutter]
+  father_person:
+    form: father
+    plural: fathers
+    distractors:
+      far: [grandfather, uncle]
+      near: [feather, rather, fathom]
+  child_person:
+    form: child
+    plural: children
+    distractors:
+      far: [baby, teenager]
+      near: [chilled, mild, chide]
+  son_person:
+    form: son
+    plural: sons
+    distractors:
+      far: [nephew, grandson]
+      near: [sun, sod, song]
+  daughter_person:
+    form: daughter
+    plural: daughters
+    distractors:
+      far: [niece, granddaughter]
+      near: [laughter, slaughter, doughnut]
+  sister_person:
+    form: sister
+    plural: sisters
+    distractors:
+      far: [brother, cousin]
+      near: [sinister, blister, sifter]
+  friend_person:
+    form: friend
+    plural: friends
+    distractors:
+      far: [acquaintance, guest]
+      near: [fiend, trend, fried]
+  name_noun:
+    form: name
+    plural: names
+    distractors:
+      far: [address, age]
+      near: [fame, tame, flame]
+  family_noun:
+    form: family
+    plural: families
+    distractors:
+      far: [relatives, household]
+      near: [familiar, famine, facility]
+  man_person:
+    form: man
+    plural: men
+    distractors:
+      far: [boy, sir]
+      near: [mane, ban, mat]
+  woman_person:
+    form: woman
+    plural: women
+    distractors:
+      far: [girl, lady]
+      near: [wooden, omen, wombat]
+  old_adj:
+    form: old
+    note: adjective
+    distractors:
+      far: [young, new]
+      near: [bold, hold, odd]
+
+  # ── Constellation "time", A0 ──────────────────────────────────────────
+  day_time:
+    form: day
+    plural: days
+    distractors:
+      far: [date, appointment]
+      near: [dye, bay, dray]
+  night_time:
+    form: night
+    plural: nights
+    distractors:
+      far: [dusk, midnight]
+      near: [might, knight, nigh]
+  hour_time:
+    form: hour
+    plural: hours
+    distractors:
+      far: [moment, while]
+      near: [our, sour, honour]
+  minute_time:
+    form: minute
+    plural: minutes
+    distractors:
+      far: [second, instant]
+      near: [mint, minuet, mandate]
+  week_time:
+    form: week
+    plural: weeks
+    distractors:
+      far: [weekend, holiday]
+      near: [weak, wick, meek]
+  month_time:
+    form: month
+    plural: months
+    distractors:
+      far: [quarter, season]
+      near: [mouth, moth, mount]
+  year_time:
+    form: year
+    plural: years
+    distractors:
+      far: [decade, age]
+      near: [yeast, ear, yearn]
+  morning_time:
+    form: morning
+    plural: mornings
+    distractors:
+      far: [noon, midday]
+      near: [mourning, warning, morning star]
+  evening_time:
+    form: evening
+    plural: evenings
+    distractors:
+      far: [afternoon, midnight]
+      near: [evenly, eleven, weaning]
+  clock_object:
+    form: clock
+    plural: clocks
+    distractors:
+      far: [calendar, alarm]
+      near: [cloak, block, clod]
+  today_adv:
+    form: today
+    note: adverb
+    distractors:
+      far: [tomorrow, always]
+      near: [toady, tuba, doughy]
+  yesterday_adv:
+    form: yesterday
+    note: adverb
+    distractors:
+      far: [formerly, recently]
+      near: [yester, yesteryear, westerly]
+
+  # ── Constellation "city", A0 ──────────────────────────────────────────
+  city_place:
+    form: city
+    plural: cities
+    distractors:
+      far: [village, countryside]
+      near: [pity, citizen, sitter]
+  square_place:
+    form: square
+    plural: squares
+    distractors:
+      far: [lane, embankment]
+      near: [squad, squire, scare]
+  park_place:
+    form: park
+    plural: parks
+    distractors:
+      far: [garden, forest]
+      near: [bark, pack, spark]
+  bank_place:
+    form: bank
+    plural: banks
+    distractors:
+      far: [savings bank, cash machine]
+      near: [tank, blank, bang]
+  church_place:
+    form: church
+    plural: churches
+    distractors:
+      far: [cathedral, monastery]
+      near: [chur, lurch, crutch]
+  market_place:
+    form: market
+    plural: markets
+    distractors:
+      far: [store, hall]
+      near: [marker, mark, musket]
+  museum_place:
+    form: museum
+    plural: museums
+    distractors:
+      far: [gallery, theatre]
+      near: [mausoleum, medium, muse]
+  post_place:
+    form: post office
+    plural: post offices
+    distractors:
+      far: [council, town hall]
+      near: [post box, postage, posture]
+  hotel_place:
+    form: hotel
+    plural: hotels
+    distractors:
+      far: [guesthouse, inn]
+      near: [motel, hostel, hostile]
+  centre_place:
+    form: centre
+    plural: centres
+    distractors:
+      far: [outskirts, district]
+      near: [central, sentry, centaur]
+  map_object:
+    form: city map
+    plural: city maps
+    distractors:
+      far: [signpost, sign]
+      near: [city plan, road map, mat]
+  right_adv:
+    form: right
+    note: adverb
+    distractors:
+      far: [left, straight on]
+      near: [rite, bright, write]
+
+  # ── Constellation "work", A0 ──────────────────────────────────────────
+  work_noun:
+    form: work
+    distractors:
+      far: [task, duty]
+      near: [worker, walk, wok]
+  job_noun:
+    form: job
+    plural: jobs
+    distractors:
+      far: [position, career]
+      near: [jab, jog, rob]
+  boss_person:
+    form: boss
+    plural: bosses
+    distractors:
+      far: [manager, owner]
+      near: [loss, moss, bosh]
+  colleague_person:
+    form: colleague
+    plural: colleagues
+    distractors:
+      far: [intern, team]
+      near: [collage, college, colony]
+  office_place:
+    form: office
+    plural: offices
+    distractors:
+      far: [workshop, warehouse]
+      near: [orifice, offer, officer]
+  company_noun:
+    form: company
+    plural: companies
+    distractors:
+      far: [business, corporation]
+      near: [companion, compact, canopy]
+  salary_noun:
+    form: salary
+    plural: salaries
+    distractors:
+      far: [wage, bonus]
+      near: [celery, salad, gallery]
+  contract_noun:
+    form: contract
+    plural: contracts
+    distractors:
+      far: [dismissal, reference]
+      near: [contrast, contact, contract law]
+  meeting_noun:
+    form: meeting
+    plural: meetings
+    distractors:
+      far: [conference, training]
+      near: [melting, meeting point, mending]
+  holiday_noun:
+    form: holiday
+    plural: holidays
+    distractors:
+      far: [public holiday, break]
+      near: [holy day, holdall, hollow]
+  free_adj:
+    form: free
+    note: adjective
+    distractors:
+      far: [occupied, busy]
+      near: [flee, tree, freeze]
+  tired_adj:
+    form: tired
+    note: adjective
+    distractors:
+      far: [awake, fit]
+      near: [tried, tiled, hired]
+
+  # ── A1, all constellations ────────────────────────────────────────────
+  breakfast_meal: { form: breakfast, plural: breakfasts }
+  lunch_meal: { form: lunch, plural: lunches }
+  dinner_meal: { form: dinner, plural: dinners }
+  plate_object: { form: plate, plural: plates }
+  glass_object: { form: glass, plural: glasses }
+  fork_object: { form: fork, plural: forks }
+  knife_object: { form: knife, plural: knives }
+  spoon_object: { form: spoon, plural: spoons }
+  cheese_food: { form: cheese, plural: cheeses }
+  butter_food: { form: butter }
+  egg_food: { form: egg, plural: eggs }
+  vegetable_food: { form: vegetable, plural: vegetables }
+  platform_place: { form: platform, plural: platforms }
+  delay_noun: { form: delay, plural: delays }
+  connection_noun: { form: connection, plural: connections }
+  timetable_object: { form: timetable, plural: timetables }
+  luggage_noun: { form: luggage }
+  taxi_transport: { form: taxi, plural: taxis }
+  tram_transport: { form: tram, plural: trams }
+  metro_transport: { form: underground }
+  seat_object: { form: seat, plural: seats }
+  journey_noun: { form: journey, plural: journeys }
+  arrival_noun: { form: arrival, plural: arrivals }
+  departure_noun: { form: departure, plural: departures }
+  flat_place: { form: flat, plural: flats }
+  floor_object: { form: floor, plural: floors }
+  wall_object: { form: wall, plural: walls }
+  roof_object: { form: roof, plural: roofs }
+  garden_place: { form: garden, plural: gardens }
+  cellar_place: { form: cellar, plural: cellars }
+  stairs_object: { form: stairs }
+  bathroom_room: { form: bathroom, plural: bathrooms }
+  shower_object: { form: shower, plural: showers }
+  wardrobe_object: { form: wardrobe, plural: wardrobes }
+  lamp_object: { form: lamp, plural: lamps }
+  heating_object: { form: heating }
+  cash_noun: { form: cash }
+  change_noun: { form: change }
+  discount_noun: { form: discount, plural: discounts }
+  size_noun: { form: size, plural: sizes }
+  basket_object: { form: shopping basket, plural: shopping baskets }
+  fitting_room: { form: fitting room, plural: fitting rooms }
+  offer_noun: { form: offer, plural: offers }
+  quality_noun: { form: quality, plural: qualities }
+  product_noun: { form: product, plural: products }
+  brand_noun: { form: brand, plural: brands }
+  delivery_noun: { form: delivery, plural: deliveries }
+  exchange_noun: { form: exchange, plural: exchanges }
+  brother_person: { form: brother, plural: brothers }
+  grandmother_person: { form: grandmother, plural: grandmothers }
+  grandfather_person: { form: grandfather, plural: grandfathers }
+  husband_person: { form: husband, plural: husbands }
+  wife_person: { form: wife, plural: wives }
+  aunt_person: { form: aunt, plural: aunts }
+  uncle_person: { form: uncle, plural: uncles }
+  cousin_person: { form: cousin, plural: cousins }
+  grandchild_person: { form: grandchild, plural: grandchildren }
+  birthday_noun: { form: birthday, plural: birthdays }
+  wedding_noun: { form: wedding, plural: weddings }
+  young_adj: { form: young, note: adjective }
+  weekend_time: { form: weekend, plural: weekends }
+  date_noun: { form: date, plural: dates }
+  calendar_object: { form: calendar, plural: calendars }
+  noon_time: { form: midday }
+  tomorrow_adv: { form: tomorrow, note: adverb }
+  always_adv: { form: always, note: adverb }
+  never_adv: { form: never, note: adverb }
+  often_adv: { form: often, note: adverb }
+  sometimes_adv: { form: sometimes, note: adverb }
+  early_adv: { form: early, note: adverb }
+  now_adv: { form: now, note: adverb }
+  soon_adv: { form: soon, note: adverb }
+  crossing_place: { form: crossing, plural: crossings }
+  traffic_light: { form: traffic light, plural: traffic lights }
+  pedestrian_person: { form: pedestrian, plural: pedestrians }
+  bridge_place: { form: bridge, plural: bridges }
+  river_place: { form: river, plural: rivers }
+  corner_place: { form: corner, plural: corners }
+  direction_noun: { form: direction, plural: directions }
+  address_noun: { form: address, plural: addresses }
+  district_place: { form: district, plural: districts }
+  townhall_place: { form: town hall, plural: town halls }
+  entrance_place: { form: entrance, plural: entrances }
+  exit_place: { form: exit, plural: exits }
+  application_noun: { form: application, plural: applications }
+  cv_noun: { form: CV, plural: CVs }
+  interview_noun: { form: job interview, plural: job interviews }
+  employee_person: { form: employee, plural: employees }
+  employer_person: { form: employer, plural: employers }
+  department_noun: { form: department, plural: departments }
+  project_noun: { form: project, plural: projects }
+  deadline_noun: { form: deadline, plural: deadlines }
+  overtime_noun: { form: overtime }
+  break_noun: { form: break, plural: breaks }
+  task_noun: { form: task, plural: tasks }
+  experience_noun: { form: experience }
+
+  # ── A2, all constellations ────────────────────────────────────────────
+  fruit_food: { form: fruit }
+  potato_food: { form: potato, plural: potatoes }
+  rice_food: { form: rice }
+  pasta_food: { form: pasta }
+  chicken_food: { form: chicken }
+  beef_food: { form: beef }
+  pork_food: { form: pork }
+  sausage_food: { form: sausage, plural: sausages }
+  sauce_food: { form: sauce, plural: sauces }
+  pepper_food: { form: pepper }
+  oil_food: { form: oil, plural: oils }
+  flour_food: { form: flour }
+  cake_food: { form: cake, plural: cakes }
+  chocolate_food: { form: chocolate }
+  icecream_food: { form: ice cream }
+  juice_drink: { form: juice, plural: juices }
+  tea_drink: { form: tea }
+  beer_drink: { form: beer, plural: beers }
+  wine_drink: { form: wine, plural: wines }
+  menu_object: { form: menu, plural: menus }
+  waiter_person: { form: waiter, plural: waiters }
+  bill_noun: { form: bill, plural: bills }
+  order_noun: { form: order, plural: orders }
+  tip_noun: { form: tip, plural: tips }
+  motorway_place: { form: motorway, plural: motorways }
+  petrol_station: { form: petrol station, plural: petrol stations }
+  petrol_noun: { form: petrol }
+  licence_noun: { form: driving licence, plural: driving licences }
+  accident_noun: { form: accident, plural: accidents }
+  jam_noun: { form: traffic jam, plural: traffic jams }
+  diversion_noun: { form: diversion, plural: diversions }
+  roadworks_noun: { form: roadworks }
+  parking_place: { form: car park, plural: car parks }
+  garage_place: { form: multi-storey car park }
+  kilometre_noun: { form: kilometre, plural: kilometres }
+  speed_noun: { form: speed, plural: speeds }
+  tyre_object: { form: tyre, plural: tyres }
+  engine_object: { form: engine, plural: engines }
+  workshop_place: { form: garage, plural: garages }
+  insurance_noun: { form: insurance }
+  seatbelt_object: { form: seatbelt, plural: seatbelts }
+  vehicle_papers: { form: vehicle registration }
+  ferry_transport: { form: ferry, plural: ferries }
+  harbour_place: { form: harbour, plural: harbours }
+  airport_place: { form: airport, plural: airports }
+  takeoff_noun: { form: take-off, plural: take-offs }
+  landing_noun: { form: landing, plural: landings }
+  carpool_noun: { form: car sharing }
+  landlord_person: { form: landlord, plural: landlords }
+  lease_noun: { form: lease, plural: leases }
+  deposit_noun: { form: deposit, plural: deposits }
+  utilities_noun: { form: utilities }
+  caretaker_person: { form: caretaker, plural: caretakers }
+  houserules_noun: { form: house rules }
+  balcony_place: { form: balcony, plural: balconies }
+  terrace_place: { form: terrace, plural: terraces }
+  furniture_noun: { form: furniture }
+  sofa_object: { form: sofa, plural: sofas }
+  carpet_object: { form: carpet, plural: carpets }
+  curtain_object: { form: curtain, plural: curtains }
+  mirror_object: { form: mirror, plural: mirrors }
+  shelf_object: { form: shelf, plural: shelves }
+  washing_machine: { form: washing machine, plural: washing machines }
+  fridge_object: { form: fridge, plural: fridges }
+  stove_object: { form: stove, plural: stoves }
+  oven_object: { form: oven, plural: ovens }
+  socket_object: { form: socket, plural: sockets }
+  electricity_noun: { form: electricity }
+  tap_object: { form: tap, plural: taps }
+  rubbish_noun: { form: rubbish }
+  bin_object: { form: bin, plural: bins }
+  move_noun: { form: move, plural: moves }
+  seller_person: { form: shop assistant, plural: shop assistants }
+  receipt_slip: { form: till receipt, plural: till receipts }
+  creditcard_object: { form: credit card, plural: credit cards }
+  transfer_noun: { form: bank transfer, plural: bank transfers }
+  voucher_noun: { form: voucher, plural: vouchers }
+  special_offer: { form: special offer, plural: special offers }
+  clearance_noun: { form: clearance sale, plural: clearance sales }
+  warehouse_place: { form: warehouse, plural: warehouses }
+  assortment_noun: { form: range, plural: ranges }
+  warranty_noun: { form: warranty, plural: warranties }
+  complaint_noun: { form: complaint, plural: complaints }
+  return_noun: { form: return, plural: returns }
+  shipping_noun: { form: shipping }
+  packaging_noun: { form: packaging }
+  label_object: { form: label, plural: labels }
+  pricetag_object: { form: price tag, plural: price tags }
+  vat_noun: { form: VAT }
+  instalment_noun: { form: instalment plan, plural: instalment plans }
+  downpayment_noun: { form: down payment, plural: down payments }
+  ordernumber_noun: { form: order number, plural: order numbers }
+  cart_object: { form: shopping cart, plural: shopping carts }
+  support_noun: { form: customer service }
+  openinghours_noun: { form: opening hours }
+  publicholiday_noun: { form: public holiday, plural: public holidays }
+  relatives_noun: { form: relatives }
+  brotherinlaw_person: { form: brother-in-law, plural: brothers-in-law }
+  sisterinlaw_person: { form: sister-in-law, plural: sisters-in-law }
+  niece_person: { form: niece, plural: nieces }
+  nephew_person: { form: nephew, plural: nephews }
+  motherinlaw_person: { form: mother-in-law, plural: mothers-in-law }
+  fatherinlaw_person: { form: father-in-law, plural: fathers-in-law }
+  stepfather_person: { form: stepfather, plural: stepfathers }
+  twin_person: { form: twin, plural: twins }
+  siblings_noun: { form: siblings }
+  engagement_noun: { form: engagement, plural: engagements }
+  divorce_noun: { form: divorce, plural: divorces }
+  marriage_noun: { form: marriage, plural: marriages }
+  upbringing_noun: { form: upbringing }
+  childhood_noun: { form: childhood }
+  youth_noun: { form: youth }
+  pension_noun: { form: pension, plural: pensions }
+  surname_noun: { form: surname, plural: surnames }
+  firstname_noun: { form: first name, plural: first names }
+  birthplace_noun: { form: place of birth }
+  citizenship_noun: { form: citizenship }
+  maritalstatus_noun: { form: marital status }
+  household_noun: { form: household, plural: households }
+  kindergarten_place: { form: kindergarten, plural: kindergartens }
+  monday_time: { form: Monday, plural: Mondays }
+  tuesday_time: { form: Tuesday, plural: Tuesdays }
+  wednesday_time: { form: Wednesday, plural: Wednesdays }
+  thursday_time: { form: Thursday, plural: Thursdays }
+  friday_time: { form: Friday, plural: Fridays }
+  saturday_time: { form: Saturday, plural: Saturdays }
+  sunday_time: { form: Sunday, plural: Sundays }
+  season_time: { form: season, plural: seasons }
+  spring_time: { form: spring }
+  summer_time: { form: summer, plural: summers }
+  autumn_time: { form: autumn }
+  winter_time: { form: winter, plural: winters }
+  vacation_time: { form: holidays }
+  appointment_meeting: { form: arrangement, plural: arrangements }
+  duration_noun: { form: duration }
+  beginning_noun: { form: beginning, plural: beginnings }
+  ending_noun: { form: end, plural: ends }
+  future_noun: { form: future }
+  past_noun: { form: past }
+  present_noun: { form: present }
+  moment_noun: { form: moment, plural: moments }
+  century_noun: { form: century, plural: centuries }
+  clocktime_noun: { form: time of day }
+  alarm_object: { form: alarm clock, plural: alarm clocks }
+  suburb_place: { form: suburb, plural: suburbs }
+  settlement_place: { form: housing estate, plural: housing estates }
+  pavement_place: { form: pavement, plural: pavements }
+  cyclepath_place: { form: cycle path, plural: cycle paths }
+  crosswalk_place: { form: pedestrian crossing, plural: pedestrian crossings }
+  streetlamp_object: { form: street lamp, plural: street lamps }
+  monument_place: { form: monument, plural: monuments }
+  fountain_place: { form: fountain, plural: fountains }
+  cemetery_place: { form: cemetery, plural: cemeteries }
+  library_place: { form: library, plural: libraries }
+  school_place: { form: school, plural: schools }
+  cinema_place: { form: cinema, plural: cinemas }
+  theatre_place: { form: theatre, plural: theatres }
+  stadium_place: { form: stadium, plural: stadiums }
+  pool_place: { form: swimming pool, plural: swimming pools }
+  playground_place: { form: playground, plural: playgrounds }
+  pedestrian_zone: { form: pedestrian zone, plural: pedestrian zones }
+  resident_person: { form: resident, plural: residents }
+  administration_noun: { form: administration }
+  citizenoffice_place: { form: citizens' office, plural: citizens' offices }
+  police_noun: { form: police }
+  firebrigade_noun: { form: fire brigade }
+  emergency_call: { form: emergency number, plural: emergency numbers }
+  sight_noun: { form: sight, plural: sights }
+  employment_contract: { form: employment contract, plural: employment contracts }
+  probation_noun: { form: probationary period, plural: probationary periods }
+  dismissal_noun: { form: notice, plural: notices }
+  reference_noun: { form: reference, plural: references }
+  raise_noun: { form: pay rise, plural: pay rises }
+  fulltime_noun: { form: full-time work }
+  parttime_noun: { form: part-time work }
+  shift_noun: { form: shift, plural: shifts }
+  homeoffice_noun: { form: home office }
+  conference_noun: { form: conference, plural: conferences }
+  colleague_female: { form: female colleague, plural: female colleagues }
+  supervisor_person: { form: line manager, plural: line managers }
+  internship_noun: { form: internship, plural: internships }
+  training_noun: { form: vocational training }
+  furthertraining_noun: { form: further training }
+  studies_noun: { form: studies }
+  union_noun: { form: trade union, plural: trade unions }
+  workscouncil_noun: { form: works council, plural: works councils }
+  sicknote_noun: { form: sick note, plural: sick notes }
+  workinghours_noun: { form: working hours }
+  endofday_noun: { form: end of the working day }
+  tax_noun: { form: tax, plural: taxes }
+  socialcontribution_noun: { form: social security contribution, plural: social security contributions }
+  payslip_noun: { form: payslip, plural: payslips }

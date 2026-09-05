@@ -1,0 +1,192 @@
+# Созвездие «Город» — ориентирование и городские места.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: city
+tiers:
+  a0:
+    concepts:
+      - { id: city_place, pos: noun, freq_rank: 430 }
+      - { id: square_place, pos: noun, freq_rank: 1140 }
+      - { id: park_place, pos: noun, freq_rank: 1690 }
+      - { id: bank_place, pos: noun, freq_rank: 1320 }
+      - { id: church_place, pos: noun, freq_rank: 1580 }
+      - { id: market_place, pos: noun, freq_rank: 1450 }
+      - { id: museum_place, pos: noun, freq_rank: 2870 }
+      - { id: post_place, pos: noun, freq_rank: 2210 }
+      - { id: hotel_place, pos: noun, freq_rank: 1870 }
+      - { id: centre_place, pos: noun, freq_rank: 1610 }
+      - { id: map_object, pos: noun, freq_rank: 3940 }
+      - { id: right_adv, pos: adv, freq_rank: 990 }
+    phrases:
+      - id: city_a0_map
+        template: "Ich brauche einen {map}."
+        answer: Stadtplan
+        register: casual
+        concepts: [map_object]
+      - id: city_a0_post
+        template: "Wo ist die {post}?"
+        answer: Post
+        register: casual
+        concepts: [post_place]
+      - id: city_a0_hotel
+        template: "Wir suchen ein {hotel}."
+        answer: Hotel
+        register: casual
+        concepts: [hotel_place]
+      - id: city_a0_right
+        template: "Gehen Sie {right}."
+        answer: rechts
+        register: formal
+        concepts: [right_adv]
+
+  a1:
+    concepts:
+      - { id: crossing_place, pos: noun, freq_rank: 3720 }
+      - { id: traffic_light, pos: noun, freq_rank: 4180 }
+      - { id: pedestrian_person, pos: noun, freq_rank: 4560 }
+      - { id: bridge_place, pos: noun, freq_rank: 2340 }
+      - { id: river_place, pos: noun, freq_rank: 1860 }
+      - { id: corner_place, pos: noun, freq_rank: 2070 }
+      - { id: direction_noun, pos: noun, freq_rank: 1930 }
+      - { id: address_noun, pos: noun, freq_rank: 2260 }
+      - { id: district_place, pos: noun, freq_rank: 2840 }
+      - { id: townhall_place, pos: noun, freq_rank: 3390 }
+      - { id: entrance_place, pos: noun, freq_rank: 2610 }
+      - { id: exit_place, pos: noun, freq_rank: 2480 }
+    phrases:
+      - id: city_a1_address
+        template: "Wie ist Ihre {address}?"
+        answer: Adresse
+        register: formal
+        concepts: [address_noun]
+      - id: city_a1_crossing
+        template: "An der {crossing} links."
+        answer: Kreuzung
+        register: casual
+        concepts: [crossing_place]
+      - id: city_a1_bridge
+        template: "Gehen Sie über die {bridge}."
+        answer: Brücke
+        register: formal
+        concepts: [bridge_place]
+      - id: city_a1_townhall
+        template: "Das {townhall} ist am Markt."
+        answer: Rathaus
+        register: casual
+        concepts: [townhall_place]
+      - id: city_a1_direction
+        template: "In welche {direction}?"
+        answer: Richtung
+        register: casual
+        concepts: [direction_noun]
+      - id: city_a1_exit
+        template: "Wo ist der {exit}?"
+        answer: Ausgang
+        register: casual
+        concepts: [exit_place]
+      - id: city_a1_river
+        template: "Der {river} ist breit."
+        answer: Fluss
+        register: casual
+        concepts: [river_place]
+      - id: city_a1_corner
+        template: "Das Café ist an der {corner}."
+        answer: Ecke
+        register: casual
+        concepts: [corner_place]
+
+  a2:
+    concepts:
+      - { id: suburb_place, pos: noun, freq_rank: 3480 }
+      - { id: settlement_place, pos: noun, freq_rank: 4260 }
+      - { id: pavement_place, pos: noun, freq_rank: 4830 }
+      - { id: cyclepath_place, pos: noun, freq_rank: 5140 }
+      - { id: crosswalk_place, pos: noun, freq_rank: 5390 }
+      - { id: streetlamp_object, pos: noun, freq_rank: 4970 }
+      - { id: monument_place, pos: noun, freq_rank: 3720 }
+      - { id: fountain_place, pos: noun, freq_rank: 4410 }
+      - { id: cemetery_place, pos: noun, freq_rank: 3860 }
+      - { id: library_place, pos: noun, freq_rank: 3190 }
+      - { id: school_place, pos: noun, freq_rank: 1240 }
+      - { id: cinema_place, pos: noun, freq_rank: 2680 }
+      - { id: theatre_place, pos: noun, freq_rank: 2540 }
+      - { id: stadium_place, pos: noun, freq_rank: 3350 }
+      - { id: pool_place, pos: noun, freq_rank: 4090 }
+      - { id: playground_place, pos: noun, freq_rank: 4520 }
+      - { id: pedestrian_zone, pos: noun, freq_rank: 5240 }
+      - { id: resident_person, pos: noun, freq_rank: 3070 }
+      - { id: administration_noun, pos: noun, freq_rank: 2910 }
+      - { id: citizenoffice_place, pos: noun, freq_rank: 5680 }
+      - { id: police_noun, pos: noun, freq_rank: 1730 }
+      - { id: firebrigade_noun, pos: noun, freq_rank: 3610 }
+      - { id: emergency_call, pos: noun, freq_rank: 4180 }
+      - { id: sight_noun, pos: noun, freq_rank: 4740 }
+    phrases:
+      - id: city_a2_library
+        template: "Die {library} ist bis acht offen."
+        answer: Bibliothek
+        register: casual
+        concepts: [library_place]
+      - id: city_a2_police
+        template: "Rufen Sie die {police}."
+        answer: Polizei
+        register: formal
+        concepts: [police_noun]
+      - id: city_a2_emergency
+        template: "Die {emergency} ist die 112."
+        answer: Notrufnummer
+        register: formal
+        concepts: [emergency_call]
+      - id: city_a2_school
+        template: "Meine Kinder gehen in diese {school}."
+        answer: Schule
+        register: casual
+        concepts: [school_place]
+      - id: city_a2_cinema
+        template: "Gehen wir ins {cinema}?"
+        answer: Kino
+        register: casual
+        concepts: [cinema_place]
+      - id: city_a2_administration
+        template: "Die {administration} hat geschlossen."
+        answer: Verwaltung
+        register: formal
+        concepts: [administration_noun]
+      - id: city_a2_citizenoffice
+        template: "Melden Sie sich beim {citizenoffice} an."
+        answer: Bürgeramt
+        register: formal
+        concepts: [citizenoffice_place]
+      - id: city_a2_playground
+        template: "Der {playground} ist um die Ecke."
+        answer: Spielplatz
+        register: casual
+        concepts: [playground_place]
+      - id: city_a2_suburb
+        template: "Wir wohnen im {suburb}."
+        answer: Vorort
+        register: casual
+        concepts: [suburb_place]
+      - id: city_a2_sight
+        template: "Das ist die bekannteste {sight}."
+        answer: Sehenswürdigkeit
+        register: casual
+        concepts: [sight_noun]
+      - id: city_a2_pool
+        template: "Im Sommer gehen wir ins {pool}."
+        answer: Schwimmbad
+        register: casual
+        concepts: [pool_place]
+      - id: city_a2_resident
+        template: "Die {resident} beschweren sich."
+        answer: Einwohner
+        register: formal
+        concepts: [resident_person]

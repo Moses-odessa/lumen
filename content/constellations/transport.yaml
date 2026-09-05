@@ -1,0 +1,192 @@
+# Созвездие «Транспорт» — дорога, билеты, опоздания.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: transport
+tiers:
+  a0:
+    concepts:
+      - { id: train_transport, pos: noun, freq_rank: 1240 }
+      - { id: bus_transport, pos: noun, freq_rank: 1580 }
+      - { id: car_transport, pos: noun, freq_rank: 720 }
+      - { id: ticket_transport, pos: noun, freq_rank: 2870 }
+      - { id: station_place, pos: noun, freq_rank: 2130 }
+      - { id: street_place, pos: noun, freq_rank: 830 }
+      - { id: bicycle_transport, pos: noun, freq_rank: 3060 }
+      - { id: airplane_transport, pos: noun, freq_rank: 2410 }
+      - { id: way_noun, pos: noun, freq_rank: 540 }
+      - { id: driver_person, pos: noun, freq_rank: 2650 }
+      - { id: stop_place, pos: noun, freq_rank: 3720 }
+      - { id: late_adj, pos: adj, freq_rank: 1490 }
+    phrases:
+      - id: transport_a0_ticket
+        template: "Ich brauche eine {ticket}."
+        answer: Fahrkarte
+        register: casual
+        concepts: [ticket_transport]
+      - id: transport_a0_station
+        template: "Wo ist der {station}?"
+        answer: Bahnhof
+        register: casual
+        concepts: [station_place]
+      - id: transport_a0_bus
+        template: "Der {bus} kommt gleich."
+        answer: Bus
+        register: casual
+        concepts: [bus_transport]
+      - id: transport_a0_late
+        template: "Der Zug ist {late}."
+        answer: spät
+        register: casual
+        concepts: [late_adj]
+
+  a1:
+    concepts:
+      - { id: platform_place, pos: noun, freq_rank: 4380 }
+      - { id: delay_noun, pos: noun, freq_rank: 3910 }
+      - { id: connection_noun, pos: noun, freq_rank: 3160 }
+      - { id: timetable_object, pos: noun, freq_rank: 4520 }
+      - { id: luggage_noun, pos: noun, freq_rank: 3740 }
+      - { id: taxi_transport, pos: noun, freq_rank: 3020 }
+      - { id: tram_transport, pos: noun, freq_rank: 4870 }
+      - { id: metro_transport, pos: noun, freq_rank: 4140 }
+      - { id: seat_object, pos: noun, freq_rank: 3580 }
+      - { id: journey_noun, pos: noun, freq_rank: 1840 }
+      - { id: arrival_noun, pos: noun, freq_rank: 3360 }
+      - { id: departure_noun, pos: noun, freq_rank: 3490 }
+    phrases:
+      - id: transport_a1_delay
+        template: "Der Zug hat {delay}."
+        answer: Verspätung
+        register: casual
+        concepts: [delay_noun]
+      - id: transport_a1_platform
+        template: "Der Zug fährt vom {platform} ab."
+        answer: Bahnsteig
+        register: casual
+        concepts: [platform_place]
+      - id: transport_a1_connection
+        template: "Ich habe meinen {connection} verpasst."
+        answer: Anschluss
+        register: casual
+        concepts: [connection_noun]
+      - id: transport_a1_luggage
+        template: "Wo ist mein {luggage}?"
+        answer: Gepäck
+        register: casual
+        concepts: [luggage_noun]
+      - id: transport_a1_taxi
+        template: "Rufen Sie bitte ein {taxi}."
+        answer: Taxi
+        register: formal
+        concepts: [taxi_transport]
+      - id: transport_a1_departure
+        template: "Wann ist die {departure}?"
+        answer: Abfahrt
+        register: casual
+        concepts: [departure_noun]
+      - id: transport_a1_seat
+        template: "Ist dieser {seat} frei?"
+        answer: Sitzplatz
+        register: casual
+        concepts: [seat_object]
+      - id: transport_a1_journey
+        template: "Die {journey} dauert zwei Stunden."
+        answer: Reise
+        register: casual
+        concepts: [journey_noun]
+
+  a2:
+    concepts:
+      - { id: motorway_place, pos: noun, freq_rank: 3280 }
+      - { id: petrol_station, pos: noun, freq_rank: 4410 }
+      - { id: petrol_noun, pos: noun, freq_rank: 3860 }
+      - { id: licence_noun, pos: noun, freq_rank: 3540 }
+      - { id: accident_noun, pos: noun, freq_rank: 2190 }
+      - { id: jam_noun, pos: noun, freq_rank: 4070 }
+      - { id: diversion_noun, pos: noun, freq_rank: 5230 }
+      - { id: roadworks_noun, pos: noun, freq_rank: 4680 }
+      - { id: parking_place, pos: noun, freq_rank: 3120 }
+      - { id: garage_place, pos: noun, freq_rank: 4950 }
+      - { id: kilometre_noun, pos: noun, freq_rank: 2870 }
+      - { id: speed_noun, pos: noun, freq_rank: 2640 }
+      - { id: tyre_object, pos: noun, freq_rank: 4520 }
+      - { id: engine_object, pos: noun, freq_rank: 2960 }
+      - { id: workshop_place, pos: noun, freq_rank: 4230 }
+      - { id: insurance_noun, pos: noun, freq_rank: 2410 }
+      - { id: seatbelt_object, pos: noun, freq_rank: 5610 }
+      - { id: vehicle_papers, pos: noun, freq_rank: 5840 }
+      - { id: ferry_transport, pos: noun, freq_rank: 4790 }
+      - { id: harbour_place, pos: noun, freq_rank: 3390 }
+      - { id: airport_place, pos: noun, freq_rank: 2730 }
+      - { id: takeoff_noun, pos: noun, freq_rank: 4360 }
+      - { id: landing_noun, pos: noun, freq_rank: 4180 }
+      - { id: carpool_noun, pos: noun, freq_rank: 6120 }
+    phrases:
+      - id: transport_a2_jam
+        template: "Wir stehen im {jam}."
+        answer: Stau
+        register: casual
+        concepts: [jam_noun]
+      - id: transport_a2_licence
+        template: "Zeigen Sie mir Ihren {licence}."
+        answer: Führerschein
+        register: formal
+        concepts: [licence_noun]
+      - id: transport_a2_accident
+        template: "Es gab einen {accident}."
+        answer: Unfall
+        register: casual
+        concepts: [accident_noun]
+      - id: transport_a2_parking
+        template: "Ich finde keinen {parking}."
+        answer: Parkplatz
+        register: casual
+        concepts: [parking_place]
+      - id: transport_a2_petrol
+        template: "Wir brauchen noch {petrol}."
+        answer: Benzin
+        register: casual
+        concepts: [petrol_noun]
+      - id: transport_a2_insurance
+        template: "Die {insurance} zahlt den Schaden."
+        answer: Versicherung
+        register: formal
+        concepts: [insurance_noun]
+      - id: transport_a2_speed
+        template: "Halten Sie die {speed} ein."
+        answer: Geschwindigkeit
+        register: formal
+        concepts: [speed_noun]
+      - id: transport_a2_workshop
+        template: "Das Auto ist in der {workshop}."
+        answer: Werkstatt
+        register: casual
+        concepts: [workshop_place]
+      - id: transport_a2_airport
+        template: "Wir fahren zum {airport}."
+        answer: Flughafen
+        register: casual
+        concepts: [airport_place]
+      - id: transport_a2_ferry
+        template: "Die {ferry} fährt jede Stunde."
+        answer: Fähre
+        register: casual
+        concepts: [ferry_transport]
+      - id: transport_a2_engine
+        template: "Der {engine} macht Geräusche."
+        answer: Motor
+        register: casual
+        concepts: [engine_object]
+      - id: transport_a2_diversion
+        template: "Achtung, eine {diversion}."
+        answer: Umleitung
+        register: formal
+        concepts: [diversion_noun]

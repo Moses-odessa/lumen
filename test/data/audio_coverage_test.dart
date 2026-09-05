@@ -90,10 +90,21 @@ void main() {
             .where((c) => c.tier == above.code);
         expect(onlyAbove, isNotEmpty, reason: 'ярус $above пуст, проверять нечего');
 
+        // Омографы делят один файл озвучки, и это правильно: `Morgen`
+        // (утро) и `morgen` (завтра) звучат одинаково, а идентификатор
+        // выводится из формы. Такое совпадение — не признак того, что ярус
+        // озвучили; считаем только файлы, которых нет у запущенных ярусов.
+        final launchedIds = <String>{};
+        for (final concept in await content.conceptsUpTo(ceiling)) {
+          final audioId = (await content.lexeme(concept.id, lang))?.audioId;
+          if (audioId != null) launchedIds.add(audioId);
+        }
+
         var voiced = 0;
         for (final concept in onlyAbove) {
           final audioId = (await content.lexeme(concept.id, lang))?.audioId;
-          if (audioId != null && manifest.has(audioId)) voiced++;
+          if (audioId == null || launchedIds.contains(audioId)) continue;
+          if (manifest.has(audioId)) voiced++;
         }
         expect(voiced, 0,
             reason: 'ярус ${above.label} озвучен — пора поднимать потолок '

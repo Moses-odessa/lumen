@@ -1,0 +1,192 @@
+# Созвездие «Семья» — родные, друзья, имена.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: family
+tiers:
+  a0:
+    concepts:
+      - { id: mother_person, pos: noun, freq_rank: 390 }
+      - { id: father_person, pos: noun, freq_rank: 420 }
+      - { id: child_person, pos: noun, freq_rank: 310 }
+      - { id: son_person, pos: noun, freq_rank: 880 }
+      - { id: daughter_person, pos: noun, freq_rank: 940 }
+      - { id: sister_person, pos: noun, freq_rank: 1270 }
+      - { id: friend_person, pos: noun, freq_rank: 460 }
+      - { id: name_noun, pos: noun, freq_rank: 350 }
+      - { id: family_noun, pos: noun, freq_rank: 680 }
+      - { id: man_person, pos: noun, freq_rank: 240 }
+      - { id: woman_person, pos: noun, freq_rank: 260 }
+      - { id: old_adj, pos: adj, freq_rank: 590 }
+    phrases:
+      - id: family_a0_name
+        template: "Wie ist Ihr {name}?"
+        answer: Name
+        register: formal
+        concepts: [name_noun]
+      - id: family_a0_family
+        template: "Das ist meine {family}."
+        answer: Familie
+        register: casual
+        concepts: [family_noun]
+      - id: family_a0_child
+        template: "Ich habe ein {child}."
+        answer: Kind
+        register: casual
+        concepts: [child_person]
+      - id: family_a0_friend
+        template: "Er ist mein {friend}."
+        answer: Freund
+        register: casual
+        concepts: [friend_person]
+
+  a1:
+    concepts:
+      - { id: brother_person, pos: noun, freq_rank: 1190 }
+      - { id: grandmother_person, pos: noun, freq_rank: 2140 }
+      - { id: grandfather_person, pos: noun, freq_rank: 2280 }
+      - { id: husband_person, pos: noun, freq_rank: 1630 }
+      - { id: wife_person, pos: noun, freq_rank: 1580 }
+      - { id: aunt_person, pos: noun, freq_rank: 2960 }
+      - { id: uncle_person, pos: noun, freq_rank: 2870 }
+      - { id: cousin_person, pos: noun, freq_rank: 3540 }
+      - { id: grandchild_person, pos: noun, freq_rank: 3120 }
+      - { id: birthday_noun, pos: noun, freq_rank: 2410 }
+      - { id: wedding_noun, pos: noun, freq_rank: 2730 }
+      - { id: young_adj, pos: adj, freq_rank: 640 }
+    phrases:
+      - id: family_a1_brother
+        template: "Das ist mein {brother}."
+        answer: Bruder
+        register: casual
+        concepts: [brother_person]
+      - id: family_a1_birthday
+        template: "Heute ist mein {birthday}."
+        answer: Geburtstag
+        register: casual
+        concepts: [birthday_noun]
+      - id: family_a1_wedding
+        template: "Wir feiern eine {wedding}."
+        answer: Hochzeit
+        register: casual
+        concepts: [wedding_noun]
+      - id: family_a1_grandmother
+        template: "Meine {grandmother} wohnt hier."
+        answer: Oma
+        register: casual
+        concepts: [grandmother_person]
+      - id: family_a1_husband
+        template: "Mein {husband} arbeitet viel."
+        answer: Ehemann
+        register: casual
+        concepts: [husband_person]
+      - id: family_a1_aunt
+        template: "Meine {aunt} kommt morgen."
+        answer: Tante
+        register: casual
+        concepts: [aunt_person]
+      - id: family_a1_young
+        template: "Er ist noch sehr {young}."
+        answer: jung
+        register: casual
+        concepts: [young_adj]
+      - id: family_a1_uncle
+        template: "Mein {uncle} wohnt in Berlin."
+        answer: Onkel
+        register: casual
+        concepts: [uncle_person]
+
+  a2:
+    concepts:
+      - { id: relatives_noun, pos: noun, freq_rank: 2870 }
+      - { id: brotherinlaw_person, pos: noun, freq_rank: 4310 }
+      - { id: sisterinlaw_person, pos: noun, freq_rank: 4620 }
+      - { id: niece_person, pos: noun, freq_rank: 4180 }
+      - { id: nephew_person, pos: noun, freq_rank: 4050 }
+      - { id: motherinlaw_person, pos: noun, freq_rank: 3940 }
+      - { id: fatherinlaw_person, pos: noun, freq_rank: 4270 }
+      - { id: stepfather_person, pos: noun, freq_rank: 5130 }
+      - { id: twin_person, pos: noun, freq_rank: 4460 }
+      - { id: siblings_noun, pos: noun, freq_rank: 3280 }
+      - { id: engagement_noun, pos: noun, freq_rank: 4390 }
+      - { id: divorce_noun, pos: noun, freq_rank: 3510 }
+      - { id: marriage_noun, pos: noun, freq_rank: 2640 }
+      - { id: upbringing_noun, pos: noun, freq_rank: 3760 }
+      - { id: childhood_noun, pos: noun, freq_rank: 3120 }
+      - { id: youth_noun, pos: noun, freq_rank: 2490 }
+      - { id: pension_noun, pos: noun, freq_rank: 3070 }
+      - { id: surname_noun, pos: noun, freq_rank: 3830 }
+      - { id: firstname_noun, pos: noun, freq_rank: 3690 }
+      - { id: birthplace_noun, pos: noun, freq_rank: 4740 }
+      - { id: citizenship_noun, pos: noun, freq_rank: 4180 }
+      - { id: maritalstatus_noun, pos: noun, freq_rank: 5290 }
+      - { id: household_noun, pos: noun, freq_rank: 3360 }
+      - { id: kindergarten_place, pos: noun, freq_rank: 3950 }
+    phrases:
+      - id: family_a2_siblings
+        template: "Hast du {siblings}?"
+        answer: Geschwister
+        register: casual
+        concepts: [siblings_noun]
+      - id: family_a2_surname
+        template: "Wie schreibt man Ihren {surname}?"
+        answer: Nachnamen
+        register: formal
+        concepts: [surname_noun]
+      - id: family_a2_marriage
+        template: "Die {marriage} hält seit zwanzig Jahren."
+        answer: Ehe
+        register: casual
+        concepts: [marriage_noun]
+      - id: family_a2_divorce
+        template: "Nach der {divorce} zog er weg."
+        answer: Scheidung
+        register: casual
+        concepts: [divorce_noun]
+      - id: family_a2_kindergarten
+        template: "Das Kind geht in den {kindergarten}."
+        answer: Kindergarten
+        register: casual
+        concepts: [kindergarten_place]
+      - id: family_a2_citizenship
+        template: "Welche {citizenship} haben Sie?"
+        answer: Staatsangehörigkeit
+        register: formal
+        concepts: [citizenship_noun]
+      - id: family_a2_pension
+        template: "Mein Vater ist in {pension}."
+        answer: Rente
+        register: casual
+        concepts: [pension_noun]
+      - id: family_a2_relatives
+        template: "Wir haben {relatives} in Berlin."
+        answer: Verwandte
+        register: casual
+        concepts: [relatives_noun]
+      - id: family_a2_engagement
+        template: "Wir feiern die {engagement}."
+        answer: Verlobung
+        register: casual
+        concepts: [engagement_noun]
+      - id: family_a2_childhood
+        template: "Seine {childhood} war schön."
+        answer: Kindheit
+        register: casual
+        concepts: [childhood_noun]
+      - id: family_a2_household
+        template: "Wir führen einen gemeinsamen {household}."
+        answer: Haushalt
+        register: formal
+        concepts: [household_noun]
+      - id: family_a2_maritalstatus
+        template: "Bitte den {maritalstatus} angeben."
+        answer: Familienstand
+        register: formal
+        concepts: [maritalstatus_noun]

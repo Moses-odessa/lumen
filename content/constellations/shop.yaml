@@ -1,0 +1,192 @@
+# Созвездие «Магазин» — покупки, цены, деньги.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: shop
+tiers:
+  a0:
+    concepts:
+      - { id: shop_place, pos: noun, freq_rank: 1290 }
+      - { id: money_noun, pos: noun, freq_rank: 560 }
+      - { id: price_noun, pos: noun, freq_rank: 1470 }
+      - { id: card_object, pos: noun, freq_rank: 1810 }
+      - { id: checkout_place, pos: noun, freq_rank: 2960 }
+      - { id: bag_object, pos: noun, freq_rank: 3340 }
+      - { id: purchase_noun, pos: noun, freq_rank: 2720 }
+      - { id: receipt_noun, pos: noun, freq_rank: 4080 }
+      - { id: customer_person, pos: noun, freq_rank: 1750 }
+      - { id: cheap_adj, pos: adj, freq_rank: 2610 }
+      - { id: expensive_adj, pos: adj, freq_rank: 1520 }
+      - { id: open_adj, pos: adj, freq_rank: 1130 }
+    phrases:
+      - id: shop_a0_money
+        template: "Ich habe kein {money}."
+        answer: Geld
+        register: casual
+        concepts: [money_noun]
+      - id: shop_a0_expensive
+        template: "Das ist zu {expensive}."
+        answer: teuer
+        register: casual
+        concepts: [expensive_adj]
+      - id: shop_a0_checkout
+        template: "Wo ist die {checkout}?"
+        answer: Kasse
+        register: casual
+        concepts: [checkout_place]
+      - id: shop_a0_price
+        template: "Der {price} ist gut."
+        answer: Preis
+        register: casual
+        concepts: [price_noun]
+
+  a1:
+    concepts:
+      - { id: cash_noun, pos: noun, freq_rank: 3410 }
+      - { id: change_noun, pos: noun, freq_rank: 4260 }
+      - { id: discount_noun, pos: noun, freq_rank: 3880 }
+      - { id: size_noun, pos: noun, freq_rank: 2540 }
+      - { id: basket_object, pos: noun, freq_rank: 4930 }
+      - { id: fitting_room, pos: noun, freq_rank: 5410 }
+      - { id: offer_noun, pos: noun, freq_rank: 2190 }
+      - { id: quality_noun, pos: noun, freq_rank: 2360 }
+      - { id: product_noun, pos: noun, freq_rank: 1980 }
+      - { id: brand_noun, pos: noun, freq_rank: 2870 }
+      - { id: delivery_noun, pos: noun, freq_rank: 3130 }
+      - { id: exchange_noun, pos: noun, freq_rank: 4640 }
+    phrases:
+      - id: shop_a1_cash
+        template: "Zahlen Sie mit {cash}?"
+        answer: Bargeld
+        register: formal
+        concepts: [cash_noun]
+      - id: shop_a1_size
+        template: "Haben Sie diese {size}?"
+        answer: Größe
+        register: formal
+        concepts: [size_noun]
+      - id: shop_a1_discount
+        template: "Gibt es einen {discount}?"
+        answer: Rabatt
+        register: casual
+        concepts: [discount_noun]
+      - id: shop_a1_delivery
+        template: "Die {delivery} dauert drei Tage."
+        answer: Lieferung
+        register: casual
+        concepts: [delivery_noun]
+      - id: shop_a1_exchange
+        template: "Ich möchte einen {exchange}."
+        answer: Umtausch
+        register: formal
+        concepts: [exchange_noun]
+      - id: shop_a1_quality
+        template: "Die {quality} ist gut."
+        answer: Qualität
+        register: casual
+        concepts: [quality_noun]
+      - id: shop_a1_offer
+        template: "Das ist ein gutes {offer}."
+        answer: Angebot
+        register: casual
+        concepts: [offer_noun]
+      - id: shop_a1_change
+        template: "Das {change} stimmt nicht."
+        answer: Wechselgeld
+        register: casual
+        concepts: [change_noun]
+
+  a2:
+    concepts:
+      - { id: seller_person, pos: noun, freq_rank: 2940 }
+      - { id: receipt_slip, pos: noun, freq_rank: 5180 }
+      - { id: creditcard_object, pos: noun, freq_rank: 3420 }
+      - { id: transfer_noun, pos: noun, freq_rank: 3760 }
+      - { id: voucher_noun, pos: noun, freq_rank: 4530 }
+      - { id: special_offer, pos: noun, freq_rank: 4120 }
+      - { id: clearance_noun, pos: noun, freq_rank: 5340 }
+      - { id: warehouse_place, pos: noun, freq_rank: 3280 }
+      - { id: assortment_noun, pos: noun, freq_rank: 4870 }
+      - { id: warranty_noun, pos: noun, freq_rank: 3610 }
+      - { id: complaint_noun, pos: noun, freq_rank: 4290 }
+      - { id: return_noun, pos: noun, freq_rank: 3950 }
+      - { id: shipping_noun, pos: noun, freq_rank: 3140 }
+      - { id: packaging_noun, pos: noun, freq_rank: 3830 }
+      - { id: label_object, pos: noun, freq_rank: 4680 }
+      - { id: pricetag_object, pos: noun, freq_rank: 5470 }
+      - { id: vat_noun, pos: noun, freq_rank: 4410 }
+      - { id: instalment_noun, pos: noun, freq_rank: 5620 }
+      - { id: downpayment_noun, pos: noun, freq_rank: 5810 }
+      - { id: ordernumber_noun, pos: noun, freq_rank: 6040 }
+      - { id: cart_object, pos: noun, freq_rank: 4760 }
+      - { id: support_noun, pos: noun, freq_rank: 3520 }
+      - { id: openinghours_noun, pos: noun, freq_rank: 4930 }
+      - { id: publicholiday_noun, pos: noun, freq_rank: 3670 }
+    phrases:
+      - id: shop_a2_warranty
+        template: "Die {warranty} gilt zwei Jahre."
+        answer: Garantie
+        register: formal
+        concepts: [warranty_noun]
+      - id: shop_a2_return
+        template: "Ist eine {return} möglich?"
+        answer: Rückgabe
+        register: formal
+        concepts: [return_noun]
+      - id: shop_a2_receipt
+        template: "Bewahren Sie den {receipt} auf."
+        answer: Kassenbon
+        register: formal
+        concepts: [receipt_slip]
+      - id: shop_a2_creditcard
+        template: "Ich zahle mit {creditcard}."
+        answer: Kreditkarte
+        register: casual
+        concepts: [creditcard_object]
+      - id: shop_a2_voucher
+        template: "Ich habe noch einen {voucher}."
+        answer: Gutschein
+        register: casual
+        concepts: [voucher_noun]
+      - id: shop_a2_shipping
+        template: "Der {shipping} ist kostenlos."
+        answer: Versand
+        register: casual
+        concepts: [shipping_noun]
+      - id: shop_a2_complaint
+        template: "Ich möchte eine {complaint} machen."
+        answer: Reklamation
+        register: formal
+        concepts: [complaint_noun]
+      - id: shop_a2_openinghours
+        template: "Wie sind die {openinghours}?"
+        answer: Öffnungszeiten
+        register: formal
+        concepts: [openinghours_noun]
+      - id: shop_a2_special
+        template: "Das ist ein {special}."
+        answer: Sonderangebot
+        register: casual
+        concepts: [special_offer]
+      - id: shop_a2_vat
+        template: "Der Preis ist ohne {vat}."
+        answer: Mehrwertsteuer
+        register: formal
+        concepts: [vat_noun]
+      - id: shop_a2_transfer
+        template: "Bitte per {transfer} bezahlen."
+        answer: Banküberweisung
+        register: formal
+        concepts: [transfer_noun]
+      - id: shop_a2_seller
+        template: "Fragen Sie den {seller}."
+        answer: Verkäufer
+        register: formal
+        concepts: [seller_person]

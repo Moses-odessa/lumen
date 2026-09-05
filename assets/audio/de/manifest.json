@@ -1,36 +1,256 @@
 {
   "version": 1,
-  "totalBytes": 94016,
+  "totalBytes": 817669,
   "files": {
+    "de/abend": {
+      "file": "abend.m4a",
+      "bytes": 4944,
+      "signature": "fac4f50eb9da1325"
+    },
+    "de/alt": {
+      "file": "alt.m4a",
+      "bytes": 3844,
+      "signature": "99bd9cee90da6cd2"
+    },
+    "de/apfel": {
+      "file": "apfel.m4a",
+      "bytes": 4747,
+      "signature": "bd72db6e3884194e"
+    },
     "de/apotheke": {
       "file": "apotheke.m4a",
       "bytes": 6042,
       "signature": "7d2d8182245737a1"
+    },
+    "de/arbeit": {
+      "file": "arbeit.m4a",
+      "bytes": 5529,
+      "signature": "77750c2c5eab1a23"
     },
     "de/arzt": {
       "file": "arzt.m4a",
       "bytes": 5025,
       "signature": "699651c10246fbd2"
     },
+    "de/auto": {
+      "file": "auto.m4a",
+      "bytes": 5443,
+      "signature": "8fd4bd431f477496"
+    },
+    "de/bahnhof": {
+      "file": "bahnhof.m4a",
+      "bytes": 5656,
+      "signature": "62fe67232c385d66"
+    },
+    "de/bank": {
+      "file": "bank.m4a",
+      "bytes": 5196,
+      "signature": "e0182b5eb9b581a3"
+    },
     "de/bauch": {
       "file": "bauch.m4a",
       "bytes": 4788,
       "signature": "bafa46438c007b4c"
+    },
+    "de/beruf": {
+      "file": "beruf.m4a",
+      "bytes": 4974,
+      "signature": "7c0a46a481f50ebe"
+    },
+    "de/besprechung": {
+      "file": "besprechung.m4a",
+      "bytes": 5792,
+      "signature": "1fdca13307d021f2"
+    },
+    "de/bett": {
+      "file": "bett.m4a",
+      "bytes": 5290,
+      "signature": "bc5dba9b4ebf1b18"
+    },
+    "de/billig": {
+      "file": "billig.m4a",
+      "bytes": 4310,
+      "signature": "5a0812c9c898538b"
+    },
+    "de/brot": {
+      "file": "brot.m4a",
+      "bytes": 5731,
+      "signature": "ffca9a60a078016a"
+    },
+    "de/buero": {
+      "file": "buero.m4a",
+      "bytes": 5266,
+      "signature": "935a8f2969eff925"
+    },
+    "de/bus": {
+      "file": "bus.m4a",
+      "bytes": 4416,
+      "signature": "96ffc2b9eab7db08"
+    },
+    "de/chef": {
+      "file": "chef.m4a",
+      "bytes": 4641,
+      "signature": "2442aacccae53e3d"
+    },
+    "de/einkauf": {
+      "file": "einkauf.m4a",
+      "bytes": 5623,
+      "signature": "5aaf09fb13968317"
+    },
+    "de/fahrer": {
+      "file": "fahrer.m4a",
+      "bytes": 4753,
+      "signature": "b927818fed8370f0"
+    },
+    "de/fahrkarte": {
+      "file": "fahrkarte.m4a",
+      "bytes": 6005,
+      "signature": "fef329528e82a6f1"
+    },
+    "de/fahrrad": {
+      "file": "fahrrad.m4a",
+      "bytes": 5911,
+      "signature": "681d90fc59507f9d"
+    },
+    "de/familie": {
+      "file": "familie.m4a",
+      "bytes": 5340,
+      "signature": "b14687147c56cef1"
+    },
+    "de/fenster": {
+      "file": "fenster.m4a",
+      "bytes": 5500,
+      "signature": "e94c98857a713e2c"
     },
     "de/fieber": {
       "file": "fieber.m4a",
       "bytes": 5186,
       "signature": "240a5e9b90104740"
     },
+    "de/firma": {
+      "file": "firma.m4a",
+      "bytes": 4969,
+      "signature": "7d095170054dfa50"
+    },
+    "de/fisch": {
+      "file": "fisch.m4a",
+      "bytes": 4708,
+      "signature": "4c74bf924fc66c62"
+    },
+    "de/fleisch": {
+      "file": "fleisch.m4a",
+      "bytes": 5778,
+      "signature": "5592a9b265156828"
+    },
+    "de/flugzeug": {
+      "file": "flugzeug.m4a",
+      "bytes": 6150,
+      "signature": "9b7c787cc5bd5d58"
+    },
+    "de/frau": {
+      "file": "frau.m4a",
+      "bytes": 4198,
+      "signature": "10004494fc8c2ea0"
+    },
+    "de/frei": {
+      "file": "frei.m4a",
+      "bytes": 3553,
+      "signature": "f03c2beb1fb73b3b"
+    },
+    "de/freund": {
+      "file": "freund.m4a",
+      "bytes": 5357,
+      "signature": "72a283ef95feb71f"
+    },
+    "de/gehalt": {
+      "file": "gehalt.m4a",
+      "bytes": 5925,
+      "signature": "a371804b692c237d"
+    },
+    "de/geld": {
+      "file": "geld.m4a",
+      "bytes": 5394,
+      "signature": "e15882996ec8bb6b"
+    },
+    "de/geschaeft": {
+      "file": "geschaeft.m4a",
+      "bytes": 5655,
+      "signature": "692491a35d11347e"
+    },
+    "de/gestern": {
+      "file": "gestern.m4a",
+      "bytes": 5524,
+      "signature": "11faca4ad8aa3859"
+    },
+    "de/haltestelle": {
+      "file": "haltestelle.m4a",
+      "bytes": 6160,
+      "signature": "45927e7a0270319c"
+    },
     "de/hand": {
       "file": "hand.m4a",
       "bytes": 4771,
       "signature": "8587283aadd80692"
     },
+    "de/haus": {
+      "file": "haus.m4a",
+      "bytes": 5365,
+      "signature": "15523e44d54e9269"
+    },
+    "de/heute": {
+      "file": "heute.m4a",
+      "bytes": 4505,
+      "signature": "65749d9206c89415"
+    },
     "de/hilfe": {
       "file": "hilfe.m4a",
       "bytes": 4978,
       "signature": "28a9e735cfb63b4e"
+    },
+    "de/hotel": {
+      "file": "hotel.m4a",
+      "bytes": 5827,
+      "signature": "94782c06954d2b51"
+    },
+    "de/hunger": {
+      "file": "hunger.m4a",
+      "bytes": 4581,
+      "signature": "5527c68a77195fac"
+    },
+    "de/jahr": {
+      "file": "jahr.m4a",
+      "bytes": 5165,
+      "signature": "f2cc51bc89575272"
+    },
+    "de/kaffee": {
+      "file": "kaffee.m4a",
+      "bytes": 4901,
+      "signature": "0f8548eda8bd09a9"
+    },
+    "de/karte": {
+      "file": "karte.m4a",
+      "bytes": 5128,
+      "signature": "6d663ceb4784ac36"
+    },
+    "de/kasse": {
+      "file": "kasse.m4a",
+      "bytes": 4869,
+      "signature": "40567d275a533dcb"
+    },
+    "de/kind": {
+      "file": "kind.m4a",
+      "bytes": 5745,
+      "signature": "525dde2068fc4c88"
+    },
+    "de/kirche": {
+      "file": "kirche.m4a",
+      "bytes": 5240,
+      "signature": "9b9eb25a21016d89"
+    },
+    "de/kollege": {
+      "file": "kollege.m4a",
+      "bytes": 5188,
+      "signature": "0b501b802bd6f46a"
     },
     "de/kopf": {
       "file": "kopf.m4a",
@@ -47,10 +267,115 @@
       "bytes": 6968,
       "signature": "e0511797e143ef36"
     },
+    "de/kueche": {
+      "file": "kueche.m4a",
+      "bytes": 4807,
+      "signature": "5d05e373a83ff347"
+    },
+    "de/kunde": {
+      "file": "kunde.m4a",
+      "bytes": 4749,
+      "signature": "446a120e3d4b0795"
+    },
+    "de/licht": {
+      "file": "licht.m4a",
+      "bytes": 5207,
+      "signature": "02027faf92e7520d"
+    },
+    "de/mann": {
+      "file": "mann.m4a",
+      "bytes": 4378,
+      "signature": "6c9ae094bd710fae"
+    },
+    "de/markt": {
+      "file": "markt.m4a",
+      "bytes": 4925,
+      "signature": "c31bc97001befe51"
+    },
     "de/medikament": {
       "file": "medikament.m4a",
       "bytes": 6943,
       "signature": "bd70b18bd8a96db2"
+    },
+    "de/miete": {
+      "file": "miete.m4a",
+      "bytes": 4904,
+      "signature": "7c81891ac463131e"
+    },
+    "de/milch": {
+      "file": "milch.m4a",
+      "bytes": 4552,
+      "signature": "20f0e04b914a2a95"
+    },
+    "de/minute": {
+      "file": "minute.m4a",
+      "bytes": 5301,
+      "signature": "d07e9ca347c37197"
+    },
+    "de/monat": {
+      "file": "monat.m4a",
+      "bytes": 5058,
+      "signature": "48ce699437ed8a05"
+    },
+    "de/morgen": {
+      "file": "morgen.m4a",
+      "bytes": 5351,
+      "signature": "c042197f7a59586b"
+    },
+    "de/muede": {
+      "file": "muede.m4a",
+      "bytes": 3999,
+      "signature": "59409f979fd02b57"
+    },
+    "de/museum": {
+      "file": "museum.m4a",
+      "bytes": 5881,
+      "signature": "8070a962aed81ca7"
+    },
+    "de/mutter": {
+      "file": "mutter.m4a",
+      "bytes": 4719,
+      "signature": "72ec26c14fceca0c"
+    },
+    "de/nachbar": {
+      "file": "nachbar.m4a",
+      "bytes": 5350,
+      "signature": "29cc01a0b650e5dc"
+    },
+    "de/nacht": {
+      "file": "nacht.m4a",
+      "bytes": 4866,
+      "signature": "c68aff4f91f0db5e"
+    },
+    "de/name": {
+      "file": "name.m4a",
+      "bytes": 4773,
+      "signature": "883665a3d32e44d9"
+    },
+    "de/offen": {
+      "file": "offen.m4a",
+      "bytes": 4230,
+      "signature": "b6b421653f2bc6e1"
+    },
+    "de/p_city_a0_hotel": {
+      "file": "p_city_a0_hotel.m4a",
+      "bytes": 7538,
+      "signature": "0a371423f50cb5ab"
+    },
+    "de/p_city_a0_map": {
+      "file": "p_city_a0_map.m4a",
+      "bytes": 9153,
+      "signature": "46bffd941ef4836b"
+    },
+    "de/p_city_a0_post": {
+      "file": "p_city_a0_post.m4a",
+      "bytes": 6682,
+      "signature": "2c73bcdcc8afa3da"
+    },
+    "de/p_city_a0_right": {
+      "file": "p_city_a0_right.m4a",
+      "bytes": 6183,
+      "signature": "0c66f89c204dace6"
     },
     "de/p_doctor_a0_appointment": {
       "file": "p_doctor_a0_appointment.m4a",
@@ -72,15 +397,330 @@
       "bytes": 6851,
       "signature": "1b0d8f4cac802927"
     },
+    "de/p_family_a0_child": {
+      "file": "p_family_a0_child.m4a",
+      "bytes": 7709,
+      "signature": "bbc8d7bbeffcd69b"
+    },
+    "de/p_family_a0_family": {
+      "file": "p_family_a0_family.m4a",
+      "bytes": 7860,
+      "signature": "6821a75c6d8db0fd"
+    },
+    "de/p_family_a0_friend": {
+      "file": "p_family_a0_friend.m4a",
+      "bytes": 7347,
+      "signature": "908611184e22777a"
+    },
+    "de/p_family_a0_name": {
+      "file": "p_family_a0_name.m4a",
+      "bytes": 6511,
+      "signature": "8445a4af0ccd810d"
+    },
+    "de/p_food_a0_bread": {
+      "file": "p_food_a0_bread.m4a",
+      "bytes": 6827,
+      "signature": "8c450ef86b91e442"
+    },
+    "de/p_food_a0_hunger": {
+      "file": "p_food_a0_hunger.m4a",
+      "bytes": 5805,
+      "signature": "ea75f3067205e1e4"
+    },
+    "de/p_food_a0_restaurant": {
+      "file": "p_food_a0_restaurant.m4a",
+      "bytes": 8063,
+      "signature": "30aa8bb791a95413"
+    },
+    "de/p_food_a0_water": {
+      "file": "p_food_a0_water.m4a",
+      "bytes": 6708,
+      "signature": "ff4d88fc5a3031cb"
+    },
+    "de/p_home_a0_key": {
+      "file": "p_home_a0_key.m4a",
+      "bytes": 7951,
+      "signature": "a1ef3070ac4d6e59"
+    },
+    "de/p_home_a0_kitchen": {
+      "file": "p_home_a0_kitchen.m4a",
+      "bytes": 6558,
+      "signature": "97f41ec36907738c"
+    },
+    "de/p_home_a0_rent": {
+      "file": "p_home_a0_rent.m4a",
+      "bytes": 6816,
+      "signature": "77a9a2802785cfdd"
+    },
+    "de/p_home_a0_room": {
+      "file": "p_home_a0_room.m4a",
+      "bytes": 7379,
+      "signature": "187ff6b1a6234361"
+    },
+    "de/p_shop_a0_checkout": {
+      "file": "p_shop_a0_checkout.m4a",
+      "bytes": 6809,
+      "signature": "19c817fd53154065"
+    },
+    "de/p_shop_a0_expensive": {
+      "file": "p_shop_a0_expensive.m4a",
+      "bytes": 6714,
+      "signature": "9c254b52f0ba9c9e"
+    },
+    "de/p_shop_a0_money": {
+      "file": "p_shop_a0_money.m4a",
+      "bytes": 7647,
+      "signature": "375d52cc16b6cfa6"
+    },
+    "de/p_shop_a0_price": {
+      "file": "p_shop_a0_price.m4a",
+      "bytes": 7197,
+      "signature": "2fe9403caf704287"
+    },
+    "de/p_time_a0_clock": {
+      "file": "p_time_a0_clock.m4a",
+      "bytes": 7589,
+      "signature": "fc7ea331fff5873e"
+    },
+    "de/p_time_a0_evening": {
+      "file": "p_time_a0_evening.m4a",
+      "bytes": 8005,
+      "signature": "2ae0e7180b63d972"
+    },
+    "de/p_time_a0_today": {
+      "file": "p_time_a0_today.m4a",
+      "bytes": 7866,
+      "signature": "fccf28efe03455d4"
+    },
+    "de/p_time_a0_week": {
+      "file": "p_time_a0_week.m4a",
+      "bytes": 8158,
+      "signature": "ebff03b8be2f833b"
+    },
+    "de/p_transport_a0_bus": {
+      "file": "p_transport_a0_bus.m4a",
+      "bytes": 6800,
+      "signature": "725110eefe04bdab"
+    },
+    "de/p_transport_a0_late": {
+      "file": "p_transport_a0_late.m4a",
+      "bytes": 6779,
+      "signature": "9b85b82124e56753"
+    },
+    "de/p_transport_a0_station": {
+      "file": "p_transport_a0_station.m4a",
+      "bytes": 7689,
+      "signature": "bf07ba1029abbf88"
+    },
+    "de/p_transport_a0_ticket": {
+      "file": "p_transport_a0_ticket.m4a",
+      "bytes": 9429,
+      "signature": "1844c686790cd437"
+    },
+    "de/p_work_a0_holiday": {
+      "file": "p_work_a0_holiday.m4a",
+      "bytes": 6687,
+      "signature": "f08d6bdc8321ea9f"
+    },
+    "de/p_work_a0_office": {
+      "file": "p_work_a0_office.m4a",
+      "bytes": 6900,
+      "signature": "e8fe423da99f4f1e"
+    },
+    "de/p_work_a0_tired": {
+      "file": "p_work_a0_tired.m4a",
+      "bytes": 6707,
+      "signature": "8bb3ead3ac0957ed"
+    },
+    "de/p_work_a0_work": {
+      "file": "p_work_a0_work.m4a",
+      "bytes": 7558,
+      "signature": "cd389acde73a679a"
+    },
+    "de/park": {
+      "file": "park.m4a",
+      "bytes": 4974,
+      "signature": "05b64497b4f060ba"
+    },
+    "de/platz": {
+      "file": "platz.m4a",
+      "bytes": 4709,
+      "signature": "7d77062ab42739e4"
+    },
+    "de/post": {
+      "file": "post.m4a",
+      "bytes": 4835,
+      "signature": "8cf99e83733d943a"
+    },
+    "de/preis": {
+      "file": "preis.m4a",
+      "bytes": 4958,
+      "signature": "79f89a4a2b23f16a"
+    },
+    "de/quittung": {
+      "file": "quittung.m4a",
+      "bytes": 5257,
+      "signature": "d40756795a93b230"
+    },
+    "de/rechts": {
+      "file": "rechts.m4a",
+      "bytes": 4535,
+      "signature": "34794c3435fcdcb7"
+    },
+    "de/restaurant": {
+      "file": "restaurant.m4a",
+      "bytes": 6165,
+      "signature": "96ce7f562f75cbee"
+    },
+    "de/salz": {
+      "file": "salz.m4a",
+      "bytes": 5706,
+      "signature": "d9ac3d556e0e7d68"
+    },
+    "de/schluessel": {
+      "file": "schluessel.m4a",
+      "bytes": 5365,
+      "signature": "3c0cdae64ad91ff7"
+    },
     "de/schmerz": {
       "file": "schmerz.m4a",
       "bytes": 5376,
       "signature": "a6d4a86203291db5"
     },
+    "de/schwester": {
+      "file": "schwester.m4a",
+      "bytes": 5204,
+      "signature": "da3c6abdfea1a3b1"
+    },
+    "de/sohn": {
+      "file": "sohn.m4a",
+      "bytes": 4534,
+      "signature": "153280bc03fc212b"
+    },
+    "de/spaet": {
+      "file": "spaet.m4a",
+      "bytes": 4580,
+      "signature": "cdd1789f9710d59e"
+    },
+    "de/stadt": {
+      "file": "stadt.m4a",
+      "bytes": 4586,
+      "signature": "b6e62354dca23c86"
+    },
+    "de/stadtplan": {
+      "file": "stadtplan.m4a",
+      "bytes": 6194,
+      "signature": "69ab67b67b8afa45"
+    },
+    "de/strasse": {
+      "file": "strasse.m4a",
+      "bytes": 5388,
+      "signature": "3edfc7b7cd09ac4d"
+    },
+    "de/stuhl": {
+      "file": "stuhl.m4a",
+      "bytes": 4952,
+      "signature": "6f31c91924a917d6"
+    },
+    "de/stunde": {
+      "file": "stunde.m4a",
+      "bytes": 5113,
+      "signature": "1183604bd921068b"
+    },
+    "de/suppe": {
+      "file": "suppe.m4a",
+      "bytes": 4918,
+      "signature": "0ca5a3fd8560eb24"
+    },
+    "de/tag": {
+      "file": "tag.m4a",
+      "bytes": 5182,
+      "signature": "66dcaabfd305ea3d"
+    },
     "de/termin": {
       "file": "termin.m4a",
       "bytes": 5278,
       "signature": "ab44693536478936"
+    },
+    "de/teuer": {
+      "file": "teuer.m4a",
+      "bytes": 5071,
+      "signature": "e071664ae7d78b07"
+    },
+    "de/tisch": {
+      "file": "tisch.m4a",
+      "bytes": 4862,
+      "signature": "e35a185234ae5643"
+    },
+    "de/tochter": {
+      "file": "tochter.m4a",
+      "bytes": 5093,
+      "signature": "6d9560a526cad287"
+    },
+    "de/tuer": {
+      "file": "tuer.m4a",
+      "bytes": 4890,
+      "signature": "c451d74e062dcff9"
+    },
+    "de/tuete": {
+      "file": "tuete.m4a",
+      "bytes": 4933,
+      "signature": "750765ea744e28eb"
+    },
+    "de/uhr": {
+      "file": "uhr.m4a",
+      "bytes": 4410,
+      "signature": "078cdedcac62c490"
+    },
+    "de/urlaub": {
+      "file": "urlaub.m4a",
+      "bytes": 5485,
+      "signature": "5d4e305dbcc412d5"
+    },
+    "de/vater": {
+      "file": "vater.m4a",
+      "bytes": 5048,
+      "signature": "23ede9384e812a54"
+    },
+    "de/vertrag": {
+      "file": "vertrag.m4a",
+      "bytes": 5706,
+      "signature": "c8aba9662bb4e756"
+    },
+    "de/wasser": {
+      "file": "wasser.m4a",
+      "bytes": 5327,
+      "signature": "03bec04117473cef"
+    },
+    "de/weg": {
+      "file": "weg.m4a",
+      "bytes": 4617,
+      "signature": "f0d117b7b295ec5b"
+    },
+    "de/woche": {
+      "file": "woche.m4a",
+      "bytes": 4636,
+      "signature": "f63cb233aa13f572"
+    },
+    "de/zentrum": {
+      "file": "zentrum.m4a",
+      "bytes": 6132,
+      "signature": "0af6c77438638981"
+    },
+    "de/zimmer": {
+      "file": "zimmer.m4a",
+      "bytes": 5088,
+      "signature": "71d2b698fb952b95"
+    },
+    "de/zucker": {
+      "file": "zucker.m4a",
+      "bytes": 4903,
+      "signature": "ec6be8066c9b7e4e"
+    },
+    "de/zug": {
+      "file": "zug.m4a",
+      "bytes": 4827,
+      "signature": "162299128b682b2a"
     }
   }
 }

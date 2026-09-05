@@ -1,0 +1,192 @@
+# Созвездие «Работа» — служба, коллеги, отпуск.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: work
+tiers:
+  a0:
+    concepts:
+      - { id: work_noun, pos: noun, freq_rank: 370 }
+      - { id: job_noun, pos: noun, freq_rank: 1230 }
+      - { id: boss_person, pos: noun, freq_rank: 1560 }
+      - { id: colleague_person, pos: noun, freq_rank: 2340 }
+      - { id: office_place, pos: noun, freq_rank: 1410 }
+      - { id: company_noun, pos: noun, freq_rank: 1180 }
+      - { id: salary_noun, pos: noun, freq_rank: 2790 }
+      - { id: contract_noun, pos: noun, freq_rank: 1920 }
+      - { id: meeting_noun, pos: noun, freq_rank: 3160 }
+      - { id: holiday_noun, pos: noun, freq_rank: 2050 }
+      - { id: free_adj, pos: adj, freq_rank: 620 }
+      - { id: tired_adj, pos: adj, freq_rank: 2480 }
+    phrases:
+      - id: work_a0_work
+        template: "Ich gehe zur {work}."
+        answer: Arbeit
+        register: casual
+        concepts: [work_noun]
+      - id: work_a0_office
+        template: "Er ist im {office}."
+        answer: Büro
+        register: casual
+        concepts: [office_place]
+      - id: work_a0_holiday
+        template: "Ich habe {holiday}."
+        answer: Urlaub
+        register: casual
+        concepts: [holiday_noun]
+      - id: work_a0_tired
+        template: "Ich bin sehr {tired}."
+        answer: müde
+        register: casual
+        concepts: [tired_adj]
+
+  a1:
+    concepts:
+      - { id: application_noun, pos: noun, freq_rank: 2930 }
+      - { id: cv_noun, pos: noun, freq_rank: 4270 }
+      - { id: interview_noun, pos: noun, freq_rank: 4610 }
+      - { id: employee_person, pos: noun, freq_rank: 2180 }
+      - { id: employer_person, pos: noun, freq_rank: 2740 }
+      - { id: department_noun, pos: noun, freq_rank: 2360 }
+      - { id: project_noun, pos: noun, freq_rank: 1690 }
+      - { id: deadline_noun, pos: noun, freq_rank: 3050 }
+      - { id: overtime_noun, pos: noun, freq_rank: 4890 }
+      - { id: break_noun, pos: noun, freq_rank: 2410 }
+      - { id: task_noun, pos: noun, freq_rank: 1870 }
+      - { id: experience_noun, pos: noun, freq_rank: 1540 }
+    phrases:
+      - id: work_a1_application
+        template: "Ich schreibe eine {application}."
+        answer: Bewerbung
+        register: casual
+        concepts: [application_noun]
+      - id: work_a1_cv
+        template: "Schicken Sie mir Ihren {cv}."
+        answer: Lebenslauf
+        register: formal
+        concepts: [cv_noun]
+      - id: work_a1_interview
+        template: "Ich habe morgen ein {interview}."
+        answer: Vorstellungsgespräch
+        register: casual
+        concepts: [interview_noun]
+      - id: work_a1_break
+        template: "Ich mache eine {break}."
+        answer: Pause
+        register: casual
+        concepts: [break_noun]
+      - id: work_a1_department
+        template: "Er arbeitet in der {department}."
+        answer: Abteilung
+        register: casual
+        concepts: [department_noun]
+      - id: work_a1_deadline
+        template: "Die {deadline} ist am Freitag."
+        answer: Frist
+        register: formal
+        concepts: [deadline_noun]
+      - id: work_a1_experience
+        template: "Ich habe viel {experience}."
+        answer: Erfahrung
+        register: casual
+        concepts: [experience_noun]
+      - id: work_a1_task
+        template: "Das ist eine schwere {task}."
+        answer: Aufgabe
+        register: casual
+        concepts: [task_noun]
+
+  a2:
+    concepts:
+      - { id: employment_contract, pos: noun, freq_rank: 3140 }
+      - { id: probation_noun, pos: noun, freq_rank: 4620 }
+      - { id: dismissal_noun, pos: noun, freq_rank: 3280 }
+      - { id: reference_noun, pos: noun, freq_rank: 3760 }
+      - { id: raise_noun, pos: noun, freq_rank: 5210 }
+      - { id: fulltime_noun, pos: noun, freq_rank: 4080 }
+      - { id: parttime_noun, pos: noun, freq_rank: 4340 }
+      - { id: shift_noun, pos: noun, freq_rank: 3510 }
+      - { id: homeoffice_noun, pos: noun, freq_rank: 4890 }
+      - { id: conference_noun, pos: noun, freq_rank: 3060 }
+      - { id: colleague_female, pos: noun, freq_rank: 3920 }
+      - { id: supervisor_person, pos: noun, freq_rank: 3670 }
+      - { id: internship_noun, pos: noun, freq_rank: 4180 }
+      - { id: training_noun, pos: noun, freq_rank: 2740 }
+      - { id: furthertraining_noun, pos: noun, freq_rank: 4460 }
+      - { id: studies_noun, pos: noun, freq_rank: 2380 }
+      - { id: union_noun, pos: noun, freq_rank: 3830 }
+      - { id: workscouncil_noun, pos: noun, freq_rank: 5340 }
+      - { id: sicknote_noun, pos: noun, freq_rank: 5070 }
+      - { id: workinghours_noun, pos: noun, freq_rank: 3290 }
+      - { id: endofday_noun, pos: noun, freq_rank: 4010 }
+      - { id: tax_noun, pos: noun, freq_rank: 2160 }
+      - { id: socialcontribution_noun, pos: noun, freq_rank: 5480 }
+      - { id: payslip_noun, pos: noun, freq_rank: 5720 }
+    phrases:
+      - id: work_a2_contract
+        template: "Der {contract} läuft ein Jahr."
+        answer: Arbeitsvertrag
+        register: formal
+        concepts: [employment_contract]
+      - id: work_a2_probation
+        template: "Die {probation} dauert sechs Monate."
+        answer: Probezeit
+        register: formal
+        concepts: [probation_noun]
+      - id: work_a2_dismissal
+        template: "Ich habe die {dismissal} bekommen."
+        answer: Kündigung
+        register: casual
+        concepts: [dismissal_noun]
+      - id: work_a2_parttime
+        template: "Sie arbeitet in {parttime}."
+        answer: Teilzeit
+        register: casual
+        concepts: [parttime_noun]
+      - id: work_a2_shift
+        template: "Ich habe heute {shift}."
+        answer: Schicht
+        register: casual
+        concepts: [shift_noun]
+      - id: work_a2_training
+        template: "Er macht eine {training}."
+        answer: Ausbildung
+        register: casual
+        concepts: [training_noun]
+      - id: work_a2_sicknote
+        template: "Schicken Sie die {sicknote} bis Freitag."
+        answer: Krankschreibung
+        register: formal
+        concepts: [sicknote_noun]
+      - id: work_a2_tax
+        template: "Die {tax} wird direkt abgezogen."
+        answer: Steuer
+        register: formal
+        concepts: [tax_noun]
+      - id: work_a2_endofday
+        template: "Ich mache jetzt {endofday}."
+        answer: Feierabend
+        register: casual
+        concepts: [endofday_noun]
+      - id: work_a2_supervisor
+        template: "Fragen Sie Ihren {supervisor}."
+        answer: Vorgesetzten
+        register: formal
+        concepts: [supervisor_person]
+      - id: work_a2_homeoffice
+        template: "Montags bin ich im {homeoffice}."
+        answer: Homeoffice
+        register: casual
+        concepts: [homeoffice_noun]
+      - id: work_a2_payslip
+        template: "Die {payslip} kommt per Post."
+        answer: Lohnabrechnung
+        register: formal
+        concepts: [payslip_noun]

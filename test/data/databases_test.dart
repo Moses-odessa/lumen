@@ -124,9 +124,12 @@ void main() {
       expect(await db.launchedTiers(), {Tier.a0});
 
       // Созвездие «У врача» написано целиком на всех пяти ярусах: размеры
-      // накопительные, 12 / 24 / 48 / 72 / 96 (docs/CONCEPT.md).
+      // накопительные, 12 / 24 / 48 / 72 / 96 (docs/CONCEPT.md). Общее число
+      // концептов проверяется снизу, а не точным равенством: созвездий
+      // становится больше, и точная цифра здесь означала бы падающий тест
+      // на каждое добавление контента.
       expect(await db.countConcepts(),
-          ProgressionBalance.starsPerConstellation(Tier.b2));
+          greaterThanOrEqualTo(ProgressionBalance.starsPerConstellation(Tier.b2)));
       for (final tier in Tier.values) {
         expect(
           (await db.conceptsFor('doctor', tier)).length,
