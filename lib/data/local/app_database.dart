@@ -104,18 +104,6 @@ class Sessions extends Table {
   IntColumn get newWords => integer()();
 }
 
-/// Результат ночного вызова: один заход в день, поэтому день — ключ.
-@DataClassName('DailyChallengeResultRow')
-class DailyChallengeResults extends Table {
-  TextColumn get day => text()();
-  IntColumn get correct => integer()();
-  IntColumn get total => integer()();
-  IntColumn get timeMs => integer()();
-
-  @override
-  Set<Column> get primaryKey => {day};
-}
-
 /// Свои слова: личное созвездие произвольного размера (M5).
 @DataClassName('CustomConceptRow')
 class CustomConcepts extends Table {
@@ -136,7 +124,6 @@ class CustomConcepts extends Table {
   Reviews,
   ConstellationProgress,
   Sessions,
-  DailyChallengeResults,
   CustomConcepts,
 ])
 class AppDatabase extends _$AppDatabase {
@@ -144,7 +131,7 @@ class AppDatabase extends _$AppDatabase {
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -155,6 +142,12 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(players, players.eclipseUntil);
             await m.addColumn(players, players.preferredHour);
             await m.addColumn(players, players.notificationsEnabled);
+          }
+          if (from < 3) {
+            // Ночной вызов убран вместе с хостингом: он требовал файла на
+            // CDN, а держать таблицу под фичу, которой нет, — это мусор,
+            // который однажды примут за рабочие данные.
+            await m.deleteTable('daily_challenge_results');
           }
         },
       );
@@ -259,25 +252,6 @@ class AppDatabase extends _$AppDatabase {
       (delete(reviews)..where((t) => t.at.isSmallerThanValue(now.subtract(keep))))
           .go();
 
-  // ── Ночной вызов ────────────────────────────────────────────────────────
-
-  Future<DailyChallengeResultRow?> loadChallengeResult(String day) =>
-      (select(dailyChallengeResults)..where((t) => t.day.equals(day)))
-          .getSingleOrNull();
-
-  Future<void> saveChallengeResult(DailyChallengeResultsCompanion result) =>
-      into(dailyChallengeResults).insertOnConflictUpdate(result);
-
-  Future<List<DailyChallengeResultRow>> loadChallengeHistory({
-    int limit = 30,
-  }) =>
-      (select(dailyChallengeResults)
-            ..orderBy([
-              (t) => OrderingTerm(expression: t.day, mode: OrderingMode.desc),
-            ])
-            ..limit(limit))
-          .get();
-
   // ── Свои слова ──────────────────────────────────────────────────────────
 
   Future<List<CustomConceptRow>> loadCustomConcepts() =>
@@ -299,7 +273,6 @@ class AppDatabase extends _$AppDatabase {
         await delete(reviews).go();
         await delete(constellationProgress).go();
         await delete(sessions).go();
-        await delete(dailyChallengeResults).go();
         await delete(customConcepts).go();
       });
 

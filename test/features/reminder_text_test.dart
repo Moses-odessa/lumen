@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/core/notifications/notification_service.dart';
-import 'package:lumen/features/challenge/application/challenge_client.dart';
 
 /// Формулировки напоминаний проверяются тестом, потому что именно они решают,
 /// отключит игрок уведомления или нет. «Не забудь позаниматься» отключают
@@ -63,56 +62,6 @@ void main() {
       );
       expect(text.title, 'Небо в порядке');
       expect(text.body, contains('новое'));
-    });
-  });
-
-  group('ключ дня вызова', () {
-    test('считается в UTC — вызов один для всех часовых поясов', () {
-      final moscowEvening = DateTime.utc(2026, 5, 10, 21).toLocal();
-      final key = ChallengeClient.dayKey(moscowEvening);
-      expect(key, '2026-05-10');
-    });
-
-    test('формат с ведущими нулями', () {
-      expect(ChallengeClient.dayKey(DateTime.utc(2026, 1, 3)), '2026-01-03');
-    });
-  });
-
-  group('клиент вызова', () {
-    test('без настроенного CDN вызов просто недоступен', () async {
-      final client = ChallengeClient(baseUrl: '');
-      expect(client.isConfigured, isFalse);
-      expect(await client.load('de', DateTime.utc(2026, 5, 10)), isNull);
-    });
-
-    test('разбирает файл дня', () {
-      final challenge = DailyChallenge.fromJson({
-        'day': '2026-05-10',
-        'lang': 'de',
-        'seconds': 60,
-        'pairs': [
-          {
-            'concept': 'doctor_person',
-            'target': 'Arzt',
-            'article': 'der',
-            'audio': 'de/arzt',
-          },
-        ],
-      });
-
-      expect(challenge.day, '2026-05-10');
-      expect(challenge.duration, const Duration(seconds: 60));
-      expect(challenge.pairs.single.target, 'Arzt');
-      expect(challenge.pairs.single.article, 'der');
-    });
-
-    test('файл без пар не ломает разбор', () {
-      final challenge = DailyChallenge.fromJson({
-        'day': '2026-05-10',
-        'lang': 'de',
-      });
-      expect(challenge.pairs, isEmpty);
-      expect(challenge.duration, const Duration(seconds: 60));
     });
   });
 }

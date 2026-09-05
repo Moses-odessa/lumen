@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/notifications/notification_service.dart';
@@ -86,26 +85,6 @@ class SettingsScreen extends ConsumerWidget {
             ),
           const Divider(),
           ListTile(
-            leading: const Icon(Icons.cloud_outlined),
-            title: Text(l10n.settingsCloud),
-            subtitle: Text(l10n.settingsCloudSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push(Routes.cloud),
-          ),
-          ListTile(
-            leading: const Icon(Icons.sd_storage_outlined),
-            title: Text(l10n.settingsStorage),
-            subtitle: Text(l10n.settingsStorageSubtitle),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => context.push(Routes.storage),
-          ),
-          ListTile(
-            leading: const Icon(Icons.download_outlined),
-            title: Text(l10n.settingsExport),
-            subtitle: Text(l10n.settingsExportSubtitle),
-            onTap: () => _export(context, ref, l10n),
-          ),
-          ListTile(
             leading: const Icon(Icons.delete_forever_outlined),
             title: Text(l10n.settingsWipe),
             subtitle: Text(l10n.settingsWipeSubtitle),
@@ -157,26 +136,6 @@ Future<void> _setNotifications(
 
   controller.replace(player.copyWith(notificationsEnabled: true));
   await ref.read(reminderSchedulerProvider).reschedule();
-}
-
-/// Экспорт: показываем JSON и отдаём системе через шаринг.
-Future<void> _export(
-  BuildContext context,
-  WidgetRef ref,
-  AppLocalizations l10n,
-) async {
-  try {
-    final json = await ref.read(dataControllerProvider).export();
-    if (!context.mounted) return;
-    await SharePlus.instance.share(
-      ShareParams(text: json, subject: 'Lumen — экспорт данных'),
-    );
-  } catch (e) {
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(l10n.settingsExportFailed('$e'))),
-    );
-  }
 }
 
 /// Удаление данных: подтверждение обязательно и формулируется прямо.

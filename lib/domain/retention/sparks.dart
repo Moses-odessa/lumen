@@ -35,15 +35,6 @@ abstract final class Sparks {
   static int forLevel({required int lumensGained, required int newWords}) =>
       lumensGained + newWords * 5;
 
-  /// Начисление за ночной вызов. TODO(balance)
-  static int forChallenge({required int correct, required int total}) {
-    if (total == 0) return 0;
-    final base = correct * 3;
-    // Безошибочный заход — небольшой бонус, а не кратный множитель:
-    // вызов должен оставаться развлечением, а не источником дохода.
-    return correct == total ? base + 20 : base;
-  }
-
   /// Хватает ли на покупку.
   static bool canAfford(int balance, SparkPurchase purchase) =>
       balance >= purchase.cost;

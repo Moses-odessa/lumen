@@ -23,7 +23,6 @@ abstract final class AnalyticsEvents {
   // Ритуал и удержание.
   static const ritualStarted = 'ritual_started';
   static const sunriseCompleted = 'sunrise_completed';
-  static const challengePlayed = 'challenge_played';
   static const resultShared = 'result_shared';
   static const notificationOpened = 'notification_opened';
 

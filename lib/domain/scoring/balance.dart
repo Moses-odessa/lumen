@@ -192,10 +192,6 @@ abstract final class SessionBalance {
   /// Восход: только повторения, столько времени. TODO(balance)
   static const Duration sunriseDuration = Duration(minutes: 2);
 
-  /// Ночной вызов: пар и секунд. TODO(balance)
-  static const int nightChallengePairs = 20;
-  static const Duration nightChallengeDuration = Duration(seconds: 60);
-
   /// Ограничение доли новых слов, когда игрок включил «свой темп» — иначе
   /// очередь повторений растёт быстрее, чем он способен её разгребать.
   /// TODO(balance)

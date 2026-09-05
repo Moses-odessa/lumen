@@ -16,9 +16,7 @@
   "profileTitle": "Profile",
   "settingsTitle": "Settings",
   "commonNext": "Next",
-  "commonBack": "Back",
   "commonCancel": "Cancel",
-  "commonClose": "Close",
   "comingSoon": "Coming soon",
   "@comingSoon": {
     "description": "Placeholder for screens that arrive in a later milestone"
@@ -56,7 +54,6 @@
   "ritualLevelOnlySubtitle": "Skip Sunrise and take something new",
   "ritualSunrise": "Sunrise",
   "ritualLevel": "Level",
-  "ritualChallenge": "Night challenge",
   "sunriseReturned": "returned to the sky",
   "sunriseNothing": "the sky was already lit — nothing to review",
   "sunriseNext": "On to a new level",
@@ -189,51 +186,6 @@
       }
     }
   },
-  "challengeTitle": "Night challenge",
-  "challengeSeconds": "{seconds} s",
-  "@challengeSeconds": {
-    "placeholders": {
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
-  "challengeUnavailableTitle": "Challenge unavailable",
-  "challengeUnavailableNotConfigured": "The challenge CDN is not set up yet. Everything else works without a network.",
-  "challengeUnavailableOffline": "No connection. Everything else works without a network — the challenge will come back on its own.",
-  "challengeAlreadyTitle": "Already played today",
-  "challengeAlreadyBody": "One run per day. Tomorrow brings a new set — the same one for everyone.",
-  "challengeAlreadyResult": "{correct} out of {total} in {seconds} s",
-  "@challengeAlreadyResult": {
-    "placeholders": {
-      "correct": {
-        "type": "int"
-      },
-      "total": {
-        "type": "int"
-      },
-      "seconds": {
-        "type": "int"
-      }
-    }
-  },
-  "challengeSparks": "+{count} sparks",
-  "@challengeSparks": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "challengeShare": "Share",
-  "challengeCardSeconds": "in {seconds} s",
-  "@challengeCardSeconds": {
-    "placeholders": {
-      "seconds": {
-        "type": "String"
-      }
-    }
-  },
   "settingsTier": "Tier",
   "settingsTierExplain": "Constellations grow with the tier. Old stars stay where they are.",
   "settingsTierLocked": "Tiers above {tier} have not been reviewed by a native speaker yet and are unavailable.",
@@ -258,18 +210,6 @@
   "settingsNotificationsDenied": "The system did not grant notification permission",
   "settingsRecalibrate": "Recalibrate",
   "settingsRecalibrateSubtitle": "Take the test again — available at any time",
-  "settingsCloud": "Cloud",
-  "settingsCloudSubtitle": "An account is only needed for multiple devices",
-  "settingsExport": "Export data",
-  "settingsExportSubtitle": "All your progress in one file",
-  "settingsExportFailed": "Export failed: {error}",
-  "@settingsExportFailed": {
-    "placeholders": {
-      "error": {
-        "type": "String"
-      }
-    }
-  },
   "settingsWipe": "Delete all data",
   "settingsWipeSubtitle": "Without any way to restore",
   "settingsWipeDialogTitle": "Delete all data?",
@@ -277,30 +217,6 @@
   "settingsWipeConfirm": "Delete",
   "settingsAbout": "About",
   "settingsAboutSubtitle": "Completely free · donations · licences",
-  "cloudTitle": "Cloud",
-  "cloudIntro": "An account is only needed to continue on another device. Without one the game works fully — and that is not a limited mode.",
-  "cloudNotConfiguredTitle": "Cloud is not connected",
-  "cloudNotConfiguredBody": "A server will appear only if donations cover the hosting. Until then data lives on the device and can be exported to a file in settings.",
-  "cloudEmail": "E-mail",
-  "cloudPassword": "Password",
-  "cloudSignIn": "Sign in",
-  "cloudSignUp": "Create an account",
-  "cloudForgot": "Forgot your password?",
-  "cloudSyncOn": "Sync is on",
-  "cloudNeverSynced": "Not synced yet",
-  "cloudLastSync": "Last sync: {time}",
-  "@cloudLastSync": {
-    "placeholders": {
-      "time": {
-        "type": "String"
-      }
-    }
-  },
-  "cloudPushNow": "Upload now",
-  "cloudPull": "Fetch from cloud",
-  "cloudSignOut": "Sign out",
-  "cloudSignOutNote": "Signing out does not delete local data.",
-  "cloudDeleteRemote": "Delete the cloud copy",
   "aboutTitle": "About",
   "aboutTagline": "A vocabulary as a night sky. A star's brightness is the probability of recalling a word right now.",
   "aboutFreeTitle": "Completely free",
@@ -329,30 +245,5 @@
         "type": "String"
       }
     }
-  },
-  "storageTitle": "Downloads",
-  "storageUsed": "Downloaded: {size} MB",
-  "@storageUsed": {
-    "placeholders": {
-      "size": {
-        "type": "String"
-      }
-    }
-  },
-  "storageExplain": "The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.",
-  "storageNotConfigured": "The pack CDN is not set up yet. Everything the app ships with works offline.",
-  "storageNothingToDownload": "Nothing to download: all audio of the launched tiers ships with the app.",
-  "storagePackSize": "{size} MB",
-  "@storagePackSize": {
-    "placeholders": {
-      "size": {
-        "type": "String"
-      }
-    }
-  },
-  "storageDownload": "Download",
-  "storageRemove": "Remove",
-  "storageFailed": "Download failed. Everything already downloaded still works.",
-  "settingsStorage": "Downloads",
-  "settingsStorageSubtitle": "Audio packs and disk space"
+  }
 }

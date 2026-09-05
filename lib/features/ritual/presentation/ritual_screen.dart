@@ -4,12 +4,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../game/application/run_controller.dart';
-import '../../challenge/presentation/challenge_screen.dart';
 import '../../game/presentation/run_screen.dart';
 import '../../sky/application/sky_controller.dart';
 import '../application/ritual_controller.dart';
 
-/// Дневной ритуал: Восход → уровень → ночной вызов.
+/// Дневной ритуал: Восход → уровень.
 ///
 /// Шесть-семь минут с началом и концом. Ритуал существует затем, чтобы из
 /// игры можно было выйти с чувством, что дело сделано, — в отличие от ленты,
@@ -64,7 +63,6 @@ class RitualScreen extends ConsumerWidget {
             state: state,
             onNext: controller.next,
           ),
-        RitualPhase.challenge => ChallengeScreen(onClose: controller.next),
         RitualPhase.done => _RitualDone(
             l10n: l10n,
             state: state,
@@ -82,7 +80,6 @@ class RitualScreen extends ConsumerWidget {
         RitualPhase.sunriseResult =>
           l10n.ritualSunrise,
         RitualPhase.level || RitualPhase.levelResult => l10n.ritualLevel,
-        RitualPhase.challenge => l10n.ritualChallenge,
         _ => l10n.gameTitle,
       };
 }

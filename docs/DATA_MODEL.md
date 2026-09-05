@@ -167,14 +167,6 @@ class Sessions extends Table {
   IntColumn      get newWords  => integer()();
 }
 
-class DailyChallengeResults extends Table {
-  TextColumn get day     => text()();                 // '2026-09-04'
-  IntColumn  get correct => integer()();
-  IntColumn  get total   => integer()();
-  IntColumn  get timeMs  => integer()();
-  @override Set<Column> get primaryKey => {day};
-}
-
 /// Свои слова: личное созвездие произвольного размера.
 class CustomConcepts extends Table {
   TextColumn get id     => text()();
@@ -221,6 +213,7 @@ class CustomConcepts extends Table {
 }
 ```
 
-`Reviews` в облако **не уходят** — это журнал для локального дообучения и
-аналитики, он большой и не нужен на другом устройстве. Объединение — union по
-`conceptId` с выбором записи по большему `lastReview`.
+Этот снимок **сейчас никуда не уходит**: облако удалено вместе с экспортом
+(см. PLAN.md, «Отказ от сети»). Формат описан здесь потому, что вернётся он
+именно в таком виде — и `Reviews` в него по-прежнему не попадут: журнал нужен
+для локального дообучения, он большой и на другом устройстве бесполезен.

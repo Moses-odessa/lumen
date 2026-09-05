@@ -40,13 +40,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonNext => 'Next';
 
   @override
-  String get commonBack => 'Back';
-
-  @override
   String get commonCancel => 'Cancel';
-
-  @override
-  String get commonClose => 'Close';
 
   @override
   String get comingSoon => 'Coming soon';
@@ -134,9 +128,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ritualLevel => 'Level';
-
-  @override
-  String get ritualChallenge => 'Night challenge';
 
   @override
   String get sunriseReturned => 'returned to the sky';
@@ -332,50 +323,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get challengeTitle => 'Night challenge';
-
-  @override
-  String challengeSeconds(int seconds) {
-    return '$seconds s';
-  }
-
-  @override
-  String get challengeUnavailableTitle => 'Challenge unavailable';
-
-  @override
-  String get challengeUnavailableNotConfigured =>
-      'The challenge CDN is not set up yet. Everything else works without a network.';
-
-  @override
-  String get challengeUnavailableOffline =>
-      'No connection. Everything else works without a network — the challenge will come back on its own.';
-
-  @override
-  String get challengeAlreadyTitle => 'Already played today';
-
-  @override
-  String get challengeAlreadyBody =>
-      'One run per day. Tomorrow brings a new set — the same one for everyone.';
-
-  @override
-  String challengeAlreadyResult(int correct, int total, int seconds) {
-    return '$correct out of $total in $seconds s';
-  }
-
-  @override
-  String challengeSparks(int count) {
-    return '+$count sparks';
-  }
-
-  @override
-  String get challengeShare => 'Share';
-
-  @override
-  String challengeCardSeconds(String seconds) {
-    return 'in $seconds s';
-  }
-
-  @override
   String get settingsTier => 'Tier';
 
   @override
@@ -436,24 +383,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Take the test again — available at any time';
 
   @override
-  String get settingsCloud => 'Cloud';
-
-  @override
-  String get settingsCloudSubtitle =>
-      'An account is only needed for multiple devices';
-
-  @override
-  String get settingsExport => 'Export data';
-
-  @override
-  String get settingsExportSubtitle => 'All your progress in one file';
-
-  @override
-  String settingsExportFailed(String error) {
-    return 'Export failed: $error';
-  }
-
-  @override
   String get settingsWipe => 'Delete all data';
 
   @override
@@ -474,61 +403,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsAboutSubtitle => 'Completely free · donations · licences';
-
-  @override
-  String get cloudTitle => 'Cloud';
-
-  @override
-  String get cloudIntro =>
-      'An account is only needed to continue on another device. Without one the game works fully — and that is not a limited mode.';
-
-  @override
-  String get cloudNotConfiguredTitle => 'Cloud is not connected';
-
-  @override
-  String get cloudNotConfiguredBody =>
-      'A server will appear only if donations cover the hosting. Until then data lives on the device and can be exported to a file in settings.';
-
-  @override
-  String get cloudEmail => 'E-mail';
-
-  @override
-  String get cloudPassword => 'Password';
-
-  @override
-  String get cloudSignIn => 'Sign in';
-
-  @override
-  String get cloudSignUp => 'Create an account';
-
-  @override
-  String get cloudForgot => 'Forgot your password?';
-
-  @override
-  String get cloudSyncOn => 'Sync is on';
-
-  @override
-  String get cloudNeverSynced => 'Not synced yet';
-
-  @override
-  String cloudLastSync(String time) {
-    return 'Last sync: $time';
-  }
-
-  @override
-  String get cloudPushNow => 'Upload now';
-
-  @override
-  String get cloudPull => 'Fetch from cloud';
-
-  @override
-  String get cloudSignOut => 'Sign out';
-
-  @override
-  String get cloudSignOutNote => 'Signing out does not delete local data.';
-
-  @override
-  String get cloudDeleteRemote => 'Delete the cloud copy';
 
   @override
   String get aboutTitle => 'About';
@@ -604,45 +478,4 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — invoice\nQuittung — receipt';
-
-  @override
-  String get storageTitle => 'Downloads';
-
-  @override
-  String storageUsed(String size) {
-    return 'Downloaded: $size MB';
-  }
-
-  @override
-  String get storageExplain =>
-      'The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.';
-
-  @override
-  String get storageNotConfigured =>
-      'The pack CDN is not set up yet. Everything the app ships with works offline.';
-
-  @override
-  String get storageNothingToDownload =>
-      'Nothing to download: all audio of the launched tiers ships with the app.';
-
-  @override
-  String storagePackSize(String size) {
-    return '$size MB';
-  }
-
-  @override
-  String get storageDownload => 'Download';
-
-  @override
-  String get storageRemove => 'Remove';
-
-  @override
-  String get storageFailed =>
-      'Download failed. Everything already downloaded still works.';
-
-  @override
-  String get settingsStorage => 'Downloads';
-
-  @override
-  String get settingsStorageSubtitle => 'Audio packs and disk space';
 }

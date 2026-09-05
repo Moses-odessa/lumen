@@ -40,13 +40,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get commonNext => 'Далі';
 
   @override
-  String get commonBack => 'Назад';
-
-  @override
   String get commonCancel => 'Скасувати';
-
-  @override
-  String get commonClose => 'Закрити';
 
   @override
   String get comingSoon => 'Незабаром';
@@ -134,9 +128,6 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get ritualLevel => 'Рівень';
-
-  @override
-  String get ritualChallenge => 'Нічний виклик';
 
   @override
   String get sunriseReturned => 'повернулося небу';
@@ -332,50 +323,6 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get challengeTitle => 'Нічний виклик';
-
-  @override
-  String challengeSeconds(int seconds) {
-    return '$seconds с';
-  }
-
-  @override
-  String get challengeUnavailableTitle => 'Виклик недоступний';
-
-  @override
-  String get challengeUnavailableNotConfigured =>
-      'CDN із викликами ще не налаштовано. Усе інше в грі працює без мережі.';
-
-  @override
-  String get challengeUnavailableOffline =>
-      'Немає зв’язку. Усе інше в грі працює без мережі — виклик повернеться сам.';
-
-  @override
-  String get challengeAlreadyTitle => 'Сьогодні вже зіграно';
-
-  @override
-  String get challengeAlreadyBody =>
-      'Один захід на день. Завтра буде новий набір — той самий у всіх.';
-
-  @override
-  String challengeAlreadyResult(int correct, int total, int seconds) {
-    return '$correct із $total за $seconds с';
-  }
-
-  @override
-  String challengeSparks(int count) {
-    return '+$count іскор';
-  }
-
-  @override
-  String get challengeShare => 'Поділитися';
-
-  @override
-  String challengeCardSeconds(String seconds) {
-    return 'за $seconds с';
-  }
-
-  @override
   String get settingsTier => 'Ярус';
 
   @override
@@ -436,24 +383,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'Пройти тест заново — доступно будь-коли';
 
   @override
-  String get settingsCloud => 'Хмара';
-
-  @override
-  String get settingsCloudSubtitle =>
-      'Обліковий запис потрібен лише для кількох пристроїв';
-
-  @override
-  String get settingsExport => 'Експорт даних';
-
-  @override
-  String get settingsExportSubtitle => 'Увесь прогрес одним файлом';
-
-  @override
-  String settingsExportFailed(String error) {
-    return 'Не вдалося вивантажити: $error';
-  }
-
-  @override
   String get settingsWipe => 'Видалити всі дані';
 
   @override
@@ -475,61 +404,6 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get settingsAboutSubtitle =>
       'Безкоштовно повністю · донати · ліцензії';
-
-  @override
-  String get cloudTitle => 'Хмара';
-
-  @override
-  String get cloudIntro =>
-      'Обліковий запис потрібен лише для того, щоб продовжити на іншому пристрої. Без нього гра працює повністю — і це не урізаний режим.';
-
-  @override
-  String get cloudNotConfiguredTitle => 'Хмару не підключено';
-
-  @override
-  String get cloudNotConfiguredBody =>
-      'Сервер з’явиться, лише якщо донати покриють хостинг. До того часу дані живуть на пристрої, і їх можна вивантажити файлом у налаштуваннях.';
-
-  @override
-  String get cloudEmail => 'E-mail';
-
-  @override
-  String get cloudPassword => 'Пароль';
-
-  @override
-  String get cloudSignIn => 'Увійти';
-
-  @override
-  String get cloudSignUp => 'Створити обліковий запис';
-
-  @override
-  String get cloudForgot => 'Забули пароль?';
-
-  @override
-  String get cloudSyncOn => 'Синхронізацію ввімкнено';
-
-  @override
-  String get cloudNeverSynced => 'Ще не синхронізовано';
-
-  @override
-  String cloudLastSync(String time) {
-    return 'Востаннє: $time';
-  }
-
-  @override
-  String get cloudPushNow => 'Вивантажити зараз';
-
-  @override
-  String get cloudPull => 'Забрати з хмари';
-
-  @override
-  String get cloudSignOut => 'Вийти';
-
-  @override
-  String get cloudSignOutNote => 'Вихід не видаляє локальні дані.';
-
-  @override
-  String get cloudDeleteRemote => 'Видалити копію в хмарі';
 
   @override
   String get aboutTitle => 'Про проєкт';
@@ -606,45 +480,4 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get customWordsPlaceholder =>
       'Rechnung — рахунок\nQuittung — квитанція';
-
-  @override
-  String get storageTitle => 'Завантаження';
-
-  @override
-  String storageUsed(String size) {
-    return 'Завантажено: $size МБ';
-  }
-
-  @override
-  String get storageExplain =>
-      'Базовий ярус їде разом із застосунком, тож грати можна одразу після встановлення. Яруси вище довантажуються — і видаляються будь-коли.';
-
-  @override
-  String get storageNotConfigured =>
-      'CDN із паками ще не налаштовано. Усе, що їде в застосунку, працює без мережі.';
-
-  @override
-  String get storageNothingToDownload =>
-      'Довантажувати нічого: уся озвучка запущених ярусів їде разом із застосунком.';
-
-  @override
-  String storagePackSize(String size) {
-    return '$size МБ';
-  }
-
-  @override
-  String get storageDownload => 'Завантажити';
-
-  @override
-  String get storageRemove => 'Видалити';
-
-  @override
-  String get storageFailed =>
-      'Не вдалося завантажити. Усе, що вже завантажено, працює далі.';
-
-  @override
-  String get settingsStorage => 'Завантаження';
-
-  @override
-  String get settingsStorageSubtitle => 'Аудіопаки та місце на диску';
 }

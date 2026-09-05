@@ -6,7 +6,6 @@ import 'core/l10n/app_localizations.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/notifications/notification_service.dart';
-import 'data/remote/supabase_cloud_sync.dart';
 import 'data/repositories/persistence.dart';
 import 'data/repositories/player_repository.dart';
 
@@ -17,8 +16,6 @@ const _sentryDsn = String.fromEnvironment('SENTRY_DSN');
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Облако необязательно: без ключей инициализация тихо ничего не делает.
-  await initSupabase();
   await NotificationService.instance.init();
 
   final container = ProviderContainer();

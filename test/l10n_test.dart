@@ -39,9 +39,7 @@ void main() {
       'dictionary',
       'profile',
       'customWords',
-      'challenge',
       'settings',
-      'cloud',
       'about',
     ]) {
       expect(

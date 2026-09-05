@@ -3,8 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/player_repository.dart';
-import '../../features/challenge/presentation/challenge_screen.dart';
-import '../../features/cloud/presentation/cloud_screen.dart';
 import '../../features/onboarding/presentation/calibration_screen.dart';
 import '../../features/profile/presentation/custom_words_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
@@ -13,7 +11,6 @@ import '../../features/ritual/presentation/ritual_screen.dart';
 import '../../features/settings/presentation/about_screen.dart';
 import '../../features/settings/presentation/audio_spike_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
-import '../../features/settings/presentation/storage_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
 import '../../features/sky/presentation/dictionary_screen.dart';
 import '../../features/sky/presentation/sky_screen.dart';
@@ -26,17 +23,9 @@ abstract final class Routes {
   static const settings = '/settings';
   static const onboarding = '/onboarding';
 
-  /// Что скачано и сколько занимает.
-  static const storage = '/settings/storage';
 
   /// О проекте, донаты, лицензии.
   static const about = '/about';
-
-  /// Облако: вход и синхронизация. Аккаунт необязателен.
-  static const cloud = '/cloud';
-
-  /// Ночной вызов — единственный экран, который ходит в сеть.
-  static const challenge = '/challenge';
 
   /// Свои слова: личное созвездие.
   static const customWords = '/custom-words';
@@ -110,24 +99,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const DictionaryScreen(),
       ),
       GoRoute(
-        path: Routes.challenge,
-        builder: (context, _) => ChallengeScreen(onClose: context.pop),
-      ),
-      GoRoute(
         path: Routes.customWords,
         builder: (_, _) => const CustomWordsScreen(),
       ),
       GoRoute(
-        path: Routes.cloud,
-        builder: (_, _) => const CloudScreen(),
-      ),
-      GoRoute(
         path: Routes.about,
         builder: (_, _) => const AboutScreen(),
-      ),
-      GoRoute(
-        path: Routes.storage,
-        builder: (_, _) => const StorageScreen(),
       ),
       GoRoute(
         path: Routes.recalibrate,

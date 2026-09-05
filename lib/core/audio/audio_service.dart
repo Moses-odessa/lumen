@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -8,7 +7,6 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../data/repositories/player_repository.dart';
 import 'audio_manifest.dart';
-import 'audio_pack_manager.dart';
 
 /// Озвучка верного ответа.
 ///
@@ -70,29 +68,14 @@ class PooledAudioService implements AudioService {
   /// Последние измеренные задержки — для спайка на реальном устройстве.
   final AudioLatencyProbe probe = AudioLatencyProbe();
 
-  /// Манифест собирается из ассетов и уже скачанных паков.
-  ///
-  /// Считается один раз за жизнь сервиса: обход support-директории на
-  /// каждый круг — это диск в горячем пути забега.
+  /// Манифест ассетов. Считается один раз за жизнь сервиса: чтение с диска
+  /// на каждый круг — это ввод-вывод в горячем пути забега.
   Future<AudioManifest> _ensureManifest() => _loading ??= _buildManifest();
 
   Future<AudioManifest> _buildManifest() async {
-    Directory? packs;
-    try {
-      packs = await AudioPackManager().packsDirectory(lang);
-    } catch (_) {
-      // Support-директории может не быть на web и в тестах.
-    }
-    final manifest = await AudioManifest.load(lang, packsDirectory: packs);
+    final manifest = await AudioManifest.load(lang);
     _manifest = manifest;
     return manifest;
-  }
-
-  /// Пересобрать манифест — после установки или удаления пака.
-  void invalidateManifest() {
-    _manifest = null;
-    _loading = null;
-    _loaded.clear();
   }
 
   @override
@@ -111,12 +94,8 @@ class PooledAudioService implements AudioService {
     }
   }
 
-  /// Ассет и скачанный файл открываются разными вызовами — это единственное
-  /// место, где разница между ними видна.
-  Future<void> _open(AudioPlayer player, AudioLocation location) =>
-      location.isAsset
-          ? player.setAsset(location.path)
-          : player.setFilePath(location.path);
+  Future<void> _open(AudioPlayer player, String assetPath) =>
+      player.setAsset(assetPath);
 
   @override
   void play(String audioId) {

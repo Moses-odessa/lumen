@@ -40,13 +40,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonNext => 'Дальше';
 
   @override
-  String get commonBack => 'Назад';
-
-  @override
   String get commonCancel => 'Отмена';
-
-  @override
-  String get commonClose => 'Закрыть';
 
   @override
   String get comingSoon => 'Скоро';
@@ -134,9 +128,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get ritualLevel => 'Уровень';
-
-  @override
-  String get ritualChallenge => 'Ночной вызов';
 
   @override
   String get sunriseReturned => 'вернулось небу';
@@ -331,50 +322,6 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get challengeTitle => 'Ночной вызов';
-
-  @override
-  String challengeSeconds(int seconds) {
-    return '$seconds с';
-  }
-
-  @override
-  String get challengeUnavailableTitle => 'Вызов недоступен';
-
-  @override
-  String get challengeUnavailableNotConfigured =>
-      'CDN с вызовами ещё не настроен. Всё остальное в игре работает без сети.';
-
-  @override
-  String get challengeUnavailableOffline =>
-      'Нет связи. Всё остальное в игре работает без сети — вызов вернётся сам.';
-
-  @override
-  String get challengeAlreadyTitle => 'Сегодня уже сыграно';
-
-  @override
-  String get challengeAlreadyBody =>
-      'Один заход в день. Завтра будет новый набор — тот же самый у всех.';
-
-  @override
-  String challengeAlreadyResult(int correct, int total, int seconds) {
-    return '$correct из $total за $seconds с';
-  }
-
-  @override
-  String challengeSparks(int count) {
-    return '+$count искр';
-  }
-
-  @override
-  String get challengeShare => 'Поделиться';
-
-  @override
-  String challengeCardSeconds(String seconds) {
-    return 'за $seconds с';
-  }
-
-  @override
   String get settingsTier => 'Ярус';
 
   @override
@@ -435,23 +382,6 @@ class AppLocalizationsRu extends AppLocalizations {
       'Пройти тест заново — доступно в любой момент';
 
   @override
-  String get settingsCloud => 'Облако';
-
-  @override
-  String get settingsCloudSubtitle => 'Аккаунт нужен только для мультидевайса';
-
-  @override
-  String get settingsExport => 'Экспорт данных';
-
-  @override
-  String get settingsExportSubtitle => 'Весь прогресс одним файлом';
-
-  @override
-  String settingsExportFailed(String error) {
-    return 'Не удалось выгрузить: $error';
-  }
-
-  @override
   String get settingsWipe => 'Удалить все данные';
 
   @override
@@ -472,61 +402,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsAboutSubtitle => 'Бесплатно целиком · донаты · лицензии';
-
-  @override
-  String get cloudTitle => 'Облако';
-
-  @override
-  String get cloudIntro =>
-      'Аккаунт нужен только для того, чтобы продолжить на другом устройстве. Без него игра работает полностью — и это не урезанный режим.';
-
-  @override
-  String get cloudNotConfiguredTitle => 'Облако не подключено';
-
-  @override
-  String get cloudNotConfiguredBody =>
-      'Сервер появится, только если донаты покроют хостинг. До тех пор данные живут на устройстве, и их можно выгрузить файлом в настройках.';
-
-  @override
-  String get cloudEmail => 'E-mail';
-
-  @override
-  String get cloudPassword => 'Пароль';
-
-  @override
-  String get cloudSignIn => 'Войти';
-
-  @override
-  String get cloudSignUp => 'Создать аккаунт';
-
-  @override
-  String get cloudForgot => 'Забыли пароль?';
-
-  @override
-  String get cloudSyncOn => 'Синхронизация включена';
-
-  @override
-  String get cloudNeverSynced => 'Ещё не синхронизировано';
-
-  @override
-  String cloudLastSync(String time) {
-    return 'Последний раз: $time';
-  }
-
-  @override
-  String get cloudPushNow => 'Выгрузить сейчас';
-
-  @override
-  String get cloudPull => 'Забрать из облака';
-
-  @override
-  String get cloudSignOut => 'Выйти';
-
-  @override
-  String get cloudSignOutNote => 'Выход не удаляет локальные данные.';
-
-  @override
-  String get cloudDeleteRemote => 'Удалить копию в облаке';
 
   @override
   String get aboutTitle => 'О проекте';
@@ -602,45 +477,4 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — счёт\nQuittung — квитанция';
-
-  @override
-  String get storageTitle => 'Загрузки';
-
-  @override
-  String storageUsed(String size) {
-    return 'Скачано: $size МБ';
-  }
-
-  @override
-  String get storageExplain =>
-      'Базовый ярус едет вместе с приложением, поэтому играть можно сразу после установки. Ярусы выше докачиваются — и удаляются в любой момент.';
-
-  @override
-  String get storageNotConfigured =>
-      'CDN с паками ещё не настроен. Всё, что едет в приложении, работает без сети.';
-
-  @override
-  String get storageNothingToDownload =>
-      'Докачивать нечего: вся озвучка запущенных ярусов едет вместе с приложением.';
-
-  @override
-  String storagePackSize(String size) {
-    return '$size МБ';
-  }
-
-  @override
-  String get storageDownload => 'Скачать';
-
-  @override
-  String get storageRemove => 'Удалить';
-
-  @override
-  String get storageFailed =>
-      'Не удалось скачать. Всё, что уже скачано, продолжает работать.';
-
-  @override
-  String get settingsStorage => 'Загрузки';
-
-  @override
-  String get settingsStorageSubtitle => 'Аудио-паки и место на диске';
 }

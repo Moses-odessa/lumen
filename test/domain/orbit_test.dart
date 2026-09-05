@@ -173,24 +173,6 @@ void main() {
       expect(much, greaterThan(little));
     });
 
-    test('за вызов платят по верным ответам', () {
-      expect(Sparks.forChallenge(correct: 0, total: 20), 0);
-      expect(
-        Sparks.forChallenge(correct: 15, total: 20),
-        lessThan(Sparks.forChallenge(correct: 20, total: 20)),
-      );
-    });
-
-    test('безошибочный вызов даёт бонус, но не кратный', () {
-      final perfect = Sparks.forChallenge(correct: 20, total: 20);
-      final almost = Sparks.forChallenge(correct: 19, total: 20);
-      expect(perfect - almost, lessThan(almost));
-    });
-
-    test('пустой вызов ничего не приносит', () {
-      expect(Sparks.forChallenge(correct: 0, total: 0), 0);
-    });
-
     test('покупка списывает ровно цену', () {
       expect(Sparks.spend(500, SparkPurchase.eclipse),
           500 - SparkPurchase.eclipse.cost);

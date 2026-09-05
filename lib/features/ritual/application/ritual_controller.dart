@@ -38,9 +38,6 @@ enum RitualPhase {
   /// Итог уровня.
   levelResult,
 
-  /// Ночной вызов — приходит на M5.
-  challenge,
-
   /// Ритуал пройден целиком.
   done,
 }
@@ -219,8 +216,6 @@ class RitualController extends Notifier<RitualState> {
       case RitualPhase.sunriseResult:
         await _startLevel();
       case RitualPhase.levelResult:
-        state = state.copyWith(phase: RitualPhase.challenge);
-      case RitualPhase.challenge:
         state = state.copyWith(phase: RitualPhase.done);
       case _:
         break;

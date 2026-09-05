@@ -166,23 +166,11 @@ abstract class AppLocalizations {
   /// **'Next'**
   String get commonNext;
 
-  /// No description provided for @commonBack.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get commonBack;
-
   /// No description provided for @commonCancel.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
   String get commonCancel;
-
-  /// No description provided for @commonClose.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get commonClose;
 
   /// Placeholder for screens that arrive in a later milestone
   ///
@@ -345,12 +333,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level'**
   String get ritualLevel;
-
-  /// No description provided for @ritualChallenge.
-  ///
-  /// In en, this message translates to:
-  /// **'Night challenge'**
-  String get ritualChallenge;
 
   /// No description provided for @sunriseReturned.
   ///
@@ -694,72 +676,6 @@ abstract class AppLocalizations {
   /// **'In your own constellation: {count}'**
   String customWordsCount(int count);
 
-  /// No description provided for @challengeTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Night challenge'**
-  String get challengeTitle;
-
-  /// No description provided for @challengeSeconds.
-  ///
-  /// In en, this message translates to:
-  /// **'{seconds} s'**
-  String challengeSeconds(int seconds);
-
-  /// No description provided for @challengeUnavailableTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Challenge unavailable'**
-  String get challengeUnavailableTitle;
-
-  /// No description provided for @challengeUnavailableNotConfigured.
-  ///
-  /// In en, this message translates to:
-  /// **'The challenge CDN is not set up yet. Everything else works without a network.'**
-  String get challengeUnavailableNotConfigured;
-
-  /// No description provided for @challengeUnavailableOffline.
-  ///
-  /// In en, this message translates to:
-  /// **'No connection. Everything else works without a network — the challenge will come back on its own.'**
-  String get challengeUnavailableOffline;
-
-  /// No description provided for @challengeAlreadyTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Already played today'**
-  String get challengeAlreadyTitle;
-
-  /// No description provided for @challengeAlreadyBody.
-  ///
-  /// In en, this message translates to:
-  /// **'One run per day. Tomorrow brings a new set — the same one for everyone.'**
-  String get challengeAlreadyBody;
-
-  /// No description provided for @challengeAlreadyResult.
-  ///
-  /// In en, this message translates to:
-  /// **'{correct} out of {total} in {seconds} s'**
-  String challengeAlreadyResult(int correct, int total, int seconds);
-
-  /// No description provided for @challengeSparks.
-  ///
-  /// In en, this message translates to:
-  /// **'+{count} sparks'**
-  String challengeSparks(int count);
-
-  /// No description provided for @challengeShare.
-  ///
-  /// In en, this message translates to:
-  /// **'Share'**
-  String get challengeShare;
-
-  /// No description provided for @challengeCardSeconds.
-  ///
-  /// In en, this message translates to:
-  /// **'in {seconds} s'**
-  String challengeCardSeconds(String seconds);
-
   /// No description provided for @settingsTier.
   ///
   /// In en, this message translates to:
@@ -862,36 +778,6 @@ abstract class AppLocalizations {
   /// **'Take the test again — available at any time'**
   String get settingsRecalibrateSubtitle;
 
-  /// No description provided for @settingsCloud.
-  ///
-  /// In en, this message translates to:
-  /// **'Cloud'**
-  String get settingsCloud;
-
-  /// No description provided for @settingsCloudSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'An account is only needed for multiple devices'**
-  String get settingsCloudSubtitle;
-
-  /// No description provided for @settingsExport.
-  ///
-  /// In en, this message translates to:
-  /// **'Export data'**
-  String get settingsExport;
-
-  /// No description provided for @settingsExportSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'All your progress in one file'**
-  String get settingsExportSubtitle;
-
-  /// No description provided for @settingsExportFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Export failed: {error}'**
-  String settingsExportFailed(String error);
-
   /// No description provided for @settingsWipe.
   ///
   /// In en, this message translates to:
@@ -933,108 +819,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Completely free · donations · licences'**
   String get settingsAboutSubtitle;
-
-  /// No description provided for @cloudTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Cloud'**
-  String get cloudTitle;
-
-  /// No description provided for @cloudIntro.
-  ///
-  /// In en, this message translates to:
-  /// **'An account is only needed to continue on another device. Without one the game works fully — and that is not a limited mode.'**
-  String get cloudIntro;
-
-  /// No description provided for @cloudNotConfiguredTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Cloud is not connected'**
-  String get cloudNotConfiguredTitle;
-
-  /// No description provided for @cloudNotConfiguredBody.
-  ///
-  /// In en, this message translates to:
-  /// **'A server will appear only if donations cover the hosting. Until then data lives on the device and can be exported to a file in settings.'**
-  String get cloudNotConfiguredBody;
-
-  /// No description provided for @cloudEmail.
-  ///
-  /// In en, this message translates to:
-  /// **'E-mail'**
-  String get cloudEmail;
-
-  /// No description provided for @cloudPassword.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get cloudPassword;
-
-  /// No description provided for @cloudSignIn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in'**
-  String get cloudSignIn;
-
-  /// No description provided for @cloudSignUp.
-  ///
-  /// In en, this message translates to:
-  /// **'Create an account'**
-  String get cloudSignUp;
-
-  /// No description provided for @cloudForgot.
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot your password?'**
-  String get cloudForgot;
-
-  /// No description provided for @cloudSyncOn.
-  ///
-  /// In en, this message translates to:
-  /// **'Sync is on'**
-  String get cloudSyncOn;
-
-  /// No description provided for @cloudNeverSynced.
-  ///
-  /// In en, this message translates to:
-  /// **'Not synced yet'**
-  String get cloudNeverSynced;
-
-  /// No description provided for @cloudLastSync.
-  ///
-  /// In en, this message translates to:
-  /// **'Last sync: {time}'**
-  String cloudLastSync(String time);
-
-  /// No description provided for @cloudPushNow.
-  ///
-  /// In en, this message translates to:
-  /// **'Upload now'**
-  String get cloudPushNow;
-
-  /// No description provided for @cloudPull.
-  ///
-  /// In en, this message translates to:
-  /// **'Fetch from cloud'**
-  String get cloudPull;
-
-  /// No description provided for @cloudSignOut.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign out'**
-  String get cloudSignOut;
-
-  /// No description provided for @cloudSignOutNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Signing out does not delete local data.'**
-  String get cloudSignOutNote;
-
-  /// No description provided for @cloudDeleteRemote.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete the cloud copy'**
-  String get cloudDeleteRemote;
 
   /// No description provided for @aboutTitle.
   ///
@@ -1167,72 +951,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rechnung — invoice\nQuittung — receipt'**
   String get customWordsPlaceholder;
-
-  /// No description provided for @storageTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Downloads'**
-  String get storageTitle;
-
-  /// No description provided for @storageUsed.
-  ///
-  /// In en, this message translates to:
-  /// **'Downloaded: {size} MB'**
-  String storageUsed(String size);
-
-  /// No description provided for @storageExplain.
-  ///
-  /// In en, this message translates to:
-  /// **'The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.'**
-  String get storageExplain;
-
-  /// No description provided for @storageNotConfigured.
-  ///
-  /// In en, this message translates to:
-  /// **'The pack CDN is not set up yet. Everything the app ships with works offline.'**
-  String get storageNotConfigured;
-
-  /// No description provided for @storageNothingToDownload.
-  ///
-  /// In en, this message translates to:
-  /// **'Nothing to download: all audio of the launched tiers ships with the app.'**
-  String get storageNothingToDownload;
-
-  /// No description provided for @storagePackSize.
-  ///
-  /// In en, this message translates to:
-  /// **'{size} MB'**
-  String storagePackSize(String size);
-
-  /// No description provided for @storageDownload.
-  ///
-  /// In en, this message translates to:
-  /// **'Download'**
-  String get storageDownload;
-
-  /// No description provided for @storageRemove.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove'**
-  String get storageRemove;
-
-  /// No description provided for @storageFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'Download failed. Everything already downloaded still works.'**
-  String get storageFailed;
-
-  /// No description provided for @settingsStorage.
-  ///
-  /// In en, this message translates to:
-  /// **'Downloads'**
-  String get settingsStorage;
-
-  /// No description provided for @settingsStorageSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Audio packs and disk space'**
-  String get settingsStorageSubtitle;
 }
 
 class _AppLocalizationsDelegate
