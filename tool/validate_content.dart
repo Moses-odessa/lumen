@@ -3,6 +3,7 @@
 //
 //   dart run tool/validate_content.dart --lang de
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'content_schema.dart';
@@ -251,31 +252,45 @@ void _checkAudio(
   _Report report,
 ) {
   final audioDir = Directory('${root.path}/assets/audio/$lang');
-  if (!audioDir.existsSync()) {
+  final manifestFile = File('${audioDir.path}/manifest.json');
+  if (!manifestFile.existsSync()) {
     report.pending(
-      'каталог assets/audio/$lang отсутствует — озвучка синтезируется на M4, '
-      'проверка файлов пропущена',
+      'нет assets/audio/$lang/manifest.json — запустите '
+      'dart run tool/synthesize_audio.dart --lang $lang',
     );
     return;
   }
 
-  final present = audioDir
-      .listSync(recursive: true)
-      .whereType<File>()
-      .map((f) => f.uri.pathSegments.last.split('.').first)
-      .toSet();
+  final Map<String, Object?> files;
+  try {
+    final json = jsonDecode(manifestFile.readAsStringSync())
+        as Map<String, Object?>;
+    files = json['files'] as Map<String, Object?>? ?? const {};
+  } catch (e) {
+    report.error('манифест озвучки не читается: $e');
+    return;
+  }
+
+  /// Файл должен быть и в манифесте, и на диске: манифест из чужой ветки
+  /// без файлов — ровно та ситуация, которую эта проверка ловит.
+  bool present(String audioId) {
+    final entry = files[audioId] as Map<String, Object?>?;
+    if (entry == null) return false;
+    final name = entry['file'] as String?;
+    return name != null && File('${audioDir.path}/$name').existsSync();
+  }
 
   final missing = <String>[];
   for (final lex in sources.lexemes[lang]?.values ?? const <LexemeSource>[]) {
-    final id = audioIdFor(lang, lex.form).split('/').last;
-    if (!present.contains(id)) missing.add(lex.form);
+    if (!present(audioIdFor(lang, lex.form))) missing.add(lex.form);
   }
   for (final phrase in sources.phrases) {
-    final id = audioIdFor(lang, phrase.answer).split('/').last;
-    if (!present.contains(id)) missing.add(phrase.answer);
+    if (!present(audioIdForPhrase(lang, phrase.id))) missing.add(phrase.id);
   }
 
   if (missing.isNotEmpty) {
+    // Концепт без озвучки не проходит валидацию: звук верного ответа — часть
+    // ядра игры, а не украшение.
     report.error(
       'нет озвучки для ${missing.length} позиций (${_head(missing)})',
     );

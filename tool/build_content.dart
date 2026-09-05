@@ -132,7 +132,7 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
         p.template,
         p.answer,
         p.register,
-        audioIdFor(lang, p.answer),
+        audioIdForPhrase(lang, p.id),
       ]);
       for (final conceptId in p.conceptIds) {
         linkStmt.execute([p.id, conceptId]);

@@ -109,6 +109,17 @@ const Map<String, int> starsPerTier = {
 const int minFarDistractors = 2;
 const int minNearDistractors = 3;
 
+/// Идентификатор аудиофайла фразы.
+///
+/// Берётся из id фразы, а не из текста: озвучивается предложение целиком —
+/// именно ради этого фраза и существует, — а текст может измениться при
+/// вычитке, и терять кеш TTS из-за запятой не хочется.
+String audioIdForPhrase(String lang, String phraseId) => '$lang/p_$phraseId';
+
+/// Текст фразы для синтеза: шаблон со слотом, заполненным ответом.
+String phraseSpeech(String template, String answer) =>
+    template.replaceAll(RegExp(r'\{[^}]*\}'), answer);
+
 /// Идентификатор аудиофайла по форме слова: детерминированный, чтобы
 /// пересборка не переименовывала файлы и кеш TTS не терялся.
 String audioIdFor(String lang, String form) {

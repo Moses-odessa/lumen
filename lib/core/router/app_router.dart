@@ -6,6 +6,7 @@ import '../../data/repositories/player_repository.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
+import '../../features/settings/presentation/audio_spike_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
 import '../../features/sky/presentation/sky_screen.dart';
@@ -17,6 +18,9 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// Спайк по задержке звука — измеряется на реальном телефоне (M1).
+  static const audioSpike = '/settings/audio-spike';
 }
 
 /// Роутер: четыре вкладки в `StatefulShellRoute.indexedStack` и один
@@ -72,6 +76,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: Routes.audioSpike,
+        builder: (_, _) => const AudioSpikeScreen(),
       ),
     ],
   );

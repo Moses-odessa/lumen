@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/router/app_router.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../application/diagnostics.dart';
 
@@ -41,6 +43,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const Divider(),
           ],
+          ListTile(
+            leading: const Icon(Icons.timer_outlined),
+            title: const Text('Задержка звука'),
+            subtitle: const Text('Спайк M1 — мерить на реальном телефоне'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push(Routes.audioSpike),
+          ),
           const _DiagnosticsTile(),
         ],
       ),

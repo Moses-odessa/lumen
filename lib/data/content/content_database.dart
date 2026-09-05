@@ -194,4 +194,72 @@ class ContentDatabase extends _$ContentDatabase {
   /// Позиции калибровки на ярусе.
   Future<List<CalibrationItemRow>> calibrationFor(Tier tier) =>
       (select(calibrationItems)..where((t) => t.tier.equals(tier.code))).get();
+
+  Future<ConceptRow?> concept(String id) =>
+      (select(concepts)..where((t) => t.id.equals(id))).getSingleOrNull();
+
+  /// Все концепты яруса и ниже — из них планировщик берёт новые слова.
+  Future<List<ConceptRow>> conceptsUpTo(Tier upTo) {
+    final tiers = Tier.values
+        .where((t) => t.index <= upTo.index)
+        .map((t) => t.code)
+        .toList();
+    return (select(concepts)
+          ..where((t) => t.tier.isIn(tiers))
+          ..orderBy([(t) => OrderingTerm(expression: t.freqRank)]))
+        .get();
+  }
+
+  /// Список созвездий, встречающихся в базе.
+  Future<List<String>> constellations() async {
+    final rows = await (selectOnly(concepts, distinct: true)
+          ..addColumns([concepts.constellation]))
+        .get();
+    return rows.map((r) => r.read(concepts.constellation)!).toList();
+  }
+
+  /// Формы слов-соседей по созвездию и ярусу.
+  ///
+  /// Резерв на случай, когда у концепта не хватает вычитанных дистракторов:
+  /// сосед по теме — вариант заведомо худший, чем подобранный человеком, но
+  /// заведомо лучший, чем случайное слово из другого конца словаря.
+  Future<List<String>> siblingForms({
+    required String constellation,
+    required String tier,
+    required String lang,
+    required String excludeConceptId,
+    int limit = 12,
+  }) async {
+    final query = select(lexemes).join([
+      innerJoin(concepts, concepts.id.equalsExp(lexemes.conceptId)),
+    ])
+      ..where(concepts.constellation.equals(constellation) &
+          concepts.tier.equals(tier) &
+          lexemes.lang.equals(lang) &
+          lexemes.conceptId.equals(excludeConceptId).not())
+      ..limit(limit);
+
+    final rows = await query.get();
+    return rows.map((r) => r.readTable(lexemes).form).toList();
+  }
+
+  /// Фразы созвездия на ярусе и ниже — из них берётся босс уровня.
+  Future<List<PhraseRow>> phrasesFor(String constellation, Tier upTo) {
+    final tiers = Tier.values
+        .where((t) => t.index <= upTo.index)
+        .map((t) => t.code)
+        .toList();
+    return (select(phrases)
+          ..where((t) =>
+              t.constellation.equals(constellation) & t.tier.isIn(tiers)))
+        .get();
+  }
+
+  /// Концепты, на которых держится фраза.
+  Future<List<String>> phraseConceptIds(String phraseId) async {
+    final rows = await (select(phraseConcepts)
+          ..where((t) => t.phraseId.equals(phraseId)))
+        .get();
+    return rows.map((r) => r.conceptId).toList();
+  }
 }

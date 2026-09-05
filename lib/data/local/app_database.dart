@@ -152,6 +152,76 @@ class AppDatabase extends _$AppDatabase {
   Future<void> savePlayer(Player player) =>
       into(players).insertOnConflictUpdate(_toPlayerRow(player));
 
+  // ── Память по словам ────────────────────────────────────────────────────
+
+  /// Все известные состояния слов. У активного игрока это несколько тысяч
+  /// строк — читается целиком один раз за сессию, а не по слову на круг.
+  Future<List<WordStateRow>> loadWordStates() => select(wordStates).get();
+
+  /// Состояние одного слова.
+  Future<WordStateRow?> loadWordState(String conceptId) =>
+      (select(wordStates)..where((t) => t.conceptId.equals(conceptId)))
+          .getSingleOrNull();
+
+  /// Слова к повторению: тот самый запрос, ради которого заведён индекс
+  /// `(due, lm_cached)`.
+  Future<List<WordStateRow>> loadDueWords(DateTime now, {int limit = 40}) =>
+      (select(wordStates)
+            ..where((t) => t.due.isSmallerOrEqualValue(now))
+            ..orderBy([(t) => OrderingTerm(expression: t.lmCached)])
+            ..limit(limit))
+          .get();
+
+  /// Записывает новое состояние слова и строку журнала одной транзакцией:
+  /// расхождение между памятью и журналом сломало бы дообучение FSRS.
+  Future<void> recordReview({
+    required WordStatesCompanion state,
+    required ReviewsCompanion review,
+  }) =>
+      transaction(() async {
+        await into(wordStates).insertOnConflictUpdate(state);
+        await into(reviews).insert(review);
+      });
+
+  /// Пересчитанная яркость — производная величина, поэтому обновляется
+  /// пачкой и отдельно от самих ответов.
+  Future<void> refreshCachedLumens(Map<String, int> byConceptId) =>
+      batch((b) {
+        for (final entry in byConceptId.entries) {
+          b.update(
+            wordStates,
+            WordStatesCompanion(lmCached: Value(entry.value)),
+            where: (t) => t.conceptId.equals(entry.key),
+          );
+        }
+      });
+
+  /// Сколько слов сейчас горит — главная цифра в профиле.
+  Future<int> countBurning() async {
+    final count = wordStates.conceptId.count();
+    final row = await (selectOnly(wordStates)
+          ..addColumns([count])
+          ..where(wordStates.burning.equals(true)))
+        .getSingle();
+    return row.read(count) ?? 0;
+  }
+
+  // ── Сессии ──────────────────────────────────────────────────────────────
+
+  Future<void> saveSession(SessionsCompanion session) =>
+      into(sessions).insert(session);
+
+  Future<List<SessionRow>> loadSessions({int limit = 90}) =>
+      (select(sessions)
+            ..orderBy([
+              (t) => OrderingTerm(
+                    expression: t.startedAt,
+                    mode: OrderingMode.desc,
+                  ),
+            ])
+            ..limit(limit))
+          .get();
+
   /// Полное удаление данных (настройка приватности, M5).
   Future<void> wipe() => transaction(() async {
         await delete(players).go();

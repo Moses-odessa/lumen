@@ -115,6 +115,22 @@ abstract final class ScoreBalance {
   /// продуктивном режиме. TODO(balance)
   static const int burningFastStreak = 3;
   static const Duration burningLatency = Duration(milliseconds: 1500);
+
+  /// Сколько вариантов в круге.
+  ///
+  /// В узнавании их меньше: там и так легко, а шесть вариантов на родном
+  /// языке читаются дольше, чем сам ответ. В остальных режимах шесть — это
+  /// 17 % случайного попадания, что и заложено в защиту от угадывания.
+  /// TODO(balance)
+  static int optionsFor(GameMode mode) => switch (mode) {
+        GameMode.recognition => 4,
+        GameMode.circle ||
+        GameMode.tight ||
+        GameMode.audio ||
+        GameMode.phrase =>
+          6,
+        GameMode.typing => 0,
+      };
 }
 
 /// Память: как время отклика превращается в оценку и какую вероятность
