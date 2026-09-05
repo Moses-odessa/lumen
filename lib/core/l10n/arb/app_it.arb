@@ -1,35 +1,29 @@
 {
   "@@locale": "it",
-
   "appTitle": "Lumen",
   "tabSky": "Cielo",
   "tabGame": "Gioca",
   "tabProfile": "Profilo",
   "tabSettings": "Impostazioni",
-
   "skyTitle": "Il tuo cielo",
   "gameTitle": "Rituale quotidiano",
   "profileTitle": "Profilo",
   "settingsTitle": "Impostazioni",
-
   "commonNext": "Avanti",
   "commonBack": "Indietro",
   "commonCancel": "Annulla",
   "commonClose": "Chiudi",
   "comingSoon": "Prossimamente",
-
   "onboardingTitle": "Troviamo dove inizia il tuo cielo",
   "onboardingSubtitle": "Nessun questionario, solo qualche cerchio: tu giochi, noi misuriamo.",
   "onboardingStartCalibration": "Avvia la calibrazione",
   "onboardingFromScratch": "Parto da zero",
-
   "languagesTitle": "Lingue",
   "languagesSubtitle": "La lingua dei suggerimenti e quella dell'interfaccia sono impostazioni separate.",
   "languagesLearning": "Imparo",
   "languagesHints": "Suggerimenti in",
   "languagesInterface": "Interfaccia",
   "languagesSystem": "Come il sistema",
-
   "calibrationHintComb": "Collega semplicemente quello che sai",
   "calibrationHintSearch": "Cerchiamo da dove partire",
   "calibrationHintConfirm": "Controlliamo ancora",
@@ -39,7 +33,6 @@
   "calibrationResultVocabulary": "Conosci già circa {count} parole: diventeranno stelle già accese.",
   "calibrationResultTierChangeable": "Puoi cambiare il livello nelle impostazioni in qualsiasi momento.",
   "calibrationResultOpen": "Apri il cielo",
-
   "ritualHeading": "Rituale quotidiano",
   "ritualSubtitle": "Alba — livello — sfida notturna. Sei minuti con un inizio e una fine.",
   "ritualStart": "Inizia",
@@ -57,14 +50,12 @@
   "ritualDoneTitle": "Rituale completato",
   "ritualDoneBody": "{lumens} lm sono tornati al cielo, {words} parole nuove imparate.",
   "ritualToSky": "Al cielo",
-
   "runAccuracy": "precisione",
   "runCircles": "cerchi",
   "runCombo": "combo",
   "runPerfect": "senza errori",
   "runContinue": "Avanti",
   "audioReplay": "Ascolta di nuovo",
-
   "skyStars": "stelle",
   "skyBurning": "accese",
   "skyConstellations": "costellazioni",
@@ -77,7 +68,6 @@
   "constellationAboutToLight": "La costellazione sta per accendersi",
   "tierSuggestUp": "Gran parte del cielo è accesa. Passare a {tier}? Le vecchie stelle restano dove sono.",
   "tierSuggestDown": "Sembra che {current} sia difficile. Provare {target}?",
-
   "dictionaryTitle": "Dizionario",
   "dictionarySearchHint": "Una parola in una delle due lingue",
   "dictionaryNothing": "Nessun risultato",
@@ -88,7 +78,6 @@
   "bandFlickering": "tremola",
   "bandDimming": "si affievolisce",
   "bandFading": "si spegne",
-
   "profileOrbit": "orbita",
   "profileOrbitExplain": "Un giorno saltato la abbassa di uno. L'azzeramento completo solo dopo tre giorni saltati di fila.",
   "profileOrbitRisk": "Ancora un giorno saltato e l'orbita si azzera.",
@@ -103,14 +92,12 @@
   "profileBrightness": "Luminosità per costellazione",
   "profileEmpty": "Ancora vuoto: gioca il primo livello.",
   "profileBurningOf": "{burning} su {total} accese",
-
   "customWordsTitle": "Parole tue",
   "customWordsHint": "Un elenco dal tuo libro, da una lettera o dai tuoi appunti. Una coppia per riga: «Wort — parola».",
   "customWordsAdd": "Aggiungi",
   "customWordsAdded": "Aggiunte: {count}",
   "customWordsNoPairs": "Nessuna coppia trovata. Formato: «Wort — parola», una coppia per riga.",
   "customWordsCount": "Nella costellazione personale: {count}",
-
   "challengeTitle": "Sfida notturna",
   "challengeSeconds": "{seconds} s",
   "challengeUnavailableTitle": "Sfida non disponibile",
@@ -122,7 +109,6 @@
   "challengeSparks": "+{count} scintille",
   "challengeShare": "Condividi",
   "challengeCardSeconds": "in {seconds} s",
-
   "settingsTier": "Livello",
   "settingsTierExplain": "Le costellazioni crescono con il livello. Le vecchie stelle restano dove sono.",
   "settingsTierLocked": "I livelli sopra {tier} non sono ancora stati revisionati da madrelingua e non sono disponibili.",
@@ -152,7 +138,6 @@
   "settingsWipeConfirm": "Elimina",
   "settingsAbout": "Informazioni",
   "settingsAboutSubtitle": "Del tutto gratuito · donazioni · licenze",
-
   "cloudTitle": "Cloud",
   "cloudIntro": "L'account serve solo per continuare su un altro dispositivo. Senza account il gioco funziona per intero: non è una versione ridotta.",
   "cloudNotConfiguredTitle": "Cloud non collegato",
@@ -170,7 +155,6 @@
   "cloudSignOut": "Esci",
   "cloudSignOutNote": "Uscire non cancella i dati locali.",
   "cloudDeleteRemote": "Elimina la copia nel cloud",
-
   "aboutTitle": "Informazioni",
   "aboutTagline": "Il vocabolario come cielo notturno. La luminosità di una stella è la probabilità di ricordare la parola proprio adesso.",
   "aboutFreeTitle": "Del tutto gratuito",
@@ -191,7 +175,17 @@
   "aboutNoForcedOrder": "Un ordine obbligatorio degli argomenti",
   "aboutNoAds": "Pubblicità e tracker",
   "aboutPrivacy": "Privacy: Sentry senza dati personali e senza tracing, nessuna analitica via rete. Esportazione ed eliminazione sono nelle impostazioni.",
-
   "unitSeconds": "{value} s",
-  "customWordsPlaceholder": "Rechnung — fattura\nQuittung — ricevuta"
+  "customWordsPlaceholder": "Rechnung — fattura\nQuittung — ricevuta",
+  "storageTitle": "Download",
+  "storageUsed": "Scaricati: {size} MB",
+  "storageExplain": "Il livello base arriva con l'app, quindi si può giocare subito dopo l'installazione. I livelli superiori si scaricano — e si possono rimuovere in qualsiasi momento.",
+  "storageNotConfigured": "Il CDN dei pacchetti non è ancora configurato. Tutto ciò che arriva con l'app funziona senza rete.",
+  "storageNothingToDownload": "Niente da scaricare: tutto l'audio dei livelli attivi arriva con l'app.",
+  "storagePackSize": "{size} MB",
+  "storageDownload": "Scarica",
+  "storageRemove": "Rimuovi",
+  "storageFailed": "Download non riuscito. Tutto ciò che è già scaricato continua a funzionare.",
+  "settingsStorage": "Download",
+  "settingsStorageSubtitle": "Pacchetti audio e spazio su disco"
 }

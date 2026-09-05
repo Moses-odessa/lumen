@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "totalBytes": 1199354,
+  "files": {
+    "en/appointment": {
+      "file": "appointment.wav",
+      "bytes": 80718,
+      "signature": "da656914e518fa45"
+    },
+    "en/belly": {
+      "file": "belly.wav",
+      "bytes": 59996,
+      "signature": "00d64e53bd316c55"
+    },
+    "en/doctor": {
+      "file": "doctor.wav",
+      "bytes": 64846,
+      "signature": "0e2e515912ce62dc"
+    },
+    "en/fever": {
+      "file": "fever.wav",
+      "bytes": 66390,
+      "signature": "136bb5edf21ddeac"
+    },
+    "en/hand": {
+      "file": "hand.wav",
+      "bytes": 64846,
+      "signature": "262d9a3ee9d8ebea"
+    },
+    "en/head": {
+      "file": "head.wav",
+      "bytes": 59776,
+      "signature": "6d0caf5c3b8d561f"
+    },
+    "en/help": {
+      "file": "help.wav",
+      "bytes": 60876,
+      "signature": "415dd7c16e8e0b71"
+    },
+    "en/hospital": {
+      "file": "hospital.wav",
+      "bytes": 74326,
+      "signature": "30d2a9fc781a4726"
+    },
+    "en/medicine": {
+      "file": "medicine.wav",
+      "bytes": 74548,
+      "signature": "94e59f3d28af5487"
+    },
+    "en/p_doctor_a0_appointment": {
+      "file": "p_doctor_a0_appointment.wav",
+      "bytes": 100560,
+      "signature": "6cdf1e4e69fce91c"
+    },
+    "en/p_doctor_a0_doctor": {
+      "file": "p_doctor_a0_doctor.wav",
+      "bytes": 100118,
+      "signature": "18d3b8880edb879d"
+    },
+    "en/p_doctor_a0_help": {
+      "file": "p_doctor_a0_help.wav",
+      "bytes": 94830,
+      "signature": "59d0b3b8c0263d57"
+    },
+    "en/p_doctor_a0_pain": {
+      "file": "p_doctor_a0_pain.wav",
+      "bytes": 95050,
+      "signature": "aa57bd2db16e4df2"
+    },
+    "en/pain": {
+      "file": "pain.wav",
+      "bytes": 63304,
+      "signature": "1302d173fe480dda"
+    },
+    "en/pharmacy": {
+      "file": "pharmacy.wav",
+      "bytes": 74324,
+      "signature": "01a1e20d71c600a1"
+    },
+    "en/sick": {
+      "file": "sick.wav",
+      "bytes": 64846,
+      "signature": "fd6044e44291680f"
+    }
+  }
+}

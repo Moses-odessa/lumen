@@ -1,11 +1,9 @@
 {
   "@@locale": "en",
-
   "appTitle": "Lumen",
   "@appTitle": {
     "description": "Application name shown in the task switcher"
   },
-
   "tabSky": "Sky",
   "@tabSky": {
     "description": "Bottom navigation tab: the constellation map"
@@ -13,12 +11,10 @@
   "tabGame": "Play",
   "tabProfile": "Profile",
   "tabSettings": "Settings",
-
   "skyTitle": "Your sky",
   "gameTitle": "Daily ritual",
   "profileTitle": "Profile",
   "settingsTitle": "Settings",
-
   "commonNext": "Next",
   "commonBack": "Back",
   "commonCancel": "Cancel",
@@ -27,19 +23,16 @@
   "@comingSoon": {
     "description": "Placeholder for screens that arrive in a later milestone"
   },
-
   "onboardingTitle": "Let's find where your sky begins",
   "onboardingSubtitle": "A few circles instead of a questionnaire: you play, we measure.",
   "onboardingStartCalibration": "Start calibration",
   "onboardingFromScratch": "I'm starting from scratch",
-
   "languagesTitle": "Languages",
   "languagesSubtitle": "The hint language and the interface language are separate settings.",
   "languagesLearning": "Learning",
   "languagesHints": "Hints in",
   "languagesInterface": "Interface",
   "languagesSystem": "Same as system",
-
   "calibrationHintComb": "Just connect what you know",
   "calibrationHintSearch": "Finding where to start",
   "calibrationHintConfirm": "Checking once more",
@@ -49,12 +42,13 @@
   "calibrationResultVocabulary": "You already know about {count} words — they become stars that are already lit.",
   "@calibrationResultVocabulary": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "calibrationResultTierChangeable": "You can change the tier in settings at any time.",
   "calibrationResultOpen": "Open the sky",
-
   "ritualHeading": "Daily ritual",
   "ritualSubtitle": "Sunrise — level — night challenge. Six minutes with a beginning and an end.",
   "ritualStart": "Start",
@@ -73,19 +67,21 @@
   "ritualDoneBody": "{lumens} lm returned to the sky, {words} new words learned.",
   "@ritualDoneBody": {
     "placeholders": {
-      "lumens": { "type": "int" },
-      "words": { "type": "int" }
+      "lumens": {
+        "type": "int"
+      },
+      "words": {
+        "type": "int"
+      }
     }
   },
   "ritualToSky": "To the sky",
-
   "runAccuracy": "accuracy",
   "runCircles": "circles",
   "runCombo": "combo",
   "runPerfect": "no mistakes",
   "runContinue": "Continue",
   "audioReplay": "Listen again",
-
   "skyStars": "stars",
   "skyBurning": "burning",
   "skyConstellations": "constellations",
@@ -95,32 +91,43 @@
   "constellationLitOf": "{lit} of {total} stars are burning",
   "@constellationLitOf": {
     "placeholders": {
-      "lit": { "type": "int" },
-      "total": { "type": "int" }
+      "lit": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "constellationLocked": "Not unlocked yet",
   "constellationToLight": "{count} more stars until it lights up",
   "@constellationToLight": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "constellationAboutToLight": "About to light up",
   "tierSuggestUp": "Most of the sky is burning. Move to {tier}? Old stars stay where they are.",
   "@tierSuggestUp": {
     "placeholders": {
-      "tier": { "type": "String" }
+      "tier": {
+        "type": "String"
+      }
     }
   },
   "tierSuggestDown": "{current} seems hard. Try {target}?",
   "@tierSuggestDown": {
     "placeholders": {
-      "current": { "type": "String" },
-      "target": { "type": "String" }
+      "current": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
     }
   },
-
   "dictionaryTitle": "Dictionary",
   "dictionarySearchHint": "A word in either language",
   "dictionaryNothing": "Nothing found",
@@ -131,7 +138,6 @@
   "bandFlickering": "flickering",
   "bandDimming": "dimming",
   "bandFading": "fading",
-
   "profileOrbit": "orbit",
   "profileOrbitExplain": "A missed day lowers it by one. A full reset happens only after three misses in a row.",
   "profileOrbitRisk": "One more miss and the orbit resets.",
@@ -141,7 +147,9 @@
   "profileWeeklyGoal": "Weekly goal — {days} days out of 7. Two days off are legitimate.",
   "@profileWeeklyGoal": {
     "placeholders": {
-      "days": { "type": "int" }
+      "days": {
+        "type": "int"
+      }
     }
   },
   "profileBurning": "burning",
@@ -153,33 +161,41 @@
   "profileBurningOf": "{burning} of {total} burning",
   "@profileBurningOf": {
     "placeholders": {
-      "burning": { "type": "int" },
-      "total": { "type": "int" }
+      "burning": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "customWordsTitle": "Your own words",
   "customWordsHint": "A list from your textbook, a letter or your notes. One pair per line: \"Wort — word\".",
   "customWordsAdd": "Add",
   "customWordsAdded": "Added: {count}",
   "@customWordsAdded": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "customWordsNoPairs": "No pairs found. Format: \"Wort — word\", one pair per line.",
   "customWordsCount": "In your own constellation: {count}",
   "@customWordsCount": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "challengeTitle": "Night challenge",
   "challengeSeconds": "{seconds} s",
   "@challengeSeconds": {
     "placeholders": {
-      "seconds": { "type": "int" }
+      "seconds": {
+        "type": "int"
+      }
     }
   },
   "challengeUnavailableTitle": "Challenge unavailable",
@@ -190,31 +206,42 @@
   "challengeAlreadyResult": "{correct} out of {total} in {seconds} s",
   "@challengeAlreadyResult": {
     "placeholders": {
-      "correct": { "type": "int" },
-      "total": { "type": "int" },
-      "seconds": { "type": "int" }
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
     }
   },
   "challengeSparks": "+{count} sparks",
   "@challengeSparks": {
     "placeholders": {
-      "count": { "type": "int" }
+      "count": {
+        "type": "int"
+      }
     }
   },
   "challengeShare": "Share",
   "challengeCardSeconds": "in {seconds} s",
   "@challengeCardSeconds": {
     "placeholders": {
-      "seconds": { "type": "String" }
+      "seconds": {
+        "type": "String"
+      }
     }
   },
-
   "settingsTier": "Tier",
   "settingsTierExplain": "Constellations grow with the tier. Old stars stay where they are.",
   "settingsTierLocked": "Tiers above {tier} have not been reviewed by a native speaker yet and are unavailable.",
   "@settingsTierLocked": {
     "placeholders": {
-      "tier": { "type": "String" }
+      "tier": {
+        "type": "String"
+      }
     }
   },
   "settingsSound": "Sound",
@@ -238,7 +265,9 @@
   "settingsExportFailed": "Export failed: {error}",
   "@settingsExportFailed": {
     "placeholders": {
-      "error": { "type": "String" }
+      "error": {
+        "type": "String"
+      }
     }
   },
   "settingsWipe": "Delete all data",
@@ -248,7 +277,6 @@
   "settingsWipeConfirm": "Delete",
   "settingsAbout": "About",
   "settingsAboutSubtitle": "Completely free · donations · licences",
-
   "cloudTitle": "Cloud",
   "cloudIntro": "An account is only needed to continue on another device. Without one the game works fully — and that is not a limited mode.",
   "cloudNotConfiguredTitle": "Cloud is not connected",
@@ -263,7 +291,9 @@
   "cloudLastSync": "Last sync: {time}",
   "@cloudLastSync": {
     "placeholders": {
-      "time": { "type": "String" }
+      "time": {
+        "type": "String"
+      }
     }
   },
   "cloudPushNow": "Upload now",
@@ -271,7 +301,6 @@
   "cloudSignOut": "Sign out",
   "cloudSignOutNote": "Signing out does not delete local data.",
   "cloudDeleteRemote": "Delete the cloud copy",
-
   "aboutTitle": "About",
   "aboutTagline": "A vocabulary as a night sky. A star's brightness is the probability of recalling a word right now.",
   "aboutFreeTitle": "Completely free",
@@ -292,12 +321,38 @@
   "aboutNoForcedOrder": "A mandatory order of topics",
   "aboutNoAds": "Ads and trackers",
   "aboutPrivacy": "Privacy: Sentry with no personal data and no tracing, no analytics over the network. Export and deletion are in settings.",
-
   "unitSeconds": "{value} s",
   "customWordsPlaceholder": "Rechnung — invoice\nQuittung — receipt",
   "@unitSeconds": {
     "placeholders": {
-      "value": { "type": "String" }
+      "value": {
+        "type": "String"
+      }
     }
-  }
+  },
+  "storageTitle": "Downloads",
+  "storageUsed": "Downloaded: {size} MB",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "storageExplain": "The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.",
+  "storageNotConfigured": "The pack CDN is not set up yet. Everything the app ships with works offline.",
+  "storageNothingToDownload": "Nothing to download: all audio of the launched tiers ships with the app.",
+  "storagePackSize": "{size} MB",
+  "@storagePackSize": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "storageDownload": "Download",
+  "storageRemove": "Remove",
+  "storageFailed": "Download failed. Everything already downloaded still works.",
+  "settingsStorage": "Downloads",
+  "settingsStorageSubtitle": "Audio packs and disk space"
 }

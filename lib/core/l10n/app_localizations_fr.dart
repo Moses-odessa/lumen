@@ -607,4 +607,45 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — facture\nQuittung — reçu';
+
+  @override
+  String get storageTitle => 'Téléchargements';
+
+  @override
+  String storageUsed(String size) {
+    return 'Téléchargé : $size Mo';
+  }
+
+  @override
+  String get storageExplain =>
+      'Le palier de base est livré avec l\'application, on peut donc jouer dès l\'installation. Les paliers supérieurs se téléchargent — et se suppriment à tout moment.';
+
+  @override
+  String get storageNotConfigured =>
+      'Le CDN des paquets n\'est pas encore configuré. Tout ce qui est livré avec l\'application fonctionne sans réseau.';
+
+  @override
+  String get storageNothingToDownload =>
+      'Rien à télécharger : tout l\'audio des paliers ouverts est livré avec l\'application.';
+
+  @override
+  String storagePackSize(String size) {
+    return '$size Mo';
+  }
+
+  @override
+  String get storageDownload => 'Télécharger';
+
+  @override
+  String get storageRemove => 'Supprimer';
+
+  @override
+  String get storageFailed =>
+      'Échec du téléchargement. Tout ce qui est déjà téléchargé continue de fonctionner.';
+
+  @override
+  String get settingsStorage => 'Téléchargements';
+
+  @override
+  String get settingsStorageSubtitle => 'Paquets audio et espace disque';
 }

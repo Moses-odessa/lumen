@@ -88,11 +88,29 @@ void _checkOrphanLexemes(ContentSources sources, _Report report) {
 
 /// У каждого концепта минимум 2 дистрактора `far` и 3 `near` на языке
 /// изучения, и ни один не совпадает с ответом.
+///
+/// Полнота требуется только от запущенных ярусов — как и везде: дистракторы
+/// пишутся вместе с вычиткой, и требовать их от чернового яруса значит
+/// блокировать мерж за незаконченную работу, которая и не объявлена
+/// законченной.
 void _checkDistractors(ContentSources sources, String lang, _Report report) {
   final byConcept = sources.lexemes[lang];
   if (byConcept == null) return;
 
+  var draftGaps = 0;
+
   for (final lex in byConcept.values) {
+    final tier = sources.concepts[lex.conceptId]?.tier;
+    final launched = tier != null && sources.launch.isLaunched(tier);
+
+    final short = lex.farDistractors.length < minFarDistractors ||
+        lex.nearDistractors.length < minNearDistractors;
+
+    if (short && !launched) {
+      draftGaps++;
+      continue;
+    }
+
     if (lex.farDistractors.length < minFarDistractors) {
       report.error(
         '${lex.conceptId}: дистракторов far ${lex.farDistractors.length}, '
@@ -118,6 +136,12 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
     if (all.toSet().length != all.length) {
       report.error('${lex.conceptId}: дистракторы дублируются');
     }
+  }
+
+  if (draftGaps > 0) {
+    report.pending(
+      'дистракторы не дописаны у $draftGaps концептов незапущенных ярусов',
+    );
   }
 }
 

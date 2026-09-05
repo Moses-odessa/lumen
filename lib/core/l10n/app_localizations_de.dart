@@ -609,4 +609,45 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — Beleg\nQuittung — Quittung';
+
+  @override
+  String get storageTitle => 'Downloads';
+
+  @override
+  String storageUsed(String size) {
+    return 'Heruntergeladen: $size MB';
+  }
+
+  @override
+  String get storageExplain =>
+      'Die Basisstufe kommt mit der App, deshalb lässt sich sofort nach der Installation spielen. Höhere Stufen werden geladen — und lassen sich jederzeit wieder entfernen.';
+
+  @override
+  String get storageNotConfigured =>
+      'Das CDN für die Pakete ist noch nicht eingerichtet. Alles, was mit der App kommt, läuft ohne Netz.';
+
+  @override
+  String get storageNothingToDownload =>
+      'Nichts zu laden: die gesamte Audio der freigegebenen Stufen kommt mit der App.';
+
+  @override
+  String storagePackSize(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String get storageDownload => 'Laden';
+
+  @override
+  String get storageRemove => 'Entfernen';
+
+  @override
+  String get storageFailed =>
+      'Download fehlgeschlagen. Alles bereits Geladene funktioniert weiter.';
+
+  @override
+  String get settingsStorage => 'Downloads';
+
+  @override
+  String get settingsStorageSubtitle => 'Audiopakete und Speicherplatz';
 }

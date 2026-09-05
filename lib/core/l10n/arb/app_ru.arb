@@ -1,35 +1,29 @@
 {
   "@@locale": "ru",
-
   "appTitle": "Lumen",
   "tabSky": "Небо",
   "tabGame": "Игра",
   "tabProfile": "Профиль",
   "tabSettings": "Настройки",
-
   "skyTitle": "Ваше небо",
   "gameTitle": "Дневной ритуал",
   "profileTitle": "Профиль",
   "settingsTitle": "Настройки",
-
   "commonNext": "Дальше",
   "commonBack": "Назад",
   "commonCancel": "Отмена",
   "commonClose": "Закрыть",
   "comingSoon": "Скоро",
-
   "onboardingTitle": "Найдём, где начинается ваше небо",
   "onboardingSubtitle": "Вместо анкеты — несколько кругов: вы играете, мы измеряем.",
   "onboardingStartCalibration": "Начать калибровку",
   "onboardingFromScratch": "Я с нуля",
-
   "languagesTitle": "Языки",
   "languagesSubtitle": "Язык подсказок и язык интерфейса — разные настройки.",
   "languagesLearning": "Учу",
   "languagesHints": "Подсказки на",
   "languagesInterface": "Интерфейс",
   "languagesSystem": "Как в системе",
-
   "calibrationHintComb": "Просто соединяйте то, что знаете",
   "calibrationHintSearch": "Подбираем, с чего начать",
   "calibrationHintConfirm": "Проверяем ещё раз",
@@ -39,7 +33,6 @@
   "calibrationResultVocabulary": "Вы уже знаете примерно {count} слов — они станут звёздами, которые уже горят.",
   "calibrationResultTierChangeable": "Ярус можно сменить в настройках в любой момент.",
   "calibrationResultOpen": "Открыть небо",
-
   "ritualHeading": "Дневной ритуал",
   "ritualSubtitle": "Восход — уровень — ночной вызов. Шесть минут с началом и концом.",
   "ritualStart": "Начать",
@@ -57,14 +50,12 @@
   "ritualDoneTitle": "Ритуал пройден",
   "ritualDoneBody": "Небу вернулось {lumens} lm, выучено {words} новых слов.",
   "ritualToSky": "К небу",
-
   "runAccuracy": "точность",
   "runCircles": "кругов",
   "runCombo": "комбо",
   "runPerfect": "без ошибок",
   "runContinue": "Дальше",
   "audioReplay": "Прослушать ещё раз",
-
   "skyStars": "звёзд",
   "skyBurning": "горят",
   "skyConstellations": "созвездий",
@@ -77,7 +68,6 @@
   "constellationAboutToLight": "Созвездие вот-вот зажжётся",
   "tierSuggestUp": "Большая часть неба горит. Перейти на {tier}? Старые звёзды останутся на местах.",
   "tierSuggestDown": "Похоже, {current} даётся тяжело. Попробовать {target}?",
-
   "dictionaryTitle": "Словарь",
   "dictionarySearchHint": "Слово на любом из двух языков",
   "dictionaryNothing": "Ничего не нашлось",
@@ -88,7 +78,6 @@
   "bandFlickering": "мерцает",
   "bandDimming": "тускнеет",
   "bandFading": "гаснет",
-
   "profileOrbit": "орбита",
   "profileOrbitExplain": "Пропуск опускает на один. Полный сброс — только после трёх пропусков подряд.",
   "profileOrbitRisk": "Ещё один пропуск — и орбита обнулится.",
@@ -103,14 +92,12 @@
   "profileBrightness": "Яркость по созвездиям",
   "profileEmpty": "Пока пусто — сыграйте первый уровень.",
   "profileBurningOf": "{burning} из {total} горят",
-
   "customWordsTitle": "Свои слова",
   "customWordsHint": "Список из вашего учебника, письма или заметок. По строке на пару: «Wort — слово».",
   "customWordsAdd": "Добавить",
   "customWordsAdded": "Добавлено: {count}",
   "customWordsNoPairs": "Не нашлось ни одной пары. Формат: «Wort — слово», по строке на пару.",
   "customWordsCount": "В личном созвездии: {count}",
-
   "challengeTitle": "Ночной вызов",
   "challengeSeconds": "{seconds} с",
   "challengeUnavailableTitle": "Вызов недоступен",
@@ -122,7 +109,6 @@
   "challengeSparks": "+{count} искр",
   "challengeShare": "Поделиться",
   "challengeCardSeconds": "за {seconds} с",
-
   "settingsTier": "Ярус",
   "settingsTierExplain": "Размер созвездий растёт вместе с ярусом. Старые звёзды остаются на местах.",
   "settingsTierLocked": "Ярусы выше {tier} ещё не вычитаны носителем и поэтому недоступны.",
@@ -152,7 +138,6 @@
   "settingsWipeConfirm": "Удалить",
   "settingsAbout": "О проекте",
   "settingsAboutSubtitle": "Бесплатно целиком · донаты · лицензии",
-
   "cloudTitle": "Облако",
   "cloudIntro": "Аккаунт нужен только для того, чтобы продолжить на другом устройстве. Без него игра работает полностью — и это не урезанный режим.",
   "cloudNotConfiguredTitle": "Облако не подключено",
@@ -170,7 +155,6 @@
   "cloudSignOut": "Выйти",
   "cloudSignOutNote": "Выход не удаляет локальные данные.",
   "cloudDeleteRemote": "Удалить копию в облаке",
-
   "aboutTitle": "О проекте",
   "aboutTagline": "Словарь как ночное небо. Яркость звезды — вероятность вспомнить слово прямо сейчас.",
   "aboutFreeTitle": "Бесплатно целиком",
@@ -191,7 +175,17 @@
   "aboutNoForcedOrder": "Обязательного порядка прохождения",
   "aboutNoAds": "Рекламы и трекеров",
   "aboutPrivacy": "Приватность: Sentry без персональных данных и без трейсинга, никакой аналитики по сети. Экспорт и удаление данных — в настройках.",
-
   "unitSeconds": "{value} с",
-  "customWordsPlaceholder": "Rechnung — счёт\nQuittung — квитанция"
+  "customWordsPlaceholder": "Rechnung — счёт\nQuittung — квитанция",
+  "storageTitle": "Загрузки",
+  "storageUsed": "Скачано: {size} МБ",
+  "storageExplain": "Базовый ярус едет вместе с приложением, поэтому играть можно сразу после установки. Ярусы выше докачиваются — и удаляются в любой момент.",
+  "storageNotConfigured": "CDN с паками ещё не настроен. Всё, что едет в приложении, работает без сети.",
+  "storageNothingToDownload": "Докачивать нечего: вся озвучка запущенных ярусов едет вместе с приложением.",
+  "storagePackSize": "{size} МБ",
+  "storageDownload": "Скачать",
+  "storageRemove": "Удалить",
+  "storageFailed": "Не удалось скачать. Всё, что уже скачано, продолжает работать.",
+  "settingsStorage": "Загрузки",
+  "settingsStorageSubtitle": "Аудио-паки и место на диске"
 }

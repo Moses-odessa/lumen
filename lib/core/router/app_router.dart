@@ -13,6 +13,7 @@ import '../../features/ritual/presentation/ritual_screen.dart';
 import '../../features/settings/presentation/about_screen.dart';
 import '../../features/settings/presentation/audio_spike_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/settings/presentation/storage_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
 import '../../features/sky/presentation/dictionary_screen.dart';
 import '../../features/sky/presentation/sky_screen.dart';
@@ -24,6 +25,9 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// Что скачано и сколько занимает.
+  static const storage = '/settings/storage';
 
   /// О проекте, донаты, лицензии.
   static const about = '/about';
@@ -120,6 +124,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.about,
         builder: (_, _) => const AboutScreen(),
+      ),
+      GoRoute(
+        path: Routes.storage,
+        builder: (_, _) => const StorageScreen(),
       ),
       GoRoute(
         path: Routes.recalibrate,

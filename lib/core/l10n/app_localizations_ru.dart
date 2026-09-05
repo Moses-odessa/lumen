@@ -602,4 +602,45 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — счёт\nQuittung — квитанция';
+
+  @override
+  String get storageTitle => 'Загрузки';
+
+  @override
+  String storageUsed(String size) {
+    return 'Скачано: $size МБ';
+  }
+
+  @override
+  String get storageExplain =>
+      'Базовый ярус едет вместе с приложением, поэтому играть можно сразу после установки. Ярусы выше докачиваются — и удаляются в любой момент.';
+
+  @override
+  String get storageNotConfigured =>
+      'CDN с паками ещё не настроен. Всё, что едет в приложении, работает без сети.';
+
+  @override
+  String get storageNothingToDownload =>
+      'Докачивать нечего: вся озвучка запущенных ярусов едет вместе с приложением.';
+
+  @override
+  String storagePackSize(String size) {
+    return '$size МБ';
+  }
+
+  @override
+  String get storageDownload => 'Скачать';
+
+  @override
+  String get storageRemove => 'Удалить';
+
+  @override
+  String get storageFailed =>
+      'Не удалось скачать. Всё, что уже скачано, продолжает работать.';
+
+  @override
+  String get settingsStorage => 'Загрузки';
+
+  @override
+  String get settingsStorageSubtitle => 'Аудио-паки и место на диске';
 }

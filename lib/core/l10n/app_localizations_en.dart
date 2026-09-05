@@ -604,4 +604,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — invoice\nQuittung — receipt';
+
+  @override
+  String get storageTitle => 'Downloads';
+
+  @override
+  String storageUsed(String size) {
+    return 'Downloaded: $size MB';
+  }
+
+  @override
+  String get storageExplain =>
+      'The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.';
+
+  @override
+  String get storageNotConfigured =>
+      'The pack CDN is not set up yet. Everything the app ships with works offline.';
+
+  @override
+  String get storageNothingToDownload =>
+      'Nothing to download: all audio of the launched tiers ships with the app.';
+
+  @override
+  String storagePackSize(String size) {
+    return '$size MB';
+  }
+
+  @override
+  String get storageDownload => 'Download';
+
+  @override
+  String get storageRemove => 'Remove';
+
+  @override
+  String get storageFailed =>
+      'Download failed. Everything already downloaded still works.';
+
+  @override
+  String get settingsStorage => 'Downloads';
+
+  @override
+  String get settingsStorageSubtitle => 'Audio packs and disk space';
 }

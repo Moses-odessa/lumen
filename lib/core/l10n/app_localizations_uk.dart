@@ -606,4 +606,45 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get customWordsPlaceholder =>
       'Rechnung — рахунок\nQuittung — квитанція';
+
+  @override
+  String get storageTitle => 'Завантаження';
+
+  @override
+  String storageUsed(String size) {
+    return 'Завантажено: $size МБ';
+  }
+
+  @override
+  String get storageExplain =>
+      'Базовий ярус їде разом із застосунком, тож грати можна одразу після встановлення. Яруси вище довантажуються — і видаляються будь-коли.';
+
+  @override
+  String get storageNotConfigured =>
+      'CDN із паками ще не налаштовано. Усе, що їде в застосунку, працює без мережі.';
+
+  @override
+  String get storageNothingToDownload =>
+      'Довантажувати нічого: уся озвучка запущених ярусів їде разом із застосунком.';
+
+  @override
+  String storagePackSize(String size) {
+    return '$size МБ';
+  }
+
+  @override
+  String get storageDownload => 'Завантажити';
+
+  @override
+  String get storageRemove => 'Видалити';
+
+  @override
+  String get storageFailed =>
+      'Не вдалося завантажити. Усе, що вже завантажено, працює далі.';
+
+  @override
+  String get settingsStorage => 'Завантаження';
+
+  @override
+  String get settingsStorageSubtitle => 'Аудіопаки та місце на диску';
 }

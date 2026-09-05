@@ -1,35 +1,29 @@
 {
   "@@locale": "fr",
-
   "appTitle": "Lumen",
   "tabSky": "Ciel",
   "tabGame": "Jouer",
   "tabProfile": "Profil",
   "tabSettings": "Réglages",
-
   "skyTitle": "Votre ciel",
   "gameTitle": "Rituel quotidien",
   "profileTitle": "Profil",
   "settingsTitle": "Réglages",
-
   "commonNext": "Suivant",
   "commonBack": "Retour",
   "commonCancel": "Annuler",
   "commonClose": "Fermer",
   "comingSoon": "Bientôt",
-
   "onboardingTitle": "Trouvons où commence votre ciel",
   "onboardingSubtitle": "Pas de questionnaire, quelques cercles : vous jouez, nous mesurons.",
   "onboardingStartCalibration": "Lancer la calibration",
   "onboardingFromScratch": "Je débute de zéro",
-
   "languagesTitle": "Langues",
   "languagesSubtitle": "La langue des indices et celle de l'interface sont deux réglages distincts.",
   "languagesLearning": "J'apprends",
   "languagesHints": "Indices en",
   "languagesInterface": "Interface",
   "languagesSystem": "Comme le système",
-
   "calibrationHintComb": "Reliez simplement ce que vous savez",
   "calibrationHintSearch": "Nous cherchons par où commencer",
   "calibrationHintConfirm": "Nous vérifions encore",
@@ -39,7 +33,6 @@
   "calibrationResultVocabulary": "Vous connaissez déjà environ {count} mots : ils deviendront des étoiles déjà allumées.",
   "calibrationResultTierChangeable": "Le palier se change à tout moment dans les réglages.",
   "calibrationResultOpen": "Ouvrir le ciel",
-
   "ritualHeading": "Rituel quotidien",
   "ritualSubtitle": "Aube — niveau — défi nocturne. Six minutes avec un début et une fin.",
   "ritualStart": "Commencer",
@@ -57,14 +50,12 @@
   "ritualDoneTitle": "Rituel terminé",
   "ritualDoneBody": "{lumens} lm sont revenus au ciel, {words} mots nouveaux appris.",
   "ritualToSky": "Vers le ciel",
-
   "runAccuracy": "précision",
   "runCircles": "cercles",
   "runCombo": "combo",
   "runPerfect": "sans faute",
   "runContinue": "Suivant",
   "audioReplay": "Réécouter",
-
   "skyStars": "étoiles",
   "skyBurning": "allumées",
   "skyConstellations": "constellations",
@@ -77,7 +68,6 @@
   "constellationAboutToLight": "La constellation va s'allumer",
   "tierSuggestUp": "La plus grande partie du ciel brille. Passer à {tier} ? Les anciennes étoiles restent en place.",
   "tierSuggestDown": "{current} semble difficile. Essayer {target} ?",
-
   "dictionaryTitle": "Dictionnaire",
   "dictionarySearchHint": "Un mot dans l'une des deux langues",
   "dictionaryNothing": "Aucun résultat",
@@ -88,7 +78,6 @@
   "bandFlickering": "vacille",
   "bandDimming": "s'affaiblit",
   "bandFading": "s'éteint",
-
   "profileOrbit": "orbite",
   "profileOrbitExplain": "Un jour manqué la baisse d'un cran. La remise à zéro complète seulement après trois jours manqués d'affilée.",
   "profileOrbitRisk": "Encore un jour manqué et l'orbite sera remise à zéro.",
@@ -103,14 +92,12 @@
   "profileBrightness": "Luminosité par constellation",
   "profileEmpty": "Encore vide : jouez votre premier niveau.",
   "profileBurningOf": "{burning} sur {total} allumées",
-
   "customWordsTitle": "Vos propres mots",
   "customWordsHint": "Une liste tirée de votre manuel, d'une lettre ou de vos notes. Une paire par ligne : « Wort — mot ».",
   "customWordsAdd": "Ajouter",
   "customWordsAdded": "Ajoutés : {count}",
   "customWordsNoPairs": "Aucune paire trouvée. Format : « Wort — mot », une paire par ligne.",
   "customWordsCount": "Dans la constellation personnelle : {count}",
-
   "challengeTitle": "Défi nocturne",
   "challengeSeconds": "{seconds} s",
   "challengeUnavailableTitle": "Défi indisponible",
@@ -122,7 +109,6 @@
   "challengeSparks": "+{count} étincelles",
   "challengeShare": "Partager",
   "challengeCardSeconds": "en {seconds} s",
-
   "settingsTier": "Palier",
   "settingsTierExplain": "Les constellations grandissent avec le palier. Les anciennes étoiles restent en place.",
   "settingsTierLocked": "Les paliers au-dessus de {tier} n'ont pas encore été relus par un locuteur natif et ne sont pas disponibles.",
@@ -152,7 +138,6 @@
   "settingsWipeConfirm": "Supprimer",
   "settingsAbout": "À propos",
   "settingsAboutSubtitle": "Entièrement gratuit · dons · licences",
-
   "cloudTitle": "Cloud",
   "cloudIntro": "Le compte ne sert qu'à continuer sur un autre appareil. Sans compte, le jeu fonctionne entièrement : ce n'est pas un mode réduit.",
   "cloudNotConfiguredTitle": "Cloud non connecté",
@@ -170,7 +155,6 @@
   "cloudSignOut": "Se déconnecter",
   "cloudSignOutNote": "La déconnexion ne supprime pas les données locales.",
   "cloudDeleteRemote": "Supprimer la copie dans le cloud",
-
   "aboutTitle": "À propos",
   "aboutTagline": "Le vocabulaire comme un ciel nocturne. L'éclat d'une étoile, c'est la probabilité de se rappeler le mot à l'instant.",
   "aboutFreeTitle": "Entièrement gratuit",
@@ -191,7 +175,17 @@
   "aboutNoForcedOrder": "Un ordre imposé des thèmes",
   "aboutNoAds": "Publicité et traqueurs",
   "aboutPrivacy": "Confidentialité : Sentry sans données personnelles ni tracing, aucune analytique par le réseau. L'export et la suppression sont dans les réglages.",
-
   "unitSeconds": "{value} s",
-  "customWordsPlaceholder": "Rechnung — facture\nQuittung — reçu"
+  "customWordsPlaceholder": "Rechnung — facture\nQuittung — reçu",
+  "storageTitle": "Téléchargements",
+  "storageUsed": "Téléchargé : {size} Mo",
+  "storageExplain": "Le palier de base est livré avec l'application, on peut donc jouer dès l'installation. Les paliers supérieurs se téléchargent — et se suppriment à tout moment.",
+  "storageNotConfigured": "Le CDN des paquets n'est pas encore configuré. Tout ce qui est livré avec l'application fonctionne sans réseau.",
+  "storageNothingToDownload": "Rien à télécharger : tout l'audio des paliers ouverts est livré avec l'application.",
+  "storagePackSize": "{size} Mo",
+  "storageDownload": "Télécharger",
+  "storageRemove": "Supprimer",
+  "storageFailed": "Échec du téléchargement. Tout ce qui est déjà téléchargé continue de fonctionner.",
+  "settingsStorage": "Téléchargements",
+  "settingsStorageSubtitle": "Paquets audio et espace disque"
 }

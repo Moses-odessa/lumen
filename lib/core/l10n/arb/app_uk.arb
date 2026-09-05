@@ -1,35 +1,29 @@
 {
   "@@locale": "uk",
-
   "appTitle": "Lumen",
   "tabSky": "Небо",
   "tabGame": "Гра",
   "tabProfile": "Профіль",
   "tabSettings": "Налаштування",
-
   "skyTitle": "Ваше небо",
   "gameTitle": "Денний ритуал",
   "profileTitle": "Профіль",
   "settingsTitle": "Налаштування",
-
   "commonNext": "Далі",
   "commonBack": "Назад",
   "commonCancel": "Скасувати",
   "commonClose": "Закрити",
   "comingSoon": "Незабаром",
-
   "onboardingTitle": "Знайдемо, де починається ваше небо",
   "onboardingSubtitle": "Замість анкети — кілька кіл: ви граєте, ми міряємо.",
   "onboardingStartCalibration": "Почати калібрування",
   "onboardingFromScratch": "Я з нуля",
-
   "languagesTitle": "Мови",
   "languagesSubtitle": "Мова підказок і мова інтерфейсу — різні налаштування.",
   "languagesLearning": "Вивчаю",
   "languagesHints": "Підказки",
   "languagesInterface": "Інтерфейс",
   "languagesSystem": "Як у системі",
-
   "calibrationHintComb": "Просто з’єднуйте те, що знаєте",
   "calibrationHintSearch": "Добираємо, з чого почати",
   "calibrationHintConfirm": "Перевіряємо ще раз",
@@ -39,7 +33,6 @@
   "calibrationResultVocabulary": "Ви вже знаєте приблизно {count} слів — вони стануть зорями, що вже світять.",
   "calibrationResultTierChangeable": "Ярус можна змінити в налаштуваннях будь-коли.",
   "calibrationResultOpen": "Відкрити небо",
-
   "ritualHeading": "Денний ритуал",
   "ritualSubtitle": "Схід — рівень — нічний виклик. Шість хвилин із початком і кінцем.",
   "ritualStart": "Почати",
@@ -57,14 +50,12 @@
   "ritualDoneTitle": "Ритуал пройдено",
   "ritualDoneBody": "Небу повернулося {lumens} lm, вивчено {words} нових слів.",
   "ritualToSky": "До неба",
-
   "runAccuracy": "точність",
   "runCircles": "кіл",
   "runCombo": "комбо",
   "runPerfect": "без помилок",
   "runContinue": "Далі",
   "audioReplay": "Прослухати ще раз",
-
   "skyStars": "зір",
   "skyBurning": "світять",
   "skyConstellations": "сузір’їв",
@@ -77,7 +68,6 @@
   "constellationAboutToLight": "Сузір’я ось-ось запалає",
   "tierSuggestUp": "Більша частина неба світить. Перейти на {tier}? Старі зорі залишаться на місцях.",
   "tierSuggestDown": "Схоже, {current} дається важко. Спробувати {target}?",
-
   "dictionaryTitle": "Словник",
   "dictionarySearchHint": "Слово будь-якою з двох мов",
   "dictionaryNothing": "Нічого не знайшлося",
@@ -88,7 +78,6 @@
   "bandFlickering": "мерехтить",
   "bandDimming": "тьмяніє",
   "bandFading": "гасне",
-
   "profileOrbit": "орбіта",
   "profileOrbitExplain": "Пропуск опускає на один. Повне скидання — лише після трьох пропусків поспіль.",
   "profileOrbitRisk": "Ще один пропуск — і орбіта обнулиться.",
@@ -103,14 +92,12 @@
   "profileBrightness": "Яскравість за сузір’ями",
   "profileEmpty": "Поки порожньо — зіграйте перший рівень.",
   "profileBurningOf": "{burning} із {total} світять",
-
   "customWordsTitle": "Свої слова",
   "customWordsHint": "Список із вашого підручника, листа або нотаток. По рядку на пару: «Wort — слово».",
   "customWordsAdd": "Додати",
   "customWordsAdded": "Додано: {count}",
   "customWordsNoPairs": "Не знайшлося жодної пари. Формат: «Wort — слово», по рядку на пару.",
   "customWordsCount": "В особистому сузір’ї: {count}",
-
   "challengeTitle": "Нічний виклик",
   "challengeSeconds": "{seconds} с",
   "challengeUnavailableTitle": "Виклик недоступний",
@@ -122,7 +109,6 @@
   "challengeSparks": "+{count} іскор",
   "challengeShare": "Поділитися",
   "challengeCardSeconds": "за {seconds} с",
-
   "settingsTier": "Ярус",
   "settingsTierExplain": "Розмір сузір’їв росте разом із ярусом. Старі зорі залишаються на місцях.",
   "settingsTierLocked": "Яруси вище {tier} ще не вичитані носієм і тому недоступні.",
@@ -152,7 +138,6 @@
   "settingsWipeConfirm": "Видалити",
   "settingsAbout": "Про проєкт",
   "settingsAboutSubtitle": "Безкоштовно повністю · донати · ліцензії",
-
   "cloudTitle": "Хмара",
   "cloudIntro": "Обліковий запис потрібен лише для того, щоб продовжити на іншому пристрої. Без нього гра працює повністю — і це не урізаний режим.",
   "cloudNotConfiguredTitle": "Хмару не підключено",
@@ -170,7 +155,6 @@
   "cloudSignOut": "Вийти",
   "cloudSignOutNote": "Вихід не видаляє локальні дані.",
   "cloudDeleteRemote": "Видалити копію в хмарі",
-
   "aboutTitle": "Про проєкт",
   "aboutTagline": "Словник як нічне небо. Яскравість зорі — імовірність згадати слово просто зараз.",
   "aboutFreeTitle": "Безкоштовно повністю",
@@ -191,7 +175,17 @@
   "aboutNoForcedOrder": "Обов’язкового порядку проходження",
   "aboutNoAds": "Реклами й трекерів",
   "aboutPrivacy": "Приватність: Sentry без персональних даних і без трейсингу, жодної аналітики мережею. Експорт і видалення даних — у налаштуваннях.",
-
   "unitSeconds": "{value} с",
-  "customWordsPlaceholder": "Rechnung — рахунок\nQuittung — квитанція"
+  "customWordsPlaceholder": "Rechnung — рахунок\nQuittung — квитанція",
+  "storageTitle": "Завантаження",
+  "storageUsed": "Завантажено: {size} МБ",
+  "storageExplain": "Базовий ярус їде разом із застосунком, тож грати можна одразу після встановлення. Яруси вище довантажуються — і видаляються будь-коли.",
+  "storageNotConfigured": "CDN із паками ще не налаштовано. Усе, що їде в застосунку, працює без мережі.",
+  "storageNothingToDownload": "Довантажувати нічого: уся озвучка запущених ярусів їде разом із застосунком.",
+  "storagePackSize": "{size} МБ",
+  "storageDownload": "Завантажити",
+  "storageRemove": "Видалити",
+  "storageFailed": "Не вдалося завантажити. Усе, що вже завантажено, працює далі.",
+  "settingsStorage": "Завантаження",
+  "settingsStorageSubtitle": "Аудіопаки та місце на диску"
 }

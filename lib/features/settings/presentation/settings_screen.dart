@@ -93,6 +93,13 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => context.push(Routes.cloud),
           ),
           ListTile(
+            leading: const Icon(Icons.sd_storage_outlined),
+            title: Text(l10n.settingsStorage),
+            subtitle: Text(l10n.settingsStorageSubtitle),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push(Routes.storage),
+          ),
+          ListTile(
             leading: const Icon(Icons.download_outlined),
             title: Text(l10n.settingsExport),
             subtitle: Text(l10n.settingsExportSubtitle),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:just_audio/just_audio.dart';
 
 import '../../data/repositories/player_repository.dart';
 import 'audio_manifest.dart';
+import 'audio_pack_manager.dart';
 
 /// Озвучка верного ответа.
 ///
@@ -68,24 +70,53 @@ class PooledAudioService implements AudioService {
   /// Последние измеренные задержки — для спайка на реальном устройстве.
   final AudioLatencyProbe probe = AudioLatencyProbe();
 
-  Future<AudioManifest> _ensureManifest() =>
-      _loading ??= AudioManifest.load(lang).then((m) => _manifest = m);
+  /// Манифест собирается из ассетов и уже скачанных паков.
+  ///
+  /// Считается один раз за жизнь сервиса: обход support-директории на
+  /// каждый круг — это диск в горячем пути забега.
+  Future<AudioManifest> _ensureManifest() => _loading ??= _buildManifest();
+
+  Future<AudioManifest> _buildManifest() async {
+    Directory? packs;
+    try {
+      packs = await AudioPackManager().packsDirectory(lang);
+    } catch (_) {
+      // Support-директории может не быть на web и в тестах.
+    }
+    final manifest = await AudioManifest.load(lang, packsDirectory: packs);
+    _manifest = manifest;
+    return manifest;
+  }
+
+  /// Пересобрать манифест — после установки или удаления пака.
+  void invalidateManifest() {
+    _manifest = null;
+    _loading = null;
+    _loaded.clear();
+  }
 
   @override
   Future<void> preload(String audioId) async {
     if (!enabled || _broken.contains(audioId)) return;
-    final path = (await _ensureManifest()).pathFor(audioId);
-    if (path == null) return;
+    final location = (await _ensureManifest()).locate(audioId);
+    if (location == null) return;
 
     final index = _next;
     if (_loaded[index] == audioId) return;
     try {
-      await _players[index].setAsset(path);
+      await _open(_players[index], location);
       _loaded[index] = audioId;
     } catch (e) {
       _reportBroken(audioId, e);
     }
   }
+
+  /// Ассет и скачанный файл открываются разными вызовами — это единственное
+  /// место, где разница между ними видна.
+  Future<void> _open(AudioPlayer player, AudioLocation location) =>
+      location.isAsset
+          ? player.setAsset(location.path)
+          : player.setFilePath(location.path);
 
   @override
   void play(String audioId) {
@@ -100,8 +131,8 @@ class PooledAudioService implements AudioService {
   Future<void> _play(String audioId) async {
     final started = DateTime.now();
     final manifest = _manifest ?? await _ensureManifest();
-    final path = manifest.pathFor(audioId);
-    if (path == null) {
+    final location = manifest.locate(audioId);
+    if (location == null) {
       // Озвучки нет — беззвучный отклик вместо тишины.
       _reportBroken(audioId, 'нет в манифесте');
       haptic();
@@ -114,7 +145,7 @@ class PooledAudioService implements AudioService {
 
     try {
       if (_loaded[index] != audioId) {
-        await player.setAsset(path);
+        await _open(player, location);
         _loaded[index] = audioId;
       } else {
         await player.seek(Duration.zero);

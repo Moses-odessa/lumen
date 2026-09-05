@@ -1167,6 +1167,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rechnung — invoice\nQuittung — receipt'**
   String get customWordsPlaceholder;
+
+  /// No description provided for @storageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads'**
+  String get storageTitle;
+
+  /// No description provided for @storageUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded: {size} MB'**
+  String storageUsed(String size);
+
+  /// No description provided for @storageExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'The base tier ships with the app, so the game is playable right after install. Higher tiers are downloaded — and can be removed at any time.'**
+  String get storageExplain;
+
+  /// No description provided for @storageNotConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'The pack CDN is not set up yet. Everything the app ships with works offline.'**
+  String get storageNotConfigured;
+
+  /// No description provided for @storageNothingToDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to download: all audio of the launched tiers ships with the app.'**
+  String get storageNothingToDownload;
+
+  /// No description provided for @storagePackSize.
+  ///
+  /// In en, this message translates to:
+  /// **'{size} MB'**
+  String storagePackSize(String size);
+
+  /// No description provided for @storageDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get storageDownload;
+
+  /// No description provided for @storageRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get storageRemove;
+
+  /// No description provided for @storageFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed. Everything already downloaded still works.'**
+  String get storageFailed;
+
+  /// No description provided for @settingsStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads'**
+  String get settingsStorage;
+
+  /// No description provided for @settingsStorageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio packs and disk space'**
+  String get settingsStorageSubtitle;
 }
 
 class _AppLocalizationsDelegate

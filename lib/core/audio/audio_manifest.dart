@@ -1,59 +1,123 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-/// Манифест озвучки, который пишет `tool/synthesize_audio.dart`.
+/// Где лежит файл озвучки.
+enum AudioSource {
+  /// В ассетах приложения: базовый ярус, который едет вместе с установкой.
+  asset,
+
+  /// В скачанном паке, в support-директории.
+  pack,
+}
+
+/// Одна позиция манифеста.
+class AudioLocation {
+  const AudioLocation({required this.path, required this.source});
+
+  /// Путь к ассету или абсолютный путь к файлу пака.
+  final String path;
+  final AudioSource source;
+
+  bool get isAsset => source == AudioSource.asset;
+}
+
+/// Манифест озвучки: `audioId` → файл.
 ///
-/// Приложение не строит путь к файлу из `audioId` напрямую, потому что
-/// расширение зависит от того, чем собирали: Opus в релизе, WAV на машине без
-/// кодека. Манифест снимает этот вопрос и заодно даёт честный ответ, есть ли
-/// озвучка вообще — до того, как плеер попытается открыть несуществующий
-/// ассет.
+/// Приложение не строит путь из `audioId` напрямую по двум причинам.
+/// Первая: расширение зависит от того, чем собирали, — Opus в релизе, WAV
+/// на машине без кодека. Вторая, с M8: файл может лежать не в ассетах, а в
+/// скачанном паке, и знать об этом должен один объект, а не каждый вызов
+/// проигрывания.
 class AudioManifest {
   const AudioManifest(this._files);
 
   const AudioManifest.empty() : _files = const {};
 
-  /// `audioId` → имя файла внутри каталога языка.
-  final Map<String, String> _files;
+  final Map<String, AudioLocation> _files;
 
   bool get isEmpty => _files.isEmpty;
 
   int get length => _files.length;
 
-  /// Полный путь к ассету или `null`, если такой озвучки нет.
-  String? pathFor(String audioId) {
-    final file = _files[audioId];
-    if (file == null) return null;
-    final lang = audioId.split('/').first;
-    return 'assets/audio/$lang/$file';
-  }
-
-  bool has(String audioId) => _files.containsKey(audioId);
-
   /// Все известные идентификаторы. Порядок стабильный — манифест пишется
   /// отсортированным, чтобы диффы в git были читаемыми.
   Iterable<String> get audioIds => _files.keys;
 
-  /// Читает манифест языка из ассетов.
+  bool has(String audioId) => _files.containsKey(audioId);
+
+  AudioLocation? locate(String audioId) => _files[audioId];
+
+  /// Сколько позиций пришло из скачанных паков.
+  int get fromPacks =>
+      _files.values.where((l) => l.source == AudioSource.pack).length;
+
+  /// Манифест языка: ассеты плюс всё, что уже скачано.
   ///
-  /// Отсутствие манифеста — не ошибка: озвучка синтезируется отдельным
-  /// шагом, и до него игра должна запускаться, просто молча.
-  static Future<AudioManifest> load(String lang) async {
-    try {
-      final raw = await rootBundle.loadString('assets/audio/$lang/manifest.json');
-      final json = jsonDecode(raw) as Map<String, Object?>;
-      final files = json['files'] as Map<String, Object?>? ?? const {};
-      return AudioManifest({
-        for (final entry in files.entries)
-          entry.key: (entry.value! as Map<String, Object?>)['file']! as String,
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        debugPrint('[audio] нет манифеста для $lang: $e');
-      }
-      return const AudioManifest.empty();
+  /// Паки перекрывают ассеты, а не наоборот: если ярус докачан, играть надо
+  /// докачанным. Отсутствие паков — не ошибка, просто их пока нет.
+  static Future<AudioManifest> load(
+    String lang, {
+    Directory? packsDirectory,
+  }) async {
+    final files = <String, AudioLocation>{};
+
+    for (final entry in await _loadAssetManifest(lang)) {
+      files[entry.key] = AudioLocation(
+        path: 'assets/audio/$lang/${entry.value}',
+        source: AudioSource.asset,
+      );
     }
+
+    if (packsDirectory != null && packsDirectory.existsSync()) {
+      for (final tier in packsDirectory.listSync().whereType<Directory>()) {
+        for (final entry in _loadPackManifest(tier)) {
+          files[entry.key] = AudioLocation(
+            path: '${tier.path}/${entry.value}',
+            source: AudioSource.pack,
+          );
+        }
+      }
+    }
+
+    return AudioManifest(files);
+  }
+
+  static Future<List<MapEntry<String, String>>> _loadAssetManifest(
+    String lang,
+  ) async {
+    try {
+      final raw =
+          await rootBundle.loadString('assets/audio/$lang/manifest.json');
+      return _parse(raw);
+    } catch (e) {
+      if (kDebugMode) debugPrint('[audio] нет манифеста ассетов $lang: $e');
+      return const [];
+    }
+  }
+
+  static List<MapEntry<String, String>> _loadPackManifest(Directory tier) {
+    try {
+      final file = File('${tier.path}/manifest.json');
+      if (!file.existsSync()) return const [];
+      return _parse(file.readAsStringSync());
+    } catch (e) {
+      if (kDebugMode) debugPrint('[audio] битый манифест пака ${tier.path}');
+      return const [];
+    }
+  }
+
+  static List<MapEntry<String, String>> _parse(String raw) {
+    final json = jsonDecode(raw) as Map<String, Object?>;
+    final files = json['files'] as Map<String, Object?>? ?? const {};
+    return [
+      for (final entry in files.entries)
+        MapEntry(
+          entry.key,
+          (entry.value! as Map<String, Object?>)['file']! as String,
+        ),
+    ];
   }
 }
