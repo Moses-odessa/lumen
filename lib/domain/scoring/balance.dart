@@ -117,6 +117,35 @@ abstract final class ScoreBalance {
   static const Duration burningLatency = Duration(milliseconds: 1500);
 }
 
+/// Память: как время отклика превращается в оценку и какую вероятность
+/// вспомнить планировщик считает достаточной.
+abstract final class SrsBalance {
+  /// Ответ быстрее — «легко»: игрок не вспоминал, а знал. TODO(balance)
+  static const Duration gradeEasyBelow = Duration(milliseconds: 1200);
+
+  /// Ответ быстрее — «хорошо». Медленнее — «трудно»: вспомнил, но с усилием,
+  /// и это ровно тот материал, который стоит показать раньше. TODO(balance)
+  static const Duration gradeGoodBelow = Duration(milliseconds: 2000);
+
+  /// Целевая вероятность вспомнить на момент следующего повтора. Стандарт
+  /// FSRS — 0.9; ниже даёт более длинные интервалы ценой забывания.
+  /// TODO(balance)
+  static const double targetRetention = 0.9;
+
+  /// Границы стабильности в днях: ниже первой FSRS вырождается в нули, выше
+  /// второй интервалы уходят за горизонт осмысленного планирования.
+  static const double minStability = 0.01;
+  static const double maxStability = 36500;
+
+  /// Границы сложности: шкала FSRS 1..10.
+  static const double minDifficulty = 1;
+  static const double maxDifficulty = 10;
+
+  /// Повторы внутри одного дня считаются «коротким» интервалом: слово ещё в
+  /// рабочей памяти, и обычная формула стабильности к нему неприменима.
+  static const Duration sameDayWindow = Duration(hours: 12);
+}
+
 /// Размеры сессий: круг → забег → уровень → ритуал.
 abstract final class SessionBalance {
   /// Кругов в одном забеге. TODO(balance)
@@ -132,6 +161,17 @@ abstract final class SessionBalance {
 
   /// Планировщик берёт на сессию пул такого размера. TODO(balance)
   static const int sessionPoolSize = 40;
+
+  /// Сколько раз новое слово показывается за уровень: первый показ без
+  /// таймера плюс два вплетения в забеги. Отсюда и берётся длина забега:
+  /// 6 новых × 3 + 12 повторов = 30 кругов на три забега по десять.
+  /// TODO(balance)
+  static const int newWordRepeats = 3;
+
+  /// Минимальный разрыв между показами одного и того же слова внутри
+  /// уровня. Без него два показа подряд превращаются в проверку буфера
+  /// кратковременной памяти, а не в повторение. TODO(balance)
+  static const int minGapBetweenRepeats = 3;
 
   /// Восход: только повторения, столько времени. TODO(balance)
   static const Duration sunriseDuration = Duration(minutes: 2);
