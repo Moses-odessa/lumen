@@ -4,99 +4,91 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../game/application/run_controller.dart';
-import '../../game/application/session_loader.dart';
 import '../../game/presentation/run_screen.dart';
-
-/// Что сейчас показывает вкладка «Игра».
-enum _RitualStage { idle, loading, playing, empty }
+import '../../sky/application/sky_controller.dart';
+import '../application/ritual_controller.dart';
 
 /// Дневной ритуал: Восход → уровень → ночной вызов.
 ///
-/// На M1 здесь два входа — Восход и уровень — и сам забег. Сборка ритуала в
-/// единую последовательность с подсчётом возвращённых люменов приходит на M2,
-/// ночной вызов — на M5.
-class RitualScreen extends ConsumerStatefulWidget {
+/// Шесть-семь минут с началом и концом. Ритуал существует затем, чтобы из
+/// игры можно было выйти с чувством, что дело сделано, — в отличие от ленты,
+/// которая не кончается никогда.
+class RitualScreen extends ConsumerWidget {
   const RitualScreen({super.key});
 
   @override
-  ConsumerState<RitualScreen> createState() => _RitualScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final state = ref.watch(ritualControllerProvider);
+    final controller = ref.read(ritualControllerProvider.notifier);
 
-class _RitualScreenState extends ConsumerState<RitualScreen> {
-  _RitualStage _stage = _RitualStage.idle;
-  String? _error;
-
-  Future<void> _start({required bool sunrise}) async {
-    setState(() {
-      _stage = _RitualStage.loading;
-      _error = null;
+    // Забег сам не знает про ритуал: о его окончании сообщает экран.
+    ref.listen(runControllerProvider, (previous, next) {
+      if (next.isFinished && (previous?.isFinished ?? true) == false) {
+        controller.onRunFinished();
+      }
     });
 
-    try {
-      final loader = ref.read(sessionLoaderProvider);
-      final now = DateTime.now();
-      final session =
-          sunrise ? await loader.sunrise(now) : await loader.level(now);
-
-      if (!mounted) return;
-      if (session.isEmpty) {
-        setState(() => _stage = _RitualStage.empty);
-        return;
-      }
-
-      ref.read(runControllerProvider.notifier).start(session.questions);
-      setState(() => _stage = _RitualStage.playing);
-    } catch (e) {
-      if (!mounted) return;
-      setState(() {
-        _stage = _RitualStage.idle;
-        _error = '$e';
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-
     return Scaffold(
-      appBar: _stage == _RitualStage.playing
-          ? AppBar(
-              title: Text(l10n.gameTitle),
-              leading: IconButton(
+      appBar: AppBar(
+        title: Text(_title(l10n, state.phase)),
+        leading: state.phase == RitualPhase.idle
+            ? null
+            : IconButton(
                 icon: const Icon(Icons.close),
-                onPressed: () => setState(() => _stage = _RitualStage.idle),
+                onPressed: () {
+                  controller.reset();
+                  // Небо пересобирается: после сессии яркость изменилась.
+                  ref.invalidate(skySnapshotProvider);
+                },
               ),
-            )
-          : AppBar(title: Text(l10n.gameTitle)),
-      body: switch (_stage) {
-        _RitualStage.loading =>
+      ),
+      body: switch (state.phase) {
+        RitualPhase.idle => _RitualHome(
+            error: state.error,
+            onStart: controller.startRitual,
+            onLevelOnly: controller.startLevelOnly,
+          ),
+        RitualPhase.loading =>
           const Center(child: CircularProgressIndicator()),
-        _RitualStage.playing => RunScreen(
-            onFinished: () => setState(() => _stage = _RitualStage.idle),
+        RitualPhase.sunrise || RitualPhase.level => const RunScreen(),
+        RitualPhase.sunriseResult => _SunriseResult(
+            lumens: state.lumensReturned,
+            onNext: controller.next,
           ),
-        _RitualStage.empty => _EmptySession(
-            onBack: () => setState(() => _stage = _RitualStage.idle),
+        RitualPhase.levelResult => _LevelResult(
+            state: state,
+            onNext: controller.next,
           ),
-        _RitualStage.idle => _RitualHome(
-            error: _error,
-            onSunrise: () => _start(sunrise: true),
-            onLevel: () => _start(sunrise: false),
+        RitualPhase.challenge => _ChallengePlaceholder(onNext: controller.next),
+        RitualPhase.done => _RitualDone(
+            state: state,
+            onFinish: () {
+              controller.reset();
+              ref.invalidate(skySnapshotProvider);
+            },
           ),
       },
     );
   }
+
+  String _title(AppLocalizations l10n, RitualPhase phase) => switch (phase) {
+        RitualPhase.sunrise || RitualPhase.sunriseResult => 'Восход',
+        RitualPhase.level || RitualPhase.levelResult => 'Уровень',
+        RitualPhase.challenge => 'Ночной вызов',
+        _ => l10n.gameTitle,
+      };
 }
 
 class _RitualHome extends StatelessWidget {
   const _RitualHome({
-    required this.onSunrise,
-    required this.onLevel,
+    required this.onStart,
+    required this.onLevelOnly,
     this.error,
   });
 
-  final VoidCallback onSunrise;
-  final VoidCallback onLevel;
+  final VoidCallback onStart;
+  final VoidCallback onLevelOnly;
   final String? error;
 
   @override
@@ -106,25 +98,39 @@ class _RitualHome extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
-        _RitualCard(
-          icon: Icons.wb_twilight,
-          title: 'Восход',
-          subtitle: 'Только повторение. Первыми — самые тусклые звёзды.',
-          onTap: onSunrise,
+        Card(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Дневной ритуал', style: theme.textTheme.titleMedium),
+                const SizedBox(height: 8),
+                Text(
+                  'Восход — уровень — ночной вызов. Шесть минут с началом и '
+                  'концом.',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: FilledButton(
+                    onPressed: onStart,
+                    child: const Text('Начать'),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
         const SizedBox(height: 12),
-        _RitualCard(
-          icon: Icons.auto_awesome,
-          title: 'Новый уровень',
-          subtitle: 'Шесть новых слов, двенадцать повторов и босс-фраза.',
-          onTap: onLevel,
-        ),
-        const SizedBox(height: 12),
-        const _RitualCard(
-          icon: Icons.nightlight_round,
-          title: 'Ночной вызов',
-          subtitle: 'M5 — общий набор из 20 пар на всех, 60 секунд.',
-          onTap: null,
+        ListTile(
+          leading: const Icon(Icons.auto_awesome),
+          title: const Text('Только уровень'),
+          subtitle: const Text('Пропустить Восход и сразу взять новое'),
+          onTap: onLevelOnly,
         ),
         if (error != null) ...[
           const SizedBox(height: 24),
@@ -139,55 +145,135 @@ class _RitualHome extends StatelessWidget {
   }
 }
 
-class _RitualCard extends StatelessWidget {
-  const _RitualCard({
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.onTap,
-  });
+/// Итог Восхода — только люмены, вернувшиеся небу.
+///
+/// Никаких очков: Восход не про очки, а про то, что часть неба снова горит.
+class _SunriseResult extends StatelessWidget {
+  const _SunriseResult({required this.lumens, required this.onNext});
 
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final VoidCallback? onTap;
+  final int lumens;
+  final VoidCallback onNext;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final enabled = onTap != null;
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: ListTile(
-        enabled: enabled,
-        onTap: onTap,
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 12,
-        ),
-        leading: Icon(
-          icon,
-          color: enabled
-              ? LumenPalette.starlight
-              : theme.colorScheme.onSurfaceVariant,
-        ),
-        title: Text(title, style: theme.textTheme.titleMedium),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 4),
-          child: Text(subtitle),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.wb_twilight,
+                size: 48, color: LumenPalette.starlight),
+            const SizedBox(height: 20),
+            Text(
+              '+$lumens lm',
+              style: theme.textTheme.displaySmall
+                  ?.copyWith(color: LumenPalette.starlight),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              lumens > 0
+                  ? 'вернулось небу'
+                  : 'небо и так горело — повторять было нечего',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 36),
+            FilledButton(
+              onPressed: onNext,
+              child: const Text('К новому уровню'),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-/// Повторять нечего и новое кончилось — состояние, которое обязано выглядеть
-/// как достижение, а не как ошибка.
-class _EmptySession extends StatelessWidget {
-  const _EmptySession({required this.onBack});
+class _LevelResult extends StatelessWidget {
+  const _LevelResult({required this.state, required this.onNext});
 
-  final VoidCallback onBack;
+  final RitualState state;
+  final VoidCallback onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${state.score}',
+              style: theme.textTheme.displayMedium
+                  ?.copyWith(color: LumenPalette.starlight),
+            ),
+            const SizedBox(height: 4),
+            Text('очков за ритуал', style: theme.textTheme.bodyMedium),
+            const SizedBox(height: 28),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _Stat(value: '${state.newWords}', label: 'новых слов'),
+                _Stat(value: '+${state.lumensReturned}', label: 'люменов'),
+              ],
+            ),
+            const SizedBox(height: 36),
+            FilledButton(onPressed: onNext, child: const Text('Дальше')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ChallengePlaceholder extends StatelessWidget {
+  const _ChallengePlaceholder({required this.onNext});
+
+  final VoidCallback onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.nightlight_round, size: 44),
+            const SizedBox(height: 16),
+            Text('Ночной вызов', style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            Text(
+              'M5 — общий для всех набор из 20 пар, 60 секунд, один заход.',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 32),
+            FilledButton(onPressed: onNext, child: const Text('Завершить')),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RitualDone extends StatelessWidget {
+  const _RitualDone({required this.state, required this.onFinish});
+
+  final RitualState state;
+  final VoidCallback onFinish;
 
   @override
   Widget build(BuildContext context) {
@@ -201,21 +287,45 @@ class _EmptySession extends StatelessWidget {
           children: [
             const Icon(Icons.done_all, size: 48, color: LumenPalette.correct),
             const SizedBox(height: 16),
-            Text('Небо в порядке', style: theme.textTheme.titleMedium),
+            Text('Ритуал пройден', style: theme.textTheme.titleMedium),
             const SizedBox(height: 8),
             Text(
-              'Повторять сейчас нечего. Звёзды потускнеют — и вернутся сюда '
-              'сами.',
+              'Небу вернулось ${state.lumensReturned} lm, выучено '
+              '${state.newWords} новых слов.',
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
-            const SizedBox(height: 24),
-            TextButton(onPressed: onBack, child: const Text('Назад')),
+            const SizedBox(height: 32),
+            FilledButton(onPressed: onFinish, child: const Text('К небу')),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Stat extends StatelessWidget {
+  const _Stat({required this.value, required this.label});
+
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Column(
+      children: [
+        Text(value, style: theme.textTheme.titleLarge),
+        const SizedBox(height: 2),
+        Text(
+          label,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+      ],
     );
   }
 }

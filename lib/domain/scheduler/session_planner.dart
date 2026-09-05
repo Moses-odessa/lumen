@@ -239,13 +239,17 @@ abstract final class SessionPlanner {
           ),
       ];
 
-  /// Разбиение плана на забеги.
-  static List<List<PlannedCircle>> intoRuns(
-    List<PlannedCircle> circles, {
+  /// Разбиение на забеги.
+  ///
+  /// Обобщено по типу элемента намеренно: делить приходится и план кругов,
+  /// и уже собранные вопросы — часть из которых отсеялась из-за нехватки
+  /// контента, так что резать надо после сборки, а не до.
+  static List<List<T>> intoRuns<T>(
+    List<T> circles, {
     int perRun = SessionBalance.circlesPerRunMin,
   }) {
     if (circles.isEmpty) return const [];
-    final runs = <List<PlannedCircle>>[];
+    final runs = <List<T>>[];
     for (var i = 0; i < circles.length; i += perRun) {
       runs.add(circles.sublist(i, min(i + perRun, circles.length)));
     }

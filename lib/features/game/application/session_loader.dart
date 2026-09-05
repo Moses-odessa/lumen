@@ -11,19 +11,25 @@ import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
 import 'question_builder.dart';
 
-/// Готовый к игре набор кругов.
+/// Готовый к игре набор кругов, уже разбитый на забеги.
 class LoadedSession {
   const LoadedSession({
-    required this.questions,
+    required this.runs,
     required this.newWords,
     required this.reviews,
   });
 
-  final List<CircleQuestion> questions;
+  /// Забеги по 10–14 кругов. Уровень — это три забега и босс, а не один
+  /// марафон: комбо сбрасывается между забегами, и в этом весь их смысл.
+  final List<List<CircleQuestion>> runs;
+
   final int newWords;
   final int reviews;
 
-  bool get isEmpty => questions.isEmpty;
+  bool get isEmpty => runs.isEmpty;
+
+  /// Все круги подряд — для тестов и статистики.
+  List<CircleQuestion> get questions => [for (final run in runs) ...run];
 }
 
 /// Собирает сессию из двух баз: план — по состоянию памяти из `user.db`,
@@ -71,11 +77,17 @@ class SessionLoader {
     );
 
     final questions = await _build(plan);
+    final runs = SessionPlanner.intoRuns(questions)
+        .map((run) => run.toList())
+        .toList();
+
+    // Босс закрывает уровень отдельным коротким забегом: фраза целиком —
+    // это другой масштаб задачи, и мешать её со словами не стоит.
     final boss = await _boss(plan);
-    if (boss != null) questions.add(boss);
+    if (boss != null) runs.add([boss]);
 
     return LoadedSession(
-      questions: questions,
+      runs: runs,
       newWords: fresh.take(allowed).length,
       reviews: reviews.length,
     );
@@ -95,8 +107,11 @@ class SessionLoader {
       limit: SessionBalance.sessionPoolSize,
     );
 
+    final questions = await _build(plan);
     return LoadedSession(
-      questions: await _build(plan),
+      // Восход ограничен временем, а не числом кругов: он идёт одним
+      // забегом до истечения двух минут.
+      runs: questions.isEmpty ? const [] : [questions],
       newWords: 0,
       reviews: plan.length,
     );

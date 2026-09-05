@@ -124,8 +124,17 @@ class RunController extends Notifier<RunState> {
   }
 
   /// Начинает забег по готовому списку кругов.
-  void start(List<CircleQuestion> questions) {
+  ///
+  /// [maxDuration] ограничивает забег по времени, а не по числу кругов —
+  /// так устроен Восход: две минуты повторений, сколько успеется. Круг,
+  /// начатый до истечения времени, всегда доигрывается: обрывать человека
+  /// на середине ответа — это способ научить его не начинать.
+  void start(List<CircleQuestion> questions, {Duration? maxDuration}) {
     _advanceTimer?.cancel();
+    _lmGained = 0;
+    _deadline = maxDuration == null ? null : DateTime.now().add(maxDuration);
+    _startedAt = DateTime.now();
+
     if (questions.isEmpty) {
       state = const RunState.empty();
       return;
@@ -150,6 +159,14 @@ class RunController extends Notifier<RunState> {
   }
 
   RunScore _run = RunScore();
+
+  /// Когда забег обязан закончиться; `null` — играем всю очередь.
+  DateTime? _deadline;
+
+  DateTime _startedAt = DateTime.now();
+
+  /// Сколько длился забег — уходит в журнал сессий.
+  Duration get elapsed => DateTime.now().difference(_startedAt);
 
   /// Ответ выбором варианта.
   void answerOption(int index, Duration latency) {
@@ -213,7 +230,7 @@ class RunController extends Notifier<RunState> {
 
   void _advance() {
     final next = state.index + 1;
-    if (next >= state.queue.length) {
+    if (next >= state.queue.length || _isOutOfTime) {
       _finish();
       return;
     }
@@ -223,6 +240,13 @@ class RunController extends Notifier<RunState> {
       lastCorrect: () => null,
     );
     _preloadNext();
+  }
+
+  /// Время Восхода вышло. Проверяется между кругами, а не по таймеру:
+  /// прерывать открытый круг нельзя.
+  bool get _isOutOfTime {
+    final deadline = _deadline;
+    return deadline != null && DateTime.now().isAfter(deadline);
   }
 
   /// Заранее открывает файл следующего ответа, чтобы озвучка не искала его

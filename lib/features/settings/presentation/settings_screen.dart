@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/app_router.dart';
 import '../../../data/repositories/player_repository.dart';
+import '../../../domain/entities/player.dart';
+import '../../../domain/entities/tier.dart';
 import '../application/diagnostics.dart';
 
 /// Настройки: языки, звук, темп, донаты, экспорт данных. На M0 здесь живут
@@ -23,6 +25,8 @@ class SettingsScreen extends ConsumerWidget {
       body: ListView(
         children: [
           if (player != null) ...[
+            _TierTile(player: player, controller: controller),
+            const Divider(),
             SwitchListTile(
               value: player.soundEnabled,
               onChanged: controller.setSoundEnabled,
@@ -34,10 +38,13 @@ class SettingsScreen extends ConsumerWidget {
             ),
             SwitchListTile(
               value: player.freePace,
-              onChanged: controller.setFreePace,
+              onChanged: (value) => _setPace(context, controller, value),
               title: const Text('Свой темп'),
-              subtitle: const Text(
-                'Больше одного уровня в день — очередь повторений вырастет',
+              subtitle: Text(
+                player.freePace
+                    ? 'Новые слова не ограничены одним уровнем в день'
+                    : 'Один уровень в день — дидактическое ограничение, '
+                        'а не платная стена',
               ),
               secondary: const Icon(Icons.speed_outlined),
             ),
@@ -51,6 +58,104 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => context.push(Routes.audioSpike),
           ),
           const _DiagnosticsTile(),
+        ],
+      ),
+    );
+  }
+}
+
+/// Включение «своего темпа» — единственная настройка, которая может
+/// навредить самому игроку, поэтому она предупреждает.
+///
+/// Предупреждение мягкое и не запрещающее: ограничение здесь дидактическое,
+/// а не платная стена, и снять его игрок имеет полное право.
+Future<void> _setPace(
+  BuildContext context,
+  PlayerController controller,
+  bool value,
+) async {
+  if (!value) {
+    controller.setFreePace(false);
+    return;
+  }
+
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Свой темп'),
+      content: const Text(
+        'Каждое новое слово возвращается на повторение — и завтра, и через '
+        'неделю. Если брать много нового сразу, очередь повторений вырастет '
+        'быстрее, чем вы успеваете её разгребать.\n\n'
+        'Доля новых слов в сессии всё равно останется ограниченной.',
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Оставить как есть'),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(context).pop(true),
+          child: const Text('Включить'),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmed ?? false) controller.setFreePace(true);
+}
+
+/// Ручная смена яруса.
+///
+/// Запертого уровня в игре нет: результат калибровки — предложение, а не
+/// приговор, и сменить ярус можно в любой момент без объяснений.
+class _TierTile extends StatelessWidget {
+  const _TierTile({required this.player, required this.controller});
+
+  final Player player;
+  final PlayerController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.stairs_outlined),
+              const SizedBox(width: 16),
+              Text('Ярус', style: theme.textTheme.titleMedium),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 40),
+            child: Text(
+              'Размер созвездий растёт вместе с ярусом. Старые звёзды '
+              'остаются на местах.',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.only(left: 40),
+            child: SegmentedButton<Tier>(
+              segments: [
+                for (final tier in Tier.values)
+                  ButtonSegment(value: tier, label: Text(tier.label)),
+              ],
+              selected: {player.tier},
+              showSelectedIcon: false,
+              onSelectionChanged: (selection) =>
+                  controller.setTier(selection.first),
+            ),
+          ),
         ],
       ),
     );
