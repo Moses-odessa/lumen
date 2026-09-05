@@ -24,6 +24,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+        // Напоминания планируются через java.time, которого нет в Android
+        // ниже 26. Десугаринг подкладывает реализацию в APK — без него
+        // flutter_local_notifications не проходит проверку AAR-метаданных.
+        isCoreLibraryDesugaringEnabled = true
     }
 
     defaultConfig {
@@ -69,6 +73,11 @@ android {
             )
         }
     }
+}
+
+dependencies {
+    // Версия 2.1.x обязательна: ветка 1.x несовместима с AGP 8+, а здесь 9.1.
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 }
 
 kotlin {
