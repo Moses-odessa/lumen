@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/player_repository.dart';
+import '../../features/onboarding/presentation/calibration_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
@@ -19,6 +20,9 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// Перекалибровка: доступна из настроек в любой момент.
+  static const recalibrate = '/settings/recalibrate';
 
   /// Словарь: все звёзды списком, с фильтрами и поиском.
   static const dictionary = '/dictionary';
@@ -84,6 +88,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.dictionary,
         builder: (_, _) => const DictionaryScreen(),
+      ),
+      GoRoute(
+        path: Routes.recalibrate,
+        builder: (context, _) => CalibrationScreen(
+          onDone: () => context.go(Routes.sky),
+        ),
       ),
       GoRoute(
         path: Routes.audioSpike,

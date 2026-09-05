@@ -274,6 +274,16 @@ abstract final class CalibrationBalance {
   static const Lumens seedLmMin = 50;
   static const Lumens seedLmMax = 60;
 
+  /// Ответ быстрее этого на незнакомом ярусе подозрителен: скорее всего
+  /// это тык наугад, попавший в цель. Такой круг переспрашивается другим
+  /// словом и в зачёт не идёт. TODO(balance)
+  static const Duration suspiciousLatency = Duration(milliseconds: 600);
+
+  /// Сколько переспросов допускается за калибровку. Без ограничения игрок,
+  /// который просто быстро отвечает, застрял бы в бесконечном тесте.
+  /// TODO(balance)
+  static const int maxRepeats = 4;
+
   /// Автокоррекция в первые дни: точность выше [suggestUpAccuracy] при
   /// медианном отклике до [suggestUpLatency] → предложение подняться;
   /// ниже [suggestDownAccuracy] → предложение опуститься. TODO(balance)

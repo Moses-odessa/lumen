@@ -51,6 +51,15 @@ class SettingsScreen extends ConsumerWidget {
             const Divider(),
           ],
           ListTile(
+            leading: const Icon(Icons.explore_outlined),
+            title: const Text('Перекалибровка'),
+            subtitle: const Text(
+              'Пройти тест заново — доступно в любой момент',
+            ),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => context.push(Routes.recalibrate),
+          ),
+          ListTile(
             leading: const Icon(Icons.timer_outlined),
             title: const Text('Задержка звука'),
             subtitle: const Text('Спайк M1 — мерить на реальном телефоне'),
