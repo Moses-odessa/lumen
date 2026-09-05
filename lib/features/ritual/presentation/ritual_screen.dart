@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../game/application/run_controller.dart';
+import '../../challenge/presentation/challenge_screen.dart';
 import '../../game/presentation/run_screen.dart';
 import '../../sky/application/sky_controller.dart';
 import '../application/ritual_controller.dart';
@@ -60,7 +61,7 @@ class RitualScreen extends ConsumerWidget {
             state: state,
             onNext: controller.next,
           ),
-        RitualPhase.challenge => _ChallengePlaceholder(onNext: controller.next),
+        RitualPhase.challenge => ChallengeScreen(onClose: controller.next),
         RitualPhase.done => _RitualDone(
             state: state,
             onFinish: () {
@@ -227,41 +228,6 @@ class _LevelResult extends StatelessWidget {
             ),
             const SizedBox(height: 36),
             FilledButton(onPressed: onNext, child: const Text('Дальше')),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _ChallengePlaceholder extends StatelessWidget {
-  const _ChallengePlaceholder({required this.onNext});
-
-  final VoidCallback onNext;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.nightlight_round, size: 44),
-            const SizedBox(height: 16),
-            Text('Ночной вызов', style: theme.textTheme.titleMedium),
-            const SizedBox(height: 8),
-            Text(
-              'M5 — общий для всех набор из 20 пар, 60 секунд, один заход.',
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 32),
-            FilledButton(onPressed: onNext, child: const Text('Завершить')),
           ],
         ),
       ),

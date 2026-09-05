@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/notifications/notification_service.dart';
 import '../../../core/router/app_router.dart';
+import '../application/data_controller.dart';
+import '../application/reminder_scheduler.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../domain/entities/player.dart';
@@ -67,10 +71,116 @@ class SettingsScreen extends ConsumerWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.audioSpike),
           ),
+          if (player != null)
+            SwitchListTile(
+              value: player.notificationsEnabled,
+              onChanged: (value) => _setNotifications(context, ref, value),
+              title: const Text('Напоминание'),
+              subtitle: const Text(
+                'Одно в день, в тот час, когда вы обычно играете',
+              ),
+              secondary: const Icon(Icons.notifications_outlined),
+            ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.download_outlined),
+            title: const Text('Экспорт данных'),
+            subtitle: const Text('Весь прогресс одним файлом'),
+            onTap: () => _export(context, ref),
+          ),
+          ListTile(
+            leading: const Icon(Icons.delete_forever_outlined),
+            title: const Text('Удалить все данные'),
+            subtitle: const Text('Без возможности восстановить'),
+            onTap: () => _wipe(context, ref),
+          ),
           const _DiagnosticsTile(),
         ],
       ),
     );
+  }
+}
+
+/// Напоминания включаются только с явного согласия и только после того,
+/// как разрешение действительно выдано: переключатель, который врёт, что
+/// уведомления включены, хуже отсутствующего.
+Future<void> _setNotifications(
+  BuildContext context,
+  WidgetRef ref,
+  bool value,
+) async {
+  final controller = ref.read(playerControllerProvider.notifier);
+  final player = ref.read(playerControllerProvider);
+  if (player == null) return;
+
+  if (!value) {
+    await ref.read(notificationServiceProvider).cancelAll();
+    controller.replace(player.copyWith(notificationsEnabled: false));
+    return;
+  }
+
+  final granted =
+      await ref.read(notificationServiceProvider).requestPermission();
+  if (!context.mounted) return;
+
+  if (!granted) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Система не дала разрешения на уведомления'),
+      ),
+    );
+    return;
+  }
+
+  controller.replace(player.copyWith(notificationsEnabled: true));
+  await ref.read(reminderSchedulerProvider).reschedule();
+}
+
+/// Экспорт: показываем JSON и отдаём системе через шаринг.
+Future<void> _export(BuildContext context, WidgetRef ref) async {
+  try {
+    final json = await ref.read(dataControllerProvider).export();
+    if (!context.mounted) return;
+    await SharePlus.instance.share(
+      ShareParams(text: json, subject: 'Lumen — экспорт данных'),
+    );
+  } catch (e) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Не удалось выгрузить: $e')),
+    );
+  }
+}
+
+/// Удаление данных: подтверждение обязательно и формулируется прямо.
+Future<void> _wipe(BuildContext context, WidgetRef ref) async {
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const Text('Удалить все данные?'),
+      content: const Text(
+        'Прогресс, история ответов и свои слова будут стёрты без '
+        'возможности восстановить. Придётся начать заново, включая '
+        'калибровку.',
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(false),
+          child: const Text('Отмена'),
+        ),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+          onPressed: () => Navigator.of(context).pop(true),
+          child: const Text('Удалить'),
+        ),
+      ],
+    ),
+  );
+
+  if (confirmed ?? false) {
+    await ref.read(dataControllerProvider).wipe();
   }
 }
 

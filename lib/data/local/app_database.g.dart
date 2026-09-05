@@ -146,6 +146,42 @@ class $PlayersTable extends Players with TableInfo<$PlayersTable, PlayerRow> {
     ),
     defaultValue: const Constant(true),
   );
+  static const VerificationMeta _eclipseUntilMeta = const VerificationMeta(
+    'eclipseUntil',
+  );
+  @override
+  late final GeneratedColumn<DateTime> eclipseUntil = GeneratedColumn<DateTime>(
+    'eclipse_until',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _preferredHourMeta = const VerificationMeta(
+    'preferredHour',
+  );
+  @override
+  late final GeneratedColumn<int> preferredHour = GeneratedColumn<int>(
+    'preferred_hour',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notificationsEnabledMeta =
+      const VerificationMeta('notificationsEnabled');
+  @override
+  late final GeneratedColumn<bool> notificationsEnabled = GeneratedColumn<bool>(
+    'notifications_enabled',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("notifications_enabled" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -160,6 +196,9 @@ class $PlayersTable extends Players with TableInfo<$PlayersTable, PlayerRow> {
     missedInRow,
     freePace,
     soundEnabled,
+    eclipseUntil,
+    preferredHour,
+    notificationsEnabled,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -257,6 +296,33 @@ class $PlayersTable extends Players with TableInfo<$PlayersTable, PlayerRow> {
         ),
       );
     }
+    if (data.containsKey('eclipse_until')) {
+      context.handle(
+        _eclipseUntilMeta,
+        eclipseUntil.isAcceptableOrUnknown(
+          data['eclipse_until']!,
+          _eclipseUntilMeta,
+        ),
+      );
+    }
+    if (data.containsKey('preferred_hour')) {
+      context.handle(
+        _preferredHourMeta,
+        preferredHour.isAcceptableOrUnknown(
+          data['preferred_hour']!,
+          _preferredHourMeta,
+        ),
+      );
+    }
+    if (data.containsKey('notifications_enabled')) {
+      context.handle(
+        _notificationsEnabledMeta,
+        notificationsEnabled.isAcceptableOrUnknown(
+          data['notifications_enabled']!,
+          _notificationsEnabledMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -314,6 +380,18 @@ class $PlayersTable extends Players with TableInfo<$PlayersTable, PlayerRow> {
         DriftSqlType.bool,
         data['${effectivePrefix}sound_enabled'],
       )!,
+      eclipseUntil: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}eclipse_until'],
+      ),
+      preferredHour: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}preferred_hour'],
+      ),
+      notificationsEnabled: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}notifications_enabled'],
+      )!,
     );
   }
 
@@ -336,6 +414,14 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
   final int missedInRow;
   final bool freePace;
   final bool soundEnabled;
+
+  /// Затмение: до какого дня пропуски не считаются (M5).
+  final DateTime? eclipseUntil;
+
+  /// Час, в который игрок обычно играет. По нему подстраивается время
+  /// напоминания — «удобно ему», а не «удобно нам».
+  final int? preferredHour;
+  final bool notificationsEnabled;
   const PlayerRow({
     required this.id,
     required this.targetLang,
@@ -349,6 +435,9 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
     required this.missedInRow,
     required this.freePace,
     required this.soundEnabled,
+    this.eclipseUntil,
+    this.preferredHour,
+    required this.notificationsEnabled,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -369,6 +458,13 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
     map['missed_in_row'] = Variable<int>(missedInRow);
     map['free_pace'] = Variable<bool>(freePace);
     map['sound_enabled'] = Variable<bool>(soundEnabled);
+    if (!nullToAbsent || eclipseUntil != null) {
+      map['eclipse_until'] = Variable<DateTime>(eclipseUntil);
+    }
+    if (!nullToAbsent || preferredHour != null) {
+      map['preferred_hour'] = Variable<int>(preferredHour);
+    }
+    map['notifications_enabled'] = Variable<bool>(notificationsEnabled);
     return map;
   }
 
@@ -390,6 +486,13 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
       missedInRow: Value(missedInRow),
       freePace: Value(freePace),
       soundEnabled: Value(soundEnabled),
+      eclipseUntil: eclipseUntil == null && nullToAbsent
+          ? const Value.absent()
+          : Value(eclipseUntil),
+      preferredHour: preferredHour == null && nullToAbsent
+          ? const Value.absent()
+          : Value(preferredHour),
+      notificationsEnabled: Value(notificationsEnabled),
     );
   }
 
@@ -411,6 +514,11 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
       missedInRow: serializer.fromJson<int>(json['missedInRow']),
       freePace: serializer.fromJson<bool>(json['freePace']),
       soundEnabled: serializer.fromJson<bool>(json['soundEnabled']),
+      eclipseUntil: serializer.fromJson<DateTime?>(json['eclipseUntil']),
+      preferredHour: serializer.fromJson<int?>(json['preferredHour']),
+      notificationsEnabled: serializer.fromJson<bool>(
+        json['notificationsEnabled'],
+      ),
     );
   }
   @override
@@ -429,6 +537,9 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
       'missedInRow': serializer.toJson<int>(missedInRow),
       'freePace': serializer.toJson<bool>(freePace),
       'soundEnabled': serializer.toJson<bool>(soundEnabled),
+      'eclipseUntil': serializer.toJson<DateTime?>(eclipseUntil),
+      'preferredHour': serializer.toJson<int?>(preferredHour),
+      'notificationsEnabled': serializer.toJson<bool>(notificationsEnabled),
     };
   }
 
@@ -445,6 +556,9 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
     int? missedInRow,
     bool? freePace,
     bool? soundEnabled,
+    Value<DateTime?> eclipseUntil = const Value.absent(),
+    Value<int?> preferredHour = const Value.absent(),
+    bool? notificationsEnabled,
   }) => PlayerRow(
     id: id ?? this.id,
     targetLang: targetLang ?? this.targetLang,
@@ -458,6 +572,11 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
     missedInRow: missedInRow ?? this.missedInRow,
     freePace: freePace ?? this.freePace,
     soundEnabled: soundEnabled ?? this.soundEnabled,
+    eclipseUntil: eclipseUntil.present ? eclipseUntil.value : this.eclipseUntil,
+    preferredHour: preferredHour.present
+        ? preferredHour.value
+        : this.preferredHour,
+    notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
   );
   PlayerRow copyWithCompanion(PlayersCompanion data) {
     return PlayerRow(
@@ -485,6 +604,15 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
       soundEnabled: data.soundEnabled.present
           ? data.soundEnabled.value
           : this.soundEnabled,
+      eclipseUntil: data.eclipseUntil.present
+          ? data.eclipseUntil.value
+          : this.eclipseUntil,
+      preferredHour: data.preferredHour.present
+          ? data.preferredHour.value
+          : this.preferredHour,
+      notificationsEnabled: data.notificationsEnabled.present
+          ? data.notificationsEnabled.value
+          : this.notificationsEnabled,
     );
   }
 
@@ -502,7 +630,10 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
           ..write('lastPlayedAt: $lastPlayedAt, ')
           ..write('missedInRow: $missedInRow, ')
           ..write('freePace: $freePace, ')
-          ..write('soundEnabled: $soundEnabled')
+          ..write('soundEnabled: $soundEnabled, ')
+          ..write('eclipseUntil: $eclipseUntil, ')
+          ..write('preferredHour: $preferredHour, ')
+          ..write('notificationsEnabled: $notificationsEnabled')
           ..write(')'))
         .toString();
   }
@@ -521,6 +652,9 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
     missedInRow,
     freePace,
     soundEnabled,
+    eclipseUntil,
+    preferredHour,
+    notificationsEnabled,
   );
   @override
   bool operator ==(Object other) =>
@@ -537,7 +671,10 @@ class PlayerRow extends DataClass implements Insertable<PlayerRow> {
           other.lastPlayedAt == this.lastPlayedAt &&
           other.missedInRow == this.missedInRow &&
           other.freePace == this.freePace &&
-          other.soundEnabled == this.soundEnabled);
+          other.soundEnabled == this.soundEnabled &&
+          other.eclipseUntil == this.eclipseUntil &&
+          other.preferredHour == this.preferredHour &&
+          other.notificationsEnabled == this.notificationsEnabled);
 }
 
 class PlayersCompanion extends UpdateCompanion<PlayerRow> {
@@ -553,6 +690,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
   final Value<int> missedInRow;
   final Value<bool> freePace;
   final Value<bool> soundEnabled;
+  final Value<DateTime?> eclipseUntil;
+  final Value<int?> preferredHour;
+  final Value<bool> notificationsEnabled;
   const PlayersCompanion({
     this.id = const Value.absent(),
     this.targetLang = const Value.absent(),
@@ -566,6 +706,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
     this.missedInRow = const Value.absent(),
     this.freePace = const Value.absent(),
     this.soundEnabled = const Value.absent(),
+    this.eclipseUntil = const Value.absent(),
+    this.preferredHour = const Value.absent(),
+    this.notificationsEnabled = const Value.absent(),
   });
   PlayersCompanion.insert({
     this.id = const Value.absent(),
@@ -580,6 +723,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
     this.missedInRow = const Value.absent(),
     this.freePace = const Value.absent(),
     this.soundEnabled = const Value.absent(),
+    this.eclipseUntil = const Value.absent(),
+    this.preferredHour = const Value.absent(),
+    this.notificationsEnabled = const Value.absent(),
   }) : targetLang = Value(targetLang),
        nativeLang = Value(nativeLang),
        tier = Value(tier);
@@ -596,6 +742,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
     Expression<int>? missedInRow,
     Expression<bool>? freePace,
     Expression<bool>? soundEnabled,
+    Expression<DateTime>? eclipseUntil,
+    Expression<int>? preferredHour,
+    Expression<bool>? notificationsEnabled,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -610,6 +759,10 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
       if (missedInRow != null) 'missed_in_row': missedInRow,
       if (freePace != null) 'free_pace': freePace,
       if (soundEnabled != null) 'sound_enabled': soundEnabled,
+      if (eclipseUntil != null) 'eclipse_until': eclipseUntil,
+      if (preferredHour != null) 'preferred_hour': preferredHour,
+      if (notificationsEnabled != null)
+        'notifications_enabled': notificationsEnabled,
     });
   }
 
@@ -626,6 +779,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
     Value<int>? missedInRow,
     Value<bool>? freePace,
     Value<bool>? soundEnabled,
+    Value<DateTime?>? eclipseUntil,
+    Value<int?>? preferredHour,
+    Value<bool>? notificationsEnabled,
   }) {
     return PlayersCompanion(
       id: id ?? this.id,
@@ -640,6 +796,9 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
       missedInRow: missedInRow ?? this.missedInRow,
       freePace: freePace ?? this.freePace,
       soundEnabled: soundEnabled ?? this.soundEnabled,
+      eclipseUntil: eclipseUntil ?? this.eclipseUntil,
+      preferredHour: preferredHour ?? this.preferredHour,
+      notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
     );
   }
 
@@ -682,6 +841,15 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
     if (soundEnabled.present) {
       map['sound_enabled'] = Variable<bool>(soundEnabled.value);
     }
+    if (eclipseUntil.present) {
+      map['eclipse_until'] = Variable<DateTime>(eclipseUntil.value);
+    }
+    if (preferredHour.present) {
+      map['preferred_hour'] = Variable<int>(preferredHour.value);
+    }
+    if (notificationsEnabled.present) {
+      map['notifications_enabled'] = Variable<bool>(notificationsEnabled.value);
+    }
     return map;
   }
 
@@ -699,7 +867,10 @@ class PlayersCompanion extends UpdateCompanion<PlayerRow> {
           ..write('lastPlayedAt: $lastPlayedAt, ')
           ..write('missedInRow: $missedInRow, ')
           ..write('freePace: $freePace, ')
-          ..write('soundEnabled: $soundEnabled')
+          ..write('soundEnabled: $soundEnabled, ')
+          ..write('eclipseUntil: $eclipseUntil, ')
+          ..write('preferredHour: $preferredHour, ')
+          ..write('notificationsEnabled: $notificationsEnabled')
           ..write(')'))
         .toString();
   }
@@ -3246,6 +3417,9 @@ typedef $$PlayersTableCreateCompanionBuilder = PlayersCompanion Function({
   Value<int> missedInRow,
   Value<bool> freePace,
   Value<bool> soundEnabled,
+  Value<DateTime?> eclipseUntil,
+  Value<int?> preferredHour,
+  Value<bool> notificationsEnabled,
 });
 typedef $$PlayersTableUpdateCompanionBuilder = PlayersCompanion Function({
   Value<int> id,
@@ -3260,6 +3434,9 @@ typedef $$PlayersTableUpdateCompanionBuilder = PlayersCompanion Function({
   Value<int> missedInRow,
   Value<bool> freePace,
   Value<bool> soundEnabled,
+  Value<DateTime?> eclipseUntil,
+  Value<int?> preferredHour,
+  Value<bool> notificationsEnabled,
 });
 
 class $$PlayersTableFilterComposer
@@ -3328,6 +3505,21 @@ class $$PlayersTableFilterComposer
 
   ColumnFilters<bool> get soundEnabled => $composableBuilder(
     column: $table.soundEnabled,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get eclipseUntil => $composableBuilder(
+    column: $table.eclipseUntil,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get notificationsEnabled => $composableBuilder(
+    column: $table.notificationsEnabled,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3400,6 +3592,21 @@ class $$PlayersTableOrderingComposer
     column: $table.soundEnabled,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<DateTime> get eclipseUntil => $composableBuilder(
+    column: $table.eclipseUntil,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get notificationsEnabled => $composableBuilder(
+    column: $table.notificationsEnabled,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$PlayersTableAnnotationComposer
@@ -3458,6 +3665,21 @@ class $$PlayersTableAnnotationComposer
     column: $table.soundEnabled,
     builder: (column) => column,
   );
+
+  GeneratedColumn<DateTime> get eclipseUntil => $composableBuilder(
+    column: $table.eclipseUntil,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get preferredHour => $composableBuilder(
+    column: $table.preferredHour,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get notificationsEnabled => $composableBuilder(
+    column: $table.notificationsEnabled,
+    builder: (column) => column,
+  );
 }
 
 class $$PlayersTableTableManager
@@ -3500,6 +3722,9 @@ class $$PlayersTableTableManager
                 Value<int> missedInRow = const Value.absent(),
                 Value<bool> freePace = const Value.absent(),
                 Value<bool> soundEnabled = const Value.absent(),
+                Value<DateTime?> eclipseUntil = const Value.absent(),
+                Value<int?> preferredHour = const Value.absent(),
+                Value<bool> notificationsEnabled = const Value.absent(),
               }) => PlayersCompanion(
                 id: id,
                 targetLang: targetLang,
@@ -3513,6 +3738,9 @@ class $$PlayersTableTableManager
                 missedInRow: missedInRow,
                 freePace: freePace,
                 soundEnabled: soundEnabled,
+                eclipseUntil: eclipseUntil,
+                preferredHour: preferredHour,
+                notificationsEnabled: notificationsEnabled,
               ),
           createCompanionCallback:
               ({
@@ -3528,6 +3756,9 @@ class $$PlayersTableTableManager
                 Value<int> missedInRow = const Value.absent(),
                 Value<bool> freePace = const Value.absent(),
                 Value<bool> soundEnabled = const Value.absent(),
+                Value<DateTime?> eclipseUntil = const Value.absent(),
+                Value<int?> preferredHour = const Value.absent(),
+                Value<bool> notificationsEnabled = const Value.absent(),
               }) => PlayersCompanion.insert(
                 id: id,
                 targetLang: targetLang,
@@ -3541,6 +3772,9 @@ class $$PlayersTableTableManager
                 missedInRow: missedInRow,
                 freePace: freePace,
                 soundEnabled: soundEnabled,
+                eclipseUntil: eclipseUntil,
+                preferredHour: preferredHour,
+                notificationsEnabled: notificationsEnabled,
               ),
           withReferenceMapper: (p0) => p0
               .map(

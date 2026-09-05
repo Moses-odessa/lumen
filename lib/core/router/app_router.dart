@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/player_repository.dart';
+import '../../features/challenge/presentation/challenge_screen.dart';
 import '../../features/onboarding/presentation/calibration_screen.dart';
+import '../../features/profile/presentation/custom_words_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
@@ -20,6 +22,12 @@ abstract final class Routes {
   static const profile = '/profile';
   static const settings = '/settings';
   static const onboarding = '/onboarding';
+
+  /// Ночной вызов — единственный экран, который ходит в сеть.
+  static const challenge = '/challenge';
+
+  /// Свои слова: личное созвездие.
+  static const customWords = '/custom-words';
 
   /// Перекалибровка: доступна из настроек в любой момент.
   static const recalibrate = '/settings/recalibrate';
@@ -88,6 +96,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.dictionary,
         builder: (_, _) => const DictionaryScreen(),
+      ),
+      GoRoute(
+        path: Routes.challenge,
+        builder: (context, _) => ChallengeScreen(onClose: context.pop),
+      ),
+      GoRoute(
+        path: Routes.customWords,
+        builder: (_, _) => const CustomWordsScreen(),
       ),
       GoRoute(
         path: Routes.recalibrate,

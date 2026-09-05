@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/analytics/analytics.dart';
@@ -5,7 +7,10 @@ import '../../../data/local/app_database.dart';
 import '../../../data/local/database_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/retention/orbit.dart';
+import '../../../domain/retention/sparks.dart';
 import '../../../domain/scoring/balance.dart';
+import '../../settings/application/reminder_scheduler.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/application/session_loader.dart';
 
@@ -242,13 +247,40 @@ class RitualController extends Notifier<RitualState> {
               newWords: state.newWords,
             ),
           );
-      // Отметка последней игры нужна орбите (M5).
+      // Орбита и искры начисляются здесь и только здесь: сессия — это
+      // единица, за которую игра платит.
       final player = ref.read(playerControllerProvider);
       if (player != null) {
+        final now = DateTime.now();
+        final orbit = Orbit.play(
+          OrbitState(
+            level: player.orbit,
+            missedInRow: player.missedInRow,
+            lastPlayedAt: player.lastPlayedAt,
+            eclipseUntil: player.eclipseUntil,
+          ),
+          now,
+        );
+        final earned = Sparks.forLevel(
+          lumensGained: state.lumensReturned,
+          newWords: state.newWords,
+        );
+
         ref.read(playerControllerProvider.notifier).replace(
-              player.copyWith(lastPlayedAt: () => DateTime.now()),
+              player.copyWith(
+                orbit: orbit.level,
+                missedInRow: orbit.missedInRow,
+                lastPlayedAt: () => now,
+                sparks: player.sparks + earned,
+                // Час игры запоминается для напоминания: «удобно ему»,
+                // а не «удобно нам».
+                preferredHour: () => now.hour,
+              ),
             );
       }
+
+      // Небо изменилось — напоминание должно говорить о новом состоянии.
+      unawaited(ref.read(reminderSchedulerProvider).reschedule());
     } catch (_) {
       // Журнал — не игра: его потеря не повод показывать ошибку.
     }

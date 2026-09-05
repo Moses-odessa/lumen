@@ -16,6 +16,9 @@ class Player {
     this.freePace = false,
     this.soundEnabled = true,
     this.uiLang,
+    this.eclipseUntil,
+    this.preferredHour,
+    this.notificationsEnabled = false,
   });
 
   /// Язык изучения: `de`. До M8 в ассетах лежит озвучка ровно одного.
@@ -53,6 +56,17 @@ class Player {
   /// ударного слога — но не отключается как механика.
   final bool soundEnabled;
 
+  /// Затмение: до какого дня пропуски не считаются.
+  final DateTime? eclipseUntil;
+
+  /// Час, в который игрок обычно играет: по нему подстраивается напоминание.
+  final int? preferredHour;
+
+  /// Напоминания включены. По умолчанию выключены: разрешение на пуши
+  /// спрашивается тогда, когда игроку есть что напоминать, а не на первом
+  /// экране.
+  final bool notificationsEnabled;
+
   Player copyWith({
     String? targetLang,
     String? nativeLang,
@@ -65,6 +79,9 @@ class Player {
     int? missedInRow,
     bool? freePace,
     bool? soundEnabled,
+    DateTime? Function()? eclipseUntil,
+    int? Function()? preferredHour,
+    bool? notificationsEnabled,
   }) =>
       Player(
         targetLang: targetLang ?? this.targetLang,
@@ -79,5 +96,11 @@ class Player {
         missedInRow: missedInRow ?? this.missedInRow,
         freePace: freePace ?? this.freePace,
         soundEnabled: soundEnabled ?? this.soundEnabled,
+        eclipseUntil:
+            eclipseUntil == null ? this.eclipseUntil : eclipseUntil(),
+        preferredHour:
+            preferredHour == null ? this.preferredHour : preferredHour(),
+        notificationsEnabled:
+            notificationsEnabled ?? this.notificationsEnabled,
       );
 }

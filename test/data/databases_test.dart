@@ -21,11 +21,13 @@ void main() {
     setUp(() => db = AppDatabase(NativeDatabase.memory()));
     tearDown(() => db.close());
 
-    test('схема v1 создаётся и игрок переживает запись-чтение', () async {
-      expect(db.schemaVersion, 1);
+    test('схема создаётся и игрок переживает запись-чтение', () async {
+      // Версия растёт вместе с миграциями: v2 добавила затмения и
+      // напоминания (M5).
+      expect(db.schemaVersion, 2);
       expect(await db.loadPlayer(), isNull);
 
-      await db.savePlayer(const Player(
+      await db.savePlayer(Player(
         targetLang: 'de',
         nativeLang: 'uk',
         uiLang: 'en',
@@ -34,6 +36,9 @@ void main() {
         orbit: 4,
         sparks: 120,
         soundEnabled: false,
+        notificationsEnabled: true,
+        preferredHour: 21,
+        eclipseUntil: DateTime.utc(2026, 6, 1),
       ));
 
       final loaded = await db.loadPlayer();
@@ -47,6 +52,14 @@ void main() {
       expect(loaded.orbit, 4);
       expect(loaded.sparks, 120);
       expect(loaded.soundEnabled, isFalse);
+      expect(loaded.notificationsEnabled, isTrue);
+      expect(loaded.preferredHour, 21);
+      // Drift хранит дату как unix-секунды и отдаёт её в локальной зоне:
+      // момент тот же, флаг UTC — нет. Сравнивать надо моменты.
+      expect(
+        loaded.eclipseUntil!.isAtSameMomentAs(DateTime.utc(2026, 6, 1)),
+        isTrue,
+      );
     });
 
     test('игрок — всегда одна строка', () async {

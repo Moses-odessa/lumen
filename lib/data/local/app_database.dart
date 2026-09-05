@@ -26,6 +26,16 @@ class Players extends Table {
   BoolColumn get soundEnabled =>
       boolean().withDefault(const Constant(true))();
 
+  /// Затмение: до какого дня пропуски не считаются (M5).
+  DateTimeColumn get eclipseUntil => dateTime().nullable()();
+
+  /// Час, в который игрок обычно играет. По нему подстраивается время
+  /// напоминания — «удобно ему», а не «удобно нам».
+  IntColumn get preferredHour => integer().nullable()();
+
+  BoolColumn get notificationsEnabled =>
+      boolean().withDefault(const Constant(false))();
+
   @override
   Set<Column> get primaryKey => {id};
 }
@@ -134,11 +144,19 @@ class AppDatabase extends _$AppDatabase {
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          if (from < 2) {
+            // M5: затмения, время напоминания и сами напоминания.
+            await m.addColumn(players, players.eclipseUntil);
+            await m.addColumn(players, players.preferredHour);
+            await m.addColumn(players, players.notificationsEnabled);
+          }
+        },
       );
 
   // ── Игрок ───────────────────────────────────────────────────────────────
@@ -222,6 +240,58 @@ class AppDatabase extends _$AppDatabase {
             ..limit(limit))
           .get();
 
+  /// Последние ответы — из них считается медианный отклик.
+  Future<List<ReviewRow>> recentReviews({int limit = 500}) =>
+      (select(reviews)
+            ..orderBy([
+              (t) => OrderingTerm(expression: t.at, mode: OrderingMode.desc),
+            ])
+            ..limit(limit))
+          .get();
+
+  /// Схлопывает журнал старше [keep]: `Reviews` растёт неограниченно, и у
+  /// активного игрока за год он перевалит за сотню тысяч строк
+  /// (docs/DATA_MODEL.md).
+  ///
+  /// Агрегаты не пишем: всё, что нужно для дообучения FSRS, — свежий хвост,
+  /// а история годовой давности не влияет ни на интервалы, ни на метрики.
+  Future<int> pruneReviews(DateTime now, {Duration keep = const Duration(days: 180)}) =>
+      (delete(reviews)..where((t) => t.at.isSmallerThanValue(now.subtract(keep))))
+          .go();
+
+  // ── Ночной вызов ────────────────────────────────────────────────────────
+
+  Future<DailyChallengeResultRow?> loadChallengeResult(String day) =>
+      (select(dailyChallengeResults)..where((t) => t.day.equals(day)))
+          .getSingleOrNull();
+
+  Future<void> saveChallengeResult(DailyChallengeResultsCompanion result) =>
+      into(dailyChallengeResults).insertOnConflictUpdate(result);
+
+  Future<List<DailyChallengeResultRow>> loadChallengeHistory({
+    int limit = 30,
+  }) =>
+      (select(dailyChallengeResults)
+            ..orderBy([
+              (t) => OrderingTerm(expression: t.day, mode: OrderingMode.desc),
+            ])
+            ..limit(limit))
+          .get();
+
+  // ── Свои слова ──────────────────────────────────────────────────────────
+
+  Future<List<CustomConceptRow>> loadCustomConcepts() =>
+      (select(customConcepts)..orderBy([(t) => OrderingTerm(expression: t.id)]))
+          .get();
+
+  Future<void> replaceCustomConcepts(
+    List<CustomConceptsCompanion> items,
+  ) =>
+      batch((b) {
+        b.deleteWhere(customConcepts, (_) => const Constant(true));
+        b.insertAll(customConcepts, items);
+      });
+
   /// Полное удаление данных (настройка приватности, M5).
   Future<void> wipe() => transaction(() async {
         await delete(players).go();
@@ -245,6 +315,9 @@ class AppDatabase extends _$AppDatabase {
         missedInRow: row.missedInRow,
         freePace: row.freePace,
         soundEnabled: row.soundEnabled,
+        eclipseUntil: row.eclipseUntil,
+        preferredHour: row.preferredHour,
+        notificationsEnabled: row.notificationsEnabled,
       );
 
   PlayersCompanion _toPlayerRow(Player p) => PlayersCompanion(
@@ -260,5 +333,8 @@ class AppDatabase extends _$AppDatabase {
         missedInRow: Value(p.missedInRow),
         freePace: Value(p.freePace),
         soundEnabled: Value(p.soundEnabled),
+        eclipseUntil: Value(p.eclipseUntil),
+        preferredHour: Value(p.preferredHour),
+        notificationsEnabled: Value(p.notificationsEnabled),
       );
 }
