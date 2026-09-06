@@ -156,8 +156,8 @@ tiers:
         register: casual
         concepts: [tea_drink]
       - id: food_a2_potato
-        template: "Dazu nehme ich {potato}."
-        answer: Kartoffeln
+        template: "Die {potato} ist gekocht."
+        answer: Kartoffel
         register: casual
         concepts: [potato_food]
       - id: food_a2_cake
@@ -190,3 +190,179 @@ tiers:
         answer: Schokolade
         register: casual
         concepts: [chocolate_food]
+
+  b1:
+    concepts:
+      - { id: ingredient_noun, pos: noun, freq_rank: 5240 }
+      - { id: recipe_noun, pos: noun, freq_rank: 4870 }
+      - { id: pan_object, pos: noun, freq_rank: 5610 }
+      - { id: pot_object, pos: noun, freq_rank: 5430 }
+      - { id: starter_food, pos: noun, freq_rank: 6120 }
+      - { id: maincourse_food, pos: noun, freq_rank: 5890 }
+      - { id: dessert_food, pos: noun, freq_rank: 5340 }
+      - { id: portion_noun, pos: noun, freq_rank: 4760 }
+      - { id: sidedish_food, pos: noun, freq_rank: 6340 }
+      - { id: spice_food, pos: noun, freq_rank: 5180 }
+      - { id: garlic_food, pos: noun, freq_rank: 5920 }
+      - { id: onion_food, pos: noun, freq_rank: 5470 }
+      - { id: mushroom_food, pos: noun, freq_rank: 5760 }
+      - { id: bean_food, pos: noun, freq_rank: 5610 }
+      - { id: lentil_food, pos: noun, freq_rank: 6580 }
+      - { id: wholegrain_food, pos: noun, freq_rank: 6710 }
+      - { id: groceries_noun, pos: noun, freq_rank: 4390 }
+      - { id: shelflife_noun, pos: noun, freq_rank: 6240 }
+      - { id: preparation_noun, pos: noun, freq_rank: 5060 }
+      - { id: taste_noun, pos: noun, freq_rank: 3870 }
+      - { id: nutrition_noun, pos: noun, freq_rank: 4520 }
+      - { id: cookingtime_noun, pos: noun, freq_rank: 6890 }
+      - { id: freshness_noun, pos: noun, freq_rank: 6030 }
+      - { id: coldchain_noun, pos: noun, freq_rank: 7420 }
+    phrases:
+      - id: food_b1_ingredient
+        template: "Eine {ingredient} fehlt noch."
+        answer: Zutat
+        register: casual
+        concepts: [ingredient_noun]
+      - id: food_b1_recipe
+        template: "Das {recipe} ist von meiner Oma."
+        answer: Kochrezept
+        register: casual
+        concepts: [recipe_noun]
+      - id: food_b1_portion
+        template: "Die {portion} ist zu klein."
+        answer: Portion
+        register: casual
+        concepts: [portion_noun]
+      - id: food_b1_taste
+        template: "Der {taste} ist ungewöhnlich."
+        answer: Geschmack
+        register: casual
+        concepts: [taste_noun]
+      - id: food_b1_nutrition
+        template: "Achten Sie auf Ihre {nutrition}."
+        answer: Ernährung
+        register: formal
+        concepts: [nutrition_noun]
+      - id: food_b1_shelflife
+        template: "Die {shelflife} ist abgelaufen."
+        answer: Haltbarkeit
+        register: formal
+        concepts: [shelflife_noun]
+      - id: food_b1_dessert
+        template: "Zum {dessert} gibt es Eis."
+        answer: Nachtisch
+        register: casual
+        concepts: [dessert_food]
+      - id: food_b1_maincourse
+        template: "Als {maincourse} nehme ich Fisch."
+        answer: Hauptgericht
+        register: formal
+        concepts: [maincourse_food]
+      - id: food_b1_spice
+        template: "Welches {spice} ist das?"
+        answer: Gewürz
+        register: casual
+        concepts: [spice_food]
+      - id: food_b1_preparation
+        template: "Die {preparation} dauert zwanzig Minuten."
+        answer: Zubereitung
+        register: formal
+        concepts: [preparation_noun]
+      - id: food_b1_onion
+        template: "Schneiden Sie die {onion} klein."
+        answer: Zwiebel
+        register: formal
+        concepts: [onion_food]
+      - id: food_b1_groceries
+        template: "Die {groceries} sind teurer geworden."
+        answer: Nahrungsmittel
+        register: formal
+        concepts: [groceries_noun]
+
+  b2:
+    concepts:
+      - { id: nutritionalvalue_noun, pos: noun, freq_rank: 6840 }
+      - { id: calorie_noun, pos: noun, freq_rank: 5210 }
+      - { id: protein_noun, pos: noun, freq_rank: 5670 }
+      - { id: carbohydrate_noun, pos: noun, freq_rank: 6390 }
+      - { id: fibre_noun, pos: noun, freq_rank: 6910 }
+      - { id: preservative_noun, pos: noun, freq_rank: 7240 }
+      - { id: additive_noun, pos: noun, freq_rank: 6580 }
+      - { id: labelling_noun, pos: noun, freq_rank: 6120 }
+      - { id: intolerance_noun, pos: noun, freq_rank: 6740 }
+      - { id: allergen_noun, pos: noun, freq_rank: 7060 }
+      - { id: lactose_noun, pos: noun, freq_rank: 6470 }
+      - { id: gluten_noun, pos: noun, freq_rank: 6350 }
+      - { id: organicproduct_noun, pos: noun, freq_rank: 5930 }
+      - { id: countryoforigin_noun, pos: noun, freq_rank: 6280 }
+      - { id: bestbefore_noun, pos: noun, freq_rank: 7380 }
+      - { id: supplychain_noun, pos: noun, freq_rank: 6030 }
+      - { id: producer_person, pos: noun, freq_rank: 5480 }
+      - { id: wholesale_noun, pos: noun, freq_rank: 6160 }
+      - { id: retail_noun, pos: noun, freq_rank: 5740 }
+      - { id: consumerprotection_noun, pos: noun, freq_rank: 6620 }
+      - { id: foodlaw_noun, pos: noun, freq_rank: 7510 }
+      - { id: hygienerule_noun, pos: noun, freq_rank: 7190 }
+      - { id: sustainability_noun, pos: noun, freq_rank: 5360 }
+      - { id: regionality_noun, pos: noun, freq_rank: 7620 }
+    phrases:
+      - id: food_b2_labelling
+        template: "Die {labelling} ist vorgeschrieben."
+        answer: Kennzeichnung
+        register: formal
+        concepts: [labelling_noun]
+      - id: food_b2_allergen
+        template: "Jedes {allergen} muss genannt werden."
+        answer: Allergen
+        register: formal
+        concepts: [allergen_noun]
+      - id: food_b2_intolerance
+        template: "Er hat eine {intolerance}."
+        answer: Unverträglichkeit
+        register: formal
+        concepts: [intolerance_noun]
+      - id: food_b2_origin
+        template: "Das {origin} steht auf der Packung."
+        answer: Herkunftsland
+        register: formal
+        concepts: [countryoforigin_noun]
+      - id: food_b2_supplychain
+        template: "Die {supplychain} ist unterbrochen."
+        answer: Lieferkette
+        register: formal
+        concepts: [supplychain_noun]
+      - id: food_b2_sustainability
+        template: "Wir setzen auf {sustainability}."
+        answer: Nachhaltigkeit
+        register: formal
+        concepts: [sustainability_noun]
+      - id: food_b2_additive
+        template: "Ohne {additive} hält es kürzer."
+        answer: Zusatzstoff
+        register: formal
+        concepts: [additive_noun]
+      - id: food_b2_retail
+        template: "Im {retail} kostet es mehr."
+        answer: Einzelhandel
+        register: formal
+        concepts: [retail_noun]
+      - id: food_b2_consumerprotection
+        template: "Der {consumerprotection} greift hier."
+        answer: Verbraucherschutz
+        register: formal
+        concepts: [consumerprotection_noun]
+      - id: food_b2_nutritionalvalue
+        template: "Der {nutritionalvalue} steht hinten."
+        answer: Nährwert
+        register: formal
+        concepts: [nutritionalvalue_noun]
+      - id: food_b2_organic
+        template: "Das {organic} ist teurer."
+        answer: Bioprodukt
+        register: casual
+        concepts: [organicproduct_noun]
+      - id: food_b2_hygiene
+        template: "Die {hygiene} gilt für alle Betriebe."
+        answer: Hygienevorschrift
+        register: formal
+        concepts: [hygienerule_noun]

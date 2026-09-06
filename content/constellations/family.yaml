@@ -27,7 +27,7 @@ tiers:
       - { id: old_adj, pos: adj, freq_rank: 590 }
     phrases:
       - id: family_a0_name
-        template: "Wie ist Ihr {name}?"
+        template: "Wie lautet Ihr {name}?"
         answer: Name
         register: formal
         concepts: [name_noun]
@@ -136,8 +136,8 @@ tiers:
         register: casual
         concepts: [siblings_noun]
       - id: family_a2_surname
-        template: "Wie schreibt man Ihren {surname}?"
-        answer: Nachnamen
+        template: "Mein {surname} ist selten."
+        answer: Nachname
         register: formal
         concepts: [surname_noun]
       - id: family_a2_marriage
@@ -190,3 +190,179 @@ tiers:
         answer: Familienstand
         register: formal
         concepts: [maritalstatus_noun]
+
+  b1:
+    concepts:
+      - { id: guardian_person, pos: noun, freq_rank: 5470 }
+      - { id: custody_noun, pos: noun, freq_rank: 5180 }
+      - { id: maintenance_payment, pos: noun, freq_rank: 4920 }
+      - { id: childbenefit_noun, pos: noun, freq_rank: 5340 }
+      - { id: parentalallowance_noun, pos: noun, freq_rank: 6210 }
+      - { id: parentalleave_noun, pos: noun, freq_rank: 5760 }
+      - { id: childcare_noun, pos: noun, freq_rank: 4630 }
+      - { id: childminder_person, pos: noun, freq_rank: 6480 }
+      - { id: adoption_noun, pos: noun, freq_rank: 5090 }
+      - { id: fosterfamily_noun, pos: noun, freq_rank: 6370 }
+      - { id: godparenthood_noun, pos: noun, freq_rank: 6940 }
+      - { id: inheritance_noun, pos: noun, freq_rank: 4280 }
+      - { id: will_noun, pos: noun, freq_rank: 4510 }
+      - { id: estate_noun, pos: noun, freq_rank: 5620 }
+      - { id: powerofattorney_noun, pos: noun, freq_rank: 5830 }
+      - { id: healthproxy_noun, pos: noun, freq_rank: 7150 }
+      - { id: registryoffice_place, pos: noun, freq_rank: 5960 }
+      - { id: marriageceremony_noun, pos: noun, freq_rank: 6040 }
+      - { id: birthcertificate_noun, pos: noun, freq_rank: 5710 }
+      - { id: deathcertificate_noun, pos: noun, freq_rank: 6530 }
+      - { id: familybook_object, pos: noun, freq_rank: 7290 }
+      - { id: kinshipdegree_noun, pos: noun, freq_rank: 7480 }
+      - { id: generation_noun, pos: noun, freq_rank: 3840 }
+      - { id: cohabitation_noun, pos: noun, freq_rank: 6180 }
+    phrases:
+      - id: family_b1_custody
+        template: "Das {custody} liegt bei der Mutter."
+        answer: Sorgerecht
+        register: formal
+        concepts: [custody_noun]
+      - id: family_b1_maintenance
+        template: "Der {maintenance} wird monatlich gezahlt."
+        answer: Unterhalt
+        register: formal
+        concepts: [maintenance_payment]
+      - id: family_b1_childbenefit
+        template: "Das {childbenefit} kommt vom Staat."
+        answer: Kindergeld
+        register: formal
+        concepts: [childbenefit_noun]
+      - id: family_b1_parentalleave
+        template: "Er nimmt {parentalleave}."
+        answer: Elternzeit
+        register: casual
+        concepts: [parentalleave_noun]
+      - id: family_b1_will
+        template: "Das {will} liegt beim Notar."
+        answer: Testament
+        register: formal
+        concepts: [will_noun]
+      - id: family_b1_inheritance
+        template: "Das {inheritance} wird geteilt."
+        answer: Erbe
+        register: formal
+        concepts: [inheritance_noun]
+      - id: family_b1_registryoffice
+        template: "Wir heiraten im {registryoffice}."
+        answer: Standesamt
+        register: casual
+        concepts: [registryoffice_place]
+      - id: family_b1_birthcertificate
+        template: "Bringen Sie die {birthcertificate} mit."
+        answer: Geburtsurkunde
+        register: formal
+        concepts: [birthcertificate_noun]
+      - id: family_b1_powerofattorney
+        template: "Ohne {powerofattorney} geht das nicht."
+        answer: Vollmacht
+        register: formal
+        concepts: [powerofattorney_noun]
+      - id: family_b1_adoption
+        template: "Die {adoption} dauerte zwei Jahre."
+        answer: Adoption
+        register: formal
+        concepts: [adoption_noun]
+      - id: family_b1_generation
+        template: "Die junge {generation} denkt anders."
+        answer: Generation
+        register: casual
+        concepts: [generation_noun]
+      - id: family_b1_childcare
+        template: "Die {childcare} kostet dreihundert Euro."
+        answer: Betreuung
+        register: formal
+        concepts: [childcare_noun]
+
+  b2:
+    concepts:
+      - { id: prenup_noun, pos: noun, freq_rank: 7140 }
+      - { id: separationofproperty_noun, pos: noun, freq_rank: 8020 }
+      - { id: communityofaccrued_noun, pos: noun, freq_rank: 8340 }
+      - { id: pensionequalisation_noun, pos: noun, freq_rank: 8160 }
+      - { id: maintenanceobligation_noun, pos: noun, freq_rank: 7280 }
+      - { id: maintenancetitle_noun, pos: noun, freq_rank: 8410 }
+      - { id: custodydispute_noun, pos: noun, freq_rank: 7630 }
+      - { id: accessright_noun, pos: noun, freq_rank: 7050 }
+      - { id: childwelfare_noun, pos: noun, freq_rank: 6820 }
+      - { id: youthoffice_place, pos: noun, freq_rank: 6240 }
+      - { id: familycourt_place, pos: noun, freq_rank: 6570 }
+      - { id: succession_noun, pos: noun, freq_rank: 7190 }
+      - { id: compulsoryshare_noun, pos: noun, freq_rank: 7460 }
+      - { id: inheritancetax_noun, pos: noun, freq_rank: 6910 }
+      - { id: bequest_noun, pos: noun, freq_rank: 7350 }
+      - { id: estateadministration_noun, pos: noun, freq_rank: 8080 }
+      - { id: guardianshiplaw_noun, pos: noun, freq_rank: 7720 }
+      - { id: livingwill_noun, pos: noun, freq_rank: 6480 }
+      - { id: generationalcontract_noun, pos: noun, freq_rank: 7840 }
+      - { id: pensionclaim_noun, pos: noun, freq_rank: 6360 }
+      - { id: survivorspension_noun, pos: noun, freq_rank: 7510 }
+      - { id: familyreunion_noun, pos: noun, freq_rank: 6740 }
+      - { id: residencepermit_noun, pos: noun, freq_rank: 5920 }
+      - { id: naturalisation_noun, pos: noun, freq_rank: 6580 }
+    phrases:
+      - id: family_b2_prenup
+        template: "Ohne {prenup} gilt die gesetzliche Regel."
+        answer: Ehevertrag
+        register: formal
+        concepts: [prenup_noun]
+      - id: family_b2_accessright
+        template: "Das {accessright} ist geregelt."
+        answer: Umgangsrecht
+        register: formal
+        concepts: [accessright_noun]
+      - id: family_b2_youthoffice
+        template: "Das {youthoffice} wurde eingeschaltet."
+        answer: Jugendamt
+        register: formal
+        concepts: [youthoffice_place]
+      - id: family_b2_familycourt
+        template: "Das {familycourt} entscheidet."
+        answer: Familiengericht
+        register: formal
+        concepts: [familycourt_place]
+      - id: family_b2_compulsoryshare
+        template: "Ihm steht der {compulsoryshare} zu."
+        answer: Pflichtteil
+        register: formal
+        concepts: [compulsoryshare_noun]
+      - id: family_b2_inheritancetax
+        template: "Die {inheritancetax} ist hoch."
+        answer: Erbschaftsteuer
+        register: formal
+        concepts: [inheritancetax_noun]
+      - id: family_b2_livingwill
+        template: "Die {livingwill} liegt vor."
+        answer: Patientenverfügung
+        register: formal
+        concepts: [livingwill_noun]
+      - id: family_b2_residencepermit
+        template: "Der {residencepermit} läuft ab."
+        answer: Aufenthaltstitel
+        register: formal
+        concepts: [residencepermit_noun]
+      - id: family_b2_naturalisation
+        template: "Die {naturalisation} dauert Jahre."
+        answer: Einbürgerung
+        register: formal
+        concepts: [naturalisation_noun]
+      - id: family_b2_reunion
+        template: "Der {reunion} wurde genehmigt."
+        answer: Familiennachzug
+        register: formal
+        concepts: [familyreunion_noun]
+      - id: family_b2_pensionclaim
+        template: "Der {pensionclaim} entsteht mit 67."
+        answer: Rentenanspruch
+        register: formal
+        concepts: [pensionclaim_noun]
+      - id: family_b2_childwelfare
+        template: "Das {childwelfare} steht im Vordergrund."
+        answer: Kindeswohl
+        register: formal
+        concepts: [childwelfare_noun]

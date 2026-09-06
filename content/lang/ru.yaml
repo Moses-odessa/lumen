@@ -583,3 +583,391 @@ lexemes:
   tax_noun: { form: налог, gender: m, plural: налоги }
   socialcontribution_noun: { form: социальный взнос, gender: m }
   payslip_noun: { form: расчётный лист, gender: m }
+
+  # ── B1, все созвездия ─────────────────────────────────────────────────
+  ingredient_noun: { form: ингредиент, gender: m, plural: ингредиенты }
+  recipe_noun: { form: рецепт блюда, gender: m }
+  pan_object: { form: сковорода, gender: f, plural: сковороды }
+  pot_object: { form: кастрюля, gender: f, plural: кастрюли }
+  starter_food: { form: закуска, gender: f, plural: закуски }
+  maincourse_food: { form: основное блюдо, gender: n }
+  dessert_food: { form: десерт, gender: m, plural: десерты }
+  portion_noun: { form: порция, gender: f, plural: порции }
+  sidedish_food: { form: гарнир, gender: m, plural: гарниры }
+  spice_food: { form: специя, gender: f, plural: специи }
+  garlic_food: { form: чеснок, gender: m }
+  onion_food: { form: лук, gender: m }
+  mushroom_food: { form: гриб, gender: m, plural: грибы }
+  bean_food: { form: фасоль, gender: f }
+  lentil_food: { form: чечевица, gender: f }
+  wholegrain_food: { form: цельное зерно, gender: n }
+  groceries_noun: { form: продукты питания, gender: m }
+  shelflife_noun: { form: срок годности, gender: m }
+  preparation_noun: { form: приготовление, gender: n }
+  taste_noun: { form: вкус, gender: m, plural: вкусы }
+  nutrition_noun: { form: питание, gender: n }
+  cookingtime_noun: { form: время приготовления, gender: n }
+  freshness_noun: { form: свежесть, gender: f }
+  coldchain_noun: { form: холодовая цепь, gender: f }
+  transportmeans_noun: { form: транспортное средство, gender: n }
+  localtransport_noun: { form: пригородный транспорт, gender: m }
+  longdistance_noun: { form: дальнее сообщение, gender: n }
+  surcharge_noun: { form: доплата, gender: f, plural: доплаты }
+  reduction_noun: { form: льгота, gender: f, plural: льготы }
+  monthlyticket_noun: { form: проездной, gender: m, plural: проездные }
+  validation_noun: { form: компостирование, gender: n }
+  passenger_person: { form: пассажир, gender: m, plural: пассажиры }
+  conductor_person: { form: кондуктор, gender: m, plural: кондукторы }
+  levelcrossing_place: { form: переезд, gender: m, plural: переезды }
+  rightofway_noun: { form: преимущество проезда, gender: n }
+  overtakingban_noun: { form: запрет обгона, gender: m }
+  speedlimit_noun: { form: ограничение скорости, gender: n }
+  fine_noun: { form: штраф, gender: m, plural: штрафы }
+  drivingban_noun: { form: лишение прав, gender: n }
+  numberplate_object: { form: номерной знак, gender: m }
+  registration_noun: { form: регистрация авто, gender: f }
+  inspection_noun: { form: техосмотр, gender: m, plural: техосмотры }
+  emissionstandard_noun: { form: экологический стандарт, gender: m }
+  chargingpoint_place: { form: зарядная станция, gender: f }
+  range_noun: { form: запас хода, gender: m }
+  consumption_noun: { form: расход топлива, gender: m }
+  maintenance_noun: { form: техобслуживание, gender: n }
+  breakdownservice_noun: { form: техпомощь, gender: f }
+  tenancylaw_noun: { form: жилищное право, gender: n }
+  noticeperiod_noun: { form: срок расторжения, gender: m }
+  sublet_noun: { form: субаренда, gender: f }
+  rentincrease_noun: { form: повышение аренды, gender: n }
+  utilitiesbill_noun: { form: счёт за коммунальные, gender: m }
+  livingspace_noun: { form: жилая площадь, gender: f }
+  floorplan_object: { form: планировка, gender: f, plural: планировки }
+  groundfloor_place: { form: первый этаж, gender: m }
+  atticfloor_place: { form: мансарда, gender: f, plural: мансарды }
+  renovation_noun: { form: ремонт, gender: m, plural: ремонты }
+  refurbishment_noun: { form: реконструкция, gender: f }
+  mould_noun: { form: плесень, gender: f }
+  damp_noun: { form: сырость, gender: f }
+  tradesman_person: { form: мастер, gender: m, plural: мастера }
+  repair_noun: { form: починка, gender: f, plural: починки }
+  defect_noun: { form: дефект, gender: m, plural: дефекты }
+  residentregistration_noun: { form: прописка, gender: f }
+  registrationcertificate_noun: { form: справка о регистрации, gender: f }
+  contentsinsurance_noun: { form: страховка имущества, gender: f }
+  smokedetector_object: { form: датчик дыма, gender: m }
+  energycertificate_noun: { form: энергопаспорт, gender: m }
+  heatingcosts_noun: { form: расходы на отопление, gender: m }
+  watermeter_object: { form: счётчик воды, gender: m }
+  wastesorting_noun: { form: сортировка мусора, gender: f }
+  withdrawalright_noun: { form: право на возврат, gender: n }
+  withdrawalperiod_noun: { form: срок возврата, gender: m }
+  purchasecontract_noun: { form: договор купли-продажи, gender: m }
+  statutorywarranty_noun: { form: гарантия по закону, gender: f }
+  rectification_noun: { form: устранение недостатка, gender: n }
+  pricereduction_noun: { form: уценка, gender: f, plural: уценки }
+  deliverytime_noun: { form: срок доставки, gender: m }
+  cashondelivery_noun: { form: наложенный платёж, gender: m }
+  tracking_noun: { form: отслеживание, gender: n }
+  clearanceitem_noun: { form: уценённый товар, gender: m }
+  remainder_noun: { form: остаток партии, gender: m }
+  financing_noun: { form: рассрочка от банка, gender: f }
+  creditrating_noun: { form: кредитный рейтинг, gender: m }
+  directdebit_noun: { form: прямое списание, gender: n }
+  chargeback_noun: { form: возврат списания, gender: m }
+  paymentterm_noun: { form: срок оплаты, gender: m }
+  reminder_noun: { form: напоминание об оплате, gender: n }
+  debtcollection_noun: { form: взыскание долга, gender: n }
+  billingaddress_noun: { form: адрес для счёта, gender: m }
+  deliveryaddress_noun: { form: адрес доставки, gender: m }
+  middleman_person: { form: посредник, gender: m, plural: посредники }
+  pricecomparison_noun: { form: сравнение цен, gender: n }
+  review_noun: { form: отзыв покупателя, gender: m }
+  loyaltypoints_noun: { form: бонусные баллы, gender: m }
+  guardian_person: { form: опекун, gender: m, plural: опекуны }
+  custody_noun: { form: право опеки, gender: n }
+  maintenance_payment: { form: алименты, gender: m, plural: алименты }
+  childbenefit_noun: { form: пособие на ребёнка, gender: n }
+  parentalallowance_noun: { form: родительское пособие, gender: n }
+  parentalleave_noun: { form: родительский отпуск, gender: m }
+  childcare_noun: { form: присмотр за детьми, gender: m }
+  childminder_person: { form: няня, gender: f, plural: няни }
+  adoption_noun: { form: усыновление, gender: n }
+  fosterfamily_noun: { form: приёмная семья, gender: f }
+  godparenthood_noun: { form: крёстное родство, gender: n }
+  inheritance_noun: { form: наследство, gender: n }
+  will_noun: { form: завещание, gender: n, plural: завещания }
+  estate_noun: { form: наследственная масса, gender: f }
+  powerofattorney_noun: { form: доверенность, gender: f, plural: доверенности }
+  healthproxy_noun: { form: доверенность на лечение, gender: f }
+  registryoffice_place: { form: загс, gender: m }
+  marriageceremony_noun: { form: заключение брака, gender: n }
+  birthcertificate_noun: { form: свидетельство о рождении, gender: n }
+  deathcertificate_noun: { form: свидетельство о смерти, gender: n }
+  familybook_object: { form: семейная книга, gender: f }
+  kinshipdegree_noun: { form: степень родства, gender: f }
+  generation_noun: { form: поколение, gender: n, plural: поколения }
+  cohabitation_noun: { form: совместное проживание, gender: n }
+  period_noun: { form: период, gender: m, plural: периоды }
+  pointintime_noun: { form: момент времени, gender: m }
+  cutoffdate_noun: { form: крайняя дата, gender: f }
+  delay_general: { form: задержка, gender: f, plural: задержки }
+  postponement_noun: { form: отсрочка, gender: f, plural: отсрочки }
+  schedule_noun: { form: график, gender: m, plural: графики }
+  sequenceflow_noun: { form: ход, gender: m }
+  order_sequence: { form: очерёдность, gender: f }
+  simultaneity_noun: { form: одновременность, gender: f }
+  regularity_noun: { form: регулярность, gender: f }
+  frequency_general: { form: частота, gender: f }
+  timezone_noun: { form: часовой пояс, gender: m }
+  summertime_noun: { form: летнее время, gender: n }
+  wintertime_noun: { form: зимнее время, gender: n }
+  leapyear_noun: { form: високосный год, gender: m }
+  anniversary_noun: { form: годовщина, gender: f, plural: годовщины }
+  timewaste_noun: { form: трата времени, gender: f }
+  punctuality_noun: { form: пунктуальность, gender: f }
+  diary_object: { form: ежедневник, gender: m, plural: ежедневники }
+  leadtime_noun: { form: время подготовки, gender: n }
+  graceperiod_noun: { form: дополнительный срок, gender: m }
+  timepressure_noun: { form: нехватка времени, gender: f }
+  opportunity_noun: { form: возможность, gender: f, plural: возможности }
+  eternity_noun: { form: вечность, gender: f }
+  municipality_place: { form: община, gender: f, plural: общины }
+  county_place: { form: район, gender: m, plural: районы }
+  borough_place: { form: округ, gender: m, plural: округа }
+  mayor_person: { form: бургомистр, gender: m, plural: бургомистры }
+  citycouncil_noun: { form: городской совет, gender: m }
+  constituency_place: { form: избирательный округ, gender: m }
+  registrationoffice_place: { form: паспортный стол, gender: m }
+  publicorder_office: { form: служба порядка, gender: f }
+  buildingauthority_place: { form: строительное управление, gender: n }
+  permit_noun: { form: разрешение, gender: n, plural: разрешения }
+  application_form: { form: заявление, gender: n, plural: заявления }
+  form_object: { form: бланк, gender: m, plural: бланки }
+  fee_noun: { form: пошлина, gender: f, plural: пошлины }
+  notice_decision: { form: уведомление, gender: n, plural: уведомления }
+  civicobjection_noun: { form: возражение, gender: n, plural: возражения }
+  publicsurgery_noun: { form: приём граждан, gender: m }
+  publicsphere_noun: { form: общественность, gender: f }
+  infrastructure_noun: { form: инфраструктура, gender: f }
+  urbandevelopment_noun: { form: городское развитие, gender: n }
+  greenspace_place: { form: зелёная зона, gender: f }
+  localsupply_noun: { form: местное снабжение, gender: n }
+  trafficcalming_noun: { form: успокоение движения, gender: n }
+  redevelopmentarea_place: { form: зона реконструкции, gender: f }
+  jurisdiction_noun: { form: компетенция, gender: f }
+  jobadvert_noun: { form: объявление о вакансии, gender: n }
+  coverletter_noun: { form: сопроводительное письмо, gender: n }
+  qualification_noun: { form: квалификация, gender: f }
+  competence_noun: { form: компетенция специалиста, gender: f }
+  workreference_noun: { form: трудовая характеристика, gender: f }
+  fixedterm_noun: { form: срочность договора, gender: f }
+  permanentcontract_noun: { form: перевод в бессрочный, gender: m }
+  warning_noun: { form: предупреждение, gender: n }
+  terminationagreement_noun: { form: соглашение о расторжении, gender: n }
+  dismissalprotection_noun: { form: защита от увольнения, gender: f }
+  companyagreement_noun: { form: соглашение с советом, gender: n }
+  collectiveagreement_noun: { form: тарифный договор, gender: m }
+  minimumwage_noun: { form: минимальная зарплата, gender: f }
+  salarynegotiation_noun: { form: переговоры о зарплате, gender: m }
+  bonuspayment_noun: { form: разовая выплата, gender: f }
+  holidayentitlement_noun: { form: право на отпуск, gender: n }
+  remainingleave_noun: { form: остаток отпуска, gender: m }
+  occupationalsafety_noun: { form: охрана труда, gender: f }
+  induction_noun: { form: введение в должность, gender: n }
+  targetagreement_noun: { form: соглашение о целях, gender: n }
+  performancereview_noun: { form: оценка работы, gender: f }
+  personnelfile_noun: { form: личное дело, gender: n }
+  workingatmosphere_noun: { form: атмосфера в коллективе, gender: f }
+  turnover_staff: { form: текучесть кадров, gender: f }
+
+  # ── B2, все созвездия ─────────────────────────────────────────────────
+  nutritionalvalue_noun: { form: пищевая ценность, gender: f }
+  calorie_noun: { form: калория, gender: f, plural: калории }
+  protein_noun: { form: белок, gender: m, plural: белки }
+  carbohydrate_noun: { form: углевод, gender: m, plural: углеводы }
+  fibre_noun: { form: клетчатка, gender: f }
+  preservative_noun: { form: консервант, gender: m, plural: консерванты }
+  additive_noun: { form: добавка, gender: f, plural: добавки }
+  labelling_noun: { form: маркировка, gender: f }
+  intolerance_noun: { form: непереносимость, gender: f }
+  allergen_noun: { form: аллерген, gender: m, plural: аллергены }
+  lactose_noun: { form: лактоза, gender: f }
+  gluten_noun: { form: глютен, gender: m }
+  organicproduct_noun: { form: биопродукт, gender: m, plural: биопродукты }
+  countryoforigin_noun: { form: страна происхождения, gender: f }
+  bestbefore_noun: { form: дата годности, gender: f }
+  supplychain_noun: { form: цепочка поставок, gender: f }
+  producer_person: { form: производитель, gender: m, plural: производители }
+  wholesale_noun: { form: оптовая торговля, gender: f }
+  retail_noun: { form: розничная торговля, gender: f }
+  consumerprotection_noun: { form: защита потребителя, gender: f }
+  foodlaw_noun: { form: пищевое право, gender: n }
+  hygienerule_noun: { form: санитарная норма, gender: f }
+  sustainability_noun: { form: устойчивость, gender: f }
+  regionality_noun: { form: региональность, gender: f }
+  transportinfra_noun: { form: транспортная инфраструктура, gender: f }
+  routenetwork_noun: { form: сеть маршрутов, gender: f }
+  clockfacetimetable_noun: { form: тактовое расписание, gender: n }
+  capacitybottleneck_noun: { form: нехватка мощности, gender: f }
+  emissionlimit_noun: { form: предел выбросов, gender: m }
+  lowemissionzone_noun: { form: экологическая зона, gender: f }
+  particulate_noun: { form: мелкая пыль, gender: f }
+  noiseprotection_noun: { form: шумозащита, gender: f }
+  mobilityshift_noun: { form: транспортный переход, gender: m }
+  electromobility_noun: { form: электромобильность, gender: f }
+  charginginfra_noun: { form: зарядная инфраструктура, gender: f }
+  subsidy_noun: { form: субсидия, gender: f, plural: субсидии }
+  trackprice_noun: { form: плата за пути, gender: f }
+  operatormodel_noun: { form: модель оператора, gender: f }
+  liabilityexclusion_noun: { form: исключение ответственности, gender: n }
+  claimssettlement_noun: { form: урегулирование ущерба, gender: n }
+  comprehensivecover_noun: { form: каско, gender: n }
+  excess_noun: { form: франшиза, gender: f }
+  roadsafety_noun: { form: безопасность движения, gender: f }
+  accidentstatistics_noun: { form: статистика аварий, gender: f }
+  freighttransport_noun: { form: грузовые перевозки, gender: f }
+  logisticschain_noun: { form: логистическая цепь, gender: f }
+  customsclearance_noun: { form: таможенное оформление, gender: n }
+  logbook_object: { form: путевой журнал, gender: m }
+  rentindex_noun: { form: индекс аренды, gender: m }
+  modernisationlevy_noun: { form: надбавка за модернизацию, gender: f }
+  maintenancereserve_noun: { form: резерв на ремонт, gender: m }
+  condominium_noun: { form: собственность на квартиру, gender: f }
+  ownersassociation_noun: { form: товарищество собственников, gender: n }
+  landregister_noun: { form: поземельная книга, gender: f }
+  transfertax_noun: { form: налог на покупку, gender: m }
+  mortgage_noun: { form: ипотека, gender: f, plural: ипотеки }
+  repayment_noun: { form: погашение, gender: n }
+  fixedinterest_noun: { form: фиксация ставки, gender: f }
+  lendingvalue_noun: { form: залоговая стоимость, gender: f }
+  leasehold_noun: { form: право застройки, gender: n }
+  evictionclaim_noun: { form: иск о выселении, gender: m }
+  rentreduction_noun: { form: снижение аренды, gender: n }
+  defectnotice_noun: { form: уведомление о дефектах, gender: n }
+  marketvalue_noun: { form: рыночная стоимость, gender: f }
+  buildingapplication_noun: { form: заявка на строительство, gender: f }
+  developmentplan_noun: { form: план застройки, gender: m }
+  heritageprotection_noun: { form: охрана памятников, gender: f }
+  insulation_noun: { form: теплоизоляция, gender: f }
+  efficiencyclass_noun: { form: класс энергоэффективности, gender: m }
+  advancepayment_noun: { form: авансовый платёж, gender: m }
+  depositaccount_noun: { form: счёт для залога, gender: m }
+  handoverprotocol_noun: { form: акт приёма-передачи, gender: m }
+  termsandconditions_noun: { form: условия сделки, gender: n }
+  contractclause_noun: { form: пункт договора, gender: m }
+  liabilitylimit_noun: { form: ограничение ответственности, gender: n }
+  limitationperiod_noun: { form: исковая давность, gender: f }
+  burdenofproof_noun: { form: бремя доказывания, gender: n }
+  materialdefect_noun: { form: недостаток товара, gender: m }
+  legaldefect_noun: { form: правовой недостаток, gender: m }
+  subsequentperformance_noun: { form: доисполнение, gender: n }
+  withdrawal_contract: { form: отказ от договора, gender: m }
+  damages_noun: { form: возмещение ущерба, gender: n }
+  consumercentre_noun: { form: центр защиты потребителей, gender: m }
+  competitionlaw_noun: { form: конкурентное право, gender: n }
+  pricefixing_noun: { form: поддержание цен, gender: n }
+  cartelauthority_noun: { form: антимонопольное ведомство, gender: n }
+  marketshare_noun: { form: доля рынка, gender: f }
+  supplyshortage_noun: { form: дефицит поставок, gender: m }
+  procurement_noun: { form: закупка, gender: f, plural: закупки }
+  costing_noun: { form: калькуляция, gender: f }
+  margin_noun: { form: маржа, gender: f }
+  returnonsales_noun: { form: рентабельность продаж, gender: f }
+  stocktaking_noun: { form: инвентаризация, gender: f }
+  merchandisesystem_noun: { form: товарный учёт, gender: m }
+  paymentdefault_noun: { form: просрочка платежа, gender: f }
+  creditcheck_noun: { form: проверка платёжеспособности, gender: f }
+  prenup_noun: { form: брачный договор, gender: m }
+  separationofproperty_noun: { form: раздельность имущества, gender: f }
+  communityofaccrued_noun: { form: общность прироста, gender: f }
+  pensionequalisation_noun: { form: раздел пенсионных прав, gender: m }
+  maintenanceobligation_noun: { form: обязанность содержания, gender: f }
+  maintenancetitle_noun: { form: исполнительный лист, gender: m }
+  custodydispute_noun: { form: спор об опеке, gender: m }
+  accessright_noun: { form: право общения, gender: n }
+  childwelfare_noun: { form: благо ребёнка, gender: n }
+  youthoffice_place: { form: служба по делам детей, gender: f }
+  familycourt_place: { form: суд по семейным делам, gender: m }
+  succession_noun: { form: очерёдность наследования, gender: f }
+  compulsoryshare_noun: { form: обязательная доля, gender: f }
+  inheritancetax_noun: { form: налог на наследство, gender: m }
+  bequest_noun: { form: завещательный отказ, gender: m }
+  estateadministration_noun: { form: управление наследством, gender: n }
+  guardianshiplaw_noun: { form: право опекунства, gender: n }
+  livingwill_noun: { form: распоряжение пациента, gender: n }
+  generationalcontract_noun: { form: договор поколений, gender: m }
+  pensionclaim_noun: { form: право на пенсию, gender: n }
+  survivorspension_noun: { form: пенсия по потере кормильца, gender: f }
+  familyreunion_noun: { form: воссоединение семьи, gender: n }
+  residencepermit_noun: { form: вид на жительство, gender: m }
+  naturalisation_noun: { form: натурализация, gender: f }
+  timemanagement_noun: { form: управление временем, gender: n }
+  prioritisation_noun: { form: расстановка приоритетов, gender: f }
+  milestone_noun: { form: контрольная точка, gender: f }
+  projectphase_noun: { form: фаза проекта, gender: f }
+  timeseries_noun: { form: временной ряд, gender: m }
+  periodicity_noun: { form: периодичность, gender: f }
+  synchronisation_noun: { form: синхронизация, gender: f }
+  limitationdeadline_noun: { form: срок давности, gender: m }
+  transitionperiod_noun: { form: переходный период, gender: m }
+  qualifyingperiod_noun: { form: карантинный срок, gender: m }
+  paybackperiod_noun: { form: срок окупаемости, gender: m }
+  halflife_noun: { form: период полураспада, gender: m }
+  chronology_noun: { form: хронология, gender: f }
+  epoch_noun: { form: эпоха, gender: f, plural: эпохи }
+  era_noun: { form: эра, gender: f, plural: эры }
+  zeitgeist_noun: { form: дух времени, gender: m }
+  prehistory_noun: { form: предыстория, gender: f }
+  aftereffect_noun: { form: последействие, gender: n }
+  retroactivity_noun: { form: обратная сила, gender: f }
+  clocking_noun: { form: тактирование, gender: n }
+  frequency_technical: { form: частота сигнала, gender: f }
+  interval_noun: { form: интервал, gender: m, plural: интервалы }
+  rotation_noun: { form: очерёдность смены, gender: f }
+  cycle_noun: { form: цикл, gender: m, plural: циклы }
+  localpolitics_noun: { form: коммунальная политика, gender: f }
+  budgetplan_noun: { form: бюджетный план, gender: m }
+  taxrevenue_noun: { form: налоговые поступления, gender: n }
+  tradetax_noun: { form: промысловый налог, gender: m }
+  levy_noun: { form: сбор, gender: m, plural: сборы }
+  specialpurposeassoc_noun: { form: целевой союз, gender: m }
+  publicservices_noun: { form: базовое обеспечение, gender: n }
+  landuseplan_noun: { form: план землепользования, gender: m }
+  urbanplanninglaw_noun: { form: градостроительное планирование, gender: n }
+  sitedevelopment_noun: { form: освоение участка, gender: n }
+  expropriation_noun: { form: изъятие собственности, gender: n }
+  publicbenefit_noun: { form: общественная польза, gender: f }
+  citizenspetition_noun: { form: инициатива граждан, gender: f }
+  referendum_noun: { form: местный референдум, gender: m }
+  councildecision_noun: { form: решение совета, gender: n }
+  officialgazette_noun: { form: официальный вестник, gender: m }
+  administrativeact_noun: { form: административный акт, gender: m }
+  legalremedy_noun: { form: средство обжалования, gender: n }
+  administrativecourt_place: { form: административный суд, gender: m }
+  minoroffence_noun: { form: административное нарушение, gender: n }
+  hazardprevention_noun: { form: предотвращение опасности, gender: n }
+  disasterresponse_noun: { form: защита от катастроф, gender: f }
+  townplanning_noun: { form: градостроительство, gender: n }
+  heritageconservation_noun: { form: сохранение памятников, gender: n }
+  labourlaw_noun: { form: трудовое право, gender: n }
+  businesstransfer_noun: { form: переход предприятия, gender: m }
+  massredundancy_noun: { form: массовое увольнение, gender: n }
+  socialplan_noun: { form: социальный план, gender: m }
+  interestbalance_noun: { form: согласование интересов, gender: n }
+  shorttimework_noun: { form: сокращённый режим, gender: m }
+  insolvencypay_noun: { form: пособие при банкротстве, gender: n }
+  bogusselfemployment_noun: { form: мнимая самозанятость, gender: f }
+  contractforwork_noun: { form: договор подряда, gender: m }
+  temporarywork_noun: { form: заёмный труд, gender: m }
+  staffleasing_noun: { form: предоставление персонала, gender: n }
+  codetermination_noun: { form: соучастие в управлении, gender: n }
+  supervisoryboard_noun: { form: наблюдательный совет, gender: m }
+  tariffautonomy_noun: { form: тарифная автономия, gender: f }
+  righttostrike_noun: { form: право на забастовку, gender: n }
+  lockout_noun: { form: локаут, gender: m }
+  ancillarycosts_noun: { form: дополнительные расходы, gender: m }
+  socialinsurance_noun: { form: социальное страхование, gender: n }
+  pensioninsurance_noun: { form: пенсионное страхование, gender: n }
+  unemploymentinsurance_noun: { form: страхование по безработице, gender: n }
+  careinsurance_noun: { form: страхование ухода, gender: n }
+  employersliability_noun: { form: профессиональная касса, gender: f }
+  labourcourt_place: { form: трудовой суд, gender: m }
+  conciliationhearing_noun: { form: примирительное слушание, gender: n }

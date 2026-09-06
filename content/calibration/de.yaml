@@ -101,61 +101,65 @@ items:
   - { id: cal_a2_doctor_a2_allergy, tier: a2, phrase: doctor_a2_allergy }
   - { id: cal_a2_family_a2_childhood, tier: a2, phrase: family_a2_childhood }
   - { id: cal_a2_food_a2_bill, tier: a2, phrase: food_a2_bill }
-  # ── B1 (24 слов, 4 фраз) ──
+  # ── B1 (26 слов, 4 фраз) ──
+  - { id: cal_b1_mayor_person, tier: b1, concept: mayor_person }
   - { id: cal_b1_operation_noun, tier: b1, concept: operation_noun }
+  - { id: cal_b1_generation_noun, tier: b1, concept: generation_noun }
+  - { id: cal_b1_taste_noun, tier: b1, concept: taste_noun }
+  - { id: cal_b1_repair_noun, tier: b1, concept: repair_noun }
+  - { id: cal_b1_deliverytime_noun, tier: b1, concept: deliverytime_noun }
+  - { id: cal_b1_opportunity_noun, tier: b1, concept: opportunity_noun }
+  - { id: cal_b1_passenger_person, tier: b1, concept: passenger_person }
+  - { id: cal_b1_qualification_noun, tier: b1, concept: qualification_noun }
+  - { id: cal_b1_municipality_place, tier: b1, concept: municipality_place }
   - { id: cal_b1_therapy_noun, tier: b1, concept: therapy_noun }
+  - { id: cal_b1_inheritance_noun, tier: b1, concept: inheritance_noun }
+  - { id: cal_b1_groceries_noun, tier: b1, concept: groceries_noun }
+  - { id: cal_b1_groundfloor_place, tier: b1, concept: groundfloor_place }
+  - { id: cal_b1_review_noun, tier: b1, concept: review_noun }
+  - { id: cal_b1_period_noun, tier: b1, concept: period_noun }
+  - { id: cal_b1_transportmeans_noun, tier: b1, concept: transportmeans_noun }
+  - { id: cal_b1_competence_noun, tier: b1, concept: competence_noun }
+  - { id: cal_b1_application_form, tier: b1, concept: application_form }
   - { id: cal_b1_infection_noun, tier: b1, concept: infection_noun }
-  - { id: cal_b1_symptom_noun, tier: b1, concept: symptom_noun }
-  - { id: cal_b1_diagnosis_noun, tier: b1, concept: diagnosis_noun }
-  - { id: cal_b1_health_insurance, tier: b1, concept: health_insurance }
-  - { id: cal_b1_blood_pressure, tier: b1, concept: blood_pressure }
-  - { id: cal_b1_specialist_person, tier: b1, concept: specialist_person }
-  - { id: cal_b1_complaints_noun, tier: b1, concept: complaints_noun }
-  - { id: cal_b1_inflammation_noun, tier: b1, concept: inflammation_noun }
-  - { id: cal_b1_antibiotic_noun, tier: b1, concept: antibiotic_noun }
-  - { id: cal_b1_xray_noun, tier: b1, concept: xray_noun }
-  - { id: cal_b1_chronic_adj, tier: b1, concept: chronic_adj }
-  - { id: cal_b1_discharge_noun, tier: b1, concept: discharge_noun }
-  - { id: cal_b1_ultrasound_noun, tier: b1, concept: ultrasound_noun }
-  - { id: cal_b1_anesthesia_noun, tier: b1, concept: anesthesia_noun }
-  - { id: cal_b1_referral_noun, tier: b1, concept: referral_noun }
-  - { id: cal_b1_rehab_noun, tier: b1, concept: rehab_noun }
-  - { id: cal_b1_medical_report, tier: b1, concept: medical_report }
-  - { id: cal_b1_physiotherapy_noun, tier: b1, concept: physiotherapy_noun }
-  - { id: cal_b1_cost_coverage, tier: b1, concept: cost_coverage }
-  - { id: cal_b1_medical_history, tier: b1, concept: medical_history }
-  - { id: cal_b1_blood_draw, tier: b1, concept: blood_draw }
-  - { id: cal_b1_lab_result, tier: b1, concept: lab_result }
+  - { id: cal_b1_will_noun, tier: b1, concept: will_noun }
+  - { id: cal_b1_nutrition_noun, tier: b1, concept: nutrition_noun }
+  - { id: cal_b1_defect_noun, tier: b1, concept: defect_noun }
+  - { id: cal_b1_financing_noun, tier: b1, concept: financing_noun }
+  - { id: cal_b1_pointintime_noun, tier: b1, concept: pointintime_noun }
+  - { id: cal_b1_consumption_noun, tier: b1, concept: consumption_noun }
+  - { id: cal_b1_city_b1_application, tier: b1, phrase: city_b1_application }
   - { id: cal_b1_doctor_b1_chronic, tier: b1, phrase: doctor_b1_chronic }
-  - { id: cal_b1_doctor_b1_coverage, tier: b1, phrase: doctor_b1_coverage }
-  - { id: cal_b1_doctor_b1_diagnosis, tier: b1, phrase: doctor_b1_diagnosis }
-  - { id: cal_b1_doctor_b1_discharge, tier: b1, phrase: doctor_b1_discharge }
-  # ── B2 (24 слов, 4 фраз) ──
+  - { id: cal_b1_family_b1_adoption, tier: b1, phrase: family_b1_adoption }
+  - { id: cal_b1_food_b1_dessert, tier: b1, phrase: food_b1_dessert }
+  # ── B2 (26 слов, 4 фраз) ──
+  - { id: cal_b2_townplanning_noun, tier: b2, concept: townplanning_noun }
   - { id: cal_b2_contribution_noun, tier: b2, concept: contribution_noun }
+  - { id: cal_b2_residencepermit_noun, tier: b2, concept: residencepermit_noun }
+  - { id: cal_b2_calorie_noun, tier: b2, concept: calorie_noun }
+  - { id: cal_b2_mortgage_noun, tier: b2, concept: mortgage_noun }
+  - { id: cal_b2_damages_noun, tier: b2, concept: damages_noun }
+  - { id: cal_b2_cycle_noun, tier: b2, concept: cycle_noun }
+  - { id: cal_b2_subsidy_noun, tier: b2, concept: subsidy_noun }
+  - { id: cal_b2_labourlaw_noun, tier: b2, concept: labourlaw_noun }
+  - { id: cal_b2_budgetplan_noun, tier: b2, concept: budgetplan_noun }
   - { id: cal_b2_data_protection, tier: b2, concept: data_protection }
+  - { id: cal_b2_youthoffice_place, tier: b2, concept: youthoffice_place }
+  - { id: cal_b2_sustainability_noun, tier: b2, concept: sustainability_noun }
+  - { id: cal_b2_marketvalue_noun, tier: b2, concept: marketvalue_noun }
+  - { id: cal_b2_margin_noun, tier: b2, concept: margin_noun }
+  - { id: cal_b2_interval_noun, tier: b2, concept: interval_noun }
+  - { id: cal_b2_roadsafety_noun, tier: b2, concept: roadsafety_noun }
+  - { id: cal_b2_socialinsurance_noun, tier: b2, concept: socialinsurance_noun }
+  - { id: cal_b2_localpolitics_noun, tier: b2, concept: localpolitics_noun }
   - { id: cal_b2_expert_opinion, tier: b2, concept: expert_opinion }
-  - { id: cal_b2_objection_noun, tier: b2, concept: objection_noun }
-  - { id: cal_b2_liability_noun, tier: b2, concept: liability_noun }
-  - { id: cal_b2_prognosis_noun, tier: b2, concept: prognosis_noun }
-  - { id: cal_b2_certificate_noun, tier: b2, concept: certificate_noun }
-  - { id: cal_b2_consent_noun, tier: b2, concept: consent_noun }
-  - { id: cal_b2_waiting_period, tier: b2, concept: waiting_period }
-  - { id: cal_b2_reimbursement_noun, tier: b2, concept: reimbursement_noun }
-  - { id: cal_b2_outpatient_adj, tier: b2, concept: outpatient_adj }
-  - { id: cal_b2_inpatient_adj, tier: b2, concept: inpatient_adj }
-  - { id: cal_b2_interaction_noun, tier: b2, concept: interaction_noun }
-  - { id: cal_b2_cost_estimate, tier: b2, concept: cost_estimate }
-  - { id: cal_b2_patient_file, tier: b2, concept: patient_file }
-  - { id: cal_b2_findings_report, tier: b2, concept: findings_report }
-  - { id: cal_b2_copayment_noun, tier: b2, concept: copayment_noun }
-  - { id: cal_b2_second_opinion, tier: b2, concept: second_opinion }
-  - { id: cal_b2_incapacity_noun, tier: b2, concept: incapacity_noun }
-  - { id: cal_b2_supplementary_insurance, tier: b2, concept: supplementary_insurance }
-  - { id: cal_b2_prescription_only, tier: b2, concept: prescription_only }
-  - { id: cal_b2_malpractice_noun, tier: b2, concept: malpractice_noun }
-  - { id: cal_b2_contraindication_noun, tier: b2, concept: contraindication_noun }
-  - { id: cal_b2_dosage_form, tier: b2, concept: dosage_form }
+  - { id: cal_b2_pensionclaim_noun, tier: b2, concept: pensionclaim_noun }
+  - { id: cal_b2_producer_person, tier: b2, concept: producer_person }
+  - { id: cal_b2_landregister_noun, tier: b2, concept: landregister_noun }
+  - { id: cal_b2_marketshare_noun, tier: b2, concept: marketshare_noun }
+  - { id: cal_b2_frequency_technical, tier: b2, concept: frequency_technical }
+  - { id: cal_b2_freighttransport_noun, tier: b2, concept: freighttransport_noun }
+  - { id: cal_b2_city_b2_administrativeact, tier: b2, phrase: city_b2_administrativeact }
   - { id: cal_b2_doctor_b2_consent, tier: b2, phrase: doctor_b2_consent }
-  - { id: cal_b2_doctor_b2_copayment, tier: b2, phrase: doctor_b2_copayment }
-  - { id: cal_b2_doctor_b2_estimate, tier: b2, phrase: doctor_b2_estimate }
-  - { id: cal_b2_doctor_b2_file, tier: b2, phrase: doctor_b2_file }
+  - { id: cal_b2_family_b2_accessright, tier: b2, phrase: family_b2_accessright }
+  - { id: cal_b2_food_b2_additive, tier: b2, phrase: food_b2_additive }

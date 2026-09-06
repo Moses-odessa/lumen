@@ -225,8 +225,8 @@ tiers:
         register: formal
         concepts: [referral_noun]
       - id: doctor_b1_coverage
-        template: "Übernimmt die Kasse die {coverage}?"
-        answer: Kosten
+        template: "Wir beantragen die {coverage}."
+        answer: Kostenübernahme
         register: formal
         concepts: [cost_coverage]
       - id: doctor_b1_diagnosis

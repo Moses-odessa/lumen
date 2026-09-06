@@ -45,6 +45,7 @@ Future<void> main(List<String> args) async {
   _checkNearSoundalike(sources, lang, report);
   _checkConstellationSizes(sources, report);
   _checkDuplicateForms(sources, lang, report);
+  _checkPhraseAnswers(sources, lang, report);
   _checkArticleGender(sources, lang, report);
   _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
@@ -230,6 +231,41 @@ void _checkDuplicateForms(ContentSources sources, String lang, _Report report) {
       );
     }
     seen[key] = concept.id;
+  }
+}
+
+/// Ответ фразы — это форма того слова, к которому фраза привязана.
+///
+/// Круг собирается из дистракторов концепта, а верным считается `answer`.
+/// Если это разные слова, игрок видит варианты к одному слову, а угадать
+/// должен другое — пройти такой круг честно нельзя. Склонение при этом
+/// нормально: «Schmerzen» при лексеме «Schmerz» — та же лексема в
+/// множественном, и допуск по длине это учитывает.
+void _checkPhraseAnswers(ContentSources sources, String lang, _Report report) {
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  for (final phrase in sources.phrases) {
+    for (final conceptId in phrase.conceptIds) {
+      final lex = byConcept[conceptId];
+      if (lex == null) continue;
+      final form = lex.form;
+      final answer = phrase.answer;
+      if (answer == form) continue;
+
+      final a = form.toLowerCase();
+      final b = answer.toLowerCase();
+      final shared = commonPrefix(a, b);
+      final drift = (a.length - b.length).abs();
+      // Словоформа сохраняет основу и меняет хвост: Kartoffel / Kartoffeln.
+      // Другое слово либо теряет основу, либо резко меняет длину.
+      if (shared >= a.length - 2 && drift <= 3) continue;
+
+      report.error(
+        'фраза ${phrase.id}: ответ "$answer" не форма слова "$form" '
+        '(концепт $conceptId)',
+      );
+    }
   }
 }
 

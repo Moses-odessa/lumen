@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "totalBytes": 817669,
+  "totalBytes": 820185,
   "files": {
     "de/abend": {
       "file": "abend.m4a",
@@ -172,11 +172,6 @@
       "bytes": 5394,
       "signature": "e15882996ec8bb6b"
     },
-    "de/geschaeft": {
-      "file": "geschaeft.m4a",
-      "bytes": 5655,
-      "signature": "692491a35d11347e"
-    },
     "de/gestern": {
       "file": "gestern.m4a",
       "bytes": 5524,
@@ -277,6 +272,11 @@
       "bytes": 4749,
       "signature": "446a120e3d4b0795"
     },
+    "de/laden": {
+      "file": "laden.m4a",
+      "bytes": 5187,
+      "signature": "aa3e5b469c09ec40"
+    },
     "de/licht": {
       "file": "licht.m4a",
       "bytes": 5207,
@@ -374,8 +374,8 @@
     },
     "de/p_city_a0_right": {
       "file": "p_city_a0_right.m4a",
-      "bytes": 6183,
-      "signature": "0c66f89c204dace6"
+      "bytes": 6931,
+      "signature": "b70398ed5577df2f"
     },
     "de/p_doctor_a0_appointment": {
       "file": "p_doctor_a0_appointment.m4a",
@@ -414,8 +414,8 @@
     },
     "de/p_family_a0_name": {
       "file": "p_family_a0_name.m4a",
-      "bytes": 6511,
-      "signature": "8445a4af0ccd810d"
+      "bytes": 7391,
+      "signature": "80fb75809cfba8e0"
     },
     "de/p_food_a0_bread": {
       "file": "p_food_a0_bread.m4a",
@@ -474,8 +474,8 @@
     },
     "de/p_shop_a0_price": {
       "file": "p_shop_a0_price.m4a",
-      "bytes": 7197,
-      "signature": "2fe9403caf704287"
+      "bytes": 8164,
+      "signature": "c627f16f272c08ce"
     },
     "de/p_time_a0_clock": {
       "file": "p_time_a0_clock.m4a",
@@ -504,8 +504,8 @@
     },
     "de/p_transport_a0_late": {
       "file": "p_transport_a0_late.m4a",
-      "bytes": 6779,
-      "signature": "9b85b82124e56753"
+      "bytes": 7168,
+      "signature": "5f6769fe33c7bb31"
     },
     "de/p_transport_a0_station": {
       "file": "p_transport_a0_station.m4a",

@@ -176,8 +176,8 @@ tiers:
         register: casual
         concepts: [endofday_noun]
       - id: work_a2_supervisor
-        template: "Fragen Sie Ihren {supervisor}."
-        answer: Vorgesetzten
+        template: "Der {supervisor} ist im Urlaub."
+        answer: Vorgesetzter
         register: formal
         concepts: [supervisor_person]
       - id: work_a2_homeoffice
@@ -190,3 +190,179 @@ tiers:
         answer: Lohnabrechnung
         register: formal
         concepts: [payslip_noun]
+
+  b1:
+    concepts:
+      - { id: jobadvert_noun, pos: noun, freq_rank: 5240 }
+      - { id: coverletter_noun, pos: noun, freq_rank: 5870 }
+      - { id: qualification_noun, pos: noun, freq_rank: 4180 }
+      - { id: competence_noun, pos: noun, freq_rank: 4530 }
+      - { id: workreference_noun, pos: noun, freq_rank: 5460 }
+      - { id: fixedterm_noun, pos: noun, freq_rank: 5910 }
+      - { id: permanentcontract_noun, pos: noun, freq_rank: 7240 }
+      - { id: warning_noun, pos: noun, freq_rank: 5680 }
+      - { id: terminationagreement_noun, pos: noun, freq_rank: 6830 }
+      - { id: dismissalprotection_noun, pos: noun, freq_rank: 6170 }
+      - { id: companyagreement_noun, pos: noun, freq_rank: 6490 }
+      - { id: collectiveagreement_noun, pos: noun, freq_rank: 5320 }
+      - { id: minimumwage_noun, pos: noun, freq_rank: 5040 }
+      - { id: salarynegotiation_noun, pos: noun, freq_rank: 6720 }
+      - { id: bonuspayment_noun, pos: noun, freq_rank: 6260 }
+      - { id: holidayentitlement_noun, pos: noun, freq_rank: 6380 }
+      - { id: remainingleave_noun, pos: noun, freq_rank: 7090 }
+      - { id: occupationalsafety_noun, pos: noun, freq_rank: 5790 }
+      - { id: induction_noun, pos: noun, freq_rank: 6540 }
+      - { id: targetagreement_noun, pos: noun, freq_rank: 6970 }
+      - { id: performancereview_noun, pos: noun, freq_rank: 6610 }
+      - { id: personnelfile_noun, pos: noun, freq_rank: 6850 }
+      - { id: workingatmosphere_noun, pos: noun, freq_rank: 5930 }
+      - { id: turnover_staff, pos: noun, freq_rank: 6430 }
+    phrases:
+      - id: work_b1_jobadvert
+        template: "Die {jobadvert} stand in der Zeitung."
+        answer: Stellenanzeige
+        register: casual
+        concepts: [jobadvert_noun]
+      - id: work_b1_warning
+        template: "Er bekam eine {warning}."
+        answer: Abmahnung
+        register: formal
+        concepts: [warning_noun]
+      - id: work_b1_minimumwage
+        template: "Der {minimumwage} steigt im Januar."
+        answer: Mindestlohn
+        register: formal
+        concepts: [minimumwage_noun]
+      - id: work_b1_collectiveagreement
+        template: "Der {collectiveagreement} gilt für alle."
+        answer: Tarifvertrag
+        register: formal
+        concepts: [collectiveagreement_noun]
+      - id: work_b1_qualification
+        template: "Ihre {qualification} passt gut."
+        answer: Qualifikation
+        register: formal
+        concepts: [qualification_noun]
+      - id: work_b1_reference
+        template: "Das {reference} war sehr gut."
+        answer: Arbeitszeugnis
+        register: formal
+        concepts: [workreference_noun]
+      - id: work_b1_holidayentitlement
+        template: "Der {holidayentitlement} beträgt dreißig Tage."
+        answer: Urlaubsanspruch
+        register: formal
+        concepts: [holidayentitlement_noun]
+      - id: work_b1_induction
+        template: "Die {induction} dauert zwei Wochen."
+        answer: Einarbeitung
+        register: formal
+        concepts: [induction_noun]
+      - id: work_b1_atmosphere
+        template: "Das {atmosphere} ist gut."
+        answer: Betriebsklima
+        register: casual
+        concepts: [workingatmosphere_noun]
+      - id: work_b1_fixedterm
+        template: "Die {fixedterm} läuft aus."
+        answer: Befristung
+        register: formal
+        concepts: [fixedterm_noun]
+      - id: work_b1_coverletter
+        template: "Das {coverletter} war zu lang."
+        answer: Anschreiben
+        register: formal
+        concepts: [coverletter_noun]
+      - id: work_b1_safety
+        template: "Der {safety} hat Vorrang."
+        answer: Arbeitsschutz
+        register: formal
+        concepts: [occupationalsafety_noun]
+
+  b2:
+    concepts:
+      - { id: labourlaw_noun, pos: noun, freq_rank: 5840 }
+      - { id: businesstransfer_noun, pos: noun, freq_rank: 7620 }
+      - { id: massredundancy_noun, pos: noun, freq_rank: 7280 }
+      - { id: socialplan_noun, pos: noun, freq_rank: 7140 }
+      - { id: interestbalance_noun, pos: noun, freq_rank: 8340 }
+      - { id: shorttimework_noun, pos: noun, freq_rank: 6470 }
+      - { id: insolvencypay_noun, pos: noun, freq_rank: 7810 }
+      - { id: bogusselfemployment_noun, pos: noun, freq_rank: 8060 }
+      - { id: contractforwork_noun, pos: noun, freq_rank: 6930 }
+      - { id: temporarywork_noun, pos: noun, freq_rank: 6580 }
+      - { id: staffleasing_noun, pos: noun, freq_rank: 7940 }
+      - { id: codetermination_noun, pos: noun, freq_rank: 7060 }
+      - { id: supervisoryboard_noun, pos: noun, freq_rank: 6240 }
+      - { id: tariffautonomy_noun, pos: noun, freq_rank: 8180 }
+      - { id: righttostrike_noun, pos: noun, freq_rank: 7350 }
+      - { id: lockout_noun, pos: noun, freq_rank: 8420 }
+      - { id: ancillarycosts_noun, pos: noun, freq_rank: 7490 }
+      - { id: socialinsurance_noun, pos: noun, freq_rank: 5960 }
+      - { id: pensioninsurance_noun, pos: noun, freq_rank: 6120 }
+      - { id: unemploymentinsurance_noun, pos: noun, freq_rank: 6380 }
+      - { id: careinsurance_noun, pos: noun, freq_rank: 6710 }
+      - { id: employersliability_noun, pos: noun, freq_rank: 7860 }
+      - { id: labourcourt_place, pos: noun, freq_rank: 6540 }
+      - { id: conciliationhearing_noun, pos: noun, freq_rank: 8230 }
+    phrases:
+      - id: work_b2_labourlaw
+        template: "Das {labourlaw} schützt beide Seiten."
+        answer: Arbeitsrecht
+        register: formal
+        concepts: [labourlaw_noun]
+      - id: work_b2_shorttime
+        template: "Wir gehen in {shorttime}."
+        answer: Kurzarbeit
+        register: formal
+        concepts: [shorttimework_noun]
+      - id: work_b2_socialplan
+        template: "Der {socialplan} wurde ausgehandelt."
+        answer: Sozialplan
+        register: formal
+        concepts: [socialplan_noun]
+      - id: work_b2_codetermination
+        template: "Die {codetermination} ist gesetzlich verankert."
+        answer: Mitbestimmung
+        register: formal
+        concepts: [codetermination_noun]
+      - id: work_b2_labourcourt
+        template: "Wir sehen uns vor dem {labourcourt}."
+        answer: Arbeitsgericht
+        register: formal
+        concepts: [labourcourt_place]
+      - id: work_b2_socialinsurance
+        template: "Die {socialinsurance} ist Pflicht."
+        answer: Sozialversicherung
+        register: formal
+        concepts: [socialinsurance_noun]
+      - id: work_b2_temporarywork
+        template: "Er kam über {temporarywork}."
+        answer: Zeitarbeit
+        register: formal
+        concepts: [temporarywork_noun]
+      - id: work_b2_ancillary
+        template: "Die {ancillary} trägt der Arbeitgeber."
+        answer: Lohnnebenkosten
+        register: formal
+        concepts: [ancillarycosts_noun]
+      - id: work_b2_strike
+        template: "Das {strike} ist grundgesetzlich geschützt."
+        answer: Streikrecht
+        register: formal
+        concepts: [righttostrike_noun]
+      - id: work_b2_redundancy
+        template: "Eine {redundancy} steht bevor."
+        answer: Massenentlassung
+        register: formal
+        concepts: [massredundancy_noun]
+      - id: work_b2_careinsurance
+        template: "Die {careinsurance} zahlt einen Teil."
+        answer: Pflegeversicherung
+        register: formal
+        concepts: [careinsurance_noun]
+      - id: work_b2_conciliation
+        template: "Die {conciliation} ist auf Montag angesetzt."
+        answer: Güteverhandlung
+        register: formal
+        concepts: [conciliationhearing_noun]

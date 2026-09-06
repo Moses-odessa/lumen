@@ -190,3 +190,179 @@ tiers:
         answer: Hausmeister
         register: formal
         concepts: [caretaker_person]
+
+  b1:
+    concepts:
+      - { id: tenancylaw_noun, pos: noun, freq_rank: 5840 }
+      - { id: noticeperiod_noun, pos: noun, freq_rank: 5210 }
+      - { id: sublet_noun, pos: noun, freq_rank: 6470 }
+      - { id: rentincrease_noun, pos: noun, freq_rank: 5930 }
+      - { id: utilitiesbill_noun, pos: noun, freq_rank: 6180 }
+      - { id: livingspace_noun, pos: noun, freq_rank: 4760 }
+      - { id: floorplan_object, pos: noun, freq_rank: 5540 }
+      - { id: groundfloor_place, pos: noun, freq_rank: 4380 }
+      - { id: atticfloor_place, pos: noun, freq_rank: 5670 }
+      - { id: renovation_noun, pos: noun, freq_rank: 4920 }
+      - { id: refurbishment_noun, pos: noun, freq_rank: 5480 }
+      - { id: mould_noun, pos: noun, freq_rank: 6320 }
+      - { id: damp_noun, pos: noun, freq_rank: 5910 }
+      - { id: tradesman_person, pos: noun, freq_rank: 4640 }
+      - { id: repair_noun, pos: noun, freq_rank: 3870 }
+      - { id: defect_noun, pos: noun, freq_rank: 4530 }
+      - { id: residentregistration_noun, pos: noun, freq_rank: 6850 }
+      - { id: registrationcertificate_noun, pos: noun, freq_rank: 7240 }
+      - { id: contentsinsurance_noun, pos: noun, freq_rank: 6610 }
+      - { id: smokedetector_object, pos: noun, freq_rank: 6390 }
+      - { id: energycertificate_noun, pos: noun, freq_rank: 7080 }
+      - { id: heatingcosts_noun, pos: noun, freq_rank: 5760 }
+      - { id: watermeter_object, pos: noun, freq_rank: 6940 }
+      - { id: wastesorting_noun, pos: noun, freq_rank: 6520 }
+    phrases:
+      - id: home_b1_noticeperiod
+        template: "Die {noticeperiod} beträgt drei Monate."
+        answer: Kündigungsfrist
+        register: formal
+        concepts: [noticeperiod_noun]
+      - id: home_b1_rentincrease
+        template: "Die {rentincrease} kam per Brief."
+        answer: Mieterhöhung
+        register: formal
+        concepts: [rentincrease_noun]
+      - id: home_b1_defect
+        template: "Ich melde einen {defect}."
+        answer: Mangel
+        register: formal
+        concepts: [defect_noun]
+      - id: home_b1_mould
+        template: "An der Wand ist {mould}."
+        answer: Schimmel
+        register: casual
+        concepts: [mould_noun]
+      - id: home_b1_livingspace
+        template: "Die {livingspace} beträgt sechzig Quadratmeter."
+        answer: Wohnfläche
+        register: formal
+        concepts: [livingspace_noun]
+      - id: home_b1_renovation
+        template: "Die {renovation} zahlt der Vermieter."
+        answer: Renovierung
+        register: formal
+        concepts: [renovation_noun]
+      - id: home_b1_registration
+        template: "Die {registration} macht man im Bürgeramt."
+        answer: Anmeldung
+        register: formal
+        concepts: [residentregistration_noun]
+      - id: home_b1_heatingcosts
+        template: "Die {heatingcosts} sind gestiegen."
+        answer: Heizkosten
+        register: formal
+        concepts: [heatingcosts_noun]
+      - id: home_b1_tradesman
+        template: "Der {tradesman} kommt am Dienstag."
+        answer: Handwerker
+        register: casual
+        concepts: [tradesman_person]
+      - id: home_b1_smokedetector
+        template: "Jedes Zimmer braucht einen {smokedetector}."
+        answer: Rauchmelder
+        register: formal
+        concepts: [smokedetector_object]
+      - id: home_b1_wastesorting
+        template: "Die {wastesorting} ist hier Pflicht."
+        answer: Mülltrennung
+        register: formal
+        concepts: [wastesorting_noun]
+      - id: home_b1_sublet
+        template: "Für die {sublet} braucht man Erlaubnis."
+        answer: Untermiete
+        register: formal
+        concepts: [sublet_noun]
+
+  b2:
+    concepts:
+      - { id: rentindex_noun, pos: noun, freq_rank: 7240 }
+      - { id: modernisationlevy_noun, pos: noun, freq_rank: 8060 }
+      - { id: maintenancereserve_noun, pos: noun, freq_rank: 7930 }
+      - { id: condominium_noun, pos: noun, freq_rank: 6480 }
+      - { id: ownersassociation_noun, pos: noun, freq_rank: 7160 }
+      - { id: landregister_noun, pos: noun, freq_rank: 6270 }
+      - { id: transfertax_noun, pos: noun, freq_rank: 7520 }
+      - { id: mortgage_noun, pos: noun, freq_rank: 5840 }
+      - { id: repayment_noun, pos: noun, freq_rank: 6390 }
+      - { id: fixedinterest_noun, pos: noun, freq_rank: 7680 }
+      - { id: lendingvalue_noun, pos: noun, freq_rank: 8210 }
+      - { id: leasehold_noun, pos: noun, freq_rank: 7840 }
+      - { id: evictionclaim_noun, pos: noun, freq_rank: 7470 }
+      - { id: rentreduction_noun, pos: noun, freq_rank: 6910 }
+      - { id: defectnotice_noun, pos: noun, freq_rank: 7130 }
+      - { id: marketvalue_noun, pos: noun, freq_rank: 6060 }
+      - { id: buildingapplication_noun, pos: noun, freq_rank: 6720 }
+      - { id: developmentplan_noun, pos: noun, freq_rank: 7040 }
+      - { id: heritageprotection_noun, pos: noun, freq_rank: 6580 }
+      - { id: insulation_noun, pos: noun, freq_rank: 6340 }
+      - { id: efficiencyclass_noun, pos: noun, freq_rank: 7590 }
+      - { id: advancepayment_noun, pos: noun, freq_rank: 7260 }
+      - { id: depositaccount_noun, pos: noun, freq_rank: 7810 }
+      - { id: handoverprotocol_noun, pos: noun, freq_rank: 7350 }
+    phrases:
+      - id: home_b2_rentindex
+        template: "Der {rentindex} liegt bei neun Euro."
+        answer: Mietspiegel
+        register: formal
+        concepts: [rentindex_noun]
+      - id: home_b2_landregister
+        template: "Das steht im {landregister}."
+        answer: Grundbuch
+        register: formal
+        concepts: [landregister_noun]
+      - id: home_b2_mortgage
+        template: "Die {mortgage} läuft zwanzig Jahre."
+        answer: Hypothek
+        register: formal
+        concepts: [mortgage_noun]
+      - id: home_b2_rentreduction
+        template: "Ich kündige eine {rentreduction} an."
+        answer: Mietminderung
+        register: formal
+        concepts: [rentreduction_noun]
+      - id: home_b2_handover
+        template: "Das {handover} unterschreiben beide."
+        answer: Übergabeprotokoll
+        register: formal
+        concepts: [handoverprotocol_noun]
+      - id: home_b2_insulation
+        template: "Die {insulation} spart Heizkosten."
+        answer: Wärmedämmung
+        register: formal
+        concepts: [insulation_noun]
+      - id: home_b2_buildingapplication
+        template: "Der {buildingapplication} wurde abgelehnt."
+        answer: Bauantrag
+        register: formal
+        concepts: [buildingapplication_noun]
+      - id: home_b2_owners
+        template: "Die {owners} entscheidet darüber."
+        answer: Eigentümergemeinschaft
+        register: formal
+        concepts: [ownersassociation_noun]
+      - id: home_b2_heritage
+        template: "Hier gilt {heritage}."
+        answer: Denkmalschutz
+        register: formal
+        concepts: [heritageprotection_noun]
+      - id: home_b2_marketvalue
+        template: "Der {marketvalue} wurde geschätzt."
+        answer: Verkehrswert
+        register: formal
+        concepts: [marketvalue_noun]
+      - id: home_b2_repayment
+        template: "Die {repayment} beginnt sofort."
+        answer: Tilgung
+        register: formal
+        concepts: [repayment_noun]
+      - id: home_b2_defectnotice
+        template: "Die {defectnotice} ging per Einschreiben."
+        answer: Mängelanzeige
+        register: formal
+        concepts: [defectnotice_noun]

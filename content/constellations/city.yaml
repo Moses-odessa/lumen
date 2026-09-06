@@ -42,7 +42,7 @@ tiers:
         register: casual
         concepts: [hotel_place]
       - id: city_a0_right
-        template: "Gehen Sie {right}."
+        template: "Gehen Sie nach {right}."
         answer: rechts
         register: formal
         concepts: [right_adv]
@@ -190,3 +190,179 @@ tiers:
         answer: Einwohner
         register: formal
         concepts: [resident_person]
+
+  b1:
+    concepts:
+      - { id: municipality_place, pos: noun, freq_rank: 3840 }
+      - { id: county_place, pos: noun, freq_rank: 4620 }
+      - { id: borough_place, pos: noun, freq_rank: 4180 }
+      - { id: mayor_person, pos: noun, freq_rank: 3560 }
+      - { id: citycouncil_noun, pos: noun, freq_rank: 4290 }
+      - { id: constituency_place, pos: noun, freq_rank: 5470 }
+      - { id: registrationoffice_place, pos: noun, freq_rank: 6130 }
+      - { id: publicorder_office, pos: noun, freq_rank: 5240 }
+      - { id: buildingauthority_place, pos: noun, freq_rank: 5960 }
+      - { id: permit_noun, pos: noun, freq_rank: 4510 }
+      - { id: application_form, pos: noun, freq_rank: 3970 }
+      - { id: form_object, pos: noun, freq_rank: 4340 }
+      - { id: fee_noun, pos: noun, freq_rank: 4060 }
+      - { id: notice_decision, pos: noun, freq_rank: 4780 }
+      - { id: civicobjection_noun, pos: noun, freq_rank: 5320 }
+      - { id: publicsurgery_noun, pos: noun, freq_rank: 7180 }
+      - { id: publicsphere_noun, pos: noun, freq_rank: 4930 }
+      - { id: infrastructure_noun, pos: noun, freq_rank: 4470 }
+      - { id: urbandevelopment_noun, pos: noun, freq_rank: 5680 }
+      - { id: greenspace_place, pos: noun, freq_rank: 5810 }
+      - { id: localsupply_noun, pos: noun, freq_rank: 6540 }
+      - { id: trafficcalming_noun, pos: noun, freq_rank: 7020 }
+      - { id: redevelopmentarea_place, pos: noun, freq_rank: 7390 }
+      - { id: jurisdiction_noun, pos: noun, freq_rank: 5150 }
+    phrases:
+      - id: city_b1_permit
+        template: "Ohne {permit} geht es nicht."
+        answer: Genehmigung
+        register: formal
+        concepts: [permit_noun]
+      - id: city_b1_form
+        template: "Füllen Sie das {form} aus."
+        answer: Formular
+        register: formal
+        concepts: [form_object]
+      - id: city_b1_fee
+        template: "Die {fee} beträgt dreißig Euro."
+        answer: Gebühr
+        register: formal
+        concepts: [fee_noun]
+      - id: city_b1_notice
+        template: "Der {notice} kam gestern."
+        answer: Bescheid
+        register: formal
+        concepts: [notice_decision]
+      - id: city_b1_objection
+        template: "Ich lege {objection} ein."
+        answer: Einspruch
+        register: formal
+        concepts: [civicobjection_noun]
+      - id: city_b1_mayor
+        template: "Der {mayor} wird direkt gewählt."
+        answer: Bürgermeister
+        register: formal
+        concepts: [mayor_person]
+      - id: city_b1_municipality
+        template: "Die {municipality} zahlt den Ausbau."
+        answer: Gemeinde
+        register: formal
+        concepts: [municipality_place]
+      - id: city_b1_jurisdiction
+        template: "Dafür fehlt uns die {jurisdiction}."
+        answer: Zuständigkeit
+        register: formal
+        concepts: [jurisdiction_noun]
+      - id: city_b1_infrastructure
+        template: "Die {infrastructure} ist veraltet."
+        answer: Infrastruktur
+        register: formal
+        concepts: [infrastructure_noun]
+      - id: city_b1_greenspace
+        template: "Die {greenspace} bleibt erhalten."
+        answer: Grünfläche
+        register: formal
+        concepts: [greenspace_place]
+      - id: city_b1_publicorder
+        template: "Das {publicorder} kontrolliert das."
+        answer: Ordnungsamt
+        register: formal
+        concepts: [publicorder_office]
+      - id: city_b1_application
+        template: "Der {application} liegt vor."
+        answer: Antrag
+        register: formal
+        concepts: [application_form]
+
+  b2:
+    concepts:
+      - { id: localpolitics_noun, pos: noun, freq_rank: 6340 }
+      - { id: budgetplan_noun, pos: noun, freq_rank: 6180 }
+      - { id: taxrevenue_noun, pos: noun, freq_rank: 6520 }
+      - { id: tradetax_noun, pos: noun, freq_rank: 6870 }
+      - { id: levy_noun, pos: noun, freq_rank: 7140 }
+      - { id: specialpurposeassoc_noun, pos: noun, freq_rank: 8260 }
+      - { id: publicservices_noun, pos: noun, freq_rank: 7480 }
+      - { id: landuseplan_noun, pos: noun, freq_rank: 7620 }
+      - { id: urbanplanninglaw_noun, pos: noun, freq_rank: 7940 }
+      - { id: sitedevelopment_noun, pos: noun, freq_rank: 7060 }
+      - { id: expropriation_noun, pos: noun, freq_rank: 7310 }
+      - { id: publicbenefit_noun, pos: noun, freq_rank: 6790 }
+      - { id: citizenspetition_noun, pos: noun, freq_rank: 7530 }
+      - { id: referendum_noun, pos: noun, freq_rank: 6410 }
+      - { id: councildecision_noun, pos: noun, freq_rank: 7180 }
+      - { id: officialgazette_noun, pos: noun, freq_rank: 7690 }
+      - { id: administrativeact_noun, pos: noun, freq_rank: 7250 }
+      - { id: legalremedy_noun, pos: noun, freq_rank: 6960 }
+      - { id: administrativecourt_place, pos: noun, freq_rank: 6640 }
+      - { id: minoroffence_noun, pos: noun, freq_rank: 7020 }
+      - { id: hazardprevention_noun, pos: noun, freq_rank: 7840 }
+      - { id: disasterresponse_noun, pos: noun, freq_rank: 6580 }
+      - { id: townplanning_noun, pos: noun, freq_rank: 5940 }
+      - { id: heritageconservation_noun, pos: noun, freq_rank: 7370 }
+    phrases:
+      - id: city_b2_referendum
+        template: "Der {referendum} war erfolgreich."
+        answer: Bürgerentscheid
+        register: formal
+        concepts: [referendum_noun]
+      - id: city_b2_administrativeact
+        template: "Es handelt sich um einen {administrativeact}."
+        answer: Verwaltungsakt
+        register: formal
+        concepts: [administrativeact_noun]
+      - id: city_b2_court
+        template: "Das {court} hat entschieden."
+        answer: Verwaltungsgericht
+        register: formal
+        concepts: [administrativecourt_place]
+      - id: city_b2_offence
+        template: "Das ist eine {offence}."
+        answer: Ordnungswidrigkeit
+        register: formal
+        concepts: [minoroffence_noun]
+      - id: city_b2_budget
+        template: "Der {budget} wurde beschlossen."
+        answer: Haushaltsplan
+        register: formal
+        concepts: [budgetplan_noun]
+      - id: city_b2_expropriation
+        template: "Eine {expropriation} droht."
+        answer: Enteignung
+        register: formal
+        concepts: [expropriation_noun]
+      - id: city_b2_gazette
+        template: "Es steht im {gazette}."
+        answer: Amtsblatt
+        register: formal
+        concepts: [officialgazette_noun]
+      - id: city_b2_tradetax
+        template: "Die {tradetax} finanziert die Gemeinde."
+        answer: Gewerbesteuer
+        register: formal
+        concepts: [tradetax_noun]
+      - id: city_b2_planning
+        template: "Die {planning} braucht Jahre."
+        answer: Stadtplanung
+        register: formal
+        concepts: [townplanning_noun]
+      - id: city_b2_remedy
+        template: "Der {remedy} ist zulässig."
+        answer: Rechtsbehelf
+        register: formal
+        concepts: [legalremedy_noun]
+      - id: city_b2_disaster
+        template: "Der {disaster} wurde geübt."
+        answer: Katastrophenschutz
+        register: formal
+        concepts: [disasterresponse_noun]
+      - id: city_b2_landuse
+        template: "Der {landuse} wird geändert."
+        answer: Flächennutzungsplan
+        register: formal
+        concepts: [landuseplan_noun]

@@ -42,7 +42,7 @@ tiers:
         register: casual
         concepts: [bus_transport]
       - id: transport_a0_late
-        template: "Der Zug ist {late}."
+        template: "Ich komme zu {late}."
         answer: spät
         register: casual
         concepts: [late_adj]
@@ -190,3 +190,179 @@ tiers:
         answer: Umleitung
         register: formal
         concepts: [diversion_noun]
+
+  b1:
+    concepts:
+      - { id: transportmeans_noun, pos: noun, freq_rank: 4180 }
+      - { id: localtransport_noun, pos: noun, freq_rank: 5240 }
+      - { id: longdistance_noun, pos: noun, freq_rank: 5870 }
+      - { id: surcharge_noun, pos: noun, freq_rank: 5460 }
+      - { id: reduction_noun, pos: noun, freq_rank: 4930 }
+      - { id: monthlyticket_noun, pos: noun, freq_rank: 6210 }
+      - { id: validation_noun, pos: noun, freq_rank: 6840 }
+      - { id: passenger_person, pos: noun, freq_rank: 3760 }
+      - { id: conductor_person, pos: noun, freq_rank: 5390 }
+      - { id: levelcrossing_place, pos: noun, freq_rank: 6520 }
+      - { id: rightofway_noun, pos: noun, freq_rank: 5140 }
+      - { id: overtakingban_noun, pos: noun, freq_rank: 7130 }
+      - { id: speedlimit_noun, pos: noun, freq_rank: 5680 }
+      - { id: fine_noun, pos: noun, freq_rank: 4870 }
+      - { id: drivingban_noun, pos: noun, freq_rank: 6390 }
+      - { id: numberplate_object, pos: noun, freq_rank: 5920 }
+      - { id: registration_noun, pos: noun, freq_rank: 5310 }
+      - { id: inspection_noun, pos: noun, freq_rank: 6470 }
+      - { id: emissionstandard_noun, pos: noun, freq_rank: 7260 }
+      - { id: chargingpoint_place, pos: noun, freq_rank: 6980 }
+      - { id: range_noun, pos: noun, freq_rank: 5030 }
+      - { id: consumption_noun, pos: noun, freq_rank: 4640 }
+      - { id: maintenance_noun, pos: noun, freq_rank: 5170 }
+      - { id: breakdownservice_noun, pos: noun, freq_rank: 6730 }
+    phrases:
+      - id: transport_b1_fine
+        template: "Das {fine} kostet achtzig Euro."
+        answer: Bußgeld
+        register: formal
+        concepts: [fine_noun]
+      - id: transport_b1_speedlimit
+        template: "Hier gilt ein {speedlimit}."
+        answer: Tempolimit
+        register: formal
+        concepts: [speedlimit_noun]
+      - id: transport_b1_passenger
+        template: "Jeder {passenger} braucht einen Fahrschein."
+        answer: Fahrgast
+        register: formal
+        concepts: [passenger_person]
+      - id: transport_b1_reduction
+        template: "Studenten bekommen eine {reduction}."
+        answer: Ermäßigung
+        register: formal
+        concepts: [reduction_noun]
+      - id: transport_b1_monthlyticket
+        template: "Die {monthlyticket} lohnt sich."
+        answer: Monatskarte
+        register: casual
+        concepts: [monthlyticket_noun]
+      - id: transport_b1_rightofway
+        template: "Von rechts hat man {rightofway}."
+        answer: Vorfahrt
+        register: formal
+        concepts: [rightofway_noun]
+      - id: transport_b1_registration
+        template: "Die {registration} dauert eine Woche."
+        answer: Zulassung
+        register: formal
+        concepts: [registration_noun]
+      - id: transport_b1_inspection
+        template: "Die {inspection} ist fällig."
+        answer: Hauptuntersuchung
+        register: formal
+        concepts: [inspection_noun]
+      - id: transport_b1_consumption
+        template: "Der {consumption} liegt bei sechs Litern."
+        answer: Verbrauch
+        register: formal
+        concepts: [consumption_noun]
+      - id: transport_b1_maintenance
+        template: "Die {maintenance} steht an."
+        answer: Wartung
+        register: formal
+        concepts: [maintenance_noun]
+      - id: transport_b1_localtransport
+        template: "Der {localtransport} ist gut ausgebaut."
+        answer: Nahverkehr
+        register: formal
+        concepts: [localtransport_noun]
+      - id: transport_b1_breakdown
+        template: "Rufen Sie den {breakdown}."
+        answer: Pannendienst
+        register: formal
+        concepts: [breakdownservice_noun]
+
+  b2:
+    concepts:
+      - { id: transportinfra_noun, pos: noun, freq_rank: 6470 }
+      - { id: routenetwork_noun, pos: noun, freq_rank: 6180 }
+      - { id: clockfacetimetable_noun, pos: noun, freq_rank: 7840 }
+      - { id: capacitybottleneck_noun, pos: noun, freq_rank: 7520 }
+      - { id: emissionlimit_noun, pos: noun, freq_rank: 6930 }
+      - { id: lowemissionzone_noun, pos: noun, freq_rank: 6740 }
+      - { id: particulate_noun, pos: noun, freq_rank: 6260 }
+      - { id: noiseprotection_noun, pos: noun, freq_rank: 6580 }
+      - { id: mobilityshift_noun, pos: noun, freq_rank: 7130 }
+      - { id: electromobility_noun, pos: noun, freq_rank: 6820 }
+      - { id: charginginfra_noun, pos: noun, freq_rank: 7290 }
+      - { id: subsidy_noun, pos: noun, freq_rank: 5640 }
+      - { id: trackprice_noun, pos: noun, freq_rank: 8140 }
+      - { id: operatormodel_noun, pos: noun, freq_rank: 7680 }
+      - { id: liabilityexclusion_noun, pos: noun, freq_rank: 7410 }
+      - { id: claimssettlement_noun, pos: noun, freq_rank: 7060 }
+      - { id: comprehensivecover_noun, pos: noun, freq_rank: 6390 }
+      - { id: excess_noun, pos: noun, freq_rank: 6710 }
+      - { id: roadsafety_noun, pos: noun, freq_rank: 5980 }
+      - { id: accidentstatistics_noun, pos: noun, freq_rank: 6840 }
+      - { id: freighttransport_noun, pos: noun, freq_rank: 6120 }
+      - { id: logisticschain_noun, pos: noun, freq_rank: 6530 }
+      - { id: customsclearance_noun, pos: noun, freq_rank: 7350 }
+      - { id: logbook_object, pos: noun, freq_rank: 7920 }
+    phrases:
+      - id: transport_b2_excess
+        template: "Die {excess} beträgt dreihundert Euro."
+        answer: Selbstbeteiligung
+        register: formal
+        concepts: [excess_noun]
+      - id: transport_b2_lowemission
+        template: "Die {lowemission} gilt ab Montag."
+        answer: Umweltzone
+        register: formal
+        concepts: [lowemissionzone_noun]
+      - id: transport_b2_subsidy
+        template: "Ohne {subsidy} rechnet sich das nicht."
+        answer: Subvention
+        register: formal
+        concepts: [subsidy_noun]
+      - id: transport_b2_claims
+        template: "Die {claims} dauert Wochen."
+        answer: Schadensregulierung
+        register: formal
+        concepts: [claimssettlement_noun]
+      - id: transport_b2_roadsafety
+        template: "Die {roadsafety} hat Vorrang."
+        answer: Verkehrssicherheit
+        register: formal
+        concepts: [roadsafety_noun]
+      - id: transport_b2_freight
+        template: "Der {freight} nimmt zu."
+        answer: Güterverkehr
+        register: formal
+        concepts: [freighttransport_noun]
+      - id: transport_b2_customs
+        template: "Die {customs} verzögert die Lieferung."
+        answer: Zollabfertigung
+        register: formal
+        concepts: [customsclearance_noun]
+      - id: transport_b2_infra
+        template: "Die {infra} ist sanierungsbedürftig."
+        answer: Verkehrsinfrastruktur
+        register: formal
+        concepts: [transportinfra_noun]
+      - id: transport_b2_noise
+        template: "Der {noise} kostet Millionen."
+        answer: Lärmschutz
+        register: formal
+        concepts: [noiseprotection_noun]
+      - id: transport_b2_liability
+        template: "Der {liability} steht im Kleingedruckten."
+        answer: Haftungsausschluss
+        register: formal
+        concepts: [liabilityexclusion_noun]
+      - id: transport_b2_network
+        template: "Das {network} wird erweitert."
+        answer: Streckennetz
+        register: formal
+        concepts: [routenetwork_noun]
+      - id: transport_b2_logbook
+        template: "Das {logbook} ist Pflicht."
+        answer: Fahrtenbuch
+        register: formal
+        concepts: [logbook_object]

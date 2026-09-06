@@ -685,8 +685,8 @@ lexemes:
       far: [task, duty]
       near: [worker, walk, wok]
   job_noun:
-    form: job
-    plural: jobs
+    form: profession
+    plural: professions
     distractors:
       far: [position, career]
       near: [jab, jog, rob]
@@ -1042,3 +1042,391 @@ lexemes:
   tax_noun: { form: tax, plural: taxes }
   socialcontribution_noun: { form: social security contribution, plural: social security contributions }
   payslip_noun: { form: payslip, plural: payslips }
+
+  # ── B1, all constellations ────────────────────────────────────────────
+  ingredient_noun: { form: ingredient, plural: ingredients }
+  recipe_noun: { form: recipe, plural: recipes }
+  pan_object: { form: frying pan, plural: frying pans }
+  pot_object: { form: pot, plural: pots }
+  starter_food: { form: starter, plural: starters }
+  maincourse_food: { form: main course, plural: main courses }
+  dessert_food: { form: dessert, plural: desserts }
+  portion_noun: { form: portion, plural: portions }
+  sidedish_food: { form: side dish, plural: side dishes }
+  spice_food: { form: spice, plural: spices }
+  garlic_food: { form: garlic }
+  onion_food: { form: onion, plural: onions }
+  mushroom_food: { form: mushroom, plural: mushrooms }
+  bean_food: { form: bean, plural: beans }
+  lentil_food: { form: lentil, plural: lentils }
+  wholegrain_food: { form: wholegrain }
+  groceries_noun: { form: foodstuff, plural: foodstuffs }
+  shelflife_noun: { form: shelf life }
+  preparation_noun: { form: preparation }
+  taste_noun: { form: taste }
+  nutrition_noun: { form: nutrition }
+  cookingtime_noun: { form: cooking time }
+  freshness_noun: { form: freshness }
+  coldchain_noun: { form: cold chain }
+  transportmeans_noun: { form: means of transport }
+  localtransport_noun: { form: local transport }
+  longdistance_noun: { form: long-distance transport }
+  surcharge_noun: { form: surcharge, plural: surcharges }
+  reduction_noun: { form: concession, plural: concessions }
+  monthlyticket_noun: { form: monthly ticket, plural: monthly tickets }
+  validation_noun: { form: ticket validation }
+  passenger_person: { form: passenger, plural: passengers }
+  conductor_person: { form: ticket inspector, plural: ticket inspectors }
+  levelcrossing_place: { form: level crossing, plural: level crossings }
+  rightofway_noun: { form: right of way }
+  overtakingban_noun: { form: overtaking ban, plural: overtaking bans }
+  speedlimit_noun: { form: speed limit, plural: speed limits }
+  fine_noun: { form: fine, plural: fines }
+  drivingban_noun: { form: driving ban, plural: driving bans }
+  numberplate_object: { form: number plate, plural: number plates }
+  registration_noun: { form: vehicle registration }
+  inspection_noun: { form: roadworthiness test, plural: roadworthiness tests }
+  emissionstandard_noun: { form: emission standard, plural: emission standards }
+  chargingpoint_place: { form: charging point, plural: charging points }
+  range_noun: { form: range }
+  consumption_noun: { form: fuel consumption }
+  maintenance_noun: { form: servicing }
+  breakdownservice_noun: { form: breakdown service }
+  tenancylaw_noun: { form: tenancy law }
+  noticeperiod_noun: { form: notice period, plural: notice periods }
+  sublet_noun: { form: sublet }
+  rentincrease_noun: { form: rent increase, plural: rent increases }
+  utilitiesbill_noun: { form: service charge statement }
+  livingspace_noun: { form: living space }
+  floorplan_object: { form: floor plan, plural: floor plans }
+  groundfloor_place: { form: ground floor }
+  atticfloor_place: { form: attic floor }
+  renovation_noun: { form: renovation, plural: renovations }
+  refurbishment_noun: { form: refurbishment }
+  mould_noun: { form: mould }
+  damp_noun: { form: damp }
+  tradesman_person: { form: tradesman, plural: tradesmen }
+  repair_noun: { form: repair, plural: repairs }
+  defect_noun: { form: defect, plural: defects }
+  residentregistration_noun: { form: address registration }
+  registrationcertificate_noun: { form: registration certificate }
+  contentsinsurance_noun: { form: contents insurance }
+  smokedetector_object: { form: smoke detector, plural: smoke detectors }
+  energycertificate_noun: { form: energy certificate }
+  heatingcosts_noun: { form: heating costs }
+  watermeter_object: { form: water meter, plural: water meters }
+  wastesorting_noun: { form: waste separation }
+  withdrawalright_noun: { form: right of withdrawal }
+  withdrawalperiod_noun: { form: withdrawal period }
+  purchasecontract_noun: { form: purchase contract, plural: purchase contracts }
+  statutorywarranty_noun: { form: statutory warranty }
+  rectification_noun: { form: rectification }
+  pricereduction_noun: { form: price reduction, plural: price reductions }
+  deliverytime_noun: { form: delivery time }
+  cashondelivery_noun: { form: cash on delivery }
+  tracking_noun: { form: parcel tracking }
+  clearanceitem_noun: { form: clearance item, plural: clearance items }
+  remainder_noun: { form: remaindered stock }
+  financing_noun: { form: financing }
+  creditrating_noun: { form: credit rating }
+  directdebit_noun: { form: direct debit, plural: direct debits }
+  chargeback_noun: { form: returned debit, plural: returned debits }
+  paymentterm_noun: { form: payment term, plural: payment terms }
+  reminder_noun: { form: payment reminder, plural: payment reminders }
+  debtcollection_noun: { form: debt collection }
+  billingaddress_noun: { form: billing address, plural: billing addresses }
+  deliveryaddress_noun: { form: delivery address, plural: delivery addresses }
+  middleman_person: { form: middleman, plural: middlemen }
+  pricecomparison_noun: { form: price comparison, plural: price comparisons }
+  review_noun: { form: customer review, plural: customer reviews }
+  loyaltypoints_noun: { form: loyalty points }
+  guardian_person: { form: legal guardian, plural: legal guardians }
+  custody_noun: { form: custody }
+  maintenance_payment: { form: maintenance }
+  childbenefit_noun: { form: child benefit }
+  parentalallowance_noun: { form: parental allowance }
+  parentalleave_noun: { form: parental leave }
+  childcare_noun: { form: childcare }
+  childminder_person: { form: childminder, plural: childminders }
+  adoption_noun: { form: adoption, plural: adoptions }
+  fosterfamily_noun: { form: foster family, plural: foster families }
+  godparenthood_noun: { form: godparenthood }
+  inheritance_noun: { form: inheritance, plural: inheritances }
+  will_noun: { form: will, plural: wills }
+  estate_noun: { form: estate, plural: estates }
+  powerofattorney_noun: { form: power of attorney }
+  healthproxy_noun: { form: healthcare proxy }
+  registryoffice_place: { form: registry office, plural: registry offices }
+  marriageceremony_noun: { form: marriage ceremony, plural: marriage ceremonies }
+  birthcertificate_noun: { form: birth certificate, plural: birth certificates }
+  deathcertificate_noun: { form: death certificate, plural: death certificates }
+  familybook_object: { form: family record book }
+  kinshipdegree_noun: { form: degree of kinship }
+  generation_noun: { form: generation, plural: generations }
+  cohabitation_noun: { form: living together }
+  period_noun: { form: period, plural: periods }
+  pointintime_noun: { form: point in time }
+  cutoffdate_noun: { form: cut-off date, plural: cut-off dates }
+  delay_general: { form: delay, plural: delays }
+  postponement_noun: { form: postponement, plural: postponements }
+  schedule_noun: { form: schedule, plural: schedules }
+  sequenceflow_noun: { form: process }
+  order_sequence: { form: order }
+  simultaneity_noun: { form: simultaneity }
+  regularity_noun: { form: regularity }
+  frequency_general: { form: frequency }
+  timezone_noun: { form: time zone, plural: time zones }
+  summertime_noun: { form: summer time }
+  wintertime_noun: { form: winter time }
+  leapyear_noun: { form: leap year, plural: leap years }
+  anniversary_noun: { form: anniversary, plural: anniversaries }
+  timewaste_noun: { form: waste of time }
+  punctuality_noun: { form: punctuality }
+  diary_object: { form: appointment diary, plural: appointment diaries }
+  leadtime_noun: { form: lead time }
+  graceperiod_noun: { form: grace period }
+  timepressure_noun: { form: time pressure }
+  opportunity_noun: { form: opportunity, plural: opportunities }
+  eternity_noun: { form: eternity }
+  municipality_place: { form: municipality, plural: municipalities }
+  county_place: { form: rural district, plural: rural districts }
+  borough_place: { form: borough, plural: boroughs }
+  mayor_person: { form: mayor, plural: mayors }
+  citycouncil_noun: { form: city council, plural: city councils }
+  constituency_place: { form: constituency, plural: constituencies }
+  registrationoffice_place: { form: residents registration office }
+  publicorder_office: { form: public order office }
+  buildingauthority_place: { form: building authority }
+  permit_noun: { form: permit, plural: permits }
+  application_form: { form: application, plural: applications }
+  form_object: { form: form, plural: forms }
+  fee_noun: { form: fee, plural: fees }
+  notice_decision: { form: official notice, plural: official notices }
+  civicobjection_noun: { form: formal objection, plural: formal objections }
+  publicsurgery_noun: { form: public consultation hour }
+  publicsphere_noun: { form: general public }
+  infrastructure_noun: { form: infrastructure }
+  urbandevelopment_noun: { form: urban development }
+  greenspace_place: { form: green space, plural: green spaces }
+  localsupply_noun: { form: local amenities }
+  trafficcalming_noun: { form: traffic calming }
+  redevelopmentarea_place: { form: redevelopment area, plural: redevelopment areas }
+  jurisdiction_noun: { form: responsibility }
+  jobadvert_noun: { form: job advert, plural: job adverts }
+  coverletter_noun: { form: cover letter, plural: cover letters }
+  qualification_noun: { form: qualification, plural: qualifications }
+  competence_noun: { form: competence, plural: competences }
+  workreference_noun: { form: employer reference, plural: employer references }
+  fixedterm_noun: { form: fixed term }
+  permanentcontract_noun: { form: conversion to permanent }
+  warning_noun: { form: formal warning, plural: formal warnings }
+  terminationagreement_noun: { form: termination agreement, plural: termination agreements }
+  dismissalprotection_noun: { form: protection against dismissal }
+  companyagreement_noun: { form: works agreement, plural: works agreements }
+  collectiveagreement_noun: { form: collective agreement, plural: collective agreements }
+  minimumwage_noun: { form: minimum wage }
+  salarynegotiation_noun: { form: salary negotiation, plural: salary negotiations }
+  bonuspayment_noun: { form: bonus payment, plural: bonus payments }
+  holidayentitlement_noun: { form: holiday entitlement }
+  remainingleave_noun: { form: remaining leave }
+  occupationalsafety_noun: { form: occupational safety }
+  induction_noun: { form: induction }
+  targetagreement_noun: { form: target agreement, plural: target agreements }
+  performancereview_noun: { form: performance review, plural: performance reviews }
+  personnelfile_noun: { form: personnel file, plural: personnel files }
+  workingatmosphere_noun: { form: working atmosphere }
+  turnover_staff: { form: staff turnover }
+
+  # ── B2, all constellations ────────────────────────────────────────────
+  nutritionalvalue_noun: { form: nutritional value }
+  calorie_noun: { form: calorie, plural: calories }
+  protein_noun: { form: protein }
+  carbohydrate_noun: { form: carbohydrate, plural: carbohydrates }
+  fibre_noun: { form: dietary fibre }
+  preservative_noun: { form: preservative, plural: preservatives }
+  additive_noun: { form: additive, plural: additives }
+  labelling_noun: { form: labelling }
+  intolerance_noun: { form: intolerance, plural: intolerances }
+  allergen_noun: { form: allergen, plural: allergens }
+  lactose_noun: { form: lactose }
+  gluten_noun: { form: gluten }
+  organicproduct_noun: { form: organic product, plural: organic products }
+  countryoforigin_noun: { form: country of origin }
+  bestbefore_noun: { form: best-before date }
+  supplychain_noun: { form: supply chain, plural: supply chains }
+  producer_person: { form: producer, plural: producers }
+  wholesale_noun: { form: wholesale }
+  retail_noun: { form: retail }
+  consumerprotection_noun: { form: consumer protection }
+  foodlaw_noun: { form: food law }
+  hygienerule_noun: { form: hygiene regulation, plural: hygiene regulations }
+  sustainability_noun: { form: sustainability }
+  regionality_noun: { form: regional sourcing }
+  transportinfra_noun: { form: transport infrastructure }
+  routenetwork_noun: { form: route network, plural: route networks }
+  clockfacetimetable_noun: { form: clock-face scheduling }
+  capacitybottleneck_noun: { form: capacity bottleneck, plural: capacity bottlenecks }
+  emissionlimit_noun: { form: emission limit, plural: emission limits }
+  lowemissionzone_noun: { form: low-emission zone, plural: low-emission zones }
+  particulate_noun: { form: particulate matter }
+  noiseprotection_noun: { form: noise protection }
+  mobilityshift_noun: { form: transport transition }
+  electromobility_noun: { form: electromobility }
+  charginginfra_noun: { form: charging infrastructure }
+  subsidy_noun: { form: subsidy, plural: subsidies }
+  trackprice_noun: { form: track access charge, plural: track access charges }
+  operatormodel_noun: { form: operator model, plural: operator models }
+  liabilityexclusion_noun: { form: exclusion of liability }
+  claimssettlement_noun: { form: claims settlement }
+  comprehensivecover_noun: { form: comprehensive cover }
+  excess_noun: { form: excess }
+  roadsafety_noun: { form: road safety }
+  accidentstatistics_noun: { form: accident statistics }
+  freighttransport_noun: { form: freight transport }
+  logisticschain_noun: { form: logistics chain, plural: logistics chains }
+  customsclearance_noun: { form: customs clearance }
+  logbook_object: { form: logbook, plural: logbooks }
+  rentindex_noun: { form: rent index }
+  modernisationlevy_noun: { form: modernisation levy }
+  maintenancereserve_noun: { form: maintenance reserve }
+  condominium_noun: { form: freehold flat ownership }
+  ownersassociation_noun: { form: owners association, plural: owners associations }
+  landregister_noun: { form: land register }
+  transfertax_noun: { form: property transfer tax }
+  mortgage_noun: { form: mortgage, plural: mortgages }
+  repayment_noun: { form: repayment }
+  fixedinterest_noun: { form: fixed-interest period }
+  lendingvalue_noun: { form: lending value }
+  leasehold_noun: { form: leasehold }
+  evictionclaim_noun: { form: eviction claim, plural: eviction claims }
+  rentreduction_noun: { form: rent reduction, plural: rent reductions }
+  defectnotice_noun: { form: notice of defects }
+  marketvalue_noun: { form: market value }
+  buildingapplication_noun: { form: building application, plural: building applications }
+  developmentplan_noun: { form: development plan, plural: development plans }
+  heritageprotection_noun: { form: heritage protection }
+  insulation_noun: { form: thermal insulation }
+  efficiencyclass_noun: { form: energy efficiency class }
+  advancepayment_noun: { form: advance service charge }
+  depositaccount_noun: { form: deposit account, plural: deposit accounts }
+  handoverprotocol_noun: { form: handover report, plural: handover reports }
+  termsandconditions_noun: { form: terms and conditions }
+  contractclause_noun: { form: contract clause, plural: contract clauses }
+  liabilitylimit_noun: { form: limitation of liability }
+  limitationperiod_noun: { form: statutory limitation }
+  burdenofproof_noun: { form: burden of proof }
+  materialdefect_noun: { form: material defect, plural: material defects }
+  legaldefect_noun: { form: defect of title }
+  subsequentperformance_noun: { form: subsequent performance }
+  withdrawal_contract: { form: rescission }
+  damages_noun: { form: damages }
+  consumercentre_noun: { form: consumer advice centre }
+  competitionlaw_noun: { form: competition law }
+  pricefixing_noun: { form: resale price maintenance }
+  cartelauthority_noun: { form: competition authority }
+  marketshare_noun: { form: market share, plural: market shares }
+  supplyshortage_noun: { form: supply shortage, plural: supply shortages }
+  procurement_noun: { form: procurement }
+  costing_noun: { form: costing }
+  margin_noun: { form: margin, plural: margins }
+  returnonsales_noun: { form: return on sales }
+  stocktaking_noun: { form: stocktaking }
+  merchandisesystem_noun: { form: merchandise management }
+  paymentdefault_noun: { form: payment default }
+  creditcheck_noun: { form: credit check, plural: credit checks }
+  prenup_noun: { form: prenuptial agreement, plural: prenuptial agreements }
+  separationofproperty_noun: { form: separation of property }
+  communityofaccrued_noun: { form: community of accrued gains }
+  pensionequalisation_noun: { form: pension equalisation }
+  maintenanceobligation_noun: { form: maintenance obligation, plural: maintenance obligations }
+  maintenancetitle_noun: { form: maintenance order, plural: maintenance orders }
+  custodydispute_noun: { form: custody dispute, plural: custody disputes }
+  accessright_noun: { form: right of access }
+  childwelfare_noun: { form: best interests of the child }
+  youthoffice_place: { form: youth welfare office, plural: youth welfare offices }
+  familycourt_place: { form: family court, plural: family courts }
+  succession_noun: { form: order of succession }
+  compulsoryshare_noun: { form: compulsory share, plural: compulsory shares }
+  inheritancetax_noun: { form: inheritance tax }
+  bequest_noun: { form: bequest, plural: bequests }
+  estateadministration_noun: { form: estate administration }
+  guardianshiplaw_noun: { form: guardianship law }
+  livingwill_noun: { form: living will, plural: living wills }
+  generationalcontract_noun: { form: generational contract }
+  pensionclaim_noun: { form: pension entitlement, plural: pension entitlements }
+  survivorspension_noun: { form: survivors pension, plural: survivors pensions }
+  familyreunion_noun: { form: family reunification }
+  residencepermit_noun: { form: residence permit, plural: residence permits }
+  naturalisation_noun: { form: naturalisation }
+  timemanagement_noun: { form: time management }
+  prioritisation_noun: { form: prioritisation }
+  milestone_noun: { form: milestone, plural: milestones }
+  projectphase_noun: { form: project phase, plural: project phases }
+  timeseries_noun: { form: time series }
+  periodicity_noun: { form: periodicity }
+  synchronisation_noun: { form: synchronisation }
+  limitationdeadline_noun: { form: limitation period, plural: limitation periods }
+  transitionperiod_noun: { form: transition period, plural: transition periods }
+  qualifyingperiod_noun: { form: qualifying period, plural: qualifying periods }
+  paybackperiod_noun: { form: payback period, plural: payback periods }
+  halflife_noun: { form: half-life }
+  chronology_noun: { form: chronology, plural: chronologies }
+  epoch_noun: { form: epoch, plural: epochs }
+  era_noun: { form: era, plural: eras }
+  zeitgeist_noun: { form: zeitgeist }
+  prehistory_noun: { form: backstory }
+  aftereffect_noun: { form: after-effect, plural: after-effects }
+  retroactivity_noun: { form: retroactive effect }
+  clocking_noun: { form: clocking }
+  frequency_technical: { form: frequency, plural: frequencies }
+  interval_noun: { form: interval, plural: intervals }
+  rotation_noun: { form: rota }
+  cycle_noun: { form: cycle, plural: cycles }
+  localpolitics_noun: { form: local politics }
+  budgetplan_noun: { form: budget plan, plural: budget plans }
+  taxrevenue_noun: { form: tax revenue }
+  tradetax_noun: { form: trade tax }
+  levy_noun: { form: levy, plural: levies }
+  specialpurposeassoc_noun: { form: special purpose association }
+  publicservices_noun: { form: public services provision }
+  landuseplan_noun: { form: land use plan, plural: land use plans }
+  urbanplanninglaw_noun: { form: urban land-use planning }
+  sitedevelopment_noun: { form: site development }
+  expropriation_noun: { form: expropriation, plural: expropriations }
+  publicbenefit_noun: { form: charitable status }
+  citizenspetition_noun: { form: citizens petition, plural: citizens petitions }
+  referendum_noun: { form: local referendum, plural: local referendums }
+  councildecision_noun: { form: council resolution, plural: council resolutions }
+  officialgazette_noun: { form: official gazette, plural: official gazettes }
+  administrativeact_noun: { form: administrative act, plural: administrative acts }
+  legalremedy_noun: { form: legal remedy, plural: legal remedies }
+  administrativecourt_place: { form: administrative court, plural: administrative courts }
+  minoroffence_noun: { form: regulatory offence, plural: regulatory offences }
+  hazardprevention_noun: { form: hazard prevention }
+  disasterresponse_noun: { form: disaster response }
+  townplanning_noun: { form: town planning }
+  heritageconservation_noun: { form: heritage conservation }
+  labourlaw_noun: { form: labour law }
+  businesstransfer_noun: { form: transfer of undertaking }
+  massredundancy_noun: { form: mass redundancy, plural: mass redundancies }
+  socialplan_noun: { form: social compensation plan }
+  interestbalance_noun: { form: reconciliation of interests }
+  shorttimework_noun: { form: short-time work }
+  insolvencypay_noun: { form: insolvency pay }
+  bogusselfemployment_noun: { form: bogus self-employment }
+  contractforwork_noun: { form: contract for work, plural: contracts for work }
+  temporarywork_noun: { form: agency work }
+  staffleasing_noun: { form: staff leasing }
+  codetermination_noun: { form: codetermination }
+  supervisoryboard_noun: { form: supervisory board, plural: supervisory boards }
+  tariffautonomy_noun: { form: collective bargaining autonomy }
+  righttostrike_noun: { form: right to strike }
+  lockout_noun: { form: lockout, plural: lockouts }
+  ancillarycosts_noun: { form: non-wage labour costs }
+  socialinsurance_noun: { form: social insurance }
+  pensioninsurance_noun: { form: state pension insurance }
+  unemploymentinsurance_noun: { form: unemployment insurance }
+  careinsurance_noun: { form: long-term care insurance }
+  employersliability_noun: { form: employers liability association }
+  labourcourt_place: { form: labour court, plural: labour courts }
+  conciliationhearing_noun: { form: conciliation hearing, plural: conciliation hearings }

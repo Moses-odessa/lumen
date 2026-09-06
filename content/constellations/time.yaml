@@ -190,3 +190,179 @@ tiers:
         answer: Augenblick
         register: formal
         concepts: [moment_noun]
+
+  b1:
+    concepts:
+      - { id: period_noun, pos: noun, freq_rank: 3960 }
+      - { id: pointintime_noun, pos: noun, freq_rank: 4180 }
+      - { id: cutoffdate_noun, pos: noun, freq_rank: 5470 }
+      - { id: delay_general, pos: noun, freq_rank: 4630 }
+      - { id: postponement_noun, pos: noun, freq_rank: 5840 }
+      - { id: schedule_noun, pos: noun, freq_rank: 4290 }
+      - { id: sequenceflow_noun, pos: noun, freq_rank: 4760 }
+      - { id: order_sequence, pos: noun, freq_rank: 4510 }
+      - { id: simultaneity_noun, pos: noun, freq_rank: 7320 }
+      - { id: regularity_noun, pos: noun, freq_rank: 6180 }
+      - { id: frequency_general, pos: noun, freq_rank: 5240 }
+      - { id: timezone_noun, pos: noun, freq_rank: 5930 }
+      - { id: summertime_noun, pos: noun, freq_rank: 5610 }
+      - { id: wintertime_noun, pos: noun, freq_rank: 5870 }
+      - { id: leapyear_noun, pos: noun, freq_rank: 6740 }
+      - { id: anniversary_noun, pos: noun, freq_rank: 5380 }
+      - { id: timewaste_noun, pos: noun, freq_rank: 6520 }
+      - { id: punctuality_noun, pos: noun, freq_rank: 5760 }
+      - { id: diary_object, pos: noun, freq_rank: 5140 }
+      - { id: leadtime_noun, pos: noun, freq_rank: 6890 }
+      - { id: graceperiod_noun, pos: noun, freq_rank: 7060 }
+      - { id: timepressure_noun, pos: noun, freq_rank: 5490 }
+      - { id: opportunity_noun, pos: noun, freq_rank: 3720 }
+      - { id: eternity_noun, pos: noun, freq_rank: 5310 }
+    phrases:
+      - id: time_b1_period
+        template: "In diesem {period} war er krank."
+        answer: Zeitraum
+        register: formal
+        concepts: [period_noun]
+      - id: time_b1_cutoffdate
+        template: "Der {cutoffdate} ist der erste Mai."
+        answer: Stichtag
+        register: formal
+        concepts: [cutoffdate_noun]
+      - id: time_b1_delay
+        template: "Es gab eine {delay}."
+        answer: Verzögerung
+        register: formal
+        concepts: [delay_general]
+      - id: time_b1_schedule
+        template: "Der {schedule} steht fest."
+        answer: Zeitplan
+        register: formal
+        concepts: [schedule_noun]
+      - id: time_b1_punctuality
+        template: "Auf {punctuality} legen wir Wert."
+        answer: Pünktlichkeit
+        register: formal
+        concepts: [punctuality_noun]
+      - id: time_b1_timezone
+        template: "Wir sind in einer anderen {timezone}."
+        answer: Zeitzone
+        register: casual
+        concepts: [timezone_noun]
+      - id: time_b1_opportunity
+        template: "Das ist eine gute {opportunity}."
+        answer: Gelegenheit
+        register: casual
+        concepts: [opportunity_noun]
+      - id: time_b1_timepressure
+        template: "Ich stehe unter {timepressure}."
+        answer: Zeitdruck
+        register: casual
+        concepts: [timepressure_noun]
+      - id: time_b1_summertime
+        template: "Die {summertime} beginnt im März."
+        answer: Sommerzeit
+        register: formal
+        concepts: [summertime_noun]
+      - id: time_b1_anniversary
+        template: "Heute ist unser {anniversary}."
+        answer: Jahrestag
+        register: casual
+        concepts: [anniversary_noun]
+      - id: time_b1_diary
+        template: "Ich trage es in den {diary} ein."
+        answer: Terminkalender
+        register: casual
+        concepts: [diary_object]
+      - id: time_b1_postponement
+        template: "Wir bitten um {postponement}."
+        answer: Aufschub
+        register: formal
+        concepts: [postponement_noun]
+
+  b2:
+    concepts:
+      - { id: timemanagement_noun, pos: noun, freq_rank: 6180 }
+      - { id: prioritisation_noun, pos: noun, freq_rank: 6740 }
+      - { id: milestone_noun, pos: noun, freq_rank: 5920 }
+      - { id: projectphase_noun, pos: noun, freq_rank: 6410 }
+      - { id: timeseries_noun, pos: noun, freq_rank: 7260 }
+      - { id: periodicity_noun, pos: noun, freq_rank: 8140 }
+      - { id: synchronisation_noun, pos: noun, freq_rank: 6830 }
+      - { id: limitationdeadline_noun, pos: noun, freq_rank: 7050 }
+      - { id: transitionperiod_noun, pos: noun, freq_rank: 6590 }
+      - { id: qualifyingperiod_noun, pos: noun, freq_rank: 7930 }
+      - { id: paybackperiod_noun, pos: noun, freq_rank: 7680 }
+      - { id: halflife_noun, pos: noun, freq_rank: 7420 }
+      - { id: chronology_noun, pos: noun, freq_rank: 6960 }
+      - { id: epoch_noun, pos: noun, freq_rank: 6270 }
+      - { id: era_noun, pos: noun, freq_rank: 6050 }
+      - { id: zeitgeist_noun, pos: noun, freq_rank: 7180 }
+      - { id: prehistory_noun, pos: noun, freq_rank: 6480 }
+      - { id: aftereffect_noun, pos: noun, freq_rank: 6720 }
+      - { id: retroactivity_noun, pos: noun, freq_rank: 7540 }
+      - { id: clocking_noun, pos: noun, freq_rank: 7810 }
+      - { id: frequency_technical, pos: noun, freq_rank: 5640 }
+      - { id: interval_noun, pos: noun, freq_rank: 5380 }
+      - { id: rotation_noun, pos: noun, freq_rank: 7360 }
+      - { id: cycle_noun, pos: noun, freq_rank: 5210 }
+    phrases:
+      - id: time_b2_milestone
+        template: "Der erste {milestone} ist erreicht."
+        answer: Meilenstein
+        register: formal
+        concepts: [milestone_noun]
+      - id: time_b2_limitation
+        template: "Die {limitation} läuft im Mai ab."
+        answer: Verjährungsfrist
+        register: formal
+        concepts: [limitationdeadline_noun]
+      - id: time_b2_transition
+        template: "Es gilt eine {transition}."
+        answer: Übergangsfrist
+        register: formal
+        concepts: [transitionperiod_noun]
+      - id: time_b2_prioritisation
+        template: "Die {prioritisation} fehlt."
+        answer: Priorisierung
+        register: formal
+        concepts: [prioritisation_noun]
+      - id: time_b2_interval
+        template: "Das {interval} beträgt zehn Minuten."
+        answer: Intervall
+        register: formal
+        concepts: [interval_noun]
+      - id: time_b2_cycle
+        template: "Der {cycle} wiederholt sich."
+        answer: Zyklus
+        register: formal
+        concepts: [cycle_noun]
+      - id: time_b2_era
+        template: "Eine neue {era} beginnt."
+        answer: Ära
+        register: formal
+        concepts: [era_noun]
+      - id: time_b2_retroactivity
+        template: "Die {retroactivity} ist ausgeschlossen."
+        answer: Rückwirkung
+        register: formal
+        concepts: [retroactivity_noun]
+      - id: time_b2_projectphase
+        template: "Die zweite {projectphase} startet."
+        answer: Projektphase
+        register: formal
+        concepts: [projectphase_noun]
+      - id: time_b2_timemanagement
+        template: "Sein {timemanagement} ist gut."
+        answer: Zeitmanagement
+        register: formal
+        concepts: [timemanagement_noun]
+      - id: time_b2_qualifying
+        template: "Die {qualifying} beträgt sechs Monate."
+        answer: Karenzzeit
+        register: formal
+        concepts: [qualifyingperiod_noun]
+      - id: time_b2_chronology
+        template: "Die {chronology} stimmt nicht."
+        answer: Chronologie
+        register: formal
+        concepts: [chronology_noun]

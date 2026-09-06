@@ -42,7 +42,7 @@ tiers:
         register: casual
         concepts: [checkout_place]
       - id: shop_a0_price
-        template: "Der {price} ist gut."
+        template: "Das ist ein guter {price}."
         answer: Preis
         register: casual
         concepts: [price_noun]
@@ -190,3 +190,179 @@ tiers:
         answer: Verkäufer
         register: formal
         concepts: [seller_person]
+
+  b1:
+    concepts:
+      - { id: withdrawalright_noun, pos: noun, freq_rank: 6240 }
+      - { id: withdrawalperiod_noun, pos: noun, freq_rank: 6870 }
+      - { id: purchasecontract_noun, pos: noun, freq_rank: 5310 }
+      - { id: statutorywarranty_noun, pos: noun, freq_rank: 5940 }
+      - { id: rectification_noun, pos: noun, freq_rank: 6620 }
+      - { id: pricereduction_noun, pos: noun, freq_rank: 6180 }
+      - { id: deliverytime_noun, pos: noun, freq_rank: 4870 }
+      - { id: cashondelivery_noun, pos: noun, freq_rank: 6790 }
+      - { id: tracking_noun, pos: noun, freq_rank: 5730 }
+      - { id: clearanceitem_noun, pos: noun, freq_rank: 7140 }
+      - { id: remainder_noun, pos: noun, freq_rank: 6980 }
+      - { id: financing_noun, pos: noun, freq_rank: 5060 }
+      - { id: creditrating_noun, pos: noun, freq_rank: 6430 }
+      - { id: directdebit_noun, pos: noun, freq_rank: 5820 }
+      - { id: chargeback_noun, pos: noun, freq_rank: 7360 }
+      - { id: paymentterm_noun, pos: noun, freq_rank: 6270 }
+      - { id: reminder_noun, pos: noun, freq_rank: 5490 }
+      - { id: debtcollection_noun, pos: noun, freq_rank: 6710 }
+      - { id: billingaddress_noun, pos: noun, freq_rank: 6040 }
+      - { id: deliveryaddress_noun, pos: noun, freq_rank: 5960 }
+      - { id: middleman_person, pos: noun, freq_rank: 6580 }
+      - { id: pricecomparison_noun, pos: noun, freq_rank: 5670 }
+      - { id: review_noun, pos: noun, freq_rank: 4930 }
+      - { id: loyaltypoints_noun, pos: noun, freq_rank: 6850 }
+    phrases:
+      - id: shop_b1_withdrawal
+        template: "Sie haben ein {withdrawal}."
+        answer: Widerrufsrecht
+        register: formal
+        concepts: [withdrawalright_noun]
+      - id: shop_b1_deliverytime
+        template: "Die {deliverytime} beträgt drei Tage."
+        answer: Lieferzeit
+        register: formal
+        concepts: [deliverytime_noun]
+      - id: shop_b1_reminder
+        template: "Ich habe eine {reminder} bekommen."
+        answer: Mahnung
+        register: formal
+        concepts: [reminder_noun]
+      - id: shop_b1_tracking
+        template: "Die {tracking} zeigt nichts an."
+        answer: Sendungsverfolgung
+        register: formal
+        concepts: [tracking_noun]
+      - id: shop_b1_financing
+        template: "Wir bieten eine {financing} an."
+        answer: Finanzierung
+        register: formal
+        concepts: [financing_noun]
+      - id: shop_b1_directdebit
+        template: "Zahlung per {directdebit} ist möglich."
+        answer: Lastschrift
+        register: formal
+        concepts: [directdebit_noun]
+      - id: shop_b1_review
+        template: "Die {review} war negativ."
+        answer: Kundenbewertung
+        register: casual
+        concepts: [review_noun]
+      - id: shop_b1_pricecomparison
+        template: "Ein {pricecomparison} lohnt sich."
+        answer: Preisvergleich
+        register: casual
+        concepts: [pricecomparison_noun]
+      - id: shop_b1_warranty
+        template: "Die {warranty} gilt zwei Jahre."
+        answer: Gewährleistung
+        register: formal
+        concepts: [statutorywarranty_noun]
+      - id: shop_b1_paymentterm
+        template: "Das {paymentterm} ist vierzehn Tage."
+        answer: Zahlungsziel
+        register: formal
+        concepts: [paymentterm_noun]
+      - id: shop_b1_billingaddress
+        template: "Bitte die {billingaddress} angeben."
+        answer: Rechnungsadresse
+        register: formal
+        concepts: [billingaddress_noun]
+      - id: shop_b1_contract
+        template: "Der {contract} kam per E-Mail."
+        answer: Kaufvertrag
+        register: formal
+        concepts: [purchasecontract_noun]
+
+  b2:
+    concepts:
+      - { id: termsandconditions_noun, pos: noun, freq_rank: 6280 }
+      - { id: contractclause_noun, pos: noun, freq_rank: 6940 }
+      - { id: liabilitylimit_noun, pos: noun, freq_rank: 7160 }
+      - { id: limitationperiod_noun, pos: noun, freq_rank: 6620 }
+      - { id: burdenofproof_noun, pos: noun, freq_rank: 7080 }
+      - { id: materialdefect_noun, pos: noun, freq_rank: 7340 }
+      - { id: legaldefect_noun, pos: noun, freq_rank: 7910 }
+      - { id: subsequentperformance_noun, pos: noun, freq_rank: 8040 }
+      - { id: withdrawal_contract, pos: noun, freq_rank: 6470 }
+      - { id: damages_noun, pos: noun, freq_rank: 5830 }
+      - { id: consumercentre_noun, pos: noun, freq_rank: 7260 }
+      - { id: competitionlaw_noun, pos: noun, freq_rank: 7530 }
+      - { id: pricefixing_noun, pos: noun, freq_rank: 7690 }
+      - { id: cartelauthority_noun, pos: noun, freq_rank: 7420 }
+      - { id: marketshare_noun, pos: noun, freq_rank: 6180 }
+      - { id: supplyshortage_noun, pos: noun, freq_rank: 6740 }
+      - { id: procurement_noun, pos: noun, freq_rank: 6350 }
+      - { id: costing_noun, pos: noun, freq_rank: 6510 }
+      - { id: margin_noun, pos: noun, freq_rank: 5960 }
+      - { id: returnonsales_noun, pos: noun, freq_rank: 7870 }
+      - { id: stocktaking_noun, pos: noun, freq_rank: 6830 }
+      - { id: merchandisesystem_noun, pos: noun, freq_rank: 8120 }
+      - { id: paymentdefault_noun, pos: noun, freq_rank: 6960 }
+      - { id: creditcheck_noun, pos: noun, freq_rank: 7280 }
+    phrases:
+      - id: shop_b2_terms
+        template: "Die {terms} gelten für alle Bestellungen."
+        answer: Geschäftsbedingungen
+        register: formal
+        concepts: [termsandconditions_noun]
+      - id: shop_b2_limitation
+        template: "Die {limitation} beträgt zwei Jahre."
+        answer: Verjährung
+        register: formal
+        concepts: [limitationperiod_noun]
+      - id: shop_b2_damages
+        template: "Er fordert {damages}."
+        answer: Schadensersatz
+        register: formal
+        concepts: [damages_noun]
+      - id: shop_b2_defect
+        template: "Es liegt ein {defect} vor."
+        answer: Sachmangel
+        register: formal
+        concepts: [materialdefect_noun]
+      - id: shop_b2_withdrawal
+        template: "Wir erklären den {withdrawal}."
+        answer: Rücktritt
+        register: formal
+        concepts: [withdrawal_contract]
+      - id: shop_b2_burden
+        template: "Die {burden} liegt beim Käufer."
+        answer: Beweislast
+        register: formal
+        concepts: [burdenofproof_noun]
+      - id: shop_b2_margin
+        template: "Die {margin} ist zu klein."
+        answer: Marge
+        register: formal
+        concepts: [margin_noun]
+      - id: shop_b2_stocktaking
+        template: "Wegen {stocktaking} geschlossen."
+        answer: Inventur
+        register: formal
+        concepts: [stocktaking_noun]
+      - id: shop_b2_shortage
+        template: "Es gibt einen {shortage}."
+        answer: Lieferengpass
+        register: formal
+        concepts: [supplyshortage_noun]
+      - id: shop_b2_default
+        template: "Der Kunde ist in {default}."
+        answer: Zahlungsverzug
+        register: formal
+        concepts: [paymentdefault_noun]
+      - id: shop_b2_marketshare
+        template: "Der {marketshare} wächst."
+        answer: Marktanteil
+        register: formal
+        concepts: [marketshare_noun]
+      - id: shop_b2_consumercentre
+        template: "Die {consumercentre} berät kostenlos."
+        answer: Verbraucherzentrale
+        register: formal
+        concepts: [consumercentre_noun]
