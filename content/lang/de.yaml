@@ -1230,7 +1230,7 @@ lexemes:
     note: прилагательное
     distractors:
       far: [jung, neu]
-      near: [Halt, Wald, Alter]
+      near: [Halt, Wald, Anwalt]
 
   # ── Созвездие «Время», A0 ─────────────────────────────────────────────
   day_time:
@@ -1287,7 +1287,7 @@ lexemes:
     gender: n
     plural: Jahre
     distractors:
-      far: [Jahrzehnt, Alter]
+      far: [Jahrzehnt, Zeitraum]
       near: [Haar, Paar, Jahrmarkt]
   morning_time:
     form: Morgen
@@ -1701,7 +1701,7 @@ lexemes:
     gender: f
     plural: Ankünfte
     distractors:
-      far: [Abflug, Halt]
+      far: [Abflug, Zwischenstopp]
       near: [Auskunft, Zukunft, Anhang]
   departure_noun:
     form: Abfahrt
@@ -1963,7 +1963,7 @@ lexemes:
     gender: m
     plural: Onkel
     distractors:
-      far: [Schwager, Pate]
+      far: [Patenonkel, Pate]
       near: [Enkel, Winkel, Dunkel]
   cousin_person:
     form: Cousin
@@ -1971,7 +1971,7 @@ lexemes:
     gender: m
     plural: Cousins
     distractors:
-      far: [Neffe, Schwager]
+      far: [Neffe, Verwandter]
       near: [Cousine, Kusine, Kusinchen]
   grandchild_person:
     form: Enkel
@@ -2084,7 +2084,7 @@ lexemes:
     note: наречие
     distractors:
       far: [später, sofort]
-      near: [Wald, Bad, Halt]
+      near: [Wald, Bad, kalt]
 
   # ── «Город», A1 ───────────────────────────────────────────────────────
   crossing_place:
@@ -2182,7 +2182,7 @@ lexemes:
     plural: Ausgänge
     distractors:
       far: [Notausstieg, Pforte]
-      near: [Eingang, Ausgabe, Auftrag]
+      near: [Eingang, Ausgabe, Aufschlag]
 
   # ── «Работа», A1 ──────────────────────────────────────────────────────
   application_noun:
@@ -2271,7 +2271,7 @@ lexemes:
     gender: f
     plural: Aufgaben
     distractors:
-      far: [Auftrag, Pflicht]
+      far: [Pflicht, Obliegenheit]
       near: [Ausgabe, Abgabe, Aufgang]
   experience_noun:
     form: Erfahrung
@@ -2304,9 +2304,9 @@ lexemes:
   pasta_food:
     form: Nudeln
     article: die
-    gender: f
     plural: Nudeln
-    distractors: { far: [Klöße, Grieß], near: [Nadeln, Rudeln, Buddeln] }
+    note: только множественное
+    distractors: { far: [Klöße, Couscous], near: [Nadeln, Rudeln, Buddeln] }
   chicken_food:
     form: Hähnchen
     article: das
@@ -2324,7 +2324,7 @@ lexemes:
     article: das
     gender: n
     plural: Schweinefleischsorten
-    distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinwerfer] }
+    distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinheiliger] }
   sausage_food:
     form: Wurst
     article: die
@@ -2354,7 +2354,7 @@ lexemes:
     article: das
     gender: n
     plural: Mehlsorten
-    distractors: { far: [Grieß, Stärke], near: [Mahl, Kehle, Fehl] }
+    distractors: { far: [Stärke, Backpulver], near: [Mahl, Kehle, Fehl] }
   cake_food:
     form: Kuchen
     article: der
@@ -2452,7 +2452,7 @@ lexemes:
     article: der
     gender: m
     plural: Führerscheine
-    distractors: { far: [Ausweis, Pass], near: [Führerhaus, Fahrschein, Scheinwerfer] }
+    distractors: { far: [Ausweis, Pass], near: [Führerhaus, Fahrschein, Führungszeugnis] }
   accident_noun:
     form: Unfall
     article: der
@@ -2518,7 +2518,7 @@ lexemes:
     article: die
     gender: f
     plural: Werkstätten
-    distractors: { far: [Garage, Betrieb], near: [Werkzeug, Hauptstadt, Werkbank] }
+    distractors: { far: [Reparaturdienst, Betrieb], near: [Werkzeug, Hauptstadt, Werkbank] }
   insurance_noun:
     form: Versicherung
     article: die
@@ -2596,8 +2596,8 @@ lexemes:
   utilities_noun:
     form: Nebenkosten
     article: die
-    gender: f
     plural: Nebenkosten
+    note: только множественное
     distractors: { far: [Kaltmiete, Warmmiete], near: [Nebensache, Reisekosten, Nebenraum] }
   caretaker_person:
     form: Hausmeister
@@ -2626,8 +2626,8 @@ lexemes:
   furniture_noun:
     form: Möbel
     article: die
-    gender: n
     plural: Möbel
+    note: только множественное
     distractors: { far: [Einrichtung, Hausrat], near: [Nebel, Möwe, Mörtel] }
   sofa_object:
     form: Sofa
@@ -2780,7 +2780,7 @@ lexemes:
     article: die
     gender: f
     plural: Garantien
-    distractors: { far: [Gewährleistung, Kulanz], near: [Galanterie, Garage, Fantasie] }
+    distractors: { far: [Gewährleistung, Kulanz], near: [Galanterie, Gardine, Fantasie] }
   complaint_noun:
     form: Reklamation
     article: die
@@ -2852,26 +2852,26 @@ lexemes:
     article: der
     gender: m
     plural: Kundendienste
-    distractors: { far: [Hotline, Beratung], near: [Kundenkarte, Wachdienst, Kundenkreis] }
+    distractors: { far: [Hotline, Servicestelle], near: [Kundenkarte, Wachdienst, Kundenkreis] }
   openinghours_noun:
     form: Öffnungszeiten
     article: die
-    gender: f
     plural: Öffnungszeiten
-    distractors: { far: [Ruhetag, Betriebsferien], near: [Öffnungsklausel, Übungszeiten, Ordnungsamt] }
+    note: только множественное
+    distractors: { far: [Betriebsferien, Mittagspause], near: [Öffnungsklausel, Übungszeiten, Ordnungsamt] }
   publicholiday_noun:
     form: Feiertag
     article: der
     gender: m
     plural: Feiertage
-    distractors: { far: [Ruhetag, Brückentag], near: [Freitag, Feierabend, Ehrentag] }
+    distractors: { far: [Brückentag, Gedenktag], near: [Freitag, Feierabend, Ehrentag] }
 
   # ── «Семья», A2 ───────────────────────────────────────────────────────
   relatives_noun:
     form: Verwandte
     article: die
-    gender: f
     plural: Verwandte
+    note: только множественное
     distractors: { far: [Bekannte, Nachbarn], near: [Verwandlung, Verbannte, Gewandte] }
   brotherinlaw_person:
     form: Schwager
@@ -2924,8 +2924,8 @@ lexemes:
   siblings_noun:
     form: Geschwister
     article: die
-    gender: n
     plural: Geschwister
+    note: только множественное
     distractors: { far: [Cousins, Halbgeschwister], near: [Gespenster, Geschworene, Geschwader] }
   engagement_noun:
     form: Verlobung
@@ -3018,43 +3018,43 @@ lexemes:
     article: der
     gender: m
     plural: Montage
-    distractors: { far: [Wochentag, Werktag], near: [Mondlicht, Montur, Mondschein] }
+    distractors: { far: [Wochenanfang, Werktag], near: [Mondlicht, Montur, Mondschein] }
   tuesday_time:
     form: Dienstag
     article: der
     gender: m
     plural: Dienstage
-    distractors: { far: [Werktag, Wochenbeginn], near: [Dienst, Dienstweg, Dienstreise] }
+    distractors: { far: [Wochentag, Alltag], near: [Dienst, Dienstweg, Dienstreise] }
   wednesday_time:
     form: Mittwoch
     article: der
     gender: m
     plural: Mittwoche
-    distractors: { far: [Werktag, Wochenmitte], near: [Mitwirkung, Mittwochabend, Mittelweg] }
+    distractors: { far: [Wochenmitte, Arbeitstag], near: [Mitwirkung, Mittwochabend, Mittelweg] }
   thursday_time:
     form: Donnerstag
     article: der
     gender: m
     plural: Donnerstage
-    distractors: { far: [Werktag, Wochenschluss], near: [Donner, Donnerwetter, Donnerschlag] }
+    distractors: { far: [Wochenschluss, Markttag], near: [Donner, Donnerwetter, Donnerschlag] }
   friday_time:
     form: Freitag
     article: der
     gender: m
     plural: Freitage
-    distractors: { far: [Wochenausklang, Arbeitstag], near: [Freizeit, Freitod, Freitreppe] }
+    distractors: { far: [Wochenausklang, Zahltag], near: [Freizeit, Freitod, Freitreppe] }
   saturday_time:
     form: Samstag
     article: der
     gender: m
     plural: Samstage
-    distractors: { far: [Ruhetag, Markttag], near: [Samt, Sammler, Sanftmut] }
+    distractors: { far: [Ruhetag, Einkaufstag], near: [Samt, Sammler, Sanftmut] }
   sunday_time:
     form: Sonntag
     article: der
     gender: m
     plural: Sonntage
-    distractors: { far: [Ruhetag, Werktag], near: [Sonne, Sonnenschein, Sonderzug] }
+    distractors: { far: [Feiertag, Besuchstag], near: [Sonne, Sonnenschein, Sonderzug] }
   season_time:
     form: Jahreszeit
     article: die
@@ -3088,15 +3088,15 @@ lexemes:
   vacation_time:
     form: Ferien
     article: die
-    gender: f
     plural: Ferien
+    note: только множественное
     distractors: { far: [Auszeit, Schulfrei], near: [Serien, Fasern, Ferne] }
   appointment_meeting:
     form: Verabredung
     article: die
     gender: f
     plural: Verabredungen
-    distractors: { far: [Treffen, Zusammenkunft], near: [Verabschiedung, Verwendung, Beratung] }
+    distractors: { far: [Treffen, Zusammenkunft], near: [Verabschiedung, Verwendung, Verwertung] }
   duration_noun:
     form: Dauer
     article: die
@@ -3346,7 +3346,7 @@ lexemes:
     article: die
     gender: f
     plural: Teilzeitstellen
-    distractors: { far: [Minijob, Schichtdienst], near: [Teilnahme, Freizeit, Teilstück] }
+    distractors: { far: [Minijob, Schichtdienst], near: [Teilnahme, Teilhabe, Teilstück] }
   shift_noun:
     form: Schicht
     article: die
@@ -3424,7 +3424,7 @@ lexemes:
     article: die
     gender: f
     plural: Arbeitszeiten
-    distractors: { far: [Pausenzeit, Bereitschaft], near: [Arbeitsplatz, Freizeit, Arbeitsweise] }
+    distractors: { far: [Pausenzeit, Bereitschaft], near: [Arbeitsplatz, Arbeitsamt, Arbeitsweise] }
   endofday_noun:
     form: Feierabend
     article: der

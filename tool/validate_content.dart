@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'content_schema.dart';
 import 'content_sources.dart';
+import 'phonetics.dart';
 
 Future<void> main(List<String> args) async {
   final lang = _argValue(args, '--lang') ?? targetLang;
@@ -44,6 +45,8 @@ Future<void> main(List<String> args) async {
   _checkNearSoundalike(sources, lang, report);
   _checkConstellationSizes(sources, report);
   _checkDuplicateForms(sources, lang, report);
+  _checkArticleGender(sources, lang, report);
+  _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
   _checkAudio(sources, lang, root, report);
@@ -146,7 +149,8 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
 }
 
 /// `near`-дистракторы обязаны быть созвучны. Эвристика грубая и смотрит на
-/// три вещи: общее начало, общее окончание и расстояние Левенштейна.
+/// три вещи: общее начало, общее окончание и расстояние Левенштейна — но не
+/// в написании, а в приблизительной звуковой записи (`tool/phonetics.dart`).
 ///
 /// Окончание здесь не менее важно, чем начало: в немецком созвучие часто идёт
 /// по суффиксу — и по короткому. Три буквы, а не четыре, потому что рифму
@@ -159,22 +163,11 @@ void _checkNearSoundalike(ContentSources sources, String lang, _Report report) {
 
   for (final lex in byConcept.values) {
     for (final d in lex.nearDistractors) {
-      final a = lex.form.toLowerCase();
-      final b = d.toLowerCase();
-      final sharedPrefix = _commonPrefix(a, b);
-      final sharedSuffix = _commonSuffix(a, b);
-      final distance = _levenshtein(a, b);
-      final looksClose = sharedPrefix >= 3 ||
-          sharedSuffix >= 3 ||
-          distance <= 2 ||
-          distance <= (a.length / 3).ceil();
-      if (!looksClose) {
-        report.review(
-          '${lex.conceptId}: "$d" не выглядит созвучным с "${lex.form}" '
-          '(общее начало $sharedPrefix, окончание $sharedSuffix, '
-          'расстояние $distance)',
-        );
-      }
+      if (soundsAlike(lex.form, d)) continue;
+      report.review(
+        '${lex.conceptId}: "$d" не выглядит созвучным с "${lex.form}" '
+        '(${soundalikeReport(lex.form, d)})',
+      );
     }
   }
 }
@@ -237,6 +230,64 @@ void _checkDuplicateForms(ContentSources sources, String lang, _Report report) {
       );
     }
     seen[key] = concept.id;
+  }
+}
+
+/// Артикль и род не противоречат друг другу.
+///
+/// Ошибка тихая и дорогая: игрок заучивает род вместе со словом, и неверная
+/// пара «die / n» учит его неправильно, ничем себя не выдавая. Проверяется
+/// только там, где заданы оба поля.
+void _checkArticleGender(ContentSources sources, String lang, _Report report) {
+  const byArticle = <String, String>{'der': 'm', 'die': 'f', 'das': 'n'};
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  for (final lex in byConcept.values) {
+    final article = lex.article;
+    final gender = lex.gender;
+    if (article == null || gender == null) continue;
+    final expected = byArticle[article];
+    if (expected == null || expected == gender) continue;
+    report.error(
+      '${lex.conceptId}: артикль "$article" не сходится с родом "$gender" '
+      '(ожидается "$expected")',
+    );
+  }
+}
+
+/// Один и тот же дистрактор не повторяется в ярусе слишком часто.
+///
+/// Это не ошибка данных, а вопрос игры: слово, которое стоит вариантом у
+/// пяти разных вопросов, игрок запоминает как «тот, который всегда неверный»,
+/// и перестаёт читать варианты вообще.
+void _checkDistractorVariety(
+  ContentSources sources,
+  String lang,
+  _Report report,
+) {
+  const limit = 2;
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  final byTier = <String, Map<String, List<String>>>{};
+  for (final concept in sources.concepts.values) {
+    final lex = byConcept[concept.id];
+    if (lex == null) continue;
+    final tier = byTier.putIfAbsent(concept.tier, () => {});
+    for (final d in [...lex.farDistractors, ...lex.nearDistractors]) {
+      tier.putIfAbsent(d.toLowerCase(), () => []).add(concept.id);
+    }
+  }
+
+  for (final entry in byTier.entries) {
+    for (final d in entry.value.entries) {
+      if (d.value.length <= limit) continue;
+      report.review(
+        'ярус ${entry.key}: дистрактор "${d.key}" встречается '
+        '${d.value.length} раз (${d.value.take(3).join(", ")}…)',
+      );
+    }
   }
 }
 
@@ -430,41 +481,8 @@ class _Report {
   }
 }
 
-int _commonPrefix(String a, String b) {
-  var i = 0;
-  while (i < a.length && i < b.length && a[i] == b[i]) {
-    i++;
-  }
-  return i;
-}
 
-int _commonSuffix(String a, String b) {
-  var i = 0;
-  while (i < a.length &&
-      i < b.length &&
-      a[a.length - 1 - i] == b[b.length - 1 - i]) {
-    i++;
-  }
-  return i;
-}
 
-int _levenshtein(String a, String b) {
-  var previous = List<int>.generate(b.length + 1, (i) => i);
-  for (var i = 1; i <= a.length; i++) {
-    final current = List<int>.filled(b.length + 1, 0);
-    current[0] = i;
-    for (var j = 1; j <= b.length; j++) {
-      final cost = a[i - 1] == b[j - 1] ? 0 : 1;
-      current[j] = [
-        current[j - 1] + 1,
-        previous[j] + 1,
-        previous[j - 1] + cost,
-      ].reduce((x, y) => x < y ? x : y);
-    }
-    previous = current;
-  }
-  return previous[b.length];
-}
 
 String _head(List<String> items, [int limit = 5]) {
   final shown = items.take(limit).join(', ');
