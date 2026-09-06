@@ -147,7 +147,7 @@ lexemes:
     plural: Erkältungen
     distractors:
       far: [Grippe, Halsschmerzen]
-      near: [Erklärung, Erkennung, Verkühlung]
+      near: [Erklärung, Erkennung, Erkundung]
   prescription_noun:
     form: Rezept
     article: das
@@ -163,7 +163,7 @@ lexemes:
     plural: Krankenschwestern
     distractors:
       far: [Pfleger, Assistentin]
-      near: [Krankenkasse, Krankenwagen, Schwester]
+      near: [Krankenkasse, Krankenwagen, Krankenbett]
   waiting_room:
     form: Wartezimmer
     article: das
@@ -527,7 +527,7 @@ lexemes:
     gender: f
     distractors:
       far: [Kur, Nachsorge]
-      near: [Rehe, Reihe, Rehabilitation]
+      near: [Rehe, Reihe, Rebe]
   physiotherapy_noun:
     form: Physiotherapie
     article: die
@@ -545,7 +545,7 @@ lexemes:
       far: [Anzeichen, Verlauf]
       near: [System, Sympathie, Syndrom]
   complaints_noun:
-    form: Beschwerden
+    form: Beschwerlichkeitn
     article: die
     gender: f
     note: обычно во множественном числе
@@ -1010,7 +1010,7 @@ lexemes:
     plural: Zimmer
     distractors:
       far: [Wohnung, Keller]
-      near: [Zimt, Kummer, Nimmer]
+      near: [Zimt, Kummer, nimmer]
   key_object:
     form: Schlüssel
     article: der
@@ -1540,7 +1540,7 @@ lexemes:
     plural: Abendessen
     distractors:
       far: [Imbiss, Buffet]
-      near: [Abendbrot, Abendkleid, Abenteuer]
+      near: [Abendrot, Abendkleid, Abenteuer]
   plate_object:
     form: Teller
     article: der
@@ -1818,7 +1818,7 @@ lexemes:
     note: неисчисляемое
     distractors:
       far: [Kreditkarte, Überweisung]
-      near: [Bargeldlos, Barhocker, Bargeldkasse]
+      near: [bargeldlos, Barhocker, Bargeldkasse]
   change_noun:
     form: Wechselgeld
     article: das
@@ -1842,7 +1842,7 @@ lexemes:
     plural: Größen
     distractors:
       far: [Farbe, Form]
-      near: [Grüße, Grotte, Grösse]
+      near: [Grüße, Grotte, Gräte]
   basket_object:
     form: Einkaufskorb
     article: der
@@ -2078,7 +2078,7 @@ lexemes:
     note: наречие
     distractors:
       far: [später, damals]
-      near: [Netz, letzt, jetzo]
+      near: [Netz, letzt, Hetze]
   soon_adv:
     form: bald
     note: наречие
@@ -2732,7 +2732,7 @@ lexemes:
     article: der
     gender: m
     plural: Kassenbons
-    distractors: { far: [Rechnung, Beleg], near: [Kassenzettel, Bonbon, Kassenbuch] }
+    distractors: { far: [Rechnung, Beleg], near: [Kassensturz, Bonbon, Kassenbuch] }
   creditcard_object:
     form: Kreditkarte
     article: die
@@ -2744,7 +2744,7 @@ lexemes:
     article: die
     gender: f
     plural: Banküberweisungen
-    distractors: { far: [Lastschrift, Barzahlung], near: [Überweisung, Bankverbindung, Bankauskunft] }
+    distractors: { far: [Lastschrift, Barzahlung], near: [Überweisungsträger, Bankverbindung, Bankauskunft] }
   voucher_noun:
     form: Gutschein
     article: der
@@ -2868,9 +2868,10 @@ lexemes:
 
   # ── «Семья», A2 ───────────────────────────────────────────────────────
   relatives_noun:
-    form: Verwandte
+    # Только множественное, и склонение слабое: «die Verwandten».
+    form: Verwandten
     article: die
-    plural: Verwandte
+    plural: Verwandten
     note: только множественное
     distractors: { far: [Bekannte, Nachbarn], near: [Verwandlung, Verbannte, Gewandte] }
   brotherinlaw_person:
@@ -2992,7 +2993,7 @@ lexemes:
     article: die
     gender: f
     plural: Staatsangehörigkeiten
-    distractors: { far: [Aufenthaltstitel, Herkunft], near: [Zugehörigkeit, Staatsanwaltschaft, Staatsbürgerschaft] }
+    distractors: { far: [Aufenthaltstitel, Herkunft], near: [Zugehörigkeit, Staatsanwaltschaft, Staatskasse] }
   maritalstatus_noun:
     form: Familienstand
     article: der
@@ -3066,7 +3067,7 @@ lexemes:
     article: der
     gender: m
     plural: Frühlinge
-    distractors: { far: [Vorfrühling, Tauwetter], near: [Füllung, Frühjahr, Häuptling] }
+    distractors: { far: [Vorfrühling, Tauwetter], near: [Füllung, Frühstart, Häuptling] }
   summer_time:
     form: Sommer
     article: der
@@ -3090,7 +3091,7 @@ lexemes:
     article: die
     plural: Ferien
     note: только множественное
-    distractors: { far: [Auszeit, Schulfrei], near: [Serien, Fasern, Ferne] }
+    distractors: { far: [Auszeit, schulfrei], near: [Serien, Fasern, Ferne] }
   appointment_meeting:
     form: Verabredung
     article: die
@@ -3372,7 +3373,8 @@ lexemes:
     plural: Kolleginnen
     distractors: { far: [Vorgesetzte, Praktikantin], near: [Königin, Kollation, Kolumne] }
   supervisor_person:
-    form: Vorgesetzter
+    # Слабое склонение: с определённым артиклем «der Vorgesetzte».
+    form: Vorgesetzte
     article: der
     gender: m
     plural: Vorgesetzte
@@ -3607,7 +3609,6 @@ lexemes:
     form: Nahverkehr
     article: der
     gender: m
-    plural: Nahverkehrsnetze
     distractors: { far: [Fernverkehr, Güterverkehr], near: [Nahaufnahme, Straßenverkehr, Nachverkauf] }
   longdistance_noun:
     form: Fernverkehr
@@ -3872,8 +3873,8 @@ lexemes:
   heatingcosts_noun:
     form: Heizkosten
     article: die
-    gender: f
     plural: Heizkosten
+    note: только множественное
     distractors: { far: [Stromkosten, Wasserkosten], near: [Heizkörper, Reisekosten, Heizperiode] }
   watermeter_object:
     form: Wasserzähler
@@ -4030,8 +4031,8 @@ lexemes:
   loyaltypoints_noun:
     form: Treuepunkte
     article: die
-    gender: f
     plural: Treuepunkte
+    note: только множественное
     distractors: { far: [Rabattmarke, Bonusmeilen], near: [Treuerabatt, Streupunkte, Treuhänder] }
 
   # ── «Семья», B1 ───────────────────────────────────────────────────────
@@ -4105,7 +4106,6 @@ lexemes:
     form: Erbe
     article: das
     gender: n
-    plural: Erbschaften
     distractors: { far: [Schenkung, Vermögen], near: [Erde, Herbe, Erbse] }
   will_noun:
     form: Testament
@@ -4177,7 +4177,6 @@ lexemes:
     form: Zusammenleben
     article: das
     gender: n
-    plural: Zusammenlebensformen
     distractors: { far: [Partnerschaft, Wohngemeinschaft], near: [Zusammenhalt, Zusammenbruch, Zusammenspiel] }
 
   # ── «Время», B1 ───────────────────────────────────────────────────────
@@ -4287,7 +4286,6 @@ lexemes:
     form: Pünktlichkeit
     article: die
     gender: f
-    plural: Pünktlichkeitswerte
     distractors: { far: [Zuverlässigkeit, Disziplin], near: [Peinlichkeit, Öffentlichkeit, Ordentlichkeit] }
   diary_object:
     form: Terminkalender
@@ -4311,7 +4309,6 @@ lexemes:
     form: Zeitdruck
     article: der
     gender: m
-    plural: Zeitzwänge
     distractors: { far: [Stress, Hektik], near: [Zeitraum, Blutdruck, Zeitzeuge] }
   opportunity_noun:
     form: Gelegenheit
@@ -4416,7 +4413,7 @@ lexemes:
     article: der
     gender: m
     plural: Einsprüche
-    distractors: { far: [Beschwerde, Klage], near: [Anspruch, Widerspruch, Einbruch] }
+    distractors: { far: [Beschwerde, Klage], near: [Anspruch, Einbruchschutz, Einbruch] }
   publicsurgery_noun:
     form: Bürgersprechstunde
     article: die
@@ -4531,7 +4528,6 @@ lexemes:
     form: Kündigungsschutz
     article: der
     gender: m
-    plural: Kündigungsschutzregeln
     distractors: { far: [Sozialauswahl, Mutterschutz], near: [Kündigungsfrist, Datenschutz, Kündigungsgrund] }
   companyagreement_noun:
     form: Betriebsvereinbarung
@@ -4579,7 +4575,6 @@ lexemes:
     form: Arbeitsschutz
     article: der
     gender: m
-    plural: Arbeitsschutzmaßnahmen
     distractors: { far: [Unfallverhütung, Gesundheitsvorsorge], near: [Arbeitsplatz, Datenschutz, Arbeitsschluss] }
   induction_noun:
     form: Einarbeitung
@@ -4598,7 +4593,7 @@ lexemes:
     article: die
     gender: f
     plural: Leistungsbeurteilungen
-    distractors: { far: [Feedbackgespräch, Zeugnis], near: [Leistungsbewertung, Verhaltensbeurteilung, Leistungsgrenze] }
+    distractors: { far: [Feedbackgespräch, Zeugnis], near: [Leistungssport, Verhaltensbeurteilung, Leistungsgrenze] }
   personnelfile_noun:
     form: Personalakte
     article: die
@@ -4654,7 +4649,7 @@ lexemes:
     article: der
     gender: m
     plural: Konservierungsstoffe
-    distractors: { far: [Farbstoff, Aroma], near: [Konservierungsmittel, Klebstoff, Konservendose] }
+    distractors: { far: [Farbstoff, Aroma], near: [Konservatorium, Klebstoff, Konservendose] }
   additive_noun:
     form: Zusatzstoff
     article: der
@@ -4737,7 +4732,6 @@ lexemes:
     form: Verbraucherschutz
     article: der
     gender: m
-    plural: Verbraucherschutzregeln
     distractors: { far: [Produkthaftung, Marktaufsicht], near: [Verbraucherzentrale, Datenschutz, Verbrauchermarkt] }
   foodlaw_noun:
     form: Lebensmittelrecht
@@ -5000,7 +4994,7 @@ lexemes:
     article: die
     gender: f
     plural: Mängelanzeigen
-    distractors: { far: [Schadensmeldung, Beschwerde], near: [Mängelrüge, Kleinanzeige, Mängelhaftung] }
+    distractors: { far: [Schadensmeldung, Beschwerde], near: [Mängelexemplar, Kleinanzeige, Mängelhaftung] }
   marketvalue_noun:
     form: Verkehrswert
     article: der
@@ -5243,7 +5237,7 @@ lexemes:
     form: Sorgerechtsstreit
     article: der
     gender: m
-    plural: Sorgerechtsstreitigkeiten
+    plural: Sorgerechtsstreite
     distractors: { far: [Umgangsverfahren, Mediation], near: [Sorgerechtsentzug, Rechtsstreit, Sorgerechtsantrag] }
   accessright_noun:
     form: Umgangsrecht
@@ -5366,7 +5360,7 @@ lexemes:
     article: der
     gender: m
     plural: Meilensteine
-    distractors: { far: [Etappenziel, Abnahmepunkt], near: [Meilenweit, Grenzstein, Meisterstück] }
+    distractors: { far: [Etappenziel, Abnahmepunkt], near: [meilenweit, Grenzstein, Meisterstück] }
   projectphase_noun:
     form: Projektphase
     article: die
@@ -5390,7 +5384,7 @@ lexemes:
     article: die
     gender: f
     plural: Synchronisierungen
-    distractors: { far: [Abstimmung, Gleichlauf], near: [Synchronisation, Sanierung, Symbolisierung] }
+    distractors: { far: [Abstimmung, Gleichlauf], near: [Synchronsprecher, Sanierung, Symbolisierung] }
   limitationdeadline_noun:
     form: Verjährungsfrist
     article: die

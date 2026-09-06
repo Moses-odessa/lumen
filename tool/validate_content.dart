@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'content_schema.dart';
 import 'content_sources.dart';
+import 'morphology.dart';
 import 'phonetics.dart';
 
 Future<void> main(List<String> args) async {
@@ -47,6 +48,10 @@ Future<void> main(List<String> args) async {
   _checkDuplicateForms(sources, lang, report);
   _checkPhraseAnswers(sources, lang, report);
   _checkArticleGender(sources, lang, report);
+  _checkPluralMorphology(sources, lang, report);
+  _checkPluraleTantum(sources, lang, report);
+  _checkDistractorCase(sources, lang, report);
+  _checkPhraseAmbiguity(sources, lang, report);
   _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
@@ -129,12 +134,18 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
     }
 
     final all = [...lex.farDistractors, ...lex.nearDistractors];
-    final clash = all.where(
-      (d) => d.toLowerCase() == lex.form.toLowerCase() ||
-          (lex.plural != null && d.toLowerCase() == lex.plural!.toLowerCase()),
-    );
-    for (final d in clash) {
-      report.error('${lex.conceptId}: дистрактор "$d" совпадает с ответом');
+    // Сравнение нормализованное: «Grösse» — это швейцарское написание
+    // «Größe», а не другое слово. Вариант написания в роли неверного ответа
+    // учит считать ошибкой правильную форму.
+    final answer = foldSpelling(lex.form);
+    final answerPlural = lex.plural == null ? null : foldSpelling(lex.plural!);
+    for (final d in all) {
+      final folded = foldSpelling(d);
+      if (folded != answer && folded != answerPlural) continue;
+      report.error(
+        '${lex.conceptId}: дистрактор "$d" — это сам ответ '
+        '"${lex.form}" в другом написании',
+      );
     }
 
     if (all.toSet().length != all.length) {
@@ -269,6 +280,100 @@ void _checkPhraseAnswers(ContentSources sources, String lang, _Report report) {
   }
 }
 
+/// Немецкое множественное образуется от самого слова: суффикс, иногда умлаут,
+/// иногда ничего. Оно не может быть множественным другого, более длинного
+/// слова.
+///
+/// Проверка существует потому, что этот класс ошибок уже случался дважды и
+/// оба раза был найден человеком, а не машиной. Само правило живёт в
+/// `tool/morphology.dart` и покрыто тестом.
+void _checkPluralMorphology(
+  ContentSources sources,
+  String lang,
+  _Report report,
+) {
+  // Правило описывает немецкую морфологию и только её: в английском
+  // множественное бывает внутри словосочетания («contract for work» →
+  // «contracts for work»), и закрытый список суффиксов там неприменим.
+  if (lang != 'de') return;
+
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  for (final lex in byConcept.values) {
+    final plural = lex.plural;
+    if (plural == null) continue;
+    if (isGermanPlural(lex.form, plural)) continue;
+
+    // Частный и узнаваемый случай: субстантивированное прилагательное
+    // записано в сильной форме, хотя рядом стоит определённый артикль.
+    // «der Vorgesetzter» — так игра и покажет его на экране.
+    if (isMisdeclinedAdjectivalNoun(lex.form, plural)) {
+      report.error(
+        '${lex.conceptId}: "${lex.article} ${lex.form}" — субстантивированное '
+        'прилагательное склоняется слабо, нужна форма "$plural"',
+      );
+      continue;
+    }
+
+    report.error(
+      '${lex.conceptId}: "$plural" не образуется от "${lex.form}" — '
+      'это множественное другой лексемы; либо уберите поле, либо дайте '
+      'настоящую форму',
+    );
+  }
+}
+
+/// У слова, которое бывает только во множественном, нет рода.
+///
+/// Артикль `die` во множественном одинаков для всех трёх родов, поэтому
+/// соблазн записать `gender: f` велик — и он учит неправде: «Treuepunkte» это
+/// множественное от «der Treuepunkt».
+void _checkPluraleTantum(ContentSources sources, String lang, _Report report) {
+  // Артикль `die` — немецкий признак; в языках без рода проверять нечего.
+  if (lang != 'de') return;
+
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  for (final lex in byConcept.values) {
+    if (lex.plural != lex.form || lex.article != 'die') continue;
+    if (lex.gender == null) continue;
+    report.error(
+      '${lex.conceptId}: "${lex.form}" — только множественное, '
+      'род "${lex.gender}" здесь означает артикль, а не род леммы',
+    );
+  }
+}
+
+/// Дистрактор с заглавной буквы обязан быть существительным.
+///
+/// Проверяется по концовкам, которые в немецком бывают только у прилагательных
+/// и наречий. Список короткий намеренно: `-schaft` содержит `-haft`, `-wert`
+/// и `-bar` бывают у существительных (Nährwert, Nachbar), и широкий набор
+/// давал бы полсотни ложных срабатываний вместо трёх настоящих.
+void _checkDistractorCase(ContentSources sources, String lang, _Report report) {
+  // Заглавная буква несёт смысл только там, где с неё пишут существительные.
+  if (lang != 'de') return;
+
+  const adjectiveEndings = ['los', 'weit', 'frei', 'sam', 'mäßig', 'voll'];
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  for (final lex in byConcept.values) {
+    for (final d in [...lex.farDistractors, ...lex.nearDistractors]) {
+      if (d.isEmpty || d[0].toLowerCase() == d[0]) continue;
+      if (d.length <= 6) continue;
+      final lower = d.toLowerCase();
+      if (!adjectiveEndings.any(lower.endsWith)) continue;
+      report.error(
+        '${lex.conceptId}: дистрактор "$d" оканчивается как прилагательное, '
+        'а записан с заглавной — такого существительного нет',
+      );
+    }
+  }
+}
+
 /// Артикль и род не противоречат друг другу.
 ///
 /// Ошибка тихая и дорогая: игрок заучивает род вместе со словом, и неверная
@@ -324,6 +429,78 @@ void _checkDistractorVariety(
         '${d.value.length} раз (${d.value.take(3).join(", ")}…)',
       );
     }
+  }
+}
+
+/// У фразы должен быть ровно один верный ответ.
+///
+/// Проверить это в общем виде нельзя — нужен смысл. Но один и притом самый
+/// частый источник вторых верных ответов машина видит: варианты, у которых с
+/// ответом общая вершина сложного слова. Stadtplan / Bauplan / Zeitplan,
+/// Kindeswohl / Gemeinwohl, Projektphase / Testphase — общая вершина даёт
+/// общий род, общее склонение и общую сочетаемость, поэтому такой вариант
+/// встаёт в пропуск наравне с ответом.
+///
+/// Считается ровно тот набор, который соберёт `QuestionBuilder.buildBoss`:
+/// `far` опорного концепта плюс соседи по созвездию и ярусу. Проверять другой
+/// набор бессмысленно — игрок увидит этот.
+void _checkPhraseAmbiguity(
+  ContentSources sources,
+  String lang,
+  _Report report,
+) {
+  // Четыре буквы: -plan, -wohl, -zeit, -kosten. Три давали бы -ung и -ion,
+  // то есть половину немецких отглагольных существительных.
+  const headLength = 4;
+
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  var drafted = 0;
+  final byTier = <String, Map<String, List<String>>>{};
+  for (final concept in sources.concepts.values) {
+    final form = byConcept[concept.id]?.form;
+    if (form == null) continue;
+    byTier
+        .putIfAbsent(concept.tier, () => {})
+        .putIfAbsent(concept.constellation, () => [])
+        .add(form);
+  }
+
+  for (final phrase in sources.phrases) {
+    final anchor =
+        phrase.conceptIds.isEmpty ? null : byConcept[phrase.conceptIds.first];
+    final options = <String>[
+      ...?anchor?.farDistractors,
+      ...?byTier[phrase.tier]?[phrase.constellation],
+    ];
+
+    final answer = foldSpelling(phrase.answer);
+    final clashing = options
+        .map(foldSpelling)
+        .where((o) => o != answer && commonSuffix(answer, o) >= headLength)
+        .toSet();
+    if (clashing.isEmpty) continue;
+
+    final message =
+        'фраза ${phrase.id}: вариант ${clashing.join(", ")} имеет ту же '
+        'вершину, что ответ "${phrase.answer}", и может встать в тот же '
+        'пропуск';
+    // Как и с полнотой дистракторов: с запущенного яруса спрос полный, с
+    // невычитанного — список на потом. Иначе проверка блокировала бы мерж за
+    // работу, которая и не объявлена законченной.
+    if (sources.launch.isLaunched(phrase.tier)) {
+      report.error(message);
+    } else {
+      drafted++;
+    }
+  }
+
+  if (drafted > 0) {
+    report.pending(
+      'у $drafted фраз незапущенных ярусов вариант делит вершину с ответом — '
+      'разбирать при вычитке яруса',
+    );
   }
 }
 

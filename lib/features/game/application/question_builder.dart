@@ -50,15 +50,26 @@ class QuestionBuilder {
       GameMode.audio => _audio(circle, concept, target),
       GameMode.circle => _productive(circle, concept, target, native, 'far'),
       GameMode.tight => _productive(circle, concept, target, native, 'near'),
-      // Фраза-босс собирается отдельно: у неё другой источник центра.
-      GameMode.phrase => _productive(circle, concept, target, native, 'near'),
+      // Фраза-босс собирается отдельно, через buildBoss: у неё другой
+      // источник центра. Ветка достижима только через круг, запланированный
+      // по концепту, — и `far` здесь по той же причине, что и там.
+      GameMode.phrase => _productive(circle, concept, target, native, 'far'),
     };
   }
 
-  /// Босс уровня: предложение с пропуском, вокруг формы одного слова.
+  /// Босс уровня: предложение с пропуском, вокруг слова той же темы.
   ///
   /// Слова игрок знает, а предложение из них собрать не может — ровно эту
   /// границу босс и проверяет.
+  ///
+  /// Варианты берутся из `far`, а не из `near`, и это не мелочь. `near` — это
+  /// созвучные слова, а созвучное составное существительное почти всегда имеет
+  /// ту же вершину: Stadtplan / Bauplan / Zeitplan, Kindeswohl / Gemeinwohl.
+  /// Общая вершина означает общий род, общее склонение и общую сочетаемость —
+  /// то есть такой «неверный» вариант встаёт в пропуск ничуть не хуже ответа,
+  /// и круг перестаёт иметь единственное решение. `far` — слова той же темы с
+  /// другим значением; они в пропуск обычно не встают, а когда встают, разница
+  /// именно смысловая, и её проверять честно.
   Future<CircleQuestion?> buildBoss({
     required String constellation,
     required Tier tier,
@@ -74,7 +85,7 @@ class QuestionBuilder {
     final distractors = <String>[];
     if (anchor != null) {
       distractors.addAll(
-        (await content.distractorsFor(anchor, targetLang, 'near'))
+        (await content.distractorsFor(anchor, targetLang, 'far'))
             .map((d) => d.form),
       );
     }
