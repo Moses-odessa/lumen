@@ -51,12 +51,22 @@ Future<void> main(List<String> args) async {
       db.execute(ddl);
     }
 
+    // Все вставки одной транзакцией.
+    //
+    // Без неё каждая строка — своя транзакция, а при `journal_mode = DELETE`
+    // это создание и удаление файла журнала рядом с базой. Строк около
+    // двадцати двух тысяч, и на Windows с работающим антивирусом сборка из-за
+    // этого шла не секунды, а десятки минут: проверялся каждый созданный
+    // файл. Режим журнала менять не стали — он выбран ради того, чтобы рядом
+    // с воспроизводимым ассетом не оставалось `-wal`.
+    db.execute('BEGIN');
     _insertConcepts(db, sources);
     _insertLexemes(db, sources, lang);
     _insertPhrases(db, sources, lang);
     _insertDistractors(db, sources, lang);
     _insertCalibration(db, sources, lang);
     _insertMeta(db, sources, lang, sources.hash);
+    db.execute('COMMIT');
 
     // Drift сверяет `user_version` со своим `schemaVersion`: без этого он
     // решит, что база пустая, и попытается прогнать миграцию по read-only
