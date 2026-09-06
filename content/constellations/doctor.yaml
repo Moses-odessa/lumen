@@ -45,7 +45,7 @@ tiers:
       - id: doctor_a0_appointment
         template: "Ich habe einen {appointment}."
         answer: Termin
-        register: formal
+        register: casual
         concepts: [appointment_noun]
 
   a1:
@@ -66,7 +66,7 @@ tiers:
       - id: doctor_a1_prescription
         template: "Brauche ich ein {prescription}?"
         answer: Rezept
-        register: formal
+        register: casual
         concepts: [prescription_noun]
       - id: doctor_a1_throat
         template: "Mein {throat} tut weh."
@@ -76,7 +76,7 @@ tiers:
       - id: doctor_a1_card
         template: "Hier ist meine {card}."
         answer: Versichertenkarte
-        register: formal
+        register: casual
         concepts: [insurance_card]
       - id: doctor_a1_cough
         template: "Ich habe seit drei Tagen {cough}."
@@ -94,7 +94,7 @@ tiers:
         register: formal
         concepts: [waiting_room]
       - id: doctor_a1_temperature
-        template: "Haben Sie {temperature} gemessen?"
+        template: "Haben Sie die {temperature} gemessen?"
         answer: Temperatur
         register: formal
         concepts: [temperature_noun]
@@ -134,22 +134,22 @@ tiers:
       - id: doctor_a2_sicknote
         template: "Ich brauche eine {note} für den Arbeitgeber."
         answer: Krankmeldung
-        register: formal
+        register: casual
         concepts: [sick_note]
       - id: doctor_a2_allergy
         template: "Ich habe eine {allergy} gegen Penicillin."
         answer: Allergie
-        register: formal
+        register: casual
         concepts: [allergy_noun]
       - id: doctor_a2_dosage
         template: "Wie hoch ist die {dosage}?"
         answer: Dosis
-        register: formal
+        register: casual
         concepts: [dosage_noun]
       - id: doctor_a2_emergency
         template: "Das ist ein {emergency}."
         answer: Notfall
-        register: formal
+        register: casual
         concepts: [emergency_noun]
       - id: doctor_a2_appointment
         template: "Ich möchte einen Termin in Ihrer {practice}."
@@ -159,12 +159,12 @@ tiers:
       - id: doctor_a2_sideeffect
         template: "Welche {effect} hat das Medikament?"
         answer: Nebenwirkungen
-        register: formal
+        register: casual
         concepts: [side_effect]
       - id: doctor_a2_wound
         template: "Die {wound} muss sauber bleiben."
         answer: Wunde
-        register: formal
+        register: casual
         concepts: [wound_noun]
       - id: doctor_a2_blood
         template: "Wir nehmen Ihnen {blood} ab."
@@ -179,7 +179,7 @@ tiers:
       - id: doctor_a2_vaccination
         template: "Ist die {vaccination} noch gültig?"
         answer: Impfung
-        register: formal
+        register: casual
         concepts: [vaccination_noun]
       - id: doctor_a2_tablet
         template: "Nehmen Sie eine {tablet} nach dem Essen."
@@ -222,17 +222,17 @@ tiers:
       - id: doctor_b1_referral
         template: "Ich brauche eine {referral} zum Facharzt."
         answer: Überweisung
-        register: formal
+        register: casual
         concepts: [referral_noun]
       - id: doctor_b1_coverage
         template: "Wir beantragen die {coverage}."
         answer: Kostenübernahme
-        register: formal
+        register: casual
         concepts: [cost_coverage]
       - id: doctor_b1_diagnosis
         template: "Wie lautet die {diagnosis}?"
         answer: Diagnose
-        register: formal
+        register: casual
         concepts: [diagnosis_noun]
       - id: doctor_b1_pressure
         template: "Ihr {pressure} ist zu hoch."
@@ -242,7 +242,7 @@ tiers:
       - id: doctor_b1_infection
         template: "Es handelt sich um eine bakterielle {infection}."
         answer: Infektion
-        register: formal
+        register: casual
         concepts: [infection_noun]
       - id: doctor_b1_report
         template: "Schicken Sie mir bitte den {report} zu."
@@ -252,12 +252,12 @@ tiers:
       - id: doctor_b1_chronic
         template: "Die Erkrankung ist {chronic}."
         answer: chronisch
-        register: formal
+        register: casual
         concepts: [chronic_adj]
       - id: doctor_b1_operation
         template: "Die {operation} dauert etwa zwei Stunden."
         answer: Operation
-        register: formal
+        register: casual
         concepts: [operation_noun]
       - id: doctor_b1_symptom
         template: "Seit wann haben Sie dieses {symptom}?"
@@ -267,17 +267,17 @@ tiers:
       - id: doctor_b1_discharge
         template: "Die {discharge} ist für Freitag geplant."
         answer: Entlassung
-        register: formal
+        register: casual
         concepts: [discharge_noun]
       - id: doctor_b1_lab
         template: "Der {result} liegt noch nicht vor."
         answer: Laborbefund
-        register: formal
+        register: casual
         concepts: [lab_result]
       - id: doctor_b1_rehab
         template: "Nach der Operation folgt die {rehab}."
         answer: Reha
-        register: formal
+        register: casual
         concepts: [rehab_noun]
 
   b2:
@@ -310,22 +310,22 @@ tiers:
       - id: doctor_b2_objection
         template: "Ich lege gegen den Bescheid {objection} ein."
         answer: Widerspruch
-        register: formal
+        register: casual
         concepts: [objection_noun]
       - id: doctor_b2_copayment
         template: "Wie hoch ist die {copayment}?"
         answer: Zuzahlung
-        register: formal
+        register: casual
         concepts: [copayment_noun]
       - id: doctor_b2_secondopinion
         template: "Ich möchte eine {opinion} einholen."
         answer: Zweitmeinung
-        register: formal
+        register: casual
         concepts: [second_opinion]
       - id: doctor_b2_outpatient
         template: "Der Eingriff erfolgt {outpatient}."
         answer: ambulant
-        register: formal
+        register: casual
         concepts: [outpatient_adj]
       - id: doctor_b2_consent
         template: "Bitte unterschreiben Sie die {consent}."
@@ -335,7 +335,7 @@ tiers:
       - id: doctor_b2_reimbursement
         template: "Die {reimbursement} dauert bis zu vier Wochen."
         answer: Erstattung
-        register: formal
+        register: casual
         concepts: [reimbursement_noun]
       - id: doctor_b2_interaction
         template: "Es gibt eine {interaction} mit Ihrem Blutdruckmittel."
@@ -345,7 +345,7 @@ tiers:
       - id: doctor_b2_incapacity
         template: "Die {incapacity} gilt bis zum Monatsende."
         answer: Arbeitsunfähigkeit
-        register: formal
+        register: casual
         concepts: [incapacity_noun]
       - id: doctor_b2_estimate
         template: "Bitte erstellen Sie einen {estimate}."
@@ -355,15 +355,15 @@ tiers:
       - id: doctor_b2_opinion
         template: "Das {opinion} liegt der Kasse bereits vor."
         answer: Gutachten
-        register: formal
+        register: casual
         concepts: [expert_opinion]
       - id: doctor_b2_privacy
         template: "Der {protection} verbietet die Weitergabe."
         answer: Datenschutz
-        register: formal
+        register: casual
         concepts: [data_protection]
       - id: doctor_b2_file
         template: "Ich beantrage Einsicht in meine {file}."
         answer: Patientenakte
-        register: formal
+        register: casual
         concepts: [patient_file]

@@ -65,6 +65,7 @@ tiers:
       - id: transport_a1_delay
         template: "Der Zug hat {delay}."
         answer: Verspätung
+        ambiguity: reviewed
         register: casual
         concepts: [delay_noun]
       - id: transport_a1_platform
@@ -158,7 +159,7 @@ tiers:
       - id: transport_a2_insurance
         template: "Die {insurance} zahlt den Schaden."
         answer: Versicherung
-        register: formal
+        register: casual
         concepts: [insurance_noun]
       - id: transport_a2_speed
         template: "Halten Sie die {speed} ein."
@@ -188,7 +189,7 @@ tiers:
       - id: transport_a2_diversion
         template: "Achtung, eine {diversion}."
         answer: Umleitung
-        register: formal
+        register: casual
         concepts: [diversion_noun]
 
   b1:
@@ -221,22 +222,22 @@ tiers:
       - id: transport_b1_fine
         template: "Das {fine} kostet achtzig Euro."
         answer: Bußgeld
-        register: formal
+        register: casual
         concepts: [fine_noun]
       - id: transport_b1_speedlimit
         template: "Hier gilt ein {speedlimit}."
         answer: Tempolimit
-        register: formal
+        register: casual
         concepts: [speedlimit_noun]
       - id: transport_b1_passenger
         template: "Jeder {passenger} braucht einen Fahrschein."
         answer: Fahrgast
-        register: formal
+        register: casual
         concepts: [passenger_person]
       - id: transport_b1_reduction
         template: "Studenten bekommen eine {reduction}."
         answer: Ermäßigung
-        register: formal
+        register: casual
         concepts: [reduction_noun]
       - id: transport_b1_monthlyticket
         template: "Die {monthlyticket} lohnt sich."
@@ -246,32 +247,32 @@ tiers:
       - id: transport_b1_rightofway
         template: "Von rechts hat man {rightofway}."
         answer: Vorfahrt
-        register: formal
+        register: casual
         concepts: [rightofway_noun]
       - id: transport_b1_registration
         template: "Die {registration} dauert eine Woche."
         answer: Zulassung
-        register: formal
+        register: casual
         concepts: [registration_noun]
       - id: transport_b1_inspection
         template: "Die {inspection} ist fällig."
         answer: Hauptuntersuchung
-        register: formal
+        register: casual
         concepts: [inspection_noun]
       - id: transport_b1_consumption
         template: "Der {consumption} liegt bei sechs Litern."
         answer: Verbrauch
-        register: formal
+        register: casual
         concepts: [consumption_noun]
       - id: transport_b1_maintenance
         template: "Die {maintenance} steht an."
         answer: Wartung
-        register: formal
+        register: casual
         concepts: [maintenance_noun]
       - id: transport_b1_localtransport
         template: "Der {localtransport} ist gut ausgebaut."
         answer: Nahverkehr
-        register: formal
+        register: casual
         concepts: [localtransport_noun]
       - id: transport_b1_breakdown
         template: "Rufen Sie den {breakdown}."
@@ -309,60 +310,60 @@ tiers:
       - id: transport_b2_excess
         template: "Die {excess} beträgt dreihundert Euro."
         answer: Selbstbeteiligung
-        register: formal
+        register: casual
         concepts: [excess_noun]
       - id: transport_b2_lowemission
         template: "Die {lowemission} gilt ab Montag."
         answer: Umweltzone
-        register: formal
+        register: casual
         concepts: [lowemissionzone_noun]
       - id: transport_b2_subsidy
         template: "Ohne {subsidy} rechnet sich das nicht."
         answer: Subvention
-        register: formal
+        register: casual
         concepts: [subsidy_noun]
       - id: transport_b2_claims
         template: "Die {claims} dauert Wochen."
         answer: Schadensregulierung
-        register: formal
+        register: casual
         concepts: [claimssettlement_noun]
       - id: transport_b2_roadsafety
         template: "Die {roadsafety} hat Vorrang."
         answer: Verkehrssicherheit
-        register: formal
+        register: casual
         concepts: [roadsafety_noun]
       - id: transport_b2_freight
         template: "Der {freight} nimmt zu."
         answer: Güterverkehr
-        register: formal
+        register: casual
         concepts: [freighttransport_noun]
       - id: transport_b2_customs
         template: "Die {customs} verzögert die Lieferung."
         answer: Zollabfertigung
-        register: formal
+        register: casual
         concepts: [customsclearance_noun]
       - id: transport_b2_infra
         template: "Die {infra} ist sanierungsbedürftig."
         answer: Verkehrsinfrastruktur
-        register: formal
+        register: casual
         concepts: [transportinfra_noun]
       - id: transport_b2_noise
         template: "Der {noise} kostet Millionen."
         answer: Lärmschutz
-        register: formal
+        register: casual
         concepts: [noiseprotection_noun]
       - id: transport_b2_liability
         template: "Der {liability} steht im Kleingedruckten."
         answer: Haftungsausschluss
-        register: formal
+        register: casual
         concepts: [liabilityexclusion_noun]
       - id: transport_b2_network
         template: "Das {network} wird erweitert."
         answer: Streckennetz
-        register: formal
+        register: casual
         concepts: [routenetwork_noun]
       - id: transport_b2_logbook
         template: "Das {logbook} ist Pflicht."
         answer: Fahrtenbuch
-        register: formal
+        register: casual
         concepts: [logbook_object]

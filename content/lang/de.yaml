@@ -139,7 +139,7 @@ lexemes:
     gender: m
     distractors:
       far: [Fieber, Schnupfen]
-      near: [Küsten, Kosten, Hasten]
+      near: [Küsten, Kosten, Kasten]
   cold_illness:
     form: Erkältung
     article: die
@@ -162,7 +162,7 @@ lexemes:
     gender: f
     plural: Krankenschwestern
     distractors:
-      far: [Pfleger, Assistentin]
+      far: [Sanitäter, Assistentin]
       near: [Krankenkasse, Krankenwagen, Krankenbett]
   waiting_room:
     form: Wartezimmer
@@ -1555,7 +1555,7 @@ lexemes:
     gender: n
     plural: Gläser
     distractors:
-      far: [Tasse, Becher]
+      far: [Tasse, Kanne]
       near: [Gras, Glanz, Glatze]
   fork_object:
     form: Gabel
@@ -1563,7 +1563,7 @@ lexemes:
     gender: f
     plural: Gabeln
     distractors:
-      far: [Zange, Schöpfer]
+      far: [Zange, Schneebesen]
       near: [Kabel, Nabel, Giebel]
   knife_object:
     form: Messer
@@ -1622,7 +1622,7 @@ lexemes:
     plural: Bahnsteige
     distractors:
       far: [Gleis, Halle]
-      near: [Anstieg, Bahnstrecke, Bahnkarte]
+      near: [Anstieg, Bahnstrecke, Bahnübergang]
   delay_noun:
     form: Verspätung
     article: die
@@ -1646,7 +1646,7 @@ lexemes:
     plural: Fahrpläne
     distractors:
       far: [Anzeige, Aushang]
-      near: [Bauplan, Fahrbahn, Flugplan]
+      near: [Bauplan, Fahrbahn, Fahrgestell]
   luggage_noun:
     form: Gepäck
     article: das
@@ -1662,7 +1662,7 @@ lexemes:
     plural: Taxis
     distractors:
       far: [Mietwagen, Shuttle]
-      near: [Taxe, Text, Achse]
+      near: [Tacho, Text, Achse]
   tram_transport:
     form: Straßenbahn
     article: die
@@ -1670,7 +1670,7 @@ lexemes:
     plural: Straßenbahnen
     distractors:
       far: [Obus, Fähre]
-      near: [Straßenbau, Seilbahn, Stadtbahn]
+      near: [Straßenbau, Seilbahn, Straßenfest]
   metro_transport:
     form: U-Bahn
     article: die
@@ -1693,7 +1693,7 @@ lexemes:
     gender: f
     plural: Reisen
     distractors:
-      far: [Ausflug, Tour]
+      far: [Ausflug, Unterkunft]
       near: [Reihe, Riese, Preise]
   arrival_noun:
     form: Ankunft
@@ -1709,7 +1709,7 @@ lexemes:
     gender: f
     plural: Abfahrten
     distractors:
-      far: [Abflug, Start]
+      far: [Wartesaal, Zwischenstopp]
       near: [Abfall, Anfahrt, Abkehr]
 
   # ── «Дом», A1 ─────────────────────────────────────────────────────────
@@ -1720,7 +1720,7 @@ lexemes:
     plural: Wohnungen
     distractors:
       far: [Haus, Villa]
-      near: [Wohnraum, Warnung, Wendung]
+      near: [Wohnwagen, Warnung, Wendung]
   floor_object:
     form: Boden
     article: der
@@ -1735,7 +1735,7 @@ lexemes:
     gender: f
     plural: Wände
     distractors:
-      far: [Zaun, Mauer]
+      far: [Zaun, Säule]
       near: [Band, Hand, Rand]
   roof_object:
     form: Dach
@@ -1768,7 +1768,7 @@ lexemes:
     plural: Treppen
     distractors:
       far: [Aufzug, Rampe]
-      near: [Krepp, Trepanation, Truppe]
+      near: [Krepp, Krippe, Truppe]
   bathroom_room:
     form: Badezimmer
     article: das
@@ -1776,7 +1776,7 @@ lexemes:
     plural: Badezimmer
     distractors:
       far: [Toilette, Flur]
-      near: [Badewanne, Kinderzimmer, Bauzimmer]
+      near: [Badewanne, Kinderzimmer, Badeanzug]
   shower_object:
     form: Dusche
     article: die
@@ -1818,12 +1818,11 @@ lexemes:
     note: неисчисляемое
     distractors:
       far: [Kreditkarte, Überweisung]
-      near: [bargeldlos, Barhocker, Bargeldkasse]
+      near: [bargeldlos, Barhocker, Barometer]
   change_noun:
     form: Wechselgeld
     article: das
     gender: n
-    plural: Wechselgelder
     distractors:
       far: [Trinkgeld, Pfand]
       near: [Wechselkurs, Wechselstube, Wechsel]
@@ -1858,7 +1857,7 @@ lexemes:
     plural: Umkleidekabinen
     distractors:
       far: [Kasse, Lager]
-      near: [Umkleideraum, Telefonkabine, Umleitung]
+      near: [Gardine, Telefonkabine, Umleitung]
   offer_noun:
     form: Angebot
     article: das
@@ -1881,7 +1880,7 @@ lexemes:
     gender: n
     plural: Produkte
     distractors:
-      far: [Ware, Sortiment]
+      far: [Verpackung, Sortiment]
       near: [Produzent, Produktion, Protokoll]
   brand_noun:
     form: Marke
@@ -1897,7 +1896,7 @@ lexemes:
     gender: f
     plural: Lieferungen
     distractors:
-      far: [Abholung, Versand]
+      far: [Abholung, Rücksendung]
       near: [Lieferant, Liegewiese, Läuterung]
   exchange_noun:
     form: Umtausch
@@ -1906,7 +1905,7 @@ lexemes:
     plural: Umtäusche
     distractors:
       far: [Rückgabe, Reklamation]
-      near: [Austausch, Umbau, Umsatz]
+      near: [Umzug, Umbau, Umsatz]
 
   # ── «Семья», A1 ───────────────────────────────────────────────────────
   brother_person:
@@ -1916,7 +1915,7 @@ lexemes:
     plural: Brüder
     distractors:
       far: [Schwager, Vetter]
-      near: [Bruch, Ruder, Brauder]
+      near: [Bruch, Ruder, Brauerei]
   grandmother_person:
     form: Oma
     article: die
@@ -1963,7 +1962,7 @@ lexemes:
     gender: m
     plural: Onkel
     distractors:
-      far: [Patenonkel, Pate]
+      far: [Schwiegervater, Pate]
       near: [Enkel, Winkel, Dunkel]
   cousin_person:
     form: Cousin
@@ -1972,7 +1971,7 @@ lexemes:
     plural: Cousins
     distractors:
       far: [Neffe, Verwandter]
-      near: [Cousine, Kusine, Kusinchen]
+      near: [Cousine, Kamin, Rosine]
   grandchild_person:
     form: Enkel
     article: der
@@ -2020,7 +2019,7 @@ lexemes:
     plural: Daten
     distractors:
       far: [Uhrzeit, Frist]
-      near: [Datei, Datteln, Dativ]
+      near: [Datei, Dattel, Dativ]
   calendar_object:
     form: Kalender
     article: der
@@ -2166,14 +2165,14 @@ lexemes:
     plural: Rathäuser
     distractors:
       far: [Amt, Behörde]
-      near: [Ratschlag, Rathausplatz, Radhaus]
+      near: [Ratschlag, Rathausplatz, Rasthaus]
   entrance_place:
     form: Eingang
     article: der
     gender: m
     plural: Eingänge
     distractors:
-      far: [Tor, Pforte]
+      far: [Tor, Schranke]
       near: [Ausgang, Einkauf, Empfang]
   exit_place:
     form: Ausgang
@@ -2181,7 +2180,7 @@ lexemes:
     gender: m
     plural: Ausgänge
     distractors:
-      far: [Notausstieg, Pforte]
+      far: [Sackgasse, Bordstein]
       near: [Eingang, Ausgabe, Aufschlag]
 
   # ── «Работа», A1 ──────────────────────────────────────────────────────
@@ -2232,14 +2231,14 @@ lexemes:
     plural: Abteilungen
     distractors:
       far: [Team, Zweigstelle]
-      near: [Anleitung, Ableitung, Abtreibung]
+      near: [Anleitung, Ableitung, Abbildung]
   project_noun:
     form: Projekt
     article: das
     gender: n
     plural: Projekte
     distractors:
-      far: [Auftrag, Vorhaben]
+      far: [Auftrag, Bericht]
       near: [Prospekt, Objekt, Protokoll]
   deadline_noun:
     form: Frist
@@ -2250,13 +2249,13 @@ lexemes:
       far: [Termin, Zeitplan]
       near: [First, Frost, Fritte]
   overtime_noun:
-    form: Überstunde
+    form: Überstunden
     article: die
-    gender: f
     plural: Überstunden
+    note: только множественное
     distractors:
       far: [Schicht, Bereitschaft]
-      near: [Übernachtung, Überraschung, Unterstunde]
+      near: [Übernachtung, Überraschung, Überschrift]
   break_noun:
     form: Pause
     article: die
@@ -2264,14 +2263,14 @@ lexemes:
     plural: Pausen
     distractors:
       far: [Feierabend, Urlaub]
-      near: [Maus, Bause, Klause]
+      near: [Maus, Brause, Klause]
   task_noun:
     form: Aufgabe
     article: die
     gender: f
     plural: Aufgaben
     distractors:
-      far: [Pflicht, Obliegenheit]
+      far: [Pflicht, Besprechung]
       near: [Ausgabe, Abgabe, Aufgang]
   experience_noun:
     form: Erfahrung

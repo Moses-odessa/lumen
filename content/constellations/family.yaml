@@ -98,8 +98,9 @@ tiers:
         register: casual
         concepts: [young_adj]
       - id: family_a1_uncle
-        template: "Mein {uncle} wohnt in Berlin."
+        template: "Mein {uncle} ist der Bruder meiner Mutter."
         answer: Onkel
+        ambiguity: reviewed
         register: casual
         concepts: [uncle_person]
 
@@ -138,7 +139,7 @@ tiers:
       - id: family_a2_surname
         template: "Mein {surname} ist selten."
         answer: Nachname
-        register: formal
+        register: casual
         concepts: [surname_noun]
       - id: family_a2_marriage
         template: "Die {marriage} hält seit zwanzig Jahren."
@@ -183,12 +184,12 @@ tiers:
       - id: family_a2_household
         template: "Wir führen einen gemeinsamen {household}."
         answer: Haushalt
-        register: formal
+        register: casual
         concepts: [household_noun]
       - id: family_a2_maritalstatus
         template: "Bitte den {maritalstatus} angeben."
         answer: Familienstand
-        register: formal
+        register: casual
         concepts: [maritalstatus_noun]
 
   b1:
@@ -221,17 +222,17 @@ tiers:
       - id: family_b1_custody
         template: "Das {custody} liegt bei der Mutter."
         answer: Sorgerecht
-        register: formal
+        register: casual
         concepts: [custody_noun]
       - id: family_b1_maintenance
         template: "Der {maintenance} wird monatlich gezahlt."
         answer: Unterhalt
-        register: formal
+        register: casual
         concepts: [maintenance_payment]
       - id: family_b1_childbenefit
         template: "Das {childbenefit} kommt vom Staat."
         answer: Kindergeld
-        register: formal
+        register: casual
         concepts: [childbenefit_noun]
       - id: family_b1_parentalleave
         template: "Er nimmt {parentalleave}."
@@ -241,12 +242,12 @@ tiers:
       - id: family_b1_will
         template: "Das {will} liegt beim Notar."
         answer: Testament
-        register: formal
+        register: casual
         concepts: [will_noun]
       - id: family_b1_inheritance
         template: "Das {inheritance} wird geteilt."
         answer: Erbe
-        register: formal
+        register: casual
         concepts: [inheritance_noun]
       - id: family_b1_registryoffice
         template: "Wir heiraten im {registryoffice}."
@@ -261,12 +262,12 @@ tiers:
       - id: family_b1_powerofattorney
         template: "Ohne {powerofattorney} geht das nicht."
         answer: Vollmacht
-        register: formal
+        register: casual
         concepts: [powerofattorney_noun]
       - id: family_b1_adoption
         template: "Die {adoption} dauerte zwei Jahre."
         answer: Adoption
-        register: formal
+        register: casual
         concepts: [adoption_noun]
       - id: family_b1_generation
         template: "Die junge {generation} denkt anders."
@@ -276,7 +277,7 @@ tiers:
       - id: family_b1_childcare
         template: "Die {childcare} kostet dreihundert Euro."
         answer: Betreuung
-        register: formal
+        register: casual
         concepts: [childcare_noun]
 
   b2:
@@ -309,60 +310,60 @@ tiers:
       - id: family_b2_prenup
         template: "Ohne {prenup} gilt die gesetzliche Regel."
         answer: Ehevertrag
-        register: formal
+        register: casual
         concepts: [prenup_noun]
       - id: family_b2_accessright
         template: "Das {accessright} ist geregelt."
         answer: Umgangsrecht
-        register: formal
+        register: casual
         concepts: [accessright_noun]
       - id: family_b2_youthoffice
         template: "Das {youthoffice} wurde eingeschaltet."
         answer: Jugendamt
-        register: formal
+        register: casual
         concepts: [youthoffice_place]
       - id: family_b2_familycourt
         template: "Das {familycourt} entscheidet."
         answer: Familiengericht
-        register: formal
+        register: casual
         concepts: [familycourt_place]
       - id: family_b2_compulsoryshare
         template: "Ihm steht der {compulsoryshare} zu."
         answer: Pflichtteil
-        register: formal
+        register: casual
         concepts: [compulsoryshare_noun]
       - id: family_b2_inheritancetax
         template: "Die {inheritancetax} ist hoch."
         answer: Erbschaftsteuer
-        register: formal
+        register: casual
         concepts: [inheritancetax_noun]
       - id: family_b2_livingwill
         template: "Die {livingwill} liegt vor."
         answer: Patientenverfügung
-        register: formal
+        register: casual
         concepts: [livingwill_noun]
       - id: family_b2_residencepermit
         template: "Der {residencepermit} läuft ab."
         answer: Aufenthaltstitel
-        register: formal
+        register: casual
         concepts: [residencepermit_noun]
       - id: family_b2_naturalisation
         template: "Die {naturalisation} dauert Jahre."
         answer: Einbürgerung
-        register: formal
+        register: casual
         concepts: [naturalisation_noun]
       - id: family_b2_reunion
         template: "Der {reunion} wurde genehmigt."
         answer: Familiennachzug
-        register: formal
+        register: casual
         concepts: [familyreunion_noun]
       - id: family_b2_pensionclaim
         template: "Der {pensionclaim} entsteht mit 67."
         answer: Rentenanspruch
-        register: formal
+        register: casual
         concepts: [pensionclaim_noun]
       - id: family_b2_childwelfare
         template: "Das {childwelfare} steht im Vordergrund."
         answer: Kindeswohl
-        register: formal
+        register: casual
         concepts: [childwelfare_noun]

@@ -85,7 +85,7 @@ tiers:
       - id: home_a1_stairs
         template: "Nehmen Sie die {stairs}."
         answer: Treppe
-        register: casual
+        register: formal
         concepts: [stairs_object]
       - id: home_a1_cellar
         template: "Die Fahrräder stehen im {cellar}."
@@ -138,7 +138,7 @@ tiers:
       - id: home_a2_lease
         template: "Lesen Sie den {lease} genau."
         answer: Mietvertrag
-        register: casual
+        register: formal
         concepts: [lease_noun]
       - id: home_a2_deposit
         template: "Die {deposit} sind drei Kaltmieten."
@@ -188,7 +188,7 @@ tiers:
       - id: home_a2_caretaker
         template: "Fragen Sie den {caretaker}."
         answer: Hausmeister
-        register: casual
+        register: formal
         concepts: [caretaker_person]
 
   b1:

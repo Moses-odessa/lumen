@@ -74,6 +74,7 @@ class PhraseSource {
     required this.answer,
     required this.conceptIds,
     this.register,
+    this.ambiguityReviewed = false,
   });
 
   final String id;
@@ -83,6 +84,16 @@ class PhraseSource {
   final String answer;
   final List<String> conceptIds;
   final String? register;
+
+  /// `ambiguity: reviewed` — человек посмотрел на варианты с той же вершиной
+  /// и решил, что смысл предложения их отсекает.
+  ///
+  /// Отметка нужна потому, что машина этого решить не может. Она видит, что
+  /// «Eingang» встаёт в тот же пропуск, что «Ausgang», и правильно на это
+  /// указывает; понять, что «Wir gehen durch den ___ hinaus» допускает только
+  /// выход, она не в силах. Без отметки проверка ругалась бы на исправленную
+  /// фразу вечно — а проверка, которую нельзя закрыть, отключается целиком.
+  final bool ambiguityReviewed;
 }
 
 class CalibrationItemSource {
@@ -356,6 +367,7 @@ class ContentSources {
             answer: _requireString(raw, 'answer', file),
             conceptIds: _stringList(raw['concepts']),
             register: raw['register'] as String?,
+            ambiguityReviewed: raw['ambiguity'] == 'reviewed',
           ));
         }
       }

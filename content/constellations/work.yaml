@@ -90,7 +90,7 @@ tiers:
       - id: work_a1_deadline
         template: "Die {deadline} ist am Freitag."
         answer: Frist
-        register: formal
+        register: casual
         concepts: [deadline_noun]
       - id: work_a1_experience
         template: "Ich habe viel {experience}."
@@ -133,12 +133,12 @@ tiers:
       - id: work_a2_contract
         template: "Der {contract} läuft ein Jahr."
         answer: Arbeitsvertrag
-        register: formal
+        register: casual
         concepts: [employment_contract]
       - id: work_a2_probation
         template: "Die {probation} dauert sechs Monate."
         answer: Probezeit
-        register: formal
+        register: casual
         concepts: [probation_noun]
       - id: work_a2_dismissal
         template: "Ich habe die {dismissal} bekommen."
@@ -148,7 +148,7 @@ tiers:
       - id: work_a2_parttime
         template: "Sie arbeitet in {parttime}."
         answer: Teilzeit
-        register: casual
+        register: formal
         concepts: [parttime_noun]
       - id: work_a2_shift
         template: "Ich habe heute {shift}."
@@ -168,7 +168,7 @@ tiers:
       - id: work_a2_tax
         template: "Die {tax} wird direkt abgezogen."
         answer: Steuer
-        register: formal
+        register: casual
         concepts: [tax_noun]
       - id: work_a2_endofday
         template: "Ich mache jetzt {endofday}."
@@ -178,7 +178,7 @@ tiers:
       - id: work_a2_supervisor
         template: "Der {supervisor} ist im Urlaub."
         answer: Vorgesetzter
-        register: formal
+        register: casual
         concepts: [supervisor_person]
       - id: work_a2_homeoffice
         template: "Montags bin ich im {homeoffice}."
@@ -188,7 +188,7 @@ tiers:
       - id: work_a2_payslip
         template: "Die {payslip} kommt per Post."
         answer: Lohnabrechnung
-        register: formal
+        register: casual
         concepts: [payslip_noun]
 
   b1:
@@ -226,17 +226,17 @@ tiers:
       - id: work_b1_warning
         template: "Er bekam eine {warning}."
         answer: Abmahnung
-        register: formal
+        register: casual
         concepts: [warning_noun]
       - id: work_b1_minimumwage
         template: "Der {minimumwage} steigt im Januar."
         answer: Mindestlohn
-        register: formal
+        register: casual
         concepts: [minimumwage_noun]
       - id: work_b1_collectiveagreement
         template: "Der {collectiveagreement} gilt für alle."
         answer: Tarifvertrag
-        register: formal
+        register: casual
         concepts: [collectiveagreement_noun]
       - id: work_b1_qualification
         template: "Ihre {qualification} passt gut."
@@ -246,17 +246,17 @@ tiers:
       - id: work_b1_reference
         template: "Das {reference} war sehr gut."
         answer: Arbeitszeugnis
-        register: formal
+        register: casual
         concepts: [workreference_noun]
       - id: work_b1_holidayentitlement
         template: "Der {holidayentitlement} beträgt dreißig Tage."
         answer: Urlaubsanspruch
-        register: formal
+        register: casual
         concepts: [holidayentitlement_noun]
       - id: work_b1_induction
         template: "Die {induction} dauert zwei Wochen."
         answer: Einarbeitung
-        register: formal
+        register: casual
         concepts: [induction_noun]
       - id: work_b1_atmosphere
         template: "Das {atmosphere} ist gut."
@@ -266,17 +266,17 @@ tiers:
       - id: work_b1_fixedterm
         template: "Die {fixedterm} läuft aus."
         answer: Befristung
-        register: formal
+        register: casual
         concepts: [fixedterm_noun]
       - id: work_b1_coverletter
         template: "Das {coverletter} war zu lang."
         answer: Anschreiben
-        register: formal
+        register: casual
         concepts: [coverletter_noun]
       - id: work_b1_safety
         template: "Der {safety} hat Vorrang."
         answer: Arbeitsschutz
-        register: formal
+        register: casual
         concepts: [occupationalsafety_noun]
 
   b2:
@@ -309,60 +309,60 @@ tiers:
       - id: work_b2_labourlaw
         template: "Das {labourlaw} schützt beide Seiten."
         answer: Arbeitsrecht
-        register: formal
+        register: casual
         concepts: [labourlaw_noun]
       - id: work_b2_shorttime
         template: "Wir gehen in {shorttime}."
         answer: Kurzarbeit
-        register: formal
+        register: casual
         concepts: [shorttimework_noun]
       - id: work_b2_socialplan
         template: "Der {socialplan} wurde ausgehandelt."
         answer: Sozialplan
-        register: formal
+        register: casual
         concepts: [socialplan_noun]
       - id: work_b2_codetermination
         template: "Die {codetermination} ist gesetzlich verankert."
         answer: Mitbestimmung
-        register: formal
+        register: casual
         concepts: [codetermination_noun]
       - id: work_b2_labourcourt
         template: "Wir sehen uns vor dem {labourcourt}."
         answer: Arbeitsgericht
-        register: formal
+        register: casual
         concepts: [labourcourt_place]
       - id: work_b2_socialinsurance
         template: "Die {socialinsurance} ist Pflicht."
         answer: Sozialversicherung
-        register: formal
+        register: casual
         concepts: [socialinsurance_noun]
       - id: work_b2_temporarywork
         template: "Er kam über {temporarywork}."
         answer: Zeitarbeit
-        register: formal
+        register: casual
         concepts: [temporarywork_noun]
       - id: work_b2_ancillary
         template: "Die {ancillary} trägt der Arbeitgeber."
         answer: Lohnnebenkosten
-        register: formal
+        register: casual
         concepts: [ancillarycosts_noun]
       - id: work_b2_strike
         template: "Das {strike} ist grundgesetzlich geschützt."
         answer: Streikrecht
-        register: formal
+        register: casual
         concepts: [righttostrike_noun]
       - id: work_b2_redundancy
         template: "Eine {redundancy} steht bevor."
         answer: Massenentlassung
-        register: formal
+        register: casual
         concepts: [massredundancy_noun]
       - id: work_b2_careinsurance
         template: "Die {careinsurance} zahlt einen Teil."
         answer: Pflegeversicherung
-        register: formal
+        register: casual
         concepts: [careinsurance_noun]
       - id: work_b2_conciliation
         template: "Die {conciliation} ist auf Montag angesetzt."
         answer: Güteverhandlung
-        register: formal
+        register: casual
         concepts: [conciliationhearing_noun]

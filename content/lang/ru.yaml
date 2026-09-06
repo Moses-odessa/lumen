@@ -95,7 +95,7 @@ lexemes:
   throat_body: { form: горло, gender: n, plural: горла }
   cough_noun: { form: кашель, gender: m }
   cold_illness: { form: простуда, gender: f, plural: простуды }
-  prescription_noun: { form: рецепт, gender: m, plural: рецепты }
+  prescription_noun: { form: рецепт, gender: m, plural: рецепты, note: врача }
   nurse_person: { form: медсестра, gender: f, plural: медсёстры }
   waiting_room: { form: приёмная, gender: f }
   insurance_card: { form: страховая карта, gender: f }
@@ -308,13 +308,13 @@ lexemes:
   vegetable_food: { form: овощи, gender: m, plural: овощи }
   platform_place: { form: платформа, gender: f, plural: платформы }
   delay_noun: { form: опоздание, gender: n, plural: опоздания }
-  connection_noun: { form: пересадка, gender: f, plural: пересадки }
+  connection_noun: { form: стыковка, gender: f, plural: пересадки }
   timetable_object: { form: расписание, gender: n, plural: расписания }
   luggage_noun: { form: багаж, gender: m }
   taxi_transport: { form: такси, gender: n }
   tram_transport: { form: трамвай, gender: m, plural: трамваи }
   metro_transport: { form: метро, gender: n }
-  seat_object: { form: место, gender: n, plural: места }
+  seat_object: { form: сидячее место, gender: n, plural: места }
   journey_noun: { form: поездка, gender: f, plural: поездки }
   arrival_noun: { form: прибытие, gender: n }
   departure_noun: { form: отправление, gender: n }

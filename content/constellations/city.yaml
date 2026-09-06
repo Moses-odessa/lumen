@@ -88,8 +88,9 @@ tiers:
         register: casual
         concepts: [direction_noun]
       - id: city_a1_exit
-        template: "Wo ist der {exit}?"
+        template: "Wir gehen durch den {exit} hinaus."
         answer: Ausgang
+        ambiguity: reviewed
         register: casual
         concepts: [exit_place]
       - id: city_a1_river
@@ -143,7 +144,7 @@ tiers:
       - id: city_a2_emergency
         template: "Die {emergency} ist die 112."
         answer: Notrufnummer
-        register: formal
+        register: casual
         concepts: [emergency_call]
       - id: city_a2_school
         template: "Meine Kinder gehen in diese {school}."
@@ -158,7 +159,7 @@ tiers:
       - id: city_a2_administration
         template: "Die {administration} hat geschlossen."
         answer: Verwaltung
-        register: formal
+        register: casual
         concepts: [administration_noun]
       - id: city_a2_citizenoffice
         template: "Melden Sie sich beim {citizenoffice} an."
@@ -188,7 +189,7 @@ tiers:
       - id: city_a2_resident
         template: "Die {resident} beschweren sich."
         answer: Einwohner
-        register: formal
+        register: casual
         concepts: [resident_person]
 
   b1:
@@ -221,7 +222,7 @@ tiers:
       - id: city_b1_permit
         template: "Ohne {permit} geht es nicht."
         answer: Genehmigung
-        register: formal
+        register: casual
         concepts: [permit_noun]
       - id: city_b1_form
         template: "Füllen Sie das {form} aus."
@@ -231,52 +232,52 @@ tiers:
       - id: city_b1_fee
         template: "Die {fee} beträgt dreißig Euro."
         answer: Gebühr
-        register: formal
+        register: casual
         concepts: [fee_noun]
       - id: city_b1_notice
         template: "Der {notice} kam gestern."
         answer: Bescheid
-        register: formal
+        register: casual
         concepts: [notice_decision]
       - id: city_b1_objection
         template: "Ich lege {objection} ein."
         answer: Einspruch
-        register: formal
+        register: casual
         concepts: [civicobjection_noun]
       - id: city_b1_mayor
         template: "Der {mayor} wird direkt gewählt."
         answer: Bürgermeister
-        register: formal
+        register: casual
         concepts: [mayor_person]
       - id: city_b1_municipality
         template: "Die {municipality} zahlt den Ausbau."
         answer: Gemeinde
-        register: formal
+        register: casual
         concepts: [municipality_place]
       - id: city_b1_jurisdiction
         template: "Dafür fehlt uns die {jurisdiction}."
         answer: Zuständigkeit
-        register: formal
+        register: casual
         concepts: [jurisdiction_noun]
       - id: city_b1_infrastructure
         template: "Die {infrastructure} ist veraltet."
         answer: Infrastruktur
-        register: formal
+        register: casual
         concepts: [infrastructure_noun]
       - id: city_b1_greenspace
         template: "Die {greenspace} bleibt erhalten."
         answer: Grünfläche
-        register: formal
+        register: casual
         concepts: [greenspace_place]
       - id: city_b1_publicorder
         template: "Das {publicorder} kontrolliert das."
         answer: Ordnungsamt
-        register: formal
+        register: casual
         concepts: [publicorder_office]
       - id: city_b1_application
         template: "Der {application} liegt vor."
         answer: Antrag
-        register: formal
+        register: casual
         concepts: [application_form]
 
   b2:
@@ -309,60 +310,60 @@ tiers:
       - id: city_b2_referendum
         template: "Der {referendum} war erfolgreich."
         answer: Bürgerentscheid
-        register: formal
+        register: casual
         concepts: [referendum_noun]
       - id: city_b2_administrativeact
         template: "Es handelt sich um einen {administrativeact}."
         answer: Verwaltungsakt
-        register: formal
+        register: casual
         concepts: [administrativeact_noun]
       - id: city_b2_court
         template: "Das {court} hat entschieden."
         answer: Verwaltungsgericht
-        register: formal
+        register: casual
         concepts: [administrativecourt_place]
       - id: city_b2_offence
         template: "Das ist eine {offence}."
         answer: Ordnungswidrigkeit
-        register: formal
+        register: casual
         concepts: [minoroffence_noun]
       - id: city_b2_budget
         template: "Der {budget} wurde beschlossen."
         answer: Haushaltsplan
-        register: formal
+        register: casual
         concepts: [budgetplan_noun]
       - id: city_b2_expropriation
         template: "Eine {expropriation} droht."
         answer: Enteignung
-        register: formal
+        register: casual
         concepts: [expropriation_noun]
       - id: city_b2_gazette
         template: "Es steht im {gazette}."
         answer: Amtsblatt
-        register: formal
+        register: casual
         concepts: [officialgazette_noun]
       - id: city_b2_tradetax
         template: "Die {tradetax} finanziert die Gemeinde."
         answer: Gewerbesteuer
-        register: formal
+        register: casual
         concepts: [tradetax_noun]
       - id: city_b2_planning
         template: "Die {planning} braucht Jahre."
         answer: Stadtplanung
-        register: formal
+        register: casual
         concepts: [townplanning_noun]
       - id: city_b2_remedy
         template: "Der {remedy} ist zulässig."
         answer: Rechtsbehelf
-        register: formal
+        register: casual
         concepts: [legalremedy_noun]
       - id: city_b2_disaster
         template: "Der {disaster} wurde geübt."
         answer: Katastrophenschutz
-        register: formal
+        register: casual
         concepts: [disasterresponse_noun]
       - id: city_b2_landuse
         template: "Der {landuse} wird geändert."
         answer: Flächennutzungsplan
-        register: formal
+        register: casual
         concepts: [landuseplan_noun]

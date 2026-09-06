@@ -63,9 +63,10 @@ tiers:
       - { id: exchange_noun, pos: noun, freq_rank: 4640 }
     phrases:
       - id: shop_a1_cash
-        template: "Zahlen Sie mit {cash}?"
+        template: "Ich hebe {cash} am Automaten ab."
         answer: Bargeld
-        register: formal
+        ambiguity: reviewed
+        register: casual
         concepts: [cash_noun]
       - id: shop_a1_size
         template: "Haben Sie diese {size}?"
@@ -85,10 +86,10 @@ tiers:
       - id: shop_a1_exchange
         template: "Ich möchte einen {exchange}."
         answer: Umtausch
-        register: formal
+        register: casual
         concepts: [exchange_noun]
       - id: shop_a1_quality
-        template: "Die {quality} ist gut."
+        template: "Das Material bestimmt die {quality}."
         answer: Qualität
         register: casual
         concepts: [quality_noun]
@@ -98,8 +99,9 @@ tiers:
         register: casual
         concepts: [offer_noun]
       - id: shop_a1_change
-        template: "Das {change} stimmt nicht."
+        template: "Ich bekomme zwei Euro {change} zurück."
         answer: Wechselgeld
+        ambiguity: reviewed
         register: casual
         concepts: [change_noun]
 
@@ -133,12 +135,12 @@ tiers:
       - id: shop_a2_warranty
         template: "Die {warranty} gilt zwei Jahre."
         answer: Garantie
-        register: formal
+        register: casual
         concepts: [warranty_noun]
       - id: shop_a2_return
         template: "Ist eine {return} möglich?"
         answer: Rückgabe
-        register: formal
+        register: casual
         concepts: [return_noun]
       - id: shop_a2_receipt
         template: "Bewahren Sie den {receipt} auf."
@@ -163,12 +165,12 @@ tiers:
       - id: shop_a2_complaint
         template: "Ich möchte eine {complaint} machen."
         answer: Reklamation
-        register: formal
+        register: casual
         concepts: [complaint_noun]
       - id: shop_a2_openinghours
         template: "Wie sind die {openinghours}?"
         answer: Öffnungszeiten
-        register: formal
+        register: casual
         concepts: [openinghours_noun]
       - id: shop_a2_special
         template: "Das ist ein {special}."
@@ -178,12 +180,12 @@ tiers:
       - id: shop_a2_vat
         template: "Der Preis ist ohne {vat}."
         answer: Mehrwertsteuer
-        register: formal
+        register: casual
         concepts: [vat_noun]
       - id: shop_a2_transfer
         template: "Bitte per {transfer} bezahlen."
         answer: Banküberweisung
-        register: formal
+        register: casual
         concepts: [transfer_noun]
       - id: shop_a2_seller
         template: "Fragen Sie den {seller}."
@@ -226,27 +228,27 @@ tiers:
       - id: shop_b1_deliverytime
         template: "Die {deliverytime} beträgt drei Tage."
         answer: Lieferzeit
-        register: formal
+        register: casual
         concepts: [deliverytime_noun]
       - id: shop_b1_reminder
         template: "Ich habe eine {reminder} bekommen."
         answer: Mahnung
-        register: formal
+        register: casual
         concepts: [reminder_noun]
       - id: shop_b1_tracking
         template: "Die {tracking} zeigt nichts an."
         answer: Sendungsverfolgung
-        register: formal
+        register: casual
         concepts: [tracking_noun]
       - id: shop_b1_financing
         template: "Wir bieten eine {financing} an."
         answer: Finanzierung
-        register: formal
+        register: casual
         concepts: [financing_noun]
       - id: shop_b1_directdebit
         template: "Zahlung per {directdebit} ist möglich."
         answer: Lastschrift
-        register: formal
+        register: casual
         concepts: [directdebit_noun]
       - id: shop_b1_review
         template: "Die {review} war negativ."
@@ -261,22 +263,22 @@ tiers:
       - id: shop_b1_warranty
         template: "Die {warranty} gilt zwei Jahre."
         answer: Gewährleistung
-        register: formal
+        register: casual
         concepts: [statutorywarranty_noun]
       - id: shop_b1_paymentterm
         template: "Das {paymentterm} ist vierzehn Tage."
         answer: Zahlungsziel
-        register: formal
+        register: casual
         concepts: [paymentterm_noun]
       - id: shop_b1_billingaddress
         template: "Bitte die {billingaddress} angeben."
         answer: Rechnungsadresse
-        register: formal
+        register: casual
         concepts: [billingaddress_noun]
       - id: shop_b1_contract
         template: "Der {contract} kam per E-Mail."
         answer: Kaufvertrag
-        register: formal
+        register: casual
         concepts: [purchasecontract_noun]
 
   b2:
@@ -309,60 +311,60 @@ tiers:
       - id: shop_b2_terms
         template: "Die {terms} gelten für alle Bestellungen."
         answer: Geschäftsbedingungen
-        register: formal
+        register: casual
         concepts: [termsandconditions_noun]
       - id: shop_b2_limitation
         template: "Die {limitation} beträgt zwei Jahre."
         answer: Verjährung
-        register: formal
+        register: casual
         concepts: [limitationperiod_noun]
       - id: shop_b2_damages
         template: "Er fordert {damages}."
         answer: Schadensersatz
-        register: formal
+        register: casual
         concepts: [damages_noun]
       - id: shop_b2_defect
         template: "Es liegt ein {defect} vor."
         answer: Sachmangel
-        register: formal
+        register: casual
         concepts: [materialdefect_noun]
       - id: shop_b2_withdrawal
         template: "Wir erklären den {withdrawal}."
         answer: Rücktritt
-        register: formal
+        register: casual
         concepts: [withdrawal_contract]
       - id: shop_b2_burden
         template: "Die {burden} liegt beim Käufer."
         answer: Beweislast
-        register: formal
+        register: casual
         concepts: [burdenofproof_noun]
       - id: shop_b2_margin
         template: "Die {margin} ist zu klein."
         answer: Marge
-        register: formal
+        register: casual
         concepts: [margin_noun]
       - id: shop_b2_stocktaking
         template: "Wegen {stocktaking} geschlossen."
         answer: Inventur
-        register: formal
+        register: casual
         concepts: [stocktaking_noun]
       - id: shop_b2_shortage
         template: "Es gibt einen {shortage}."
         answer: Lieferengpass
-        register: formal
+        register: casual
         concepts: [supplyshortage_noun]
       - id: shop_b2_default
         template: "Der Kunde ist in {default}."
         answer: Zahlungsverzug
-        register: formal
+        register: casual
         concepts: [paymentdefault_noun]
       - id: shop_b2_marketshare
         template: "Der {marketshare} wächst."
         answer: Marktanteil
-        register: formal
+        register: casual
         concepts: [marketshare_noun]
       - id: shop_b2_consumercentre
         template: "Die {consumercentre} berät kostenlos."
         answer: Verbraucherzentrale
-        register: formal
+        register: casual
         concepts: [consumercentre_noun]

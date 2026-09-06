@@ -807,7 +807,7 @@ lexemes:
   wife_person: { form: wife, plural: wives }
   aunt_person: { form: aunt, plural: aunts }
   uncle_person: { form: uncle, plural: uncles }
-  cousin_person: { form: cousin, plural: cousins }
+  cousin_person: { form: male cousin, plural: cousins }
   grandchild_person: { form: grandchild, plural: grandchildren }
   birthday_noun: { form: birthday, plural: birthdays }
   wedding_noun: { form: wedding, plural: weddings }

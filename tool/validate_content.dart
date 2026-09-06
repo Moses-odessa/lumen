@@ -52,6 +52,7 @@ Future<void> main(List<String> args) async {
   _checkPluraleTantum(sources, lang, report);
   _checkDistractorCase(sources, lang, report);
   _checkPhraseAmbiguity(sources, lang, report);
+  _checkPhraseRegister(sources, report);
   _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
@@ -480,7 +481,19 @@ void _checkPhraseAmbiguity(
         .map(foldSpelling)
         .where((o) => o != answer && commonSuffix(answer, o) >= headLength)
         .toSet();
-    if (clashing.isEmpty) continue;
+
+    if (clashing.isEmpty) {
+      // Отметка осталась от прежней редакции фразы: она больше ничего не
+      // прикрывает и вводит в заблуждение следующего читающего.
+      if (phrase.ambiguityReviewed) {
+        report.review(
+          'фраза ${phrase.id}: пометка «ambiguity: reviewed» лишняя — '
+          'вариантов с той же вершиной больше нет',
+        );
+      }
+      continue;
+    }
+    if (phrase.ambiguityReviewed) continue;
 
     final message =
         'фраза ${phrase.id}: вариант ${clashing.join(", ")} имеет ту же '
@@ -500,6 +513,51 @@ void _checkPhraseAmbiguity(
     report.pending(
       'у $drafted фраз незапущенных ярусов вариант делит вершину с ответом — '
       'разбирать при вычитке яруса',
+    );
+  }
+}
+
+/// `register: formal` означает обращение на Sie — и ничего больше.
+///
+/// Определение нужно было выбрать: в docs/CONTENT_PIPELINE.md поле значилось
+/// как «необязательно: formal | casual», без объяснения, и данные разошлись.
+/// «Nehmen Sie die Treppe» стояло casual, «Die Frist ist am Freitag» —
+/// formal, хотя вежливой формы там нет вовсе.
+///
+/// Выбрано грамматическое значение, потому что игрок видит эту пометку как
+/// подсказку и должен по ней что-то уметь. Отличить Sie от du он умеет
+/// проверяемо; угадать, насколько ситуация «официальная», — нет.
+void _checkPhraseRegister(ContentSources sources, _Report report) {
+  // Вежливая форма узнаётся по местоимению: Sie, Ihnen, Ihr/Ihre/Ihren…
+  final polite = RegExp(r'\b(Sie|Ihnen|Ihr|Ihre|Ihrem|Ihren|Ihrer|Ihres)\b');
+  var drafted = 0;
+
+  for (final phrase in sources.phrases) {
+    final register = phrase.register;
+    if (register == null) continue;
+    if (register != 'formal' && register != 'casual') {
+      report.error('фраза ${phrase.id}: регистр "$register" — нужен '
+          'formal или casual');
+      continue;
+    }
+
+    final hasPolite = polite.hasMatch(phrase.template);
+    if (hasPolite == (register == 'formal')) continue;
+
+    final message = hasPolite
+        ? 'фраза ${phrase.id}: обращение на Sie, а помечена casual'
+        : 'фраза ${phrase.id}: помечена formal, но вежливой формы в ней нет';
+    if (sources.launch.isLaunched(phrase.tier)) {
+      report.error(message);
+    } else {
+      drafted++;
+    }
+  }
+
+  if (drafted > 0) {
+    report.pending(
+      'у $drafted фраз незапущенных ярусов пометка регистра не сходится с '
+      'формой обращения',
     );
   }
 }
