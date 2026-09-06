@@ -44,7 +44,7 @@ tiers:
       - id: home_a0_room
         template: "Ich miete ein {room}."
         answer: Zimmer
-        register: formal
+        register: casual
         concepts: [room_place]
 
   a1:
@@ -85,7 +85,7 @@ tiers:
       - id: home_a1_stairs
         template: "Nehmen Sie die {stairs}."
         answer: Treppe
-        register: formal
+        register: casual
         concepts: [stairs_object]
       - id: home_a1_cellar
         template: "Die Fahrräder stehen im {cellar}."
@@ -138,17 +138,17 @@ tiers:
       - id: home_a2_lease
         template: "Lesen Sie den {lease} genau."
         answer: Mietvertrag
-        register: formal
+        register: casual
         concepts: [lease_noun]
       - id: home_a2_deposit
         template: "Die {deposit} sind drei Kaltmieten."
         answer: Kaution
-        register: formal
+        register: casual
         concepts: [deposit_noun]
       - id: home_a2_utilities
         template: "Die {utilities} kommen dazu."
         answer: Nebenkosten
-        register: formal
+        register: casual
         concepts: [utilities_noun]
       - id: home_a2_electricity
         template: "Der {electricity} ist ausgefallen."
@@ -188,7 +188,7 @@ tiers:
       - id: home_a2_caretaker
         template: "Fragen Sie den {caretaker}."
         answer: Hausmeister
-        register: formal
+        register: casual
         concepts: [caretaker_person]
 
   b1:
@@ -221,17 +221,17 @@ tiers:
       - id: home_b1_noticeperiod
         template: "Die {noticeperiod} beträgt drei Monate."
         answer: Kündigungsfrist
-        register: formal
+        register: casual
         concepts: [noticeperiod_noun]
       - id: home_b1_rentincrease
         template: "Die {rentincrease} kam per Brief."
         answer: Mieterhöhung
-        register: formal
+        register: casual
         concepts: [rentincrease_noun]
       - id: home_b1_defect
         template: "Ich melde einen {defect}."
         answer: Mangel
-        register: formal
+        register: casual
         concepts: [defect_noun]
       - id: home_b1_mould
         template: "An der Wand ist {mould}."
@@ -241,22 +241,22 @@ tiers:
       - id: home_b1_livingspace
         template: "Die {livingspace} beträgt sechzig Quadratmeter."
         answer: Wohnfläche
-        register: formal
+        register: casual
         concepts: [livingspace_noun]
       - id: home_b1_renovation
         template: "Die {renovation} zahlt der Vermieter."
         answer: Renovierung
-        register: formal
+        register: casual
         concepts: [renovation_noun]
       - id: home_b1_registration
         template: "Die {registration} macht man im Bürgeramt."
         answer: Anmeldung
-        register: formal
+        register: casual
         concepts: [residentregistration_noun]
       - id: home_b1_heatingcosts
         template: "Die {heatingcosts} sind gestiegen."
         answer: Heizkosten
-        register: formal
+        register: casual
         concepts: [heatingcosts_noun]
       - id: home_b1_tradesman
         template: "Der {tradesman} kommt am Dienstag."
@@ -266,17 +266,17 @@ tiers:
       - id: home_b1_smokedetector
         template: "Jedes Zimmer braucht einen {smokedetector}."
         answer: Rauchmelder
-        register: formal
+        register: casual
         concepts: [smokedetector_object]
       - id: home_b1_wastesorting
         template: "Die {wastesorting} ist hier Pflicht."
         answer: Mülltrennung
-        register: formal
+        register: casual
         concepts: [wastesorting_noun]
       - id: home_b1_sublet
         template: "Für die {sublet} braucht man Erlaubnis."
         answer: Untermiete
-        register: formal
+        register: casual
         concepts: [sublet_noun]
 
   b2:
@@ -309,60 +309,60 @@ tiers:
       - id: home_b2_rentindex
         template: "Der {rentindex} liegt bei neun Euro."
         answer: Mietspiegel
-        register: formal
+        register: casual
         concepts: [rentindex_noun]
       - id: home_b2_landregister
         template: "Das steht im {landregister}."
         answer: Grundbuch
-        register: formal
+        register: casual
         concepts: [landregister_noun]
       - id: home_b2_mortgage
         template: "Die {mortgage} läuft zwanzig Jahre."
         answer: Hypothek
-        register: formal
+        register: casual
         concepts: [mortgage_noun]
       - id: home_b2_rentreduction
         template: "Ich kündige eine {rentreduction} an."
         answer: Mietminderung
-        register: formal
+        register: casual
         concepts: [rentreduction_noun]
       - id: home_b2_handover
         template: "Das {handover} unterschreiben beide."
         answer: Übergabeprotokoll
-        register: formal
+        register: casual
         concepts: [handoverprotocol_noun]
       - id: home_b2_insulation
         template: "Die {insulation} spart Heizkosten."
         answer: Wärmedämmung
-        register: formal
+        register: casual
         concepts: [insulation_noun]
       - id: home_b2_buildingapplication
         template: "Der {buildingapplication} wurde abgelehnt."
         answer: Bauantrag
-        register: formal
+        register: casual
         concepts: [buildingapplication_noun]
       - id: home_b2_owners
         template: "Die {owners} entscheidet darüber."
         answer: Eigentümergemeinschaft
-        register: formal
+        register: casual
         concepts: [ownersassociation_noun]
       - id: home_b2_heritage
         template: "Hier gilt {heritage}."
         answer: Denkmalschutz
-        register: formal
+        register: casual
         concepts: [heritageprotection_noun]
       - id: home_b2_marketvalue
         template: "Der {marketvalue} wurde geschätzt."
         answer: Verkehrswert
-        register: formal
+        register: casual
         concepts: [marketvalue_noun]
       - id: home_b2_repayment
         template: "Die {repayment} beginnt sofort."
         answer: Tilgung
-        register: formal
+        register: casual
         concepts: [repayment_noun]
       - id: home_b2_defectnotice
         template: "Die {defectnotice} ging per Einschreiben."
         answer: Mängelanzeige
-        register: formal
+        register: casual
         concepts: [defectnotice_noun]

@@ -652,10 +652,39 @@ void _checkLaunchPolicy(ContentSources sources, _Report report) {
       report.error('в launch.yaml неизвестный ярус "$tier"');
       continue;
     }
-    final hasContent =
-        sources.concepts.values.any((c) => c.tier == tier);
-    if (!hasContent) {
+    final onTier = sources.concepts.values.where((c) => c.tier == tier);
+    if (onTier.isEmpty) {
       report.error('ярус $tier запущен, но контента на нём нет');
+      continue;
+    }
+
+    // Вычитка обязана покрывать ярус целиком.
+    //
+    // Именно здесь правило и протекало: `reviewers` был свободным текстом,
+    // созвездий стало девять вместо пяти, а запись осталась прежней. Ярус
+    // считался запущенным, потому что так было написано, — а не потому, что
+    // его прочитали.
+    final review = sources.launch.reviews[tier];
+    if (review == null || review.by.isEmpty) {
+      report.error('ярус $tier запущен, но в launch.yaml нет записи о вычитке');
+      continue;
+    }
+
+    final present = {for (final c in onTier) c.constellation};
+    final missing = present.difference(review.constellations).toList()..sort();
+    if (missing.isNotEmpty) {
+      report.error(
+        'ярус $tier запущен, но вычитка не покрывает созвездия '
+        '${missing.join(', ')} — либо вычитать, либо снять ярус с запуска',
+      );
+    }
+
+    final extra = review.constellations.difference(present).toList()..sort();
+    if (extra.isNotEmpty) {
+      report.error(
+        'ярус $tier: в вычитке значатся созвездия ${extra.join(', ')}, '
+        'которых на ярусе нет',
+      );
     }
   }
 }

@@ -226,7 +226,8 @@ lexemes:
   shop_place: { form: магазин, gender: m, plural: магазины }
   money_noun: { form: деньги, gender: m, plural: деньги }
   price_noun: { form: цена, gender: f, plural: цены }
-  card_object: { form: карта, gender: f, plural: карты }
+  # «Карта» на A0 значит и die Karte, и der Stadtplan — нужна пометка.
+  card_object: { form: карта, gender: f, plural: карты, note: банковская }
   checkout_place: { form: касса, gender: f, plural: кассы }
   bag_object: { form: пакет, gender: m, plural: пакеты }
   purchase_noun: { form: покупка, gender: f, plural: покупки }

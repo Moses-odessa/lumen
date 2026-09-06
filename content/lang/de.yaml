@@ -77,7 +77,7 @@ lexemes:
     plural: Apotheken
     distractors:
       far: [Praxis, Klinik]
-      near: [Apotheker, Bibliothek, Kartothek]
+      near: [Apotheker, Bibliothek, Diskothek]
   hospital_place:
     form: Krankenhaus
     article: das
@@ -897,7 +897,7 @@ lexemes:
     gender: f
     plural: Straßen
     distractors:
-      far: [Gasse, Platz]
+      far: [Kreuzung, Platz]
       near: [Strafe, Strauß, Strähne]
   bicycle_transport:
     form: Fahrrad
@@ -921,7 +921,7 @@ lexemes:
     gender: m
     plural: Wege
     distractors:
-      far: [Pfad, Route]
+      far: [Ziel, Verkehr]
       near: [Steg, Beleg, Weh]
   driver_person:
     form: Fahrer
@@ -930,7 +930,7 @@ lexemes:
     plural: Fahrer
     distractors:
       far: [Schaffner, Pilot]
-      near: [Fährte, Falter, Farben]
+      near: [Fährte, Falter, Farbe]
   stop_place:
     form: Haltestelle
     article: die
@@ -1159,7 +1159,7 @@ lexemes:
     gender: n
     plural: Kinder
     distractors:
-      far: [Baby, Jugendlicher]
+      far: [Erwachsener, Jugendlicher]
       near: [Rind, Wind, Kinn]
   son_person:
     form: Sohn
@@ -1215,7 +1215,7 @@ lexemes:
     gender: m
     plural: Männer
     distractors:
-      far: [Junge, Herr]
+      far: [Junge, Bruder]
       near: [Bann, Wanne, Mannschaft]
   woman_person:
     form: Frau
@@ -1223,7 +1223,7 @@ lexemes:
     gender: f
     plural: Frauen
     distractors:
-      far: [Mädchen, Dame]
+      far: [Mädchen, Tochter]
       near: [Grau, Braut, Frost]
   old_adj:
     form: alt
@@ -1295,7 +1295,7 @@ lexemes:
     gender: m
     plural: Morgen
     distractors:
-      far: [Mittag, Vormittag]
+      far: [Mittag, Nachmittag]
       near: [Sorgen, Orgel, Bogen]
   evening_time:
     form: Abend
@@ -1311,7 +1311,7 @@ lexemes:
     gender: f
     plural: Uhren
     distractors:
-      far: [Kalender, Wecker]
+      far: [Kalender, Termin]
       near: [Ohr, Tour, Spur]
   today_adv:
     form: heute
@@ -1397,7 +1397,7 @@ lexemes:
     gender: n
     plural: Hotels
     distractors:
-      far: [Pension, Herberge]
+      far: [Kino, Bahnhof]
       near: [Motel, Hobel, Kotelett]
   centre_place:
     form: Zentrum

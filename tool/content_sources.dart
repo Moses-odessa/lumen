@@ -101,15 +101,41 @@ class CalibrationItemSource {
   final String? phraseId;
 }
 
+/// Кто вычитал ярус и что именно он прочитал.
+///
+/// Второе поле появилось не сразу, и его отсутствие стоило дорого. Раньше
+/// `reviewers` был свободным текстом «автор проекта; созвездия doctor, food,
+/// transport, home, shop», и когда созвездий стало девять, строчку никто не
+/// обновил. Ярус A0 остался запущенным, а 48 его концептов и 16 фраз уезжали
+/// игроку не прочитанными никем. Правило было записано, но не проверялось —
+/// то есть не работало.
+class TierReview {
+  const TierReview({required this.by, this.constellations = const {}});
+
+  /// Кто читал. Строка человеческая: важно не имя, а то, носитель или нет.
+  final String by;
+
+  /// Какие созвездия прочитаны. Сверяется с составом яруса.
+  final Set<String> constellations;
+}
+
 /// Какие ярусы языка запущены, а какие только написаны.
 ///
 /// Машинная форма правила «язык не запускается, пока его ярусы не вычитаны
-/// человеком»: валидатор требует полноты только от запущенных ярусов.
+/// человеком»: валидатор требует полноты только от запущенных ярусов и не
+/// даёт объявить запущенным ярус, вычитанный наполовину.
 class LaunchPolicy {
-  const LaunchPolicy({this.launched = const {}, this.drafted = const {}});
+  const LaunchPolicy({
+    this.launched = const {},
+    this.drafted = const {},
+    this.reviews = const {},
+  });
 
   final Set<String> launched;
   final Set<String> drafted;
+
+  /// Ярус → что о его вычитке известно.
+  final Map<String, TierReview> reviews;
 
   bool isLaunched(String tier) => launched.contains(tier);
 
@@ -128,7 +154,32 @@ class LaunchPolicy {
       return node is YamlList ? {for (final e in node) '$e'} : <String>{};
     }
 
-    return LaunchPolicy(launched: read('launched'), drafted: read('drafted'));
+    final reviews = <String, TierReview>{};
+    final node = byLang['reviewers'];
+    if (node is YamlMap) {
+      for (final entry in node.entries) {
+        final body = entry.value;
+        if (body is! YamlMap) {
+          throw ContentSourceException(
+            'launch.yaml, $lang/${entry.key}: вычитка записана строкой. '
+            'Нужны поля by и constellations — иначе покрытие не проверить, '
+            'а непроверяемая запись рано или поздно разойдётся с контентом.',
+          );
+        }
+        final covered = body['constellations'];
+        reviews['${entry.key}'] = TierReview(
+          by: '${body['by'] ?? ''}',
+          constellations:
+              covered is YamlList ? {for (final e in covered) '$e'} : const {},
+        );
+      }
+    }
+
+    return LaunchPolicy(
+      launched: read('launched'),
+      drafted: read('drafted'),
+      reviews: reviews,
+    );
   }
 }
 
