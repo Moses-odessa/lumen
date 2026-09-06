@@ -9,7 +9,7 @@ import '../scoring/balance.dart';
 /// ничего, кроме того, что здесь написано.
 class CircleQuestion {
   const CircleQuestion({
-    required this.conceptId,
+    required this.itemId,
     required this.tier,
     required this.mode,
     required this.prompt,
@@ -23,7 +23,7 @@ class CircleQuestion {
     this.answerArticle,
   });
 
-  final String conceptId;
+  final String itemId;
 
   /// Ярус слова из `content.db`. Нужен при первом показе: строки состояния
   /// у слова ещё нет, и ярус взять больше неоткуда.

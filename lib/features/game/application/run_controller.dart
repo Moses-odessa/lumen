@@ -294,7 +294,7 @@ class RunController extends Notifier<RunState> {
       final now = DateTime.now();
       final update =
           await ref.read(wordStateRepositoryProvider).applyAnswer(
-                conceptId: question.conceptId,
+                itemId: question.itemId,
                 tier: question.tier,
                 mode: question.mode,
                 correct: correct,
@@ -309,7 +309,7 @@ class RunController extends Notifier<RunState> {
       // на уже горящем слове.
       if (update.justIgnited) {
         ref.read(analyticsProvider).log(AnalyticsEvents.wordBurning, {
-          'concept': question.conceptId,
+          'concept': question.itemId,
         });
       }
     } catch (_) {

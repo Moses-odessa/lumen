@@ -265,11 +265,11 @@ void main() {
       Map<String, List<StarInput>> input() => {
             'doctor': [
               for (var i = 0; i < 12; i++)
-                StarInput(conceptId: 'c$i', lumens: i * 8),
+                StarInput(itemId: 'c$i', lumens: i * 8),
             ],
             'rent': [
               for (var i = 0; i < 8; i++)
-                StarInput(conceptId: 'r$i', lumens: 50),
+                StarInput(itemId: 'r$i', lumens: 50),
             ],
           };
 
@@ -290,13 +290,13 @@ void main() {
     test('добавление созвездия не двигает уже существующие', () {
       // Небо уплотняется, а не переписывается — это касается и карты.
       final before = SkyLayout.place(constellations: {
-        'alpha': [const StarInput(conceptId: 'a', lumens: 10)],
-        'beta': [const StarInput(conceptId: 'b', lumens: 10)],
+        'alpha': [const StarInput(itemId: 'a', lumens: 10)],
+        'beta': [const StarInput(itemId: 'b', lumens: 10)],
       });
       final after = SkyLayout.place(constellations: {
-        'alpha': [const StarInput(conceptId: 'a', lumens: 10)],
-        'beta': [const StarInput(conceptId: 'b', lumens: 10)],
-        'zeta': [const StarInput(conceptId: 'z', lumens: 10)],
+        'alpha': [const StarInput(itemId: 'a', lumens: 10)],
+        'beta': [const StarInput(itemId: 'b', lumens: 10)],
+        'zeta': [const StarInput(itemId: 'z', lumens: 10)],
       });
 
       final alphaBefore = before.firstWhere((c) => c.name == 'alpha');
@@ -309,7 +309,7 @@ void main() {
       final placed = SkyLayout.place(constellations: {
         'doctor': [
           for (var i = 0; i < 96; i++)
-            StarInput(conceptId: 'c$i', lumens: 50),
+            StarInput(itemId: 'c$i', lumens: 50),
         ],
       });
 
@@ -317,7 +317,7 @@ void main() {
       for (final star in c.stars) {
         expect(star.position.distanceTo(c.center),
             lessThanOrEqualTo(c.radius * 1.01),
-            reason: star.conceptId);
+            reason: star.itemId);
       }
     });
 
@@ -326,7 +326,7 @@ void main() {
         for (var i = 0; i < 30; i++)
           'c$i': [
             for (var j = 0; j < 12; j++)
-              StarInput(conceptId: 'c$i-$j', lumens: 50),
+              StarInput(itemId: 'c$i-$j', lumens: 50),
           ],
       });
 
@@ -343,7 +343,7 @@ void main() {
       final placed = SkyLayout.place(constellations: {
         'doctor': [
           for (var i = 0; i < 12; i++)
-            StarInput(conceptId: 'c$i', lumens: 50),
+            StarInput(itemId: 'c$i', lumens: 50),
         ],
       });
 
@@ -357,7 +357,7 @@ void main() {
 
     test('одинокое созвездие в центре карты', () {
       final placed = SkyLayout.place(constellations: {
-        'only': [const StarInput(conceptId: 'a', lumens: 10)],
+        'only': [const StarInput(itemId: 'a', lumens: 10)],
       });
       expect(placed.single.center.x, 0.5);
       expect(placed.single.center.y, 0.5);

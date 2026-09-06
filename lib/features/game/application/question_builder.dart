@@ -37,11 +37,11 @@ class QuestionBuilder {
   /// одном из языков или совсем нет вариантов. Молча показывать сломанный
   /// круг хуже, чем пропустить слово.
   Future<CircleQuestion?> build(PlannedCircle circle) async {
-    final concept = await content.concept(circle.conceptId);
+    final concept = await content.concept(circle.itemId);
     if (concept == null) return null;
 
-    final target = await content.lexeme(circle.conceptId, targetLang);
-    final native = await content.lexeme(circle.conceptId, nativeLang);
+    final target = await content.lexeme(circle.itemId, targetLang);
+    final native = await content.lexeme(circle.itemId, nativeLang);
     if (target == null || native == null) return null;
 
     return switch (circle.mode) {
@@ -93,7 +93,7 @@ class QuestionBuilder {
     if (options == null) return null;
 
     return CircleQuestion(
-      conceptId: anchor ?? phrase.id,
+      itemId: anchor ?? phrase.id,
       tier: Tier.fromCode(phrase.tier),
       mode: GameMode.phrase,
       prompt: _withGap(phrase.template),
@@ -118,7 +118,7 @@ class QuestionBuilder {
       concept: concept,
       lang: nativeLang,
       kind: 'far',
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
     );
 
     final options = _assembleOptions(
@@ -129,7 +129,7 @@ class QuestionBuilder {
     if (options == null) return null;
 
     return CircleQuestion(
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
       tier: Tier.fromCode(concept.tier),
       mode: GameMode.recognition,
       prompt: _withArticle(target),
@@ -156,7 +156,7 @@ class QuestionBuilder {
       concept: concept,
       lang: targetLang,
       kind: kind,
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
     );
 
     final options = _assembleOptions(
@@ -167,7 +167,7 @@ class QuestionBuilder {
     if (options == null) return null;
 
     return CircleQuestion(
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
       tier: Tier.fromCode(concept.tier),
       mode: circle.mode,
       prompt: native.form,
@@ -193,7 +193,7 @@ class QuestionBuilder {
       concept: concept,
       lang: targetLang,
       kind: 'near',
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
     );
 
     final options = _assembleOptions(
@@ -204,7 +204,7 @@ class QuestionBuilder {
     if (options == null) return null;
 
     return CircleQuestion(
-      conceptId: circle.conceptId,
+      itemId: circle.itemId,
       tier: Tier.fromCode(concept.tier),
       mode: GameMode.audio,
       prompt: '',
@@ -225,7 +225,7 @@ class QuestionBuilder {
     LexemeRow native,
   ) =>
       CircleQuestion(
-        conceptId: circle.conceptId,
+        itemId: circle.itemId,
         tier: Tier.fromCode(concept.tier),
         mode: GameMode.typing,
         prompt: native.form,
@@ -244,9 +244,9 @@ class QuestionBuilder {
     required ConceptRow concept,
     required String lang,
     required String kind,
-    required String conceptId,
+    required String itemId,
   }) async {
-    final picked = (await content.distractorsFor(conceptId, lang, kind))
+    final picked = (await content.distractorsFor(itemId, lang, kind))
         .map((d) => d.form)
         .toList();
 
@@ -256,7 +256,7 @@ class QuestionBuilder {
       constellation: concept.constellation,
       tier: concept.tier,
       lang: lang,
-      excludeConceptId: conceptId,
+      excludeConceptId: itemId,
     ));
     return picked;
   }

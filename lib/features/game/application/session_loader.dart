@@ -60,7 +60,7 @@ class SessionLoader {
     await words.refreshLumens(now);
 
     final candidates = await words.candidates(now);
-    final known = {for (final c in candidates) c.conceptId};
+    final known = {for (final c in candidates) c.itemId};
     final reviews = SessionPlanner.pool(candidates, now);
 
     final fresh = await _freshWords(known);
@@ -118,13 +118,13 @@ class SessionLoader {
   }
 
   /// Слова яруса, которых игрок ещё не видел, в порядке частотности.
-  Future<List<WordCandidate>> _freshWords(Set<String> known) async {
+  Future<List<StudyItem>> _freshWords(Set<String> known) async {
     final concepts = await builder.content.conceptsUpTo(tier);
     return [
       for (final concept in concepts)
         if (!known.contains(concept.id))
-          WordCandidate(
-            conceptId: concept.id,
+          StudyItem(
+            itemId: concept.id,
             tier: Tier.fromCode(concept.tier),
             lumens: 0,
             isNew: true,
@@ -149,7 +149,7 @@ class SessionLoader {
 
     final byConstellation = <String, int>{};
     for (final circle in plan) {
-      final concept = await builder.content.concept(circle.conceptId);
+      final concept = await builder.content.concept(circle.itemId);
       if (concept == null) continue;
       byConstellation.update(
         concept.constellation,

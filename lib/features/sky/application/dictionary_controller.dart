@@ -10,7 +10,7 @@ import '../../../domain/srs/memory_state.dart';
 /// Одна звезда в словаре.
 class DictionaryEntry {
   const DictionaryEntry({
-    required this.conceptId,
+    required this.itemId,
     required this.constellation,
     required this.tier,
     required this.target,
@@ -21,7 +21,7 @@ class DictionaryEntry {
     this.article,
   });
 
-  final String conceptId;
+  final String itemId;
   final String constellation;
   final Tier tier;
 
@@ -134,7 +134,7 @@ final dictionaryProvider = FutureProvider<List<DictionaryEntry>>((ref) async {
   final now = DateTime.now();
 
   final states = {
-    for (final row in await db.loadWordStates()) row.conceptId: row,
+    for (final row in await db.loadWordStates()) row.itemId: row,
   };
 
   final entries = <DictionaryEntry>[];
@@ -155,7 +155,7 @@ final dictionaryProvider = FutureProvider<List<DictionaryEntry>>((ref) async {
           );
 
     entries.add(DictionaryEntry(
-      conceptId: concept.id,
+      itemId: concept.id,
       constellation: concept.constellation,
       tier: Tier.fromCode(concept.tier),
       target: target.form,

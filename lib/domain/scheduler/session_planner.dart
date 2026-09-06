@@ -12,10 +12,10 @@ import '../entities/tier.dart';
 import '../scoring/balance.dart';
 
 /// Слово-кандидат на показ. Всё, что планировщику нужно знать о слове;
-/// перевод и озвучка берутся позже из `content.db` по [conceptId].
-class WordCandidate {
-  const WordCandidate({
-    required this.conceptId,
+/// перевод и озвучка берутся позже из `content.db` по [itemId].
+class StudyItem {
+  const StudyItem({
+    required this.itemId,
     required this.tier,
     required this.lumens,
     this.due,
@@ -23,7 +23,7 @@ class WordCandidate {
     this.hasAudio = true,
   });
 
-  final String conceptId;
+  final String itemId;
   final Tier tier;
 
   /// Яркость на момент планирования.
@@ -44,13 +44,13 @@ class WordCandidate {
 /// Один запланированный круг.
 class PlannedCircle {
   const PlannedCircle({
-    required this.conceptId,
+    required this.itemId,
     required this.mode,
     required this.isNew,
     required this.lumens,
   });
 
-  final String conceptId;
+  final String itemId;
   final GameMode mode;
 
   /// Первый показ нового слова: на нём таймера нет.
@@ -59,7 +59,7 @@ class PlannedCircle {
   final Lumens lumens;
 
   @override
-  String toString() => '$conceptId (${mode.name}, $lumens lm)';
+  String toString() => '$itemId (${mode.name}, $lumens lm)';
 }
 
 /// Что умеет текущая сессия. Режим, который невозможно показать, планировщик
@@ -85,8 +85,8 @@ abstract final class SessionPlanner {
   /// `(due, lm_cached)`: `WHERE due <= now ORDER BY lm_cached ASC LIMIT 40`.
   /// Тусклые вперёд, потому что они ближе всего к тому, чтобы быть забытыми
   /// совсем — а вернуть почти забытое дешевле, чем учить заново.
-  static List<WordCandidate> pool(
-    List<WordCandidate> candidates,
+  static List<StudyItem> pool(
+    List<StudyItem> candidates,
     DateTime now, {
     int size = SessionBalance.sessionPoolSize,
   }) {
@@ -145,8 +145,8 @@ abstract final class SessionPlanner {
   /// Отсюда длина уровня: 6 × 3 + 12 = 30 кругов, то есть три забега по
   /// десять.
   static List<PlannedCircle> level({
-    required List<WordCandidate> reviews,
-    required List<WordCandidate> fresh,
+    required List<StudyItem> reviews,
+    required List<StudyItem> fresh,
     SessionCapabilities capabilities = const SessionCapabilities(),
     Random? random,
     int newWords = SessionBalance.newWordsPerLevel,
@@ -158,8 +158,8 @@ abstract final class SessionPlanner {
     final chosenReviews = reviews.toList()
       ..sort((a, b) => a.lumens.compareTo(b.lumens));
 
-    PlannedCircle circleFor(WordCandidate word) => PlannedCircle(
-          conceptId: word.conceptId,
+    PlannedCircle circleFor(StudyItem word) => PlannedCircle(
+          itemId: word.itemId,
           mode: modeFor(
             word.lumens,
             capabilities: capabilities,
@@ -187,7 +187,7 @@ abstract final class SessionPlanner {
     // показ» перестал бы быть первым.
     return _markFirstShows(
       _weave(slots, occurrences),
-      {for (final word in chosenNew) word.conceptId},
+      {for (final word in chosenNew) word.itemId},
     );
   }
 
@@ -201,9 +201,9 @@ abstract final class SessionPlanner {
     final seen = <String>{};
     return [
       for (final circle in circles)
-        if (newWordIds.contains(circle.conceptId) && seen.add(circle.conceptId))
+        if (newWordIds.contains(circle.itemId) && seen.add(circle.itemId))
           PlannedCircle(
-            conceptId: circle.conceptId,
+            itemId: circle.itemId,
             mode: GameMode.recognition,
             isNew: true,
             lumens: circle.lumens,
@@ -218,7 +218,7 @@ abstract final class SessionPlanner {
   /// Это первая фаза дневного ритуала — две минуты на то, чтобы вернуть небу
   /// люмены, а не выучить что-то новое.
   static List<PlannedCircle> sunrise({
-    required List<WordCandidate> candidates,
+    required List<StudyItem> candidates,
     required DateTime now,
     SessionCapabilities capabilities = const SessionCapabilities(),
     Random? random,
@@ -227,7 +227,7 @@ abstract final class SessionPlanner {
       [
         for (final word in pool(candidates, now, size: limit))
           PlannedCircle(
-            conceptId: word.conceptId,
+            itemId: word.itemId,
             mode: modeFor(
               word.lumens,
               capabilities: capabilities,
@@ -269,8 +269,8 @@ abstract final class SessionPlanner {
     final ids = <String>{};
     final newIds = <String>{};
     for (final c in circles) {
-      ids.add(c.conceptId);
-      if (c.isNew) newIds.add(c.conceptId);
+      ids.add(c.itemId);
+      if (c.isNew) newIds.add(c.itemId);
     }
     return newIds.length / ids.length;
   }
@@ -305,7 +305,7 @@ abstract final class SessionPlanner {
     return lumens >= range.min && lumens <= range.max;
   }
 
-  static int _compareDue(WordCandidate a, WordCandidate b) {
+  static int _compareDue(StudyItem a, StudyItem b) {
     final ad = a.due;
     final bd = b.due;
     if (ad == null && bd == null) return 0;
@@ -332,7 +332,7 @@ abstract final class SessionPlanner {
 
     for (var i = 0; i < extra.length; i++) {
       final target = ((i + 1) * step).round().clamp(0, result.length);
-      result.insert(_freeSlot(result, extra[i].conceptId, target), extra[i]);
+      result.insert(_freeSlot(result, extra[i].itemId, target), extra[i]);
     }
     return result;
   }
@@ -341,13 +341,13 @@ abstract final class SessionPlanner {
   /// показом.
   static int _freeSlot(
     List<PlannedCircle> circles,
-    String conceptId,
+    String itemId,
     int target,
   ) {
     for (var offset = 0; offset <= circles.length; offset++) {
       for (final position in {target + offset, target - offset}) {
         if (position < 0 || position > circles.length) continue;
-        if (_gapOk(circles, conceptId, position)) return position;
+        if (_gapOk(circles, itemId, position)) return position;
       }
     }
     return target;
@@ -355,14 +355,14 @@ abstract final class SessionPlanner {
 
   static bool _gapOk(
     List<PlannedCircle> circles,
-    String conceptId,
+    String itemId,
     int position,
   ) {
     const gap = SessionBalance.minGapBetweenRepeats;
     final from = max(0, position - gap);
     final to = min(circles.length, position + gap);
     for (var i = from; i < to; i++) {
-      if (circles[i].conceptId == conceptId) return false;
+      if (circles[i].itemId == itemId) return false;
     }
     return true;
   }
@@ -371,7 +371,7 @@ abstract final class SessionPlanner {
   static List<PlannedCircle> _spread(List<PlannedCircle> circles) {
     final byWord = <String, List<PlannedCircle>>{};
     for (final circle in circles) {
-      byWord.putIfAbsent(circle.conceptId, () => []).add(circle);
+      byWord.putIfAbsent(circle.itemId, () => []).add(circle);
     }
 
     // Круговой обход: по одному показу каждого слова, потом второй круг.

@@ -30,12 +30,12 @@ class SkyPoint {
 /// Звезда на карте.
 class StarPlacement {
   const StarPlacement({
-    required this.conceptId,
+    required this.itemId,
     required this.position,
     required this.lumens,
   });
 
-  final String conceptId;
+  final String itemId;
 
   /// Позиция в координатах всей карты.
   final SkyPoint position;
@@ -112,7 +112,7 @@ abstract final class SkyLayout {
 
     for (var i = 0; i < stars.length; i++) {
       final star = stars[i];
-      final seed = _hash('$constellation/${star.conceptId}');
+      final seed = _hash('$constellation/${star.itemId}');
 
       // Номер кольца: первые звёзды ближе к центру.
       final ring = math.sqrt((i + 0.5) / stars.length);
@@ -122,7 +122,7 @@ abstract final class SkyLayout {
       final jitter = 0.72 + _unit(seed >> 8) * 0.28;
 
       result.add(StarPlacement(
-        conceptId: star.conceptId,
+        itemId: star.itemId,
         position: SkyPoint(
           center.x + math.cos(angle) * radius * ring * jitter,
           center.y + math.sin(angle) * radius * ring * jitter,
@@ -195,8 +195,8 @@ abstract final class SkyLayout {
 
 /// Вход для раскладки: что известно о звезде.
 class StarInput {
-  const StarInput({required this.conceptId, required this.lumens});
+  const StarInput({required this.itemId, required this.lumens});
 
-  final String conceptId;
+  final String itemId;
   final int lumens;
 }

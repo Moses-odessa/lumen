@@ -72,7 +72,7 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
   final lumens = <String, Lumens>{};
   var burning = 0;
   for (final row in states) {
-    lumens[row.conceptId] = MemoryState(
+    lumens[row.itemId] = MemoryState(
       difficulty: row.difficulty,
       stability: row.stability,
       lastReview: row.lastReview,
@@ -143,7 +143,7 @@ Future<Duration?> _medianLatency(
   final mature = <int>[];
   for (final review in reviews) {
     if (!review.correct) continue;
-    final lm = lumens[review.conceptId] ?? 0;
+    final lm = lumens[review.itemId] ?? 0;
     if (lm < ScoreBalance.speedBonusMinLm) continue;
     mature.add(review.latencyMs);
   }

@@ -882,16 +882,24 @@ class $WordStatesTable extends WordStates
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $WordStatesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _conceptIdMeta = const VerificationMeta(
-    'conceptId',
-  );
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
   @override
-  late final GeneratedColumn<String> conceptId = GeneratedColumn<String>(
-    'concept_id',
+  late final GeneratedColumn<String> itemId = GeneratedColumn<String>(
+    'item_id',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('word'),
   );
   static const VerificationMeta _tierMeta = const VerificationMeta('tier');
   @override
@@ -1005,7 +1013,8 @@ class $WordStatesTable extends WordStates
   );
   @override
   List<GeneratedColumn> get $columns => [
-    conceptId,
+    itemId,
+    kind,
     tier,
     difficulty,
     stability,
@@ -1029,13 +1038,19 @@ class $WordStatesTable extends WordStates
   }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('concept_id')) {
+    if (data.containsKey('item_id')) {
       context.handle(
-        _conceptIdMeta,
-        conceptId.isAcceptableOrUnknown(data['concept_id']!, _conceptIdMeta),
+        _itemIdMeta,
+        itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta),
       );
     } else if (isInserting) {
-      context.missing(_conceptIdMeta);
+      context.missing(_itemIdMeta);
+    }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
     }
     if (data.containsKey('tier')) {
       context.handle(
@@ -1107,14 +1122,18 @@ class $WordStatesTable extends WordStates
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {conceptId};
+  Set<GeneratedColumn> get $primaryKey => {itemId};
   @override
   WordStateRow map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return WordStateRow(
-      conceptId: attachedDatabase.typeMapping.read(
+      itemId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}concept_id'],
+        data['${effectivePrefix}item_id'],
+      )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
       )!,
       tier: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -1166,7 +1185,15 @@ class $WordStatesTable extends WordStates
 }
 
 class WordStateRow extends DataClass implements Insertable<WordStateRow> {
-  final String conceptId;
+  /// Идентификатор того, что учат: концепт или фраза. Раньше здесь мог быть
+  /// только концепт — фразы памяти не имели вовсе и показывались по одному
+  /// разу, без повторений. Для разговорника это означало, что заучить фразу
+  /// невозможно в принципе.
+  final String itemId;
+
+  /// Слово или фраза. Значение по умолчанию делает миграцию бесшовной:
+  /// всё, что уже лежит в базе, — слова.
+  final String kind;
   final String tier;
   final double difficulty;
   final double stability;
@@ -1178,7 +1205,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   final int reps;
   final int lapses;
   const WordStateRow({
-    required this.conceptId,
+    required this.itemId,
+    required this.kind,
     required this.tier,
     required this.difficulty,
     required this.stability,
@@ -1193,7 +1221,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['concept_id'] = Variable<String>(conceptId);
+    map['item_id'] = Variable<String>(itemId);
+    map['kind'] = Variable<String>(kind);
     map['tier'] = Variable<String>(tier);
     map['difficulty'] = Variable<double>(difficulty);
     map['stability'] = Variable<double>(stability);
@@ -1213,7 +1242,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
 
   WordStatesCompanion toCompanion(bool nullToAbsent) {
     return WordStatesCompanion(
-      conceptId: Value(conceptId),
+      itemId: Value(itemId),
+      kind: Value(kind),
       tier: Value(tier),
       difficulty: Value(difficulty),
       stability: Value(stability),
@@ -1235,7 +1265,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return WordStateRow(
-      conceptId: serializer.fromJson<String>(json['conceptId']),
+      itemId: serializer.fromJson<String>(json['itemId']),
+      kind: serializer.fromJson<String>(json['kind']),
       tier: serializer.fromJson<String>(json['tier']),
       difficulty: serializer.fromJson<double>(json['difficulty']),
       stability: serializer.fromJson<double>(json['stability']),
@@ -1252,7 +1283,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'conceptId': serializer.toJson<String>(conceptId),
+      'itemId': serializer.toJson<String>(itemId),
+      'kind': serializer.toJson<String>(kind),
       'tier': serializer.toJson<String>(tier),
       'difficulty': serializer.toJson<double>(difficulty),
       'stability': serializer.toJson<double>(stability),
@@ -1267,7 +1299,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   }
 
   WordStateRow copyWith({
-    String? conceptId,
+    String? itemId,
+    String? kind,
     String? tier,
     double? difficulty,
     double? stability,
@@ -1279,7 +1312,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
     int? reps,
     int? lapses,
   }) => WordStateRow(
-    conceptId: conceptId ?? this.conceptId,
+    itemId: itemId ?? this.itemId,
+    kind: kind ?? this.kind,
     tier: tier ?? this.tier,
     difficulty: difficulty ?? this.difficulty,
     stability: stability ?? this.stability,
@@ -1293,7 +1327,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   );
   WordStateRow copyWithCompanion(WordStatesCompanion data) {
     return WordStateRow(
-      conceptId: data.conceptId.present ? data.conceptId.value : this.conceptId,
+      itemId: data.itemId.present ? data.itemId.value : this.itemId,
+      kind: data.kind.present ? data.kind.value : this.kind,
       tier: data.tier.present ? data.tier.value : this.tier,
       difficulty: data.difficulty.present
           ? data.difficulty.value
@@ -1316,7 +1351,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   @override
   String toString() {
     return (StringBuffer('WordStateRow(')
-          ..write('conceptId: $conceptId, ')
+          ..write('itemId: $itemId, ')
+          ..write('kind: $kind, ')
           ..write('tier: $tier, ')
           ..write('difficulty: $difficulty, ')
           ..write('stability: $stability, ')
@@ -1333,7 +1369,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
 
   @override
   int get hashCode => Object.hash(
-    conceptId,
+    itemId,
+    kind,
     tier,
     difficulty,
     stability,
@@ -1349,7 +1386,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is WordStateRow &&
-          other.conceptId == this.conceptId &&
+          other.itemId == this.itemId &&
+          other.kind == this.kind &&
           other.tier == this.tier &&
           other.difficulty == this.difficulty &&
           other.stability == this.stability &&
@@ -1363,7 +1401,8 @@ class WordStateRow extends DataClass implements Insertable<WordStateRow> {
 }
 
 class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
-  final Value<String> conceptId;
+  final Value<String> itemId;
+  final Value<String> kind;
   final Value<String> tier;
   final Value<double> difficulty;
   final Value<double> stability;
@@ -1376,7 +1415,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
   final Value<int> lapses;
   final Value<int> rowid;
   const WordStatesCompanion({
-    this.conceptId = const Value.absent(),
+    this.itemId = const Value.absent(),
+    this.kind = const Value.absent(),
     this.tier = const Value.absent(),
     this.difficulty = const Value.absent(),
     this.stability = const Value.absent(),
@@ -1390,7 +1430,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
     this.rowid = const Value.absent(),
   });
   WordStatesCompanion.insert({
-    required String conceptId,
+    required String itemId,
+    this.kind = const Value.absent(),
     required String tier,
     required double difficulty,
     required double stability,
@@ -1402,12 +1443,13 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
     this.reps = const Value.absent(),
     this.lapses = const Value.absent(),
     this.rowid = const Value.absent(),
-  }) : conceptId = Value(conceptId),
+  }) : itemId = Value(itemId),
        tier = Value(tier),
        difficulty = Value(difficulty),
        stability = Value(stability);
   static Insertable<WordStateRow> custom({
-    Expression<String>? conceptId,
+    Expression<String>? itemId,
+    Expression<String>? kind,
     Expression<String>? tier,
     Expression<double>? difficulty,
     Expression<double>? stability,
@@ -1421,7 +1463,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
-      if (conceptId != null) 'concept_id': conceptId,
+      if (itemId != null) 'item_id': itemId,
+      if (kind != null) 'kind': kind,
       if (tier != null) 'tier': tier,
       if (difficulty != null) 'difficulty': difficulty,
       if (stability != null) 'stability': stability,
@@ -1437,7 +1480,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
   }
 
   WordStatesCompanion copyWith({
-    Value<String>? conceptId,
+    Value<String>? itemId,
+    Value<String>? kind,
     Value<String>? tier,
     Value<double>? difficulty,
     Value<double>? stability,
@@ -1451,7 +1495,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
     Value<int>? rowid,
   }) {
     return WordStatesCompanion(
-      conceptId: conceptId ?? this.conceptId,
+      itemId: itemId ?? this.itemId,
+      kind: kind ?? this.kind,
       tier: tier ?? this.tier,
       difficulty: difficulty ?? this.difficulty,
       stability: stability ?? this.stability,
@@ -1469,8 +1514,11 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (conceptId.present) {
-      map['concept_id'] = Variable<String>(conceptId.value);
+    if (itemId.present) {
+      map['item_id'] = Variable<String>(itemId.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
     }
     if (tier.present) {
       map['tier'] = Variable<String>(tier.value);
@@ -1511,7 +1559,8 @@ class WordStatesCompanion extends UpdateCompanion<WordStateRow> {
   @override
   String toString() {
     return (StringBuffer('WordStatesCompanion(')
-          ..write('conceptId: $conceptId, ')
+          ..write('itemId: $itemId, ')
+          ..write('kind: $kind, ')
           ..write('tier: $tier, ')
           ..write('difficulty: $difficulty, ')
           ..write('stability: $stability, ')
@@ -1546,12 +1595,10 @@ class $ReviewsTable extends Reviews with TableInfo<$ReviewsTable, ReviewRow> {
       'PRIMARY KEY AUTOINCREMENT',
     ),
   );
-  static const VerificationMeta _conceptIdMeta = const VerificationMeta(
-    'conceptId',
-  );
+  static const VerificationMeta _itemIdMeta = const VerificationMeta('itemId');
   @override
-  late final GeneratedColumn<String> conceptId = GeneratedColumn<String>(
-    'concept_id',
+  late final GeneratedColumn<String> itemId = GeneratedColumn<String>(
+    'item_id',
     aliasedName,
     false,
     type: DriftSqlType.string,
@@ -1612,7 +1659,7 @@ class $ReviewsTable extends Reviews with TableInfo<$ReviewsTable, ReviewRow> {
   @override
   List<GeneratedColumn> get $columns => [
     id,
-    conceptId,
+    itemId,
     at,
     latencyMs,
     mode,
@@ -1634,13 +1681,13 @@ class $ReviewsTable extends Reviews with TableInfo<$ReviewsTable, ReviewRow> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('concept_id')) {
+    if (data.containsKey('item_id')) {
       context.handle(
-        _conceptIdMeta,
-        conceptId.isAcceptableOrUnknown(data['concept_id']!, _conceptIdMeta),
+        _itemIdMeta,
+        itemId.isAcceptableOrUnknown(data['item_id']!, _itemIdMeta),
       );
     } else if (isInserting) {
-      context.missing(_conceptIdMeta);
+      context.missing(_itemIdMeta);
     }
     if (data.containsKey('at')) {
       context.handle(_atMeta, at.isAcceptableOrUnknown(data['at']!, _atMeta));
@@ -1692,9 +1739,9 @@ class $ReviewsTable extends Reviews with TableInfo<$ReviewsTable, ReviewRow> {
         DriftSqlType.int,
         data['${effectivePrefix}id'],
       )!,
-      conceptId: attachedDatabase.typeMapping.read(
+      itemId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}concept_id'],
+        data['${effectivePrefix}item_id'],
       )!,
       at: attachedDatabase.typeMapping.read(
         DriftSqlType.dateTime,
@@ -1727,7 +1774,7 @@ class $ReviewsTable extends Reviews with TableInfo<$ReviewsTable, ReviewRow> {
 
 class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   final int id;
-  final String conceptId;
+  final String itemId;
   final DateTime at;
   final int latencyMs;
   final String mode;
@@ -1735,7 +1782,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   final int grade;
   const ReviewRow({
     required this.id,
-    required this.conceptId,
+    required this.itemId,
     required this.at,
     required this.latencyMs,
     required this.mode,
@@ -1746,7 +1793,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['concept_id'] = Variable<String>(conceptId);
+    map['item_id'] = Variable<String>(itemId);
     map['at'] = Variable<DateTime>(at);
     map['latency_ms'] = Variable<int>(latencyMs);
     map['mode'] = Variable<String>(mode);
@@ -1758,7 +1805,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   ReviewsCompanion toCompanion(bool nullToAbsent) {
     return ReviewsCompanion(
       id: Value(id),
-      conceptId: Value(conceptId),
+      itemId: Value(itemId),
       at: Value(at),
       latencyMs: Value(latencyMs),
       mode: Value(mode),
@@ -1774,7 +1821,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ReviewRow(
       id: serializer.fromJson<int>(json['id']),
-      conceptId: serializer.fromJson<String>(json['conceptId']),
+      itemId: serializer.fromJson<String>(json['itemId']),
       at: serializer.fromJson<DateTime>(json['at']),
       latencyMs: serializer.fromJson<int>(json['latencyMs']),
       mode: serializer.fromJson<String>(json['mode']),
@@ -1787,7 +1834,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'conceptId': serializer.toJson<String>(conceptId),
+      'itemId': serializer.toJson<String>(itemId),
       'at': serializer.toJson<DateTime>(at),
       'latencyMs': serializer.toJson<int>(latencyMs),
       'mode': serializer.toJson<String>(mode),
@@ -1798,7 +1845,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
 
   ReviewRow copyWith({
     int? id,
-    String? conceptId,
+    String? itemId,
     DateTime? at,
     int? latencyMs,
     String? mode,
@@ -1806,7 +1853,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
     int? grade,
   }) => ReviewRow(
     id: id ?? this.id,
-    conceptId: conceptId ?? this.conceptId,
+    itemId: itemId ?? this.itemId,
     at: at ?? this.at,
     latencyMs: latencyMs ?? this.latencyMs,
     mode: mode ?? this.mode,
@@ -1816,7 +1863,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   ReviewRow copyWithCompanion(ReviewsCompanion data) {
     return ReviewRow(
       id: data.id.present ? data.id.value : this.id,
-      conceptId: data.conceptId.present ? data.conceptId.value : this.conceptId,
+      itemId: data.itemId.present ? data.itemId.value : this.itemId,
       at: data.at.present ? data.at.value : this.at,
       latencyMs: data.latencyMs.present ? data.latencyMs.value : this.latencyMs,
       mode: data.mode.present ? data.mode.value : this.mode,
@@ -1829,7 +1876,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
   String toString() {
     return (StringBuffer('ReviewRow(')
           ..write('id: $id, ')
-          ..write('conceptId: $conceptId, ')
+          ..write('itemId: $itemId, ')
           ..write('at: $at, ')
           ..write('latencyMs: $latencyMs, ')
           ..write('mode: $mode, ')
@@ -1841,13 +1888,13 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
 
   @override
   int get hashCode =>
-      Object.hash(id, conceptId, at, latencyMs, mode, correct, grade);
+      Object.hash(id, itemId, at, latencyMs, mode, correct, grade);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ReviewRow &&
           other.id == this.id &&
-          other.conceptId == this.conceptId &&
+          other.itemId == this.itemId &&
           other.at == this.at &&
           other.latencyMs == this.latencyMs &&
           other.mode == this.mode &&
@@ -1857,7 +1904,7 @@ class ReviewRow extends DataClass implements Insertable<ReviewRow> {
 
 class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   final Value<int> id;
-  final Value<String> conceptId;
+  final Value<String> itemId;
   final Value<DateTime> at;
   final Value<int> latencyMs;
   final Value<String> mode;
@@ -1865,7 +1912,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   final Value<int> grade;
   const ReviewsCompanion({
     this.id = const Value.absent(),
-    this.conceptId = const Value.absent(),
+    this.itemId = const Value.absent(),
     this.at = const Value.absent(),
     this.latencyMs = const Value.absent(),
     this.mode = const Value.absent(),
@@ -1874,13 +1921,13 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   });
   ReviewsCompanion.insert({
     this.id = const Value.absent(),
-    required String conceptId,
+    required String itemId,
     required DateTime at,
     required int latencyMs,
     required String mode,
     required bool correct,
     required int grade,
-  }) : conceptId = Value(conceptId),
+  }) : itemId = Value(itemId),
        at = Value(at),
        latencyMs = Value(latencyMs),
        mode = Value(mode),
@@ -1888,7 +1935,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
        grade = Value(grade);
   static Insertable<ReviewRow> custom({
     Expression<int>? id,
-    Expression<String>? conceptId,
+    Expression<String>? itemId,
     Expression<DateTime>? at,
     Expression<int>? latencyMs,
     Expression<String>? mode,
@@ -1897,7 +1944,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (conceptId != null) 'concept_id': conceptId,
+      if (itemId != null) 'item_id': itemId,
       if (at != null) 'at': at,
       if (latencyMs != null) 'latency_ms': latencyMs,
       if (mode != null) 'mode': mode,
@@ -1908,7 +1955,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
 
   ReviewsCompanion copyWith({
     Value<int>? id,
-    Value<String>? conceptId,
+    Value<String>? itemId,
     Value<DateTime>? at,
     Value<int>? latencyMs,
     Value<String>? mode,
@@ -1917,7 +1964,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   }) {
     return ReviewsCompanion(
       id: id ?? this.id,
-      conceptId: conceptId ?? this.conceptId,
+      itemId: itemId ?? this.itemId,
       at: at ?? this.at,
       latencyMs: latencyMs ?? this.latencyMs,
       mode: mode ?? this.mode,
@@ -1932,8 +1979,8 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (conceptId.present) {
-      map['concept_id'] = Variable<String>(conceptId.value);
+    if (itemId.present) {
+      map['item_id'] = Variable<String>(itemId.value);
     }
     if (at.present) {
       map['at'] = Variable<DateTime>(at.value);
@@ -1957,7 +2004,7 @@ class ReviewsCompanion extends UpdateCompanion<ReviewRow> {
   String toString() {
     return (StringBuffer('ReviewsCompanion(')
           ..write('id: $id, ')
-          ..write('conceptId: $conceptId, ')
+          ..write('itemId: $itemId, ')
           ..write('at: $at, ')
           ..write('latencyMs: $latencyMs, ')
           ..write('mode: $mode, ')
@@ -3489,7 +3536,8 @@ typedef $$PlayersTableProcessedTableManager =
       PrefetchHooks Function()
     >;
 typedef $$WordStatesTableCreateCompanionBuilder = WordStatesCompanion Function({
-  required String conceptId,
+  required String itemId,
+  Value<String> kind,
   required String tier,
   required double difficulty,
   required double stability,
@@ -3503,7 +3551,8 @@ typedef $$WordStatesTableCreateCompanionBuilder = WordStatesCompanion Function({
   Value<int> rowid,
 });
 typedef $$WordStatesTableUpdateCompanionBuilder = WordStatesCompanion Function({
-  Value<String> conceptId,
+  Value<String> itemId,
+  Value<String> kind,
   Value<String> tier,
   Value<double> difficulty,
   Value<double> stability,
@@ -3526,8 +3575,13 @@ class $$WordStatesTableFilterComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<String> get conceptId => $composableBuilder(
-    column: $table.conceptId,
+  ColumnFilters<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3591,8 +3645,13 @@ class $$WordStatesTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<String> get conceptId => $composableBuilder(
-    column: $table.conceptId,
+  ColumnOrderings<String> get itemId => $composableBuilder(
+    column: $table.itemId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -3656,8 +3715,11 @@ class $$WordStatesTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<String> get conceptId =>
-      $composableBuilder(column: $table.conceptId, builder: (column) => column);
+  GeneratedColumn<String> get itemId =>
+      $composableBuilder(column: $table.itemId, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
 
   GeneratedColumn<String> get tier =>
       $composableBuilder(column: $table.tier, builder: (column) => column);
@@ -3727,7 +3789,8 @@ class $$WordStatesTableTableManager
               $$WordStatesTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                Value<String> conceptId = const Value.absent(),
+                Value<String> itemId = const Value.absent(),
+                Value<String> kind = const Value.absent(),
                 Value<String> tier = const Value.absent(),
                 Value<double> difficulty = const Value.absent(),
                 Value<double> stability = const Value.absent(),
@@ -3740,7 +3803,8 @@ class $$WordStatesTableTableManager
                 Value<int> lapses = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => WordStatesCompanion(
-                conceptId: conceptId,
+                itemId: itemId,
+                kind: kind,
                 tier: tier,
                 difficulty: difficulty,
                 stability: stability,
@@ -3755,7 +3819,8 @@ class $$WordStatesTableTableManager
               ),
           createCompanionCallback:
               ({
-                required String conceptId,
+                required String itemId,
+                Value<String> kind = const Value.absent(),
                 required String tier,
                 required double difficulty,
                 required double stability,
@@ -3768,7 +3833,8 @@ class $$WordStatesTableTableManager
                 Value<int> lapses = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => WordStatesCompanion.insert(
-                conceptId: conceptId,
+                itemId: itemId,
+                kind: kind,
                 tier: tier,
                 difficulty: difficulty,
                 stability: stability,
@@ -3817,7 +3883,7 @@ typedef $$WordStatesTableProcessedTableManager =
     >;
 typedef $$ReviewsTableCreateCompanionBuilder = ReviewsCompanion Function({
   Value<int> id,
-  required String conceptId,
+  required String itemId,
   required DateTime at,
   required int latencyMs,
   required String mode,
@@ -3826,7 +3892,7 @@ typedef $$ReviewsTableCreateCompanionBuilder = ReviewsCompanion Function({
 });
 typedef $$ReviewsTableUpdateCompanionBuilder = ReviewsCompanion Function({
   Value<int> id,
-  Value<String> conceptId,
+  Value<String> itemId,
   Value<DateTime> at,
   Value<int> latencyMs,
   Value<String> mode,
@@ -3848,8 +3914,8 @@ class $$ReviewsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get conceptId => $composableBuilder(
-    column: $table.conceptId,
+  ColumnFilters<String> get itemId => $composableBuilder(
+    column: $table.itemId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -3893,8 +3959,8 @@ class $$ReviewsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get conceptId => $composableBuilder(
-    column: $table.conceptId,
+  ColumnOrderings<String> get itemId => $composableBuilder(
+    column: $table.itemId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -3936,8 +4002,8 @@ class $$ReviewsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get conceptId =>
-      $composableBuilder(column: $table.conceptId, builder: (column) => column);
+  GeneratedColumn<String> get itemId =>
+      $composableBuilder(column: $table.itemId, builder: (column) => column);
 
   GeneratedColumn<DateTime> get at =>
       $composableBuilder(column: $table.at, builder: (column) => column);
@@ -3984,7 +4050,7 @@ class $$ReviewsTableTableManager
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                Value<String> conceptId = const Value.absent(),
+                Value<String> itemId = const Value.absent(),
                 Value<DateTime> at = const Value.absent(),
                 Value<int> latencyMs = const Value.absent(),
                 Value<String> mode = const Value.absent(),
@@ -3992,7 +4058,7 @@ class $$ReviewsTableTableManager
                 Value<int> grade = const Value.absent(),
               }) => ReviewsCompanion(
                 id: id,
-                conceptId: conceptId,
+                itemId: itemId,
                 at: at,
                 latencyMs: latencyMs,
                 mode: mode,
@@ -4002,7 +4068,7 @@ class $$ReviewsTableTableManager
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
-                required String conceptId,
+                required String itemId,
                 required DateTime at,
                 required int latencyMs,
                 required String mode,
@@ -4010,7 +4076,7 @@ class $$ReviewsTableTableManager
                 required int grade,
               }) => ReviewsCompanion.insert(
                 id: id,
-                conceptId: conceptId,
+                itemId: itemId,
                 at: at,
                 latencyMs: latencyMs,
                 mode: mode,

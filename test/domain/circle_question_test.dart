@@ -11,7 +11,7 @@ void main() {
     String? article,
   }) =>
       CircleQuestion(
-        conceptId: 'doctor_person',
+        itemId: 'doctor_person',
         tier: Tier.a0,
         mode: mode,
         prompt: 'врач',
@@ -44,7 +44,7 @@ void main() {
 
   group('ввод текста', () {
     final typed = CircleQuestion(
-      conceptId: 'bill',
+      itemId: 'bill',
       tier: Tier.a1,
       mode: GameMode.typing,
       prompt: 'счёт',
@@ -91,7 +91,7 @@ void main() {
     test('в коротком слове опечатки не прощаются', () {
       // «Bad» и «Bar» — разные слова, а не опечатка.
       const short = CircleQuestion(
-        conceptId: 'bath',
+        itemId: 'bath',
         tier: Tier.a0,
         mode: GameMode.typing,
         prompt: 'ванна',

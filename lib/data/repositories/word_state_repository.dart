@@ -53,19 +53,19 @@ class WordStateRepository {
   final Fsrs fsrs;
 
   /// Состояние памяти по слову; для незнакомого — [MemoryState.unseen].
-  Future<MemoryState> load(String conceptId) async {
-    final row = await _db.loadWordState(conceptId);
+  Future<MemoryState> load(String itemId) async {
+    final row = await _db.loadWordState(itemId);
     return row == null ? MemoryState.unseen : _toMemory(row);
   }
 
   /// Кандидаты на показ. Яркость считается на момент [now], а не берётся из
   /// кеша: кеш нужен базе для сортировки, а игре — точное число.
-  Future<List<WordCandidate>> candidates(DateTime now) async {
+  Future<List<StudyItem>> candidates(DateTime now) async {
     final rows = await _db.loadWordStates();
     return [
       for (final row in rows)
-        WordCandidate(
-          conceptId: row.conceptId,
+        StudyItem(
+          itemId: row.itemId,
           tier: Tier.fromCode(row.tier),
           lumens: _toMemory(row).lumensAt(now),
           due: row.due,
@@ -82,14 +82,14 @@ class WordStateRepository {
   ///
   /// [tier] нужен только при первом появлении слова — дальше он уже в строке.
   Future<WordUpdate> applyAnswer({
-    required String conceptId,
+    required String itemId,
     required Tier tier,
     required GameMode mode,
     required bool correct,
     required Duration latency,
     required DateTime now,
   }) async {
-    final existing = await _db.loadWordState(conceptId);
+    final existing = await _db.loadWordState(itemId);
     final before = existing == null ? MemoryState.unseen : _toMemory(existing);
 
     final grade = gradeFromLatency(latency, correct: correct);
@@ -104,7 +104,7 @@ class WordStateRepository {
 
     await _db.recordReview(
       state: WordStatesCompanion(
-        conceptId: Value(conceptId),
+        itemId: Value(itemId),
         tier: Value(existing?.tier ?? tier.code),
         difficulty: Value(after.difficulty),
         stability: Value(after.stability),
@@ -117,7 +117,7 @@ class WordStateRepository {
         lapses: Value(after.lapses),
       ),
       review: ReviewsCompanion.insert(
-        conceptId: conceptId,
+        itemId: itemId,
         at: now,
         latencyMs: latency.inMilliseconds,
         mode: mode.code,
@@ -145,7 +145,7 @@ class WordStateRepository {
       final state = seedMemory(lumens: lumens, at: now);
       await _db.into(_db.wordStates).insertOnConflictUpdate(
             WordStatesCompanion(
-              conceptId: Value(entry.key),
+              itemId: Value(entry.key),
               tier: Value(entry.value.code),
               difficulty: Value(state.difficulty),
               stability: Value(state.stability),
@@ -163,7 +163,7 @@ class WordStateRepository {
   Future<void> refreshLumens(DateTime now) async {
     final rows = await _db.loadWordStates();
     await _db.refreshCachedLumens({
-      for (final row in rows) row.conceptId: _toMemory(row).lumensAt(now),
+      for (final row in rows) row.itemId: _toMemory(row).lumensAt(now),
     });
   }
 

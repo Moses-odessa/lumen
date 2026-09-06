@@ -31,7 +31,7 @@ void main() {
   });
 
   CircleQuestion question(String id, {int answerIndex = 0}) => CircleQuestion(
-        conceptId: id,
+        itemId: id,
         tier: Tier.a0,
         mode: GameMode.circle,
         prompt: id,
@@ -50,7 +50,7 @@ void main() {
       controller().start([question('a'), question('b')]);
 
       expect(state().phase, RunPhase.asking);
-      expect(state().current?.conceptId, 'a');
+      expect(state().current?.itemId, 'a');
       expect(state().total, 2);
       expect(state().progress, 0);
     });
@@ -96,7 +96,7 @@ void main() {
       controller().answerOption(2, const Duration(seconds: 2));
 
       // Жизней нет: слово вернётся, но забег не остановится.
-      expect(state().queue.map((q) => q.conceptId), ['a', 'b', 'a']);
+      expect(state().queue.map((q) => q.itemId), ['a', 'b', 'a']);
       expect(state().phase, RunPhase.revealing);
     });
 
@@ -125,10 +125,10 @@ void main() {
         controller().start([question('a'), question('b')]);
         controller().answerOption(0, const Duration(milliseconds: 900));
 
-        expect(state().current?.conceptId, 'a');
+        expect(state().current?.itemId, 'a');
         async.elapse(const Duration(seconds: 2));
 
-        expect(state().current?.conceptId, 'b');
+        expect(state().current?.itemId, 'b');
         expect(state().phase, RunPhase.asking);
         expect(state().lastCorrect, isNull);
       });
@@ -173,7 +173,7 @@ void main() {
 
         // Слово вернулось — забег ещё идёт.
         expect(state().isFinished, isFalse);
-        expect(state().current?.conceptId, 'a');
+        expect(state().current?.itemId, 'a');
 
         controller().answerOption(0, const Duration(seconds: 2));
         async.elapse(const Duration(seconds: 2));
@@ -188,7 +188,7 @@ void main() {
   group('ввод текста', () {
     test('ответ вводом проверяется по тексту, а не по индексу', () {
       const typed = CircleQuestion(
-        conceptId: 'bill',
+        itemId: 'bill',
         tier: Tier.a1,
         mode: GameMode.typing,
         prompt: 'счёт',

@@ -12,7 +12,7 @@ import 'package:lumen/domain/scoring/balance.dart';
 void main() {
   final now = DateTime.utc(2026, 3, 1, 8);
 
-  WordCandidate word(
+  StudyItem word(
     String id, {
     int lumens = 50,
     Duration? overdue,
@@ -20,8 +20,8 @@ void main() {
     bool hasAudio = true,
     Tier tier = Tier.a1,
   }) =>
-      WordCandidate(
-        conceptId: id,
+      StudyItem(
+        itemId: id,
         tier: tier,
         lumens: lumens,
         due: isNew ? null : now.subtract(overdue ?? const Duration(hours: 1)),
@@ -37,21 +37,21 @@ void main() {
         word('medium', lumens: 55),
       ], now);
 
-      expect(pool.map((w) => w.conceptId), ['dim', 'medium', 'bright']);
+      expect(pool.map((w) => w.itemId), ['dim', 'medium', 'bright']);
     });
 
     test('не просроченные слова в пул не попадают', () {
       final pool = SessionPlanner.pool([
         word('due', lumens: 40),
-        WordCandidate(
-          conceptId: 'later',
+        StudyItem(
+          itemId: 'later',
           tier: Tier.a1,
           lumens: 10,
           due: now.add(const Duration(days: 3)),
         ),
       ], now);
 
-      expect(pool.map((w) => w.conceptId), ['due']);
+      expect(pool.map((w) => w.itemId), ['due']);
     });
 
     test('новые слова в пул повторений не попадают', () {
@@ -60,7 +60,7 @@ void main() {
         word('fresh', isNew: true),
       ], now);
 
-      expect(pool.map((w) => w.conceptId), ['review']);
+      expect(pool.map((w) => w.itemId), ['review']);
     });
 
     test('пул ограничен размером', () {
@@ -78,13 +78,13 @@ void main() {
         word('stale', lumens: 30, overdue: const Duration(days: 9)),
       ], now);
 
-      expect(pool.first.conceptId, 'stale');
+      expect(pool.first.itemId, 'stale');
     });
 
     test('слово ровно на границе due считается просроченным', () {
       final pool = SessionPlanner.pool([
-        WordCandidate(
-            conceptId: 'edge', tier: Tier.a0, lumens: 20, due: now),
+        StudyItem(
+            itemId: 'edge', tier: Tier.a0, lumens: 20, due: now),
       ], now);
       expect(pool, hasLength(1));
     });
@@ -154,9 +154,9 @@ void main() {
   });
 
   group('уровень', () {
-    List<WordCandidate> reviews(int n) =>
+    List<StudyItem> reviews(int n) =>
         [for (var i = 0; i < n; i++) word('r$i', lumens: 20 + i)];
-    List<WordCandidate> fresh(int n) =>
+    List<StudyItem> fresh(int n) =>
         [for (var i = 0; i < n; i++) word('n$i', lumens: 0, isNew: true)];
 
     test('состав уровня: шесть новых по три показа плюс двенадцать повторов',
@@ -178,7 +178,7 @@ void main() {
       final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
 
       for (final id in ['n0', 'n1', 'n2', 'n3', 'n4', 'n5']) {
-        final shows = plan.where((c) => c.conceptId == id).toList();
+        final shows = plan.where((c) => c.itemId == id).toList();
         expect(shows, hasLength(SessionBalance.newWordRepeats));
         expect(shows.first.isNew, isTrue);
         expect(shows.first.mode, GameMode.recognition);
@@ -188,7 +188,7 @@ void main() {
     test('одно слово никогда не идёт двумя кругами подряд', () {
       final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
       for (var i = 1; i < plan.length; i++) {
-        expect(plan[i].conceptId, isNot(plan[i - 1].conceptId),
+        expect(plan[i].itemId, isNot(plan[i - 1].itemId),
             reason: 'позиция $i');
       }
     });
@@ -197,7 +197,7 @@ void main() {
       final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
       final positions = <int>[];
       for (var i = 0; i < plan.length; i++) {
-        if (plan[i].conceptId.startsWith('n')) positions.add(i);
+        if (plan[i].itemId.startsWith('n')) positions.add(i);
       }
 
       // Новые занимают больше половины плана, но не должны толпиться
@@ -215,7 +215,7 @@ void main() {
         fresh: const [],
         reviewWords: 2,
       );
-      expect(plan.map((c) => c.conceptId), ['dim', 'bright']);
+      expect(plan.map((c) => c.itemId), ['dim', 'bright']);
     });
 
     test('уровень без новых слов — это просто повторы', () {
@@ -229,7 +229,7 @@ void main() {
 
       expect(plan, hasLength(9));
       for (var i = 1; i < plan.length; i++) {
-        expect(plan[i].conceptId, isNot(plan[i - 1].conceptId));
+        expect(plan[i].itemId, isNot(plan[i - 1].itemId));
       }
     });
 
@@ -255,7 +255,7 @@ void main() {
         now: now,
       );
 
-      expect(plan.map((c) => c.conceptId), ['dim', 'bright']);
+      expect(plan.map((c) => c.itemId), ['dim', 'bright']);
       expect(plan.every((c) => !c.isNew), isTrue);
     });
 
@@ -287,7 +287,7 @@ void main() {
       final circles = [
         for (var i = 0; i < 22; i++)
           PlannedCircle(
-              conceptId: 'w$i',
+              itemId: 'w$i',
               mode: GameMode.circle,
               isNew: false,
               lumens: 50),
@@ -308,7 +308,7 @@ void main() {
       final circles = [
         for (var i = 0; i < 4; i++)
           PlannedCircle(
-              conceptId: 'w$i',
+              itemId: 'w$i',
               mode: GameMode.circle,
               isNew: false,
               lumens: 50),
@@ -367,7 +367,7 @@ void main() {
 
   test('PlannedCircle читаемо печатается', () {
     const circle = PlannedCircle(
-        conceptId: 'arzt', mode: GameMode.tight, isNew: false, lumens: 62);
+        itemId: 'arzt', mode: GameMode.tight, isNew: false, lumens: 62);
     expect(circle.toString(), contains('arzt'));
     expect(circle.toString(), contains('tight'));
   });

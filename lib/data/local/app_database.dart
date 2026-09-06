@@ -49,7 +49,16 @@ class Players extends Table {
 @TableIndex(name: 'word_states_due_lm', columns: {#due, #lmCached})
 @DataClassName('WordStateRow')
 class WordStates extends Table {
-  TextColumn get conceptId => text()();
+  /// Идентификатор того, что учат: концепт или фраза. Раньше здесь мог быть
+  /// только концепт — фразы памяти не имели вовсе и показывались по одному
+  /// разу, без повторений. Для разговорника это означало, что заучить фразу
+  /// невозможно в принципе.
+  TextColumn get itemId => text()();
+
+  /// Слово или фраза. Значение по умолчанию делает миграцию бесшовной:
+  /// всё, что уже лежит в базе, — слова.
+  TextColumn get kind => text().withDefault(const Constant('word'))();
+
   TextColumn get tier => text()();
   RealColumn get difficulty => real()();
   RealColumn get stability => real()();
@@ -62,7 +71,7 @@ class WordStates extends Table {
   IntColumn get lapses => integer().withDefault(const Constant(0))();
 
   @override
-  Set<Column> get primaryKey => {conceptId};
+  Set<Column> get primaryKey => {itemId};
 }
 
 /// Журнал ответов: нужен и для дообучения параметров FSRS, и для аналитики.
@@ -71,7 +80,7 @@ class WordStates extends Table {
 @DataClassName('ReviewRow')
 class Reviews extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get conceptId => text()();
+  TextColumn get itemId => text()();
   DateTimeColumn get at => dateTime()();
   IntColumn get latencyMs => integer()();
   TextColumn get mode => text()();
@@ -131,7 +140,7 @@ class AppDatabase extends _$AppDatabase {
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -148,6 +157,30 @@ class AppDatabase extends _$AppDatabase {
             // CDN, а держать таблицу под фичу, которой нет, — это мусор,
             // который однажды примут за рабочие данные.
             await m.deleteTable('daily_challenge_results');
+          }
+          if (from < 4) {
+            // Фразы становятся такими же единицами памяти, как слова:
+            // своё состояние FSRS, своя яркость, своё место в очереди
+            // повторений. Колонка переименована, потому что хранит уже не
+            // только концепты, а имя, которое лжёт, хуже отсутствующего.
+            await m.alterTable(
+              TableMigration(
+                wordStates,
+                columnTransformer: {
+                  wordStates.itemId:
+                      const CustomExpression<String>('concept_id'),
+                },
+                newColumns: [wordStates.kind],
+              ),
+            );
+            await m.alterTable(
+              TableMigration(
+                reviews,
+                columnTransformer: {
+                  reviews.itemId: const CustomExpression<String>('concept_id'),
+                },
+              ),
+            );
           }
         },
       );
@@ -169,9 +202,9 @@ class AppDatabase extends _$AppDatabase {
   /// строк — читается целиком один раз за сессию, а не по слову на круг.
   Future<List<WordStateRow>> loadWordStates() => select(wordStates).get();
 
-  /// Состояние одного слова.
-  Future<WordStateRow?> loadWordState(String conceptId) =>
-      (select(wordStates)..where((t) => t.conceptId.equals(conceptId)))
+  /// Состояние одной единицы памяти — слова или фразы.
+  Future<WordStateRow?> loadWordState(String itemId) =>
+      (select(wordStates)..where((t) => t.itemId.equals(itemId)))
           .getSingleOrNull();
 
   /// Слова к повторению: тот самый запрос, ради которого заведён индекс
@@ -196,20 +229,20 @@ class AppDatabase extends _$AppDatabase {
 
   /// Пересчитанная яркость — производная величина, поэтому обновляется
   /// пачкой и отдельно от самих ответов.
-  Future<void> refreshCachedLumens(Map<String, int> byConceptId) =>
+  Future<void> refreshCachedLumens(Map<String, int> byItemId) =>
       batch((b) {
-        for (final entry in byConceptId.entries) {
+        for (final entry in byItemId.entries) {
           b.update(
             wordStates,
             WordStatesCompanion(lmCached: Value(entry.value)),
-            where: (t) => t.conceptId.equals(entry.key),
+            where: (t) => t.itemId.equals(entry.key),
           );
         }
       });
 
   /// Сколько слов сейчас горит — главная цифра в профиле.
   Future<int> countBurning() async {
-    final count = wordStates.conceptId.count();
+    final count = wordStates.itemId.count();
     final row = await (selectOnly(wordStates)
           ..addColumns([count])
           ..where(wordStates.burning.equals(true)))

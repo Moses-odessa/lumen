@@ -68,7 +68,7 @@ class ReminderScheduler {
       if (lm >= LumenBand.flickering.minLm) continue;
       total++;
 
-      final constellation = constellationByConcept[row.conceptId];
+      final constellation = constellationByConcept[row.itemId];
       if (constellation != null) {
         dimming.update(constellation, (n) => n + 1, ifAbsent: () => 1);
       }

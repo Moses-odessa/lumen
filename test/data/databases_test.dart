@@ -24,8 +24,8 @@ void main() {
     test('схема создаётся и игрок переживает запись-чтение', () async {
       // Версия растёт вместе с миграциями: v2 добавила затмения и
       // напоминания (M5), v3 убрала таблицу ночного вызова вместе с самой
-      // фичей.
-      expect(db.schemaVersion, 3);
+      // фичей, v4 сделала фразы такой же единицей памяти, как слова.
+      expect(db.schemaVersion, 4);
       expect(await db.loadPlayer(), isNull);
 
       await db.savePlayer(Player(

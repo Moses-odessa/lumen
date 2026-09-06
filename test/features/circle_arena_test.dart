@@ -24,7 +24,7 @@ void main() {
   }
 
   const question = CircleQuestion(
-    conceptId: 'doctor_person',
+    itemId: 'doctor_person',
     tier: Tier.a0,
     mode: GameMode.circle,
     prompt: 'врач',
@@ -148,7 +148,7 @@ void main() {
     await pumpArena(
       tester,
       q: const CircleQuestion(
-        conceptId: 'x',
+        itemId: 'x',
         tier: Tier.a0,
         mode: GameMode.circle,
         prompt: 'счёт',
@@ -187,7 +187,7 @@ void main() {
     expect(answers, hasLength(1));
 
     const next = CircleQuestion(
-      conceptId: 'pain_noun',
+      itemId: 'pain_noun',
       tier: Tier.a0,
       mode: GameMode.circle,
       prompt: 'боль',

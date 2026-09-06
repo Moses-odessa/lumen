@@ -56,7 +56,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   // при старте сессии, а карту могут открыть и через неделю простоя.
   final lumensByConcept = <String, Lumens>{};
   for (final row in await db.loadWordStates()) {
-    lumensByConcept[row.conceptId] = MemoryState(
+    lumensByConcept[row.itemId] = MemoryState(
       difficulty: row.difficulty,
       stability: row.stability,
       lastReview: row.lastReview,
@@ -70,7 +70,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   for (final concept in concepts) {
     byConstellation.putIfAbsent(concept.constellation, () => []).add(
           StarInput(
-            conceptId: concept.id,
+            itemId: concept.id,
             lumens: lumensByConcept[concept.id] ?? 0,
           ),
         );

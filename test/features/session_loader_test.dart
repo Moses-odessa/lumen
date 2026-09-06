@@ -78,16 +78,16 @@ void main() {
       final session = await loader.level(now);
 
       for (final q in session.questions) {
-        expect(q.conceptId, isNotEmpty);
+        expect(q.itemId, isNotEmpty);
         if (!q.isTyped) {
           expect(q.options.length, greaterThanOrEqualTo(3),
-              reason: '${q.conceptId}: слишком мало вариантов');
+              reason: '${q.itemId}: слишком мало вариантов');
           expect(q.answerIndex, inInclusiveRange(0, q.options.length - 1));
           expect(q.answer, isNotEmpty);
         }
         // Инвариант README: концепт без озвучки не проходит валидацию,
         // значит и в игре у ответа всегда есть audioId.
-        expect(q.answerAudioId, isNotNull, reason: q.conceptId);
+        expect(q.answerAudioId, isNotNull, reason: q.itemId);
       }
     });
 
@@ -97,7 +97,7 @@ void main() {
       for (final q in session.questions.where((q) => !q.isTyped)) {
         final lowered = q.options.map((o) => o.toLowerCase()).toList();
         expect(lowered.toSet().length, lowered.length,
-            reason: '${q.conceptId}: дубли среди вариантов');
+            reason: '${q.itemId}: дубли среди вариантов');
       }
     });
 
@@ -108,7 +108,7 @@ void main() {
       expect(first.mode, GameMode.recognition);
       // Узнавание: в центре немецкий, вокруг русский.
       expect(first.prompt, isNotEmpty);
-      final lexeme = await content.lexeme(first.conceptId, 'de');
+      final lexeme = await content.lexeme(first.itemId, 'de');
       expect(first.prompt, contains(lexeme!.form));
     });
 
@@ -123,7 +123,7 @@ void main() {
 
     test('одно слово не идёт двумя кругами подряд', () async {
       final session = await loader.level(now);
-      final ids = session.questions.map((q) => q.conceptId).toList();
+      final ids = session.questions.map((q) => q.itemId).toList();
 
       for (var i = 1; i < ids.length - 1; i++) {
         expect(ids[i], isNot(ids[i - 1]), reason: 'позиция $i');
@@ -139,7 +139,7 @@ void main() {
       // Играем первые пять кругов верно.
       for (final q in session.questions.take(5)) {
         await repository.applyAnswer(
-          conceptId: q.conceptId,
+          itemId: q.itemId,
           tier: q.tier,
           mode: q.mode,
           correct: true,
@@ -153,9 +153,9 @@ void main() {
       final second = await loader.level(later);
 
       expect(second.reviews, greaterThan(0));
-      final playedIds = session.questions.take(5).map((q) => q.conceptId);
+      final playedIds = session.questions.take(5).map((q) => q.itemId);
       final reviewedIds =
-          second.questions.where((q) => !q.isNew).map((q) => q.conceptId);
+          second.questions.where((q) => !q.isNew).map((q) => q.itemId);
       expect(reviewedIds, containsAll(playedIds.toSet().take(1)));
     });
 
@@ -168,7 +168,7 @@ void main() {
       var at = now;
       for (var i = 0; i < 6; i++) {
         await repository.applyAnswer(
-          conceptId: id,
+          itemId: id,
           tier: Tier.a0,
           mode: GameMode.circle,
           correct: true,
@@ -198,7 +198,7 @@ void main() {
 
       for (final concept in concepts.take(4)) {
         await repository.applyAnswer(
-          conceptId: concept.id,
+          itemId: concept.id,
           tier: Tier.a0,
           mode: GameMode.circle,
           correct: true,

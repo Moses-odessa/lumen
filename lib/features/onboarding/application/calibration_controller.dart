@@ -72,7 +72,7 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       if (question.answerAudioId != null) {
         ref.read(audioServiceProvider).play(question.answerAudioId!);
       }
-      _confirmedConcepts[question.conceptId] = question.tier;
+      _confirmedConcepts[question.itemId] = question.tier;
     }
 
     final next = Calibration.answer(
@@ -174,7 +174,7 @@ class CalibrationController extends Notifier<CalibrationUiState> {
 
     return builder.build(
       PlannedCircle(
-        conceptId: conceptIds[_random.nextInt(conceptIds.length)],
+        itemId: conceptIds[_random.nextInt(conceptIds.length)],
         mode: step.mode,
         isNew: false,
         lumens: 0,
