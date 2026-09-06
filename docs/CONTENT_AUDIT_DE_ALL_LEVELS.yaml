@@ -1,0 +1,4061 @@
+findings:
+  -
+    concept: "bag_object"
+    field: "far"
+    current:
+      - "Korb"
+      - "Beutel"
+    severity: "error"
+    why: "Beutel: также переводится как bag/пакет; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1088
+    hints:
+      en: "bag"
+      ru: "пакет"
+  -
+    concept: "bank_place"
+    field: "far"
+    current:
+      - "Sparkasse"
+      - "Automat"
+    severity: "error"
+    why: "Sparkasse: является банком; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1354
+    hints:
+      en: "bank"
+      ru: "банк"
+  -
+    concept: "boss_person"
+    field: "far"
+    current:
+      - "Leiter"
+      - "Inhaber"
+    severity: "error"
+    why: "Leiter: может означать начальника/руководителя; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1442
+    hints:
+      en: "boss"
+      ru: "начальник"
+  -
+    concept: "company_noun"
+    field: "far"
+    current:
+      - "Betrieb"
+      - "Konzern"
+    severity: "error"
+    why: "Betrieb, Konzern: могут обозначать company/фирму; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1466
+    hints:
+      en: "company"
+      ru: "фирма"
+  -
+    concept: "help_noun"
+    field: "near"
+    current:
+      - "Hilfsmittel"
+      - "Hilfskraft"
+      - "Hilflos"
+    proposed:
+      - "Hilfsmittel"
+      - "Hilfskraft"
+      - "hilflos"
+    severity: "error"
+    why: "Прилагательное hilflos пишется со строчной буквы."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 27
+    hints:
+      en: "help"
+      ru: "помощь"
+  -
+    concept: "holiday_noun"
+    field: "far"
+    current:
+      - "Feiertag"
+      - "Pause"
+    severity: "error"
+    why: "Feiertag: соответствует одному из обычных значений английского holiday; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1498
+    hints:
+      en: "holiday"
+      ru: "отпуск"
+  -
+    concept: "hunger_noun"
+    field: "plural"
+    current: "Hungersnöte"
+    proposed: null
+    severity: "error"
+    why: "В plural записано множественное число другой лексемы, а не изучаемого существительного."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 836
+    hints:
+      en: "hunger"
+      ru: "голод"
+  -
+    concept: "job_noun"
+    field: "far"
+    current:
+      - "Stelle"
+      - "Karriere"
+    severity: "error"
+    why: "Stelle соответствует английскому job; текущая английская подсказка допускает этот ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1434
+    hints:
+      en: "job"
+      ru: "профессия"
+  -
+    concept: "job_noun"
+    field: "form"
+    current: "job"
+    proposed: "profession"
+    severity: "error"
+    why: "Beruf соответствует профессии, а английское job может означать рабочее место; нужно согласовать EN/RU смысл, например en.form: profession."
+    tier: "a0"
+    file: "content/lang/en.yaml"
+    line: 687
+    hints:
+      en: "job"
+      ru: "профессия"
+  -
+    concept: "key_object"
+    field: "phrase"
+    current:
+      template: "Ich suche meinen {key}."
+      answer: "Schlüssel"
+    severity: "error"
+    why: "Шаблон Ich suche meinen ___ допускает Schlüssel и Schlüpfer, входящий в near; артикль и смысл общего действия не выделяют единственный ответ."
+    tier: "a0"
+    file: "content/constellations/home.yaml"
+    line: 29
+    phrase: "home_a0_key"
+    hints:
+      en: "key"
+      ru: "ключ"
+  -
+    concept: "man_person"
+    field: "far"
+    current:
+      - "Junge"
+      - "Herr"
+    severity: "error"
+    why: "Herr: может обозначать мужчину; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1212
+    hints:
+      en: "man"
+      ru: "мужчина"
+  -
+    concept: "map_object"
+    field: "phrase"
+    current:
+      template: "Ich brauche einen {map}."
+      answer: "Stadtplan"
+    severity: "error"
+    why: "В текущем режиме phrase шаблон Ich brauche einen ___ допускает Stadtplan, Bauplan и Zeitplan, а оба альтернативных слова входят в near; смысловой подсказки нет."
+    tier: "a0"
+    file: "content/constellations/city.yaml"
+    line: 29
+    phrase: "city_a0_map"
+    hints:
+      en: "city map"
+      ru: "карта города"
+  -
+    concept: "meat_food"
+    field: "plural"
+    current: "Fleischsorten"
+    proposed: null
+    severity: "error"
+    why: "В plural записано множественное число другой лексемы, а не изучаемого существительного."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 796
+    hints:
+      en: "meat"
+      ru: "мясо"
+  -
+    concept: "meeting_noun"
+    field: "far"
+    current:
+      - "Konferenz"
+      - "Schulung"
+    severity: "error"
+    why: "Konferenz: может означать совещание/meeting; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1490
+    hints:
+      en: "meeting"
+      ru: "совещание"
+  -
+    concept: "milk_drink"
+    field: "plural"
+    current: "Milchsorten"
+    proposed: null
+    severity: "error"
+    why: "В plural записано множественное число другой лексемы, а не изучаемого существительного."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 772
+    hints:
+      en: "milk"
+      ru: "молоко"
+  -
+    concept: "morning_time"
+    field: "far"
+    current:
+      - "Mittag"
+      - "Vormittag"
+    severity: "error"
+    why: "Vormittag: соответствует английскому morning для времени до полудня; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1292
+    hints:
+      en: "morning"
+      ru: "утро"
+  -
+    concept: "post_place"
+    field: "plural"
+    current: "Postämter"
+    proposed: null
+    severity: "error"
+    why: "В plural записано множественное число другой лексемы, а не изучаемого существительного."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1386
+    hints:
+      en: "post office"
+      ru: "почта"
+  -
+    concept: "purchase_noun"
+    field: "near"
+    current:
+      - "Verkauf"
+      - "Ankauf"
+      - "Einlauf"
+    severity: "error"
+    why: "Ankauf: также означает покупку; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1096
+    hints:
+      en: "purchase"
+      ru: "покупка"
+  -
+    concept: "room_place"
+    field: "near"
+    current:
+      - "Zimt"
+      - "Kummer"
+      - "Nimmer"
+    proposed:
+      - "Zimt"
+      - "Kummer"
+      - "nimmer"
+    severity: "error"
+    why: "Наречие nimmer пишется со строчной буквы."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1006
+    hints:
+      en: "room"
+      ru: "комната"
+  -
+    concept: "salary_noun"
+    field: "far"
+    current:
+      - "Lohn"
+      - "Bonus"
+    severity: "error"
+    why: "Lohn: также означает зарплату; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1474
+    hints:
+      en: "salary"
+      ru: "зарплата"
+  -
+    concept: "street_place"
+    field: "far"
+    current:
+      - "Gasse"
+      - "Platz"
+    severity: "error"
+    why: "Gasse: является улицей/переулком и подходит к широкой подсказке; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 894
+    hints:
+      en: "street"
+      ru: "улица"
+  -
+    concept: "sugar_food"
+    field: "plural"
+    current: "Zuckerarten"
+    proposed: null
+    severity: "error"
+    why: "В plural записано множественное число другой лексемы, а не изучаемого существительного."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 828
+    hints:
+      en: "sugar"
+      ru: "сахар"
+  -
+    concept: "way_noun"
+    field: "far"
+    current:
+      - "Pfad"
+      - "Route"
+    severity: "error"
+    why: "Pfad, Route: также означают путь/маршрут; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 918
+    hints:
+      en: "way"
+      ru: "путь"
+  -
+    concept: "woman_person"
+    field: "far"
+    current:
+      - "Mädchen"
+      - "Dame"
+    severity: "error"
+    why: "Dame: также означает женщину; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1220
+    hints:
+      en: "woman"
+      ru: "женщина"
+  -
+    concept: "chair_object"
+    field: "far"
+    current:
+      - "Sessel"
+      - "Bank"
+    severity: "doubt"
+    why: "Sessel соответствует armchair, который входит в широкое английское chair; нужно сузить EN подсказку или сменить вариант."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 982
+    hints:
+      en: "chair"
+      ru: "стул"
+  -
+    concept: "child_person"
+    field: "far"
+    current:
+      - "Baby"
+      - "Jugendlicher"
+    severity: "doubt"
+    why: "Baby: является ребёнком; без уточнения смысла это допустимый ответ."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1156
+    hints:
+      en: "child"
+      ru: "ребёнок"
+  -
+    concept: "church_place"
+    field: "far"
+    current:
+      - "Dom"
+      - "Kloster"
+    severity: "doubt"
+    why: "Dom является разновидностью церкви; формально слова различаются по конкретности, но для общего church/церковь отвлекающий вариант неоднозначен."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1362
+    hints:
+      en: "church"
+      ru: "церковь"
+  -
+    concept: "kitchen_room"
+    field: "near"
+    current:
+      - "Kuchen"
+      - "Kirche"
+      - "Kücken"
+    proposed:
+      - "Kuchen"
+      - "Kirche"
+      - "Küken"
+    severity: "style"
+    why: "Kücken существует как австрийский вариант; для курса с основной нормой Германии нейтральнее Küken, но исходная запись не орфографическая ошибка."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 998
+    hints:
+      en: "kitchen"
+      ru: "кухня"
+    references:
+      - "duden_kuecken"
+  -
+    concept: "late_adj"
+    field: "phrase"
+    current:
+      template: "Der Zug ist {late}."
+      answer: "spät"
+    proposed:
+      template: "Der Zug kommt zu {late}."
+      answer: "spät"
+    severity: "style"
+    why: "Для опоздания поезда естественнее конструкция с zu spät, сохраняющая изучаемый ответ spät."
+    tier: "a0"
+    file: "content/constellations/transport.yaml"
+    line: 44
+    phrase: "transport_a0_late"
+    hints:
+      en: "late"
+      ru: "поздно"
+  -
+    concept: "money_noun"
+    field: "plural"
+    current: "Gelder"
+    proposed: null
+    severity: "style"
+    why: "Gelder является допустимым множественным для денежных средств/фондов, но для начального значения деньги полезнее пока не обучать этому специальному употреблению."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 1056
+    hints:
+      en: "money"
+      ru: "деньги"
+    references:
+      - "duden_geld"
+  -
+    concept: "right_adv"
+    field: "phrase"
+    current:
+      template: "Gehen Sie {right}."
+      answer: "rechts"
+    proposed:
+      template: "Gehen Sie nach {right}."
+      answer: "rechts"
+    severity: "style"
+    why: "В инструкции о направлении полнее звучит nach rechts."
+    tier: "a0"
+    file: "content/constellations/city.yaml"
+    line: 44
+    phrase: "city_a0_right"
+    hints:
+      en: "right"
+      ru: "направо"
+  -
+    concept: "salt_food"
+    field: "plural"
+    current: "Salze"
+    proposed: null
+    severity: "style"
+    why: "Salze корректно для разных химических солей; для пищевой соли на A0 лучше убрать множественное."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 820
+    hints:
+      en: "salt"
+      ru: "соль"
+  -
+    concept: "water_drink"
+    field: "plural"
+    current: "Wässer"
+    proposed: null
+    severity: "style"
+    why: "Wässer допустимо для разновидностей вод, но не нужно как базовое множественное питьевой воды на A0."
+    tier: "a0"
+    file: "content/lang/de.yaml"
+    line: 764
+    hints:
+      en: "water"
+      ru: "вода"
+  -
+    concept: "butter_food"
+    field: "plural"
+    current: "Buttersorten"
+    proposed: null
+    severity: "error"
+    why: "Buttersorten является множественным числом Buttersorte, а не Butter."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1592
+    hints:
+      en: "butter"
+      ru: "сливочное масло"
+  -
+    concept: "cash_noun"
+    field: "near"
+    current:
+      - "Bargeldlos"
+      - "Barhocker"
+      - "Bargeldkasse"
+    proposed:
+      - "bargeldlos"
+      - "Barhocker"
+      - "Bargeldkasse"
+    severity: "error"
+    why: "Прилагательное bargeldlos в изолированном словарном варианте пишется со строчной буквы."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1814
+    hints:
+      en: "cash"
+      ru: "наличные"
+  -
+    concept: "cash_noun"
+    field: "plural"
+    current: "Bargeldbestände"
+    proposed: null
+    severity: "error"
+    why: "Bargeldbestände является множественным числом Bargeldbestand, а не Bargeld."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1814
+    hints:
+      en: "cash"
+      ru: "наличные"
+  -
+    concept: "cheese_food"
+    field: "plural"
+    current: "Käsesorten"
+    proposed: null
+    severity: "error"
+    why: "Käsesorten является множественным числом Käsesorte, а не Käse; для неисчисляемого сыра поле лучше убрать."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1584
+    hints:
+      en: "cheese"
+      ru: "сыр"
+  -
+    concept: "cold_illness"
+    field: "near"
+    current:
+      - "Erklärung"
+      - "Erkennung"
+      - "Verkühlung"
+    proposed:
+      - "Erklärung"
+      - "Erkennung"
+      - "Erkaltung"
+    severity: "error"
+    why: "Verkühlung означает простуду (региональный вариант), поэтому является правильным переводом, а не ошибочным ответом."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 143
+    hints:
+      en: "a cold"
+      ru: "простуда"
+    references:
+      - "duden_verkuehlung"
+  -
+    concept: "connection_noun"
+    field: "far"
+    current:
+      - "Umstieg"
+      - "Fahrt"
+    severity: "error"
+    why: "Umstieg непосредственно соответствует русской подсказке пересадка; Anschluss означает стыковку/следующий рейс, поэтому нужно уточнить русский смысл."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1634
+    hints:
+      en: "connection"
+      ru: "пересадка"
+  -
+    concept: "cousin_person"
+    field: "near"
+    current:
+      - "Cousine"
+      - "Kusine"
+      - "Kusinchen"
+    severity: "error"
+    why: "Английское cousin не различает пол: Cousine и Kusine также правильны; сначала уточните английскую подсказку до male cousin."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1968
+    hints:
+      en: "cousin"
+      ru: "двоюродный брат"
+  -
+    concept: "departure_noun"
+    field: "far"
+    current:
+      - "Abflug"
+      - "Start"
+    severity: "error"
+    why: "Abflug является правильным переводом английского departure для авиарейса; вид транспорта в подсказке не задан."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1706
+    hints:
+      en: "departure"
+      ru: "отправление"
+  -
+    concept: "dinner_meal"
+    field: "near"
+    current:
+      - "Abendbrot"
+      - "Abendkleid"
+      - "Abenteuer"
+    proposed:
+      - "Abendrot"
+      - "Abendkleid"
+      - "Abenteuer"
+    severity: "error"
+    why: "Abendbrot обозначает вечернюю еду и подходит к подсказке ужин; различие меню не делает ответ неверным."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1536
+    hints:
+      en: "dinner"
+      ru: "ужин"
+  -
+    concept: "luggage_noun"
+    field: "plural"
+    current: "Gepäckstücke"
+    proposed: null
+    severity: "error"
+    why: "Gepäckstücke является множественным числом Gepäckstück, а не Gepäck."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1650
+    hints:
+      en: "luggage"
+      ru: "багаж"
+  -
+    concept: "now_adv"
+    field: "near"
+    current:
+      - "Netz"
+      - "letzt"
+      - "jetzo"
+    proposed:
+      - "Netz"
+      - "letzt"
+      - "Hetze"
+    severity: "error"
+    why: "Jetzo является устаревшим синонимом jetzt и означает сейчас."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2076
+    hints:
+      en: "now"
+      ru: "сейчас"
+    references:
+      - "duden_jetzo"
+  -
+    concept: "nurse_person"
+    field: "far"
+    current:
+      - "Pfleger"
+      - "Assistentin"
+    severity: "error"
+    why: "Английское nurse не задаёт пол, поэтому Pfleger также подходит к подсказке; уточните nurse (female) либо состав вариантов."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 159
+    hints:
+      en: "nurse"
+      ru: "медсестра"
+    references:
+      - "duden_schwester"
+  -
+    concept: "nurse_person"
+    field: "near"
+    current:
+      - "Krankenkasse"
+      - "Krankenwagen"
+      - "Schwester"
+    proposed:
+      - "Krankenkasse"
+      - "Krankenwagen"
+      - "Schwesterherz"
+    severity: "error"
+    why: "Schwester употребляется в значении медсестры и не может служить заведомо неверным вариантом."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 159
+    hints:
+      en: "nurse"
+      ru: "медсестра"
+    references:
+      - "duden_schwester"
+  -
+    concept: "product_noun"
+    field: "far"
+    current:
+      - "Ware"
+      - "Sortiment"
+    proposed:
+      - "Verpackung"
+      - "Sortiment"
+    severity: "error"
+    why: "Ware означает товар и непосредственно соответствует русской подсказке."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1878
+    hints:
+      en: "product"
+      ru: "товар"
+  -
+    concept: "project_noun"
+    field: "far"
+    current:
+      - "Auftrag"
+      - "Vorhaben"
+    proposed:
+      - "Bericht"
+      - "Protokoll"
+    severity: "error"
+    why: "Vorhaben может означать проект; без контекста нельзя считать его заведомо неверным."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2236
+    hints:
+      en: "project"
+      ru: "проект"
+  -
+    concept: "quality_noun"
+    field: "phrase"
+    current:
+      template: "Die {quality} ist gut."
+      answer: "Qualität"
+    severity: "error"
+    why: "Шаблон Die ___ ist gut допускает Qualität, Quantität и Qualifikation из near; без смысловой подсказки нельзя выбрать одну лексему."
+    tier: "a1"
+    file: "content/constellations/shop.yaml"
+    line: 90
+    phrase: "shop_a1_quality"
+    hints:
+      en: "quality"
+      ru: "качество"
+  -
+    concept: "size_noun"
+    field: "near"
+    current:
+      - "Grüße"
+      - "Grotte"
+      - "Grösse"
+    proposed:
+      - "Grüße"
+      - "Grotte"
+      - "Gräte"
+    severity: "error"
+    why: "Grösse является швейцарским написанием Größe, а не другим словом; вариант учит считать допустимую орфографию ошибкой."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1838
+    hints:
+      en: "size"
+      ru: "размер"
+  -
+    concept: "vegetable_food"
+    field: "plural"
+    current: "Gemüsesorten"
+    proposed: null
+    severity: "error"
+    why: "Gemüsesorten является множественным числом Gemüsesorte, а не Gemüse."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1608
+    hints:
+      en: "vegetable"
+      ru: "овощи"
+  -
+    concept: "wall_object"
+    field: "far"
+    current:
+      - "Zaun"
+      - "Mauer"
+    proposed:
+      - "Zaun"
+      - "Säule"
+    severity: "error"
+    why: "Mauer также переводится как wall/стена, а материал и тип стены в подсказке не указаны."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1732
+    hints:
+      en: "wall"
+      ru: "стена"
+  -
+    concept: "bathroom_room"
+    field: "near"
+    current:
+      - "Badewanne"
+      - "Kinderzimmer"
+      - "Bauzimmer"
+    severity: "doubt"
+    why: "Bauzimmer требует подтверждения современным словарём или корпусом; правдоподобной немецкой композиции недостаточно."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1772
+    hints:
+      en: "bathroom"
+      ru: "ванная"
+  -
+    concept: "break_noun"
+    field: "near"
+    current:
+      - "Maus"
+      - "Bause"
+      - "Klause"
+    severity: "doubt"
+    why: "Bause не подтверждён как обычное литературное существительное; фамилия или историческая форма не подходят для этого задания."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2260
+    hints:
+      en: "break"
+      ru: "перерыв"
+  -
+    concept: "brother_person"
+    field: "near"
+    current:
+      - "Bruch"
+      - "Ruder"
+      - "Brauder"
+    severity: "doubt"
+    why: "Brauder засвидетельствовано как нижненемецкий диалектный эквивалент Bruder, а не отдельный неверный ответ; для курса литературного немецкого требуется замена."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1912
+    hints:
+      en: "brother"
+      ru: "брат"
+    references:
+      - "ndr_brauder"
+  -
+    concept: "delivery_noun"
+    field: "far"
+    current:
+      - "Abholung"
+      - "Versand"
+    severity: "doubt"
+    why: "Versand и Lieferung могут переводиться как доставка, хотя различаются отправкой и получением; изолированная подсказка этого не объясняет."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1894
+    hints:
+      en: "delivery"
+      ru: "доставка"
+  -
+    concept: "entrance_place"
+    field: "far"
+    current:
+      - "Tor"
+      - "Pforte"
+    severity: "doubt"
+    why: "Tor и Pforte могут обозначать вход; подсказка не уточняет проход в отличие от ворот."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2170
+    hints:
+      en: "entrance"
+      ru: "вход"
+  -
+    concept: "exit_place"
+    field: "far"
+    current:
+      - "Notausstieg"
+      - "Pforte"
+    severity: "doubt"
+    why: "Notausstieg является аварийным выходом и подходит к широкой подсказке выход; Pforte тоже может служить выходом."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2178
+    hints:
+      en: "exit"
+      ru: "выход"
+  -
+    concept: "fitting_room"
+    field: "near"
+    current:
+      - "Umkleideraum"
+      - "Telefonkabine"
+      - "Umleitung"
+    severity: "doubt"
+    why: "Umkleideraum может обозначать помещение для переодевания/примерочную и создавать второй правильный ответ."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1854
+    hints:
+      en: "fitting room"
+      ru: "примерочная"
+  -
+    concept: "healthy_adj"
+    field: "far"
+    current:
+      - "munter"
+      - "fit"
+    severity: "doubt"
+    why: "Fit пересекается со здоровый/healthy; для начального уровня пара требует контекста."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 182
+    hints:
+      en: "healthy"
+      ru: "здоровый"
+  -
+    concept: "journey_noun"
+    field: "far"
+    current:
+      - "Ausflug"
+      - "Tour"
+    severity: "doubt"
+    why: "Ausflug и Tour пересекаются с поездка/journey; нужно уточнить смысл поездки либо выбрать однозначно другие понятия."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1690
+    hints:
+      en: "journey"
+      ru: "поездка"
+  -
+    concept: "overtime_noun"
+    field: "near"
+    current:
+      - "Übernachtung"
+      - "Überraschung"
+      - "Unterstunde"
+    severity: "doubt"
+    why: "Unterstunde выглядит искусственным антонимом Überstunde; нужен источник современного стандартного употребления."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2252
+    hints:
+      en: "overtime"
+      ru: "сверхурочные"
+  -
+    concept: "change_noun"
+    field: "plural"
+    current: "Wechselgelder"
+    proposed: null
+    severity: "style"
+    why: "Wechselgelder встречается в специальных контекстах, но для сдачи покупателю на A1 лучше не обучать счётному множественному."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 1822
+    hints:
+      en: "change"
+      ru: "сдача"
+  -
+    concept: "exchange_noun"
+    field: "phrase"
+    current:
+      template: "Ich möchte einen {exchange}."
+      answer: "Umtausch"
+    proposed:
+      template: "Ist ein {exchange} möglich?"
+      answer: "Umtausch"
+    severity: "style"
+    why: "В магазине естественнее попросить обменять конкретную вещь; исходная фраза понятна, но тяжеловесна."
+    tier: "a1"
+    file: "content/constellations/shop.yaml"
+    line: 85
+    phrase: "shop_a1_exchange"
+    hints:
+      en: "exchange"
+      ru: "обмен"
+  -
+    concept: "overtime_noun"
+    field: "form"
+    current: "Überstunde"
+    severity: "style"
+    why: "Для коллективного значения сверхурочные/overtime полезнее учить употребительную конструкцию Überstunden machen; Überstunde обозначает один сверхурочный час."
+    tier: "a1"
+    file: "content/lang/de.yaml"
+    line: 2252
+    hints:
+      en: "overtime"
+      ru: "сверхурочные"
+  -
+    concept: "temperature_noun"
+    field: "phrase"
+    current:
+      template: "Haben Sie {temperature} gemessen?"
+      answer: "Temperatur"
+    proposed:
+      template: "Haben Sie die {temperature} gemessen?"
+      answer: "Temperatur"
+    severity: "style"
+    why: "В этой полной реплике естественнее die Temperatur messen; вариант Fieber messen потребует другого ответа."
+    tier: "a1"
+    file: "content/constellations/doctor.yaml"
+    line: 96
+    phrase: "doctor_a1_temperature"
+    hints:
+      en: "temperature"
+      ru: "температура"
+  -
+    concept: "assortment_noun"
+    field: "far"
+    current:
+      - "Auswahl"
+      - "Warenangebot"
+    severity: "error"
+    why: "Auswahl, Warenangebot: эти слова могут обозначать ассортимент/выбор товаров; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2772
+    hints:
+      en: "range"
+      ru: "ассортимент"
+  -
+    concept: "beef_food"
+    field: "plural"
+    current: "Rindfleischsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2316
+    hints:
+      en: "beef"
+      ru: "говядина"
+  -
+    concept: "beginning_noun"
+    field: "far"
+    current:
+      - "Start"
+      - "Auftakt"
+    severity: "error"
+    why: "Start, Auftakt: оба слова могут означать начало; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3106
+    hints:
+      en: "beginning"
+      ru: "начало"
+  -
+    concept: "breath_noun"
+    field: "near"
+    current:
+      - "Atemnot"
+      - "Atmung"
+      - "Ampel"
+    severity: "error"
+    why: "Atmung: Atmung непосредственно соответствует русскому дыхание; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 352
+    hints:
+      en: "breath"
+      ru: "дыхание"
+  -
+    concept: "cake_food"
+    field: "far"
+    current:
+      - "Torte"
+      - "Keks"
+    severity: "error"
+    why: "Torte: Torte подходит к английскому cake, не уточняющему вид выпечки; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2358
+    hints:
+      en: "cake"
+      ru: "пирог"
+  -
+    concept: "citizenship_noun"
+    field: "near"
+    current:
+      - "Zugehörigkeit"
+      - "Staatsanwaltschaft"
+      - "Staatsbürgerschaft"
+    severity: "error"
+    why: "Staatsbürgerschaft: Staatsbürgerschaft также означает гражданство; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2990
+    hints:
+      en: "citizenship"
+      ru: "гражданство"
+  -
+    concept: "clocktime_noun"
+    field: "form"
+    current: "время суток"
+    proposed: "время на часах"
+    severity: "error"
+    why: "Uhrzeit означает показание часов/точное время, а русское время суток обычно означает утро, день, вечер или ночь; уточнить ru.form."
+    tier: "a2"
+    file: "content/lang/ru.yaml"
+    line: 536
+    hints:
+      en: "time of day"
+      ru: "время суток"
+  -
+    concept: "complaint_noun"
+    field: "far"
+    current:
+      - "Beschwerde"
+      - "Widerspruch"
+    severity: "error"
+    why: "Beschwerde: английское complaint соответствует также Beschwerde; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2784
+    hints:
+      en: "complaint"
+      ru: "рекламация"
+  -
+    concept: "conference_noun"
+    field: "far"
+    current:
+      - "Tagung"
+      - "Seminar"
+    severity: "error"
+    why: "Tagung: Tagung также может означать конференцию; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3362
+    hints:
+      en: "conference"
+      ru: "конференция"
+  -
+    concept: "crosswalk_place"
+    field: "far"
+    current:
+      - "Unterführung"
+      - "Überweg"
+    severity: "error"
+    why: "Überweg: Überweg означает переход и допускает тот же ответ при подсказке пешеходный переход; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3186
+    hints:
+      en: "pedestrian crossing"
+      ru: "пешеходный переход"
+  -
+    concept: "dizzy_adj"
+    field: "form"
+    current: "головокружение"
+    proposed: "кружится голова"
+    severity: "error"
+    why: "Немецкое schwindelig является прилагательным, тогда как русское головокружение обозначает симптом-существительное; исправить ru.form на кружится голова или испытывающий головокружение."
+    tier: "a2"
+    file: "content/lang/ru.yaml"
+    line: 125
+    hints:
+      en: "dizzy"
+      ru: "головокружение"
+  -
+    concept: "ending_noun"
+    field: "far"
+    current:
+      - "Schluss"
+      - "Abschluss"
+    severity: "error"
+    why: "Schluss, Abschluss: оба слова могут означать конец/завершение; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3112
+    hints:
+      en: "end"
+      ru: "конец"
+  -
+    concept: "endofday_noun"
+    field: "far"
+    current:
+      - "Dienstschluss"
+      - "Ruhezeit"
+    severity: "error"
+    why: "Dienstschluss: Dienstschluss означает конец рабочего дня; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3428
+    hints:
+      en: "end of the working day"
+      ru: "конец рабочего дня"
+  -
+    concept: "flour_food"
+    field: "plural"
+    current: "Mehlsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2352
+    hints:
+      en: "flour"
+      ru: "мука"
+  -
+    concept: "fountain_place"
+    field: "form"
+    current: "Brunnen"
+    severity: "error"
+    why: "Английская подсказка fountain и русская колодец выбирают разные значения Brunnen; требуется единый смысл во всех языках."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3204
+    hints:
+      en: "fountain"
+      ru: "колодец"
+  -
+    concept: "fruit_food"
+    field: "plural"
+    current: "Obstsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2286
+    hints:
+      en: "fruit"
+      ru: "фрукты"
+  -
+    concept: "fulltime_noun"
+    field: "plural"
+    current: "Vollzeitstellen"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3338
+    hints:
+      en: "full-time work"
+      ru: "полная занятость"
+  -
+    concept: "icecream_food"
+    field: "plural"
+    current: "Speiseeissorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2370
+    hints:
+      en: "ice cream"
+      ru: "мороженое"
+  -
+    concept: "landlord_person"
+    field: "phrase"
+    current:
+      template: "Der {landlord} wohnt nebenan."
+      answer: "Vermieter"
+    severity: "error"
+    why: "Шаблон Der ___ wohnt nebenan допускает Vermieter, Vermittler и Verwalter из near; все три могут жить по соседству."
+    tier: "a2"
+    file: "content/constellations/home.yaml"
+    line: 133
+    phrase: "home_a2_landlord"
+    hints:
+      en: "landlord"
+      ru: "арендодатель"
+  -
+    concept: "move_noun"
+    field: "far"
+    current:
+      - "Einzug"
+      - "Wohnungswechsel"
+    severity: "error"
+    why: "Wohnungswechsel: Wohnungswechsel означает переезд в другую квартиру; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2716
+    hints:
+      en: "move"
+      ru: "переезд"
+  -
+    concept: "order_noun"
+    field: "far"
+    current:
+      - "Auftrag"
+      - "Anfrage"
+    severity: "error"
+    why: "Auftrag: Auftrag также означает заказ; в подсказке не указан заказ еды; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2418
+    hints:
+      en: "order"
+      ru: "заказ"
+  -
+    concept: "parttime_noun"
+    field: "plural"
+    current: "Teilzeitstellen"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3344
+    hints:
+      en: "part-time work"
+      ru: "частичная занятость"
+  -
+    concept: "pension_noun"
+    field: "far"
+    current:
+      - "Pension"
+      - "Ruhestand"
+    severity: "error"
+    why: "Pension: Pension также означает пенсию, хотя круг получателей отличается; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2966
+    hints:
+      en: "pension"
+      ru: "пенсия"
+  -
+    concept: "pepper_food"
+    field: "plural"
+    current: "Pfeffersorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2340
+    hints:
+      en: "pepper"
+      ru: "перец"
+  -
+    concept: "petrol_noun"
+    field: "plural"
+    current: "Benzinsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2444
+    hints:
+      en: "petrol"
+      ru: "бензин"
+  -
+    concept: "pork_food"
+    field: "plural"
+    current: "Schweinefleischsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2322
+    hints:
+      en: "pork"
+      ru: "свинина"
+  -
+    concept: "present_noun"
+    field: "far"
+    current:
+      - "Jetztzeit"
+      - "Aktualität"
+    severity: "error"
+    why: "Jetztzeit: Jetztzeit означает настоящее время; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3130
+    hints:
+      en: "present"
+      ru: "настоящее"
+  -
+    concept: "receipt_slip"
+    field: "near"
+    current:
+      - "Kassenzettel"
+      - "Bonbon"
+      - "Kassenbuch"
+    severity: "error"
+    why: "Kassenzettel: Kassenzettel является синонимом кассового чека; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2730
+    hints:
+      en: "till receipt"
+      ru: "кассовый чек"
+  -
+    concept: "relatives_noun"
+    field: "form"
+    current: "Verwandte"
+    proposed: "Verwandten"
+    severity: "error"
+    why: "Подсказка во множественном числе, но связка die Verwandte обозначает одну родственницу; с определённым артиклем во множественном нужно die Verwandten."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2870
+    hints:
+      en: "relatives"
+      ru: "родственники"
+  -
+    concept: "resident_person"
+    field: "near"
+    current:
+      - "Bewohner"
+      - "Einwohnerzahl"
+      - "Anwohner"
+    severity: "error"
+    why: "Bewohner, Anwohner: оба слова могут означать resident/житель; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3264
+    hints:
+      en: "resident"
+      ru: "житель"
+  -
+    concept: "rice_food"
+    field: "plural"
+    current: "Reissorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2298
+    hints:
+      en: "rice"
+      ru: "рис"
+  -
+    concept: "rubbish_noun"
+    field: "far"
+    current:
+      - "Abfall"
+      - "Schrott"
+    severity: "error"
+    why: "Abfall: Abfall непосредственно означает мусор; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2704
+    hints:
+      en: "rubbish"
+      ru: "мусор"
+  -
+    concept: "rubbish_noun"
+    field: "plural"
+    current: "Müllsorten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2704
+    hints:
+      en: "rubbish"
+      ru: "мусор"
+  -
+    concept: "shipping_noun"
+    field: "plural"
+    current: "Versandarten"
+    proposed: null
+    severity: "error"
+    why: "В поле plural подставлено множественное число другого, составного существительного; это не форма изучаемой лексемы."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2796
+    hints:
+      en: "shipping"
+      ru: "пересылка"
+  -
+    concept: "sick_note"
+    field: "far"
+    current:
+      - "Attest"
+      - "Nachweis"
+    severity: "error"
+    why: "Attest может быть больничным подтверждением и подходит к подсказке sick note/больничный лист."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 198
+    hints:
+      en: "sick note"
+      ru: "больничный лист"
+    references:
+      - "bmg_eau"
+  -
+    concept: "sicknote_noun"
+    field: "far"
+    current:
+      - "Attest"
+      - "Genesung"
+    severity: "error"
+    why: "Attest может обозначать медицинское подтверждение нетрудоспособности и подходит к подсказке больничный лист."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3416
+    hints:
+      en: "sick note"
+      ru: "больничный лист"
+    references:
+      - "bmg_eau"
+  -
+    concept: "sight_noun"
+    field: "far"
+    current:
+      - "Wahrzeichen"
+      - "Attraktion"
+    severity: "error"
+    why: "Wahrzeichen, Attraktion: оба слова могут обозначать достопримечательность; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3300
+    hints:
+      en: "sight"
+      ru: "достопримечательность"
+  -
+    concept: "speed_noun"
+    field: "far"
+    current:
+      - "Tempo"
+      - "Beschleunigung"
+    severity: "error"
+    why: "Tempo: Tempo является синонимом скорости; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2498
+    hints:
+      en: "speed"
+      ru: "скорость"
+  -
+    concept: "spring_time"
+    field: "near"
+    current:
+      - "Füllung"
+      - "Frühjahr"
+      - "Häuptling"
+    severity: "error"
+    why: "Frühjahr: Frühjahr также означает весну; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3064
+    hints:
+      en: "spring"
+      ru: "весна"
+  -
+    concept: "supervisor_person"
+    field: "form"
+    current: "Vorgesetzter"
+    proposed: "Vorgesetzte"
+    severity: "error"
+    why: "При соединении заданного артикля и формы получается der Vorgesetzter вместо der Vorgesetzte; нужно учитывать склонение субстантивированного прилагательного."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3374
+    hints:
+      en: "line manager"
+      ru: "руководитель"
+  -
+    concept: "takeoff_noun"
+    field: "far"
+    current:
+      - "Start"
+      - "Gate"
+    severity: "error"
+    why: "Start: Start непосредственно соответствует английскому take-off; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2558
+    hints:
+      en: "take-off"
+      ru: "вылет"
+  -
+    concept: "training_noun"
+    field: "far"
+    current:
+      - "Lehre"
+      - "Umschulung"
+    severity: "error"
+    why: "Lehre: Lehre обозначает профессиональное обучение; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3386
+    hints:
+      en: "vocational training"
+      ru: "профобучение"
+  -
+    concept: "transfer_noun"
+    field: "near"
+    current:
+      - "Überweisung"
+      - "Bankverbindung"
+      - "Bankauskunft"
+    severity: "error"
+    why: "Überweisung: в банковском контексте Überweisung означает тот же перевод; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2742
+    hints:
+      en: "bank transfer"
+      ru: "перевод"
+  -
+    concept: "vat_noun"
+    field: "far"
+    current:
+      - "Umsatzsteuer"
+      - "Zoll"
+    severity: "error"
+    why: "Umsatzsteuer: в немецком контексте НДС обычно называется Umsatzsteuer и Mehrwertsteuer; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2820
+    hints:
+      en: "VAT"
+      ru: "НДС"
+    references:
+      - "bmf_vat"
+  -
+    concept: "warranty_noun"
+    field: "far"
+    current:
+      - "Gewährleistung"
+      - "Kulanz"
+    severity: "error"
+    why: "Английское warranty и русское гарантия не проводят немецкое различие Garantie/Gewährleistung; без уточнения основания второй термин нельзя объявлять ошибочным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2778
+    hints:
+      en: "warranty"
+      ru: "гарантия"
+  -
+    concept: "carpool_noun"
+    field: "form"
+    current: "Mitfahrgelegenheit"
+    severity: "doubt"
+    why: "Английское car sharing может обозначать как совместные поездки, так и пользование прокатным автомобилем; для Mitfahrgelegenheit лучше явно указать поездку попутчиком."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2570
+    hints:
+      en: "car sharing"
+      ru: "попутка"
+  -
+    concept: "chicken_food"
+    field: "near"
+    current:
+      - "Händchen"
+      - "Kännchen"
+      - "Ähnchen"
+    severity: "doubt"
+    why: "Ähnchen не подтверждено как обычная литературная лексема; нужно заменить или предъявить словарное/корпусное подтверждение."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2310
+    hints:
+      en: "chicken"
+      ru: "курица"
+  -
+    concept: "monument_place"
+    field: "far"
+    current:
+      - "Statue"
+      - "Gedenkstein"
+    severity: "doubt"
+    why: "Gedenkstein: памятный камень может быть памятником; без уточнения типа оба ответа допустимы; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3198
+    hints:
+      en: "monument"
+      ru: "памятник"
+  -
+    concept: "roadworks_noun"
+    field: "form"
+    current: "Baustelle"
+    severity: "doubt"
+    why: "Baustelle обозначает стройплощадку/участок работ, а roadworks именно дорожные работы; уточнить до Straßenbaustelle или исправить подсказки."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2474
+    hints:
+      en: "roadworks"
+      ru: "дорожные работы"
+  -
+    concept: "school_place"
+    field: "far"
+    current:
+      - "Gymnasium"
+      - "Hochschule"
+    severity: "doubt"
+    why: "Gymnasium: гимназия является школой; при текущей подсказке вариант нельзя считать заведомо неверным."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3222
+    hints:
+      en: "school"
+      ru: "школа"
+  -
+    concept: "shelf_object"
+    field: "form"
+    current: "Regal"
+    severity: "doubt"
+    why: "Regal обычно обозначает стеллаж, тогда как полка/shelf может означать отдельную полку (Regalbrett); нужно зафиксировать изображаемый предмет."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2656
+    hints:
+      en: "shelf"
+      ru: "полка"
+  -
+    concept: "sick_note"
+    field: "form"
+    current: "Krankmeldung"
+    severity: "doubt"
+    why: "Krankmeldung прежде всего уведомление о болезни, а sick note/больничный лист обозначает медицинское подтверждение; нужно согласовать смысл с Krankschreibung/Arbeitsunfähigkeitsbescheinigung."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 198
+    hints:
+      en: "sick note"
+      ru: "больничный лист"
+    references:
+      - "bmg_eau"
+  -
+    concept: "sicknote_noun"
+    field: "near"
+    current:
+      - "Beschreibung"
+      - "Krankenkasse"
+      - "Krankmeldung"
+    severity: "doubt"
+    why: "Krankmeldung в бытовом употреблении может обозначать и больничное подтверждение; противопоставление Krankschreibung требует контекста."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3416
+    hints:
+      en: "sick note"
+      ru: "больничный лист"
+    references:
+      - "bmg_eau"
+  -
+    concept: "supervisor_person"
+    field: "far"
+    current:
+      - "Geschäftsführer"
+      - "Teamleiter"
+    severity: "doubt"
+    why: "Teamleiter может быть непосредственным руководителем и соответствует русскому руководитель; категория должности в подсказке не определена."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3374
+    hints:
+      en: "line manager"
+      ru: "руководитель"
+  -
+    concept: "tax_noun"
+    field: "far"
+    current:
+      - "Abgabe"
+      - "Beitrag"
+    severity: "doubt"
+    why: "Abgabe является более широким понятием, включающим налоги; без контекста контраст Steuer/Abgabe плохо подходит для начального задания."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 3434
+    hints:
+      en: "tax"
+      ru: "налог"
+  -
+    concept: "clocktime_noun"
+    field: "phrase"
+    current:
+      template: "Wie ist die {clocktime}?"
+      answer: "Uhrzeit"
+    proposed:
+      template: "Zu welcher {clocktime} treffen wir uns?"
+      answer: "Uhrzeit"
+    severity: "style"
+    why: "Как вопрос о текущем времени реплика Wie ist die Uhrzeit? неестественна; шаблон с Uhrzeit можно сделать естественным иначе."
+    tier: "a2"
+    file: "content/constellations/time.yaml"
+    line: 168
+    phrase: "time_a2_clocktime"
+    hints:
+      en: "time of day"
+      ru: "время суток"
+  -
+    concept: "deposit_noun"
+    field: "phrase"
+    current:
+      template: "Die {deposit} sind drei Kaltmieten."
+      answer: "Kaution"
+    proposed:
+      template: "Die {deposit} beträgt drei Monatskaltmieten."
+      answer: "Kaution"
+    severity: "style"
+    why: "Связка с двумя разными числовыми формами допустима в подобных именных конструкциях, но для обучения яснее beträgt."
+    tier: "a2"
+    file: "content/constellations/home.yaml"
+    line: 143
+    phrase: "home_a2_deposit"
+    hints:
+      en: "deposit"
+      ru: "залог"
+  -
+    concept: "electricity_noun"
+    field: "plural"
+    current: "Ströme"
+    proposed: null
+    severity: "style"
+    why: "Ströme употребляется для потоков/токов, но не как обычное множественное electricity/электричество."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2692
+    hints:
+      en: "electricity"
+      ru: "электричество"
+  -
+    concept: "rubbish_noun"
+    field: "near"
+    current:
+      - "Mühle"
+      - null
+      - "Müsli"
+    proposed:
+      - "Mühle"
+      - "Null"
+      - "Müsli"
+    severity: "style"
+    why: "YAML разбирает неэкранированное Null как null, а загрузчик превращает его в строку null; для сохранения немецкого существительного Null требуется строка в кавычках."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2704
+    hints:
+      en: "rubbish"
+      ru: "мусор"
+  -
+    concept: "speed_noun"
+    field: "phrase"
+    current:
+      template: "Halten Sie die {speed} ein."
+      answer: "Geschwindigkeit"
+    proposed:
+      template: "Halten Sie die vorgeschriebene {speed} ein."
+      answer: "Geschwindigkeit"
+    severity: "style"
+    why: "Соблюдают установленное ограничение скорости, а не скорость без определения."
+    tier: "a2"
+    file: "content/constellations/transport.yaml"
+    line: 163
+    phrase: "transport_a2_speed"
+    hints:
+      en: "speed"
+      ru: "скорость"
+  -
+    concept: "warehouse_place"
+    field: "plural"
+    current: "Läger"
+    proposed: "Lager"
+    severity: "style"
+    why: "Läger допустимо в специальной складской речи, но для общего A2 нейтральнее множественное Lager."
+    tier: "a2"
+    file: "content/lang/de.yaml"
+    line: 2766
+    hints:
+      en: "warehouse"
+      ru: "склад"
+  -
+    concept: "anniversary_noun"
+    field: "far"
+    current:
+      - "Gedenktag"
+      - "Jubiläum"
+    severity: "error"
+    why: "Jubiläum: также может обозначать годовщину; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4274
+    hints:
+      en: "anniversary"
+      ru: "годовщина"
+  -
+    concept: "application_form"
+    field: "far"
+    current:
+      - "Gesuch"
+      - "Anfrage"
+    severity: "error"
+    why: "Gesuch: обозначает заявление/прошение; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4390
+    hints:
+      en: "application"
+      ru: "заявление"
+  -
+    concept: "childminder_person"
+    field: "far"
+    current:
+      - "Erzieherin"
+      - "Babysitter"
+    severity: "error"
+    why: "Babysitter: также соответствует русскому няня; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4080
+    hints:
+      en: "childminder"
+      ru: "няня"
+  -
+    concept: "civicobjection_noun"
+    field: "near"
+    current:
+      - "Anspruch"
+      - "Widerspruch"
+      - "Einbruch"
+    severity: "error"
+    why: "Widerspruch: подходит к широкой подсказке formal objection/возражение; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4414
+    hints:
+      en: "formal objection"
+      ru: "возражение"
+  -
+    concept: "cohabitation_noun"
+    field: "plural"
+    current: "Zusammenlebensformen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4176
+    hints:
+      en: "living together"
+      ru: "совместное проживание"
+  -
+    concept: "complaints_noun"
+    field: "near"
+    current:
+      - "Beschwerde"
+      - "Beschreibung"
+      - "Bescheidenheit"
+    proposed:
+      - "Beschwerlichkeit"
+      - "Beschreibung"
+      - "Bescheidenheit"
+    severity: "error"
+    why: "Beschwerde является единственным числом того же слова Beschwerden, то есть не другим лексическим значением; схема задания обещает проверку значения."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 547
+    hints:
+      en: "complaints"
+      ru: "жалобы"
+  -
+    concept: "cost_coverage"
+    field: "phrase"
+    current:
+      template: "Übernimmt die Kasse die {coverage}?"
+      answer: "Kosten"
+    proposed:
+      template: "Ist die {coverage} durch die Kasse geklärt?"
+      answer: "Kostenübernahme"
+    severity: "error"
+    why: "Фраза doctor_b1_coverage привязана к Kostenübernahme, но ответ Kosten является другим существительным, а не его словоформой."
+    tier: "b1"
+    file: "content/constellations/doctor.yaml"
+    line: 227
+    phrase: "doctor_b1_coverage"
+    hints:
+      en: "cost coverage"
+      ru: "покрытие расходов"
+  -
+    concept: "creditrating_noun"
+    field: "far"
+    current:
+      - "Kreditwürdigkeit"
+      - "Schufa"
+    severity: "error"
+    why: "Kreditwürdigkeit: является синонимом Bonität; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3964
+    hints:
+      en: "credit rating"
+      ru: "кредитный рейтинг"
+  -
+    concept: "damp_noun"
+    field: "far"
+    current:
+      - "Nässe"
+      - "Kondenswasser"
+    severity: "error"
+    why: "Nässe: также означает сырость; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3818
+    hints:
+      en: "damp"
+      ru: "сырость"
+  -
+    concept: "damp_noun"
+    field: "plural"
+    current: "Feuchtigkeitswerte"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3818
+    hints:
+      en: "damp"
+      ru: "сырость"
+  -
+    concept: "defect_noun"
+    field: "far"
+    current:
+      - "Schaden"
+      - "Fehler"
+    severity: "error"
+    why: "Fehler: может означать дефект; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3836
+    hints:
+      en: "defect"
+      ru: "дефект"
+  -
+    concept: "dismissalprotection_noun"
+    field: "plural"
+    current: "Kündigungsschutzregeln"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4530
+    hints:
+      en: "protection against dismissal"
+      ru: "защита от увольнения"
+  -
+    concept: "drivingban_noun"
+    field: "far"
+    current:
+      - "Führerscheinentzug"
+      - "Punktekonto"
+    severity: "error"
+    why: "Führerscheinentzug прямо соответствует текущей русской подсказке лишение прав; сначала исправьте смысл ru.form."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3684
+    hints:
+      en: "driving ban"
+      ru: "лишение прав"
+    references:
+      - "stvg_25"
+      - "stvg_3"
+  -
+    concept: "drivingban_noun"
+    field: "form"
+    current: "лишение прав"
+    proposed: "запрет на управление транспортом"
+    severity: "error"
+    why: "Fahrverbot означает запрет управления, а русское лишение прав обычно соответствует Entziehung der Fahrerlaubnis; неверный русский смысл также делает Führerscheinentzug в far правильным."
+    tier: "b1"
+    file: "content/lang/ru.yaml"
+    line: 626
+    hints:
+      en: "driving ban"
+      ru: "лишение прав"
+    references:
+      - "stvg_25"
+      - "stvg_3"
+  -
+    concept: "estate_noun"
+    field: "far"
+    current:
+      - "Erbmasse"
+      - "Hinterlassenschaft"
+    severity: "error"
+    why: "Erbmasse, Hinterlassenschaft: обозначают наследственное имущество; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4116
+    hints:
+      en: "estate"
+      ru: "наследственная масса"
+  -
+    concept: "financing_noun"
+    field: "form"
+    current: "рассрочка от банка"
+    proposed: "финансирование"
+    severity: "error"
+    why: "Finanzierung означает финансирование вообще, тогда как рассрочка от банка добавляет не выраженные словом условия; исправить ru.form на финансирование."
+    tier: "b1"
+    file: "content/lang/ru.yaml"
+    line: 671
+    hints:
+      en: "financing"
+      ru: "рассрочка от банка"
+  -
+    concept: "form_object"
+    field: "far"
+    current:
+      - "Vordruck"
+      - "Merkblatt"
+    severity: "error"
+    why: "Vordruck: обозначает бланк; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4396
+    hints:
+      en: "form"
+      ru: "бланк"
+  -
+    concept: "freshness_noun"
+    field: "plural"
+    current: "Frischegrade"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3586
+    hints:
+      en: "freshness"
+      ru: "свежесть"
+  -
+    concept: "garlic_food"
+    field: "plural"
+    current: "Knoblauchzehen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3514
+    hints:
+      en: "garlic"
+      ru: "чеснок"
+  -
+    concept: "inheritance_noun"
+    field: "plural"
+    current: "Erbschaften"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4104
+    hints:
+      en: "inheritance"
+      ru: "наследство"
+    references:
+      - "duden_erbe"
+  -
+    concept: "jurisdiction_noun"
+    field: "far"
+    current:
+      - "Befugnis"
+      - "Verantwortung"
+    severity: "error"
+    why: "Verantwortung: соответствует английскому responsibility; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4468
+    hints:
+      en: "responsibility"
+      ru: "компетенция"
+    references:
+      - "fwb_staendigkeit"
+  -
+    concept: "localtransport_noun"
+    field: "plural"
+    current: "Nahverkehrsnetze"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3606
+    hints:
+      en: "local transport"
+      ru: "пригородный транспорт"
+  -
+    concept: "longdistance_noun"
+    field: "plural"
+    current: "Fernverkehrslinien"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3612
+    hints:
+      en: "long-distance transport"
+      ru: "дальнее сообщение"
+  -
+    concept: "loyaltypoints_noun"
+    field: "gender"
+    current: "f"
+    severity: "error"
+    why: "Treuepunkte является множественным числом от der Treuepunkt, а не существительным женского рода; артикль die во множественном не определяет род."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4030
+    hints:
+      en: "loyalty points"
+      ru: "бонусные баллы"
+  -
+    concept: "maintenance_payment"
+    field: "plural"
+    current: "Unterhaltszahlungen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4050
+    hints:
+      en: "maintenance"
+      ru: "алименты"
+  -
+    concept: "marriageceremony_noun"
+    field: "far"
+    current:
+      - "Trauung"
+      - "Verlobung"
+    severity: "error"
+    why: "Trauung: означает церемонию заключения брака; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4140
+    hints:
+      en: "marriage ceremony"
+      ru: "заключение брака"
+  -
+    concept: "medical_history"
+    field: "far"
+    current:
+      - "Anamnese"
+      - "Verlauf"
+    severity: "error"
+    why: "Anamnese: непосредственно соответствует русскому анамнез; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 555
+    hints:
+      en: "medical history"
+      ru: "анамнез"
+  -
+    concept: "mould_noun"
+    field: "plural"
+    current: "Schimmelarten"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3812
+    hints:
+      en: "mould"
+      ru: "плесень"
+  -
+    concept: "municipality_place"
+    field: "far"
+    current:
+      - "Kreisstadt"
+      - "Kommune"
+    severity: "error"
+    why: "Kommune: обозначает муниципалитет/общину; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4330
+    hints:
+      en: "municipality"
+      ru: "община"
+  -
+    concept: "nutrition_noun"
+    field: "plural"
+    current: "Ernährungsformen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3574
+    hints:
+      en: "nutrition"
+      ru: "питание"
+  -
+    concept: "occupationalsafety_noun"
+    field: "plural"
+    current: "Arbeitsschutzmaßnahmen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4578
+    hints:
+      en: "occupational safety"
+      ru: "охрана труда"
+  -
+    concept: "operation_noun"
+    field: "far"
+    current:
+      - "Eingriff"
+      - "Sedierung"
+    severity: "error"
+    why: "Eingriff: в медицинском контексте означает оперативное вмешательство; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 508
+    hints:
+      en: "operation"
+      ru: "операция"
+  -
+    concept: "opportunity_noun"
+    field: "far"
+    current:
+      - "Chance"
+      - "Anlass"
+    severity: "error"
+    why: "Chance: означает возможность; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4316
+    hints:
+      en: "opportunity"
+      ru: "возможность"
+  -
+    concept: "performancereview_noun"
+    field: "near"
+    current:
+      - "Leistungsbewertung"
+      - "Verhaltensbeurteilung"
+      - "Leistungsgrenze"
+    severity: "error"
+    why: "Leistungsbewertung: также означает оценку результатов работы; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4596
+    hints:
+      en: "performance review"
+      ru: "оценка работы"
+  -
+    concept: "permit_noun"
+    field: "far"
+    current:
+      - "Erlaubnis"
+      - "Zulassung"
+    severity: "error"
+    why: "Erlaubnis, Zulassung: могут означать разрешение без уточнения процедуры; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4384
+    hints:
+      en: "permit"
+      ru: "разрешение"
+  -
+    concept: "publicsphere_noun"
+    field: "far"
+    current:
+      - "Presse"
+      - "Allgemeinheit"
+    severity: "error"
+    why: "Allgemeinheit: означает общественность; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4426
+    hints:
+      en: "general public"
+      ru: "общественность"
+  -
+    concept: "punctuality_noun"
+    field: "plural"
+    current: "Pünktlichkeitswerte"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4286
+    hints:
+      en: "punctuality"
+      ru: "пунктуальность"
+  -
+    concept: "rehab_noun"
+    field: "near"
+    current:
+      - "Rehe"
+      - "Reihe"
+      - "Rehabilitation"
+    severity: "error"
+    why: "Rehabilitation: является полной формой того же слова Reha; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 524
+    hints:
+      en: "rehab"
+      ru: "реабилитация"
+  -
+    concept: "reminder_noun"
+    field: "far"
+    current:
+      - "Rechnung"
+      - "Zahlungsaufforderung"
+    severity: "error"
+    why: "Zahlungsaufforderung: обозначает требование оплаты и подходит к общей подсказке; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3988
+    hints:
+      en: "payment reminder"
+      ru: "напоминание об оплате"
+  -
+    concept: "rightofway_noun"
+    field: "phrase"
+    current:
+      template: "Von rechts hat man {rightofway}."
+      answer: "Vorfahrt"
+    proposed:
+      template: "An dieser Kreuzung habe ich {rightofway}."
+      answer: "Vorfahrt"
+    severity: "error"
+    why: "Реплика обобщает правило rechts vor links без условий и может восприниматься как универсальное правило движения; безопаснее конкретный пример."
+    tier: "b1"
+    file: "content/constellations/transport.yaml"
+    line: 246
+    phrase: "transport_b1_rightofway"
+    hints:
+      en: "right of way"
+      ru: "преимущество проезда"
+  -
+    concept: "rightofway_noun"
+    field: "plural"
+    current: "Vorfahrtsregeln"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3660
+    hints:
+      en: "right of way"
+      ru: "преимущество проезда"
+  -
+    concept: "schedule_noun"
+    field: "far"
+    current:
+      - "Ablaufplan"
+      - "Tagesordnung"
+    severity: "error"
+    why: "Ablaufplan: может означать schedule/график; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4214
+    hints:
+      en: "schedule"
+      ru: "график"
+  -
+    concept: "sequenceflow_noun"
+    field: "far"
+    current:
+      - "Vorgang"
+      - "Verfahren"
+    severity: "error"
+    why: "Vorgang, Verfahren: подходят к широкому английскому process; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4220
+    hints:
+      en: "process"
+      ru: "ход"
+  -
+    concept: "symptom_noun"
+    field: "far"
+    current:
+      - "Anzeichen"
+      - "Verlauf"
+    severity: "error"
+    why: "Anzeichen: может означать симптом/признак болезни; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 539
+    hints:
+      en: "symptom"
+      ru: "симптом"
+  -
+    concept: "timepressure_noun"
+    field: "plural"
+    current: "Zeitzwänge"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4310
+    hints:
+      en: "time pressure"
+      ru: "нехватка времени"
+  -
+    concept: "tradesman_person"
+    field: "far"
+    current:
+      - "Monteur"
+      - "Installateur"
+    severity: "error"
+    why: "Monteur, Installateur: могут обозначать мастера и являются разновидностями Handwerker; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3824
+    hints:
+      en: "tradesman"
+      ru: "мастер"
+  -
+    concept: "turnover_staff"
+    field: "far"
+    current:
+      - "Personalwechsel"
+      - "Abwanderung"
+    severity: "error"
+    why: "Personalwechsel: может означать текучесть/смену персонала; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4614
+    hints:
+      en: "staff turnover"
+      ru: "текучесть кадров"
+  -
+    concept: "wholegrain_food"
+    field: "plural"
+    current: "Vollkornsorten"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого существительного, а не форма изучаемой лексемы; поле следует убрать или заменить подтверждённой формой."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3544
+    hints:
+      en: "wholegrain"
+      ru: "цельное зерно"
+  -
+    concept: "wintertime_noun"
+    field: "far"
+    current:
+      - "Normalzeit"
+      - "Weltzeit"
+    severity: "error"
+    why: "Normalzeit: является обычным названием зимнего стандартного времени; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4262
+    hints:
+      en: "winter time"
+      ru: "зимнее время"
+  -
+    concept: "withdrawalperiod_noun"
+    field: "form"
+    current: "срок возврата"
+    proposed: "срок для отказа от договора"
+    severity: "error"
+    why: "Widerrufsfrist обозначает срок заявления отказа от договора, а не просто срок возврата товара; уточнить русский перевод."
+    tier: "b1"
+    file: "content/lang/ru.yaml"
+    line: 661
+    hints:
+      en: "withdrawal period"
+      ru: "срок возврата"
+    references:
+      - "bgb_355"
+      - "bgb_356"
+  -
+    concept: "withdrawalright_noun"
+    field: "form"
+    current: "право на возврат"
+    proposed: "право на отказ от договора"
+    severity: "error"
+    why: "Widerrufsrecht означает право отказаться от договора, а право на возврат шире и смешивается с Rückgaberecht; уточнить русский перевод."
+    tier: "b1"
+    file: "content/lang/ru.yaml"
+    line: 660
+    hints:
+      en: "right of withdrawal"
+      ru: "право на возврат"
+    references:
+      - "bgb_355"
+  -
+    concept: "workingatmosphere_noun"
+    field: "phrase"
+    current:
+      template: "Das {atmosphere} ist gut."
+      answer: "Betriebsklima"
+    severity: "error"
+    why: "Шаблон Das ___ ist gut допускает Betriebsklima и Weltklima из near; без смысловой подсказки обе реплики правильны."
+    tier: "b1"
+    file: "content/constellations/work.yaml"
+    line: 261
+    phrase: "work_b1_atmosphere"
+    hints:
+      en: "working atmosphere"
+      ru: "атмосфера в коллективе"
+  -
+    concept: "collectiveagreement_noun"
+    field: "phrase"
+    current:
+      template: "Der {collectiveagreement} gilt für alle."
+      answer: "Tarifvertrag"
+    severity: "doubt"
+    why: "Der Tarifvertrag gilt für alle без ограничения сферы действия звучит как общее юридическое правило; нужен конкретный контекст договора."
+    tier: "b1"
+    file: "content/constellations/work.yaml"
+    line: 236
+    phrase: "work_b1_collectiveagreement"
+    hints:
+      en: "collective agreement"
+      ru: "тарифный договор"
+  -
+    concept: "energycertificate_noun"
+    field: "far"
+    current:
+      - "Verbrauchsausweis"
+      - "Gutachten"
+    severity: "doubt"
+    why: "Verbrauchsausweis: является разновидностью Energieausweis; контекст подсказки не позволяет однозначно отвергнуть этот вариант."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3866
+    hints:
+      en: "energy certificate"
+      ru: "энергопаспорт"
+  -
+    concept: "guardian_person"
+    field: "near"
+    current:
+      - "Vorbild"
+      - "Vormittag"
+      - "Fahrmund"
+    severity: "doubt"
+    why: "Fahrmund требует подтверждения как современное литературное слово; отсутствие подтверждения не следует маскировать созвучием."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4038
+    hints:
+      en: "legal guardian"
+      ru: "опекун"
+  -
+    concept: "healthproxy_noun"
+    field: "form"
+    current: "Vorsorgevollmacht"
+    severity: "doubt"
+    why: "Vorsorgevollmacht может охватывать не только лечение, но и имущественные/организационные вопросы; healthcare proxy/доверенность на лечение сужают юридический смысл."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4128
+    hints:
+      en: "healthcare proxy"
+      ru: "доверенность на лечение"
+  -
+    concept: "heatingcosts_noun"
+    field: "gender"
+    current: "f"
+    severity: "doubt"
+    why: "Heizkosten является pluralia tantum; значение f отражает артикль множественного числа, а не проверенный род леммы, и отличается от аналогичных Nebenkosten."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3872
+    hints:
+      en: "heating costs"
+      ru: "расходы на отопление"
+  -
+    concept: "jurisdiction_noun"
+    field: "near"
+    current:
+      - "Ständigkeit"
+      - "Zulässigkeit"
+      - "Zufriedenheit"
+    severity: "doubt"
+    why: "Ständigkeit встречается в исторической лексикографии и специальной терминологии, но как distractor B1 требует проверки современного употребления и учебной уместности."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4468
+    hints:
+      en: "responsibility"
+      ru: "компетенция"
+    references:
+      - "fwb_staendigkeit"
+  -
+    concept: "municipality_place"
+    field: "near"
+    current:
+      - "Gemeinheit"
+      - "Gemeinschaft"
+      - "Geminde"
+    severity: "doubt"
+    why: "Geminde требует подтверждения как современное литературное слово; отсутствие подтверждения не следует маскировать созвучием."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4330
+    hints:
+      en: "municipality"
+      ru: "община"
+  -
+    concept: "range_noun"
+    field: "near"
+    current:
+      - "Reichtum"
+      - "Weitsicht"
+      - "Streitweite"
+    severity: "doubt"
+    why: "Streitweite требует подтверждения как современное литературное слово; отсутствие подтверждения не следует маскировать созвучием."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3720
+    hints:
+      en: "range"
+      ru: "запас хода"
+  -
+    concept: "smokedetector_object"
+    field: "phrase"
+    current:
+      template: "Jedes Zimmer braucht einen {smokedetector}."
+      answer: "Rauchmelder"
+    severity: "doubt"
+    why: "Jedes Zimmer braucht einen Rauchmelder выглядит универсальным нормативным требованием, хотя требования зависят от помещения и юрисдикции; лучше личный пример."
+    tier: "b1"
+    file: "content/constellations/home.yaml"
+    line: 266
+    phrase: "home_b1_smokedetector"
+    hints:
+      en: "smoke detector"
+      ru: "датчик дыма"
+  -
+    concept: "wastesorting_noun"
+    field: "near"
+    current:
+      - "Mülltonne"
+      - "Auftrennung"
+      - "Mühletrennung"
+    severity: "doubt"
+    why: "Mühletrennung требует подтверждения как современное литературное слово; отсутствие подтверждения не следует маскировать созвучием."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 3884
+    hints:
+      en: "waste separation"
+      ru: "сортировка мусора"
+  -
+    concept: "shelflife_noun"
+    field: "phrase"
+    current:
+      template: "Die {shelflife} ist abgelaufen."
+      answer: "Haltbarkeit"
+    proposed:
+      template: "Wie kann man die {shelflife} verlängern?"
+      answer: "Haltbarkeit"
+    severity: "style"
+    why: "Обычно истекает указанная дата/срок хранения; исходное Haltbarkeit ist abgelaufen понятно, но не лучший учебный образец."
+    tier: "b1"
+    file: "content/constellations/food.yaml"
+    line: 246
+    phrase: "food_b1_shelflife"
+    hints:
+      en: "shelf life"
+      ru: "срок годности"
+  -
+    concept: "trafficcalming_noun"
+    field: "form"
+    current: "Verkehrsberuhigung"
+    severity: "style"
+    why: "Успокоение движения является буквальной калькой; для ученика понятнее меры по снижению скорости и интенсивности движения."
+    tier: "b1"
+    file: "content/lang/de.yaml"
+    line: 4456
+    hints:
+      en: "traffic calming"
+      ru: "успокоение движения"
+  -
+    concept: "ancillarycosts_noun"
+    field: "form"
+    current: "дополнительные расходы"
+    proposed: "затраты работодателя сверх прямой оплаты труда"
+    severity: "error"
+    why: "Русское дополнительные расходы не указывает затраты работодателя сверх прямой оплаты труда; для Lohnnebenkosten нужно уточнить предмет расходов."
+    tier: "b2"
+    file: "content/lang/ru.yaml"
+    line: 966
+    hints:
+      en: "non-wage labour costs"
+      ru: "дополнительные расходы"
+  -
+    concept: "certificate_noun"
+    field: "far"
+    current:
+      - "Attest"
+      - "Nachweis"
+    severity: "error"
+    why: "Attest, Nachweis: могут обозначать справку/подтверждение; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 621
+    hints:
+      en: "certificate"
+      ru: "справка"
+  -
+    concept: "childwelfare_noun"
+    field: "phrase"
+    current:
+      template: "Das {childwelfare} steht im Vordergrund."
+      answer: "Kindeswohl"
+    severity: "error"
+    why: "Шаблон Das ___ steht im Vordergrund допускает Kindeswohl, Gemeinwohl и Kindergeld из near; все три вставки грамматически и по смыслу допустимы."
+    tier: "b2"
+    file: "content/constellations/family.yaml"
+    line: 364
+    phrase: "family_b2_childwelfare"
+    hints:
+      en: "best interests of the child"
+      ru: "благо ребёнка"
+  -
+    concept: "childwelfare_noun"
+    field: "plural"
+    current: "Kindeswohlbelange"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5254
+    hints:
+      en: "best interests of the child"
+      ru: "благо ребёнка"
+  -
+    concept: "chronology_noun"
+    field: "phrase"
+    current:
+      template: "Die {chronology} stimmt nicht."
+      answer: "Chronologie"
+    severity: "error"
+    why: "Шаблон Die ___ stimmt nicht допускает Chronologie и Chronik из near; без смысловой подсказки обе реплики допустимы."
+    tier: "b2"
+    file: "content/constellations/time.yaml"
+    line: 364
+    phrase: "time_b2_chronology"
+    hints:
+      en: "chronology"
+      ru: "хронология"
+  -
+    concept: "codetermination_noun"
+    field: "plural"
+    current: "Mitbestimmungsrechte"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5710
+    hints:
+      en: "codetermination"
+      ru: "соучастие в управлении"
+  -
+    concept: "condominium_noun"
+    field: "plural"
+    current: "Wohnungseigentumsrechte"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4932
+    hints:
+      en: "freehold flat ownership"
+      ru: "собственность на квартиру"
+  -
+    concept: "consent_noun"
+    field: "far"
+    current:
+      - "Zustimmung"
+      - "Vollmacht"
+    severity: "error"
+    why: "Zustimmung: является прямым синонимом согласия; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 643
+    hints:
+      en: "consent"
+      ru: "согласие"
+  -
+    concept: "consumercentre_noun"
+    field: "phrase"
+    current:
+      template: "Die {consumercentre} berät kostenlos."
+      answer: "Verbraucherzentrale"
+    proposed:
+      template: "Die {consumercentre} berät zu Kaufverträgen."
+      answer: "Verbraucherzentrale"
+    severity: "error"
+    why: "Консультации Verbraucherzentrale бывают платными; безусловное kostenlos неверно."
+    tier: "b2"
+    file: "content/constellations/shop.yaml"
+    line: 364
+    phrase: "shop_b2_consumercentre"
+    hints:
+      en: "consumer advice centre"
+      ru: "центр защиты потребителей"
+    references:
+      - "vz_beratung"
+  -
+    concept: "consumerprotection_noun"
+    field: "plural"
+    current: "Verbraucherschutzregeln"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4736
+    hints:
+      en: "consumer protection"
+      ru: "защита потребителя"
+  -
+    concept: "custodydispute_noun"
+    field: "plural"
+    current: "Sorgerechtsstreitigkeiten"
+    severity: "error"
+    why: "Sorgerechtsstreitigkeiten является множественным числом Sorgerechtsstreitigkeit, а не Sorgerechtsstreit; нужно согласовать лемму и plural, не заменяя слово другой лексемой."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5242
+    hints:
+      en: "custody dispute"
+      ru: "спор об опеке"
+  -
+    concept: "cycle_noun"
+    field: "far"
+    current:
+      - "Kreislauf"
+      - "Umlauf"
+    severity: "error"
+    why: "Kreislauf: обозначает цикл; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5490
+    hints:
+      en: "cycle"
+      ru: "цикл"
+  -
+    concept: "damages_noun"
+    field: "plural"
+    current: "Schadensersatzansprüche"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5114
+    hints:
+      en: "damages"
+      ru: "возмещение ущерба"
+  -
+    concept: "defectnotice_noun"
+    field: "near"
+    current:
+      - "Mängelrüge"
+      - "Kleinanzeige"
+      - "Mängelhaftung"
+    severity: "error"
+    why: "Mängelrüge: также означает уведомление/заявление о недостатках; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4998
+    hints:
+      en: "notice of defects"
+      ru: "уведомление о дефектах"
+  -
+    concept: "disasterresponse_noun"
+    field: "plural"
+    current: "Katastrophenschutzpläne"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5624
+    hints:
+      en: "disaster response"
+      ru: "защита от катастроф"
+  -
+    concept: "electromobility_noun"
+    field: "plural"
+    current: "Elektromobilitätskonzepte"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4822
+    hints:
+      en: "electromobility"
+      ru: "электромобильность"
+  -
+    concept: "employersliability_noun"
+    field: "form"
+    current: "профессиональная касса"
+    proposed: "отраслевое объединение обязательного страхования от несчастных случаев"
+    severity: "error"
+    why: "Профессиональная касса не передаёт функцию Berufsgenossenschaft как отраслевого носителя обязательного страхования от несчастных случаев; перевод нужно раскрыть."
+    tier: "b2"
+    file: "content/lang/ru.yaml"
+    line: 971
+    hints:
+      en: "employers liability association"
+      ru: "профессиональная касса"
+    references:
+      - "dguv_bg"
+  -
+    concept: "era_noun"
+    field: "far"
+    current:
+      - "Zeitalter"
+      - "Herrschaftszeit"
+    severity: "error"
+    why: "Zeitalter: означает эру/эпоху; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5436
+    hints:
+      en: "era"
+      ru: "эра"
+  -
+    concept: "gluten_noun"
+    field: "plural"
+    current: "Glutenarten"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4688
+    hints:
+      en: "gluten"
+      ru: "глютен"
+  -
+    concept: "hazardprevention_noun"
+    field: "plural"
+    current: "Gefahrenabwehrmaßnahmen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5618
+    hints:
+      en: "hazard prevention"
+      ru: "предотвращение опасности"
+  -
+    concept: "heritageconservation_noun"
+    field: "plural"
+    current: "Denkmalpflegemaßnahmen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5636
+    hints:
+      en: "heritage conservation"
+      ru: "сохранение памятников"
+  -
+    concept: "heritageprotection_noun"
+    field: "plural"
+    current: "Denkmalschutzauflagen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5022
+    hints:
+      en: "heritage protection"
+      ru: "охрана памятников"
+  -
+    concept: "interval_noun"
+    field: "far"
+    current:
+      - "Abstand"
+      - "Zeitfenster"
+    severity: "error"
+    why: "Abstand: может означать временной интервал; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5478
+    hints:
+      en: "interval"
+      ru: "интервал"
+  -
+    concept: "lactose_noun"
+    field: "plural"
+    current: "Laktosearten"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4682
+    hints:
+      en: "lactose"
+      ru: "лактоза"
+  -
+    concept: "liability_noun"
+    field: "far"
+    current:
+      - "Verantwortung"
+      - "Schuld"
+    severity: "error"
+    why: "Verantwortung: непосредственно соответствует русскому ответственность; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 651
+    hints:
+      en: "liability"
+      ru: "ответственность"
+  -
+    concept: "liabilityexclusion_noun"
+    field: "far"
+    current:
+      - "Freizeichnung"
+      - "Kulanzregel"
+    severity: "error"
+    why: "Freizeichnung: может означать освобождение/исключение ответственности; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4852
+    hints:
+      en: "exclusion of liability"
+      ru: "исключение ответственности"
+  -
+    concept: "limitationperiod_noun"
+    field: "phrase"
+    current:
+      template: "Die {limitation} beträgt zwei Jahre."
+      answer: "Verjährung"
+    proposed:
+      template: "Wann tritt die {limitation} ein?"
+      answer: "Verjährung"
+    severity: "error"
+    why: "Длительность имеет Verjährungsfrist, а Verjährung обозначает наступление давности; исходная реплика смешивает процесс и срок."
+    tier: "b2"
+    file: "content/constellations/shop.yaml"
+    line: 314
+    phrase: "shop_b2_limitation"
+    hints:
+      en: "statutory limitation"
+      ru: "исковая давность"
+  -
+    concept: "logbook_object"
+    field: "far"
+    current:
+      - "Bordbuch"
+      - "Tachoscheibe"
+    severity: "error"
+    why: "Bordbuch: может означать бортовой/путевой журнал, то есть logbook; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4906
+    hints:
+      en: "logbook"
+      ru: "путевой журнал"
+  -
+    concept: "maintenancetitle_noun"
+    field: "form"
+    current: "исполнительный лист"
+    proposed: "исполнительный документ об алиментах"
+    severity: "error"
+    why: "Unterhaltstitel относится именно к исполнимому документу об алиментах/содержании; исполнительный лист слишком широк и одновременно слишком узок по типу документа."
+    tier: "b2"
+    file: "content/lang/ru.yaml"
+    line: 883
+    hints:
+      en: "maintenance order"
+      ru: "исполнительный лист"
+  -
+    concept: "malpractice_noun"
+    field: "far"
+    current:
+      - "Kunstfehler"
+      - "Versäumnis"
+    severity: "error"
+    why: "Kunstfehler: обозначает врачебную ошибку; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 658
+    hints:
+      en: "medical error"
+      ru: "врачебная ошибка"
+  -
+    concept: "merchandisesystem_noun"
+    field: "plural"
+    current: "Warenwirtschaftssysteme"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5186
+    hints:
+      en: "merchandise management"
+      ru: "товарный учёт"
+  -
+    concept: "milestone_noun"
+    field: "near"
+    current:
+      - "Meilenweit"
+      - "Grenzstein"
+      - "Meisterstück"
+    proposed:
+      - "meilenweit"
+      - "Grenzstein"
+      - "Meisterstück"
+    severity: "error"
+    why: "Прилагательное/наречие meilenweit должно быть со строчной буквы."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5364
+    hints:
+      en: "milestone"
+      ru: "контрольная точка"
+  -
+    concept: "noiseprotection_noun"
+    field: "plural"
+    current: "Lärmschutzmaßnahmen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4810
+    hints:
+      en: "noise protection"
+      ru: "шумозащита"
+  -
+    concept: "particulate_noun"
+    field: "plural"
+    current: "Feinstaubarten"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4804
+    hints:
+      en: "particulate matter"
+      ru: "мелкая пыль"
+  -
+    concept: "pensionclaim_noun"
+    field: "phrase"
+    current:
+      template: "Der {pensionclaim} entsteht mit 67."
+      answer: "Rentenanspruch"
+    proposed:
+      template: "Die Rentenversicherung prüft meinen {pensionclaim}."
+      answer: "Rentenanspruch"
+    severity: "error"
+    why: "Право на пенсию не возникает автоматически у всех в 67: зависят вид пенсии, возрастная группа и страховые условия; учебный пример должен избегать ложного правила."
+    tier: "b2"
+    file: "content/constellations/family.yaml"
+    line: 359
+    phrase: "family_b2_pensionclaim"
+    hints:
+      en: "pension entitlement"
+      ru: "право на пенсию"
+    references:
+      - "drv_regelaltersrente"
+  -
+    concept: "preservative_noun"
+    field: "near"
+    current:
+      - "Konservierungsmittel"
+      - "Klebstoff"
+      - "Konservendose"
+    severity: "error"
+    why: "Konservierungsmittel: также означает консервант; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4652
+    hints:
+      en: "preservative"
+      ru: "консервант"
+  -
+    concept: "procurement_noun"
+    field: "far"
+    current:
+      - "Einkauf"
+      - "Ausschreibung"
+    severity: "error"
+    why: "Einkauf: в закупочном контексте соответствует закупке; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5156
+    hints:
+      en: "procurement"
+      ru: "закупка"
+  -
+    concept: "projectphase_noun"
+    field: "phrase"
+    current:
+      template: "Die zweite {projectphase} startet."
+      answer: "Projektphase"
+    severity: "error"
+    why: "Шаблон Die zweite ___ startet допускает Projektphase, Testphase и Projektleitung из near; отсутствует контекст, который отвергает эти ответы."
+    tier: "b2"
+    file: "content/constellations/time.yaml"
+    line: 349
+    phrase: "time_b2_projectphase"
+    hints:
+      en: "project phase"
+      ru: "фаза проекта"
+  -
+    concept: "publicbenefit_noun"
+    field: "plural"
+    current: "Gemeinnützigkeitsregeln"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5564
+    hints:
+      en: "charitable status"
+      ru: "общественная польза"
+  -
+    concept: "publicservices_noun"
+    field: "plural"
+    current: "Daseinsvorsorgeaufgaben"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5534
+    hints:
+      en: "public services provision"
+      ru: "базовое обеспечение"
+  -
+    concept: "qualifyingperiod_noun"
+    field: "far"
+    current:
+      - "Wartezeit"
+      - "Sperrfrist"
+    severity: "error"
+    why: "Wartezeit и Sperrfrist являются словарными синонимами Karenzzeit в значении периода ожидания; оба варианта в far неоднозначны."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5406
+    hints:
+      en: "qualifying period"
+      ru: "карантинный срок"
+    references:
+      - "duden_karenzzeit"
+  -
+    concept: "qualifyingperiod_noun"
+    field: "form"
+    current: "карантинный срок"
+    proposed: "период ожидания до возникновения права"
+    severity: "error"
+    why: "Карантинный срок не соответствует qualifying period: Karenzzeit здесь означает период ожидания до возникновения права/начала выплат; исправить русский смысл."
+    tier: "b2"
+    file: "content/lang/ru.yaml"
+    line: 911
+    hints:
+      en: "qualifying period"
+      ru: "карантинный срок"
+    references:
+      - "duden_karenzzeit"
+  -
+    concept: "reimbursement_noun"
+    field: "far"
+    current:
+      - "Rückzahlung"
+      - "Vergütung"
+    severity: "error"
+    why: "Rückzahlung: подходит к reimbursement/возмещение; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 597
+    hints:
+      en: "reimbursement"
+      ru: "возмещение"
+  -
+    concept: "rentindex_noun"
+    field: "form"
+    current: "Mietspiegel"
+    severity: "error"
+    why: "Mietspiegel является таблицей/обзором местных сравнительных ставок аренды, а не числовым индексом аренды; нужно согласовать en.form и ru.form."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4914
+    hints:
+      en: "rent index"
+      ru: "индекс аренды"
+    references:
+      - "bgb_558c"
+  -
+    concept: "rentindex_noun"
+    field: "phrase"
+    current:
+      template: "Der {rentindex} liegt bei neun Euro."
+      answer: "Mietspiegel"
+    proposed:
+      template: "Die ortsübliche Vergleichsmiete steht im {rentindex}."
+      answer: "Mietspiegel"
+    severity: "error"
+    why: "Mietspiegel является обзором, а не одной суммой в евро; фраза смешивает документ и ставку аренды."
+    tier: "b2"
+    file: "content/constellations/home.yaml"
+    line: 309
+    phrase: "home_b2_rentindex"
+    hints:
+      en: "rent index"
+      ru: "индекс аренды"
+    references:
+      - "bgb_558c"
+  -
+    concept: "residencepermit_noun"
+    field: "far"
+    current:
+      - "Visum"
+      - "Duldung"
+    severity: "error"
+    why: "Visum является одним из Aufenthaltstitel по § 4 AufenthG, поэтому его нельзя противопоставлять родовому термину как заведомо неверный ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5338
+    hints:
+      en: "residence permit"
+      ru: "вид на жительство"
+    references:
+      - "aufenthg_4"
+  -
+    concept: "retail_noun"
+    field: "plural"
+    current: "Einzelhandelsbetriebe"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4730
+    hints:
+      en: "retail"
+      ru: "розничная торговля"
+  -
+    concept: "roadsafety_noun"
+    field: "plural"
+    current: "Verkehrssicherheitsmaßnahmen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4876
+    hints:
+      en: "road safety"
+      ru: "безопасность движения"
+  -
+    concept: "routenetwork_noun"
+    field: "far"
+    current:
+      - "Liniennetz"
+      - "Fahrplan"
+    severity: "error"
+    why: "Liniennetz: также переводится как сеть маршрутов; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4774
+    hints:
+      en: "route network"
+      ru: "сеть маршрутов"
+  -
+    concept: "shorttimework_noun"
+    field: "plural"
+    current: "Kurzarbeitsphasen"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5674
+    hints:
+      en: "short-time work"
+      ru: "сокращённый режим"
+  -
+    concept: "stocktaking_noun"
+    field: "far"
+    current:
+      - "Bestandsaufnahme"
+      - "Jahresabschluss"
+    severity: "error"
+    why: "Bestandsaufnahme: означает учёт/инвентаризацию наличного запаса; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5180
+    hints:
+      en: "stocktaking"
+      ru: "инвентаризация"
+  -
+    concept: "subsidy_noun"
+    field: "far"
+    current:
+      - "Förderung"
+      - "Zuschuss"
+    severity: "error"
+    why: "Zuschuss: обозначает субсидию/дотацию; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4834
+    hints:
+      en: "subsidy"
+      ru: "субсидия"
+  -
+    concept: "sustainability_noun"
+    field: "plural"
+    current: "Nachhaltigkeitsziele"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4754
+    hints:
+      en: "sustainability"
+      ru: "устойчивость"
+  -
+    concept: "synchronisation_noun"
+    field: "near"
+    current:
+      - "Synchronisation"
+      - "Sanierung"
+      - "Symbolisierung"
+    severity: "error"
+    why: "Synchronisation: является вариантом названия того же процесса; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5388
+    hints:
+      en: "synchronisation"
+      ru: "синхронизация"
+  -
+    concept: "temporarywork_noun"
+    field: "plural"
+    current: "Zeitarbeitsverhältnisse"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5698
+    hints:
+      en: "agency work"
+      ru: "заёмный труд"
+  -
+    concept: "timemanagement_noun"
+    field: "plural"
+    current: "Zeitmanagementmethoden"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5352
+    hints:
+      en: "time management"
+      ru: "управление временем"
+  -
+    concept: "wholesale_noun"
+    field: "plural"
+    current: "Großhandelsbetriebe"
+    proposed: null
+    severity: "error"
+    why: "Указано множественное число другого составного существительного вместо формы этой лексемы; поле следует убрать."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4724
+    hints:
+      en: "wholesale"
+      ru: "оптовая торговля"
+  -
+    concept: "additive_noun"
+    field: "far"
+    current:
+      - "Aroma"
+      - "Süßungsmittel"
+    severity: "doubt"
+    why: "Süßungsmittel: является видом пищевой добавки; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4658
+    hints:
+      en: "additive"
+      ru: "добавка"
+  -
+    concept: "additive_noun"
+    field: "phrase"
+    current:
+      template: "Ohne {additive} hält es kürzer."
+      answer: "Zusatzstoff"
+    proposed:
+      template: "Dieser {additive} verändert die Farbe."
+      answer: "Zusatzstoff"
+    severity: "doubt"
+    why: "Не всякая пищевая добавка продлевает срок хранения; фраза без уточнения смешивает Zusatzstoff и Konservierungsstoff."
+    tier: "b2"
+    file: "content/constellations/food.yaml"
+    line: 339
+    phrase: "food_b2_additive"
+    hints:
+      en: "additive"
+      ru: "добавка"
+  -
+    concept: "allergen_noun"
+    field: "phrase"
+    current:
+      template: "Jedes {allergen} muss genannt werden."
+      answer: "Allergen"
+    severity: "doubt"
+    why: "Jedes Allergen muss genannt werden выглядит всеобщим правилом, но законодательная маркировка относится к определённым категориям и условиям; лучше конкретный пример."
+    tier: "b2"
+    file: "content/constellations/food.yaml"
+    line: 314
+    phrase: "food_b2_allergen"
+    hints:
+      en: "allergen"
+      ru: "аллерген"
+  -
+    concept: "bestbefore_noun"
+    field: "form"
+    current: "Haltbarkeitsdatum"
+    severity: "doubt"
+    why: "Для различения best-before и use-by нужны точные Mindesthaltbarkeitsdatum/Verbrauchsdatum; дата годности не различает эти понятия, а Haltbarkeitsdatum слишком общее."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4706
+    hints:
+      en: "best-before date"
+      ru: "дата годности"
+  -
+    concept: "clockfacetimetable_noun"
+    field: "form"
+    current: "Taktverkehr"
+    severity: "doubt"
+    why: "Taktverkehr является движением через регулярные интервалы, а тактовое расписание обозначается Taktfahrplan, который ошибочно используется как near при этой русской подсказке."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 4780
+    hints:
+      en: "clock-face scheduling"
+      ru: "тактовое расписание"
+  -
+    concept: "guardianshiplaw_noun"
+    field: "form"
+    current: "Betreuungsrecht"
+    severity: "doubt"
+    why: "Betreuungsrecht относится к правовой поддержке/представительству совершеннолетних и не тождественно всякому опекунству; нужны уточнённые EN/RU определения."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5302
+    hints:
+      en: "guardianship law"
+      ru: "право опекунства"
+  -
+    concept: "liabilitylimit_noun"
+    field: "near"
+    current:
+      - "Haftungsausschluss"
+      - "Zugangsbeschränkung"
+      - "Haftungsfall"
+    severity: "doubt"
+    why: "Haftungsausschluss является полным исключением, а Haftungsbeschränkung ограничением; широкая подсказка без ситуации делает это скорее правовым тестом, чем проверкой слова."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5072
+    hints:
+      en: "limitation of liability"
+      ru: "ограничение ответственности"
+  -
+    concept: "publicservices_noun"
+    field: "far"
+    current:
+      - "Grundversorgung"
+      - "Infrastrukturleistung"
+    severity: "doubt"
+    why: "Grundversorgung пересекается с Daseinsvorsorge и практически совпадает с русским базовое обеспечение; уточнить институциональный смысл."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5534
+    hints:
+      en: "public services provision"
+      ru: "базовое обеспечение"
+  -
+    concept: "residencepermit_noun"
+    field: "form"
+    current: "Aufenthaltstitel"
+    severity: "doubt"
+    why: "Aufenthaltstitel является родовым понятием и включает визы; русский вид на жительство и английский residence permit обычно уже, поэтому нужен выбранный правовой смысл."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5338
+    hints:
+      en: "residence permit"
+      ru: "вид на жительство"
+    references:
+      - "aufenthg_4"
+  -
+    concept: "rotation_noun"
+    field: "form"
+    current: "Turnus"
+    severity: "doubt"
+    why: "Turnus обычно означает регулярный цикл/периодичность, тогда как английское rota прежде всего график дежурств; согласуйте значение."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5484
+    hints:
+      en: "rota"
+      ru: "очерёдность смены"
+  -
+    concept: "socialinsurance_noun"
+    field: "near"
+    current:
+      - "Sozialabgabe"
+      - "Rentenversicherung"
+      - "Sozialleistung"
+    severity: "doubt"
+    why: "Rentenversicherung: обязательное пенсионное страхование является видом социального страхования; текущая подсказка не исключает этот ответ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5746
+    hints:
+      en: "social insurance"
+      ru: "социальное страхование"
+  -
+    concept: "subsequentperformance_noun"
+    field: "far"
+    current:
+      - "Ersatzlieferung"
+      - "Rückabwicklung"
+    severity: "doubt"
+    why: "Ersatzlieferung является способом Nacherfüllung; без уточнения родового понятия нельзя задавать её как однозначно неверный вариант."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5102
+    hints:
+      en: "subsequent performance"
+      ru: "доисполнение"
+    references:
+      - "bgb_439"
+  -
+    concept: "subsequentperformance_noun"
+    field: "near"
+    current:
+      - "Nachbesserung"
+      - "Vertragserfüllung"
+      - "Nachforderung"
+    severity: "doubt"
+    why: "Nachbesserung является способом Nacherfüllung, поэтому отвлекающий вариант требует контекста, который различает родовой процесс и способ."
+    tier: "b2"
+    file: "content/lang/de.yaml"
+    line: 5102
+    hints:
+      en: "subsequent performance"
+      ru: "доисполнение"
+    references:
+      - "bgb_439"
+  -
+    concept: "disasterresponse_noun"
+    field: "phrase"
+    current:
+      template: "Der {disaster} wurde geübt."
+      answer: "Katastrophenschutz"
+    proposed:
+      template: "Die Gemeinde investiert in den {disaster}."
+      answer: "Katastrophenschutz"
+    severity: "style"
+    why: "Упражняют действия/службы в системе защиты от катастроф; исходная формулировка тяжеловесна."
+    tier: "b2"
+    file: "content/constellations/city.yaml"
+    line: 359
+    phrase: "city_b2_disaster"
+    hints:
+      en: "disaster response"
+      ru: "защита от катастроф"
+  -
+    concept: "incapacity_noun"
+    field: "phrase"
+    current:
+      template: "Die {incapacity} gilt bis zum Monatsende."
+      answer: "Arbeitsunfähigkeit"
+    proposed:
+      template: "Die {incapacity} ist bis zum Monatsende bescheinigt."
+      answer: "Arbeitsunfähigkeit"
+    severity: "style"
+    why: "Срок действия относится к справке, а для состояния естественнее подтверждена до даты."
+    tier: "b2"
+    file: "content/constellations/doctor.yaml"
+    line: 345
+    phrase: "doctor_b2_incapacity"
+    hints:
+      en: "incapacity for work"
+      ru: "нетрудоспособность"
+scope:
+  date: "2026-09-06"
+  target_language: "de"
+  hint_languages:
+    - "en"
+    - "ru"
+  new_tiers_reviewed:
+    - "a1"
+    - "a2"
+    - "b1"
+    - "b2"
+  a0: "Повторно проверен и включён в сводный отчёт с исправлением предыдущих оценок."
+  method: "Модельная вычитка всех 864 лексем с двумя языками подсказок и всех 432 фраз; выборочная сверка словарных и предметных сомнений по источникам; без прослушивания аудио и без полной словарной верификации каждого дистрактора."
+  counting: "Считаются находки по полям, а не количество разных неверных слов; один концепт может иметь несколько находок, а одна причина может затронуть несколько полей."
+  proposal_semantics: "proposed: null предлагает убрать поле plural из учебной записи, но не утверждает отсутствие любых специальных множественных употреблений; поля phrase содержат пару template/answer, изменяемую согласованно."
+  application: "Не применять все находки к de.yaml автоматически: file указывает фактический файл правки; при смене смысла дополнительно согласовать все языки, дистракторы, фразы и озвучку."
+  content_modified: false
+  native_review: false
+  source_hashes:
+    "content/lang/de.yaml": "940dbca284324aba028ab7592ece3d033be4395d227a234588f97e1476e4efb0"
+    "content/lang/en.yaml": "e1e2f2519d17e65565819b666f3fe6e95b8b840dd26ec9dae9ee443abdb5d643"
+    "content/lang/ru.yaml": "6e5c7bb03b74458a95c35e5f2784cdf7a915bcbf865f157ba43e3e645f810d5e"
+    "content/constellations/city.yaml": "916752549bc078259048855a95b9c316bc18482ba7e54c78bf871b6d62781131"
+    "content/constellations/doctor.yaml": "875f3260d9ea11d86ba422a333339cccd78397266b4f928fb7e33e234d538ae3"
+    "content/constellations/family.yaml": "6fe3d01aaef0889837d6174632ff320598c0772fa2d8713d80a7b6c425d6a52a"
+    "content/constellations/food.yaml": "ef3cff1eb286447e6503f13a4d78394e667de772093fc5ce84bc00c9bdd33815"
+    "content/constellations/home.yaml": "e810966bbd3f33c835725174fdc9269dd799ef7191b3e36c27be538816befb68"
+    "content/constellations/shop.yaml": "09ab6ce15b2a90737781668fb21634b05afb15b8092d98adaf3b098e0632cbc5"
+    "content/constellations/time.yaml": "28d3c86432fe5bb5b54ff50eee99c541ba8abfbd8894425ea3e6d38ba2b14b27"
+    "content/constellations/transport.yaml": "ec2e7f3870c44fbaa55be11e3a6d77d8c990477a053689eead8101ac66680c72"
+    "content/constellations/work.yaml": "2d488cffe4b9a163eb00f94bd56add78b97d489e921eaf5c7d291ae2b472bdcb"
+by_tier:
+  -
+    tier: "a0"
+    checked: 108
+    phrases_checked: 36
+    errors: 24
+    doubts: 3
+    styles: 6
+    affected_concepts: 32
+  -
+    tier: "a1"
+    checked: 108
+    phrases_checked: 72
+    errors: 19
+    doubts: 10
+    styles: 4
+    affected_concepts: 30
+  -
+    tier: "a2"
+    checked: 216
+    phrases_checked: 108
+    errors: 45
+    doubts: 10
+    styles: 6
+    affected_concepts: 54
+  -
+    tier: "b1"
+    checked: 216
+    phrases_checked: 108
+    errors: 52
+    doubts: 10
+    styles: 2
+    affected_concepts: 59
+  -
+    tier: "b2"
+    checked: 216
+    phrases_checked: 108
+    errors: 57
+    doubts: 13
+    styles: 2
+    affected_concepts: 64
+statistics:
+  concepts: 864
+  phrases: 432
+  parts_of_speech:
+    noun: 838
+    adjective: 15
+    adverb: 11
+    verb: 0
+  noun_share_percent: 97
+  phrases_targeting_only_nouns: 417
+  b2_formal_phrases: 107
+  b2_phrases: 108
+  incorrect_plural_fields: 63
+  all_freq_ranks_multiples_of_ten: true
+systemic_findings:
+  -
+    priority: "P1"
+    issue: "Нет единственного ответа в части фраз"
+    evidence: "Режим phrase показывает шаблон и register, подставляя near основного концепта и слова соседей; near проектировались для перевода слова, а не для конкретного предложения."
+    file: "lib/features/game/application/question_builder.dart"
+    line: 70
+    examples:
+      - "city_a0_map"
+      - "shop_a1_quality"
+      - "home_a2_landlord"
+      - "work_b1_atmosphere"
+      - "family_b2_childwelfare"
+    recommendation: "Задать смысловую подсказку и/или собственный проверенный набор вариантов для каждой фразы; проверить итоговый набор, включая резервные варианты, а не только answer."
+  -
+    priority: "P1"
+    issue: "Множественное число подменяется производным словом"
+    examples:
+      - "Milch -> Milchsorten"
+      - "Gepäck -> Gepäckstücke"
+      - "Unterhalt -> Unterhaltszahlungen"
+      - "Zeitmanagement -> Zeitmanagementmethoden"
+    recommendation: "Хранить формы только выбранной леммы и значения; единицы/порции/разновидности при необходимости оформить отдельными конструкциями."
+  -
+    priority: "P1"
+    issue: "Синонимы и широкие переводы создают несколько правильных вариантов"
+    examples:
+      - "Abendessen / Abendbrot"
+      - "jetzt / jetzo"
+      - "Zustimmung / Einwilligung"
+      - "Reha / Rehabilitation"
+    recommendation: "Сначала согласовать смысл EN/RU/DE, затем строить варианты; спорные родо-видовые отношения требуют контекста и помечены doubt."
+  -
+    priority: "P1"
+    issue: "Ярусы плохо отражают общую языковую компетенцию"
+    evidence: "838 из 864 концептов являются существительными, глагольных целей нет; B2 преимущественно юридический и административный словарь."
+    recommendation: "Разделить общий словарь, жизненные сценарии и специальную терминологию; рекомендации подробно изложены в CONTENT_CURRICULUM_REVIEW.md."
+  -
+    priority: "P2"
+    issue: "freq_rank нельзя воспроизвести по указанным источникам"
+    evidence: "Все 864 ранга кратны десяти, а комментарии ссылаются на частотные списки по субтитрам без корпуса, версии и процедуры; генератор калибровки использует эти ранги."
+    file: "tool/make_calibration.dart"
+    line: 90
+    recommendation: "Явно пометить экспертные приоритеты либо сохранить корпус, версию, единицу подсчёта и процедуру сопоставления; кратность десяти сама по себе не доказывает выдуманность данных."
+  -
+    priority: "P2"
+    issue: "Регистр и контекст не разделены"
+    evidence: "107 из 108 фраз B2 помечены formal, хотя многие являются нейтральными сообщениями и не проверяют выбор между du/Sie."
+    recommendation: "Оставить register для речевого регистра, отдельно задавать ситуацию; включить разговорные варианты тех же намерений."
+  -
+    priority: "P2"
+    issue: "Запись о вычитке A0 неполна"
+    file: "content/launch.yaml"
+    line: 25
+    evidence: "В reviewers.a0 перечислены пять созвездий при наличии девяти; носитель ещё не проверял материал."
+    recommendation: "После фактической вычитки указать точное покрытие и пересматривать допуск к публикации по исправленным данным."
+previous_a0_corrections:
+  -
+    concept: "kitchen_room"
+    field: "near"
+    previous: "Kücken объявлено ошибкой"
+    revised: "Kücken засвидетельствовано как австрийский вариант; замена на Küken для основной нормы Германии является style."
+    references:
+      - "duden_kuecken"
+  -
+    concept: "money_noun"
+    field: "plural"
+    previous: "Gelder объявлено несуществующим множественным Geld"
+    revised: "Gelder является действительным множественным в значении денежные средства/фонды; для базового A0 его исключение является педагогическим упрощением."
+    references:
+      - "duden_geld"
+  -
+    concept: "late_adj"
+    field: "phrase"
+    previous: "Предложена замена ответа spät на verspätet"
+    revised: "Предлагается шаблон Der Zug kommt zu {late}, сохраняющий исходный ответ spät; исходное предложение оценивается как style."
+  -
+    concept: "name_noun"
+    field: "phrase"
+    previous: "Wie ist Ihr Name? рекомендовано заменить"
+    revised: "Исходная реплика допустима; обязательная правка снята."
+  -
+    concept: "receipt_noun"
+    field: "form"
+    previous: "Quittung рекомендовано просто заменить на Kassenbon"
+    revised: "Kassenbon уже есть у receipt_slip на A2; менять нужно согласованно с перераспределением концептов, а не создавать дубли."
+validation:
+  command: "C:\\src\\flutter\\bin\\cache\\dart-sdk\\bin\\dart.exe tool/validate_content.dart --lang de"
+  exit_code: 0
+  structural_errors: 0
+  manual_review_messages: 178
+  missing_draft_audio_items: 1151
+  note: "Успешная структурная валидация не проверяет перевод, реальность каждого слова, однозначность фраз и истинность предметных утверждений; она не опровергает находки аудита."
+sources:
+  duden_verkuehlung:
+    title: "Duden: Verkühlung"
+    url: "https://www.duden.de/rechtschreibung/Verkuehlung"
+  duden_schwester:
+    title: "Duden: Schwester"
+    url: "https://www.duden.de/rechtschreibung/Schwester"
+  duden_jetzo:
+    title: "Duden: jetzo"
+    url: "https://www.duden.de/rechtschreibung/jetzo"
+  duden_kuecken:
+    title: "Duden: Kücken (австрийский вариант)"
+    url: "https://www.duden.de/rechtschreibung/Kuecken"
+  duden_geld:
+    title: "Duden: Geld, различие значений и plural Gelder"
+    url: "https://www.duden.de/rechtschreibung/Geld"
+  duden_karenzzeit:
+    title: "Duden: Karenzzeit"
+    url: "https://www.duden.de/rechtschreibung/Karenzzeit"
+  duden_erbe:
+    title: "Duden: Erbe (Nachlass)"
+    url: "https://www.duden.de/rechtschreibung/Erbe_Nachlass"
+  ndr_brauder:
+    title: "NDR: Plattdeutsches Wörterbuch, Brauder"
+    url: "https://www.ndr.de/kultur/norddeutsche_sprache/plattdeutsch/plattdeutsches-woerterbuch%2Cplattdeutsch-woerterbuch-102.html?abc=B"
+    note: "Собрание региональных примеров от слушателей; подтверждает употребление, но не литературную норму."
+  fwb_staendigkeit:
+    title: "Frühneuhochdeutsches Wörterbuch: ständigkeit"
+    url: "https://fwb-online.de/lemma/st%C3%A4ndigkeit.s.1f"
+  bmg_eau:
+    title: "Федеральный портал здоровья: электронная справка о нетрудоспособности"
+    url: "https://gesund.bund.de/die-elektronische-arbeitsunfaehigkeitsbescheinigung-eau"
+  stvg_25:
+    title: "StVG § 25: Fahrverbot"
+    url: "https://www.gesetze-im-internet.de/stvg/__25.html"
+  stvg_3:
+    title: "StVG § 3: Entziehung der Fahrerlaubnis"
+    url: "https://www.gesetze-im-internet.de/stvg/__3.html"
+  bgb_355:
+    title: "BGB § 355: Widerrufsrecht"
+    url: "https://www.gesetze-im-internet.de/bgb/__355.html"
+  bgb_356:
+    title: "BGB § 356: начало срока отказа"
+    url: "https://www.gesetze-im-internet.de/bgb/__356.html"
+  aufenthg_4:
+    title: "AufenthG § 4: виды Aufenthaltstitel"
+    url: "https://www.gesetze-im-internet.de/aufenthg_2004/__4.html"
+  bgb_558c:
+    title: "BGB § 558c: Mietspiegel (проверено в полном тексте BGB)"
+    url: "https://www.gesetze-im-internet.de/bgb/BJNR001950896.html"
+  bgb_439:
+    title: "BGB § 439: Nacherfüllung"
+    url: "https://www.gesetze-im-internet.de/bgb/__439.html"
+  drv_regelaltersrente:
+    title: "Deutsche Rentenversicherung: Die reguläre Altersrente"
+    url: "https://www.deutsche-rentenversicherung.de/DRV/DE/Rente/Allgemeine-Informationen/Rentenarten-und-Leistungen/Die-regulaere-Altersrente/Die_regulaere_Altersrente.html"
+  vz_beratung:
+    title: "Verbraucherzentrale: Beratung, в том числе платная"
+    url: "https://www.verbraucherzentrale.de/beratung"
+  dguv_bg:
+    title: "DGUV: Berufsgenossenschaften"
+    url: "https://www.dguv.de/de/bg-uk-lv/bgen/index.jsp"
+  bmf_vat:
+    title: "BMF: Steuern vom Umsatz, также Mehrwertsteuer"
+    url: "https://www.bundesfinanzministerium.de/Monatsberichte/2023/10/Inhalte/Kapitel-4-Wirtschafts-und-Finanzlage/4-2-steuereinnahmen-september-2023-und-konjunkturelles-umfeld-pdf.pdf?__blob=publicationFile&v=1"
+summary:
+  checked: 864
+  phrases_checked: 432
+  findings: 263
+  errors: 197
+  doubts: 46
+  styles: 20
+  affected_concepts: 239
+  notes: "Основные системные причины: подмена множественного производными словами, неоднозначные переводы/дистракторы и общие фразы с несколькими допустимыми вставками. Программа почти полностью именная, а B1–B2 растут преимущественно за счёт административных терминов, поэтому исправление отдельных слов не выровняет учебную прогрессию."
