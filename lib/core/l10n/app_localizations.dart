@@ -993,6 +993,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Speaking with the {language} system voice'**
   String voiceReady(String language);
+
+  /// No description provided for @recordsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your records'**
+  String get recordsTitle;
+
+  /// No description provided for @recordsClimb.
+  ///
+  /// In en, this message translates to:
+  /// **'Best run'**
+  String get recordsClimb;
+
+  /// No description provided for @recordsHour.
+  ///
+  /// In en, this message translates to:
+  /// **'Best hour'**
+  String get recordsHour;
+
+  /// No description provided for @recordsDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Best day'**
+  String get recordsDay;
+
+  /// No description provided for @recordsWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Best week'**
+  String get recordsWeek;
+
+  /// No description provided for @recordsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Best month'**
+  String get recordsMonth;
+
+  /// Score accumulated in the current window
+  ///
+  /// In en, this message translates to:
+  /// **'now {value}'**
+  String recordsNow(String value);
+
+  /// How much is left to beat the record
+  ///
+  /// In en, this message translates to:
+  /// **'{value} to go'**
+  String recordsToBeat(String value);
+
+  /// No description provided for @recordsBeaten.
+  ///
+  /// In en, this message translates to:
+  /// **'record!'**
+  String get recordsBeaten;
+
+  /// No description provided for @recordsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a level and the first records appear here.'**
+  String get recordsEmpty;
+
+  /// Current climb level and its score multiplier
+  ///
+  /// In en, this message translates to:
+  /// **'Level {level} · ×{multiplier}'**
+  String recordsClimbLevel(int level, String multiplier);
 }
 
 class _AppLocalizationsDelegate

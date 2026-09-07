@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
+import '../../../domain/scoring/climb.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/presentation/run_screen.dart';
 import '../../sky/application/sky_controller.dart';
@@ -238,6 +239,19 @@ class _LevelResult extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(l10n.ritualScore, style: theme.textTheme.bodyMedium),
+            if (state.playedLevel > 0) ...[
+              const SizedBox(height: 8),
+              Text(
+                l10n.recordsClimbLevel(
+                  state.playedLevel,
+                  ClimbRules.multiplierFor(state.playedLevel)
+                      .toStringAsFixed(2),
+                ),
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
             const SizedBox(height: 28),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

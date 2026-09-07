@@ -510,4 +510,43 @@ class AppLocalizationsUk extends AppLocalizations {
   String voiceReady(String language) {
     return 'Говорить системним голосом: $language';
   }
+
+  @override
+  String get recordsTitle => 'Твої рекорди';
+
+  @override
+  String get recordsClimb => 'Найкращий захід';
+
+  @override
+  String get recordsHour => 'Найкраща година';
+
+  @override
+  String get recordsDay => 'Найкращий день';
+
+  @override
+  String get recordsWeek => 'Найкращий тиждень';
+
+  @override
+  String get recordsMonth => 'Найкращий місяць';
+
+  @override
+  String recordsNow(String value) {
+    return 'зараз $value';
+  }
+
+  @override
+  String recordsToBeat(String value) {
+    return 'до рекорду $value';
+  }
+
+  @override
+  String get recordsBeaten => 'рекорд!';
+
+  @override
+  String get recordsEmpty => 'Зіграй рівень — тут з’являться перші рекорди.';
+
+  @override
+  String recordsClimbLevel(int level, String multiplier) {
+    return 'Рівень $level · ×$multiplier';
+  }
 }

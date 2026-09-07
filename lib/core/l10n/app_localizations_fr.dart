@@ -509,4 +509,44 @@ class AppLocalizationsFr extends AppLocalizations {
   String voiceReady(String language) {
     return 'Parle avec la voix système : $language';
   }
+
+  @override
+  String get recordsTitle => 'Tes records';
+
+  @override
+  String get recordsClimb => 'Meilleure série';
+
+  @override
+  String get recordsHour => 'Meilleure heure';
+
+  @override
+  String get recordsDay => 'Meilleur jour';
+
+  @override
+  String get recordsWeek => 'Meilleure semaine';
+
+  @override
+  String get recordsMonth => 'Meilleur mois';
+
+  @override
+  String recordsNow(String value) {
+    return 'maintenant $value';
+  }
+
+  @override
+  String recordsToBeat(String value) {
+    return 'encore $value';
+  }
+
+  @override
+  String get recordsBeaten => 'record !';
+
+  @override
+  String get recordsEmpty =>
+      'Joue un niveau et les premiers records apparaîtront ici.';
+
+  @override
+  String recordsClimbLevel(int level, String multiplier) {
+    return 'Niveau $level · ×$multiplier';
+  }
 }

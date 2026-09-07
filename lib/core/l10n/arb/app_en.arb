@@ -284,5 +284,43 @@
         "type": "String"
       }
     }
+  },
+  "recordsTitle": "Your records",
+  "recordsClimb": "Best run",
+  "recordsHour": "Best hour",
+  "recordsDay": "Best day",
+  "recordsWeek": "Best week",
+  "recordsMonth": "Best month",
+  "recordsNow": "now {value}",
+  "@recordsNow": {
+    "description": "Score accumulated in the current window",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "recordsToBeat": "{value} to go",
+  "@recordsToBeat": {
+    "description": "How much is left to beat the record",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "recordsBeaten": "record!",
+  "recordsEmpty": "Play a level and the first records appear here.",
+  "recordsClimbLevel": "Level {level} · ×{multiplier}",
+  "@recordsClimbLevel": {
+    "description": "Current climb level and its score multiplier",
+    "placeholders": {
+      "level": {
+        "type": "int"
+      },
+      "multiplier": {
+        "type": "String"
+      }
+    }
   }
 }

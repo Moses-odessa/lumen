@@ -2465,6 +2465,28 @@ class $SessionsTable extends Sessions
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _climbIdMeta = const VerificationMeta(
+    'climbId',
+  );
+  @override
+  late final GeneratedColumn<String> climbId = GeneratedColumn<String>(
+    'climb_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _climbLevelMeta = const VerificationMeta(
+    'climbLevel',
+  );
+  @override
+  late final GeneratedColumn<int> climbLevel = GeneratedColumn<int>(
+    'climb_level',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -2473,6 +2495,8 @@ class $SessionsTable extends Sessions
     lmGained,
     score,
     newWords,
+    climbId,
+    climbLevel,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2529,6 +2553,18 @@ class $SessionsTable extends Sessions
     } else if (isInserting) {
       context.missing(_newWordsMeta);
     }
+    if (data.containsKey('climb_id')) {
+      context.handle(
+        _climbIdMeta,
+        climbId.isAcceptableOrUnknown(data['climb_id']!, _climbIdMeta),
+      );
+    }
+    if (data.containsKey('climb_level')) {
+      context.handle(
+        _climbLevelMeta,
+        climbLevel.isAcceptableOrUnknown(data['climb_level']!, _climbLevelMeta),
+      );
+    }
     return context;
   }
 
@@ -2562,6 +2598,14 @@ class $SessionsTable extends Sessions
         DriftSqlType.int,
         data['${effectivePrefix}new_words'],
       )!,
+      climbId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}climb_id'],
+      ),
+      climbLevel: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}climb_level'],
+      ),
     );
   }
 
@@ -2578,6 +2622,20 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
   final int lmGained;
   final int score;
   final int newWords;
+
+  /// Заход, в котором сыграна сессия, и его уровень.
+  ///
+  /// Заход хранится идентификатором, а не вычисляется по перерывам между
+  /// записями: правило «полчаса без игры закрывают заход» применяется один
+  /// раз, в момент игры. Восстанавливать его потом из таймстампов значило бы
+  /// применять то же правило второй раз — и получать другой ответ после
+  /// каждой правки константы.
+  ///
+  /// `null` у записей, сделанных до появления заходов. Их очки настоящие и в
+  /// рекорды часа и дня идут, а в рекорд захода — нет: сливать историю без
+  /// заходов в один гигантский заход было бы ложью.
+  final String? climbId;
+  final int? climbLevel;
   const SessionRow({
     required this.id,
     required this.startedAt,
@@ -2585,6 +2643,8 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     required this.lmGained,
     required this.score,
     required this.newWords,
+    this.climbId,
+    this.climbLevel,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -2595,6 +2655,12 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     map['lm_gained'] = Variable<int>(lmGained);
     map['score'] = Variable<int>(score);
     map['new_words'] = Variable<int>(newWords);
+    if (!nullToAbsent || climbId != null) {
+      map['climb_id'] = Variable<String>(climbId);
+    }
+    if (!nullToAbsent || climbLevel != null) {
+      map['climb_level'] = Variable<int>(climbLevel);
+    }
     return map;
   }
 
@@ -2606,6 +2672,12 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       lmGained: Value(lmGained),
       score: Value(score),
       newWords: Value(newWords),
+      climbId: climbId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(climbId),
+      climbLevel: climbLevel == null && nullToAbsent
+          ? const Value.absent()
+          : Value(climbLevel),
     );
   }
 
@@ -2621,6 +2693,8 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       lmGained: serializer.fromJson<int>(json['lmGained']),
       score: serializer.fromJson<int>(json['score']),
       newWords: serializer.fromJson<int>(json['newWords']),
+      climbId: serializer.fromJson<String?>(json['climbId']),
+      climbLevel: serializer.fromJson<int?>(json['climbLevel']),
     );
   }
   @override
@@ -2633,6 +2707,8 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       'lmGained': serializer.toJson<int>(lmGained),
       'score': serializer.toJson<int>(score),
       'newWords': serializer.toJson<int>(newWords),
+      'climbId': serializer.toJson<String?>(climbId),
+      'climbLevel': serializer.toJson<int?>(climbLevel),
     };
   }
 
@@ -2643,6 +2719,8 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     int? lmGained,
     int? score,
     int? newWords,
+    Value<String?> climbId = const Value.absent(),
+    Value<int?> climbLevel = const Value.absent(),
   }) => SessionRow(
     id: id ?? this.id,
     startedAt: startedAt ?? this.startedAt,
@@ -2650,6 +2728,8 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
     lmGained: lmGained ?? this.lmGained,
     score: score ?? this.score,
     newWords: newWords ?? this.newWords,
+    climbId: climbId.present ? climbId.value : this.climbId,
+    climbLevel: climbLevel.present ? climbLevel.value : this.climbLevel,
   );
   SessionRow copyWithCompanion(SessionsCompanion data) {
     return SessionRow(
@@ -2661,6 +2741,10 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
       lmGained: data.lmGained.present ? data.lmGained.value : this.lmGained,
       score: data.score.present ? data.score.value : this.score,
       newWords: data.newWords.present ? data.newWords.value : this.newWords,
+      climbId: data.climbId.present ? data.climbId.value : this.climbId,
+      climbLevel: data.climbLevel.present
+          ? data.climbLevel.value
+          : this.climbLevel,
     );
   }
 
@@ -2672,14 +2756,24 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
           ..write('durationMs: $durationMs, ')
           ..write('lmGained: $lmGained, ')
           ..write('score: $score, ')
-          ..write('newWords: $newWords')
+          ..write('newWords: $newWords, ')
+          ..write('climbId: $climbId, ')
+          ..write('climbLevel: $climbLevel')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, startedAt, durationMs, lmGained, score, newWords);
+  int get hashCode => Object.hash(
+    id,
+    startedAt,
+    durationMs,
+    lmGained,
+    score,
+    newWords,
+    climbId,
+    climbLevel,
+  );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2689,7 +2783,9 @@ class SessionRow extends DataClass implements Insertable<SessionRow> {
           other.durationMs == this.durationMs &&
           other.lmGained == this.lmGained &&
           other.score == this.score &&
-          other.newWords == this.newWords);
+          other.newWords == this.newWords &&
+          other.climbId == this.climbId &&
+          other.climbLevel == this.climbLevel);
 }
 
 class SessionsCompanion extends UpdateCompanion<SessionRow> {
@@ -2699,6 +2795,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
   final Value<int> lmGained;
   final Value<int> score;
   final Value<int> newWords;
+  final Value<String?> climbId;
+  final Value<int?> climbLevel;
   const SessionsCompanion({
     this.id = const Value.absent(),
     this.startedAt = const Value.absent(),
@@ -2706,6 +2804,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     this.lmGained = const Value.absent(),
     this.score = const Value.absent(),
     this.newWords = const Value.absent(),
+    this.climbId = const Value.absent(),
+    this.climbLevel = const Value.absent(),
   });
   SessionsCompanion.insert({
     this.id = const Value.absent(),
@@ -2714,6 +2814,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     required int lmGained,
     required int score,
     required int newWords,
+    this.climbId = const Value.absent(),
+    this.climbLevel = const Value.absent(),
   }) : startedAt = Value(startedAt),
        durationMs = Value(durationMs),
        lmGained = Value(lmGained),
@@ -2726,6 +2828,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     Expression<int>? lmGained,
     Expression<int>? score,
     Expression<int>? newWords,
+    Expression<String>? climbId,
+    Expression<int>? climbLevel,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2734,6 +2838,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
       if (lmGained != null) 'lm_gained': lmGained,
       if (score != null) 'score': score,
       if (newWords != null) 'new_words': newWords,
+      if (climbId != null) 'climb_id': climbId,
+      if (climbLevel != null) 'climb_level': climbLevel,
     });
   }
 
@@ -2744,6 +2850,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     Value<int>? lmGained,
     Value<int>? score,
     Value<int>? newWords,
+    Value<String?>? climbId,
+    Value<int?>? climbLevel,
   }) {
     return SessionsCompanion(
       id: id ?? this.id,
@@ -2752,6 +2860,8 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
       lmGained: lmGained ?? this.lmGained,
       score: score ?? this.score,
       newWords: newWords ?? this.newWords,
+      climbId: climbId ?? this.climbId,
+      climbLevel: climbLevel ?? this.climbLevel,
     );
   }
 
@@ -2776,6 +2886,12 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
     if (newWords.present) {
       map['new_words'] = Variable<int>(newWords.value);
     }
+    if (climbId.present) {
+      map['climb_id'] = Variable<String>(climbId.value);
+    }
+    if (climbLevel.present) {
+      map['climb_level'] = Variable<int>(climbLevel.value);
+    }
     return map;
   }
 
@@ -2787,7 +2903,9 @@ class SessionsCompanion extends UpdateCompanion<SessionRow> {
           ..write('durationMs: $durationMs, ')
           ..write('lmGained: $lmGained, ')
           ..write('score: $score, ')
-          ..write('newWords: $newWords')
+          ..write('newWords: $newWords, ')
+          ..write('climbId: $climbId, ')
+          ..write('climbLevel: $climbLevel')
           ..write(')'))
         .toString();
   }
@@ -4356,6 +4474,8 @@ typedef $$SessionsTableCreateCompanionBuilder = SessionsCompanion Function({
   required int lmGained,
   required int score,
   required int newWords,
+  Value<String?> climbId,
+  Value<int?> climbLevel,
 });
 typedef $$SessionsTableUpdateCompanionBuilder = SessionsCompanion Function({
   Value<int> id,
@@ -4364,6 +4484,8 @@ typedef $$SessionsTableUpdateCompanionBuilder = SessionsCompanion Function({
   Value<int> lmGained,
   Value<int> score,
   Value<int> newWords,
+  Value<String?> climbId,
+  Value<int?> climbLevel,
 });
 
 class $$SessionsTableFilterComposer
@@ -4402,6 +4524,16 @@ class $$SessionsTableFilterComposer
 
   ColumnFilters<int> get newWords => $composableBuilder(
     column: $table.newWords,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get climbId => $composableBuilder(
+    column: $table.climbId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get climbLevel => $composableBuilder(
+    column: $table.climbLevel,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -4444,6 +4576,16 @@ class $$SessionsTableOrderingComposer
     column: $table.newWords,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<String> get climbId => $composableBuilder(
+    column: $table.climbId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get climbLevel => $composableBuilder(
+    column: $table.climbLevel,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$SessionsTableAnnotationComposer
@@ -4474,6 +4616,14 @@ class $$SessionsTableAnnotationComposer
 
   GeneratedColumn<int> get newWords =>
       $composableBuilder(column: $table.newWords, builder: (column) => column);
+
+  GeneratedColumn<String> get climbId =>
+      $composableBuilder(column: $table.climbId, builder: (column) => column);
+
+  GeneratedColumn<int> get climbLevel => $composableBuilder(
+    column: $table.climbLevel,
+    builder: (column) => column,
+  );
 }
 
 class $$SessionsTableTableManager
@@ -4513,6 +4663,8 @@ class $$SessionsTableTableManager
                 Value<int> lmGained = const Value.absent(),
                 Value<int> score = const Value.absent(),
                 Value<int> newWords = const Value.absent(),
+                Value<String?> climbId = const Value.absent(),
+                Value<int?> climbLevel = const Value.absent(),
               }) => SessionsCompanion(
                 id: id,
                 startedAt: startedAt,
@@ -4520,6 +4672,8 @@ class $$SessionsTableTableManager
                 lmGained: lmGained,
                 score: score,
                 newWords: newWords,
+                climbId: climbId,
+                climbLevel: climbLevel,
               ),
           createCompanionCallback:
               ({
@@ -4529,6 +4683,8 @@ class $$SessionsTableTableManager
                 required int lmGained,
                 required int score,
                 required int newWords,
+                Value<String?> climbId = const Value.absent(),
+                Value<int?> climbLevel = const Value.absent(),
               }) => SessionsCompanion.insert(
                 id: id,
                 startedAt: startedAt,
@@ -4536,6 +4692,8 @@ class $$SessionsTableTableManager
                 lmGained: lmGained,
                 score: score,
                 newWords: newWords,
+                climbId: climbId,
+                climbLevel: climbLevel,
               ),
           withReferenceMapper: (p0) => p0
               .map(

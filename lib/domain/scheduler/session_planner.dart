@@ -10,6 +10,7 @@ import 'dart:math';
 import '../entities/game_mode.dart';
 import '../entities/tier.dart';
 import '../scoring/balance.dart';
+import '../scoring/climb.dart';
 
 /// Слово-кандидат на показ. Всё, что планировщику нужно знать о слове;
 /// перевод и озвучка берутся позже из `content.db` по [itemId].
@@ -115,6 +116,7 @@ abstract final class SessionPlanner {
     SessionCapabilities capabilities = const SessionCapabilities(),
     bool hasAudio = true,
     Random? random,
+    int draws = ClimbBalance.modeDrawsBase,
   }) {
     final eligible = _selectableModes
         .where((m) => _fits(m, lumens))
@@ -129,12 +131,14 @@ abstract final class SessionPlanner {
     }
     if (random == null) return eligible.last;
 
-    // Смещение к сложным режимам: из подходящих выбираем случайный, но
-    // предпочитаем верхнюю половину списка.
-    final index = max(
-      random.nextInt(eligible.length),
-      random.nextInt(eligible.length),
-    );
+    // Смещение к сложным режимам: берём лучшую из [draws] случайных попыток.
+    // Чем больше попыток, тем выше доля продуктивных режимов — так заход и
+    // повышает сложность, не отбирая у планировщика право выбирать по
+    // яркости.
+    var index = 0;
+    for (var i = 0; i < max(draws, 1); i++) {
+      index = max(index, random.nextInt(eligible.length));
+    }
     return eligible[index];
   }
 
@@ -151,6 +155,7 @@ abstract final class SessionPlanner {
     Random? random,
     int newWords = SessionBalance.newWordsPerLevel,
     int reviewWords = SessionBalance.reviewsPerLevel,
+    ClimbDifficulty? difficulty,
   }) {
     final chosenNew = fresh.take(newWords).toList();
     // Тусклые повторы вперёд — порядок задаёт планировщик, а не вызывающий:
@@ -165,6 +170,7 @@ abstract final class SessionPlanner {
             capabilities: capabilities,
             hasAudio: word.hasAudio,
             random: random,
+            draws: difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase,
           ),
           isNew: false,
           lumens: word.lumens,

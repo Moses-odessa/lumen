@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:drift/drift.dart' show Value;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/analytics/analytics.dart';
@@ -10,6 +11,7 @@ import '../../../domain/entities/circle_question.dart';
 import '../../../domain/retention/orbit.dart';
 import '../../../domain/retention/sparks.dart';
 import '../../../domain/scoring/balance.dart';
+import '../../../domain/scoring/climb.dart';
 import '../../settings/application/reminder_scheduler.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/application/session_loader.dart';
@@ -47,6 +49,8 @@ class RitualState {
     this.phase = RitualPhase.idle,
     this.lumensReturned = 0,
     this.score = 0,
+    this.climb = const ClimbState(),
+    this.playedLevel = 0,
     this.newWords = 0,
     this.reviewed = 0,
     this.error,
@@ -59,6 +63,17 @@ class RitualState {
   final int lumensReturned;
 
   final int score;
+
+  /// Заход, в котором идёт игра: уровень, множитель, накопленная сумма.
+  final ClimbState climb;
+
+  /// Уровень захода, на котором сыгран последний уровень.
+  ///
+  /// Отдельно от `climb.level`, потому что после перехода тот показывает
+  /// уже следующий уровень, а похвала на экране итога должна относиться к
+  /// сделанному. И отдельно от `climb.levelsPlayed`: тот считает уровни, а
+  /// после сброса счётчик расходится с номером сложности.
+  final int playedLevel;
   final int newWords;
   final int reviewed;
 
@@ -71,6 +86,8 @@ class RitualState {
     RitualPhase? phase,
     int? lumensReturned,
     int? score,
+    ClimbState? climb,
+    int? playedLevel,
     int? newWords,
     int? reviewed,
     String? Function()? error,
@@ -79,6 +96,8 @@ class RitualState {
         phase: phase ?? this.phase,
         lumensReturned: lumensReturned ?? this.lumensReturned,
         score: score ?? this.score,
+        climb: climb ?? this.climb,
+        playedLevel: playedLevel ?? this.playedLevel,
         newWords: newWords ?? this.newWords,
         reviewed: reviewed ?? this.reviewed,
         error: error == null ? this.error : error(),
@@ -147,8 +166,11 @@ class RitualController extends Notifier<RitualState> {
   Future<void> _startLevel() async {
     state = state.copyWith(phase: RitualPhase.loading, error: () => null);
     try {
-      final session =
-          await ref.read(sessionLoaderProvider).level(DateTime.now());
+      final now = DateTime.now();
+      final climb = await _resumeClimb(now);
+      final session = await ref
+          .read(sessionLoaderProvider)
+          .level(now, difficulty: climb.difficulty);
 
       if (session.isEmpty) {
         state = state.copyWith(phase: RitualPhase.done);
@@ -162,10 +184,11 @@ class RitualController extends Notifier<RitualState> {
 
       ref
           .read(runControllerProvider.notifier)
-          .start(_pendingRuns.removeAt(0));
+          .start(_pendingRuns.removeAt(0), climb: climb);
       state = state.copyWith(
         phase: RitualPhase.level,
         newWords: session.newWords,
+        climb: climb,
       );
     } catch (e) {
       state = state.copyWith(phase: RitualPhase.idle, error: () => '$e');
@@ -194,16 +217,30 @@ class RitualController extends Notifier<RitualState> {
         );
 
         if (_pendingRuns.isNotEmpty) {
-          // Следующий забег того же уровня: комбо начинается заново.
-          run.start(_pendingRuns.removeAt(0));
+          // Следующий забег того же уровня: комбо начинается заново, а
+          // сложность и множитель захода те же — уровень ещё не кончился.
+          run.start(_pendingRuns.removeAt(0), climb: state.climb);
           return;
         }
 
+        // Заход поднимается или сбрасывается — по точности последнего
+        // забега уровня, то есть босса.
+        final climbed = ClimbRules.afterLevel(
+          state.climb,
+          score: summary?.total ?? 0,
+          accuracy: summary?.accuracy ?? 0,
+          at: DateTime.now(),
+        );
         ref.read(analyticsProvider).log(AnalyticsEvents.levelCompleted, {
           'score': state.score,
           'accuracy': summary?.accuracy ?? 0,
+          'climb_level': state.climb.level,
         });
-        state = state.copyWith(phase: RitualPhase.levelResult);
+        state = state.copyWith(
+          phase: RitualPhase.levelResult,
+          climb: climbed,
+          playedLevel: state.climb.level,
+        );
         await _saveSession();
       case _:
         break;
@@ -228,6 +265,30 @@ class RitualController extends Notifier<RitualState> {
     state = const RitualState();
   }
 
+  /// Идентификатор захода, в котором идёт игра. Хранится здесь, а не в
+  /// состоянии: экранам он не нужен, а записи в базе — нужен.
+  String? _climbId;
+
+  /// Возобновляет заход или начинает новый.
+  ///
+  /// Решает база, а не память процесса: игрок мог закрыть приложение между
+  /// уровнями, и «полчаса без игры» должны считаться от последней игры, а
+  /// не от последнего запуска.
+  Future<ClimbState> _resumeClimb(DateTime now) async {
+    final last = await ref.read(appDatabaseProvider).lastPlayed();
+    if (last != null && ClimbRules.continues(last.at, now)) {
+      _climbId ??= last.climbId;
+      // Уровень берётся из базы, если процесс перезапускался: состояние
+      // контроллера тогда пустое, а заход продолжается.
+      if (state.climb.isEmpty && last.climbId != null) {
+        return ClimbState(level: last.level, startedAt: last.at);
+      }
+      return state.climb;
+    }
+    _climbId = 'c${now.microsecondsSinceEpoch}';
+    return const ClimbState();
+  }
+
   /// Журнал сессий: из него растут орбита, статистика и рейтинг лиг.
   Future<void> _saveSession() async {
     try {
@@ -240,6 +301,11 @@ class RitualController extends Notifier<RitualState> {
               lmGained: state.lumensReturned,
               score: state.score,
               newWords: state.newWords,
+              // Заход и уровень, на котором СЫГРАНО. `climb.level` к этому
+              // моменту уже показывает следующий: переход случился раньше
+              // записи, и записать его значило бы завысить историю.
+              climbId: Value(_climbId),
+              climbLevel: Value(state.playedLevel),
             ),
           );
       // Орбита и искры начисляются здесь и только здесь: сессия — это

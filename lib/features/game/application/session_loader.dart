@@ -10,6 +10,7 @@ import '../../../domain/entities/circle_question.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
+import '../../../domain/scoring/climb.dart';
 import 'question_builder.dart';
 
 /// Готовый к игре набор кругов, уже разбитый на забеги.
@@ -56,7 +57,10 @@ class SessionLoader {
   final Random? random;
 
   /// Уровень: новые слова вперемешку с повторами, в конце босс-фраза.
-  Future<LoadedSession> level(DateTime now) async {
+  ///
+  /// [difficulty] — сложность уровня захода: доля продуктивных режимов,
+  /// длина забега и число вариантов. `null` — первый уровень.
+  Future<LoadedSession> level(DateTime now, {ClimbDifficulty? difficulty}) async {
     // Между запусками звёзды тускнеют, а база об этом не знает.
     await words.refreshLumens(now);
 
@@ -75,12 +79,14 @@ class SessionLoader {
       fresh: fresh.take(allowed).toList(),
       capabilities: capabilities,
       random: random,
+      difficulty: difficulty,
     );
 
-    final questions = await _build(plan);
-    final runs = SessionPlanner.intoRuns(questions)
-        .map((run) => run.toList())
-        .toList();
+    final questions = await _build(plan, difficulty);
+    final runs = SessionPlanner.intoRuns(
+      questions,
+      perRun: difficulty?.circlesPerRun ?? SessionBalance.circlesPerRunMin,
+    ).map((run) => run.toList()).toList();
 
     // Босс закрывает уровень отдельным коротким забегом: фраза целиком —
     // это другой масштаб задачи, и мешать её со словами не стоит.
@@ -133,10 +139,22 @@ class SessionLoader {
     ];
   }
 
-  Future<List<CircleQuestion>> _build(List<PlannedCircle> plan) async {
+  Future<List<CircleQuestion>> _build(
+    List<PlannedCircle> plan, [
+    ClimbDifficulty? difficulty,
+  ]) async {
+    final built = difficulty == null
+        ? builder
+        : QuestionBuilder(
+            content: builder.content,
+            targetLang: builder.targetLang,
+            nativeLang: builder.nativeLang,
+            extraOptions: difficulty.extraOptions,
+            random: random,
+          );
     final questions = <CircleQuestion>[];
     for (final circle in plan) {
-      final question = await builder.build(circle);
+      final question = await built.build(circle);
       // Круг, который не собрался из-за нехватки контента, пропускается:
       // показать сломанный хуже, чем не показать вовсе.
       if (question != null) questions.add(question);
@@ -182,8 +200,10 @@ final sessionLoaderProvider = Provider<SessionLoader>((ref) {
   //
   // Это последняя линия обороны, а не единственная: калибровка тоже не
   // должна поднимать выше потолка. Но записи уже могут лежать на
-  // устройствах, а невычитанный ярус — это ещё и ярус без озвучки, и
-  // выглядит он для игрока не как «контент не готов», а как «звук сломался».
+  // устройствах, а невычитанный ярус — это текст, который человек не читал.
+  // Синтез произнесёт его с той же готовностью, что и вычитанный, поэтому
+  // звук больше не сигнализирует о готовности яруса — сигналит только этот
+  // потолок.
   final maxTier = ref.watch(maxTierProvider);
   final tier = player?.tier ?? Tier.a0;
 

@@ -3,6 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 import '../../domain/entities/player.dart';
 import '../../domain/entities/tier.dart';
+import '../../domain/scoring/records.dart';
 
 part 'app_database.g.dart';
 
@@ -111,6 +112,20 @@ class Sessions extends Table {
   IntColumn get lmGained => integer()();
   IntColumn get score => integer()();
   IntColumn get newWords => integer()();
+
+  /// Заход, в котором сыграна сессия, и его уровень.
+  ///
+  /// Заход хранится идентификатором, а не вычисляется по перерывам между
+  /// записями: правило «полчаса без игры закрывают заход» применяется один
+  /// раз, в момент игры. Восстанавливать его потом из таймстампов значило бы
+  /// применять то же правило второй раз — и получать другой ответ после
+  /// каждой правки константы.
+  ///
+  /// `null` у записей, сделанных до появления заходов. Их очки настоящие и в
+  /// рекорды часа и дня идут, а в рекорд захода — нет: сливать историю без
+  /// заходов в один гигантский заход было бы ложью.
+  TextColumn get climbId => text().nullable()();
+  IntColumn get climbLevel => integer().nullable()();
 }
 
 /// Свои слова: личное созвездие произвольного размера (M5).
@@ -140,7 +155,7 @@ class AppDatabase extends _$AppDatabase {
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 4;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -181,6 +196,13 @@ class AppDatabase extends _$AppDatabase {
                 },
               ),
             );
+          }
+          if (from < 5) {
+            // Аркадные заходы: сессия помнит, в каком заходе и на каком его
+            // уровне сыграна. Старые записи остаются с null — и это не
+            // пробел в данных, а честное «тогда заходов не было».
+            await m.addColumn(sessions, sessions.climbId);
+            await m.addColumn(sessions, sessions.climbLevel);
           }
         },
       );
@@ -265,6 +287,49 @@ class AppDatabase extends _$AppDatabase {
             ])
             ..limit(limit))
           .get();
+
+  /// Сыгранные уровни для стены рекордов: когда, на сколько, в каком заходе.
+  ///
+  /// Читается вся история, а не последние N: рекорд месяца по девяноста
+  /// записям посчитать нельзя, а «лучший заход за всё время» тем более.
+  /// Строк здесь единицы тысяч за годы игры, и читаются они на экране
+  /// профиля, а не в забеге.
+  Future<List<ScoredLevel>> loadScoredLevels() async {
+    final rows = await (selectOnly(sessions)
+          ..addColumns([sessions.startedAt, sessions.score, sessions.climbId])
+          ..where(sessions.score.isBiggerThanValue(0)))
+        .get();
+    return [
+      for (final row in rows)
+        ScoredLevel(
+          at: row.read(sessions.startedAt)!,
+          score: row.read(sessions.score)!,
+          climbId: row.read(sessions.climbId),
+        ),
+    ];
+  }
+
+  /// Когда игрок закончил играть в последний раз и в каком заходе.
+  ///
+  /// Нужно, чтобы решить, продолжается ли заход: правило про полчаса
+  /// применяется к этой паре.
+  Future<({DateTime at, String? climbId, int level})?> lastPlayed() async {
+    final row = await (select(sessions)
+          ..orderBy([
+            (t) => OrderingTerm(
+                  expression: t.startedAt,
+                  mode: OrderingMode.desc,
+                ),
+          ])
+          ..limit(1))
+        .getSingleOrNull();
+    if (row == null) return null;
+    return (
+      at: row.startedAt,
+      climbId: row.climbId,
+      level: row.climbLevel ?? 1,
+    );
+  }
 
   /// Последние ответы — из них считается медианный отклик.
   Future<List<ReviewRow>> recentReviews({int limit = 500}) =>

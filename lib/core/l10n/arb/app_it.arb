@@ -147,5 +147,16 @@
   "voiceInstall": "Installa la voce",
   "voicePlaySilent": "Gioca senza audio",
   "voiceManualPath": "Dove cercare: {path}",
-  "voiceReady": "Parla con la voce di sistema: {language}"
+  "voiceReady": "Parla con la voce di sistema: {language}",
+  "recordsTitle": "I tuoi record",
+  "recordsClimb": "Serie migliore",
+  "recordsHour": "Ora migliore",
+  "recordsDay": "Giorno migliore",
+  "recordsWeek": "Settimana migliore",
+  "recordsMonth": "Mese migliore",
+  "recordsNow": "ora {value}",
+  "recordsToBeat": "mancano {value}",
+  "recordsBeaten": "record!",
+  "recordsEmpty": "Gioca un livello e qui compariranno i primi record.",
+  "recordsClimbLevel": "Livello {level} · ×{multiplier}"
 }

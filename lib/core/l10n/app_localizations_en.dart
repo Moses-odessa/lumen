@@ -507,4 +507,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String voiceReady(String language) {
     return 'Speaking with the $language system voice';
   }
+
+  @override
+  String get recordsTitle => 'Your records';
+
+  @override
+  String get recordsClimb => 'Best run';
+
+  @override
+  String get recordsHour => 'Best hour';
+
+  @override
+  String get recordsDay => 'Best day';
+
+  @override
+  String get recordsWeek => 'Best week';
+
+  @override
+  String get recordsMonth => 'Best month';
+
+  @override
+  String recordsNow(String value) {
+    return 'now $value';
+  }
+
+  @override
+  String recordsToBeat(String value) {
+    return '$value to go';
+  }
+
+  @override
+  String get recordsBeaten => 'record!';
+
+  @override
+  String get recordsEmpty => 'Play a level and the first records appear here.';
+
+  @override
+  String recordsClimbLevel(int level, String multiplier) {
+    return 'Level $level · ×$multiplier';
+  }
 }

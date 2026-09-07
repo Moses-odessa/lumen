@@ -6,6 +6,7 @@ library;
 
 import '../entities/game_mode.dart';
 import 'balance.dart';
+import 'climb.dart';
 
 /// Состояние комбо. Неизменяемое: каждая связь порождает новое.
 class ComboState {
@@ -45,6 +46,7 @@ class ConnectionResult {
     required this.speedMultiplier,
     required this.comboMultiplier,
     required this.modeMultiplier,
+    this.climbMultiplier = 1.0,
   });
 
   /// Очки за эту связь. Ошибка не приносит очков, но и не отнимает уже
@@ -56,6 +58,10 @@ class ConnectionResult {
   final double speedMultiplier;
   final double comboMultiplier;
   final double modeMultiplier;
+
+  /// Множитель уровня захода. Показывается игроку: множитель, которого не
+  /// видно, не мотивирует подниматься.
+  final double climbMultiplier;
 }
 
 /// Правила начисления очков.
@@ -65,9 +71,19 @@ abstract final class ScoreRules {
   /// Главное здесь — не сама лестница порогов, а условие входа: на слове
   /// тусклее [ScoreBalance.speedBonusMinLm] множитель всегда 1.0. Скорость
   /// измеряет автоматизм уже выученного, а не мешает учить новое.
-  static double speedMultiplier(Duration latency, {required Lumens lumens}) {
+  /// [fastest] переопределяет порог «автоматизма»: заход сжимает его с
+  /// уровнем, и максимальный множитель становится труднее заработать. Это
+  /// самая болезненная из ручек сложности — она отбирает уже привычную
+  /// награду, а не добавляет новую помеху.
+  static double speedMultiplier(
+    Duration latency, {
+    required Lumens lumens,
+    Duration? fastest,
+  }) {
     if (lumens < ScoreBalance.speedBonusMinLm) return ScoreBalance.kSpeedSlow;
-    if (latency < ScoreBalance.speedFastest) return ScoreBalance.kSpeedFastest;
+    if (latency < (fastest ?? ScoreBalance.speedFastest)) {
+      return ScoreBalance.kSpeedFastest;
+    }
     if (latency < ScoreBalance.speedFast) return ScoreBalance.kSpeedFast;
     if (latency < ScoreBalance.speedMedium) return ScoreBalance.kSpeedMedium;
     // Штрафа за медленность нет: думать не запрещено.
@@ -91,6 +107,8 @@ abstract final class ScoreRules {
     required GameMode mode,
     required Lumens lumens,
     required ComboState combo,
+    ClimbDifficulty? difficulty,
+    double climbMultiplier = 1.0,
   }) {
     if (!correct) {
       return ConnectionResult(
@@ -103,14 +121,23 @@ abstract final class ScoreRules {
     }
 
     final next = _comboAfterSuccess(combo);
-    final speed = speedMultiplier(latency, lumens: lumens);
+    final speed = speedMultiplier(
+      latency,
+      lumens: lumens,
+      fastest: difficulty?.speedFastest,
+    );
     final mult = ScoreBalance.modeMultiplier(mode);
     // Комбо берётся то, что действует НА этой связи, а не после неё:
     // иначе первая же верная связь получала бы бонус за саму себя.
     final comboMult = combo.multiplier;
 
     final score = scores(mode, lumens)
-        ? (ScoreBalance.baseConnectionScore * speed * comboMult * mult).round()
+        ? (ScoreBalance.baseConnectionScore *
+                speed *
+                comboMult *
+                mult *
+                climbMultiplier)
+            .round()
         : 0;
 
     return ConnectionResult(
@@ -119,6 +146,7 @@ abstract final class ScoreRules {
       speedMultiplier: speed,
       comboMultiplier: comboMult,
       modeMultiplier: mult,
+      climbMultiplier: climbMultiplier,
     );
   }
 
@@ -201,7 +229,14 @@ class RunSummary {
 /// Отдельный класс, а не поле экрана, потому что забег — это доменное
 /// понятие со своими правилами, и его надо уметь тестировать без виджетов.
 class RunScore {
-  RunScore();
+  RunScore({this.difficulty, this.climbMultiplier = 1.0});
+
+  /// Сложность уровня захода: сжатый порог автоматизма. `null` — обычный
+  /// забег вне захода, например Восход.
+  final ClimbDifficulty? difficulty;
+
+  /// Множитель очков уровня захода.
+  final double climbMultiplier;
 
   ComboState _combo = const ComboState();
   int _score = 0;
@@ -228,6 +263,8 @@ class RunScore {
       mode: mode,
       lumens: lumens,
       combo: _combo,
+      difficulty: difficulty,
+      climbMultiplier: climbMultiplier,
     );
 
     _combo = result.combo;

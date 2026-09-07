@@ -147,5 +147,16 @@
   "voiceInstall": "Stimme installieren",
   "voicePlaySilent": "Ohne Ton spielen",
   "voiceManualPath": "Zu finden unter: {path}",
-  "voiceReady": "Spricht mit der Systemstimme: {language}"
+  "voiceReady": "Spricht mit der Systemstimme: {language}",
+  "recordsTitle": "Deine Rekorde",
+  "recordsClimb": "Beste Serie",
+  "recordsHour": "Beste Stunde",
+  "recordsDay": "Bester Tag",
+  "recordsWeek": "Beste Woche",
+  "recordsMonth": "Bester Monat",
+  "recordsNow": "jetzt {value}",
+  "recordsToBeat": "noch {value}",
+  "recordsBeaten": "Rekord!",
+  "recordsEmpty": "Spiel eine Ebene, dann stehen hier die ersten Rekorde.",
+  "recordsClimbLevel": "Ebene {level} · ×{multiplier}"
 }

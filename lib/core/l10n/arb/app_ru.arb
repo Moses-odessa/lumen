@@ -147,5 +147,16 @@
   "voiceInstall": "Установить голос",
   "voicePlaySilent": "Играть без звука",
   "voiceManualPath": "Где искать: {path}",
-  "voiceReady": "Говорит системным голосом: {language}"
+  "voiceReady": "Говорит системным голосом: {language}",
+  "recordsTitle": "Твои рекорды",
+  "recordsClimb": "Лучший заход",
+  "recordsHour": "Лучший час",
+  "recordsDay": "Лучший день",
+  "recordsWeek": "Лучшая неделя",
+  "recordsMonth": "Лучший месяц",
+  "recordsNow": "сейчас {value}",
+  "recordsToBeat": "до рекорда {value}",
+  "recordsBeaten": "рекорд!",
+  "recordsEmpty": "Сыграй уровень — здесь появятся первые рекорды.",
+  "recordsClimbLevel": "Уровень {level} · ×{multiplier}"
 }

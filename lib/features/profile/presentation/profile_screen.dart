@@ -7,7 +7,9 @@ import '../../../core/router/app_router.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/retention/orbit.dart';
 import '../../../domain/scoring/balance.dart';
+import '../application/records_controller.dart';
 import '../application/stats_controller.dart';
+import 'records_wall.dart';
 
 /// Профиль: орбита, искры, статистика.
 ///
@@ -34,13 +36,18 @@ class ProfileScreen extends ConsumerWidget {
       ),
       body: switch (stats) {
         AsyncData(:final value) => RefreshIndicator(
-            onRefresh: () async => ref.invalidate(playerStatsProvider),
+            onRefresh: () async {
+              ref.invalidate(playerStatsProvider);
+              ref.invalidate(recordWallProvider);
+            },
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
                 _OrbitCard(l10n: l10n, stats: value),
                 const SizedBox(height: 12),
                 _KeyNumbers(l10n: l10n, stats: value),
+                const SizedBox(height: 12),
+                const RecordsWall(),
                 const SizedBox(height: 20),
                 Text(
                   l10n.profileBrightness,

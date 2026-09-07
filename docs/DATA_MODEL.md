@@ -165,6 +165,8 @@ class Sessions extends Table {
   IntColumn      get lmGained  => integer()();        // прирост яркости — основа рейтинга лиг
   IntColumn      get score     => integer()();
   IntColumn      get newWords  => integer()();
+  TextColumn     get climbId   => text().nullable()();     // аркадный заход
+  IntColumn      get climbLevel=> integer().nullable()();  // его уровень
 }
 
 /// Свои слова: личное созвездие произвольного размера.

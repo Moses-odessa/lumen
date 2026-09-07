@@ -18,6 +18,7 @@ class QuestionBuilder {
     required this.content,
     required this.targetLang,
     required this.nativeLang,
+    this.extraOptions = 0,
     Random? random,
   }) : _random = random ?? Random();
 
@@ -28,6 +29,10 @@ class QuestionBuilder {
 
   /// Язык подсказок — на нём центр круга.
   final String nativeLang;
+
+  /// Сколько лишних вариантов добавляет уровень захода: чем выше, тем меньше
+  /// шанс угадать.
+  final int extraOptions;
 
   final Random _random;
 
@@ -99,7 +104,8 @@ class QuestionBuilder {
     final options = _assembleOptions(
       answer: phrase.answer,
       distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.phrase),
+      count: ScoreBalance.optionsFor(GameMode.phrase,
+          extra: extraOptions),
     );
     if (options == null) return null;
 
@@ -135,7 +141,8 @@ class QuestionBuilder {
     final options = _assembleOptions(
       answer: native.form,
       distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.recognition),
+      count: ScoreBalance.optionsFor(GameMode.recognition,
+          extra: extraOptions),
     );
     if (options == null) return null;
 
@@ -173,7 +180,8 @@ class QuestionBuilder {
     final options = _assembleOptions(
       answer: target.form,
       distractors: distractors,
-      count: ScoreBalance.optionsFor(circle.mode),
+      count: ScoreBalance.optionsFor(circle.mode,
+          extra: extraOptions),
     );
     if (options == null) return null;
 
@@ -208,7 +216,8 @@ class QuestionBuilder {
     final options = _assembleOptions(
       answer: target.form,
       distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.audio),
+      count: ScoreBalance.optionsFor(GameMode.audio,
+          extra: extraOptions),
     );
     if (options == null) return null;
 

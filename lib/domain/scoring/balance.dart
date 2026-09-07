@@ -122,15 +122,20 @@ abstract final class ScoreBalance {
   /// языке читаются дольше, чем сам ответ. В остальных режимах шесть — это
   /// 17 % случайного попадания, что и заложено в защиту от угадывания.
   /// TODO(balance)
-  static int optionsFor(GameMode mode) => switch (mode) {
-        GameMode.recognition => 4,
-        GameMode.circle ||
-        GameMode.tight ||
-        GameMode.audio ||
-        GameMode.phrase =>
-          6,
-        GameMode.typing => 0,
-      };
+  /// [extra] добавляет заход: чем выше уровень, тем меньше шанс угадать.
+  /// «Набор» остаётся без вариантов при любом уровне — там поле ввода.
+  static int optionsFor(GameMode mode, {int extra = 0}) {
+    final base = switch (mode) {
+      GameMode.recognition => 4,
+      GameMode.circle ||
+      GameMode.tight ||
+      GameMode.audio ||
+      GameMode.phrase =>
+        6,
+      GameMode.typing => 0,
+    };
+    return base == 0 ? 0 : base + extra;
+  }
 }
 
 /// Память: как время отклика превращается в оценку и какую вероятность
@@ -160,6 +165,63 @@ abstract final class SrsBalance {
   /// Повторы внутри одного дня считаются «коротким» интервалом: слово ещё в
   /// рабочей памяти, и обычная формула стабильности к нему неприменима.
   static const Duration sameDayWindow = Duration(hours: 12);
+}
+
+/// Заход: цепочка уровней подряд, где каждый следующий чуть сложнее и
+/// заметно дороже.
+///
+/// Почему заход, а не «уровень игрока». Аркадная петля — это не «через месяц
+/// всё стало тяжелее», а «сколько выдержу за один присест». Бесконечно
+/// растущая сложность через месяц сделала бы игру неиграбельной, а рекорд
+/// часа — недостижимым. Заход обнуляется, когда игрок перестал играть, и
+/// поэтому побить его можно всегда.
+///
+/// Провала в аркадном смысле здесь нет: в `score.dart` записано, что ошибка
+/// стоит очков, но никогда не блокирует, и это правило сильнее жанра.
+/// Аркадную форму даёт другое — слабый уровень сбрасывает множитель захода,
+/// то есть игрок перестаёт зарабатывать эскалацию, но ничего не теряет.
+abstract final class ClimbBalance {
+  /// Прирост множителя очков за уровень: `k = 1 + step × (уровень − 1)`.
+  ///
+  /// Награда обгоняет сложность нарочно. На пятом уровне угадывание падает с
+  /// 1/6 до 1/7, скоростное окно сжимается на пятую часть — а очки
+  /// удваиваются. Если сделать наоборот, оптимальной игрой станет топтание
+  /// на первом уровне, и вся аркадность умрёт. TODO(balance)
+  static const double levelStep = 0.25;
+
+  /// Потолок множителя: дальше сложность растёт, а награда нет.
+  /// Достигается на девятом уровне. TODO(balance)
+  static const double levelMultiplierMax = 3.0;
+
+  /// Точность уровня, ниже которой множитель захода сбрасывается на первый.
+  /// TODO(balance)
+  static const double resetBelowAccuracy = 0.7;
+
+  /// Перерыв, после которого заход считается закрытым. TODO(balance)
+  static const Duration idleClosesClimb = Duration(minutes: 30);
+
+  /// Сколько уровней добавляют один лишний вариант в круг. TODO(balance)
+  static const int levelsPerExtraOption = 3;
+
+  /// Потолок добавленных вариантов: восемь в круге — предел читаемости
+  /// экрана, а не баланса. TODO(balance)
+  static const int extraOptionsMax = 2;
+
+  /// На сколько сжимается порог «автоматизма» за уровень и где он
+  /// останавливается. Ниже 800 мс порог перестаёт мерить автоматизм и
+  /// начинает мерить скорость пальца. TODO(balance)
+  static const Duration speedTighteningPerLevel = Duration(milliseconds: 60);
+  static const Duration speedFastestFloor = Duration(milliseconds: 800);
+
+  /// Смещение к продуктивным режимам: из подходящих берётся лучший из N
+  /// случайных, и N растёт с уровнем. TODO(balance)
+  static const int modeDrawsBase = 2;
+  static const int levelsPerExtraDraw = 2;
+  static const int modeDrawsMax = 5;
+
+  /// Насколько удлиняется забег и где останавливается. TODO(balance)
+  static const int circlesPerRunGrowthEvery = 1;
+  static const int circlesPerRunCap = 16;
 }
 
 /// Размеры сессий: круг → забег → уровень → ритуал.

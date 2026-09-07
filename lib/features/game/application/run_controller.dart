@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/audio/speech_service.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/scoring/climb.dart';
 import '../../../domain/scoring/score.dart';
 import '../../../data/repositories/word_state_repository.dart';
 
@@ -129,7 +130,13 @@ class RunController extends Notifier<RunState> {
   /// так устроен Восход: две минуты повторений, сколько успеется. Круг,
   /// начатый до истечения времени, всегда доигрывается: обрывать человека
   /// на середине ответа — это способ научить его не начинать.
-  void start(List<CircleQuestion> questions, {Duration? maxDuration}) {
+  /// [climb] — уровень захода, на котором идёт забег. `null` для Восхода:
+  /// он не про очки, а про то, что часть неба снова горит.
+  void start(
+    List<CircleQuestion> questions, {
+    Duration? maxDuration,
+    ClimbState? climb,
+  }) {
     _advanceTimer?.cancel();
     _lmGained = 0;
     _deadline = maxDuration == null ? null : DateTime.now().add(maxDuration);
@@ -140,7 +147,10 @@ class RunController extends Notifier<RunState> {
       return;
     }
 
-    _run = RunScore();
+    _run = RunScore(
+      difficulty: climb?.difficulty,
+      climbMultiplier: climb?.multiplier ?? 1.0,
+    );
     state = RunState(
       queue: List.of(questions),
       index: 0,
@@ -154,6 +164,7 @@ class RunController extends Notifier<RunState> {
 
     ref.read(analyticsProvider).log(AnalyticsEvents.runStarted, {
       'circles': questions.length,
+      'climb_level': climb?.level ?? 0,
     });
     _preloadNext();
   }

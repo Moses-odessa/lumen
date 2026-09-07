@@ -147,5 +147,16 @@
   "voiceInstall": "Встановити голос",
   "voicePlaySilent": "Грати без звуку",
   "voiceManualPath": "Де шукати: {path}",
-  "voiceReady": "Говорить системним голосом: {language}"
+  "voiceReady": "Говорить системним голосом: {language}",
+  "recordsTitle": "Твої рекорди",
+  "recordsClimb": "Найкращий захід",
+  "recordsHour": "Найкраща година",
+  "recordsDay": "Найкращий день",
+  "recordsWeek": "Найкращий тиждень",
+  "recordsMonth": "Найкращий місяць",
+  "recordsNow": "зараз {value}",
+  "recordsToBeat": "до рекорду {value}",
+  "recordsBeaten": "рекорд!",
+  "recordsEmpty": "Зіграй рівень — тут з’являться перші рекорди.",
+  "recordsClimbLevel": "Рівень {level} · ×{multiplier}"
 }
