@@ -90,7 +90,7 @@ lexemes:
   temperature_noun: { form: temperature }
 
   # ── A2 ────────────────────────────────────────────────────────────────
-  sick_note: { form: sick note }
+  sick_note: { form: sick report }
   dosage_noun: { form: dose, plural: doses }
   side_effect: { form: side effect, plural: side effects }
   allergy_noun: { form: allergy, plural: allergies }
@@ -897,7 +897,7 @@ lexemes:
   airport_place: { form: airport, plural: airports }
   takeoff_noun: { form: take-off, plural: take-offs }
   landing_noun: { form: landing, plural: landings }
-  carpool_noun: { form: car sharing }
+  carpool_noun: { form: ridesharing }
   landlord_person: { form: landlord, plural: landlords }
   lease_noun: { form: lease, plural: leases }
   deposit_noun: { form: deposit, plural: deposits }
@@ -932,7 +932,7 @@ lexemes:
   warehouse_place: { form: warehouse, plural: warehouses }
   assortment_noun: { form: range, plural: ranges }
   warranty_noun: { form: warranty, plural: warranties }
-  complaint_noun: { form: complaint, plural: complaints }
+  complaint_noun: { form: product complaint, plural: complaints }
   return_noun: { form: return, plural: returns }
   shipping_noun: { form: shipping }
   packaging_noun: { form: packaging }
@@ -992,7 +992,7 @@ lexemes:
   present_noun: { form: present }
   moment_noun: { form: moment, plural: moments }
   century_noun: { form: century, plural: centuries }
-  clocktime_noun: { form: time of day }
+  clocktime_noun: { form: clock time }
   alarm_object: { form: alarm clock, plural: alarm clocks }
   suburb_place: { form: suburb, plural: suburbs }
   settlement_place: { form: housing estate, plural: housing estates }

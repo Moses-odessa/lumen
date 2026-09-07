@@ -493,8 +493,27 @@ class ContentSources {
     throw ContentSourceException('${file.path}: нет обязательного поля "$key"');
   }
 
+  /// Список строк. Пустой элемент — ошибка, а не пустая строка.
+  ///
+  /// Ловушка YAML, на которую уже наступили: `Null`, `No`, `On`, `~` он
+  /// разбирает не как слова, а как значения. Дистрактор `Null` — настоящее
+  /// немецкое существительное (die Null, ноль) — превращался в null, а
+  /// интерполяция `'$e'` делала из него строку «null». В круге у слова Müll
+  /// стоял вариант, написанный словом «null». Такие слова нужно брать в
+  /// кавычки, и проверка об этом прямо говорит.
   static List<String> _stringList(Object? node) {
-    if (node is YamlList) return node.map((e) => '$e').toList();
+    if (node is YamlList) {
+      return [
+        for (final e in node)
+          if (e == null)
+            throw ContentSourceException(
+              'в списке пустое значение — YAML разобрал слово как null. '
+              'Слова Null, No, On, Off, Yes и ~ надо брать в кавычки: "Null"',
+            )
+          else
+            '$e',
+      ];
+    }
     return const [];
   }
 }

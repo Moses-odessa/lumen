@@ -144,11 +144,13 @@ tiers:
       - id: city_a2_emergency
         template: "Die {emergency} ist die 112."
         answer: Notrufnummer
+        ambiguity: reviewed
         register: casual
         concepts: [emergency_call]
       - id: city_a2_school
         template: "Meine Kinder gehen in diese {school}."
         answer: Schule
+        ambiguity: reviewed
         register: casual
         concepts: [school_place]
       - id: city_a2_cinema

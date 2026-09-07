@@ -137,8 +137,9 @@ tiers:
         register: casual
         concepts: [siblings_noun]
       - id: family_a2_surname
-        template: "Mein {surname} ist selten."
+        template: "Nach der Hochzeit nahm sie meinen {surname}."
         answer: Nachname
+        ambiguity: reviewed
         register: casual
         concepts: [surname_noun]
       - id: family_a2_marriage

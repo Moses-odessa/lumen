@@ -132,12 +132,13 @@ tiers:
       - { id: alarm_object, pos: noun, freq_rank: 4120 }
     phrases:
       - id: time_a2_monday
-        template: "Am {monday} habe ich frei."
+        template: "Der {monday} ist der erste Tag der Woche."
         answer: Montag
+        ambiguity: reviewed
         register: casual
         concepts: [monday_time]
       - id: time_a2_summer
-        template: "Im {summer} fahren wir weg."
+        template: "Im {summer} sind die Tage am längsten."
         answer: Sommer
         register: casual
         concepts: [summer_time]
@@ -169,6 +170,7 @@ tiers:
       - id: time_a2_clocktime
         template: "Wie ist die {clocktime}?"
         answer: Uhrzeit
+        ambiguity: reviewed
         register: casual
         concepts: [clocktime_noun]
       - id: time_a2_alarm

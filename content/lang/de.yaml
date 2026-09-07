@@ -202,7 +202,7 @@ lexemes:
     plural: Krankmeldungen
     distractors:
       far: [Attest, Nachweis]
-      near: [Anmeldung, Meldung, Krankmeldungspflicht]
+      near: [Anmeldung, Meldung, Abmeldung]
   dosage_noun:
     form: Dosis
     article: die
@@ -210,7 +210,7 @@ lexemes:
     plural: Dosen
     distractors:
       far: [Menge, Packung]
-      near: [Dose, Basis, Dosierung]
+      near: [Dose, Basis, Dossier]
   side_effect:
     form: Nebenwirkung
     article: die
@@ -247,7 +247,7 @@ lexemes:
     gender: f
     plural: Salben
     distractors:
-      far: [Creme, Tropfen]
+      far: [Kompresse, Tropfen]
       near: [Farbe, Halbe, Schwalbe]
   tablet_noun:
     form: Tablette
@@ -271,7 +271,7 @@ lexemes:
     gender: f
     plural: Impfungen
     distractors:
-      far: [Auffrischung, Titer]
+      far: [Auffrischung, Vorsorge]
       near: [Impfstoff, Umformung, Prüfung]
   emergency_noun:
     form: Notfall
@@ -295,7 +295,7 @@ lexemes:
     plural: Praxen
     distractors:
       far: [Klinik, Ambulanz]
-      near: [Praktikum, Taxis, Achse]
+      near: [Praktikum, Prothese, Achse]
   dentist_person:
     form: Zahnarzt
     article: der
@@ -355,7 +355,7 @@ lexemes:
     gender: m
     distractors:
       far: [Puls, Herzschlag]
-      near: [Atemnot, Atmung, Ampel]
+      near: [Atemnot, Atom, Ampel]
   heart_body:
     form: Herz
     article: das
@@ -2287,7 +2287,7 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Beeren, Nüsse], near: [Ost, Obhut, Obstler] }
+    distractors: { far: [Konfitüre, Nuss], near: [Ost, Obhut, Obstler] }
   potato_food:
     form: Kartoffel
     article: die
@@ -2311,7 +2311,7 @@ lexemes:
     article: das
     gender: n
     plural: Hähnchen
-    distractors: { far: [Pute, Ente], near: [Händchen, Kännchen, Ähnchen] }
+    distractors: { far: [Pute, Ente], near: [Händchen, Kännchen, Fähnchen] }
   beef_food:
     form: Rindfleisch
     article: das
@@ -2323,7 +2323,7 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinheiliger] }
+    distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinwerfer] }
   sausage_food:
     form: Wurst
     article: die
@@ -2353,13 +2353,13 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Stärke, Backpulver], near: [Mahl, Kehle, Fehl] }
+    distractors: { far: [Stärke, Backpulver], near: [Mahl, Kehle, Fell] }
   cake_food:
     form: Kuchen
     article: der
     gender: m
     plural: Kuchen
-    distractors: { far: [Torte, Keks], near: [Buchen, Rauchen, Kuchenblech] }
+    distractors: { far: [Brötchen, Keks], near: [Buchen, Rauchen, Kuchenblech] }
   chocolate_food:
     form: Schokolade
     article: die
@@ -2395,19 +2395,19 @@ lexemes:
     article: der
     gender: m
     plural: Weine
-    distractors: { far: [Sekt, Likör], near: [Bein, Stein, Wien] }
+    distractors: { far: [Wodka, Likör], near: [Bein, Stein, Wien] }
   menu_object:
     form: Speisekarte
     article: die
     gender: f
     plural: Speisekarten
-    distractors: { far: [Tagesangebot, Aushang], near: [Landkarte, Speiseplan, Spielkarte] }
+    distractors: { far: [Tagesangebot, Aushang], near: [Landkarte, Speiseröhre, Spielkarte] }
   waiter_person:
     form: Kellner
     article: der
     gender: m
     plural: Kellner
-    distractors: { far: [Koch, Wirt], near: [Kelle, Kellerei, Kessler] }
+    distractors: { far: [Koch, Wirt], near: [Kelle, Kellerei, Keller] }
   bill_noun:
     form: Rechnung
     article: die
@@ -2419,7 +2419,7 @@ lexemes:
     article: die
     gender: f
     plural: Bestellungen
-    distractors: { far: [Auftrag, Anfrage], near: [Besetzung, Bestätigung, Vorstellung] }
+    distractors: { far: [Reservierung, Anfrage], near: [Besetzung, Bestätigung, Vorstellung] }
   tip_noun:
     form: Trinkgeld
     article: das
@@ -2463,13 +2463,13 @@ lexemes:
     article: der
     gender: m
     plural: Staus
-    distractors: { far: [Sperrung, Rückstau], near: [Staub, Stauung, Sau] }
+    distractors: { far: [Sperrung, Ausfahrt], near: [Staub, Stab, Sau] }
   diversion_noun:
     form: Umleitung
     article: die
     gender: f
     plural: Umleitungen
-    distractors: { far: [Sperrung, Ausweichstrecke], near: [Umkleidung, Ummeldung, Umstellung] }
+    distractors: { far: [Sperrung, Beschilderung], near: [Umkleidung, Ummeldung, Umstellung] }
   roadworks_noun:
     form: Baustelle
     article: die
@@ -2499,7 +2499,7 @@ lexemes:
     article: die
     gender: f
     plural: Geschwindigkeiten
-    distractors: { far: [Tempo, Beschleunigung], near: [Geschicklichkeit, Beschwerlichkeit, Gewissheit] }
+    distractors: { far: [Entfernung, Beschleunigung], near: [Geschicklichkeit, Beschwerlichkeit, Gewissheit] }
   tyre_object:
     form: Reifen
     article: der
@@ -2553,13 +2553,13 @@ lexemes:
     article: der
     gender: m
     plural: Flughäfen
-    distractors: { far: [Terminal, Rollfeld], near: [Flugsteig, Flughalle, Fluchtweg] }
+    distractors: { far: [Terminal, Rollfeld], near: [Flugsteig, Flugbahn, Fluchtweg] }
   takeoff_noun:
     form: Abflug
     article: der
     gender: m
     plural: Abflüge
-    distractors: { far: [Start, Gate], near: [Anflug, Abfluss, Abzug] }
+    distractors: { far: [Landung, Gate], near: [Anflug, Abfluss, Abzug] }
   landing_noun:
     form: Landung
     article: die
@@ -2627,7 +2627,7 @@ lexemes:
     article: die
     plural: Möbel
     note: только множественное
-    distractors: { far: [Einrichtung, Hausrat], near: [Nebel, Möwe, Mörtel] }
+    distractors: { far: [Tapete, Hausrat], near: [Nebel, Möwe, Mörtel] }
   sofa_object:
     form: Sofa
     article: das
@@ -2639,7 +2639,7 @@ lexemes:
     article: der
     gender: m
     plural: Teppiche
-    distractors: { far: [Läufer, Matte], near: [Teppichboden, Tempel, Teich] }
+    distractors: { far: [Fliese, Matte], near: [Teppichboden, Tempel, Teich] }
   curtain_object:
     form: Vorhang
     article: der
@@ -2657,7 +2657,7 @@ lexemes:
     article: das
     gender: n
     plural: Regale
-    distractors: { far: [Kommode, Truhe], near: [Regel, Riegel, Regatta] }
+    distractors: { far: [Vitrine, Truhe], near: [Regel, Riegel, Regatta] }
   washing_machine:
     form: Waschmaschine
     article: die
@@ -2705,19 +2705,19 @@ lexemes:
     article: der
     gender: m
     note: неисчисляемое
-    distractors: { far: [Abfall, Schrott], near: [Mühle, Null, Müsli] }
+    distractors: { far: [Kompost, Schrott], near: [Mühle, "Null", Müsli] }
   bin_object:
     form: Mülltonne
     article: die
     gender: f
     plural: Mülltonnen
-    distractors: { far: [Container, Eimer], near: [Mülleimer, Regentonne, Mülltüte] }
+    distractors: { far: [Container, Eimer], near: [Mülltrennung, Regentonne, Mülltüte] }
   move_noun:
     form: Umzug
     article: der
     gender: m
     plural: Umzüge
-    distractors: { far: [Einzug, Wohnungswechsel], near: [Anzug, Auszug, Bezug] }
+    distractors: { far: [Renovierung, Besichtigung], near: [Anzug, Auszug, Bezug] }
 
   # ── «Магазин», A2 ─────────────────────────────────────────────────────
   seller_person:
@@ -2731,7 +2731,7 @@ lexemes:
     article: der
     gender: m
     plural: Kassenbons
-    distractors: { far: [Rechnung, Beleg], near: [Kassensturz, Bonbon, Kassenbuch] }
+    distractors: { far: [Rechnung, Garantieschein], near: [Kassensturz, Bonbon, Kassenbuch] }
   creditcard_object:
     form: Kreditkarte
     article: die
@@ -2761,19 +2761,19 @@ lexemes:
     article: der
     gender: m
     plural: Ausverkäufe
-    distractors: { far: [Räumung, Schlussverkauf], near: [Vorverkauf, Auslauf, Ausverkaufspreis] }
+    distractors: { far: [Räumung, Neueröffnung], near: [Vorverkauf, Auslauf, Ausverkaufspreis] }
   warehouse_place:
     form: Lager
     article: das
     gender: n
-    plural: Läger
+    plural: Lager
     distractors: { far: [Filiale, Depot], near: [Bagger, Laster, Lagune] }
   assortment_noun:
     form: Sortiment
     article: das
     gender: n
     plural: Sortimente
-    distractors: { far: [Auswahl, Warenangebot], near: [Sortierung, Instrument, Sediment] }
+    distractors: { far: [Lieferschein, Preisliste], near: [Sortierung, Instrument, Sediment] }
   warranty_noun:
     form: Garantie
     article: die
@@ -2809,7 +2809,7 @@ lexemes:
     article: das
     gender: n
     plural: Etiketten
-    distractors: { far: [Aufkleber, Anhänger], near: [Etikette, Skelett, Etage] }
+    distractors: { far: [Aufkleber, Anhänger], near: [Etappe, Skelett, Etage] }
   pricetag_object:
     form: Preisschild
     article: das
@@ -2821,13 +2821,13 @@ lexemes:
     article: die
     gender: f
     plural: Mehrwertsteuern
-    distractors: { far: [Umsatzsteuer, Zoll], near: [Mehrwert, Grundsteuer, Mehrkosten] }
+    distractors: { far: [Einkommensteuer, Zoll], near: [Mehrwert, Grundsteuer, Mehrkosten] }
   instalment_noun:
     form: Ratenzahlung
     article: die
     gender: f
     plural: Ratenzahlungen
-    distractors: { far: [Sofortzahlung, Kredit], near: [Barzahlung, Ratenkauf, Ratlosigkeit] }
+    distractors: { far: [Sofortzahlung, Kredit], near: [Barzahlung, Rationierung, Ratlosigkeit] }
   downpayment_noun:
     form: Anzahlung
     article: die
@@ -2926,7 +2926,7 @@ lexemes:
     article: die
     plural: Geschwister
     note: только множественное
-    distractors: { far: [Cousins, Halbgeschwister], near: [Gespenster, Geschworene, Geschwader] }
+    distractors: { far: [Cousin, Schwiegereltern], near: [Gespenster, Geschworene, Geschwader] }
   engagement_noun:
     form: Verlobung
     article: die
@@ -2968,19 +2968,19 @@ lexemes:
     article: die
     gender: f
     plural: Renten
-    distractors: { far: [Pension, Ruhestand], near: [Ernte, Rinde, Rampe] }
+    distractors: { far: [Sozialhilfe, Ruhestand], near: [Ernte, Rinde, Rampe] }
   surname_noun:
     form: Nachname
     article: der
     gender: m
     plural: Nachnamen
-    distractors: { far: [Künstlername, Geburtsname], near: [Nachnahme, Nachricht, Nachlass] }
+    distractors: { far: [Künstlername, Anrede], near: [Nachnahme, Nachricht, Nachlass] }
   firstname_noun:
     form: Vorname
     article: der
     gender: m
     plural: Vornamen
-    distractors: { far: [Spitzname, Rufname], near: [Vorgang, Vornahme, Vorrat] }
+    distractors: { far: [Spitzname, Titel], near: [Vorgang, Vornahme, Vorrat] }
   birthplace_noun:
     form: Geburtsort
     article: der
@@ -2998,7 +2998,7 @@ lexemes:
     article: der
     gender: m
     plural: Familienstände
-    distractors: { far: [Wohnsitz, Personenstand], near: [Familienname, Ruhestand, Familienrat] }
+    distractors: { far: [Wohnsitz, Steuerklasse], near: [Familienname, Ruhestand, Familienrat] }
   household_noun:
     form: Haushalt
     article: der
@@ -3042,7 +3042,7 @@ lexemes:
     article: der
     gender: m
     plural: Freitage
-    distractors: { far: [Wochenausklang, Zahltag], near: [Freizeit, Freitod, Freitreppe] }
+    distractors: { far: [Wochenausklang, Zahltag], near: [Freizeit, Freibad, Freitreppe] }
   saturday_time:
     form: Samstag
     article: der
@@ -3101,38 +3101,34 @@ lexemes:
     form: Dauer
     article: die
     gender: f
-    plural: Dauern
     distractors: { far: [Zeitraum, Spanne], near: [Bauer, Mauer, Trauer] }
   beginning_noun:
     form: Anfang
     article: der
     gender: m
     plural: Anfänge
-    distractors: { far: [Start, Auftakt], near: [Empfang, Umfang, Anhang] }
+    distractors: { far: [Ablauf, Vorbereitung], near: [Empfang, Umfang, Anhang] }
   ending_noun:
     form: Ende
     article: das
     gender: n
     plural: Enden
-    distractors: { far: [Schluss, Abschluss], near: [Wende, Bande, Ente] }
+    distractors: { far: [Verlauf, Fortsetzung], near: [Wende, Bande, Ente] }
   future_noun:
     form: Zukunft
     article: die
     gender: f
-    plural: Zukünfte
     distractors: { far: [Aussicht, Perspektive], near: [Auskunft, Unterkunft, Zunft] }
   past_noun:
     form: Vergangenheit
     article: die
     gender: f
-    plural: Vergangenheiten
     distractors: { far: [Geschichte, Rückblick], near: [Vergänglichkeit, Verlegenheit, Gefangenschaft] }
   present_noun:
     form: Gegenwart
     article: die
     gender: f
-    plural: Gegenwarten
-    distractors: { far: [Jetztzeit, Aktualität], near: [Gegenwind, Gegenwehr, Warteschlange] }
+    distractors: { far: [Ewigkeit, Aktualität], near: [Gegenwind, Gegenwehr, Warteschlange] }
   moment_noun:
     form: Augenblick
     article: der
@@ -3188,25 +3184,25 @@ lexemes:
     article: der
     gender: m
     plural: Zebrastreifen
-    distractors: { far: [Unterführung, Überweg], near: [Randstreifen, Mittelstreifen, Lichtstreifen] }
+    distractors: { far: [Unterführung, Haltelinie], near: [Randstreifen, Mittelstreifen, Lichtstreifen] }
   streetlamp_object:
     form: Laterne
     article: die
     gender: f
     plural: Laternen
-    distractors: { far: [Scheinwerfer, Leuchte], near: [Kaserne, Zisterne, Taverne] }
+    distractors: { far: [Scheinwerfer, Ampel], near: [Kaserne, Zisterne, Taverne] }
   monument_place:
     form: Denkmal
     article: das
     gender: n
     plural: Denkmäler
-    distractors: { far: [Statue, Gedenkstein], near: [Denkzettel, Merkmal, Muttermal] }
+    distractors: { far: [Fassade, Turm], near: [Denkzettel, Merkmal, Muttermal] }
   fountain_place:
-    form: Brunnen
+    form: Springbrunnen
     article: der
     gender: m
-    plural: Brunnen
-    distractors: { far: [Teich, Wasserspiel], near: [Brummen, Brennen, Bronze] }
+    plural: Springbrunnen
+    distractors: { far: [Teich, Statue], near: [Brummen, Brennen, Bronze] }
   cemetery_place:
     form: Friedhof
     article: der
@@ -3218,7 +3214,7 @@ lexemes:
     article: die
     gender: f
     plural: Bibliotheken
-    distractors: { far: [Archiv, Lesesaal], near: [Diskothek, Kartothek, Bibliografie] }
+    distractors: { far: [Archiv, Lesesaal], near: [Diskothek, Apotheke, Bibliografie] }
   school_place:
     form: Schule
     article: die
@@ -3266,7 +3262,7 @@ lexemes:
     article: der
     gender: m
     plural: Einwohner
-    distractors: { far: [Besucher, Gast], near: [Bewohner, Einwohnerzahl, Anwohner] }
+    distractors: { far: [Besucher, Gast], near: [Einwohnerzahl, Einwanderer, Einweihung] }
   administration_noun:
     form: Verwaltung
     article: die
@@ -3283,7 +3279,6 @@ lexemes:
     form: Polizei
     article: die
     gender: f
-    plural: Polizeien
     distractors: { far: [Ordnungsdienst, Wachdienst], near: [Politik, Poliklinik, Politesse] }
   firebrigade_noun:
     form: Feuerwehr
@@ -3302,7 +3297,7 @@ lexemes:
     article: die
     gender: f
     plural: Sehenswürdigkeiten
-    distractors: { far: [Wahrzeichen, Attraktion], near: [Sehenswertes, Merkwürdigkeit, Sehschwäche] }
+    distractors: { far: [Stadtführung, Eintrittskarte], near: [Sehenswertes, Merkwürdigkeit, Sehschwäche] }
 
   # ── «Работа», A2 ──────────────────────────────────────────────────────
   employment_contract:
@@ -3364,7 +3359,7 @@ lexemes:
     article: die
     gender: f
     plural: Konferenzen
-    distractors: { far: [Tagung, Seminar], near: [Konkurrenz, Referenz, Konsequenz] }
+    distractors: { far: [Betriebsversammlung, Seminar], near: [Konkurrenz, Referenz, Konsequenz] }
   colleague_female:
     form: Kollegin
     article: die
@@ -3389,7 +3384,7 @@ lexemes:
     article: die
     gender: f
     plural: Ausbildungen
-    distractors: { far: [Lehre, Umschulung], near: [Ausbeutung, Einbildung, Ausbildungsplatz] }
+    distractors: { far: [Nachhilfe, Umschulung], near: [Ausbeutung, Einbildung, Ausbildungsplatz] }
   furthertraining_noun:
     form: Weiterbildung
     article: die
@@ -3419,7 +3414,7 @@ lexemes:
     article: die
     gender: f
     plural: Krankschreibungen
-    distractors: { far: [Attest, Genesung], near: [Beschreibung, Krankenkasse, Krankmeldung] }
+    distractors: { far: [Lohnfortzahlung, Genesung], near: [Beschreibung, Krankenkasse, Krankmeldung] }
   workinghours_noun:
     form: Arbeitszeit
     article: die
@@ -3431,7 +3426,7 @@ lexemes:
     article: der
     gender: m
     plural: Feierabende
-    distractors: { far: [Dienstschluss, Ruhezeit], near: [Heiligabend, Feierstunde, Federball] }
+    distractors: { far: [Nachtschicht, Mittagspause], near: [Heiligabend, Feierstunde, Federball] }
   tax_noun:
     form: Steuer
     article: die

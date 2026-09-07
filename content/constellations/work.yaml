@@ -131,13 +131,15 @@ tiers:
       - { id: payslip_noun, pos: noun, freq_rank: 5720 }
     phrases:
       - id: work_a2_contract
-        template: "Der {contract} läuft ein Jahr."
+        template: "Ich habe den {contract} mit meinem Arbeitgeber geschlossen."
         answer: Arbeitsvertrag
+        ambiguity: reviewed
         register: casual
         concepts: [employment_contract]
       - id: work_a2_probation
         template: "Die {probation} dauert sechs Monate."
         answer: Probezeit
+        ambiguity: reviewed
         register: casual
         concepts: [probation_noun]
       - id: work_a2_dismissal
@@ -146,9 +148,10 @@ tiers:
         register: casual
         concepts: [dismissal_noun]
       - id: work_a2_parttime
-        template: "Sie arbeitet in {parttime}."
+        template: "In {parttime} arbeite ich nur zwanzig Stunden."
         answer: Teilzeit
-        register: formal
+        ambiguity: reviewed
+        register: casual
         concepts: [parttime_noun]
       - id: work_a2_shift
         template: "Ich habe heute {shift}."
@@ -156,8 +159,9 @@ tiers:
         register: casual
         concepts: [shift_noun]
       - id: work_a2_training
-        template: "Er macht eine {training}."
+        template: "Nach der Schule beginnt er eine {training}."
         answer: Ausbildung
+        ambiguity: reviewed
         register: casual
         concepts: [training_noun]
       - id: work_a2_sicknote
@@ -177,7 +181,7 @@ tiers:
         concepts: [endofday_noun]
       - id: work_a2_supervisor
         template: "Der {supervisor} ist im Urlaub."
-        answer: Vorgesetzter
+        answer: Vorgesetzte
         register: casual
         concepts: [supervisor_person]
       - id: work_a2_homeoffice

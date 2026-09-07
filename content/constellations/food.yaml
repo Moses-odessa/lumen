@@ -165,6 +165,7 @@ tiers:
       - id: food_a2_cake
         template: "Der {cake} ist selbst gebacken."
         answer: Kuchen
+        ambiguity: reviewed
         register: casual
         concepts: [cake_food]
       - id: food_a2_waiter

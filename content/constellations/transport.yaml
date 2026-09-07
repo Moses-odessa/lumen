@@ -137,9 +137,10 @@ tiers:
         register: casual
         concepts: [jam_noun]
       - id: transport_a2_licence
-        template: "Zeigen Sie mir Ihren {licence}."
+        template: "Den {licence} macht man in der Fahrschule."
         answer: Führerschein
-        register: formal
+        ambiguity: reviewed
+        register: casual
         concepts: [licence_noun]
       - id: transport_a2_accident
         template: "Es gab einen {accident}."
@@ -172,8 +173,9 @@ tiers:
         register: casual
         concepts: [workshop_place]
       - id: transport_a2_airport
-        template: "Wir fahren zum {airport}."
+        template: "Vom {airport} fliegen wir nach Rom."
         answer: Flughafen
+        ambiguity: reviewed
         register: casual
         concepts: [airport_place]
       - id: transport_a2_ferry

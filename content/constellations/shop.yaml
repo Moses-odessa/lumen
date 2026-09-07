@@ -133,7 +133,7 @@ tiers:
       - { id: publicholiday_noun, pos: noun, freq_rank: 3670 }
     phrases:
       - id: shop_a2_warranty
-        template: "Die {warranty} gilt zwei Jahre."
+        template: "Die {warranty} gibt der Hersteller freiwillig."
         answer: Garantie
         register: casual
         concepts: [warranty_noun]
@@ -178,8 +178,9 @@ tiers:
         register: casual
         concepts: [special_offer]
       - id: shop_a2_vat
-        template: "Der Preis ist ohne {vat}."
+        template: "Auf jeden Preis kommen 19 Prozent {vat}."
         answer: Mehrwertsteuer
+        ambiguity: reviewed
         register: casual
         concepts: [vat_noun]
       - id: shop_a2_transfer

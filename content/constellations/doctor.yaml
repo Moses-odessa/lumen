@@ -147,8 +147,9 @@ tiers:
         register: casual
         concepts: [dosage_noun]
       - id: doctor_a2_emergency
-        template: "Das ist ein {emergency}."
+        template: "Ein {emergency} ist zum Beispiel ein Herzinfarkt."
         answer: Notfall
+        ambiguity: reviewed
         register: casual
         concepts: [emergency_noun]
       - id: doctor_a2_appointment

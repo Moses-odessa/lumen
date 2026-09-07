@@ -103,7 +103,7 @@ lexemes:
   temperature_noun: { form: температура, gender: f }
 
   # ── A2 ────────────────────────────────────────────────────────────────
-  sick_note: { form: больничный лист, gender: m }
+  sick_note: { form: сообщение о болезни, gender: n }
   dosage_noun: { form: доза, gender: f, plural: дозы }
   side_effect: { form: побочный эффект, gender: m }
   allergy_noun: { form: аллергия, gender: f }
@@ -122,7 +122,7 @@ lexemes:
   painkiller_noun: { form: обезболивающее, gender: n }
   flu_illness: { form: грипп, gender: m }
   wound_noun: { form: рана, gender: f, plural: раны }
-  dizzy_adj: { form: головокружение, note: «мне дурно» }
+  dizzy_adj: { form: голова кружится }
   breath_noun: { form: дыхание, gender: n }
   heart_body: { form: сердце, gender: n, plural: сердца }
   stomach_organ: { form: желудок, gender: m, plural: желудки }
@@ -402,7 +402,7 @@ lexemes:
   sausage_food: { form: колбаса, gender: f, plural: колбасы }
   sauce_food: { form: соус, gender: m, plural: соусы }
   pepper_food: { form: перец, gender: m }
-  oil_food: { form: масло, gender: n }
+  oil_food: { form: масло, gender: n, note: растительное }
   flour_food: { form: мука, gender: f }
   cake_food: { form: пирог, gender: m, plural: пироги }
   chocolate_food: { form: шоколад, gender: m }
@@ -413,7 +413,7 @@ lexemes:
   wine_drink: { form: вино, gender: n, plural: вина }
   menu_object: { form: меню, gender: n }
   waiter_person: { form: официант, gender: m, plural: официанты }
-  bill_noun: { form: счёт, gender: m, plural: счета }
+  bill_noun: { form: счёт, gender: m, plural: счета, note: к оплате }
   order_noun: { form: заказ, gender: m, plural: заказы }
   tip_noun: { form: чаевые, gender: m, plural: чаевые }
   motorway_place: { form: автобан, gender: m, plural: автобаны }
@@ -423,7 +423,7 @@ lexemes:
   accident_noun: { form: авария, gender: f, plural: аварии }
   jam_noun: { form: пробка, gender: f, plural: пробки }
   diversion_noun: { form: объезд, gender: m, plural: объезды }
-  roadworks_noun: { form: дорожные работы, gender: f }
+  roadworks_noun: { form: дорожные работы, gender: f, note: стройплощадка }
   parking_place: { form: парковка, gender: f, plural: парковки }
   garage_place: { form: паркинг, gender: m, plural: паркинги }
   kilometre_noun: { form: километр, gender: m, plural: километры }
@@ -444,7 +444,7 @@ lexemes:
   lease_noun: { form: договор аренды, gender: m }
   deposit_noun: { form: залог, gender: m, plural: залоги }
   utilities_noun: { form: коммунальные расходы, gender: m }
-  caretaker_person: { form: комендант, gender: m, plural: коменданты }
+  caretaker_person: { form: смотритель дома, gender: m, plural: коменданты }
   houserules_noun: { form: правила дома, gender: n }
   balcony_place: { form: балкон, gender: m, plural: балконы }
   terrace_place: { form: терраса, gender: f, plural: террасы }
@@ -467,13 +467,13 @@ lexemes:
   seller_person: { form: продавец, gender: m, plural: продавцы }
   receipt_slip: { form: кассовый чек, gender: m }
   creditcard_object: { form: кредитная карта, gender: f }
-  transfer_noun: { form: перевод, gender: m, plural: переводы }
-  voucher_noun: { form: ваучер, gender: m, plural: ваучеры }
+  transfer_noun: { form: перевод, gender: m, plural: переводы, note: денежный }
+  voucher_noun: { form: купон, gender: m, plural: ваучеры }
   special_offer: { form: спецпредложение, gender: n }
   clearance_noun: { form: распродажа, gender: f, plural: распродажи }
   warehouse_place: { form: склад, gender: m, plural: склады }
   assortment_noun: { form: ассортимент, gender: m }
-  warranty_noun: { form: гарантия, gender: f, plural: гарантии }
+  warranty_noun: { form: гарантия, gender: f, plural: гарантии, note: обещание продавца }
   complaint_noun: { form: рекламация, gender: f, plural: рекламации }
   return_noun: { form: возврат, gender: m, plural: возвраты }
   shipping_noun: { form: пересылка, gender: f }
@@ -484,17 +484,17 @@ lexemes:
   instalment_noun: { form: рассрочка, gender: f }
   downpayment_noun: { form: предоплата, gender: f }
   ordernumber_noun: { form: номер заказа, gender: m }
-  cart_object: { form: корзина покупок, gender: f }
+  cart_object: { form: корзина покупок, gender: f, note: в интернет-магазине }
   support_noun: { form: служба поддержки, gender: f }
   openinghours_noun: { form: часы работы, gender: m }
   publicholiday_noun: { form: праздничный день, gender: m }
   relatives_noun: { form: родственники, gender: m, plural: родственники }
-  brotherinlaw_person: { form: шурин, gender: m, plural: шурины }
-  sisterinlaw_person: { form: невестка, gender: f, plural: невестки }
+  brotherinlaw_person: { form: шурин, gender: m, plural: шурины, note: брат супруга или муж сестры }
+  sisterinlaw_person: { form: невестка, gender: f, plural: невестки, note: сестра супруга или жена брата }
   niece_person: { form: племянница, gender: f, plural: племянницы }
   nephew_person: { form: племянник, gender: m, plural: племянники }
-  motherinlaw_person: { form: свекровь, gender: f }
-  fatherinlaw_person: { form: свёкор, gender: m }
+  motherinlaw_person: { form: свекровь, gender: f, note: мать супруга }
+  fatherinlaw_person: { form: свёкор, gender: m, note: отец супруга }
   stepfather_person: { form: отчим, gender: m, plural: отчимы }
   twin_person: { form: близнец, gender: m, plural: близнецы }
   siblings_noun: { form: братья и сёстры, gender: m }
@@ -506,7 +506,7 @@ lexemes:
   youth_noun: { form: юность, gender: f }
   pension_noun: { form: пенсия, gender: f, plural: пенсии }
   surname_noun: { form: фамилия, gender: f, plural: фамилии }
-  firstname_noun: { form: имя, gender: n, plural: имена }
+  firstname_noun: { form: личное имя, gender: n, plural: имена }
   birthplace_noun: { form: место рождения, gender: n }
   citizenship_noun: { form: гражданство, gender: n }
   maritalstatus_noun: { form: семейное положение, gender: n }
@@ -534,7 +534,7 @@ lexemes:
   present_noun: { form: настоящее, gender: n }
   moment_noun: { form: мгновение, gender: n }
   century_noun: { form: век, gender: m, plural: века }
-  clocktime_noun: { form: время суток, gender: n }
+  clocktime_noun: { form: время на часах, gender: n }
   alarm_object: { form: будильник, gender: m, plural: будильники }
   suburb_place: { form: пригород, gender: m, plural: пригороды }
   settlement_place: { form: посёлок, gender: m, plural: посёлки }
@@ -543,7 +543,7 @@ lexemes:
   crosswalk_place: { form: пешеходный переход, gender: m }
   streetlamp_object: { form: фонарь, gender: m, plural: фонари }
   monument_place: { form: памятник, gender: m, plural: памятники }
-  fountain_place: { form: колодец, gender: m, plural: колодцы }
+  fountain_place: { form: фонтан, gender: m, plural: колодцы }
   cemetery_place: { form: кладбище, gender: n, plural: кладбища }
   library_place: { form: библиотека, gender: f, plural: библиотеки }
   school_place: { form: школа, gender: f, plural: школы }
@@ -570,7 +570,7 @@ lexemes:
   shift_noun: { form: смена, gender: f, plural: смены }
   homeoffice_noun: { form: работа из дома, gender: f }
   conference_noun: { form: конференция, gender: f, plural: конференции }
-  colleague_female: { form: коллега, gender: f, plural: коллеги }
+  colleague_female: { form: коллега-женщина, gender: f, plural: коллеги }
   supervisor_person: { form: руководитель, gender: m, plural: руководители }
   internship_noun: { form: стажировка, gender: f, plural: стажировки }
   training_noun: { form: профобучение, gender: n }

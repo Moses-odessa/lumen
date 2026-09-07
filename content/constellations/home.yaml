@@ -131,7 +131,7 @@ tiers:
       - { id: move_noun, pos: noun, freq_rank: 3990 }
     phrases:
       - id: home_a2_landlord
-        template: "Der {landlord} wohnt nebenan."
+        template: "Ich zahle die Miete an den {landlord}."
         answer: Vermieter
         register: casual
         concepts: [landlord_person]
@@ -141,7 +141,7 @@ tiers:
         register: formal
         concepts: [lease_noun]
       - id: home_a2_deposit
-        template: "Die {deposit} sind drei Kaltmieten."
+        template: "Die {deposit} beträgt drei Kaltmieten."
         answer: Kaution
         register: casual
         concepts: [deposit_noun]
@@ -181,8 +181,9 @@ tiers:
         register: casual
         concepts: [balcony_place]
       - id: home_a2_washing
-        template: "Die {washing} ist kaputt."
+        template: "Die {washing} wäscht meine Kleidung."
         answer: Waschmaschine
+        ambiguity: reviewed
         register: casual
         concepts: [washing_machine]
       - id: home_a2_caretaker
