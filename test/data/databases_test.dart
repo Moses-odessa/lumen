@@ -149,13 +149,10 @@ void main() {
       final de = await db.lexeme('doctor_person', 'de');
       expect(de?.form, 'Arzt');
       expect(de?.article, 'der');
-      // Озвучка нужна только языку изучения.
-      expect(de?.audioId, 'de/arzt');
 
       for (final lang in ['ru', 'uk', 'en']) {
         final lexeme = await db.lexeme('doctor_person', lang);
         expect(lexeme, isNotNull, reason: 'нет лексемы на $lang');
-        expect(lexeme!.audioId, isNull, reason: 'подсказки не озвучиваются');
       }
 
       // Круг собирается из дистракторов контента, а не случайных слов.

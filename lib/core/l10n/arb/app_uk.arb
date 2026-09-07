@@ -140,5 +140,12 @@
   "aboutNoAds": "Реклами й трекерів",
   "aboutPrivacy": "Приватність: Sentry без персональних даних і без трейсингу, жодної аналітики мережею. Експорт і видалення даних — у налаштуваннях.",
   "unitSeconds": "{value} с",
-  "customWordsPlaceholder": "Rechnung — рахунок\nQuittung — квитанція"
+  "customWordsPlaceholder": "Rechnung — рахунок\nQuittung — квитанція",
+  "voiceMissingTitle": "Голос для {language} не встановлено",
+  "voiceMissingBody": "Lumen говорить голосом самого пристрою, і для цього потрібні голосові дані {language}. Без них правильна відповідь позначається короткою вібрацією.",
+  "voiceUnavailableTitle": "На цьому пристрої немає синтезу мовлення",
+  "voiceInstall": "Встановити голос",
+  "voicePlaySilent": "Грати без звуку",
+  "voiceManualPath": "Де шукати: {path}",
+  "voiceReady": "Говорить системним голосом: {language}"
 }

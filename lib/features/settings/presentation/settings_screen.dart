@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import 'voice_notice.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -43,6 +45,8 @@ class SettingsScreen extends ConsumerWidget {
               subtitle: Text(l10n.settingsSoundSubtitle),
               secondary: const Icon(Icons.volume_up_outlined),
             ),
+            // Почему тихо, если звук включён: голоса нет в системе.
+            const VoiceNotice(compact: true),
             SwitchListTile(
               value: player.freePace,
               onChanged: (value) =>
@@ -64,16 +68,6 @@ class SettingsScreen extends ConsumerWidget {
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.recalibrate),
           ),
-          // Инструменты разработчика в релиз не едут: игроку нечего делать
-          // ни в замере задержки звука, ни в схеме базы.
-          if (kDebugMode)
-            ListTile(
-              leading: const Icon(Icons.timer_outlined),
-              title: const Text('Задержка звука'),
-              subtitle: const Text('Спайк M1 — мерить на реальном телефоне'),
-              trailing: const Icon(Icons.chevron_right),
-              onTap: () => context.push(Routes.audioSpike),
-            ),
           if (player != null)
             SwitchListTile(
               value: player.notificationsEnabled,

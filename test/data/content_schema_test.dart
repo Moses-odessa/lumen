@@ -48,8 +48,8 @@ void main() {
       "INSERT INTO concepts (id, tier, constellation, pos, freq_rank) "
           "VALUES ('bill_restaurant', 'a1', 'restaurant', 'noun', 900)",
       "INSERT INTO lexemes "
-          "(concept_id, lang, form, article, gender, audio_id) VALUES "
-          "('bill_restaurant', 'de', 'Rechnung', 'die', 'f', 'de/rechnung')",
+          "(concept_id, lang, form, article, gender) VALUES "
+          "('bill_restaurant', 'de', 'Rechnung', 'die', 'f')",
       "INSERT INTO distractors (concept_id, lang, kind, form) "
           "VALUES ('bill_restaurant', 'de', 'near', 'Richtung')",
       "INSERT INTO content_meta (key, value) VALUES ('lang', 'de')",
@@ -61,7 +61,6 @@ void main() {
     final lexeme = await db.lexeme('bill_restaurant', 'de');
     expect(lexeme?.form, 'Rechnung');
     expect(lexeme?.article, 'die');
-    expect(lexeme?.audioId, 'de/rechnung');
 
     final near = await db.distractorsFor('bill_restaurant', 'de', 'near');
     expect(near.map((d) => d.form), ['Richtung']);

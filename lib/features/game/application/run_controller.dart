@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/analytics/analytics.dart';
-import '../../../core/audio/audio_service.dart';
+import '../../../core/audio/speech_service.dart';
 import '../../../domain/entities/circle_question.dart';
 import '../../../domain/scoring/score.dart';
 import '../../../data/repositories/word_state_repository.dart';
@@ -192,11 +192,11 @@ class RunController extends Notifier<RunState> {
 
     // Каждое верное соединение озвучивается — во всех режимах, а не только
     // в «Слухе». Играет поверх анимации, не задерживая следующий круг.
-    final audio = ref.read(audioServiceProvider);
-    if (correct && question.answerAudioId != null) {
-      audio.play(question.answerAudioId!);
+    final speech = ref.read(speechServiceProvider);
+    if (correct && question.answerSpeech != null) {
+      speech.speak(question.answerSpeech!);
     } else if (!correct) {
-      audio.haptic();
+      speech.haptic();
     }
 
     // Память обновляется в фоне: диск между кругами игрок ждать не должен.
@@ -249,16 +249,13 @@ class RunController extends Notifier<RunState> {
     return deadline != null && DateTime.now().isAfter(deadline);
   }
 
-  /// Заранее открывает файл следующего ответа, чтобы озвучка не искала его
-  /// в момент касания.
+  /// Прогревает синтез между кругами.
+  ///
+  /// Предзагрузки у синтеза нет — открывать нечего. Но есть платформенный
+  /// вызов состояния и ленивая настройка движка, и оба лучше сделать
+  /// заранее, чем в момент касания.
   void _preloadNext() {
-    final upcoming = state.index + 1 < state.queue.length
-        ? state.queue[state.index + 1]
-        : null;
-    final audioId = upcoming?.answerAudioId ?? state.current?.promptAudioId;
-    if (audioId != null) {
-      unawaited(ref.read(audioServiceProvider).preload(audioId));
-    }
+    unawaited(ref.read(speechServiceProvider).status());
   }
 
   /// Проигрывает центр в режиме «Слух».
@@ -266,8 +263,8 @@ class RunController extends Notifier<RunState> {
   /// Переслушивание разрешено, но снимает скоростной множитель — иначе
   /// «Слух» превращался бы в «Круг» с лишним тапом.
   void replayPrompt() {
-    final audioId = state.current?.promptAudioId;
-    if (audioId != null) ref.read(audioServiceProvider).play(audioId);
+    final text = state.current?.promptSpeech;
+    if (text != null) ref.read(speechServiceProvider).speak(text);
   }
 
   void _finish() {

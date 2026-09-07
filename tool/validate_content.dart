@@ -3,7 +3,6 @@
 //
 //   dart run tool/validate_content.dart --lang de
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'content_schema.dart';
@@ -13,12 +12,11 @@ import 'phonetics.dart';
 
 Future<void> main(List<String> args) async {
   final lang = _argValue(args, '--lang') ?? targetLang;
-  final root = Directory.current;
 
   final ContentSources sources;
   try {
     sources = ContentSources.load(
-      Directory('${root.path}/content'),
+      Directory('${Directory.current.path}/content'),
       lang: lang,
     );
   } on ContentSourceException catch (e) {
@@ -56,7 +54,6 @@ Future<void> main(List<String> args) async {
   _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
-  _checkAudio(sources, lang, root, report);
 
   report.print(lang);
   if (report.errors.isNotEmpty) exitCode = 1;
@@ -647,77 +644,6 @@ void _checkCalibration(ContentSources sources, String lang, _Report report) {
         !sources.concepts.containsKey(item.conceptId)) {
       report.error('калибровка ${item.id}: нет концепта ${item.conceptId}');
     }
-  }
-}
-
-/// У каждой лексемы и фразы языка изучения есть файл озвучки: концепт без
-/// аудио не проходит валидацию, потому что звук верного ответа — часть ядра
-/// игры.
-///
-/// Пока каталога озвучки нет вообще (до M4), проверка честно объявляется
-/// пропущенной — а не тихо проходит.
-void _checkAudio(
-  ContentSources sources,
-  String lang,
-  Directory root,
-  _Report report,
-) {
-  final audioDir = Directory('${root.path}/assets/audio/$lang');
-  final manifestFile = File('${audioDir.path}/manifest.json');
-  if (!manifestFile.existsSync()) {
-    report.pending(
-      'нет assets/audio/$lang/manifest.json — запустите '
-      'dart run tool/synthesize_audio.dart --lang $lang',
-    );
-    return;
-  }
-
-  final Map<String, Object?> files;
-  try {
-    final json = jsonDecode(manifestFile.readAsStringSync())
-        as Map<String, Object?>;
-    files = json['files'] as Map<String, Object?>? ?? const {};
-  } catch (e) {
-    report.error('манифест озвучки не читается: $e');
-    return;
-  }
-
-  /// Файл должен быть и в манифесте, и на диске: манифест из чужой ветки
-  /// без файлов — ровно та ситуация, которую эта проверка ловит.
-  bool present(String audioId) {
-    final entry = files[audioId] as Map<String, Object?>?;
-    if (entry == null) return false;
-    final name = entry['file'] as String?;
-    return name != null && File('${audioDir.path}/$name').existsSync();
-  }
-
-  final missing = <String>[];
-  final missingDraft = <String>[];
-
-  for (final lex in sources.lexemes[lang]?.values ?? const <LexemeSource>[]) {
-    if (present(audioIdFor(lang, lex.form))) continue;
-    final tier = sources.concepts[lex.conceptId]?.tier;
-    (tier != null && sources.launch.isLaunched(tier) ? missing : missingDraft)
-        .add(lex.form);
-  }
-  for (final phrase in sources.phrases) {
-    if (present(audioIdForPhrase(lang, phrase.id))) continue;
-    (sources.launch.isLaunched(phrase.tier) ? missing : missingDraft)
-        .add(phrase.id);
-  }
-
-  if (missing.isNotEmpty) {
-    // Концепт без озвучки не проходит валидацию: звук верного ответа — часть
-    // ядра игры, а не украшение.
-    report.error(
-      'нет озвучки для ${missing.length} позиций запущенных ярусов '
-      '(${_head(missing)})',
-    );
-  }
-  if (missingDraft.isNotEmpty) {
-    report.pending(
-      'нет озвучки для ${missingDraft.length} позиций незапущенных ярусов',
-    );
   }
 }
 

@@ -26,9 +26,6 @@ dependencies:
   drift: ^2.34.3
   drift_flutter: ^0.3.1
 
-  # Озвучка верного ответа — часть ядра игры (M1).
-  just_audio: ^0.10.5
-
   # Мониторинг крашей: PII выключен, трейсинг 0.
   sentry_flutter: ^9.26.0
 
@@ -36,6 +33,7 @@ dependencies:
   path_provider: ^2.1.6
   url_launcher: ^6.3.2
   flutter_local_notifications: ^18.0.1
+  flutter_tts: ^4.2.5
 
 dev_dependencies:
   flutter_test:
@@ -92,5 +90,3 @@ flutter:
     # Озвучка целиком в ассетах, каждый язык изучения отдельной строкой:
     # Flutter не разворачивает вложенные каталоги сам, и забытая строка
     # означает язык вообще без звука. Манифест лежит рядом с файлами.
-    - assets/audio/de/
-    - assets/audio/en/

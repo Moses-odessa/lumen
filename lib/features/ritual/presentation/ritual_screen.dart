@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../../settings/presentation/voice_notice.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
@@ -104,6 +106,12 @@ class _RitualHome extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(20),
       children: [
+        // Про отсутствие голоса игрок узнаёт до начала, а не по тишине
+        // в первом же круге.
+        const Padding(
+          padding: EdgeInsets.only(bottom: 12),
+          child: VoiceNotice(compact: true),
+        ),
         Card(
           child: Padding(
             padding: const EdgeInsets.all(20),

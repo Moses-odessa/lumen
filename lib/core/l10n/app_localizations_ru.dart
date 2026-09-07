@@ -477,4 +477,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get customWordsPlaceholder => 'Rechnung — счёт\nQuittung — квитанция';
+
+  @override
+  String voiceMissingTitle(String language) {
+    return 'Голос для $language не установлен';
+  }
+
+  @override
+  String voiceMissingBody(String language) {
+    return 'Lumen говорит голосом самого устройства, и для этого нужны голосовые данные $language. Без них верный ответ отмечается короткой вибрацией.';
+  }
+
+  @override
+  String get voiceUnavailableTitle => 'На этом устройстве нет синтеза речи';
+
+  @override
+  String get voiceInstall => 'Установить голос';
+
+  @override
+  String get voicePlaySilent => 'Играть без звука';
+
+  @override
+  String voiceManualPath(String path) {
+    return 'Где искать: $path';
+  }
+
+  @override
+  String voiceReady(String language) {
+    return 'Говорит системным голосом: $language';
+  }
 }

@@ -87,7 +87,7 @@ void main() {
         }
         // Инвариант README: концепт без озвучки не проходит валидацию,
         // значит и в игре у ответа всегда есть audioId.
-        expect(q.answerAudioId, isNotNull, reason: q.itemId);
+        expect(q.answerSpeech, isNotNull, reason: q.itemId);
       }
     });
 

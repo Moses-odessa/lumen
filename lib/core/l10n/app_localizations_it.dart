@@ -484,4 +484,34 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get customWordsPlaceholder =>
       'Rechnung — fattura\nQuittung — ricevuta';
+
+  @override
+  String voiceMissingTitle(String language) {
+    return 'Nessuna voce $language su questo dispositivo';
+  }
+
+  @override
+  String voiceMissingBody(String language) {
+    return 'Lumen parla con la voce del dispositivo e per questo servono i dati vocali $language. Senza di essi la risposta corretta è segnalata solo da una breve vibrazione.';
+  }
+
+  @override
+  String get voiceUnavailableTitle =>
+      'Questo dispositivo non ha la sintesi vocale';
+
+  @override
+  String get voiceInstall => 'Installa la voce';
+
+  @override
+  String get voicePlaySilent => 'Gioca senza audio';
+
+  @override
+  String voiceManualPath(String path) {
+    return 'Dove cercare: $path';
+  }
+
+  @override
+  String voiceReady(String language) {
+    return 'Parla con la voce di sistema: $language';
+  }
 }

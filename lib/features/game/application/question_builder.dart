@@ -112,7 +112,7 @@ class QuestionBuilder {
       options: options.forms,
       answerIndex: options.answerIndex,
       lumens: lumens,
-      answerAudioId: phrase.audioId,
+      answerSpeech: _withAnswer(phrase.template, phrase.answer),
     );
   }
 
@@ -149,7 +149,7 @@ class QuestionBuilder {
       answerIndex: options.answerIndex,
       lumens: circle.lumens,
       isNew: circle.isNew,
-      answerAudioId: target.audioId,
+      answerSpeech: target.form,
       answerArticle: target.article,
     );
   }
@@ -187,7 +187,7 @@ class QuestionBuilder {
       answerIndex: options.answerIndex,
       lumens: circle.lumens,
       isNew: circle.isNew,
-      answerAudioId: target.audioId,
+      answerSpeech: target.form,
       answerArticle: target.article,
     );
   }
@@ -198,8 +198,6 @@ class QuestionBuilder {
     ConceptRow concept,
     LexemeRow target,
   ) async {
-    if (target.audioId == null) return null;
-
     final distractors = await _distractors(
       concept: concept,
       lang: targetLang,
@@ -222,8 +220,8 @@ class QuestionBuilder {
       options: options.forms,
       answerIndex: options.answerIndex,
       lumens: circle.lumens,
-      promptAudioId: target.audioId,
-      answerAudioId: target.audioId,
+      promptSpeech: target.form,
+      answerSpeech: target.form,
       answerArticle: target.article,
     );
   }
@@ -244,7 +242,7 @@ class QuestionBuilder {
         options: [target.form],
         answerIndex: 0,
         lumens: circle.lumens,
-        answerAudioId: target.audioId,
+        answerSpeech: target.form,
         answerArticle: target.article,
       );
 
@@ -306,4 +304,13 @@ class QuestionBuilder {
   /// `Ich brauche {help}.` → `Ich brauche _____.`
   String _withGap(String template) =>
       template.replaceAll(RegExp(r'\{[^}]*\}'), '_____');
+
+  /// Заполняет слот ответом: `Ich brauche {help}.` → `Ich brauche Hilfe.`
+  ///
+  /// Нужно для озвучки фразы. Пока озвучка была файлами, произносилось одно
+  /// слово из пропуска — записывать четыреста тридцать два предложения было
+  /// незачем. Синтез произносит их бесплатно, и игрок слышит фразу целиком,
+  /// ради которой её и учит.
+  String _withAnswer(String template, String answer) =>
+      template.replaceAll(RegExp(r'\{[^}]*\}'), answer);
 }

@@ -480,4 +480,34 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get customWordsPlaceholder =>
       'Rechnung — рахунок\nQuittung — квитанція';
+
+  @override
+  String voiceMissingTitle(String language) {
+    return 'Голос для $language не встановлено';
+  }
+
+  @override
+  String voiceMissingBody(String language) {
+    return 'Lumen говорить голосом самого пристрою, і для цього потрібні голосові дані $language. Без них правильна відповідь позначається короткою вібрацією.';
+  }
+
+  @override
+  String get voiceUnavailableTitle =>
+      'На цьому пристрої немає синтезу мовлення';
+
+  @override
+  String get voiceInstall => 'Встановити голос';
+
+  @override
+  String get voicePlaySilent => 'Грати без звуку';
+
+  @override
+  String voiceManualPath(String path) {
+    return 'Де шукати: $path';
+  }
+
+  @override
+  String voiceReady(String language) {
+    return 'Говорить системним голосом: $language';
+  }
 }

@@ -2,7 +2,7 @@ import 'package:drift/native.dart';
 import 'package:fake_async/fake_async.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lumen/core/audio/audio_service.dart';
+import 'package:lumen/core/audio/speech_service.dart';
 import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/data/local/database_provider.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
@@ -13,14 +13,14 @@ import 'package:lumen/features/game/application/run_controller.dart';
 /// Забег — это состояние, а не экран, поэтому проверяется без виджетов.
 void main() {
   late ProviderContainer container;
-  late SilentAudioService audio;
+  late SilentSpeechService speech;
   late AppDatabase db;
 
   setUp(() {
-    audio = SilentAudioService();
+    speech = SilentSpeechService();
     db = AppDatabase(NativeDatabase.memory());
     container = ProviderContainer(overrides: [
-      audioServiceProvider.overrideWithValue(audio),
+      speechServiceProvider.overrideWithValue(speech),
       appDatabaseProvider.overrideWithValue(db),
     ]);
   });
@@ -38,7 +38,7 @@ void main() {
         options: const ['a', 'b', 'c'],
         answerIndex: answerIndex,
         lumens: 50,
-        answerAudioId: 'de/$id',
+        answerSpeech: 'Wort $id',
       );
 
   RunController controller() =>
@@ -79,14 +79,14 @@ void main() {
       controller().answerOption(0, const Duration(milliseconds: 900));
 
       // Инвариант README: каждое верное соединение озвучивается.
-      expect(audio.played, ['de/a']);
+      expect(speech.spoken, ['Wort a']);
     });
 
     test('неверный ответ не озвучивается и не даёт очков', () {
       controller().start([question('a')]);
       controller().answerOption(2, const Duration(seconds: 2));
 
-      expect(audio.played, isEmpty);
+      expect(speech.spoken, isEmpty);
       expect(state().score, 0);
       expect(state().lastCorrect, isFalse);
     });
@@ -195,14 +195,14 @@ void main() {
         options: ['Rechnung'],
         answerIndex: 0,
         lumens: 70,
-        answerAudioId: 'de/rechnung',
+        answerSpeech: 'Rechnung',
       );
 
       controller().start([typed]);
       controller().answerInput('rechnung', const Duration(seconds: 2));
 
       expect(state().correct, 1);
-      expect(audio.played, ['de/rechnung']);
+      expect(speech.spoken, ['Rechnung']);
     });
   });
 

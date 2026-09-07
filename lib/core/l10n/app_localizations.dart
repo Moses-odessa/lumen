@@ -951,6 +951,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Rechnung — invoice\nQuittung — receipt'**
   String get customWordsPlaceholder;
+
+  /// Shown when the study language has no installed voice
+  ///
+  /// In en, this message translates to:
+  /// **'No {language} voice on this device'**
+  String voiceMissingTitle(String language);
+
+  /// Explains what is lost without the voice data
+  ///
+  /// In en, this message translates to:
+  /// **'Lumen speaks with your device’s own voice, so it needs the {language} voice data installed. Without it the correct answer is marked by a short vibration instead.'**
+  String voiceMissingBody(String language);
+
+  /// No description provided for @voiceUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This device has no speech synthesis'**
+  String get voiceUnavailableTitle;
+
+  /// No description provided for @voiceInstall.
+  ///
+  /// In en, this message translates to:
+  /// **'Install the voice'**
+  String get voiceInstall;
+
+  /// No description provided for @voicePlaySilent.
+  ///
+  /// In en, this message translates to:
+  /// **'Play without sound'**
+  String get voicePlaySilent;
+
+  /// Path to the system voice settings, for platforms that cannot be opened directly
+  ///
+  /// In en, this message translates to:
+  /// **'Where to look: {path}'**
+  String voiceManualPath(String path);
+
+  /// Settings line when the voice is present
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking with the {language} system voice'**
+  String voiceReady(String language);
 }
 
 class _AppLocalizationsDelegate

@@ -8,7 +8,9 @@
 library;
 
 /// Версия схемы контента. Меняется вместе с `ContentDatabase.schemaVersion`.
-const int contentSchemaVersion = 1;
+// v2 убрала audio_id: озвучка перешла на синтез устройства и
+// произносит текст лексемы, а не заранее записанный файл.
+const int contentSchemaVersion = 2;
 
 /// DDL контентной базы. Индексы — под запросы рантайма: выборка концептов
 /// созвездия по ярусу и подбор дистракторов для круга.
@@ -30,7 +32,6 @@ const List<String> contentSchemaDdl = [
     article TEXT NULL,
     gender TEXT NULL,
     plural TEXT NULL,
-    audio_id TEXT NULL,
     note TEXT NULL,
     PRIMARY KEY (concept_id, lang)
   )
@@ -43,8 +44,7 @@ const List<String> contentSchemaDdl = [
     constellation TEXT NOT NULL,
     template TEXT NOT NULL,
     answer TEXT NOT NULL,
-    register TEXT NULL,
-    audio_id TEXT NULL
+    register TEXT NULL
   )
   ''',
   '''
@@ -109,27 +109,7 @@ const Map<String, int> starsPerTier = {
 const int minFarDistractors = 2;
 const int minNearDistractors = 3;
 
-/// Идентификатор аудиофайла фразы.
-///
-/// Берётся из id фразы, а не из текста: озвучивается предложение целиком —
-/// именно ради этого фраза и существует, — а текст может измениться при
-/// вычитке, и терять кеш TTS из-за запятой не хочется.
-String audioIdForPhrase(String lang, String phraseId) => '$lang/p_$phraseId';
-
 /// Текст фразы для синтеза: шаблон со слотом, заполненным ответом.
 String phraseSpeech(String template, String answer) =>
     template.replaceAll(RegExp(r'\{[^}]*\}'), answer);
 
-/// Идентификатор аудиофайла по форме слова: детерминированный, чтобы
-/// пересборка не переименовывала файлы и кеш TTS не терялся.
-String audioIdFor(String lang, String form) {
-  final slug = form
-      .toLowerCase()
-      .replaceAll('ä', 'ae')
-      .replaceAll('ö', 'oe')
-      .replaceAll('ü', 'ue')
-      .replaceAll('ß', 'ss')
-      .replaceAll(RegExp(r'[^a-z0-9]+'), '_')
-      .replaceAll(RegExp(r'^_+|_+$'), '');
-  return '$lang/$slug';
-}

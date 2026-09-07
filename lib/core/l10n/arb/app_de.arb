@@ -140,5 +140,12 @@
   "aboutNoAds": "Werbung und Tracker",
   "aboutPrivacy": "Datenschutz: Sentry ohne personenbezogene Daten und ohne Tracing, keine Analytik über das Netz. Export und Löschung stehen in den Einstellungen.",
   "unitSeconds": "{value} s",
-  "customWordsPlaceholder": "Rechnung — Beleg\nQuittung — Quittung"
+  "customWordsPlaceholder": "Rechnung — Beleg\nQuittung — Quittung",
+  "voiceMissingTitle": "Keine Stimme für {language} auf diesem Gerät",
+  "voiceMissingBody": "Lumen spricht mit der Stimme des Geräts und braucht dafür die Sprachdaten für {language}. Ohne sie wird die richtige Antwort nur mit einer kurzen Vibration bestätigt.",
+  "voiceUnavailableTitle": "Dieses Gerät hat keine Sprachsynthese",
+  "voiceInstall": "Stimme installieren",
+  "voicePlaySilent": "Ohne Ton spielen",
+  "voiceManualPath": "Zu finden unter: {path}",
+  "voiceReady": "Spricht mit der Systemstimme: {language}"
 }

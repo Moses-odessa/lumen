@@ -245,5 +245,44 @@
         "type": "String"
       }
     }
+  },
+  "voiceMissingTitle": "No {language} voice on this device",
+  "@voiceMissingTitle": {
+    "description": "Shown when the study language has no installed voice",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceMissingBody": "Lumen speaks with your device’s own voice, so it needs the {language} voice data installed. Without it the correct answer is marked by a short vibration instead.",
+  "@voiceMissingBody": {
+    "description": "Explains what is lost without the voice data",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceUnavailableTitle": "This device has no speech synthesis",
+  "voiceInstall": "Install the voice",
+  "voicePlaySilent": "Play without sound",
+  "voiceManualPath": "Where to look: {path}",
+  "@voiceManualPath": {
+    "description": "Path to the system voice settings, for platforms that cannot be opened directly",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "voiceReady": "Speaking with the {language} system voice",
+  "@voiceReady": {
+    "description": "Settings line when the voice is present",
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
   }
 }

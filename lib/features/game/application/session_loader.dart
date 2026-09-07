@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/audio/speech_service.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
@@ -196,7 +197,14 @@ final sessionLoaderProvider = Provider<SessionLoader>((ref) {
     tier: tier.atMost(maxTier),
     freePace: player?.freePace ?? false,
     capabilities: SessionCapabilities(
-      audioEnabled: player?.soundEnabled ?? true,
+      // Режим «Слух» — единственный, где без звука играть нельзя: в центре
+      // круга нет ничего, кроме произнесённого слова. Раньше его выключала
+      // только настройка; теперь ещё и отсутствие голоса в системе.
+      //
+      // Пока проверка не ответила, режим не планируется. Осторожность
+      // дешевле ошибки: круг без звука — это круг без задания.
+      audioEnabled: (player?.soundEnabled ?? true) &&
+          (ref.watch(speechStatusProvider).value?.canSpeak ?? false),
     ),
     random: Random(),
   );

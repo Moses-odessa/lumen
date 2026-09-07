@@ -9,7 +9,6 @@ import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
 import '../../features/settings/presentation/about_screen.dart';
-import '../../features/settings/presentation/audio_spike_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
 import '../../features/sky/presentation/dictionary_screen.dart';
@@ -37,7 +36,6 @@ abstract final class Routes {
   static const dictionary = '/dictionary';
 
   /// Спайк по задержке звука — измеряется на реальном телефоне (M1).
-  static const audioSpike = '/settings/audio-spike';
 }
 
 /// Роутер: четыре вкладки в `StatefulShellRoute.indexedStack` и один
@@ -111,10 +109,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, _) => CalibrationScreen(
           onDone: () => context.go(Routes.sky),
         ),
-      ),
-      GoRoute(
-        path: Routes.audioSpike,
-        builder: (_, _) => const AudioSpikeScreen(),
       ),
     ],
   );

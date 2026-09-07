@@ -430,17 +430,6 @@ class $LexemesTable extends Lexemes with TableInfo<$LexemesTable, LexemeRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _audioIdMeta = const VerificationMeta(
-    'audioId',
-  );
-  @override
-  late final GeneratedColumn<String> audioId = GeneratedColumn<String>(
-    'audio_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   static const VerificationMeta _noteMeta = const VerificationMeta('note');
   @override
   late final GeneratedColumn<String> note = GeneratedColumn<String>(
@@ -458,7 +447,6 @@ class $LexemesTable extends Lexemes with TableInfo<$LexemesTable, LexemeRow> {
     article,
     gender,
     plural,
-    audioId,
     note,
   ];
   @override
@@ -515,12 +503,6 @@ class $LexemesTable extends Lexemes with TableInfo<$LexemesTable, LexemeRow> {
         plural.isAcceptableOrUnknown(data['plural']!, _pluralMeta),
       );
     }
-    if (data.containsKey('audio_id')) {
-      context.handle(
-        _audioIdMeta,
-        audioId.isAcceptableOrUnknown(data['audio_id']!, _audioIdMeta),
-      );
-    }
     if (data.containsKey('note')) {
       context.handle(
         _noteMeta,
@@ -560,10 +542,6 @@ class $LexemesTable extends Lexemes with TableInfo<$LexemesTable, LexemeRow> {
         DriftSqlType.string,
         data['${effectivePrefix}plural'],
       ),
-      audioId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}audio_id'],
-      ),
       note: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}note'],
@@ -584,7 +562,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
   final String? article;
   final String? gender;
   final String? plural;
-  final String? audioId;
   final String? note;
   const LexemeRow({
     required this.conceptId,
@@ -593,7 +570,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
     this.article,
     this.gender,
     this.plural,
-    this.audioId,
     this.note,
   });
   @override
@@ -610,9 +586,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
     }
     if (!nullToAbsent || plural != null) {
       map['plural'] = Variable<String>(plural);
-    }
-    if (!nullToAbsent || audioId != null) {
-      map['audio_id'] = Variable<String>(audioId);
     }
     if (!nullToAbsent || note != null) {
       map['note'] = Variable<String>(note);
@@ -634,9 +607,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
       plural: plural == null && nullToAbsent
           ? const Value.absent()
           : Value(plural),
-      audioId: audioId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(audioId),
       note: note == null && nullToAbsent ? const Value.absent() : Value(note),
     );
   }
@@ -653,7 +623,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
       article: serializer.fromJson<String?>(json['article']),
       gender: serializer.fromJson<String?>(json['gender']),
       plural: serializer.fromJson<String?>(json['plural']),
-      audioId: serializer.fromJson<String?>(json['audioId']),
       note: serializer.fromJson<String?>(json['note']),
     );
   }
@@ -667,7 +636,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
       'article': serializer.toJson<String?>(article),
       'gender': serializer.toJson<String?>(gender),
       'plural': serializer.toJson<String?>(plural),
-      'audioId': serializer.toJson<String?>(audioId),
       'note': serializer.toJson<String?>(note),
     };
   }
@@ -679,7 +647,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
     Value<String?> article = const Value.absent(),
     Value<String?> gender = const Value.absent(),
     Value<String?> plural = const Value.absent(),
-    Value<String?> audioId = const Value.absent(),
     Value<String?> note = const Value.absent(),
   }) => LexemeRow(
     conceptId: conceptId ?? this.conceptId,
@@ -688,7 +655,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
     article: article.present ? article.value : this.article,
     gender: gender.present ? gender.value : this.gender,
     plural: plural.present ? plural.value : this.plural,
-    audioId: audioId.present ? audioId.value : this.audioId,
     note: note.present ? note.value : this.note,
   );
   LexemeRow copyWithCompanion(LexemesCompanion data) {
@@ -699,7 +665,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
       article: data.article.present ? data.article.value : this.article,
       gender: data.gender.present ? data.gender.value : this.gender,
       plural: data.plural.present ? data.plural.value : this.plural,
-      audioId: data.audioId.present ? data.audioId.value : this.audioId,
       note: data.note.present ? data.note.value : this.note,
     );
   }
@@ -713,23 +678,14 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
           ..write('article: $article, ')
           ..write('gender: $gender, ')
           ..write('plural: $plural, ')
-          ..write('audioId: $audioId, ')
           ..write('note: $note')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-    conceptId,
-    lang,
-    form,
-    article,
-    gender,
-    plural,
-    audioId,
-    note,
-  );
+  int get hashCode =>
+      Object.hash(conceptId, lang, form, article, gender, plural, note);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -740,7 +696,6 @@ class LexemeRow extends DataClass implements Insertable<LexemeRow> {
           other.article == this.article &&
           other.gender == this.gender &&
           other.plural == this.plural &&
-          other.audioId == this.audioId &&
           other.note == this.note);
 }
 
@@ -751,7 +706,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
   final Value<String?> article;
   final Value<String?> gender;
   final Value<String?> plural;
-  final Value<String?> audioId;
   final Value<String?> note;
   final Value<int> rowid;
   const LexemesCompanion({
@@ -761,7 +715,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
     this.article = const Value.absent(),
     this.gender = const Value.absent(),
     this.plural = const Value.absent(),
-    this.audioId = const Value.absent(),
     this.note = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -772,7 +725,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
     this.article = const Value.absent(),
     this.gender = const Value.absent(),
     this.plural = const Value.absent(),
-    this.audioId = const Value.absent(),
     this.note = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : conceptId = Value(conceptId),
@@ -785,7 +737,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
     Expression<String>? article,
     Expression<String>? gender,
     Expression<String>? plural,
-    Expression<String>? audioId,
     Expression<String>? note,
     Expression<int>? rowid,
   }) {
@@ -796,7 +747,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
       if (article != null) 'article': article,
       if (gender != null) 'gender': gender,
       if (plural != null) 'plural': plural,
-      if (audioId != null) 'audio_id': audioId,
       if (note != null) 'note': note,
       if (rowid != null) 'rowid': rowid,
     });
@@ -809,7 +759,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
     Value<String?>? article,
     Value<String?>? gender,
     Value<String?>? plural,
-    Value<String?>? audioId,
     Value<String?>? note,
     Value<int>? rowid,
   }) {
@@ -820,7 +769,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
       article: article ?? this.article,
       gender: gender ?? this.gender,
       plural: plural ?? this.plural,
-      audioId: audioId ?? this.audioId,
       note: note ?? this.note,
       rowid: rowid ?? this.rowid,
     );
@@ -847,9 +795,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
     if (plural.present) {
       map['plural'] = Variable<String>(plural.value);
     }
-    if (audioId.present) {
-      map['audio_id'] = Variable<String>(audioId.value);
-    }
     if (note.present) {
       map['note'] = Variable<String>(note.value);
     }
@@ -868,7 +813,6 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
           ..write('article: $article, ')
           ..write('gender: $gender, ')
           ..write('plural: $plural, ')
-          ..write('audioId: $audioId, ')
           ..write('note: $note, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -950,17 +894,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _audioIdMeta = const VerificationMeta(
-    'audioId',
-  );
-  @override
-  late final GeneratedColumn<String> audioId = GeneratedColumn<String>(
-    'audio_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -970,7 +903,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     template,
     answer,
     register,
-    audioId,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1038,12 +970,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
         register.isAcceptableOrUnknown(data['register']!, _registerMeta),
       );
     }
-    if (data.containsKey('audio_id')) {
-      context.handle(
-        _audioIdMeta,
-        audioId.isAcceptableOrUnknown(data['audio_id']!, _audioIdMeta),
-      );
-    }
     return context;
   }
 
@@ -1081,10 +1007,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
         DriftSqlType.string,
         data['${effectivePrefix}register'],
       ),
-      audioId: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}audio_id'],
-      ),
     );
   }
 
@@ -1102,7 +1024,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
   final String template;
   final String answer;
   final String? register;
-  final String? audioId;
   const PhraseRow({
     required this.id,
     required this.lang,
@@ -1111,7 +1032,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     required this.template,
     required this.answer,
     this.register,
-    this.audioId,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1124,9 +1044,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     map['answer'] = Variable<String>(answer);
     if (!nullToAbsent || register != null) {
       map['register'] = Variable<String>(register);
-    }
-    if (!nullToAbsent || audioId != null) {
-      map['audio_id'] = Variable<String>(audioId);
     }
     return map;
   }
@@ -1142,9 +1059,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       register: register == null && nullToAbsent
           ? const Value.absent()
           : Value(register),
-      audioId: audioId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(audioId),
     );
   }
 
@@ -1161,7 +1075,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       template: serializer.fromJson<String>(json['template']),
       answer: serializer.fromJson<String>(json['answer']),
       register: serializer.fromJson<String?>(json['register']),
-      audioId: serializer.fromJson<String?>(json['audioId']),
     );
   }
   @override
@@ -1175,7 +1088,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       'template': serializer.toJson<String>(template),
       'answer': serializer.toJson<String>(answer),
       'register': serializer.toJson<String?>(register),
-      'audioId': serializer.toJson<String?>(audioId),
     };
   }
 
@@ -1187,7 +1099,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     String? template,
     String? answer,
     Value<String?> register = const Value.absent(),
-    Value<String?> audioId = const Value.absent(),
   }) => PhraseRow(
     id: id ?? this.id,
     lang: lang ?? this.lang,
@@ -1196,7 +1107,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     template: template ?? this.template,
     answer: answer ?? this.answer,
     register: register.present ? register.value : this.register,
-    audioId: audioId.present ? audioId.value : this.audioId,
   );
   PhraseRow copyWithCompanion(PhrasesCompanion data) {
     return PhraseRow(
@@ -1209,7 +1119,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       template: data.template.present ? data.template.value : this.template,
       answer: data.answer.present ? data.answer.value : this.answer,
       register: data.register.present ? data.register.value : this.register,
-      audioId: data.audioId.present ? data.audioId.value : this.audioId,
     );
   }
 
@@ -1222,23 +1131,14 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           ..write('constellation: $constellation, ')
           ..write('template: $template, ')
           ..write('answer: $answer, ')
-          ..write('register: $register, ')
-          ..write('audioId: $audioId')
+          ..write('register: $register')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-    id,
-    lang,
-    tier,
-    constellation,
-    template,
-    answer,
-    register,
-    audioId,
-  );
+  int get hashCode =>
+      Object.hash(id, lang, tier, constellation, template, answer, register);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1249,8 +1149,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           other.constellation == this.constellation &&
           other.template == this.template &&
           other.answer == this.answer &&
-          other.register == this.register &&
-          other.audioId == this.audioId);
+          other.register == this.register);
 }
 
 class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
@@ -1261,7 +1160,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
   final Value<String> template;
   final Value<String> answer;
   final Value<String?> register;
-  final Value<String?> audioId;
   final Value<int> rowid;
   const PhrasesCompanion({
     this.id = const Value.absent(),
@@ -1271,7 +1169,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     this.template = const Value.absent(),
     this.answer = const Value.absent(),
     this.register = const Value.absent(),
-    this.audioId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PhrasesCompanion.insert({
@@ -1282,7 +1179,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     required String template,
     required String answer,
     this.register = const Value.absent(),
-    this.audioId = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        lang = Value(lang),
@@ -1298,7 +1194,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     Expression<String>? template,
     Expression<String>? answer,
     Expression<String>? register,
-    Expression<String>? audioId,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -1309,7 +1204,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       if (template != null) 'template': template,
       if (answer != null) 'answer': answer,
       if (register != null) 'register': register,
-      if (audioId != null) 'audio_id': audioId,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -1322,7 +1216,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     Value<String>? template,
     Value<String>? answer,
     Value<String?>? register,
-    Value<String?>? audioId,
     Value<int>? rowid,
   }) {
     return PhrasesCompanion(
@@ -1333,7 +1226,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       template: template ?? this.template,
       answer: answer ?? this.answer,
       register: register ?? this.register,
-      audioId: audioId ?? this.audioId,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -1362,9 +1254,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     if (register.present) {
       map['register'] = Variable<String>(register.value);
     }
-    if (audioId.present) {
-      map['audio_id'] = Variable<String>(audioId.value);
-    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -1381,7 +1270,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
           ..write('template: $template, ')
           ..write('answer: $answer, ')
           ..write('register: $register, ')
-          ..write('audioId: $audioId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2722,7 +2610,6 @@ typedef $$LexemesTableCreateCompanionBuilder = LexemesCompanion Function({
   Value<String?> article,
   Value<String?> gender,
   Value<String?> plural,
-  Value<String?> audioId,
   Value<String?> note,
   Value<int> rowid,
 });
@@ -2733,7 +2620,6 @@ typedef $$LexemesTableUpdateCompanionBuilder = LexemesCompanion Function({
   Value<String?> article,
   Value<String?> gender,
   Value<String?> plural,
-  Value<String?> audioId,
   Value<String?> note,
   Value<int> rowid,
 });
@@ -2774,11 +2660,6 @@ class $$LexemesTableFilterComposer
 
   ColumnFilters<String> get plural => $composableBuilder(
     column: $table.plural,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get audioId => $composableBuilder(
-    column: $table.audioId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2827,11 +2708,6 @@ class $$LexemesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get audioId => $composableBuilder(
-    column: $table.audioId,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get note => $composableBuilder(
     column: $table.note,
     builder: (column) => ColumnOrderings(column),
@@ -2864,9 +2740,6 @@ class $$LexemesTableAnnotationComposer
 
   GeneratedColumn<String> get plural =>
       $composableBuilder(column: $table.plural, builder: (column) => column);
-
-  GeneratedColumn<String> get audioId =>
-      $composableBuilder(column: $table.audioId, builder: (column) => column);
 
   GeneratedColumn<String> get note =>
       $composableBuilder(column: $table.note, builder: (column) => column);
@@ -2909,7 +2782,6 @@ class $$LexemesTableTableManager
                 Value<String?> article = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<String?> plural = const Value.absent(),
-                Value<String?> audioId = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => LexemesCompanion(
@@ -2919,7 +2791,6 @@ class $$LexemesTableTableManager
                 article: article,
                 gender: gender,
                 plural: plural,
-                audioId: audioId,
                 note: note,
                 rowid: rowid,
               ),
@@ -2931,7 +2802,6 @@ class $$LexemesTableTableManager
                 Value<String?> article = const Value.absent(),
                 Value<String?> gender = const Value.absent(),
                 Value<String?> plural = const Value.absent(),
-                Value<String?> audioId = const Value.absent(),
                 Value<String?> note = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => LexemesCompanion.insert(
@@ -2941,7 +2811,6 @@ class $$LexemesTableTableManager
                 article: article,
                 gender: gender,
                 plural: plural,
-                audioId: audioId,
                 note: note,
                 rowid: rowid,
               ),
@@ -2984,7 +2853,6 @@ typedef $$PhrasesTableCreateCompanionBuilder = PhrasesCompanion Function({
   required String template,
   required String answer,
   Value<String?> register,
-  Value<String?> audioId,
   Value<int> rowid,
 });
 typedef $$PhrasesTableUpdateCompanionBuilder = PhrasesCompanion Function({
@@ -2995,7 +2863,6 @@ typedef $$PhrasesTableUpdateCompanionBuilder = PhrasesCompanion Function({
   Value<String> template,
   Value<String> answer,
   Value<String?> register,
-  Value<String?> audioId,
   Value<int> rowid,
 });
 
@@ -3040,11 +2907,6 @@ class $$PhrasesTableFilterComposer
 
   ColumnFilters<String> get register => $composableBuilder(
     column: $table.register,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get audioId => $composableBuilder(
-    column: $table.audioId,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -3092,11 +2954,6 @@ class $$PhrasesTableOrderingComposer
     column: $table.register,
     builder: (column) => ColumnOrderings(column),
   );
-
-  ColumnOrderings<String> get audioId => $composableBuilder(
-    column: $table.audioId,
-    builder: (column) => ColumnOrderings(column),
-  );
 }
 
 class $$PhrasesTableAnnotationComposer
@@ -3130,9 +2987,6 @@ class $$PhrasesTableAnnotationComposer
 
   GeneratedColumn<String> get register =>
       $composableBuilder(column: $table.register, builder: (column) => column);
-
-  GeneratedColumn<String> get audioId =>
-      $composableBuilder(column: $table.audioId, builder: (column) => column);
 }
 
 class $$PhrasesTableTableManager
@@ -3173,7 +3027,6 @@ class $$PhrasesTableTableManager
                 Value<String> template = const Value.absent(),
                 Value<String> answer = const Value.absent(),
                 Value<String?> register = const Value.absent(),
-                Value<String?> audioId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion(
                 id: id,
@@ -3183,7 +3036,6 @@ class $$PhrasesTableTableManager
                 template: template,
                 answer: answer,
                 register: register,
-                audioId: audioId,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -3195,7 +3047,6 @@ class $$PhrasesTableTableManager
                 required String template,
                 required String answer,
                 Value<String?> register = const Value.absent(),
-                Value<String?> audioId = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion.insert(
                 id: id,
@@ -3205,7 +3056,6 @@ class $$PhrasesTableTableManager
                 template: template,
                 answer: answer,
                 register: register,
-                audioId: audioId,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

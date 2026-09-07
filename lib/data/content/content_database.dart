@@ -29,7 +29,6 @@ class Lexemes extends Table {
   TextColumn get article => text().nullable()();
   TextColumn get gender => text().nullable()();
   TextColumn get plural => text().nullable()();
-  TextColumn get audioId => text().nullable()();
   TextColumn get note => text().nullable()();
 
   @override
@@ -46,7 +45,6 @@ class Phrases extends Table {
   TextColumn get template => text()();
   TextColumn get answer => text()();
   TextColumn get register => text().nullable()();
-  TextColumn get audioId => text().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -126,8 +124,11 @@ class ContentDatabase extends _$ContentDatabase {
 
   /// Версия схемы контента. Меняется вместе с `tool/build_content.dart` и
   /// записывается в `PRAGMA user_version` при сборке.
+  ///
+  /// v2 убрала `audio_id`: озвучка перешла на синтез устройства и произносит
+  /// текст лексемы. Идентификатор записанного файла стал не нужен.
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -184,7 +185,7 @@ class ContentDatabase extends _$ContentDatabase {
         .get();
   }
 
-  /// Лексема концепта на языке — из неё берётся и форма, и `audioId`.
+  /// Лексема концепта на языке: форма, артикль, род, число, пометка.
   Future<LexemeRow?> lexeme(String conceptId, String lang) =>
       (select(lexemes)
             ..where((t) => t.conceptId.equals(conceptId) & t.lang.equals(lang)))

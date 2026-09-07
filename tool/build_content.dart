@@ -61,7 +61,7 @@ Future<void> main(List<String> args) async {
     // с воспроизводимым ассетом не оставалось `-wal`.
     db.execute('BEGIN');
     _insertConcepts(db, sources);
-    _insertLexemes(db, sources, lang);
+    _insertLexemes(db, sources);
     _insertPhrases(db, sources, lang);
     _insertDistractors(db, sources, lang);
     _insertCalibration(db, sources, lang);
@@ -95,20 +95,16 @@ void _insertConcepts(Database db, ContentSources sources) {
   }
 }
 
-void _insertLexemes(Database db, ContentSources sources, String lang) {
+void _insertLexemes(Database db, ContentSources sources) {
   final stmt = db.prepare(
     'INSERT INTO lexemes '
-    '(concept_id, lang, form, article, gender, plural, audio_id, note) '
-    'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    '(concept_id, lang, form, article, gender, plural, note) '
+    'VALUES (?, ?, ?, ?, ?, ?, ?)',
   );
   try {
     for (final entry in sources.lexemes.entries) {
       final lexLang = entry.key;
       for (final lex in entry.value.values) {
-        // Озвучка нужна только языку изучения: подсказки на родном языке
-        // не проговариваются.
-        final audioId =
-            lexLang == lang ? audioIdFor(lexLang, lex.form) : null;
         stmt.execute([
           lex.conceptId,
           lexLang,
@@ -116,7 +112,6 @@ void _insertLexemes(Database db, ContentSources sources, String lang) {
           lex.article,
           lex.gender,
           lex.plural,
-          audioId,
           lex.note,
         ]);
       }
@@ -129,8 +124,8 @@ void _insertLexemes(Database db, ContentSources sources, String lang) {
 void _insertPhrases(Database db, ContentSources sources, String lang) {
   final phraseStmt = db.prepare(
     'INSERT INTO phrases '
-    '(id, lang, tier, constellation, template, answer, register, audio_id) '
-    'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    '(id, lang, tier, constellation, template, answer, register) '
+    'VALUES (?, ?, ?, ?, ?, ?, ?)',
   );
   final linkStmt = db.prepare(
     'INSERT INTO phrase_concepts (phrase_id, concept_id) VALUES (?, ?)',
@@ -145,7 +140,6 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
         p.template,
         p.answer,
         p.register,
-        audioIdForPhrase(lang, p.id),
       ]);
       for (final conceptId in p.conceptIds) {
         linkStmt.execute([p.id, conceptId]);

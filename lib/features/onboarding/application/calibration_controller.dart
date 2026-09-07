@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/analytics/analytics.dart';
-import '../../../core/audio/audio_service.dart';
+import '../../../core/audio/speech_service.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
@@ -69,8 +69,8 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     final correct = question.isCorrectOption(index);
     if (correct) {
       // Верный ответ озвучивается и здесь: калибровка — это уже игра.
-      if (question.answerAudioId != null) {
-        ref.read(audioServiceProvider).play(question.answerAudioId!);
+      if (question.answerSpeech != null) {
+        ref.read(speechServiceProvider).speak(question.answerSpeech!);
       }
       _confirmedConcepts[question.itemId] = question.tier;
     }
