@@ -313,7 +313,7 @@ tiers:
       - { id: handoverprotocol_noun, pos: noun, freq_rank: 7350 }
     phrases:
       - id: home_b2_rentindex
-        template: "Der {rentindex} liegt bei neun Euro."
+        template: "Die ortsübliche Vergleichsmiete steht im {rentindex}."
         answer: Mietspiegel
         register: casual
         concepts: [rentindex_noun]
@@ -353,13 +353,15 @@ tiers:
         register: casual
         concepts: [ownersassociation_noun]
       - id: home_b2_heritage
-        template: "Hier gilt {heritage}."
+        template: "Das alte Rathaus steht unter {heritage}."
         answer: Denkmalschutz
+        ambiguity: reviewed
         register: casual
         concepts: [heritageprotection_noun]
       - id: home_b2_marketvalue
-        template: "Der {marketvalue} wurde geschätzt."
+        template: "Beim Verkauf zählt der {marketvalue}."
         answer: Verkehrswert
+        ambiguity: reviewed
         register: casual
         concepts: [marketvalue_noun]
       - id: home_b2_repayment

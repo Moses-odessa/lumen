@@ -340,13 +340,15 @@ tiers:
         register: casual
         concepts: [sustainability_noun]
       - id: food_b2_additive
-        template: "Ohne {additive} hält es kürzer."
+        template: "Ein Konservierungsstoff ist ein {additive}."
         answer: Zusatzstoff
+        ambiguity: reviewed
         register: casual
         concepts: [additive_noun]
       - id: food_b2_retail
-        template: "Im {retail} kostet es mehr."
+        template: "Im {retail} kauft der Endkunde ein."
         answer: Einzelhandel
+        ambiguity: reviewed
         register: casual
         concepts: [retail_noun]
       - id: food_b2_consumerprotection
@@ -355,8 +357,9 @@ tiers:
         register: casual
         concepts: [consumerprotection_noun]
       - id: food_b2_nutritionalvalue
-        template: "Der {nutritionalvalue} steht hinten."
+        template: "Der {nutritionalvalue} nennt Fett, Zucker und Eiweiß."
         answer: Nährwert
+        ambiguity: reviewed
         register: casual
         concepts: [nutritionalvalue_noun]
       - id: food_b2_organic

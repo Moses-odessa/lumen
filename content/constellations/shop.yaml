@@ -318,7 +318,7 @@ tiers:
         register: casual
         concepts: [termsandconditions_noun]
       - id: shop_b2_limitation
-        template: "Die {limitation} beträgt zwei Jahre."
+        template: "Wann tritt die {limitation} ein?"
         answer: Verjährung
         register: casual
         concepts: [limitationperiod_noun]
@@ -328,8 +328,9 @@ tiers:
         register: casual
         concepts: [damages_noun]
       - id: shop_b2_defect
-        template: "Es liegt ein {defect} vor."
+        template: "Die Ware ist beschädigt, es liegt ein {defect} vor."
         answer: Sachmangel
+        ambiguity: reviewed
         register: casual
         concepts: [materialdefect_noun]
       - id: shop_b2_withdrawal
@@ -338,7 +339,7 @@ tiers:
         register: casual
         concepts: [withdrawal_contract]
       - id: shop_b2_burden
-        template: "Die {burden} liegt beim Käufer."
+        template: "Die {burden} entscheidet den Prozess."
         answer: Beweislast
         register: casual
         concepts: [burdenofproof_noun]
@@ -368,7 +369,7 @@ tiers:
         register: casual
         concepts: [marketshare_noun]
       - id: shop_b2_consumercentre
-        template: "Die {consumercentre} berät kostenlos."
+        template: "Die {consumercentre} berät zu Kaufverträgen."
         answer: Verbraucherzentrale
         register: casual
         concepts: [consumercentre_noun]

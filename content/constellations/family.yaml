@@ -315,11 +315,13 @@ tiers:
       - id: family_b2_prenup
         template: "Ohne {prenup} gilt die gesetzliche Regel."
         answer: Ehevertrag
+        ambiguity: reviewed
         register: casual
         concepts: [prenup_noun]
       - id: family_b2_accessright
-        template: "Das {accessright} ist geregelt."
+        template: "Das {accessright} erlaubt regelmäßige Besuche beim Kind."
         answer: Umgangsrecht
+        ambiguity: reviewed
         register: casual
         concepts: [accessright_noun]
       - id: family_b2_youthoffice
@@ -328,8 +330,9 @@ tiers:
         register: casual
         concepts: [youthoffice_place]
       - id: family_b2_familycourt
-        template: "Das {familycourt} entscheidet."
+        template: "Über die Scheidung entscheidet das {familycourt}."
         answer: Familiengericht
+        ambiguity: reviewed
         register: casual
         concepts: [familycourt_place]
       - id: family_b2_compulsoryshare
@@ -338,8 +341,9 @@ tiers:
         register: casual
         concepts: [compulsoryshare_noun]
       - id: family_b2_inheritancetax
-        template: "Die {inheritancetax} ist hoch."
+        template: "Nach dem Erbfall wird die {inheritancetax} fällig."
         answer: Erbschaftsteuer
+        ambiguity: reviewed
         register: casual
         concepts: [inheritancetax_noun]
       - id: family_b2_livingwill
@@ -350,6 +354,7 @@ tiers:
       - id: family_b2_residencepermit
         template: "Der {residencepermit} läuft ab."
         answer: Aufenthaltstitel
+        ambiguity: reviewed
         register: casual
         concepts: [residencepermit_noun]
       - id: family_b2_naturalisation
@@ -363,12 +368,13 @@ tiers:
         register: casual
         concepts: [familyreunion_noun]
       - id: family_b2_pensionclaim
-        template: "Der {pensionclaim} entsteht mit 67."
+        template: "Die Rentenversicherung prüft meinen {pensionclaim}."
         answer: Rentenanspruch
         register: casual
         concepts: [pensionclaim_noun]
       - id: family_b2_childwelfare
-        template: "Das {childwelfare} steht im Vordergrund."
+        template: "Das {childwelfare} hat Vorrang vor dem Elternwunsch."
         answer: Kindeswohl
+        ambiguity: reviewed
         register: casual
         concepts: [childwelfare_noun]

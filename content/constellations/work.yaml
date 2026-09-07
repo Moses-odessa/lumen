@@ -316,13 +316,15 @@ tiers:
       - { id: conciliationhearing_noun, pos: noun, freq_rank: 8230 }
     phrases:
       - id: work_b2_labourlaw
-        template: "Das {labourlaw} schützt beide Seiten."
+        template: "Das {labourlaw} regelt das Verhältnis von Arbeitgeber und Arbeitnehmer."
         answer: Arbeitsrecht
+        ambiguity: reviewed
         register: casual
         concepts: [labourlaw_noun]
       - id: work_b2_shorttime
-        template: "Wir gehen in {shorttime}."
+        template: "Bei Auftragsmangel gehen wir in {shorttime}."
         answer: Kurzarbeit
+        ambiguity: reviewed
         register: casual
         concepts: [shorttimework_noun]
       - id: work_b2_socialplan
@@ -336,18 +338,21 @@ tiers:
         register: casual
         concepts: [codetermination_noun]
       - id: work_b2_labourcourt
-        template: "Wir sehen uns vor dem {labourcourt}."
+        template: "Über die Kündigung streiten wir vor dem {labourcourt}."
         answer: Arbeitsgericht
+        ambiguity: reviewed
         register: casual
         concepts: [labourcourt_place]
       - id: work_b2_socialinsurance
-        template: "Die {socialinsurance} ist Pflicht."
+        template: "Renten-, Kranken- und Pflegekasse gehören zur {socialinsurance}."
         answer: Sozialversicherung
+        ambiguity: reviewed
         register: casual
         concepts: [socialinsurance_noun]
       - id: work_b2_temporarywork
-        template: "Er kam über {temporarywork}."
+        template: "Eine Agentur verleiht ihn, das ist {temporarywork}."
         answer: Zeitarbeit
+        ambiguity: reviewed
         register: casual
         concepts: [temporarywork_noun]
       - id: work_b2_ancillary
@@ -356,18 +361,21 @@ tiers:
         register: casual
         concepts: [ancillarycosts_noun]
       - id: work_b2_strike
-        template: "Das {strike} ist grundgesetzlich geschützt."
+        template: "Das {strike} folgt aus der Koalitionsfreiheit."
         answer: Streikrecht
+        ambiguity: reviewed
         register: casual
         concepts: [righttostrike_noun]
       - id: work_b2_redundancy
-        template: "Eine {redundancy} steht bevor."
+        template: "Das Werk schließt, eine {redundancy} steht bevor."
         answer: Massenentlassung
+        ambiguity: reviewed
         register: casual
         concepts: [massredundancy_noun]
       - id: work_b2_careinsurance
-        template: "Die {careinsurance} zahlt einen Teil."
+        template: "Die {careinsurance} zahlt bei dauerhafter Hilfsbedürftigkeit."
         answer: Pflegeversicherung
+        ambiguity: reviewed
         register: casual
         concepts: [careinsurance_noun]
       - id: work_b2_conciliation

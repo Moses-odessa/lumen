@@ -332,11 +332,13 @@ tiers:
       - id: transport_b2_roadsafety
         template: "Die {roadsafety} hat Vorrang."
         answer: Verkehrssicherheit
+        ambiguity: reviewed
         register: casual
         concepts: [roadsafety_noun]
       - id: transport_b2_freight
-        template: "Der {freight} nimmt zu."
+        template: "Der {freight} transportiert Waren, nicht Menschen."
         answer: Güterverkehr
+        ambiguity: reviewed
         register: casual
         concepts: [freighttransport_noun]
       - id: transport_b2_customs
@@ -345,8 +347,9 @@ tiers:
         register: casual
         concepts: [customsclearance_noun]
       - id: transport_b2_infra
-        template: "Die {infra} ist sanierungsbedürftig."
+        template: "Straßen, Brücken und Schienen bilden die {infra}."
         answer: Verkehrsinfrastruktur
+        ambiguity: reviewed
         register: casual
         concepts: [transportinfra_noun]
       - id: transport_b2_noise
@@ -365,7 +368,7 @@ tiers:
         register: casual
         concepts: [routenetwork_noun]
       - id: transport_b2_logbook
-        template: "Das {logbook} ist Pflicht."
+        template: "Das {logbook} zeigt jede einzelne Fahrt."
         answer: Fahrtenbuch
         register: casual
         concepts: [logbook_object]

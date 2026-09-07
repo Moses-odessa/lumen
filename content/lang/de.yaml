@@ -576,7 +576,7 @@ lexemes:
     gender: f
     plural: Zuzahlungen
     distractors:
-      far: [Eigenanteil, Selbstbeteiligung]
+      far: [Sachleistung, Kassenleistung]
       near: [Auszahlung, Bezahlung, Anzahlung]
   objection_noun:
     form: Widerspruch
@@ -584,7 +584,7 @@ lexemes:
     gender: m
     plural: Widersprüche
     distractors:
-      far: [Beschwerde, Klage]
+      far: [Klage, Antragstellung]
       near: [Widerstand, Anspruch, Widerruf]
   findings_report:
     form: Befundbericht
@@ -592,8 +592,8 @@ lexemes:
     gender: m
     plural: Befundberichte
     distractors:
-      far: [Arztbrief, Kurzbrief]
-      near: [Fundstelle, Befunderhebung, Befundung]
+      far: [Kurzbrief, Aktenvermerk]
+      near: [Fundstelle, Fundament, Wetterbericht]
   reimbursement_noun:
     form: Erstattung
     article: die
@@ -624,7 +624,7 @@ lexemes:
     gender: f
     plural: Bescheinigungen
     distractors:
-      far: [Attest, Nachweis]
+      far: [Formblatt, Ausdruck]
       near: [Bescheid, Beschichtung, Erscheinung]
   incapacity_noun:
     form: Arbeitsunfähigkeit
@@ -646,7 +646,7 @@ lexemes:
     gender: f
     plural: Einwilligungen
     distractors:
-      far: [Zustimmung, Vollmacht]
+      far: [Aufklärung, Vollmacht]
       near: [Bewilligung, Einladung, Einweihung]
   liability_noun:
     form: Haftung
@@ -660,7 +660,7 @@ lexemes:
     article: der
     gender: m
     distractors:
-      far: [Kunstfehler, Versäumnis]
+      far: [Nebenwirkung, Versäumnis]
       near: [Behandlungsraum, Denkfehler, Bedienungsfehler]
   prognosis_noun:
     form: Prognose
@@ -669,7 +669,7 @@ lexemes:
     plural: Prognosen
     distractors:
       far: [Aussicht, Verlauf]
-      near: [Prothese, Prognostik, Progression]
+      near: [Prothese, Prophylaxe, Progression]
   contraindication_noun:
     form: Gegenanzeige
     article: die
@@ -704,13 +704,13 @@ lexemes:
     form: ambulant
     note: прилагательное, артикля нет
     distractors:
-      far: [teilstationär, tagesklinisch]
+      far: [stationär, tagesklinisch]
       near: [Ambulanz, amüsant, brillant]
   inpatient_adj:
     form: stationär
     note: прилагательное, артикля нет
     distractors:
-      far: [teilstationär, tagesklinisch]
+      far: [ambulant, tagesklinisch]
       near: [Station, stationieren, sanitär]
   patient_file:
     form: Patientenakte
@@ -4676,7 +4676,7 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Laktose, Histamin], near: [Glut, Gluteus, Klausel] }
+    distractors: { far: [Laktose, Histamin], near: [Glut, Glasur, Klausel] }
   organicproduct_noun:
     form: Bioprodukt
     article: das
@@ -4690,10 +4690,10 @@ lexemes:
     plural: Herkunftsländer
     distractors: { far: [Anbaugebiet, Erzeugerbetrieb], near: [Herkunftsnachweis, Heimatland, Herrschaftsgebiet] }
   bestbefore_noun:
-    form: Haltbarkeitsdatum
+    form: Mindesthaltbarkeitsdatum
     article: das
     gender: n
-    plural: Haltbarkeitsdaten
+    plural: Mindesthaltbarkeitsdaten
     distractors: { far: [Verbrauchsdatum, Chargennummer], near: [Haltbarkeitsdauer, Geburtsdatum, Haltbarmachung] }
   supplychain_noun:
     form: Lieferkette
@@ -4728,7 +4728,6 @@ lexemes:
     form: Lebensmittelrecht
     article: das
     gender: n
-    plural: Lebensmittelrechte
     distractors: { far: [Hygieneverordnung, Marktordnung], near: [Lebensmittelmarkt, Mietrecht, Lebensmittelpunkt] }
   hygienerule_noun:
     form: Hygienevorschrift
@@ -4761,13 +4760,13 @@ lexemes:
     article: das
     gender: n
     plural: Streckennetze
-    distractors: { far: [Liniennetz, Fahrplan], near: [Streckenführung, Stromnetz, Streckenabschnitt] }
+    distractors: { far: [Umsteigepunkt, Fahrplan], near: [Streckenführung, Stromnetz, Streckenabschnitt] }
   clockfacetimetable_noun:
-    form: Taktverkehr
+    form: Taktfahrplan
     article: der
     gender: m
-    plural: Taktverkehre
-    distractors: { far: [Bedarfsverkehr, Linienbetrieb], near: [Taktfahrplan, Nahverkehr, Taktgeber] }
+    plural: Taktfahrpläne
+    distractors: { far: [Bedarfsverkehr, Linienbetrieb], near: [Taktverkehr, Nahverkehr, Taktgeber] }
   capacitybottleneck_noun:
     form: Kapazitätsengpass
     article: der
@@ -4797,7 +4796,7 @@ lexemes:
     article: der
     gender: m
     note: неисчисляемое
-    distractors: { far: [Schallwand, Nachtflugverbot], near: [Lärmschutzwand, Brandschutz, Lärmbelästigung] }
+    distractors: { far: [Schallwand, Nachtflugverbot], near: [Lärmschutzwand, Wärmeschutz, Lärmbelästigung] }
   mobilityshift_noun:
     form: Verkehrswende
     article: die
@@ -4821,13 +4820,13 @@ lexemes:
     article: die
     gender: f
     plural: Subventionen
-    distractors: { far: [Förderung, Zuschuss], near: [Konvention, Prävention, Subversion] }
+    distractors: { far: [Steuervorteil, Darlehen], near: [Konvention, Prävention, Subversion] }
   trackprice_noun:
     form: Trassenpreis
     article: der
     gender: m
     plural: Trassenpreise
-    distractors: { far: [Nutzungsentgelt, Maut], near: [Trassenführung, Straßenpreis, Trassenverlauf] }
+    distractors: { far: [Nutzungsentgelt, Maut], near: [Trassenführung, Grundpreis, Trassenverlauf] }
   operatormodel_noun:
     form: Betreibermodell
     article: das
@@ -4839,7 +4838,7 @@ lexemes:
     article: der
     gender: m
     plural: Haftungsausschlüsse
-    distractors: { far: [Freizeichnung, Kulanzregel], near: [Haftungsgrenze, Verbindungsausschluss, Haftungsfrage] }
+    distractors: { far: [Freizeichnung, Kulanzregel], near: [Haftungsgrenze, Ausschlussfrist, Haftungsfrage] }
   claimssettlement_noun:
     form: Schadensregulierung
     article: die
@@ -4851,7 +4850,7 @@ lexemes:
     article: die
     gender: f
     plural: Kaskoversicherungen
-    distractors: { far: [Haftpflicht, Insassenschutz], near: [Kaskoschaden, Rentenversicherung, Kassenversicherung] }
+    distractors: { far: [Haftpflicht, Insassenschutz], near: [Kaskoschaden, Rentenversicherung, Krankenversicherung] }
   excess_noun:
     form: Selbstbeteiligung
     article: die
@@ -4869,7 +4868,7 @@ lexemes:
     article: die
     gender: f
     plural: Unfallstatistiken
-    distractors: { far: [Unfallbericht, Erhebung], near: [Unfallstelle, Amtsstatistik, Unfallflucht] }
+    distractors: { far: [Unfallbericht, Erhebung], near: [Unfallstelle, Amtssprache, Unfallflucht] }
   freighttransport_noun:
     form: Güterverkehr
     article: der
@@ -4881,7 +4880,7 @@ lexemes:
     article: die
     gender: f
     plural: Logistikketten
-    distractors: { far: [Vertriebsnetz, Umschlagplatz], near: [Logistikzentrum, Lieferkette, Logistikbranche] }
+    distractors: { far: [Vertriebsnetz, Umschlagplatz], near: [Logistikzentrum, Halskette, Logistikbranche] }
   customsclearance_noun:
     form: Zollabfertigung
     article: die
@@ -4893,7 +4892,7 @@ lexemes:
     article: das
     gender: n
     plural: Fahrtenbücher
-    distractors: { far: [Bordbuch, Tachoscheibe], near: [Fahrtenschreiber, Sparbuch, Fahrtkosten] }
+    distractors: { far: [Reisekostenabrechnung, Tachoscheibe], near: [Fahrtenschreiber, Wörterbuch, Fahrtkosten] }
 
   # ── «Дом», B2 ─────────────────────────────────────────────────────────
   rentindex_noun:
@@ -4949,7 +4948,7 @@ lexemes:
     article: die
     gender: f
     plural: Tilgungen
-    distractors: { far: [Zinszahlung, Sondertilgung], near: [Tilgungsplan, Billigung, Teilung] }
+    distractors: { far: [Zinszahlung, Restschuld], near: [Tilgungsplan, Billigung, Teilung] }
   fixedinterest_noun:
     form: Zinsbindung
     article: die
@@ -5003,7 +5002,7 @@ lexemes:
     article: der
     gender: m
     plural: Bebauungspläne
-    distractors: { far: [Baugenehmigung, Nutzungsart], near: [Bebauungsdichte, Bauplan, Beratungsplan] }
+    distractors: { far: [Baugenehmigung, Nutzungsart], near: [Bebauungsdichte, Bauplan, Beratungsstelle] }
   heritageprotection_noun:
     form: Denkmalschutz
     article: der
@@ -5107,12 +5106,11 @@ lexemes:
     article: die
     gender: f
     plural: Verbraucherzentralen
-    distractors: { far: [Schlichtungsstelle, Ombudsmann], near: [Verbraucherschutz, Einkaufszentrale, Verbraucherpreis] }
+    distractors: { far: [Schlichtungsstelle, Ombudsmann], near: [Verbraucherschutz, Einkaufszentrum, Verbraucherpreis] }
   competitionlaw_noun:
     form: Wettbewerbsrecht
     article: das
     gender: n
-    plural: Wettbewerbsrechte
     distractors: { far: [Markenrecht, Vergaberecht], near: [Wettbewerbsverbot, Arbeitsrecht, Wettbewerbsvorteil] }
   pricefixing_noun:
     form: Preisbindung
@@ -5143,7 +5141,7 @@ lexemes:
     article: die
     gender: f
     plural: Beschaffungen
-    distractors: { far: [Einkauf, Ausschreibung], near: [Beschaffenheit, Verschaffung, Beschattung] }
+    distractors: { far: [Lagerhaltung, Ausschreibung], near: [Beschaffenheit, Verschaffung, Beschattung] }
   costing_noun:
     form: Kalkulation
     article: die
@@ -5167,7 +5165,7 @@ lexemes:
     article: die
     gender: f
     plural: Inventuren
-    distractors: { far: [Bestandsaufnahme, Jahresabschluss], near: [Inventar, Investitur, Innentür] }
+    distractors: { far: [Wareneingang, Jahresabschluss], near: [Inventar, Investitur, Innentür] }
   merchandisesystem_noun:
     form: Warenwirtschaft
     article: die
@@ -5217,7 +5215,7 @@ lexemes:
     article: die
     gender: f
     plural: Unterhaltspflichten
-    distractors: { far: [Beistandspflicht, Sorgepflicht], near: [Unterhaltszahlung, Meldepflicht, Unterhaltsvorschuss] }
+    distractors: { far: [Beistandspflicht, Auskunftspflicht], near: [Unterhaltszahlung, Meldepflicht, Unterhaltsvorschuss] }
   maintenancetitle_noun:
     form: Unterhaltstitel
     article: der
@@ -5235,7 +5233,7 @@ lexemes:
     article: das
     gender: n
     plural: Umgangsrechte
-    distractors: { far: [Aufenthaltsbestimmung, Besuchsregelung], near: [Umgangspflicht, Wohnrecht, Umgangsform] }
+    distractors: { far: [Aufenthaltsbestimmung, Auskunftsrecht], near: [Umgangspflicht, Wohnrecht, Umgangsform] }
   childwelfare_noun:
     form: Kindeswohl
     article: das
@@ -5271,7 +5269,7 @@ lexemes:
     article: die
     gender: f
     plural: Erbschaftsteuern
-    distractors: { far: [Schenkungsteuer, Freibetrag], near: [Erbschaftsanspruch, Grundsteuer, Erbschaftssache] }
+    distractors: { far: [Schenkungsteuer, Freibetrag], near: [Erbschein, Grundsteuer, Erbschaftssache] }
   bequest_noun:
     form: Vermächtnis
     article: das
@@ -5295,7 +5293,7 @@ lexemes:
     article: die
     gender: f
     plural: Patientenverfügungen
-    distractors: { far: [Vorsorgevollmacht, Organspendeausweis], near: [Patientenakte, Verfügungsrahmen, Patientenrecht] }
+    distractors: { far: [Vorsorgevollmacht, Organspendeausweis], near: [Patientenakte, Verfügungsgewalt, Patientenrecht] }
   generationalcontract_noun:
     form: Generationenvertrag
     article: der
@@ -5313,25 +5311,25 @@ lexemes:
     article: die
     gender: f
     plural: Hinterbliebenenrenten
-    distractors: { far: [Waisengeld, Sterbegeld], near: [Hinterbliebenenschutz, Altersrente, Hinterbliebenenversorgung] }
+    distractors: { far: [Waisengeld, Sterbegeld], near: [Hinterlassenschaft, Altersrente, Hinterbliebenenversorgung] }
   familyreunion_noun:
     form: Familiennachzug
     article: der
     gender: m
     note: неисчисляемое
-    distractors: { far: [Visumverfahren, Aufenthaltserlaubnis], near: [Familienname, Rückzug, Familiennachweis] }
+    distractors: { far: [Visumverfahren, Aufenthaltserlaubnis], near: [Familienname, Rückzug, Familienfeier] }
   residencepermit_noun:
     form: Aufenthaltstitel
     article: der
     gender: m
     plural: Aufenthaltstitel
-    distractors: { far: [Visum, Duldung], near: [Aufenthaltsdauer, Unterhaltstitel, Aufenthaltsort] }
+    distractors: { far: [Duldung, Meldebestätigung], near: [Aufenthaltsdauer, Unterhaltstitel, Aufenthaltsort] }
   naturalisation_noun:
     form: Einbürgerung
     article: die
     gender: f
     plural: Einbürgerungen
-    distractors: { far: [Staatsangehörigkeitsrecht, Optionspflicht], near: [Einbürgerungstest, Einlagerung, Einbürgerungsurkunde] }
+    distractors: { far: [Staatsangehörigkeitsrecht, Niederlassungserlaubnis], near: [Einbürgerungstest, Einlagerung, Einbürgerungsurkunde] }
 
   # ── «Время», B2 ───────────────────────────────────────────────────────
   timemanagement_noun:
@@ -5369,7 +5367,7 @@ lexemes:
     article: die
     gender: f
     note: неисчисляемое
-    distractors: { far: [Wiederkehr, Rhythmus], near: [Periode, Elektrizität, Produktivität] }
+    distractors: { far: [Wiederkehr, Rhythmus], near: [Peripherie, Elektrizität, Produktivität] }
   synchronisation_noun:
     form: Synchronisierung
     article: die
@@ -5381,7 +5379,7 @@ lexemes:
     article: die
     gender: f
     plural: Verjährungsfristen
-    distractors: { far: [Ausschlussfrist, Klagefrist], near: [Verjährungsbeginn, Kündigungsfrist, Verjährungshemmung] }
+    distractors: { far: [Einspruchsfrist, Klagefrist], near: [Verjährungsbeginn, Kündigungsfrist, Verjährungshemmung] }
   transitionperiod_noun:
     form: Übergangsfrist
     article: die
@@ -5393,7 +5391,7 @@ lexemes:
     article: die
     gender: f
     plural: Karenzzeiten
-    distractors: { far: [Wartezeit, Sperrfrist], near: [Karenztag, Kernzeit, Karenzentschädigung] }
+    distractors: { far: [Beitragszeit, Sperrfrist], near: [Karenztag, Kernzeit, Karenzentschädigung] }
   paybackperiod_noun:
     form: Amortisationszeit
     article: die
@@ -5405,7 +5403,7 @@ lexemes:
     article: die
     gender: f
     plural: Halbwertszeiten
-    distractors: { far: [Zerfallsrate, Lebensdauer], near: [Halbjahreszeit, Wartezeit, Halbwertsdicke] }
+    distractors: { far: [Zerfallsrate, Lebensdauer], near: [Halbzeit, Wartezeit, Halbwertsdicke] }
   chronology_noun:
     form: Chronologie
     article: die
@@ -5428,8 +5426,7 @@ lexemes:
     form: Zeitgeist
     article: der
     gender: m
-    plural: Zeitgeister
-    distractors: { far: [Stimmungslage, Modeerscheinung], near: [Zeitgenosse, Ortsgeist, Zeitgefühl] }
+    distractors: { far: [Stimmungslage, Modeerscheinung], near: [Zeitgenosse, Zeitgewinn, Zeitgefühl] }
   prehistory_noun:
     form: Vorgeschichte
     article: die
@@ -5497,7 +5494,7 @@ lexemes:
     article: das
     gender: n
     plural: Steueraufkommen
-    distractors: { far: [Einnahmenseite, Finanzausgleich], near: [Steuereinnahme, Warenaufkommen, Steuerbescheid] }
+    distractors: { far: [Einnahmenseite, Finanzausgleich], near: [Steuerberater, Verkehrsaufkommen, Steuerbescheid] }
   tradetax_noun:
     form: Gewerbesteuer
     article: die
@@ -5521,7 +5518,7 @@ lexemes:
     article: die
     gender: f
     note: неисчисляемое
-    distractors: { far: [Grundversorgung, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Daseinsform] }
+    distractors: { far: [Grundversorgung, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Gesundheitsvorsorge] }
   landuseplan_noun:
     form: Flächennutzungsplan
     article: der
@@ -5533,13 +5530,13 @@ lexemes:
     article: die
     gender: f
     plural: Bauleitplanungen
-    distractors: { far: [Baurecht, Raumordnung], near: [Bauleitung, Personalplanung, Bauleitverfahren] }
+    distractors: { far: [Baurecht, Raumordnung], near: [Bauleitung, Personalplanung, Baubetreuung] }
   sitedevelopment_noun:
     form: Erschließung
     article: die
     gender: f
     plural: Erschließungen
-    distractors: { far: [Baureifmachung, Anschlusskosten], near: [Erschließungsbeitrag, Entschließung, Eheschließung] }
+    distractors: { far: [Grundstücksteilung, Anschlusskosten], near: [Erschließungsbeitrag, Entschließung, Eheschließung] }
   expropriation_noun:
     form: Enteignung
     article: die
@@ -5551,7 +5548,7 @@ lexemes:
     article: die
     gender: f
     note: неисчисляемое
-    distractors: { far: [Steuerbefreiung, Ehrenamt], near: [Gemeinnutz, Gemeinsamkeit, Gemeindeamt] }
+    distractors: { far: [Steuerbefreiung, Ehrenamt], near: [Gemeinheit, Gemeinsamkeit, Gemeindeamt] }
   citizenspetition_noun:
     form: Bürgerbegehren
     article: das
@@ -5575,13 +5572,13 @@ lexemes:
     article: das
     gender: n
     plural: Amtsblätter
-    distractors: { far: [Bekanntmachung, Gemeindebrief], near: [Amtsgericht, Kleeblatt, Amtsträger] }
+    distractors: { far: [Bekanntmachung, Gemeindebrief], near: [Amtsstube, Kleeblatt, Amtsträger] }
   administrativeact_noun:
     form: Verwaltungsakt
     article: der
     gender: m
     plural: Verwaltungsakte
-    distractors: { far: [Rechtsverordnung, Realakt], near: [Verwaltungsrecht, Verwaltungsgebühr, Verhandlungsakt] }
+    distractors: { far: [Rechtsverordnung, Realakt], near: [Verwaltungsrecht, Verwaltungsgebühr, Verwaltungsaufwand] }
   legalremedy_noun:
     form: Rechtsbehelf
     article: der
@@ -5630,7 +5627,6 @@ lexemes:
     form: Arbeitsrecht
     article: das
     gender: n
-    plural: Arbeitsrechte
     distractors: { far: [Sozialrecht, Tarifrecht], near: [Arbeitsschutz, Mietrecht, Arbeitsgericht] }
   businesstransfer_noun:
     form: Betriebsübergang
@@ -5649,7 +5645,7 @@ lexemes:
     article: der
     gender: m
     plural: Sozialpläne
-    distractors: { far: [Abfindungsregelung, Transfergesellschaft], near: [Sozialauswahl, Bebauungsplan, Sozialamt] }
+    distractors: { far: [Abfindungsregelung, Transfergesellschaft], near: [Sozialauswahl, Stufenplan, Sozialamt] }
   interestbalance_noun:
     form: Interessenausgleich
     article: der
@@ -5667,7 +5663,7 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Abfindung, Ausfallgeld], near: [Insolvenzverfahren, Krankengeld, Insolvenzmasse] }
+    distractors: { far: [Abfindung, Übergangsgeld], near: [Insolvenzverfahren, Krankengeld, Insolvenzmasse] }
   bogusselfemployment_noun:
     form: Scheinselbstständigkeit
     article: die
@@ -5679,7 +5675,7 @@ lexemes:
     article: der
     gender: m
     plural: Werkverträge
-    distractors: { far: [Dienstvertrag, Honorarvertrag], near: [Werkstatt, Mietvertrag, Werksgelände] }
+    distractors: { far: [Dienstvertrag, Honorarvertrag], near: [Werkstatt, Werksverkauf, Werksgelände] }
   temporarywork_noun:
     form: Zeitarbeit
     article: die
@@ -5708,13 +5704,11 @@ lexemes:
     form: Tarifautonomie
     article: die
     gender: f
-    plural: Tarifautonomien
-    distractors: { far: [Tarifbindung, Friedenspflicht], near: [Tarifvertrag, Selbstautonomie, Tarifkonflikt] }
+    distractors: { far: [Tarifbindung, Friedenspflicht], near: [Tarifvertrag, Selbstverwaltung, Tarifkonflikt] }
   righttostrike_noun:
     form: Streikrecht
     article: das
     gender: n
-    plural: Streikrechte
     distractors: { far: [Arbeitskampf, Urabstimmung], near: [Streikgeld, Stimmrecht, Streikposten] }
   lockout_noun:
     form: Aussperrung
@@ -5733,7 +5727,7 @@ lexemes:
     article: die
     gender: f
     plural: Sozialversicherungen
-    distractors: { far: [Privatversicherung, Zusatzversorgung], near: [Sozialabgabe, Rentenversicherung, Sozialleistung] }
+    distractors: { far: [Privatversicherung, Zusatzversorgung], near: [Sozialabgabe, Sozialgesetzbuch, Sozialleistung] }
   pensioninsurance_noun:
     form: Rentenversicherung
     article: die
@@ -5745,25 +5739,25 @@ lexemes:
     article: die
     gender: f
     plural: Arbeitslosenversicherungen
-    distractors: { far: [Arbeitslosengeld, Bürgergeld], near: [Arbeitslosenquote, Rentenversicherung, Arbeitslosenhilfe] }
+    distractors: { far: [Arbeitslosengeld, Bürgergeld], near: [Arbeitslosenquote, Unfallversicherung, Arbeitslosenzahl] }
   careinsurance_noun:
     form: Pflegeversicherung
     article: die
     gender: f
     plural: Pflegeversicherungen
-    distractors: { far: [Pflegegrad, Pflegegeld], near: [Pflegeleistung, Rentenversicherung, Pflegedienst] }
+    distractors: { far: [Pflegegrad, Pflegegeld], near: [Pflegeleistung, Lebensversicherung, Pflegedienst] }
   employersliability_noun:
     form: Berufsgenossenschaft
     article: die
     gender: f
     plural: Berufsgenossenschaften
-    distractors: { far: [Unfallkasse, Aufsichtsdienst], near: [Berufsgruppe, Wohnungsgenossenschaft, Berufsgenehmigung] }
+    distractors: { far: [Unfallkasse, Aufsichtsdienst], near: [Berufsgruppe, Wohnungsgenossenschaft, Berufsgeheimnis] }
   labourcourt_place:
     form: Arbeitsgericht
     article: das
     gender: n
     plural: Arbeitsgerichte
-    distractors: { far: [Sozialgericht, Schlichtungsstelle], near: [Arbeitsrecht, Amtsgericht, Arbeitsgemeinschaft] }
+    distractors: { far: [Sozialgericht, Schlichtungsstelle], near: [Arbeitsrecht, Amtsleiter, Arbeitsgemeinschaft] }
   conciliationhearing_noun:
     form: Güteverhandlung
     article: die

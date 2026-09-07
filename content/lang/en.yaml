@@ -1286,7 +1286,7 @@ lexemes:
   logisticschain_noun: { form: logistics chain, plural: logistics chains }
   customsclearance_noun: { form: customs clearance }
   logbook_object: { form: logbook, plural: logbooks }
-  rentindex_noun: { form: rent index }
+  rentindex_noun: { form: local rent survey }
   modernisationlevy_noun: { form: modernisation levy }
   maintenancereserve_noun: { form: maintenance reserve }
   condominium_noun: { form: freehold flat ownership }
@@ -1350,13 +1350,13 @@ lexemes:
   inheritancetax_noun: { form: inheritance tax }
   bequest_noun: { form: bequest, plural: bequests }
   estateadministration_noun: { form: estate administration }
-  guardianshiplaw_noun: { form: guardianship law }
+  guardianshiplaw_noun: { form: adult guardianship law }
   livingwill_noun: { form: living will, plural: living wills }
   generationalcontract_noun: { form: generational contract }
   pensionclaim_noun: { form: pension entitlement, plural: pension entitlements }
   survivorspension_noun: { form: survivors pension, plural: survivors pensions }
   familyreunion_noun: { form: family reunification }
-  residencepermit_noun: { form: residence permit, plural: residence permits }
+  residencepermit_noun: { form: residence title, plural: residence permits }
   naturalisation_noun: { form: naturalisation }
   timemanagement_noun: { form: time management }
   prioritisation_noun: { form: prioritisation }
@@ -1380,7 +1380,7 @@ lexemes:
   clocking_noun: { form: clocking }
   frequency_technical: { form: frequency, plural: frequencies }
   interval_noun: { form: interval, plural: intervals }
-  rotation_noun: { form: rota }
+  rotation_noun: { form: regular rotation }
   cycle_noun: { form: cycle, plural: cycles }
   localpolitics_noun: { form: local politics }
   budgetplan_noun: { form: budget plan, plural: budget plans }

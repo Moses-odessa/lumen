@@ -348,6 +348,7 @@ tiers:
       - id: doctor_b2_incapacity
         template: "Die {incapacity} gilt bis zum Monatsende."
         answer: Arbeitsunfähigkeit
+        ambiguity: reviewed
         register: casual
         concepts: [incapacity_noun]
       - id: doctor_b2_estimate

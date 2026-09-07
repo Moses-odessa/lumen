@@ -156,7 +156,7 @@ lexemes:
 
   # ── B2 ────────────────────────────────────────────────────────────────
   copayment_noun: { form: доплата, gender: f, plural: доплаты }
-  objection_noun: { form: возражение, gender: n }
+  objection_noun: { form: возражение, gender: n, note: больничной кассе }
   findings_report: { form: отчёт о результатах, gender: m }
   reimbursement_noun: { form: возмещение, gender: n }
   supplementary_insurance: { form: дополнительная страховка, gender: f }
@@ -165,7 +165,7 @@ lexemes:
   incapacity_noun: { form: нетрудоспособность, gender: f }
   expert_opinion: { form: экспертное заключение, gender: n }
   consent_noun: { form: согласие, gender: n }
-  liability_noun: { form: ответственность, gender: f }
+  liability_noun: { form: юридическая ответственность, gender: f }
   malpractice_noun: { form: врачебная ошибка, gender: f }
   prognosis_noun: { form: прогноз, gender: m, plural: прогнозы }
   contraindication_noun: { form: противопоказание, gender: n }
@@ -744,7 +744,7 @@ lexemes:
   form_object: { form: бланк, gender: m, plural: бланки }
   fee_noun: { form: пошлина, gender: f, plural: пошлины }
   notice_decision: { form: официальное решение, gender: n, plural: уведомления }
-  civicobjection_noun: { form: возражение, gender: n, plural: возражения }
+  civicobjection_noun: { form: возражение, gender: n, plural: возражения, note: в ведомство }
   publicsurgery_noun: { form: приём граждан, gender: m }
   publicsphere_noun: { form: общественность, gender: f }
   infrastructure_noun: { form: инфраструктура, gender: f }
@@ -794,7 +794,7 @@ lexemes:
   gluten_noun: { form: глютен, gender: m }
   organicproduct_noun: { form: биопродукт, gender: m, plural: биопродукты }
   countryoforigin_noun: { form: страна происхождения, gender: f }
-  bestbefore_noun: { form: дата годности, gender: f }
+  bestbefore_noun: { form: минимальный срок годности, gender: f }
   supplychain_noun: { form: цепочка поставок, gender: f }
   producer_person: { form: производитель, gender: m, plural: производители }
   wholesale_noun: { form: оптовая торговля, gender: f }
@@ -802,7 +802,7 @@ lexemes:
   consumerprotection_noun: { form: защита потребителя, gender: f }
   foodlaw_noun: { form: пищевое право, gender: n }
   hygienerule_noun: { form: санитарная норма, gender: f }
-  sustainability_noun: { form: устойчивость, gender: f }
+  sustainability_noun: { form: экологическая устойчивость, gender: f }
   regionality_noun: { form: региональность, gender: f }
   transportinfra_noun: { form: транспортная инфраструктура, gender: f }
   routenetwork_noun: { form: сеть маршрутов, gender: f }
@@ -828,7 +828,7 @@ lexemes:
   logisticschain_noun: { form: логистическая цепь, gender: f }
   customsclearance_noun: { form: таможенное оформление, gender: n }
   logbook_object: { form: путевой журнал, gender: m }
-  rentindex_noun: { form: индекс аренды, gender: m }
+  rentindex_noun: { form: обзор арендных ставок, gender: m }
   modernisationlevy_noun: { form: надбавка за модернизацию, gender: f }
   maintenancereserve_noun: { form: резерв на ремонт, gender: m }
   condominium_noun: { form: собственность на квартиру, gender: f }
@@ -881,7 +881,7 @@ lexemes:
   communityofaccrued_noun: { form: общность прироста, gender: f }
   pensionequalisation_noun: { form: раздел пенсионных прав, gender: m }
   maintenanceobligation_noun: { form: обязанность содержания, gender: f }
-  maintenancetitle_noun: { form: исполнительный лист, gender: m }
+  maintenancetitle_noun: { form: исполнительный документ об алиментах, gender: m }
   custodydispute_noun: { form: спор об опеке, gender: m }
   accessright_noun: { form: право общения, gender: n }
   childwelfare_noun: { form: благо ребёнка, gender: n }
@@ -892,13 +892,13 @@ lexemes:
   inheritancetax_noun: { form: налог на наследство, gender: m }
   bequest_noun: { form: завещательный отказ, gender: m }
   estateadministration_noun: { form: управление наследством, gender: n }
-  guardianshiplaw_noun: { form: право опекунства, gender: n }
+  guardianshiplaw_noun: { form: право о попечительстве над взрослыми, gender: n }
   livingwill_noun: { form: распоряжение пациента, gender: n }
   generationalcontract_noun: { form: договор поколений, gender: m }
   pensionclaim_noun: { form: право на пенсию, gender: n }
   survivorspension_noun: { form: пенсия по потере кормильца, gender: f }
   familyreunion_noun: { form: воссоединение семьи, gender: n }
-  residencepermit_noun: { form: вид на жительство, gender: m }
+  residencepermit_noun: { form: разрешение на пребывание, gender: m }
   naturalisation_noun: { form: натурализация, gender: f }
   timemanagement_noun: { form: управление временем, gender: n }
   prioritisation_noun: { form: расстановка приоритетов, gender: f }
@@ -909,7 +909,7 @@ lexemes:
   synchronisation_noun: { form: синхронизация, gender: f }
   limitationdeadline_noun: { form: срок давности, gender: m }
   transitionperiod_noun: { form: переходный период, gender: m }
-  qualifyingperiod_noun: { form: карантинный срок, gender: m }
+  qualifyingperiod_noun: { form: период ожидания до выплат, gender: m }
   paybackperiod_noun: { form: срок окупаемости, gender: m }
   halflife_noun: { form: период полураспада, gender: m }
   chronology_noun: { form: хронология, gender: f }
@@ -922,7 +922,7 @@ lexemes:
   clocking_noun: { form: тактирование, gender: n }
   frequency_technical: { form: частота сигнала, gender: f }
   interval_noun: { form: интервал, gender: m, plural: интервалы }
-  rotation_noun: { form: очерёдность смены, gender: f }
+  rotation_noun: { form: периодическая смена, gender: f }
   cycle_noun: { form: цикл, gender: m, plural: циклы }
   localpolitics_noun: { form: коммунальная политика, gender: f }
   budgetplan_noun: { form: бюджетный план, gender: m }
@@ -964,11 +964,11 @@ lexemes:
   tariffautonomy_noun: { form: тарифная автономия, gender: f }
   righttostrike_noun: { form: право на забастовку, gender: n }
   lockout_noun: { form: локаут, gender: m }
-  ancillarycosts_noun: { form: дополнительные расходы, gender: m }
+  ancillarycosts_noun: { form: расходы работодателя сверх зарплаты, gender: m }
   socialinsurance_noun: { form: социальное страхование, gender: n }
   pensioninsurance_noun: { form: пенсионное страхование, gender: n }
   unemploymentinsurance_noun: { form: страхование по безработице, gender: n }
   careinsurance_noun: { form: страхование ухода, gender: n }
-  employersliability_noun: { form: профессиональная касса, gender: f }
+  employersliability_noun: { form: объединение страхования от несчастных случаев, gender: f }
   labourcourt_place: { form: трудовой суд, gender: m }
   conciliationhearing_noun: { form: примирительное слушание, gender: n }

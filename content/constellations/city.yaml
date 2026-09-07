@@ -320,8 +320,9 @@ tiers:
         register: casual
         concepts: [administrativeact_noun]
       - id: city_b2_court
-        template: "Das {court} hat entschieden."
+        template: "Gegen den Verwaltungsakt klagt man vor dem {court}."
         answer: Verwaltungsgericht
+        ambiguity: reviewed
         register: casual
         concepts: [administrativecourt_place]
       - id: city_b2_offence
@@ -330,8 +331,9 @@ tiers:
         register: casual
         concepts: [minoroffence_noun]
       - id: city_b2_budget
-        template: "Der {budget} wurde beschlossen."
+        template: "Der {budget} legt Einnahmen und Ausgaben fest."
         answer: Haushaltsplan
+        ambiguity: reviewed
         register: casual
         concepts: [budgetplan_noun]
       - id: city_b2_expropriation
@@ -345,13 +347,15 @@ tiers:
         register: casual
         concepts: [officialgazette_noun]
       - id: city_b2_tradetax
-        template: "Die {tradetax} finanziert die Gemeinde."
+        template: "Betriebe zahlen die {tradetax} an die Gemeinde."
         answer: Gewerbesteuer
+        ambiguity: reviewed
         register: casual
         concepts: [tradetax_noun]
       - id: city_b2_planning
-        template: "Die {planning} braucht Jahre."
+        template: "Die {planning} umfasst Verkehr, Wohnen und Grünflächen."
         answer: Stadtplanung
+        ambiguity: reviewed
         register: casual
         concepts: [townplanning_noun]
       - id: city_b2_remedy
@@ -360,12 +364,14 @@ tiers:
         register: casual
         concepts: [legalremedy_noun]
       - id: city_b2_disaster
-        template: "Der {disaster} wurde geübt."
+        template: "Der {disaster} ist Aufgabe der Länder."
         answer: Katastrophenschutz
+        ambiguity: reviewed
         register: casual
         concepts: [disasterresponse_noun]
       - id: city_b2_landuse
-        template: "Der {landuse} wird geändert."
+        template: "Der {landuse} gilt für das ganze Gemeindegebiet."
         answer: Flächennutzungsplan
+        ambiguity: reviewed
         register: casual
         concepts: [landuseplan_noun]

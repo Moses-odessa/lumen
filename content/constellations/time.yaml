@@ -316,13 +316,15 @@ tiers:
         register: casual
         concepts: [milestone_noun]
       - id: time_b2_limitation
-        template: "Die {limitation} läuft im Mai ab."
+        template: "Nach der {limitation} ist die Forderung nicht mehr durchsetzbar."
         answer: Verjährungsfrist
+        ambiguity: reviewed
         register: casual
         concepts: [limitationdeadline_noun]
       - id: time_b2_transition
-        template: "Es gilt eine {transition}."
+        template: "Bis zum neuen Gesetz gilt eine {transition}."
         answer: Übergangsfrist
+        ambiguity: reviewed
         register: casual
         concepts: [transitionperiod_noun]
       - id: time_b2_prioritisation
@@ -346,13 +348,15 @@ tiers:
         register: casual
         concepts: [era_noun]
       - id: time_b2_retroactivity
-        template: "Die {retroactivity} ist ausgeschlossen."
+        template: "Die {retroactivity} gilt für die Zeit vor dem Inkrafttreten."
         answer: Rückwirkung
+        ambiguity: reviewed
         register: casual
         concepts: [retroactivity_noun]
       - id: time_b2_projectphase
-        template: "Die zweite {projectphase} startet."
+        template: "Nach der Planung folgt die zweite {projectphase}."
         answer: Projektphase
+        ambiguity: reviewed
         register: casual
         concepts: [projectphase_noun]
       - id: time_b2_timemanagement
@@ -361,12 +365,14 @@ tiers:
         register: casual
         concepts: [timemanagement_noun]
       - id: time_b2_qualifying
-        template: "Die {qualifying} beträgt sechs Monate."
+        template: "Vor der ersten Zahlung liegt die {qualifying}."
         answer: Karenzzeit
+        ambiguity: reviewed
         register: casual
         concepts: [qualifyingperiod_noun]
       - id: time_b2_chronology
-        template: "Die {chronology} stimmt nicht."
+        template: "Die {chronology} beginnt mit dem ältesten Ereignis."
         answer: Chronologie
+        ambiguity: reviewed
         register: casual
         concepts: [chronology_noun]
