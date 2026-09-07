@@ -27,7 +27,7 @@ tiers:
       - { id: right_adv, pos: adv, freq_rank: 990 }
     phrases:
       - id: city_a0_map
-        template: "Ich brauche einen {map}."
+        template: "Auf dem {map} finde ich jede Straße."
         answer: Stadtplan
         register: casual
         concepts: [map_object]

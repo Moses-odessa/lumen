@@ -423,7 +423,7 @@ lexemes:
   accident_noun: { form: авария, gender: f, plural: аварии }
   jam_noun: { form: пробка, gender: f, plural: пробки }
   diversion_noun: { form: объезд, gender: m, plural: объезды }
-  roadworks_noun: { form: дорожные работы, gender: f, note: стройплощадка }
+  roadworks_noun: { form: дорожные работы, gender: f }
   parking_place: { form: парковка, gender: f, plural: парковки }
   garage_place: { form: паркинг, gender: m, plural: паркинги }
   kilometre_noun: { form: километр, gender: m, plural: километры }
@@ -453,7 +453,7 @@ lexemes:
   carpet_object: { form: ковёр, gender: m, plural: ковры }
   curtain_object: { form: занавеска, gender: f, plural: занавески }
   mirror_object: { form: зеркало, gender: n, plural: зеркала }
-  shelf_object: { form: полка, gender: f, plural: полки }
+  shelf_object: { form: стеллаж, gender: f, plural: полки }
   washing_machine: { form: стиральная машина, gender: f }
   fridge_object: { form: холодильник, gender: m, plural: холодильники }
   stove_object: { form: плита, gender: f, plural: плиты }

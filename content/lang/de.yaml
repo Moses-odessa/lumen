@@ -183,7 +183,7 @@ lexemes:
     form: gesund
     note: прилагательное, артикля нет
     distractors:
-      far: [munter, fit]
+      far: [munter, kräftig]
       near: [gesendet, Gesundheit, gesungen]
   temperature_noun:
     form: Temperatur
@@ -600,7 +600,7 @@ lexemes:
     gender: f
     plural: Erstattungen
     distractors:
-      far: [Rückzahlung, Vergütung]
+      far: [Zuzahlung, Vergütung]
       near: [Bestattung, Ausstattung, Gestaltung]
   supplementary_insurance:
     form: Zusatzversicherung
@@ -653,7 +653,7 @@ lexemes:
     article: die
     gender: f
     distractors:
-      far: [Verantwortung, Schuld]
+      far: [Fahrlässigkeit, Schuld]
       near: [Haltung, Heftung, Achtung]
   malpractice_noun:
     form: Behandlungsfehler
@@ -1693,7 +1693,7 @@ lexemes:
     gender: f
     plural: Reisen
     distractors:
-      far: [Ausflug, Unterkunft]
+      far: [Reiseziel, Unterkunft]
       near: [Reihe, Riese, Preise]
   arrival_noun:
     form: Ankunft
@@ -1872,7 +1872,7 @@ lexemes:
     gender: f
     plural: Qualitäten
     distractors:
-      far: [Menge, Garantie]
+      far: [Herstellerangabe, Garantie]
       near: [Quantität, Qualifikation, Realität]
   product_noun:
     form: Produkt
@@ -2172,7 +2172,7 @@ lexemes:
     gender: m
     plural: Eingänge
     distractors:
-      far: [Tor, Schranke]
+      far: [Treppe, Schranke]
       near: [Ausgang, Einkauf, Empfang]
   exit_place:
     form: Ausgang
@@ -2471,10 +2471,10 @@ lexemes:
     plural: Umleitungen
     distractors: { far: [Sperrung, Beschilderung], near: [Umkleidung, Ummeldung, Umstellung] }
   roadworks_noun:
-    form: Baustelle
+    form: Straßenbaustelle
     article: die
     gender: f
-    plural: Baustellen
+    plural: Straßenbaustellen
     distractors: { far: [Absperrung, Bauzaun], near: [Bauweise, Bauhaus, Bauplatz] }
   parking_place:
     form: Parkplatz
@@ -2785,7 +2785,7 @@ lexemes:
     article: die
     gender: f
     plural: Reklamationen
-    distractors: { far: [Beschwerde, Widerspruch], near: [Reklame, Deklaration, Rekonstruktion] }
+    distractors: { far: [Rücksendung, Widerspruch], near: [Reklame, Deklaration, Rekonstruktion] }
   return_noun:
     form: Rückgabe
     article: die
@@ -3220,7 +3220,7 @@ lexemes:
     article: die
     gender: f
     plural: Schulen
-    distractors: { far: [Gymnasium, Hochschule], near: [Schale, Schuld, Spule] }
+    distractors: { far: [Klassenzimmer, Hochschule], near: [Schale, Schuld, Spule] }
   cinema_place:
     form: Kino
     article: das
@@ -3372,7 +3372,7 @@ lexemes:
     article: der
     gender: m
     plural: Vorgesetzte
-    distractors: { far: [Geschäftsführer, Teamleiter], near: [Vorgeschmack, Vorgeschichte, Vorgesang] }
+    distractors: { far: [Geschäftsführer, Kollege], near: [Vorgeschmack, Vorgeschichte, Vorgesang] }
   internship_noun:
     form: Praktikum
     article: das
@@ -3414,7 +3414,7 @@ lexemes:
     article: die
     gender: f
     plural: Krankschreibungen
-    distractors: { far: [Lohnfortzahlung, Genesung], near: [Beschreibung, Krankenkasse, Krankmeldung] }
+    distractors: { far: [Lohnfortzahlung, Genesung], near: [Beschreibung, Krankenkasse, Verschreibung] }
   workinghours_noun:
     form: Arbeitszeit
     article: die
@@ -3432,7 +3432,7 @@ lexemes:
     article: die
     gender: f
     plural: Steuern
-    distractors: { far: [Abgabe, Beitrag], near: [Feuer, Scheuer, Steuerrad] }
+    distractors: { far: [Zuschlag, Beitrag], near: [Feuer, Scheuer, Steuerrad] }
   socialcontribution_noun:
     form: Sozialabgabe
     article: die
@@ -3984,7 +3984,7 @@ lexemes:
     article: die
     gender: f
     plural: Mahnungen
-    distractors: { far: [Rechnung, Zahlungsaufforderung], near: [Mahlzeit, Wohnung, Ahnung] }
+    distractors: { far: [Rechnung, Kontoauszug], near: [Mahlzeit, Wohnung, Ahnung] }
   debtcollection_noun:
     form: Inkasso
     article: das
@@ -4646,7 +4646,7 @@ lexemes:
     article: der
     gender: m
     plural: Zusatzstoffe
-    distractors: { far: [Aroma, Süßungsmittel], near: [Zusatzbeitrag, Kunststoff, Ersatzstoff] }
+    distractors: { far: [Zutatenliste, Verpackung], near: [Zusatzbeitrag, Kunststoff, Ersatzstoff] }
   labelling_noun:
     form: Kennzeichnung
     article: die
@@ -4838,7 +4838,7 @@ lexemes:
     article: der
     gender: m
     plural: Haftungsausschlüsse
-    distractors: { far: [Freizeichnung, Kulanzregel], near: [Haftungsgrenze, Ausschlussfrist, Haftungsfrage] }
+    distractors: { far: [Deckungszusage, Kulanzregel], near: [Haftungsgrenze, Ausschlussfrist, Haftungsfrage] }
   claimssettlement_noun:
     form: Schadensregulierung
     article: die
@@ -5058,7 +5058,7 @@ lexemes:
     article: die
     gender: f
     plural: Haftungsbeschränkungen
-    distractors: { far: [Freizeichnung, Deckungssumme], near: [Haftungsausschluss, Zugangsbeschränkung, Haftungsfall] }
+    distractors: { far: [Freizeichnung, Deckungssumme], near: [Haftpflicht, Zugangsbeschränkung, Haftungsfall] }
   limitationperiod_noun:
     form: Verjährung
     article: die
@@ -5088,7 +5088,7 @@ lexemes:
     article: die
     gender: f
     plural: Nacherfüllungen
-    distractors: { far: [Ersatzlieferung, Rückabwicklung], near: [Nachbesserung, Vertragserfüllung, Nachforderung] }
+    distractors: { far: [Preisnachlass, Rückabwicklung], near: [Nachverhandlung, Vertragserfüllung, Nachforderung] }
   withdrawal_contract:
     form: Rücktritt
     article: der
@@ -5239,7 +5239,7 @@ lexemes:
     article: das
     gender: n
     note: неисчисляемое
-    distractors: { far: [Erziehungsziel, Schutzauftrag], near: [Kindeswille, Gemeinwohl, Kindergeld] }
+    distractors: { far: [Umgangsregelung, Schutzauftrag], near: [Kindeswille, Gemeinwohl, Kindergeld] }
   youthoffice_place:
     form: Jugendamt
     article: das
@@ -5391,7 +5391,7 @@ lexemes:
     article: die
     gender: f
     plural: Karenzzeiten
-    distractors: { far: [Beitragszeit, Sperrfrist], near: [Karenztag, Kernzeit, Karenzentschädigung] }
+    distractors: { far: [Beitragszeit, Leistungsbeginn], near: [Karenztag, Kernzeit, Karenzentschädigung] }
   paybackperiod_noun:
     form: Amortisationszeit
     article: die
@@ -5409,7 +5409,7 @@ lexemes:
     article: die
     gender: f
     plural: Chronologien
-    distractors: { far: [Zeittafel, Abfolge], near: [Chronik, Technologie, Chronometer] }
+    distractors: { far: [Zeitzeuge, Geschichtsbuch], near: [Chronik, Technologie, Chronometer] }
   epoch_noun:
     form: Epoche
     article: die
@@ -5421,7 +5421,7 @@ lexemes:
     article: die
     gender: f
     plural: Ären
-    distractors: { far: [Zeitalter, Herrschaftszeit], near: [Ähre, Aura, Arie] }
+    distractors: { far: [Jahrhundertwende, Herrschaftszeit], near: [Ähre, Aura, Arie] }
   zeitgeist_noun:
     form: Zeitgeist
     article: der
@@ -5462,7 +5462,7 @@ lexemes:
     article: das
     gender: n
     plural: Intervalle
-    distractors: { far: [Abstand, Zeitfenster], near: [Interview, Intervention, Insektenbefall] }
+    distractors: { far: [Pause, Zeitfenster], near: [Interview, Intervention, Insektenbefall] }
   rotation_noun:
     form: Turnus
     article: der
@@ -5474,7 +5474,7 @@ lexemes:
     article: der
     gender: m
     plural: Zyklen
-    distractors: { far: [Kreislauf, Umlauf], near: [Zylinder, Zirkus, Zyniker] }
+    distractors: { far: [Stillstand, Zwischenschritt], near: [Zylinder, Zirkus, Zyniker] }
 
   # ── «Город», B2 ───────────────────────────────────────────────────────
   localpolitics_noun:
@@ -5518,7 +5518,7 @@ lexemes:
     article: die
     gender: f
     note: неисчисляемое
-    distractors: { far: [Grundversorgung, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Gesundheitsvorsorge] }
+    distractors: { far: [Verwaltungsaufgabe, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Gesundheitsvorsorge] }
   landuseplan_noun:
     form: Flächennutzungsplan
     article: der

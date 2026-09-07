@@ -162,7 +162,7 @@ tiers:
         register: casual
         concepts: [insurance_noun]
       - id: transport_a2_speed
-        template: "Halten Sie die {speed} ein."
+        template: "Halten Sie die vorgeschriebene {speed} ein."
         answer: Geschwindigkeit
         register: formal
         concepts: [speed_noun]

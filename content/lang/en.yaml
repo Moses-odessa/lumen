@@ -911,7 +911,7 @@ lexemes:
   carpet_object: { form: carpet, plural: carpets }
   curtain_object: { form: curtain, plural: curtains }
   mirror_object: { form: mirror, plural: mirrors }
-  shelf_object: { form: shelf, plural: shelves }
+  shelf_object: { form: shelving unit, plural: shelves }
   washing_machine: { form: washing machine, plural: washing machines }
   fridge_object: { form: fridge, plural: fridges }
   stove_object: { form: stove, plural: stoves }
@@ -931,7 +931,7 @@ lexemes:
   clearance_noun: { form: clearance sale, plural: clearance sales }
   warehouse_place: { form: warehouse, plural: warehouses }
   assortment_noun: { form: range, plural: ranges }
-  warranty_noun: { form: warranty, plural: warranties }
+  warranty_noun: { form: voluntary warranty, plural: warranties }
   complaint_noun: { form: product complaint, plural: complaints }
   return_noun: { form: return, plural: returns }
   shipping_noun: { form: shipping }

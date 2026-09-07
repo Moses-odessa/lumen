@@ -84,7 +84,7 @@ tiers:
         register: casual
         concepts: [delivery_noun]
       - id: shop_a1_exchange
-        template: "Ich möchte einen {exchange}."
+        template: "Ist ein {exchange} möglich?"
         answer: Umtausch
         register: casual
         concepts: [exchange_noun]

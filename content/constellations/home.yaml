@@ -131,7 +131,7 @@ tiers:
       - { id: move_noun, pos: noun, freq_rank: 3990 }
     phrases:
       - id: home_a2_landlord
-        template: "Ich zahle die Miete an den {landlord}."
+        template: "Der {landlord} muss nicht der Eigentümer sein."
         answer: Vermieter
         register: casual
         concepts: [landlord_person]

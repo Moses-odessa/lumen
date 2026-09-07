@@ -346,7 +346,7 @@ tiers:
         register: formal
         concepts: [interaction_noun]
       - id: doctor_b2_incapacity
-        template: "Die {incapacity} gilt bis zum Monatsende."
+        template: "Die {incapacity} ist bis zum Monatsende bescheinigt."
         answer: Arbeitsunfähigkeit
         ambiguity: reviewed
         register: casual

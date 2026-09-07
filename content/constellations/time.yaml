@@ -168,7 +168,7 @@ tiers:
         register: casual
         concepts: [future_noun]
       - id: time_a2_clocktime
-        template: "Wie ist die {clocktime}?"
+        template: "Zu welcher {clocktime} treffen wir uns?"
         answer: Uhrzeit
         ambiguity: reviewed
         register: casual
@@ -356,7 +356,6 @@ tiers:
       - id: time_b2_projectphase
         template: "Nach der Planung folgt die zweite {projectphase}."
         answer: Projektphase
-        ambiguity: reviewed
         register: casual
         concepts: [projectphase_noun]
       - id: time_b2_timemanagement
@@ -373,6 +372,5 @@ tiers:
       - id: time_b2_chronology
         template: "Die {chronology} beginnt mit dem ältesten Ereignis."
         answer: Chronologie
-        ambiguity: reviewed
         register: casual
         concepts: [chronology_noun]

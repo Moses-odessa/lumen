@@ -246,7 +246,7 @@ tiers:
         register: formal
         concepts: [nutrition_noun]
       - id: food_b1_shelflife
-        template: "Die {shelflife} ist abgelaufen."
+        template: "Wie kann man die {shelflife} verlängern?"
         answer: Haltbarkeit
         register: casual
         concepts: [shelflife_noun]
@@ -315,7 +315,7 @@ tiers:
         register: casual
         concepts: [labelling_noun]
       - id: food_b2_allergen
-        template: "Jedes {allergen} muss genannt werden."
+        template: "Erdnüsse sind ein häufiges {allergen}."
         answer: Allergen
         register: casual
         concepts: [allergen_noun]

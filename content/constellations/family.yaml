@@ -375,6 +375,5 @@ tiers:
       - id: family_b2_childwelfare
         template: "Das {childwelfare} hat Vorrang vor dem Elternwunsch."
         answer: Kindeswohl
-        ambiguity: reviewed
         register: casual
         concepts: [childwelfare_noun]
