@@ -43,6 +43,8 @@ void main(List<String> args) {
   }
 
   switch (args.first) {
+    case 'forms':
+      _forms(args.length > 1 ? args[1] : 'HEAD');
     case 'verify-report':
       _verifyReport(args[1]);
     case 'capture':
@@ -51,6 +53,63 @@ void main(List<String> args) {
       _stats();
     default:
       _dump(args);
+  }
+}
+
+/// Перечисляет изменившиеся `form` относительно git-ссылки.
+///
+/// Это самая дешёвая защита от самой дорогой ошибки при правке контента
+/// скриптом. Дистракторов у концепта пять, а форма одна, и замена «первого
+/// вхождения» слова попадает в неё чаще, чем кажется: у concepts
+/// `complaints_noun` форма была `Beschwerden`, а замена дистрактора
+/// `Beschwerde` превратила её в `Beschwerlichkeitn` — слово, которого нет.
+///
+/// Поймать это проверкой нельзя: чтобы отличить испорченное слово от
+/// настоящего, нужен словарь немецкого с разбором составных слов. Зато
+/// можно посмотреть глазами на короткий список: форм меняется единицы, и
+/// каждая должна быть намеренной.
+void _forms(String ref) {
+  final head = Process.runSync(
+    'git',
+    ['show', '$ref:content/lang/de.yaml'],
+    stdoutEncoding: utf8,
+  );
+  if (head.exitCode != 0) {
+    stderr.writeln('не читается $ref: ${head.stderr}');
+    exitCode = 1;
+    return;
+  }
+
+  Map<String, String> formsOf(String yaml) {
+    final lexemes = _plain(loadYaml(yaml))['lexemes'] as Map;
+    return {
+      for (final e in lexemes.entries) '${e.key}': '${e.value['form']}',
+    };
+  }
+
+  final before = formsOf(head.stdout as String);
+  final now = formsOf(File('content/lang/de.yaml').readAsStringSync());
+
+  final changed = <String>[];
+  for (final entry in now.entries) {
+    final was = before[entry.key];
+    if (was == null) {
+      changed.add('+ ${entry.key}: ${entry.value}');
+    } else if (was != entry.value) {
+      changed.add('  ${entry.key}: $was → ${entry.value}');
+    }
+  }
+  for (final key in before.keys) {
+    if (!now.containsKey(key)) changed.add('- $key: ${before[key]}');
+  }
+
+  if (changed.isEmpty) {
+    stdout.writeln('Формы не менялись относительно $ref.');
+    return;
+  }
+  stdout.writeln('Изменённых форм относительно $ref: ${changed.length}');
+  for (final line in changed..sort()) {
+    stdout.writeln(line);
   }
 }
 

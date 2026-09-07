@@ -141,7 +141,7 @@ lexemes:
   inflammation_noun: { form: воспаление, gender: n }
   infection_noun: { form: инфекция, gender: f }
   antibiotic_noun: { form: антибиотик, gender: m, plural: антибиотики }
-  blood_pressure: { form: давление, gender: n }
+  blood_pressure: { form: давление, gender: n, note: кровяное }
   blood_draw: { form: забор крови, gender: m }
   ultrasound_noun: { form: УЗИ, gender: n }
   xray_noun: { form: рентгеновский снимок, gender: m }
@@ -613,18 +613,18 @@ lexemes:
   transportmeans_noun: { form: транспортное средство, gender: n }
   localtransport_noun: { form: пригородный транспорт, gender: m }
   longdistance_noun: { form: дальнее сообщение, gender: n }
-  surcharge_noun: { form: доплата, gender: f, plural: доплаты }
+  surcharge_noun: { form: доплата, gender: f, plural: доплаты , note: к билету}
   reduction_noun: { form: льгота, gender: f, plural: льготы }
   monthlyticket_noun: { form: проездной, gender: m, plural: проездные }
-  validation_noun: { form: компостирование, gender: n }
+  validation_noun: { form: отметка билета, gender: n }
   passenger_person: { form: пассажир, gender: m, plural: пассажиры }
   conductor_person: { form: кондуктор, gender: m, plural: кондукторы }
-  levelcrossing_place: { form: переезд, gender: m, plural: переезды }
+  levelcrossing_place: { form: переезд, gender: m, plural: переезды , note: железнодорожный}
   rightofway_noun: { form: преимущество проезда, gender: n }
   overtakingban_noun: { form: запрет обгона, gender: m }
   speedlimit_noun: { form: ограничение скорости, gender: n }
   fine_noun: { form: штраф, gender: m, plural: штрафы }
-  drivingban_noun: { form: лишение прав, gender: n }
+  drivingban_noun: { form: запрет на управление, gender: n }
   numberplate_object: { form: номерной знак, gender: m }
   registration_noun: { form: регистрация авто, gender: f }
   inspection_noun: { form: техосмотр, gender: m, plural: техосмотры }
@@ -658,18 +658,18 @@ lexemes:
   heatingcosts_noun: { form: расходы на отопление, gender: m }
   watermeter_object: { form: счётчик воды, gender: m }
   wastesorting_noun: { form: сортировка мусора, gender: f }
-  withdrawalright_noun: { form: право на возврат, gender: n }
-  withdrawalperiod_noun: { form: срок возврата, gender: m }
+  withdrawalright_noun: { form: право на отказ от договора, gender: n }
+  withdrawalperiod_noun: { form: срок для отказа от договора, gender: m }
   purchasecontract_noun: { form: договор купли-продажи, gender: m }
   statutorywarranty_noun: { form: гарантия по закону, gender: f }
   rectification_noun: { form: устранение недостатка, gender: n }
-  pricereduction_noun: { form: уценка, gender: f, plural: уценки }
+  pricereduction_noun: { form: уменьшение цены, gender: n, note: при недостатке товара }
   deliverytime_noun: { form: срок доставки, gender: m }
   cashondelivery_noun: { form: наложенный платёж, gender: m }
   tracking_noun: { form: отслеживание, gender: n }
   clearanceitem_noun: { form: уценённый товар, gender: m }
   remainder_noun: { form: остаток партии, gender: m }
-  financing_noun: { form: рассрочка от банка, gender: f }
+  financing_noun: { form: финансирование, gender: f }
   creditrating_noun: { form: кредитный рейтинг, gender: m }
   directdebit_noun: { form: прямое списание, gender: n }
   chargeback_noun: { form: возврат списания, gender: m }
@@ -697,7 +697,7 @@ lexemes:
   will_noun: { form: завещание, gender: n, plural: завещания }
   estate_noun: { form: наследственная масса, gender: f }
   powerofattorney_noun: { form: доверенность, gender: f, plural: доверенности }
-  healthproxy_noun: { form: доверенность на лечение, gender: f }
+  healthproxy_noun: { form: доверенность на случай недееспособности, gender: f }
   registryoffice_place: { form: загс, gender: m }
   marriageceremony_noun: { form: заключение брака, gender: n }
   birthcertificate_noun: { form: свидетельство о рождении, gender: n }
@@ -731,7 +731,7 @@ lexemes:
   opportunity_noun: { form: возможность, gender: f, plural: возможности }
   eternity_noun: { form: вечность, gender: f }
   municipality_place: { form: община, gender: f, plural: общины }
-  county_place: { form: район, gender: m, plural: районы }
+  county_place: { form: сельский район, gender: m, plural: районы }
   borough_place: { form: округ, gender: m, plural: округа }
   mayor_person: { form: бургомистр, gender: m, plural: бургомистры }
   citycouncil_noun: { form: городской совет, gender: m }
@@ -743,7 +743,7 @@ lexemes:
   application_form: { form: заявление, gender: n, plural: заявления }
   form_object: { form: бланк, gender: m, plural: бланки }
   fee_noun: { form: пошлина, gender: f, plural: пошлины }
-  notice_decision: { form: уведомление, gender: n, plural: уведомления }
+  notice_decision: { form: официальное решение, gender: n, plural: уведомления }
   civicobjection_noun: { form: возражение, gender: n, plural: возражения }
   publicsurgery_noun: { form: приём граждан, gender: m }
   publicsphere_noun: { form: общественность, gender: f }
@@ -751,7 +751,7 @@ lexemes:
   urbandevelopment_noun: { form: городское развитие, gender: n }
   greenspace_place: { form: зелёная зона, gender: f }
   localsupply_noun: { form: местное снабжение, gender: n }
-  trafficcalming_noun: { form: успокоение движения, gender: n }
+  trafficcalming_noun: { form: меры по снижению скорости, gender: n }
   redevelopmentarea_place: { form: зона реконструкции, gender: f }
   jurisdiction_noun: { form: компетенция, gender: f }
   jobadvert_noun: { form: объявление о вакансии, gender: n }

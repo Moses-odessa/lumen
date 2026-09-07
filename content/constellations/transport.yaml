@@ -65,7 +65,6 @@ tiers:
       - id: transport_a1_delay
         template: "Der Zug hat {delay}."
         answer: Verspätung
-        ambiguity: reviewed
         register: casual
         concepts: [delay_noun]
       - id: transport_a1_platform
@@ -222,7 +221,7 @@ tiers:
       - { id: breakdownservice_noun, pos: noun, freq_rank: 6730 }
     phrases:
       - id: transport_b1_fine
-        template: "Das {fine} kostet achtzig Euro."
+        template: "Das {fine} beträgt achtzig Euro."
         answer: Bußgeld
         register: casual
         concepts: [fine_noun]
@@ -247,7 +246,7 @@ tiers:
         register: casual
         concepts: [monthlyticket_noun]
       - id: transport_b1_rightofway
-        template: "Von rechts hat man {rightofway}."
+        template: "An dieser Kreuzung habe ich {rightofway}."
         answer: Vorfahrt
         register: casual
         concepts: [rightofway_noun]
@@ -272,8 +271,9 @@ tiers:
         register: casual
         concepts: [maintenance_noun]
       - id: transport_b1_localtransport
-        template: "Der {localtransport} ist gut ausgebaut."
+        template: "Bus und Straßenbahn gehören zum {localtransport}."
         answer: Nahverkehr
+        ambiguity: reviewed
         register: casual
         concepts: [localtransport_noun]
       - id: transport_b1_breakdown

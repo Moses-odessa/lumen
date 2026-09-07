@@ -220,8 +220,9 @@ tiers:
       - { id: wastesorting_noun, pos: noun, freq_rank: 6520 }
     phrases:
       - id: home_b1_noticeperiod
-        template: "Die {noticeperiod} beträgt drei Monate."
+        template: "Wer den Mietvertrag kündigt, muss die {noticeperiod} einhalten."
         answer: Kündigungsfrist
+        ambiguity: reviewed
         register: casual
         concepts: [noticeperiod_noun]
       - id: home_b1_rentincrease
@@ -240,23 +241,26 @@ tiers:
         register: casual
         concepts: [mould_noun]
       - id: home_b1_livingspace
-        template: "Die {livingspace} beträgt sechzig Quadratmeter."
+        template: "Kinderzimmer und Küche zählen zur {livingspace}."
         answer: Wohnfläche
+        ambiguity: reviewed
         register: casual
         concepts: [livingspace_noun]
       - id: home_b1_renovation
-        template: "Die {renovation} zahlt der Vermieter."
+        template: "Nach der {renovation} riecht es nach Farbe."
         answer: Renovierung
         register: casual
         concepts: [renovation_noun]
       - id: home_b1_registration
-        template: "Die {registration} macht man im Bürgeramt."
+        template: "Wer neu nach Deutschland kommt, braucht eine {registration}."
         answer: Anmeldung
+        ambiguity: reviewed
         register: casual
         concepts: [residentregistration_noun]
       - id: home_b1_heatingcosts
-        template: "Die {heatingcosts} sind gestiegen."
+        template: "Die {heatingcosts} hängen vom Gaspreis ab."
         answer: Heizkosten
+        ambiguity: reviewed
         register: casual
         concepts: [heatingcosts_noun]
       - id: home_b1_tradesman
@@ -265,7 +269,7 @@ tiers:
         register: casual
         concepts: [tradesman_person]
       - id: home_b1_smokedetector
-        template: "Jedes Zimmer braucht einen {smokedetector}."
+        template: "Der {smokedetector} piept, wenn die Batterie leer ist."
         answer: Rauchmelder
         register: casual
         concepts: [smokedetector_object]
@@ -277,6 +281,7 @@ tiers:
       - id: home_b1_sublet
         template: "Für die {sublet} braucht man Erlaubnis."
         answer: Untermiete
+        ambiguity: reviewed
         register: casual
         concepts: [sublet_noun]
 

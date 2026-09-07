@@ -233,13 +233,15 @@ tiers:
         register: casual
         concepts: [warning_noun]
       - id: work_b1_minimumwage
-        template: "Der {minimumwage} steigt im Januar."
+        template: "Der gesetzliche {minimumwage} wird vom Bund festgelegt."
         answer: Mindestlohn
+        ambiguity: reviewed
         register: casual
         concepts: [minimumwage_noun]
       - id: work_b1_collectiveagreement
-        template: "Der {collectiveagreement} gilt für alle."
+        template: "Der {collectiveagreement} regelt Lohn und Arbeitszeit."
         answer: Tarifvertrag
+        ambiguity: reviewed
         register: casual
         concepts: [collectiveagreement_noun]
       - id: work_b1_qualification
@@ -253,7 +255,7 @@ tiers:
         register: casual
         concepts: [workreference_noun]
       - id: work_b1_holidayentitlement
-        template: "Der {holidayentitlement} beträgt dreißig Tage."
+        template: "Der {holidayentitlement} steht im Arbeitsvertrag."
         answer: Urlaubsanspruch
         register: casual
         concepts: [holidayentitlement_noun]
@@ -263,23 +265,26 @@ tiers:
         register: casual
         concepts: [induction_noun]
       - id: work_b1_atmosphere
-        template: "Das {atmosphere} ist gut."
+        template: "Im Team herrscht ein gutes {atmosphere}."
         answer: Betriebsklima
         register: casual
         concepts: [workingatmosphere_noun]
       - id: work_b1_fixedterm
         template: "Die {fixedterm} läuft aus."
         answer: Befristung
+        ambiguity: reviewed
         register: casual
         concepts: [fixedterm_noun]
       - id: work_b1_coverletter
-        template: "Das {coverletter} war zu lang."
+        template: "Ohne {coverletter} ist die Bewerbung nicht vollständig."
         answer: Anschreiben
+        ambiguity: reviewed
         register: casual
         concepts: [coverletter_noun]
       - id: work_b1_safety
-        template: "Der {safety} hat Vorrang."
+        template: "Der {safety} schützt vor Unfällen bei der Arbeit."
         answer: Arbeitsschutz
+        ambiguity: reviewed
         register: casual
         concepts: [occupationalsafety_noun]
 

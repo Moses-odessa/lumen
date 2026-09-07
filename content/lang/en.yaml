@@ -1155,7 +1155,7 @@ lexemes:
   will_noun: { form: will, plural: wills }
   estate_noun: { form: estate, plural: estates }
   powerofattorney_noun: { form: power of attorney }
-  healthproxy_noun: { form: healthcare proxy }
+  healthproxy_noun: { form: advance power of attorney }
   registryoffice_place: { form: registry office, plural: registry offices }
   marriageceremony_noun: { form: marriage ceremony, plural: marriage ceremonies }
   birthcertificate_noun: { form: birth certificate, plural: birth certificates }
@@ -1211,7 +1211,7 @@ lexemes:
   localsupply_noun: { form: local amenities }
   trafficcalming_noun: { form: traffic calming }
   redevelopmentarea_place: { form: redevelopment area, plural: redevelopment areas }
-  jurisdiction_noun: { form: responsibility }
+  jurisdiction_noun: { form: official competence }
   jobadvert_noun: { form: job advert, plural: job adverts }
   coverletter_noun: { form: cover letter, plural: cover letters }
   qualification_noun: { form: qualification, plural: qualifications }

@@ -264,6 +264,7 @@ tiers:
       - id: time_b1_summertime
         template: "Die {summertime} beginnt im März."
         answer: Sommerzeit
+        ambiguity: reviewed
         register: casual
         concepts: [summertime_noun]
       - id: time_b1_anniversary

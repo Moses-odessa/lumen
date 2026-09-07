@@ -511,7 +511,7 @@ lexemes:
     gender: f
     plural: Operationen
     distractors:
-      far: [Eingriff, Sedierung]
+      far: [Nachbehandlung, Sedierung]
       near: [Kooperation, Organisation, Ration]
   anesthesia_noun:
     form: Narkose
@@ -526,7 +526,7 @@ lexemes:
     article: die
     gender: f
     distractors:
-      far: [Kur, Nachsorge]
+      far: [Pflegeheim, Nachsorge]
       near: [Rehe, Reihe, Rebe]
   physiotherapy_noun:
     form: Physiotherapie
@@ -542,23 +542,23 @@ lexemes:
     gender: n
     plural: Symptome
     distractors:
-      far: [Anzeichen, Verlauf]
+      far: [Diagnose, Verlauf]
       near: [System, Sympathie, Syndrom]
   complaints_noun:
-    form: Beschwerlichkeitn
+    form: Beschwerden
     article: die
     gender: f
     note: обычно во множественном числе
     distractors:
       far: [Symptome, Anzeichen]
-      near: [Beschwerde, Beschreibung, Bescheidenheit]
+      near: [Beschwerlichkeit, Beschreibung, Bescheidenheit]
   medical_history:
     form: Vorgeschichte
     article: die
     gender: f
     plural: Vorgeschichten
     distractors:
-      far: [Anamnese, Verlauf]
+      far: [Befund, Verlauf]
       near: [Geschichte, Vorsorge, Vorschrift]
   discharge_noun:
     form: Entlassung
@@ -3494,7 +3494,7 @@ lexemes:
     article: die
     gender: f
     plural: Portionen
-    distractors: { far: [Menge, Ration], near: [Position, Aktion, Portier] }
+    distractors: { far: [Menge, Sättigung], near: [Position, Aktion, Portier] }
   sidedish_food:
     form: Beilage
     article: die
@@ -3553,7 +3553,6 @@ lexemes:
     form: Haltbarkeit
     article: die
     gender: f
-    plural: Haltbarkeiten
     distractors: { far: [Frische, Lagerung], near: [Haltung, Machbarkeit, Haltbarmachung] }
   preparation_noun:
     form: Zubereitung
@@ -3609,7 +3608,7 @@ lexemes:
     article: der
     gender: m
     note: неисчисляемое
-    distractors: { far: [Regionalverkehr, Pendelverkehr], near: [Fernsehen, Fernglas, Fehlverkehr] }
+    distractors: { far: [Regionalverkehr, Pendelverkehr], near: [Fernsehen, Fernglas, Fernweh] }
   surcharge_noun:
     form: Zuschlag
     article: der
@@ -3639,7 +3638,7 @@ lexemes:
     article: der
     gender: m
     plural: Fahrgäste
-    distractors: { far: [Anwohner, Reisender], near: [Fahrrad, Stammgast, Fahrbahn] }
+    distractors: { far: [Anwohner, Lokführer], near: [Fahrrad, Stammgast, Fahrbahn] }
   conductor_person:
     form: Schaffner
     article: der
@@ -3651,7 +3650,7 @@ lexemes:
     article: der
     gender: m
     plural: Bahnübergänge
-    distractors: { far: [Unterführung, Tunnel], near: [Bahnhofsvorplatz, Übergangsfrist, Bergübergang] }
+    distractors: { far: [Unterführung, Tunnel], near: [Bahnhofsvorplatz, Übergangsfrist, Bahnhofsuhr] }
   rightofway_noun:
     form: Vorfahrt
     article: die
@@ -3693,7 +3692,7 @@ lexemes:
     article: die
     gender: f
     plural: Zulassungen
-    distractors: { far: [Abmeldung, Ummeldung], near: [Zusage, Belastung, Zulage] }
+    distractors: { far: [Stilllegung, Ummeldung], near: [Zusage, Belastung, Zulage] }
   inspection_noun:
     form: Hauptuntersuchung
     article: die
@@ -3705,7 +3704,7 @@ lexemes:
     article: die
     gender: f
     plural: Abgasnormen
-    distractors: { far: [Grenzwert, Plakette], near: [Abgaswerte, Rechtsnorm, Absatznorm] }
+    distractors: { far: [Grenzwert, Plakette], near: [Abgaswert, Rechtsnorm, Industrienorm] }
   chargingpoint_place:
     form: Ladesäule
     article: die
@@ -3717,7 +3716,7 @@ lexemes:
     article: die
     gender: f
     plural: Reichweiten
-    distractors: { far: [Verbrauch, Tankinhalt], near: [Reichtum, Weitsicht, Streitweite] }
+    distractors: { far: [Verbrauch, Tankinhalt], near: [Reichtum, Weitsicht, Schrittweite] }
   consumption_noun:
     form: Verbrauch
     article: der
@@ -3735,7 +3734,7 @@ lexemes:
     article: der
     gender: m
     plural: Pannendienste
-    distractors: { far: [Abschleppwagen, Notruf], near: [Pannenhilfe, Wachdienst, Pfannenwender] }
+    distractors: { far: [Abschleppwagen, Notruf], near: [Pantoffel, Wachdienst, Pfannenwender] }
 
   # ── «Дом», B1 ─────────────────────────────────────────────────────────
   tenancylaw_noun:
@@ -3743,7 +3742,7 @@ lexemes:
     article: das
     gender: n
     plural: Mietrechte
-    distractors: { far: [Wohnrecht, Baurecht], near: [Mietvertrag, Bierrecht, Mitspracherecht] }
+    distractors: { far: [Wohnrecht, Baurecht], near: [Mietvertrag, Bergrecht, Mitspracherecht] }
   noticeperiod_noun:
     form: Kündigungsfrist
     article: die
@@ -3755,13 +3754,13 @@ lexemes:
     article: die
     gender: f
     plural: Untermieten
-    distractors: { far: [Zwischenmiete, Kaltmiete], near: [Untermieter, Unterlage, Unterschrift] }
+    distractors: { far: [Staffelmiete, Kaltmiete], near: [Untermieter, Unterlage, Unterschrift] }
   rentincrease_noun:
     form: Mieterhöhung
     article: die
     gender: f
     plural: Mieterhöhungen
-    distractors: { far: [Mietminderung, Indexmiete], near: [Preiserhöhung, Mietkaution, Mietermitteilung] }
+    distractors: { far: [Mietminderung, Indexmiete], near: [Preiserhöhung, Mietkaution, Mieterverein] }
   utilitiesbill_noun:
     form: Nebenkostenabrechnung
     article: die
@@ -3791,7 +3790,7 @@ lexemes:
     article: das
     gender: n
     plural: Dachgeschosse
-    distractors: { far: [Untergeschoss, Speicher], near: [Dachfenster, Erdgeschoss, Dachrinne] }
+    distractors: { far: [Untergeschoss, Treppenhaus], near: [Dachfenster, Erdgeschoss, Dachrinne] }
   renovation_noun:
     form: Renovierung
     article: die
@@ -3815,13 +3814,13 @@ lexemes:
     article: die
     gender: f
     note: неисчисляемое
-    distractors: { far: [Nässe, Kondenswasser], near: [Fruchtbarkeit, Feuchtgebiet, Flüchtigkeit] }
+    distractors: { far: [Zugluft, Kondenswasser], near: [Fruchtbarkeit, Feuchtgebiet, Flüchtigkeit] }
   tradesman_person:
     form: Handwerker
     article: der
     gender: m
     plural: Handwerker
-    distractors: { far: [Monteur, Installateur], near: [Handtuch, Bauwerker, Handelsware] }
+    distractors: { far: [Architekt, Bauleiter], near: [Handtuch, Handschuh, Handelsware] }
   repair_noun:
     form: Reparatur
     article: die
@@ -3833,7 +3832,7 @@ lexemes:
     article: der
     gender: m
     plural: Mängel
-    distractors: { far: [Schaden, Fehler], near: [Mandel, Mantel, Wandel] }
+    distractors: { far: [Schaden, Verschleiß], near: [Mandel, Mantel, Wandel] }
   residentregistration_noun:
     form: Anmeldung
     article: die
@@ -3851,7 +3850,7 @@ lexemes:
     article: die
     gender: f
     plural: Hausratversicherungen
-    distractors: { far: [Haftpflicht, Gebäudeversicherung], near: [Hausratshilfe, Rentenversicherung, Hausordnung] }
+    distractors: { far: [Haftpflicht, Gebäudeversicherung], near: [Haushaltshilfe, Rentenversicherung, Hausordnung] }
   smokedetector_object:
     form: Rauchmelder
     article: der
@@ -3863,7 +3862,7 @@ lexemes:
     article: der
     gender: m
     plural: Energieausweise
-    distractors: { far: [Verbrauchsausweis, Gutachten], near: [Energiekosten, Personalausweis, Energiebedarf] }
+    distractors: { far: [Wartungsvertrag, Gutachten], near: [Energiekosten, Personalausweis, Energiebedarf] }
   heatingcosts_noun:
     form: Heizkosten
     article: die
@@ -3875,13 +3874,13 @@ lexemes:
     article: der
     gender: m
     plural: Wasserzähler
-    distractors: { far: [Stromzähler, Ableseprotokoll], near: [Wasserhahn, Fahrgastzähler, Wasserschaden] }
+    distractors: { far: [Stromzähler, Ableseprotokoll], near: [Wasserhahn, Wasserwaage, Wasserschaden] }
   wastesorting_noun:
     form: Mülltrennung
     article: die
     gender: f
     plural: Mülltrennungen
-    distractors: { far: [Entsorgung, Recycling], near: [Mülltonne, Auftrennung, Mühletrennung] }
+    distractors: { far: [Entsorgung, Recycling], near: [Mülltonne, Auftrennung, Müllabfuhr] }
 
   # ── «Магазин», B1 ─────────────────────────────────────────────────────
   withdrawalright_noun:
@@ -3961,7 +3960,7 @@ lexemes:
     article: die
     gender: f
     plural: Bonitäten
-    distractors: { far: [Kreditwürdigkeit, Schufa], near: [Rarität, Bonus, Banalität] }
+    distractors: { far: [Kreditrahmen, Schufa], near: [Rarität, Bonus, Banalität] }
   directdebit_noun:
     form: Lastschrift
     article: die
@@ -3979,7 +3978,7 @@ lexemes:
     article: das
     gender: n
     plural: Zahlungsziele
-    distractors: { far: [Fälligkeit, Skonto], near: [Zahlungsweise, Wahlziel, Zahlungsverzug] }
+    distractors: { far: [Fälligkeit, Skonto], near: [Zahlungsweise, Wahllokal, Zahlungsverzug] }
   reminder_noun:
     form: Mahnung
     article: die
@@ -4035,7 +4034,7 @@ lexemes:
     article: der
     gender: m
     plural: Vormünder
-    distractors: { far: [Betreuer, Pate], near: [Vorbild, Vormittag, Fahrmund] }
+    distractors: { far: [Betreuer, Pate], near: [Vorbild, Vormittag, Vorwand] }
   custody_noun:
     form: Sorgerecht
     article: das
@@ -4052,13 +4051,11 @@ lexemes:
     form: Kindergeld
     article: das
     gender: n
-    plural: Kindergelder
     distractors: { far: [Elterngeld, Wohngeld], near: [Kindergarten, Bargeld, Kinderzimmer] }
   parentalallowance_noun:
     form: Elterngeld
     article: das
     gender: n
-    plural: Elterngelder
     distractors: { far: [Kindergeld, Mutterschaftsgeld], near: [Elternzeit, Bargeld, Elternabend] }
   parentalleave_noun:
     form: Elternzeit
@@ -4071,13 +4068,13 @@ lexemes:
     article: die
     gender: f
     plural: Betreuungen
-    distractors: { far: [Erziehung, Aufsicht], near: [Bestreuung, Beratung, Betretung] }
+    distractors: { far: [Erziehung, Aufsicht], near: [Bestrafung, Beratung, Bewertung] }
   childminder_person:
     form: Tagesmutter
     article: die
     gender: f
     plural: Tagesmütter
-    distractors: { far: [Erzieherin, Babysitter], near: [Tagesordnung, Stiefmutter, Tagesmarsch] }
+    distractors: { far: [Erzieherin, Hebamme], near: [Tagesordnung, Stiefmutter, Tagesmarsch] }
   adoption_noun:
     form: Adoption
     article: die
@@ -4089,7 +4086,7 @@ lexemes:
     article: die
     gender: f
     plural: Pflegefamilien
-    distractors: { far: [Heim, Wohngruppe], near: [Pflegeeltern, Großfamilie, Pflegeleichte] }
+    distractors: { far: [Heim, Wohngruppe], near: [Pflegeeltern, Großfamilie, Pflegeheim] }
   godparenthood_noun:
     form: Patenschaft
     article: die
@@ -4100,7 +4097,7 @@ lexemes:
     form: Erbe
     article: das
     gender: n
-    distractors: { far: [Schenkung, Vermögen], near: [Erde, Herbe, Erbse] }
+    distractors: { far: [Schenkung, Vermögen], near: [Erde, Herde, Erbse] }
   will_noun:
     form: Testament
     article: das
@@ -4112,7 +4109,7 @@ lexemes:
     article: der
     gender: m
     plural: Nachlässe
-    distractors: { far: [Erbmasse, Hinterlassenschaft], near: [Nachlassgericht, Ablass, Nachlässigkeit] }
+    distractors: { far: [Erbschein, Grabpflege], near: [Nachlassgericht, Ablass, Nachlässigkeit] }
   powerofattorney_noun:
     form: Vollmacht
     article: die
@@ -4136,7 +4133,7 @@ lexemes:
     article: die
     gender: f
     plural: Eheschließungen
-    distractors: { far: [Trauung, Verlobung], near: [Ehescheidung, Erschließung, Ehefähigkeit] }
+    distractors: { far: [Ehevertrag, Verlobung], near: [Ehescheidung, Erschließung, Ehefähigkeit] }
   birthcertificate_noun:
     form: Geburtsurkunde
     article: die
@@ -4148,7 +4145,7 @@ lexemes:
     article: die
     gender: f
     plural: Sterbeurkunden
-    distractors: { far: [Totenschein, Erbschein], near: [Geburtsurkunde, Sterbefall, Sterbebegleitung] }
+    distractors: { far: [Bestattung, Erbschein], near: [Geburtsurkunde, Sterbefall, Sterbebegleitung] }
   familybook_object:
     form: Stammbuch
     article: das
@@ -4160,7 +4157,7 @@ lexemes:
     article: der
     gender: m
     plural: Verwandtschaftsgrade
-    distractors: { far: [Stammbaum, Abstammung], near: [Verwandtschaftsname, Bekanntschaftsgrad, Verwandlungsgrad] }
+    distractors: { far: [Stammbaum, Abstammung], near: [Verwandtschaftsverhältnis, Bekanntheitsgrad, Wirkungsgrad] }
   generation_noun:
     form: Generation
     article: die
@@ -4185,7 +4182,7 @@ lexemes:
     article: der
     gender: m
     plural: Zeitpunkte
-    distractors: { far: [Zeitraum, Frist], near: [Zeitpunktwahl, Standpunkt, Zeitpunktbezug] }
+    distractors: { far: [Zeitraum, Frist], near: [Zeitgeist, Standpunkt, Gesichtspunkt] }
   cutoffdate_noun:
     form: Stichtag
     article: der
@@ -4209,13 +4206,13 @@ lexemes:
     article: der
     gender: m
     plural: Zeitpläne
-    distractors: { far: [Ablaufplan, Tagesordnung], near: [Bauplan, Zeitpunkt, Zeitlupe] }
+    distractors: { far: [Protokoll, Tagesordnung], near: [Bauplan, Zeitpunkt, Zeitlupe] }
   sequenceflow_noun:
     form: Ablauf
     article: der
     gender: m
     plural: Abläufe
-    distractors: { far: [Vorgang, Verfahren], near: [Anlauf, Ablage, Auslauf] }
+    distractors: { far: [Ergebnis, Zwischenstand], near: [Anlauf, Ablage, Auslauf] }
   order_sequence:
     form: Reihenfolge
     article: die
@@ -4257,7 +4254,7 @@ lexemes:
     article: die
     gender: f
     plural: Winterzeiten
-    distractors: { far: [Normalzeit, Weltzeit], near: [Winterreifen, Sommerzeit, Winterschlaf] }
+    distractors: { far: [Zeitumstellung, Weltzeit], near: [Winterreifen, Sommerzeit, Winterschlaf] }
   leapyear_noun:
     form: Schaltjahr
     article: das
@@ -4269,7 +4266,7 @@ lexemes:
     article: der
     gender: m
     plural: Jahrestage
-    distractors: { far: [Gedenktag, Jubiläum], near: [Jahresende, Werktag, Jahresbericht] }
+    distractors: { far: [Gedenktag, Kalenderblatt], near: [Jahresende, Werktag, Jahresbericht] }
   timewaste_noun:
     form: Zeitverschwendung
     article: die
@@ -4292,7 +4289,7 @@ lexemes:
     article: die
     gender: f
     plural: Vorlaufzeiten
-    distractors: { far: [Bearbeitungszeit, Lieferfrist], near: [Vorlaufphase, Nachlaufzeit, Vorkaufsrecht] }
+    distractors: { far: [Bearbeitungszeit, Lieferfrist], near: [Vorleistung, Nachlaufzeit, Vorkaufsrecht] }
   graceperiod_noun:
     form: Nachfrist
     article: die
@@ -4309,7 +4306,7 @@ lexemes:
     article: die
     gender: f
     plural: Gelegenheiten
-    distractors: { far: [Chance, Anlass], near: [Gelassenheit, Gemeinheit, Gelegenheitsarbeit] }
+    distractors: { far: [Hindernis, Anlass], near: [Gelassenheit, Gemeinheit, Gelegenheitsarbeit] }
   eternity_noun:
     form: Ewigkeit
     article: die
@@ -4323,7 +4320,7 @@ lexemes:
     article: die
     gender: f
     plural: Gemeinden
-    distractors: { far: [Kreisstadt, Kommune], near: [Gemeinheit, Gemeinschaft, Geminde] }
+    distractors: { far: [Kreisstadt, Nachbarort], near: [Gemeinheit, Gemeinschaft, Gemälde] }
   county_place:
     form: Landkreis
     article: der
@@ -4377,19 +4374,19 @@ lexemes:
     article: die
     gender: f
     plural: Genehmigungen
-    distractors: { far: [Erlaubnis, Zulassung], near: [Beruhigung, Genesung, Begünstigung] }
+    distractors: { far: [Auflage, Untersagung], near: [Beruhigung, Genesung, Begünstigung] }
   application_form:
     form: Antrag
     article: der
     gender: m
     plural: Anträge
-    distractors: { far: [Gesuch, Anfrage], near: [Auftrag, Vertrag, Anschlag] }
+    distractors: { far: [Bescheinigung, Anfrage], near: [Auftrag, Vertrag, Anschlag] }
   form_object:
     form: Formular
     article: das
     gender: n
     plural: Formulare
-    distractors: { far: [Vordruck, Merkblatt], near: [Formalität, Molekular, Formulierung] }
+    distractors: { far: [Stempel, Merkblatt], near: [Formalität, Mobiliar, Formulierung] }
   fee_noun:
     form: Gebühr
     article: die
@@ -4419,13 +4416,13 @@ lexemes:
     article: die
     gender: f
     plural: Öffentlichkeiten
-    distractors: { far: [Presse, Allgemeinheit], near: [Öffnungszeit, Pünktlichkeit, Örtlichkeit] }
+    distractors: { far: [Presse, Bürgerinitiative], near: [Öffnungszeit, Pünktlichkeit, Örtlichkeit] }
   infrastructure_noun:
     form: Infrastruktur
     article: die
     gender: f
     plural: Infrastrukturen
-    distractors: { far: [Versorgung, Netzausbau], near: [Informatik, Baustruktur, Inflation] }
+    distractors: { far: [Versorgung, Netzausbau], near: [Informatik, Bausubstanz, Inflation] }
   urbandevelopment_noun:
     form: Stadtentwicklung
     article: die
@@ -4443,7 +4440,7 @@ lexemes:
     article: die
     gender: f
     plural: Nahversorgungen
-    distractors: { far: [Einzelhandel, Wochenmarkt], near: [Nahverkehr, Vollversorgung, Nachversorgung] }
+    distractors: { far: [Einzelhandel, Wochenmarkt], near: [Nahverkehr, Vollversorgung, Nachbarschaft] }
   trafficcalming_noun:
     form: Verkehrsberuhigung
     article: die
@@ -4461,7 +4458,7 @@ lexemes:
     article: die
     gender: f
     plural: Zuständigkeiten
-    distractors: { far: [Befugnis, Verantwortung], near: [Ständigkeit, Zulässigkeit, Zufriedenheit] }
+    distractors: { far: [Befugnis, Verantwortung], near: [Beständigkeit, Zulässigkeit, Zufriedenheit] }
 
   # ── «Работа», B1 ──────────────────────────────────────────────────────
   jobadvert_noun:
@@ -4475,7 +4472,7 @@ lexemes:
     article: das
     gender: n
     plural: Anschreiben
-    distractors: { far: [Lebenslauf, Motivationsschreiben], near: [Abschreiben, Anschrift, Anschreibung] }
+    distractors: { far: [Lebenslauf, Motivationsschreiben], near: [Abschreiben, Anschrift, Anschauung] }
   qualification_noun:
     form: Qualifikation
     article: die
@@ -4511,7 +4508,7 @@ lexemes:
     article: die
     gender: f
     plural: Abmahnungen
-    distractors: { far: [Kündigung, Verwarnung], near: [Anmahnung, Abnahme, Abmagerung] }
+    distractors: { far: [Kündigung, Verwarnung], near: [Anmeldung, Abnahme, Abmagerung] }
   terminationagreement_noun:
     form: Aufhebungsvertrag
     article: der
@@ -4605,7 +4602,7 @@ lexemes:
     article: die
     gender: f
     plural: Fluktuationen
-    distractors: { far: [Personalwechsel, Abwanderung], near: [Fluktuationsrate, Situation, Flotation] }
+    distractors: { far: [Personalmangel, Abwanderung], near: [Fluktuationsrate, Situation, Flotation] }
 
   # ── «Еда», B2 ─────────────────────────────────────────────────────────
   nutritionalvalue_noun:

@@ -433,6 +433,32 @@ void _checkDistractorVariety(
   }
 }
 
+/// Немецкие суффиксы образования существительных.
+///
+/// Их приходится снимать перед сравнением окончаний, иначе проверка на общую
+/// вершину сложного слова превращается в проверку на «оба слова абстрактные».
+/// На конкретной лексике A0–A2 это было незаметно, на B1 стало очевидно:
+/// `Zuständigkeit` и `Öffentlichkeit` делят `keit`, `Infektion` и `Operation`
+/// делят `tion` — и ни в одном случае это не общая вершина, а всего лишь
+/// один и тот же способ сделать из слова существительное.
+const _derivationalEndings = [
+  'ierung', 'schaft', 'igkeit', 'lichkeit', 'ismus', 'ität', 'keit', 'heit',
+  'ung', 'tion', 'sion', 'nis', 'tum', 'anz', 'enz', 'ling', 'chen', 'lein',
+];
+
+/// Слово без суффикса образования: `Überweisung` → `überweis`.
+String _withoutDerivation(String word) {
+  final folded = foldSpelling(word);
+  for (final ending in _derivationalEndings) {
+    // Оставляем не меньше трёх букв основы: иначе от короткого слова вроде
+    // «Union» не останется ничего и оно совпадёт со всем подряд.
+    if (folded.endsWith(ending) && folded.length - ending.length >= 3) {
+      return folded.substring(0, folded.length - ending.length);
+    }
+  }
+  return folded;
+}
+
 /// У фразы должен быть ровно один верный ответ.
 ///
 /// Проверить это в общем виде нельзя — нужен смысл. Но один и притом самый
@@ -450,8 +476,7 @@ void _checkPhraseAmbiguity(
   String lang,
   _Report report,
 ) {
-  // Четыре буквы: -plan, -wohl, -zeit, -kosten. Три давали бы -ung и -ion,
-  // то есть половину немецких отглагольных существительных.
+  // Четыре буквы: -plan, -wohl, -zeit, -kosten.
   const headLength = 4;
 
   final byConcept = sources.lexemes[lang];
@@ -476,10 +501,11 @@ void _checkPhraseAmbiguity(
       ...?byTier[phrase.tier]?[phrase.constellation],
     ];
 
-    final answer = foldSpelling(phrase.answer);
+    final answer = _withoutDerivation(phrase.answer);
     final clashing = options
+        .where((o) => foldSpelling(o) != foldSpelling(phrase.answer))
+        .where((o) => commonSuffix(answer, _withoutDerivation(o)) >= headLength)
         .map(foldSpelling)
-        .where((o) => o != answer && commonSuffix(answer, o) >= headLength)
         .toSet();
 
     if (clashing.isEmpty) {

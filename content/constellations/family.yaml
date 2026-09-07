@@ -221,8 +221,9 @@ tiers:
       - { id: cohabitation_noun, pos: noun, freq_rank: 6180 }
     phrases:
       - id: family_b1_custody
-        template: "Das {custody} liegt bei der Mutter."
+        template: "Das {custody} umfasst alle Entscheidungen für das Kind."
         answer: Sorgerecht
+        ambiguity: reviewed
         register: casual
         concepts: [custody_noun]
       - id: family_b1_maintenance
@@ -231,8 +232,9 @@ tiers:
         register: casual
         concepts: [maintenance_payment]
       - id: family_b1_childbenefit
-        template: "Das {childbenefit} kommt vom Staat."
+        template: "Für jedes Kind gibt es {childbenefit}."
         answer: Kindergeld
+        ambiguity: reviewed
         register: casual
         concepts: [childbenefit_noun]
       - id: family_b1_parentalleave
@@ -251,18 +253,20 @@ tiers:
         register: casual
         concepts: [inheritance_noun]
       - id: family_b1_registryoffice
-        template: "Wir heiraten im {registryoffice}."
+        template: "Wir heiraten auf dem {registryoffice}."
         answer: Standesamt
         register: casual
         concepts: [registryoffice_place]
       - id: family_b1_birthcertificate
-        template: "Bringen Sie die {birthcertificate} mit."
+        template: "In der {birthcertificate} stehen Ort und Tag der Geburt."
         answer: Geburtsurkunde
-        register: formal
+        ambiguity: reviewed
+        register: casual
         concepts: [birthcertificate_noun]
       - id: family_b1_powerofattorney
-        template: "Ohne {powerofattorney} geht das nicht."
+        template: "Für dieses Geschäft genügt eine einfache {powerofattorney}."
         answer: Vollmacht
+        ambiguity: reviewed
         register: casual
         concepts: [powerofattorney_noun]
       - id: family_b1_adoption

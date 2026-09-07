@@ -222,8 +222,9 @@ tiers:
       - { id: loyaltypoints_noun, pos: noun, freq_rank: 6850 }
     phrases:
       - id: shop_b1_withdrawal
-        template: "Sie haben ein {withdrawal}."
+        template: "Bei Online-Kauf haben Sie ein {withdrawal} von vierzehn Tagen."
         answer: Widerrufsrecht
+        ambiguity: reviewed
         register: formal
         concepts: [withdrawalright_noun]
       - id: shop_b1_deliverytime
@@ -249,6 +250,7 @@ tiers:
       - id: shop_b1_directdebit
         template: "Zahlung per {directdebit} ist möglich."
         answer: Lastschrift
+        ambiguity: reviewed
         register: casual
         concepts: [directdebit_noun]
       - id: shop_b1_review
@@ -272,8 +274,9 @@ tiers:
         register: casual
         concepts: [paymentterm_noun]
       - id: shop_b1_billingaddress
-        template: "Bitte die {billingaddress} angeben."
+        template: "Die {billingaddress} steht auf der Rechnung."
         answer: Rechnungsadresse
+        ambiguity: reviewed
         register: casual
         concepts: [billingaddress_noun]
       - id: shop_b1_contract

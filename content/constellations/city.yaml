@@ -247,7 +247,7 @@ tiers:
         register: casual
         concepts: [civicobjection_noun]
       - id: city_b1_mayor
-        template: "Der {mayor} wird direkt gewählt."
+        template: "Der {mayor} leitet die Stadtverwaltung."
         answer: Bürgermeister
         register: casual
         concepts: [mayor_person]

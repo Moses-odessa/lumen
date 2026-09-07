@@ -165,7 +165,6 @@ tiers:
       - id: food_a2_cake
         template: "Der {cake} ist selbst gebacken."
         answer: Kuchen
-        ambiguity: reviewed
         register: casual
         concepts: [cake_food]
       - id: food_a2_waiter
@@ -257,8 +256,9 @@ tiers:
         register: casual
         concepts: [dessert_food]
       - id: food_b1_maincourse
-        template: "Als {maincourse} nehme ich Fisch."
+        template: "Nach der Vorspeise kommt das {maincourse}."
         answer: Hauptgericht
+        ambiguity: reviewed
         register: casual
         concepts: [maincourse_food]
       - id: food_b1_spice

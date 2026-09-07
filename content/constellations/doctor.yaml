@@ -223,11 +223,13 @@ tiers:
       - id: doctor_b1_referral
         template: "Ich brauche eine {referral} zum Facharzt."
         answer: Überweisung
+        ambiguity: reviewed
         register: casual
         concepts: [referral_noun]
       - id: doctor_b1_coverage
         template: "Wir beantragen die {coverage}."
         answer: Kostenübernahme
+        ambiguity: reviewed
         register: casual
         concepts: [cost_coverage]
       - id: doctor_b1_diagnosis
