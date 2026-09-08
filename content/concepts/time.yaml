@@ -1,0 +1,119 @@
+# Созвездие «Время» — сутки, календарь, часы.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: time
+tiers:
+  a0:
+    concepts:
+      - { id: day_time, pos: noun, freq_rank: 180 }
+      - { id: night_time, pos: noun, freq_rank: 520 }
+      - { id: hour_time, pos: noun, freq_rank: 640 }
+      - { id: minute_time, pos: noun, freq_rank: 890 }
+      - { id: week_time, pos: noun, freq_rank: 710 }
+      - { id: month_time, pos: noun, freq_rank: 760 }
+      - { id: year_time, pos: noun, freq_rank: 200 }
+      - { id: morning_time, pos: noun, freq_rank: 830 }
+      - { id: evening_time, pos: noun, freq_rank: 950 }
+      - { id: clock_object, pos: noun, freq_rank: 1080 }
+      - { id: today_adv, pos: adv, freq_rank: 410 }
+      - { id: yesterday_adv, pos: adv, freq_rank: 1160 }
+  a1:
+    concepts:
+      - { id: weekend_time, pos: noun, freq_rank: 1980 }
+      - { id: date_noun, pos: noun, freq_rank: 1740 }
+      - { id: calendar_object, pos: noun, freq_rank: 3260 }
+      - { id: noon_time, pos: noun, freq_rank: 2190 }
+      - { id: tomorrow_adv, pos: adv, freq_rank: 870 }
+      - { id: always_adv, pos: adv, freq_rank: 330 }
+      - { id: never_adv, pos: adv, freq_rank: 480 }
+      - { id: often_adv, pos: adv, freq_rank: 690 }
+      - { id: sometimes_adv, pos: adv, freq_rank: 1050 }
+      - { id: early_adv, pos: adv, freq_rank: 1240 }
+      - { id: now_adv, pos: adv, freq_rank: 220 }
+      - { id: soon_adv, pos: adv, freq_rank: 1370 }
+  a2:
+    concepts:
+      - { id: monday_time, pos: noun, freq_rank: 1840 }
+      - { id: tuesday_time, pos: noun, freq_rank: 1960 }
+      - { id: wednesday_time, pos: noun, freq_rank: 2010 }
+      - { id: thursday_time, pos: noun, freq_rank: 2080 }
+      - { id: friday_time, pos: noun, freq_rank: 1790 }
+      - { id: saturday_time, pos: noun, freq_rank: 1720 }
+      - { id: sunday_time, pos: noun, freq_rank: 1650 }
+      - { id: season_time, pos: noun, freq_rank: 2940 }
+      - { id: spring_time, pos: noun, freq_rank: 2610 }
+      - { id: summer_time, pos: noun, freq_rank: 1380 }
+      - { id: autumn_time, pos: noun, freq_rank: 2470 }
+      - { id: winter_time, pos: noun, freq_rank: 1590 }
+      - { id: vacation_time, pos: noun, freq_rank: 2830 }
+      - { id: appointment_meeting, pos: noun, freq_rank: 3260 }
+      - { id: duration_noun, pos: noun, freq_rank: 3040 }
+      - { id: beginning_noun, pos: noun, freq_rank: 1470 }
+      - { id: ending_noun, pos: noun, freq_rank: 1210 }
+      - { id: future_noun, pos: noun, freq_rank: 1930 }
+      - { id: past_noun, pos: noun, freq_rank: 2180 }
+      - { id: present_noun, pos: noun, freq_rank: 2760 }
+      - { id: moment_noun, pos: noun, freq_rank: 1680 }
+      - { id: century_noun, pos: noun, freq_rank: 2350 }
+      - { id: clocktime_noun, pos: noun, freq_rank: 3480 }
+      - { id: alarm_object, pos: noun, freq_rank: 4120 }
+  b1:
+    concepts:
+      - { id: period_noun, pos: noun, freq_rank: 3960 }
+      - { id: pointintime_noun, pos: noun, freq_rank: 4180 }
+      - { id: cutoffdate_noun, pos: noun, freq_rank: 5470 }
+      - { id: delay_general, pos: noun, freq_rank: 4630 }
+      - { id: postponement_noun, pos: noun, freq_rank: 5840 }
+      - { id: schedule_noun, pos: noun, freq_rank: 4290 }
+      - { id: sequenceflow_noun, pos: noun, freq_rank: 4760 }
+      - { id: order_sequence, pos: noun, freq_rank: 4510 }
+      - { id: simultaneity_noun, pos: noun, freq_rank: 7320 }
+      - { id: regularity_noun, pos: noun, freq_rank: 6180 }
+      - { id: frequency_general, pos: noun, freq_rank: 5240 }
+      - { id: timezone_noun, pos: noun, freq_rank: 5930 }
+      - { id: summertime_noun, pos: noun, freq_rank: 5610 }
+      - { id: wintertime_noun, pos: noun, freq_rank: 5870 }
+      - { id: leapyear_noun, pos: noun, freq_rank: 6740 }
+      - { id: anniversary_noun, pos: noun, freq_rank: 5380 }
+      - { id: timewaste_noun, pos: noun, freq_rank: 6520 }
+      - { id: punctuality_noun, pos: noun, freq_rank: 5760 }
+      - { id: diary_object, pos: noun, freq_rank: 5140 }
+      - { id: leadtime_noun, pos: noun, freq_rank: 6890 }
+      - { id: graceperiod_noun, pos: noun, freq_rank: 7060 }
+      - { id: timepressure_noun, pos: noun, freq_rank: 5490 }
+      - { id: opportunity_noun, pos: noun, freq_rank: 3720 }
+      - { id: eternity_noun, pos: noun, freq_rank: 5310 }
+  b2:
+    concepts:
+      - { id: timemanagement_noun, pos: noun, freq_rank: 6180 }
+      - { id: prioritisation_noun, pos: noun, freq_rank: 6740 }
+      - { id: milestone_noun, pos: noun, freq_rank: 5920 }
+      - { id: projectphase_noun, pos: noun, freq_rank: 6410 }
+      - { id: timeseries_noun, pos: noun, freq_rank: 7260 }
+      - { id: periodicity_noun, pos: noun, freq_rank: 8140 }
+      - { id: synchronisation_noun, pos: noun, freq_rank: 6830 }
+      - { id: limitationdeadline_noun, pos: noun, freq_rank: 7050 }
+      - { id: transitionperiod_noun, pos: noun, freq_rank: 6590 }
+      - { id: qualifyingperiod_noun, pos: noun, freq_rank: 7930 }
+      - { id: paybackperiod_noun, pos: noun, freq_rank: 7680 }
+      - { id: halflife_noun, pos: noun, freq_rank: 7420 }
+      - { id: chronology_noun, pos: noun, freq_rank: 6960 }
+      - { id: epoch_noun, pos: noun, freq_rank: 6270 }
+      - { id: era_noun, pos: noun, freq_rank: 6050 }
+      - { id: zeitgeist_noun, pos: noun, freq_rank: 7180 }
+      - { id: prehistory_noun, pos: noun, freq_rank: 6480 }
+      - { id: aftereffect_noun, pos: noun, freq_rank: 6720 }
+      - { id: retroactivity_noun, pos: noun, freq_rank: 7540 }
+      - { id: clocking_noun, pos: noun, freq_rank: 7810 }
+      - { id: frequency_technical, pos: noun, freq_rank: 5640 }
+      - { id: interval_noun, pos: noun, freq_rank: 5380 }
+      - { id: rotation_noun, pos: noun, freq_rank: 7360 }
+      - { id: cycle_noun, pos: noun, freq_rank: 5210 }

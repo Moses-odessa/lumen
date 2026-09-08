@@ -331,7 +331,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Яруси вище $tier ще не вичитані носієм і тому недоступні.';
+    return 'Яруси вище $tier ще не вичитані й недоступні.';
   }
 
   @override
@@ -467,6 +467,17 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get aboutNoAds => 'Реклами й трекерів';
+
+  @override
+  String get aboutReviewTitle => 'Як перевірявся контент';
+
+  @override
+  String get aboutReviewBody =>
+      'Німецькі слова й фрази згенеровані мовною моделлю, а потім перехресно перевірені другою, іншою моделлю. Носій мови їх не вичитував.';
+
+  @override
+  String get aboutReviewLimit =>
+      'Дві моделі можуть помилятися однаково: вони навчені на даних, що перетинаються. Перехресна перевірка ловить недбалість і суперечності, але не спільну для обох помилку. Якщо ви побачили неточність — контент лежить у відкритому репозиторії, і виправлення це один файл.';
 
   @override
   String get aboutPrivacy =>

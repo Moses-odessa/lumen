@@ -1,0 +1,266 @@
+# Фразы созвездия «Город» на немецком.
+#
+# Фраза принадлежит языку изучения, а не концепту: немецкое
+# предложение нельзя положить в язык-нейтральный файл. Переводы фраз
+# на родные языки лежат в content/lang/<код>.yaml, секция phrases.
+lang: de
+constellation: city
+tiers:
+  a0:
+    - id: city_a0_map
+      template: "Auf dem {map} finde ich jede Straße."
+      answer: Stadtplan
+      register: casual
+      concepts: [map_object]
+    - id: city_a0_post
+      template: "Wo ist die {post}?"
+      answer: Post
+      register: casual
+      concepts: [post_place]
+    - id: city_a0_hotel
+      template: "Wir suchen ein {hotel}."
+      answer: Hotel
+      register: casual
+      concepts: [hotel_place]
+    - id: city_a0_right
+      template: "Gehen Sie nach {right}."
+      answer: rechts
+      register: formal
+      concepts: [right_adv]
+
+  a1:
+    - id: city_a1_address
+      template: "Wie ist Ihre {address}?"
+      answer: Adresse
+      register: formal
+      concepts: [address_noun]
+    - id: city_a1_crossing
+      template: "An der {crossing} links."
+      answer: Kreuzung
+      register: casual
+      concepts: [crossing_place]
+    - id: city_a1_bridge
+      template: "Gehen Sie über die {bridge}."
+      answer: Brücke
+      register: formal
+      concepts: [bridge_place]
+    - id: city_a1_townhall
+      template: "Das {townhall} ist am Markt."
+      answer: Rathaus
+      register: casual
+      concepts: [townhall_place]
+    - id: city_a1_direction
+      template: "In welche {direction}?"
+      answer: Richtung
+      register: casual
+      concepts: [direction_noun]
+    - id: city_a1_exit
+      template: "Wir gehen durch den {exit} hinaus."
+      answer: Ausgang
+      ambiguity: reviewed
+      register: casual
+      concepts: [exit_place]
+    - id: city_a1_river
+      template: "Der {river} ist breit."
+      answer: Fluss
+      register: casual
+      concepts: [river_place]
+    - id: city_a1_corner
+      template: "Das Café ist an der {corner}."
+      answer: Ecke
+      register: casual
+      concepts: [corner_place]
+
+  a2:
+    - id: city_a2_library
+      template: "Die {library} ist bis acht offen."
+      answer: Bibliothek
+      register: casual
+      concepts: [library_place]
+    - id: city_a2_police
+      template: "Rufen Sie die {police}."
+      answer: Polizei
+      register: formal
+      concepts: [police_noun]
+    - id: city_a2_emergency
+      template: "Die {emergency} ist die 112."
+      answer: Notrufnummer
+      ambiguity: reviewed
+      register: casual
+      concepts: [emergency_call]
+    - id: city_a2_school
+      template: "Meine Kinder gehen in diese {school}."
+      answer: Schule
+      ambiguity: reviewed
+      register: casual
+      concepts: [school_place]
+    - id: city_a2_cinema
+      template: "Gehen wir ins {cinema}?"
+      answer: Kino
+      register: casual
+      concepts: [cinema_place]
+    - id: city_a2_administration
+      template: "Die {administration} hat geschlossen."
+      answer: Verwaltung
+      register: casual
+      concepts: [administration_noun]
+    - id: city_a2_citizenoffice
+      template: "Melden Sie sich beim {citizenoffice} an."
+      answer: Bürgeramt
+      register: formal
+      concepts: [citizenoffice_place]
+    - id: city_a2_playground
+      template: "Der {playground} ist um die Ecke."
+      answer: Spielplatz
+      register: casual
+      concepts: [playground_place]
+    - id: city_a2_suburb
+      template: "Wir wohnen im {suburb}."
+      answer: Vorort
+      register: casual
+      concepts: [suburb_place]
+    - id: city_a2_sight
+      template: "Das ist die bekannteste {sight}."
+      answer: Sehenswürdigkeit
+      register: casual
+      concepts: [sight_noun]
+    - id: city_a2_pool
+      template: "Im Sommer gehen wir ins {pool}."
+      answer: Schwimmbad
+      register: casual
+      concepts: [pool_place]
+    - id: city_a2_resident
+      template: "Die {resident} beschweren sich."
+      answer: Einwohner
+      register: casual
+      concepts: [resident_person]
+
+  b1:
+    - id: city_b1_permit
+      template: "Ohne {permit} geht es nicht."
+      answer: Genehmigung
+      register: casual
+      concepts: [permit_noun]
+    - id: city_b1_form
+      template: "Füllen Sie das {form} aus."
+      answer: Formular
+      register: formal
+      concepts: [form_object]
+    - id: city_b1_fee
+      template: "Die {fee} beträgt dreißig Euro."
+      answer: Gebühr
+      register: casual
+      concepts: [fee_noun]
+    - id: city_b1_notice
+      template: "Der {notice} kam gestern."
+      answer: Bescheid
+      register: casual
+      concepts: [notice_decision]
+    - id: city_b1_objection
+      template: "Ich lege {objection} ein."
+      answer: Einspruch
+      register: casual
+      concepts: [civicobjection_noun]
+    - id: city_b1_mayor
+      template: "Der {mayor} leitet die Stadtverwaltung."
+      answer: Bürgermeister
+      register: casual
+      concepts: [mayor_person]
+    - id: city_b1_municipality
+      template: "Die {municipality} bezahlt den Ausbau."
+      answer: Gemeinde
+      register: casual
+      concepts: [municipality_place]
+    - id: city_b1_jurisdiction
+      template: "Dafür fehlt uns die {jurisdiction}."
+      answer: Zuständigkeit
+      register: casual
+      concepts: [jurisdiction_noun]
+    - id: city_b1_infrastructure
+      template: "Die {infrastructure} ist veraltet."
+      answer: Infrastruktur
+      register: casual
+      concepts: [infrastructure_noun]
+    - id: city_b1_greenspace
+      template: "Die {greenspace} bleibt erhalten."
+      answer: Grünfläche
+      register: casual
+      concepts: [greenspace_place]
+    - id: city_b1_publicorder
+      template: "Das kontrolliert das {publicorder}."
+      answer: Ordnungsamt
+      register: casual
+      concepts: [publicorder_office]
+    - id: city_b1_application
+      template: "Der {application} liegt vor."
+      answer: Antrag
+      register: casual
+      concepts: [application_form]
+
+  b2:
+    - id: city_b2_referendum
+      template: "Der {referendum} war erfolgreich."
+      answer: Bürgerentscheid
+      register: casual
+      concepts: [referendum_noun]
+    - id: city_b2_administrativeact
+      template: "Es handelt sich um einen {administrativeact}."
+      answer: Verwaltungsakt
+      register: casual
+      concepts: [administrativeact_noun]
+    - id: city_b2_court
+      template: "Gegen den Verwaltungsakt klagt man vor dem {court}."
+      answer: Verwaltungsgericht
+      ambiguity: reviewed
+      register: casual
+      concepts: [administrativecourt_place]
+    - id: city_b2_offence
+      template: "Das ist eine {offence}."
+      answer: Ordnungswidrigkeit
+      register: casual
+      concepts: [minoroffence_noun]
+    - id: city_b2_budget
+      template: "Der {budget} legt Einnahmen und Ausgaben fest."
+      answer: Haushaltsplan
+      ambiguity: reviewed
+      register: casual
+      concepts: [budgetplan_noun]
+    - id: city_b2_expropriation
+      template: "Eine {expropriation} droht."
+      answer: Enteignung
+      register: casual
+      concepts: [expropriation_noun]
+    - id: city_b2_gazette
+      template: "Es steht im {gazette}."
+      answer: Amtsblatt
+      register: casual
+      concepts: [officialgazette_noun]
+    - id: city_b2_tradetax
+      template: "Betriebe zahlen die {tradetax} an die Gemeinde."
+      answer: Gewerbesteuer
+      ambiguity: reviewed
+      register: casual
+      concepts: [tradetax_noun]
+    - id: city_b2_planning
+      template: "Die {planning} umfasst Verkehr, Wohnen und Grünflächen."
+      answer: Stadtplanung
+      ambiguity: reviewed
+      register: casual
+      concepts: [townplanning_noun]
+    - id: city_b2_remedy
+      template: "Der {remedy} ist zulässig."
+      answer: Rechtsbehelf
+      register: casual
+      concepts: [legalremedy_noun]
+    - id: city_b2_disaster
+      template: "Der {disaster} ist Aufgabe der Länder."
+      answer: Katastrophenschutz
+      ambiguity: reviewed
+      register: casual
+      concepts: [disasterresponse_noun]
+    - id: city_b2_landuse
+      template: "Der {landuse} gilt für das ganze Gemeindegebiet."
+      answer: Flächennutzungsplan
+      ambiguity: reviewed
+      register: casual
+      concepts: [landuseplan_noun]

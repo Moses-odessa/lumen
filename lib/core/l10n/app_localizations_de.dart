@@ -334,7 +334,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Stufen über $tier wurden noch nicht von Muttersprachlern geprüft und sind nicht verfügbar.';
+    return 'Stufen über $tier sind noch nicht geprüft und daher nicht verfügbar.';
   }
 
   @override
@@ -471,6 +471,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aboutNoAds => 'Werbung und Tracker';
+
+  @override
+  String get aboutReviewTitle => 'Wie die Inhalte geprüft wurden';
+
+  @override
+  String get aboutReviewBody =>
+      'Die deutschen Wörter und Sätze wurden von einem Sprachmodell erzeugt und danach von einem zweiten, anderen Modell gegengelesen. Eine Muttersprachlerin oder ein Muttersprachler hat sie nicht geprüft.';
+
+  @override
+  String get aboutReviewLimit =>
+      'Zwei Modelle können denselben Fehler machen: ihre Trainingsdaten überschneiden sich. Das Gegenlesen findet Unachtsamkeit und Widersprüche, nicht den Fehler, den beide teilen. Wenn Ihnen etwas auffällt: die Inhalte liegen im offenen Repository, eine Korrektur ist eine Datei.';
 
   @override
   String get aboutPrivacy =>

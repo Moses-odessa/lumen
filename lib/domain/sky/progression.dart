@@ -167,19 +167,19 @@ abstract final class Progression {
     return TierSuggestion.stay;
   }
 
-  /// Сколько звёзд должно быть у созвездия на ярусе — накопительно.
-  static int targetStars(Tier tier) =>
-      ProgressionBalance.starsPerConstellation(tier);
+  // `targetStars` и `addedStars` удалены вместе с таблицей накопительных
+  // размеров. Ни у одной из них не было вызова в приложении — они
+  // существовали ради теста, который проверял, что 12+12+24+24+24 = 96.
+  // Проверять сумму константы саму с собой незачем, а размер созвездия
+  // теперь приходит из контента.
 
-  /// Сколько звёзд добавляет переход на этот ярус.
+  /// Появилось ли созвездие на карте: набралось ли у него звёзд.
   ///
-  /// При подъёме старое небо не заменяется: в знакомых созвездиях проступают
-  /// новые звёзды, а прежние остаются на местах и продолжают участвовать в
-  /// повторениях.
-  static int addedStars(Tier tier) {
-    final previous = tier.down;
-    return targetStars(tier) - (previous == null ? 0 : targetStars(previous));
-  }
+  /// Порог, а не равенство. Тема ждёт того яруса, на котором ей есть что
+  /// показать: у «денег» на A0 одно слово, и созвездие из одной звезды — это
+  /// не созвездие, а точка.
+  static bool appears(int starsUpToTier) =>
+      starsUpToTier >= ProgressionBalance.minStarsForConstellation;
 
   /// Общий прогресс яруса 0..1 — по зажжённым созвездиям.
   static double tierProgress(List<ConstellationState> constellations) =>

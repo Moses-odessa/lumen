@@ -1,0 +1,119 @@
+# Созвездие «Дом» — жильё, комнаты, ключи и аренда.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: home
+tiers:
+  a0:
+    concepts:
+      - { id: house_place, pos: noun, freq_rank: 480 }
+      - { id: door_object, pos: noun, freq_rank: 910 }
+      - { id: window_object, pos: noun, freq_rank: 1360 }
+      - { id: table_object, pos: noun, freq_rank: 1050 }
+      - { id: chair_object, pos: noun, freq_rank: 1920 }
+      - { id: bed_object, pos: noun, freq_rank: 1180 }
+      - { id: kitchen_room, pos: noun, freq_rank: 1640 }
+      - { id: room_place, pos: noun, freq_rank: 780 }
+      - { id: key_object, pos: noun, freq_rank: 2280 }
+      - { id: rent_noun, pos: noun, freq_rank: 3410 }
+      - { id: neighbour_person, pos: noun, freq_rank: 2540 }
+      - { id: light_object, pos: noun, freq_rank: 970 }
+  a1:
+    concepts:
+      - { id: flat_place, pos: noun, freq_rank: 1740 }
+      - { id: floor_object, pos: noun, freq_rank: 2260 }
+      - { id: wall_object, pos: noun, freq_rank: 1890 }
+      - { id: roof_object, pos: noun, freq_rank: 2930 }
+      - { id: garden_place, pos: noun, freq_rank: 2170 }
+      - { id: cellar_place, pos: noun, freq_rank: 3480 }
+      - { id: stairs_object, pos: noun, freq_rank: 2810 }
+      - { id: bathroom_room, pos: noun, freq_rank: 3240 }
+      - { id: shower_object, pos: noun, freq_rank: 3960 }
+      - { id: wardrobe_object, pos: noun, freq_rank: 3120 }
+      - { id: lamp_object, pos: noun, freq_rank: 3050 }
+      - { id: heating_object, pos: noun, freq_rank: 3670 }
+  a2:
+    concepts:
+      - { id: landlord_person, pos: noun, freq_rank: 3610 }
+      - { id: lease_noun, pos: noun, freq_rank: 3940 }
+      - { id: deposit_noun, pos: noun, freq_rank: 4270 }
+      - { id: utilities_noun, pos: noun, freq_rank: 4830 }
+      - { id: caretaker_person, pos: noun, freq_rank: 5140 }
+      - { id: houserules_noun, pos: noun, freq_rank: 5620 }
+      - { id: balcony_place, pos: noun, freq_rank: 3350 }
+      - { id: terrace_place, pos: noun, freq_rank: 4090 }
+      - { id: furniture_noun, pos: noun, freq_rank: 2980 }
+      - { id: sofa_object, pos: noun, freq_rank: 3720 }
+      - { id: carpet_object, pos: noun, freq_rank: 4180 }
+      - { id: curtain_object, pos: noun, freq_rank: 4460 }
+      - { id: mirror_object, pos: noun, freq_rank: 3540 }
+      - { id: shelf_object, pos: noun, freq_rank: 3860 }
+      - { id: washing_machine, pos: noun, freq_rank: 4610 }
+      - { id: fridge_object, pos: noun, freq_rank: 4020 }
+      - { id: stove_object, pos: noun, freq_rank: 4740 }
+      - { id: oven_object, pos: noun, freq_rank: 4930 }
+      - { id: socket_object, pos: noun, freq_rank: 5280 }
+      - { id: electricity_noun, pos: noun, freq_rank: 2860 }
+      - { id: tap_object, pos: noun, freq_rank: 5070 }
+      - { id: rubbish_noun, pos: noun, freq_rank: 3480 }
+      - { id: bin_object, pos: noun, freq_rank: 5410 }
+      - { id: move_noun, pos: noun, freq_rank: 3990 }
+  b1:
+    concepts:
+      - { id: tenancylaw_noun, pos: noun, freq_rank: 5840 }
+      - { id: noticeperiod_noun, pos: noun, freq_rank: 5210 }
+      - { id: sublet_noun, pos: noun, freq_rank: 6470 }
+      - { id: rentincrease_noun, pos: noun, freq_rank: 5930 }
+      - { id: utilitiesbill_noun, pos: noun, freq_rank: 6180 }
+      - { id: livingspace_noun, pos: noun, freq_rank: 4760 }
+      - { id: floorplan_object, pos: noun, freq_rank: 5540 }
+      - { id: groundfloor_place, pos: noun, freq_rank: 4380 }
+      - { id: atticfloor_place, pos: noun, freq_rank: 5670 }
+      - { id: renovation_noun, pos: noun, freq_rank: 4920 }
+      - { id: refurbishment_noun, pos: noun, freq_rank: 5480 }
+      - { id: mould_noun, pos: noun, freq_rank: 6320 }
+      - { id: damp_noun, pos: noun, freq_rank: 5910 }
+      - { id: tradesman_person, pos: noun, freq_rank: 4640 }
+      - { id: repair_noun, pos: noun, freq_rank: 3870 }
+      - { id: defect_noun, pos: noun, freq_rank: 4530 }
+      - { id: residentregistration_noun, pos: noun, freq_rank: 6850 }
+      - { id: registrationcertificate_noun, pos: noun, freq_rank: 7240 }
+      - { id: contentsinsurance_noun, pos: noun, freq_rank: 6610 }
+      - { id: smokedetector_object, pos: noun, freq_rank: 6390 }
+      - { id: energycertificate_noun, pos: noun, freq_rank: 7080 }
+      - { id: heatingcosts_noun, pos: noun, freq_rank: 5760 }
+      - { id: watermeter_object, pos: noun, freq_rank: 6940 }
+      - { id: wastesorting_noun, pos: noun, freq_rank: 6520 }
+  b2:
+    concepts:
+      - { id: rentindex_noun, pos: noun, freq_rank: 7240 }
+      - { id: modernisationlevy_noun, pos: noun, freq_rank: 8060 }
+      - { id: maintenancereserve_noun, pos: noun, freq_rank: 7930 }
+      - { id: condominium_noun, pos: noun, freq_rank: 6480 }
+      - { id: ownersassociation_noun, pos: noun, freq_rank: 7160 }
+      - { id: landregister_noun, pos: noun, freq_rank: 6270 }
+      - { id: transfertax_noun, pos: noun, freq_rank: 7520 }
+      - { id: mortgage_noun, pos: noun, freq_rank: 5840 }
+      - { id: repayment_noun, pos: noun, freq_rank: 6390 }
+      - { id: fixedinterest_noun, pos: noun, freq_rank: 7680 }
+      - { id: lendingvalue_noun, pos: noun, freq_rank: 8210 }
+      - { id: leasehold_noun, pos: noun, freq_rank: 7840 }
+      - { id: evictionclaim_noun, pos: noun, freq_rank: 7470 }
+      - { id: rentreduction_noun, pos: noun, freq_rank: 6910 }
+      - { id: defectnotice_noun, pos: noun, freq_rank: 7130 }
+      - { id: marketvalue_noun, pos: noun, freq_rank: 6060 }
+      - { id: buildingapplication_noun, pos: noun, freq_rank: 6720 }
+      - { id: developmentplan_noun, pos: noun, freq_rank: 7040 }
+      - { id: heritageprotection_noun, pos: noun, freq_rank: 6580 }
+      - { id: insulation_noun, pos: noun, freq_rank: 6340 }
+      - { id: efficiencyclass_noun, pos: noun, freq_rank: 7590 }
+      - { id: advancepayment_noun, pos: noun, freq_rank: 7260 }
+      - { id: depositaccount_noun, pos: noun, freq_rank: 7810 }
+      - { id: handoverprotocol_noun, pos: noun, freq_rank: 7350 }

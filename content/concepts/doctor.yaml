@@ -1,0 +1,121 @@
+# Созвездие «У врача» — эталонное. Написано целиком на всех пяти ярусах,
+# чтобы измерить реальную цену контента и умножить на 30
+# (docs/PLAN_M0_M8.md, M4).
+#
+# Размеры накопительные: 12 / 24 / 48 / 72 / 96 звёзд.
+#
+# TODO(data): вычитан носителем только ярус A0 (см. content/launch.yaml).
+# Ярусы A1–B2 написаны, но до вычитки не запускаются — правило «лучше меньше
+# ярусов, чем плохие» из docs/CONTENT_PIPELINE.md.
+#
+# Источники: Goethe/ÖSD Wortlisten A1–B1 для ярусов A0–A2, частотные списки
+# по субтитрам для freq_rank, немецкая медицинско-страховая терминология
+# (Krankenkasse, Widerspruch, Zuzahlung) для B1–B2.
+constellation: doctor
+tiers:
+  a0:
+    concepts:
+      - { id: doctor_person, pos: noun, freq_rank: 1120 }
+      - { id: pain_noun, pos: noun, freq_rank: 1640 }
+      - { id: help_noun, pos: noun, freq_rank: 890 }
+      - { id: head_body, pos: noun, freq_rank: 640 }
+      - { id: belly_body, pos: noun, freq_rank: 2310 }
+      - { id: hand_body, pos: noun, freq_rank: 520 }
+      - { id: fever_noun, pos: noun, freq_rank: 3480 }
+      - { id: medicine_noun, pos: noun, freq_rank: 2760 }
+      - { id: pharmacy_place, pos: noun, freq_rank: 3150 }
+      - { id: hospital_place, pos: noun, freq_rank: 1980 }
+      - { id: sick_adj, pos: adj, freq_rank: 1450 }
+      - { id: appointment_noun, pos: noun, freq_rank: 2040 }
+  a1:
+    concepts:
+      - { id: tooth_body, pos: noun, freq_rank: 2890 }
+      - { id: back_body, pos: noun, freq_rank: 1730 }
+      - { id: leg_body, pos: noun, freq_rank: 1210 }
+      - { id: throat_body, pos: noun, freq_rank: 1560 }
+      - { id: cough_noun, pos: noun, freq_rank: 4120 }
+      - { id: cold_illness, pos: noun, freq_rank: 4560 }
+      - { id: prescription_noun, pos: noun, freq_rank: 3620 }
+      - { id: nurse_person, pos: noun, freq_rank: 3890 }
+      - { id: waiting_room, pos: noun, freq_rank: 5210 }
+      - { id: insurance_card, pos: noun, freq_rank: 6740 }
+      - { id: healthy_adj, pos: adj, freq_rank: 2210 }
+      - { id: temperature_noun, pos: noun, freq_rank: 3040 }
+  a2:
+    concepts:
+      - { id: sick_note, pos: noun, freq_rank: 7120 }
+      - { id: dosage_noun, pos: noun, freq_rank: 8340 }
+      - { id: side_effect, pos: noun, freq_rank: 6980 }
+      - { id: allergy_noun, pos: noun, freq_rank: 5870 }
+      - { id: blood_noun, pos: noun, freq_rank: 1890 }
+      - { id: plaster_noun, pos: noun, freq_rank: 7650 }
+      - { id: ointment_noun, pos: noun, freq_rank: 8210 }
+      - { id: tablet_noun, pos: noun, freq_rank: 4780 }
+      - { id: injection_noun, pos: noun, freq_rank: 5340 }
+      - { id: vaccination_noun, pos: noun, freq_rank: 6120 }
+      - { id: emergency_noun, pos: noun, freq_rank: 3410 }
+      - { id: ambulance_noun, pos: noun, freq_rank: 4930 }
+      - { id: surgery_place, pos: noun, freq_rank: 2670 }
+      - { id: dentist_person, pos: noun, freq_rank: 5010 }
+      - { id: examination_noun, pos: noun, freq_rank: 3280 }
+      - { id: treatment_noun, pos: noun, freq_rank: 3760 }
+      - { id: painkiller_noun, pos: noun, freq_rank: 7890 }
+      - { id: flu_illness, pos: noun, freq_rank: 5620 }
+      - { id: wound_noun, pos: noun, freq_rank: 3920 }
+      - { id: dizzy_adj, pos: adj, freq_rank: 8760 }
+      - { id: breath_noun, pos: noun, freq_rank: 4310 }
+      - { id: heart_body, pos: noun, freq_rank: 980 }
+      - { id: stomach_organ, pos: noun, freq_rank: 4650 }
+      - { id: skin_body, pos: noun, freq_rank: 2540 }
+  b1:
+    concepts:
+      - { id: cost_coverage, pos: noun, freq_rank: 11200 }
+      - { id: referral_noun, pos: noun, freq_rank: 9840 }
+      - { id: lab_result, pos: noun, freq_rank: 12100 }
+      - { id: diagnosis_noun, pos: noun, freq_rank: 6430 }
+      - { id: therapy_noun, pos: noun, freq_rank: 5180 }
+      - { id: specialist_person, pos: noun, freq_rank: 7340 }
+      - { id: health_insurance, pos: noun, freq_rank: 6890 }
+      - { id: medical_report, pos: noun, freq_rank: 10400 }
+      - { id: chronic_adj, pos: adj, freq_rank: 8930 }
+      - { id: inflammation_noun, pos: noun, freq_rank: 7810 }
+      - { id: infection_noun, pos: noun, freq_rank: 5960 }
+      - { id: antibiotic_noun, pos: noun, freq_rank: 8450 }
+      - { id: blood_pressure, pos: noun, freq_rank: 7020 }
+      - { id: blood_draw, pos: noun, freq_rank: 11800 }
+      - { id: ultrasound_noun, pos: noun, freq_rank: 9210 }
+      - { id: xray_noun, pos: noun, freq_rank: 8670 }
+      - { id: operation_noun, pos: noun, freq_rank: 4520 }
+      - { id: anesthesia_noun, pos: noun, freq_rank: 9530 }
+      - { id: rehab_noun, pos: noun, freq_rank: 10100 }
+      - { id: physiotherapy_noun, pos: noun, freq_rank: 10700 }
+      - { id: symptom_noun, pos: noun, freq_rank: 6210 }
+      - { id: complaints_noun, pos: noun, freq_rank: 7480 }
+      - { id: medical_history, pos: noun, freq_rank: 11500 }
+      - { id: discharge_noun, pos: noun, freq_rank: 9070 }
+  b2:
+    concepts:
+      - { id: copayment_noun, pos: noun, freq_rank: 14200 }
+      - { id: objection_noun, pos: noun, freq_rank: 9640 }
+      - { id: findings_report, pos: noun, freq_rank: 13800 }
+      - { id: reimbursement_noun, pos: noun, freq_rank: 12400 }
+      - { id: supplementary_insurance, pos: noun, freq_rank: 15100 }
+      - { id: contribution_noun, pos: noun, freq_rank: 6120 }
+      - { id: certificate_noun, pos: noun, freq_rank: 10900 }
+      - { id: incapacity_noun, pos: noun, freq_rank: 14800 }
+      - { id: expert_opinion, pos: noun, freq_rank: 9380 }
+      - { id: consent_noun, pos: noun, freq_rank: 11300 }
+      - { id: liability_noun, pos: noun, freq_rank: 10200 }
+      - { id: malpractice_noun, pos: noun, freq_rank: 16400 }
+      - { id: prognosis_noun, pos: noun, freq_rank: 10600 }
+      - { id: contraindication_noun, pos: noun, freq_rank: 17200 }
+      - { id: interaction_noun, pos: noun, freq_rank: 13100 }
+      - { id: dosage_form, pos: noun, freq_rank: 18000 }
+      - { id: prescription_only, pos: adj, freq_rank: 15600 }
+      - { id: outpatient_adj, pos: adj, freq_rank: 12800 }
+      - { id: inpatient_adj, pos: adj, freq_rank: 12900 }
+      - { id: patient_file, pos: noun, freq_rank: 13500 }
+      - { id: data_protection, pos: noun, freq_rank: 8240 }
+      - { id: second_opinion, pos: noun, freq_rank: 14600 }
+      - { id: waiting_period, pos: noun, freq_rank: 11700 }
+      - { id: cost_estimate, pos: noun, freq_rank: 13200 }

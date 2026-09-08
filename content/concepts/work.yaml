@@ -1,0 +1,119 @@
+# Созвездие «Работа» — служба, коллеги, отпуск.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: work
+tiers:
+  a0:
+    concepts:
+      - { id: work_noun, pos: noun, freq_rank: 370 }
+      - { id: job_noun, pos: noun, freq_rank: 1230 }
+      - { id: boss_person, pos: noun, freq_rank: 1560 }
+      - { id: colleague_person, pos: noun, freq_rank: 2340 }
+      - { id: office_place, pos: noun, freq_rank: 1410 }
+      - { id: company_noun, pos: noun, freq_rank: 1180 }
+      - { id: salary_noun, pos: noun, freq_rank: 2790 }
+      - { id: contract_noun, pos: noun, freq_rank: 1920 }
+      - { id: meeting_noun, pos: noun, freq_rank: 3160 }
+      - { id: holiday_noun, pos: noun, freq_rank: 2050 }
+      - { id: free_adj, pos: adj, freq_rank: 620 }
+      - { id: tired_adj, pos: adj, freq_rank: 2480 }
+  a1:
+    concepts:
+      - { id: application_noun, pos: noun, freq_rank: 2930 }
+      - { id: cv_noun, pos: noun, freq_rank: 4270 }
+      - { id: interview_noun, pos: noun, freq_rank: 4610 }
+      - { id: employee_person, pos: noun, freq_rank: 2180 }
+      - { id: employer_person, pos: noun, freq_rank: 2740 }
+      - { id: department_noun, pos: noun, freq_rank: 2360 }
+      - { id: project_noun, pos: noun, freq_rank: 1690 }
+      - { id: deadline_noun, pos: noun, freq_rank: 3050 }
+      - { id: overtime_noun, pos: noun, freq_rank: 4890 }
+      - { id: break_noun, pos: noun, freq_rank: 2410 }
+      - { id: task_noun, pos: noun, freq_rank: 1870 }
+      - { id: experience_noun, pos: noun, freq_rank: 1540 }
+  a2:
+    concepts:
+      - { id: employment_contract, pos: noun, freq_rank: 3140 }
+      - { id: probation_noun, pos: noun, freq_rank: 4620 }
+      - { id: dismissal_noun, pos: noun, freq_rank: 3280 }
+      - { id: reference_noun, pos: noun, freq_rank: 3760 }
+      - { id: raise_noun, pos: noun, freq_rank: 5210 }
+      - { id: fulltime_noun, pos: noun, freq_rank: 4080 }
+      - { id: parttime_noun, pos: noun, freq_rank: 4340 }
+      - { id: shift_noun, pos: noun, freq_rank: 3510 }
+      - { id: homeoffice_noun, pos: noun, freq_rank: 4890 }
+      - { id: conference_noun, pos: noun, freq_rank: 3060 }
+      - { id: colleague_female, pos: noun, freq_rank: 3920 }
+      - { id: supervisor_person, pos: noun, freq_rank: 3670 }
+      - { id: internship_noun, pos: noun, freq_rank: 4180 }
+      - { id: training_noun, pos: noun, freq_rank: 2740 }
+      - { id: furthertraining_noun, pos: noun, freq_rank: 4460 }
+      - { id: studies_noun, pos: noun, freq_rank: 2380 }
+      - { id: union_noun, pos: noun, freq_rank: 3830 }
+      - { id: workscouncil_noun, pos: noun, freq_rank: 5340 }
+      - { id: sicknote_noun, pos: noun, freq_rank: 5070 }
+      - { id: workinghours_noun, pos: noun, freq_rank: 3290 }
+      - { id: endofday_noun, pos: noun, freq_rank: 4010 }
+      - { id: tax_noun, pos: noun, freq_rank: 2160 }
+      - { id: socialcontribution_noun, pos: noun, freq_rank: 5480 }
+      - { id: payslip_noun, pos: noun, freq_rank: 5720 }
+  b1:
+    concepts:
+      - { id: jobadvert_noun, pos: noun, freq_rank: 5240 }
+      - { id: coverletter_noun, pos: noun, freq_rank: 5870 }
+      - { id: qualification_noun, pos: noun, freq_rank: 4180 }
+      - { id: competence_noun, pos: noun, freq_rank: 4530 }
+      - { id: workreference_noun, pos: noun, freq_rank: 5460 }
+      - { id: fixedterm_noun, pos: noun, freq_rank: 5910 }
+      - { id: permanentcontract_noun, pos: noun, freq_rank: 7240 }
+      - { id: warning_noun, pos: noun, freq_rank: 5680 }
+      - { id: terminationagreement_noun, pos: noun, freq_rank: 6830 }
+      - { id: dismissalprotection_noun, pos: noun, freq_rank: 6170 }
+      - { id: companyagreement_noun, pos: noun, freq_rank: 6490 }
+      - { id: collectiveagreement_noun, pos: noun, freq_rank: 5320 }
+      - { id: minimumwage_noun, pos: noun, freq_rank: 5040 }
+      - { id: salarynegotiation_noun, pos: noun, freq_rank: 6720 }
+      - { id: bonuspayment_noun, pos: noun, freq_rank: 6260 }
+      - { id: holidayentitlement_noun, pos: noun, freq_rank: 6380 }
+      - { id: remainingleave_noun, pos: noun, freq_rank: 7090 }
+      - { id: occupationalsafety_noun, pos: noun, freq_rank: 5790 }
+      - { id: induction_noun, pos: noun, freq_rank: 6540 }
+      - { id: targetagreement_noun, pos: noun, freq_rank: 6970 }
+      - { id: performancereview_noun, pos: noun, freq_rank: 6610 }
+      - { id: personnelfile_noun, pos: noun, freq_rank: 6850 }
+      - { id: workingatmosphere_noun, pos: noun, freq_rank: 5930 }
+      - { id: turnover_staff, pos: noun, freq_rank: 6430 }
+  b2:
+    concepts:
+      - { id: labourlaw_noun, pos: noun, freq_rank: 5840 }
+      - { id: businesstransfer_noun, pos: noun, freq_rank: 7620 }
+      - { id: massredundancy_noun, pos: noun, freq_rank: 7280 }
+      - { id: socialplan_noun, pos: noun, freq_rank: 7140 }
+      - { id: interestbalance_noun, pos: noun, freq_rank: 8340 }
+      - { id: shorttimework_noun, pos: noun, freq_rank: 6470 }
+      - { id: insolvencypay_noun, pos: noun, freq_rank: 7810 }
+      - { id: bogusselfemployment_noun, pos: noun, freq_rank: 8060 }
+      - { id: contractforwork_noun, pos: noun, freq_rank: 6930 }
+      - { id: temporarywork_noun, pos: noun, freq_rank: 6580 }
+      - { id: staffleasing_noun, pos: noun, freq_rank: 7940 }
+      - { id: codetermination_noun, pos: noun, freq_rank: 7060 }
+      - { id: supervisoryboard_noun, pos: noun, freq_rank: 6240 }
+      - { id: tariffautonomy_noun, pos: noun, freq_rank: 8180 }
+      - { id: righttostrike_noun, pos: noun, freq_rank: 7350 }
+      - { id: lockout_noun, pos: noun, freq_rank: 8420 }
+      - { id: ancillarycosts_noun, pos: noun, freq_rank: 7490 }
+      - { id: socialinsurance_noun, pos: noun, freq_rank: 5960 }
+      - { id: pensioninsurance_noun, pos: noun, freq_rank: 6120 }
+      - { id: unemploymentinsurance_noun, pos: noun, freq_rank: 6380 }
+      - { id: careinsurance_noun, pos: noun, freq_rank: 6710 }
+      - { id: employersliability_noun, pos: noun, freq_rank: 7860 }
+      - { id: labourcourt_place, pos: noun, freq_rank: 6540 }
+      - { id: conciliationhearing_noun, pos: noun, freq_rank: 8230 }

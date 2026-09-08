@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
+import '../../../data/content/content_database.dart';
+import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 
 /// Выбор трёх языков: что учим, с какого и на каком язык интерфейса.
@@ -22,18 +24,12 @@ class LanguageScreen extends ConsumerStatefulWidget {
 }
 
 class _LanguageScreenState extends ConsumerState<LanguageScreen> {
-  /// Языки изучения: до M8 в ассетах лежит озвучка ровно одного.
-  static const _targets = {'de': 'Deutsch'};
-
-  /// Языки подсказок — те, для которых есть лексемы в контенте.
-  static const _natives = {
-    'ru': 'Русский',
-    'uk': 'Українська',
-    'en': 'English',
-  };
-
   /// Язык интерфейса. `null` в ключе — «как в системе», `null` в
   /// значении означает, что подпись берётся из локализации.
+  ///
+  /// Этот список остаётся в коде, и не по недосмотру: язык интерфейса — это
+  /// ARB-файлы и `flutter gen-l10n`, то есть кодоген, а не контент. Языки
+  /// изучения и подсказок пришли из базы, потому что они данные.
   static const Map<String?, String?> _interface = {
     null: null,
     'en': 'English',
@@ -52,6 +48,14 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
+
+    // Языки читаются из контентной базы, а не из карт в этом файле. Раньше
+    // здесь лежали три словаря кодов и названий, и добавление языка означало
+    // правку Dart в четырёх местах — при том, что язык это файл в
+    // content/lang/. Самоназвание тоже приходит оттуда: его приносит с собой
+    // тот же файл.
+    final targets = _named(ref.watch(targetLanguagesProvider).value);
+    final natives = _named(ref.watch(nativeLanguagesProvider).value);
 
     return Container(
       decoration: const BoxDecoration(
@@ -77,17 +81,20 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                 ),
               ),
               const SizedBox(height: 28),
+              // Пока база не ответила, группы пусты, а не заполнены
+              // догадками: показать список языков, который потом
+              // переставится, хуже, чем показать его через полсекунды.
               _Group(
                 title: l10n.languagesLearning,
-                options: _targets,
-                selected: _target,
+                options: targets,
+                selected: targets.containsKey(_target) ? _target : null,
                 onSelect: (value) => setState(() => _target = value!),
               ),
               const SizedBox(height: 20),
               _Group(
                 title: l10n.languagesHints,
-                options: _natives,
-                selected: _native,
+                options: natives,
+                selected: natives.containsKey(_native) ? _native : null,
                 onSelect: (value) => setState(() => _native = value!),
               ),
               const SizedBox(height: 20),
@@ -112,19 +119,38 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
     );
   }
 
+  /// Код языка → его самоназвание, как оно записано в файле языка.
+  static Map<String?, String> _named(List<LanguageRow>? rows) => {
+        for (final row in rows ?? const <LanguageRow>[]) row.code: row.name,
+      };
+
   void _save() {
+    // Значение по умолчанию может отсутствовать в базе: язык объявлен
+    // draft или его файл убрали. Записать выбор, которого игрок не делал и
+    // которого в контенте нет, значит выдать ему пустую игру — концепт
+    // играбелен только когда форма есть в обоих языках пары.
+    final target = _pick(_target, ref.read(targetLanguagesProvider).value);
+    final native = _pick(_native, ref.read(nativeLanguagesProvider).value);
+
     final controller = ref.read(playerControllerProvider.notifier);
     controller.createDraft(
-      targetLang: _target,
-      nativeLang: _native,
+      targetLang: target,
+      nativeLang: native,
       uiLang: _ui,
     );
     ref.read(analyticsProvider).log(AnalyticsEvents.languagesChosen, {
-      'target': _target,
-      'native': _native,
+      'target': target,
+      'native': native,
       'ui': _ui ?? 'system',
     });
     widget.onDone();
+  }
+
+  /// Выбранный язык, если он есть в базе; иначе первый доступный.
+  static String _pick(String chosen, List<LanguageRow>? available) {
+    if (available == null || available.isEmpty) return chosen;
+    if (available.any((l) => l.code == chosen)) return chosen;
+    return available.first.code;
   }
 }
 

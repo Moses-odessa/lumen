@@ -8,9 +8,17 @@
 library;
 
 /// Версия схемы контента. Меняется вместе с `ContentDatabase.schemaVersion`.
-// v2 убрала audio_id: озвучка перешла на синтез устройства и
-// произносит текст лексемы, а не заранее записанный файл.
-const int contentSchemaVersion = 2;
+///
+/// v2 убрала `audio_id`: озвучка перешла на синтез устройства и
+/// произносит текст лексемы, а не заранее записанный файл.
+///
+/// v3 сделала две вещи. Во-первых, у фразы стало несколько пропусков:
+/// `phrases.answer` уехал в `phrase_slots`, рядом встали `phrase_options`
+/// (неверные слова по слоту) и `phrase_translations` (перевод фразы целиком).
+/// Без этого механики «заполни пропуски» и «собери предложение» не собрать.
+/// Во-вторых, появилась таблица `languages`: язык объявляет о себе сам, а не
+/// перечисляется списком в коде.
+const int contentSchemaVersion = 3;
 
 /// DDL контентной базы. Индексы — под запросы рантайма: выборка концептов
 /// созвездия по ярусу и подбор дистракторов для круга.
@@ -36,6 +44,21 @@ const List<String> contentSchemaDdl = [
     PRIMARY KEY (concept_id, lang)
   )
   ''',
+  // Языки базы: код, роль, готовность, самоназвание и покрытие.
+  //
+  // Покрытие считается при сборке, а не объявляется в файле: объявленное
+  // число разошлось бы с содержимым при первой же правке — этот проект уже
+  // ловил такое на строке о вычитке в launch.yaml.
+  '''
+  CREATE TABLE languages (
+    code TEXT NOT NULL PRIMARY KEY,
+    role TEXT NOT NULL,
+    status TEXT NOT NULL,
+    name TEXT NOT NULL,
+    concepts INTEGER NOT NULL,
+    phrases INTEGER NOT NULL
+  )
+  ''',
   '''
   CREATE TABLE phrases (
     id TEXT NOT NULL PRIMARY KEY,
@@ -43,8 +66,36 @@ const List<String> contentSchemaDdl = [
     tier TEXT NOT NULL,
     constellation TEXT NOT NULL,
     template TEXT NOT NULL,
-    answer TEXT NOT NULL,
     register TEXT NULL
+  )
+  ''',
+  // Пропуски фразы по порядку. `idx` — номер слота в шаблоне слева направо.
+  '''
+  CREATE TABLE phrase_slots (
+    phrase_id TEXT NOT NULL,
+    idx INTEGER NOT NULL,
+    answer TEXT NOT NULL,
+    PRIMARY KEY (phrase_id, idx)
+  )
+  ''',
+  // Неверные слова для конкретного слота. Необязательны: когда их нет,
+  // варианты добираются соседями по созвездию.
+  '''
+  CREATE TABLE phrase_options (
+    phrase_id TEXT NOT NULL,
+    idx INTEGER NOT NULL,
+    form TEXT NOT NULL,
+    PRIMARY KEY (phrase_id, idx, form)
+  )
+  ''',
+  // Перевод фразы целиком на родной язык: он проявляется после того, как все
+  // пропуски заполнены. Живёт в языковом файле, а не рядом с фразой.
+  '''
+  CREATE TABLE phrase_translations (
+    phrase_id TEXT NOT NULL,
+    lang TEXT NOT NULL,
+    text TEXT NOT NULL,
+    PRIMARY KEY (phrase_id, lang)
   )
   ''',
   '''
@@ -89,27 +140,60 @@ const List<String> contentSchemaDdl = [
 /// намеренно: `tool/` — отдельная программа и не тянет за собой `lib/`.
 const List<String> tiers = ['a0', 'a1', 'a2', 'b1', 'b2'];
 
-/// Языки проекта: язык изучения плюс языки подсказок.
-const List<String> projectLangs = ['de', 'ru', 'uk', 'en'];
+/// Язык изучения по умолчанию — только значение флага `--lang`.
+///
+/// Раньше рядом стоял `projectLangs`: список языков в коде. Его больше нет.
+/// Языки находятся перебором `content/lang/`, и это не косметика — это
+/// разница между «добавить язык значит создать файл» и «добавить язык значит
+/// править Dart, пересобирать и не забыть четыре места».
+const String defaultTargetLang = 'de';
 
-/// Язык изучения. До M8 в ассетах лежит озвучка ровно одного.
-const String targetLang = 'de';
+/// Роли языка. `both` оставлено на случай языка, который и учат, и понимают
+/// (немецкий для швейцарца), но сегодня такого нет.
+const List<String> languageRoles = ['native', 'target', 'both'];
 
-/// Размер созвездия по ярусу — накопительный (docs/CONCEPT.md).
-/// Валидатор сверяет с ним фактические размеры.
-const Map<String, int> starsPerTier = {
-  'a0': 12,
-  'a1': 24,
-  'a2': 48,
-  'b1': 72,
-  'b2': 96,
-};
+/// Готовность языка. `launched` требует полноты, `draft` — нет.
+const List<String> languageStatuses = ['draft', 'launched'];
+
+/// Сколько звёзд должно быть у созвездия на ярусе, чтобы оно вообще
+/// появилось на карте.
+///
+/// Раньше здесь стоял `starsPerTier` — фиксированные 12/24/48/72/96
+/// накопительно, и валидатор требовал их точного совпадения. На словнике из
+/// 6000 лемм это правило провалили бы десять тем из двадцати четырёх: у
+/// «денег» и «общества» на A0 по одному слову, и подгонять их до двенадцати
+/// значило бы придумывать A0-лексику там, где её нет.
+///
+/// Порог вместо равенства: тема просто ждёт того яруса, на котором ей есть
+/// что показать. Прогрессия из этого получается сама — A0 отдаёт 15
+/// созвездий, A1 добавляет семь, A2 остальные два.
+const int minStarsForConstellation = 8;
 
 /// Минимум дистракторов каждого типа на концепт (docs/CONTENT_PIPELINE.md).
+///
+/// Требуются только от языка изучения. На родном языке варианты берутся из
+/// соседей по созвездию: это слова, уже написанные и проверенные, поэтому
+/// несуществующее слово в круге структурно невозможно, а 31 000 единиц
+/// ручной работы не появляется.
 const int minFarDistractors = 2;
 const int minNearDistractors = 3;
 
-/// Текст фразы для синтеза: шаблон со слотом, заполненным ответом.
-String phraseSpeech(String template, String answer) =>
-    template.replaceAll(RegExp(r'\{[^}]*\}'), answer);
+/// Текст фразы для синтеза: шаблон с заполненными пропусками.
+///
+/// Слотов может быть несколько, и порядок [answers] — это порядок слотов в
+/// шаблоне слева направо.
+String phraseSpeech(String template, List<String> answers) {
+  var i = 0;
+  return template.replaceAllMapped(
+    RegExp(r'\{[^}]*\}'),
+    (_) => i < answers.length ? answers[i++] : '…',
+  );
+}
 
+/// Шаблон с пропусками вместо слотов: `Ich kaufe {bread}.` → `Ich kaufe ___.`
+String phraseWithGaps(String template) =>
+    template.replaceAll(RegExp(r'\{[^}]*\}'), '_____');
+
+/// Сколько слотов в шаблоне.
+int phraseSlotCount(String template) =>
+    RegExp(r'\{[^}]*\}').allMatches(template).length;

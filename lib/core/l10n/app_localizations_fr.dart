@@ -332,7 +332,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Les paliers au-dessus de $tier n\'ont pas encore été relus par un locuteur natif et ne sont pas disponibles.';
+    return 'Les paliers au-dessus de $tier n\'ont pas encore été relus et ne sont pas disponibles.';
   }
 
   @override
@@ -468,6 +468,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aboutNoAds => 'Publicité et traqueurs';
+
+  @override
+  String get aboutReviewTitle => 'Comment le contenu a été vérifié';
+
+  @override
+  String get aboutReviewBody =>
+      'Les mots et phrases allemands ont été générés par un modèle de langue, puis relus par un second modèle, différent. Aucun locuteur natif ne les a vérifiés.';
+
+  @override
+  String get aboutReviewLimit =>
+      'Deux modèles peuvent se tromper de la même façon : leurs données d\'entraînement se recoupent. La relecture croisée repère les inattentions et les contradictions, pas l\'erreur qu\'ils partagent. Si vous en repérez une, le contenu est dans le dépôt ouvert et la correction tient dans un fichier.';
 
   @override
   String get aboutPrivacy =>

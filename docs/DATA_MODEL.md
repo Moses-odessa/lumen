@@ -2,12 +2,19 @@
 
 Две базы, никогда не пересекающиеся по таблицам.
 
-- **`content.db`** — read-only, собирается на машине разработчика через
-  `tool/build_content.dart`, кладётся в `assets/content/<lang>.db`, копируется в
-  support-директорию при первом запуске и открывается отдельным
-  `NativeDatabase`. На устройстве **не мигрируется** — при обновлении заменяется
-  целиком.
-- **`user.db`** — Drift со схемой и миграциями, только состояние игрока.
+- **`content.db`** — read-only, схема v3, собирается на машине разработчика
+  через `tool/build_content.dart`, кладётся в `assets/content/<lang>.db`,
+  копируется в support-директорию при первом запуске и открывается отдельным
+  `NativeDatabase`. На устройстве **не мигрируется** — при обновлении
+  заменяется целиком.
+
+  Копия в support-директории сверяется с ассетом по длине **и первым ста
+  байтам** — это заголовок SQLite, где лежит `user_version`. Одной длины не
+  хватало: сборка с новой схемой, случайно совпавшая по размеру со старой
+  копией, оставляла старый файл на месте, и первый же запрос падал с
+  «пересоберите контент» на устройстве, где пересобрать нечего.
+- **`user.db`** — Drift со схемой и миграциями, схема v6, только состояние
+  игрока.
 
 Причина разделения: контент большой, полностью детерминированный и общий для
 всех; пользовательские данные маленькие, персональные и мигрируют. Смешивать их
@@ -31,27 +38,45 @@ concepts (
 -- Лексема: как этот концепт выглядит в конкретном языке.
 lexemes (
   concept_id   TEXT NOT NULL REFERENCES concepts(id),
-  lang         TEXT NOT NULL,      -- 'de', 'ru', 'uk', 'en'
+  lang         TEXT NOT NULL,      -- 'de', 'uk', …
   form         TEXT NOT NULL,      -- 'Rechnung'
   article      TEXT,               -- 'die'
   gender       TEXT,               -- 'f'
   plural       TEXT,
-  audio_id     TEXT,               -- имя файла в аудио-паке
   note         TEXT,
   PRIMARY KEY (concept_id, lang)
 );
 
--- Фраза: шаблон со слотами, связывает несколько концептов.
+-- Языки базы: язык объявляет о себе сам, а не перечисляется в коде.
+languages (
+  code         TEXT PRIMARY KEY,   -- 'de', 'uk'
+  role         TEXT NOT NULL,      -- 'native' | 'target' | 'both'
+  status       TEXT NOT NULL,      -- 'draft' | 'launched'
+  name         TEXT NOT NULL,      -- самоназвание: 'Українська'
+  concepts     INTEGER NOT NULL,   -- покрытие: считается при сборке
+  phrases      INTEGER NOT NULL
+);
+
+-- Фраза: шаблон с одним или несколькими пропусками.
 phrases (
   id           TEXT PRIMARY KEY,
   lang         TEXT NOT NULL,
   tier         TEXT NOT NULL,
   constellation TEXT NOT NULL,
   template     TEXT NOT NULL,      -- 'Die {bill}, bitte.'
-  answer       TEXT NOT NULL,
-  register     TEXT,               -- 'formal' | 'casual'
-  audio_id     TEXT
+  register     TEXT                -- 'formal' | 'casual'
 );
+
+-- Пропуски фразы по порядку слева направо.
+phrase_slots (phrase_id TEXT, idx INTEGER, answer TEXT NOT NULL);
+
+-- Неверные слова для конкретного пропуска. Необязательны: когда их нет,
+-- варианты добираются соседями по созвездию. Когда есть — вытесняют добор.
+phrase_options (phrase_id TEXT, idx INTEGER, form TEXT NOT NULL);
+
+-- Перевод фразы целиком на родной язык: проявляется после заполнения всех
+-- пропусков. Приходит из файла родного языка, а не из файла фразы.
+phrase_translations (phrase_id TEXT, lang TEXT, text TEXT NOT NULL);
 
 phrase_concepts (phrase_id TEXT, concept_id TEXT);
 
@@ -120,9 +145,11 @@ class Players extends Table {
   BoolColumn get soundEnabled  => boolean().withDefault(const Constant(true))();
 }
 
-/// Состояние одного слова. Источник правды по памяти — difficulty/stability/lastReview.
+/// Состояние одной единицы памяти — слова или фразы.
+/// Источник правды по памяти — difficulty/stability/lastReview.
 class WordStates extends Table {
-  TextColumn     get conceptId  => text()();
+  TextColumn     get itemId     => text()();          // концепт или фраза
+  TextColumn     get kind       => text().withDefault(const Constant('word'))();
   TextColumn     get tier       => text()();
   RealColumn     get difficulty => real()();          // FSRS D
   RealColumn     get stability  => real()();          // FSRS S, в днях
@@ -133,18 +160,26 @@ class WordStates extends Table {
   BoolColumn     get burning    => boolean().withDefault(const Constant(false))();
   IntColumn      get reps       => integer().withDefault(const Constant(0))();
   IntColumn      get lapses     => integer().withDefault(const Constant(0))();
-  @override Set<Column> get primaryKey => {conceptId};
+  @override Set<Column> get primaryKey => {itemId};
 }
 
 /// Журнал ответов: нужен и для дообучения параметров FSRS, и для аналитики.
 class Reviews extends Table {
   IntColumn      get id        => integer().autoIncrement()();
-  TextColumn     get conceptId => text()();
+  TextColumn     get itemId    => text()();
   DateTimeColumn get at        => dateTime()();
   IntColumn      get latencyMs => integer()();
-  TextColumn     get mode      => text()();           // 'recognition' | 'circle' | 'tight' | 'audio' | 'typing' | 'phrase'
+  TextColumn     get mode      => text()();           // код механики
   BoolColumn     get correct   => boolean()();
   IntColumn      get grade     => integer()();        // 1..4, выведено из latency
+}
+
+/// Отложенное обслуживание: что миграция попросила сделать, но сделать в
+/// момент миграции не могла. См. «Правила, которые легко нарушить».
+class Maintenance extends Table {
+  TextColumn get key   => text()();
+  TextColumn get value => text()();
+  @override Set<Column> get primaryKey => {key};
 }
 
 /// Прогресс по созвездию на конкретном ярусе.
@@ -192,11 +227,25 @@ class CustomConcepts extends Table {
   полугода в агрегаты, иначе база у активного игрока за год перевалит за
   сотню тысяч строк.
 - **`WordStates` не хранит перевод.** Всё содержимое берётся из `content.db` по
-  `conceptId`. Это позволяет обновить контент, не трогая прогресс.
+  `itemId`. Это позволяет обновить контент, не трогая прогресс.
 - При смене языка изучения `WordStates` не удаляются, а фильтруются по языку
   через `content.db` — если игрок вернётся к немецкому через полгода, прогресс
-  будет на месте. Значит, `conceptId` должен быть уникален глобально, а не в
+  будет на месте. Значит, `itemId` должен быть уникален глобально, а не в
   пределах языка.
+- **`kind` в `WordStates` пока никто не пишет.** Колонка добавлена миграцией
+  v4 под фразы, но `applyAnswer` её не задаёт, и все строки лежат со значением
+  по умолчанию `word` — включая те, чей `itemId` на самом деле идентификатор
+  фразы. Поэтому принадлежность единицы памяти определяется членством в
+  «концепты ∪ фразы», а не этой колонкой. Полагаться на `kind` нельзя, пока
+  его не начнут писать.
+- **Миграция `user.db` не видит `content.db`.** Базы отдельные, с отдельными
+  исполнителями, и контентную открывают по языку изучения, скопировав из
+  ассетов уже после старта. Поэтому чистка «убрать память о словах, которых в
+  контенте больше нет» не может жить в `MigrationStrategy`: миграция кладёт
+  метку в `Maintenance`, а `bootstrapPersistence` делает работу, когда оба
+  файла открыты, и метку снимает. Пустой список известных идентификаторов
+  игнорируется: это значит, что контент не открылся, а не что он опустел, —
+  снести весь прогресс из-за неудачного чтения ассета несоизмеримо с задачей.
 
 ---
 

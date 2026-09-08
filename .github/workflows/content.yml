@@ -5,8 +5,8 @@ name: Content
 # чтобы приложение оставалось полностью офлайн: контент едет в APK, а не
 # качается с сервера.
 #
-# Озвучки в пайплайне нет: звук — синтез речи устройства
-# на M4 — он требует ключей TTS-провайдера и кеша по хешу текста.
+# Озвучки в пайплайне нет: звук — синтез речи устройства, файлов озвучки в
+# проекте не осталось вовсе.
 on:
   workflow_dispatch:
     inputs:
@@ -41,8 +41,9 @@ jobs:
       - run: flutter pub get
 
       # Валидация до сборки: битые исходники не должны попасть в ассет.
+      # Без флага — все языки изучения: собираем один, но сломать могли любой.
       - name: Validate content
-        run: dart run tool/validate_content.dart --lang ${{ inputs.lang }}
+        run: dart run tool/validate_content.dart
 
       - name: Build content database
         run: dart run tool/build_content.dart --lang ${{ inputs.lang }}

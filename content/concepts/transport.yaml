@@ -1,0 +1,119 @@
+# Созвездие «Транспорт» — дорога, билеты, опоздания.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: transport
+tiers:
+  a0:
+    concepts:
+      - { id: train_transport, pos: noun, freq_rank: 1240 }
+      - { id: bus_transport, pos: noun, freq_rank: 1580 }
+      - { id: car_transport, pos: noun, freq_rank: 720 }
+      - { id: ticket_transport, pos: noun, freq_rank: 2870 }
+      - { id: station_place, pos: noun, freq_rank: 2130 }
+      - { id: street_place, pos: noun, freq_rank: 830 }
+      - { id: bicycle_transport, pos: noun, freq_rank: 3060 }
+      - { id: airplane_transport, pos: noun, freq_rank: 2410 }
+      - { id: way_noun, pos: noun, freq_rank: 540 }
+      - { id: driver_person, pos: noun, freq_rank: 2650 }
+      - { id: stop_place, pos: noun, freq_rank: 3720 }
+      - { id: late_adj, pos: adj, freq_rank: 1490 }
+  a1:
+    concepts:
+      - { id: platform_place, pos: noun, freq_rank: 4380 }
+      - { id: delay_noun, pos: noun, freq_rank: 3910 }
+      - { id: connection_noun, pos: noun, freq_rank: 3160 }
+      - { id: timetable_object, pos: noun, freq_rank: 4520 }
+      - { id: luggage_noun, pos: noun, freq_rank: 3740 }
+      - { id: taxi_transport, pos: noun, freq_rank: 3020 }
+      - { id: tram_transport, pos: noun, freq_rank: 4870 }
+      - { id: metro_transport, pos: noun, freq_rank: 4140 }
+      - { id: seat_object, pos: noun, freq_rank: 3580 }
+      - { id: journey_noun, pos: noun, freq_rank: 1840 }
+      - { id: arrival_noun, pos: noun, freq_rank: 3360 }
+      - { id: departure_noun, pos: noun, freq_rank: 3490 }
+  a2:
+    concepts:
+      - { id: motorway_place, pos: noun, freq_rank: 3280 }
+      - { id: petrol_station, pos: noun, freq_rank: 4410 }
+      - { id: petrol_noun, pos: noun, freq_rank: 3860 }
+      - { id: licence_noun, pos: noun, freq_rank: 3540 }
+      - { id: accident_noun, pos: noun, freq_rank: 2190 }
+      - { id: jam_noun, pos: noun, freq_rank: 4070 }
+      - { id: diversion_noun, pos: noun, freq_rank: 5230 }
+      - { id: roadworks_noun, pos: noun, freq_rank: 4680 }
+      - { id: parking_place, pos: noun, freq_rank: 3120 }
+      - { id: garage_place, pos: noun, freq_rank: 4950 }
+      - { id: kilometre_noun, pos: noun, freq_rank: 2870 }
+      - { id: speed_noun, pos: noun, freq_rank: 2640 }
+      - { id: tyre_object, pos: noun, freq_rank: 4520 }
+      - { id: engine_object, pos: noun, freq_rank: 2960 }
+      - { id: workshop_place, pos: noun, freq_rank: 4230 }
+      - { id: insurance_noun, pos: noun, freq_rank: 2410 }
+      - { id: seatbelt_object, pos: noun, freq_rank: 5610 }
+      - { id: vehicle_papers, pos: noun, freq_rank: 5840 }
+      - { id: ferry_transport, pos: noun, freq_rank: 4790 }
+      - { id: harbour_place, pos: noun, freq_rank: 3390 }
+      - { id: airport_place, pos: noun, freq_rank: 2730 }
+      - { id: takeoff_noun, pos: noun, freq_rank: 4360 }
+      - { id: landing_noun, pos: noun, freq_rank: 4180 }
+      - { id: carpool_noun, pos: noun, freq_rank: 6120 }
+  b1:
+    concepts:
+      - { id: transportmeans_noun, pos: noun, freq_rank: 4180 }
+      - { id: localtransport_noun, pos: noun, freq_rank: 5240 }
+      - { id: longdistance_noun, pos: noun, freq_rank: 5870 }
+      - { id: surcharge_noun, pos: noun, freq_rank: 5460 }
+      - { id: reduction_noun, pos: noun, freq_rank: 4930 }
+      - { id: monthlyticket_noun, pos: noun, freq_rank: 6210 }
+      - { id: validation_noun, pos: noun, freq_rank: 6840 }
+      - { id: passenger_person, pos: noun, freq_rank: 3760 }
+      - { id: conductor_person, pos: noun, freq_rank: 5390 }
+      - { id: levelcrossing_place, pos: noun, freq_rank: 6520 }
+      - { id: rightofway_noun, pos: noun, freq_rank: 5140 }
+      - { id: overtakingban_noun, pos: noun, freq_rank: 7130 }
+      - { id: speedlimit_noun, pos: noun, freq_rank: 5680 }
+      - { id: fine_noun, pos: noun, freq_rank: 4870 }
+      - { id: drivingban_noun, pos: noun, freq_rank: 6390 }
+      - { id: numberplate_object, pos: noun, freq_rank: 5920 }
+      - { id: registration_noun, pos: noun, freq_rank: 5310 }
+      - { id: inspection_noun, pos: noun, freq_rank: 6470 }
+      - { id: emissionstandard_noun, pos: noun, freq_rank: 7260 }
+      - { id: chargingpoint_place, pos: noun, freq_rank: 6980 }
+      - { id: range_noun, pos: noun, freq_rank: 5030 }
+      - { id: consumption_noun, pos: noun, freq_rank: 4640 }
+      - { id: maintenance_noun, pos: noun, freq_rank: 5170 }
+      - { id: breakdownservice_noun, pos: noun, freq_rank: 6730 }
+  b2:
+    concepts:
+      - { id: transportinfra_noun, pos: noun, freq_rank: 6470 }
+      - { id: routenetwork_noun, pos: noun, freq_rank: 6180 }
+      - { id: clockfacetimetable_noun, pos: noun, freq_rank: 7840 }
+      - { id: capacitybottleneck_noun, pos: noun, freq_rank: 7520 }
+      - { id: emissionlimit_noun, pos: noun, freq_rank: 6930 }
+      - { id: lowemissionzone_noun, pos: noun, freq_rank: 6740 }
+      - { id: particulate_noun, pos: noun, freq_rank: 6260 }
+      - { id: noiseprotection_noun, pos: noun, freq_rank: 6580 }
+      - { id: mobilityshift_noun, pos: noun, freq_rank: 7130 }
+      - { id: electromobility_noun, pos: noun, freq_rank: 6820 }
+      - { id: charginginfra_noun, pos: noun, freq_rank: 7290 }
+      - { id: subsidy_noun, pos: noun, freq_rank: 5640 }
+      - { id: trackprice_noun, pos: noun, freq_rank: 8140 }
+      - { id: operatormodel_noun, pos: noun, freq_rank: 7680 }
+      - { id: liabilityexclusion_noun, pos: noun, freq_rank: 7410 }
+      - { id: claimssettlement_noun, pos: noun, freq_rank: 7060 }
+      - { id: comprehensivecover_noun, pos: noun, freq_rank: 6390 }
+      - { id: excess_noun, pos: noun, freq_rank: 6710 }
+      - { id: roadsafety_noun, pos: noun, freq_rank: 5980 }
+      - { id: accidentstatistics_noun, pos: noun, freq_rank: 6840 }
+      - { id: freighttransport_noun, pos: noun, freq_rank: 6120 }
+      - { id: logisticschain_noun, pos: noun, freq_rank: 6530 }
+      - { id: customsclearance_noun, pos: noun, freq_rank: 7350 }
+      - { id: logbook_object, pos: noun, freq_rank: 7920 }

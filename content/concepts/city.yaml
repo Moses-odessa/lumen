@@ -1,0 +1,119 @@
+# Созвездие «Город» — ориентирование и городские места.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: city
+tiers:
+  a0:
+    concepts:
+      - { id: city_place, pos: noun, freq_rank: 430 }
+      - { id: square_place, pos: noun, freq_rank: 1140 }
+      - { id: park_place, pos: noun, freq_rank: 1690 }
+      - { id: bank_place, pos: noun, freq_rank: 1320 }
+      - { id: church_place, pos: noun, freq_rank: 1580 }
+      - { id: market_place, pos: noun, freq_rank: 1450 }
+      - { id: museum_place, pos: noun, freq_rank: 2870 }
+      - { id: post_place, pos: noun, freq_rank: 2210 }
+      - { id: hotel_place, pos: noun, freq_rank: 1870 }
+      - { id: centre_place, pos: noun, freq_rank: 1610 }
+      - { id: map_object, pos: noun, freq_rank: 3940 }
+      - { id: right_adv, pos: adv, freq_rank: 990 }
+  a1:
+    concepts:
+      - { id: crossing_place, pos: noun, freq_rank: 3720 }
+      - { id: traffic_light, pos: noun, freq_rank: 4180 }
+      - { id: pedestrian_person, pos: noun, freq_rank: 4560 }
+      - { id: bridge_place, pos: noun, freq_rank: 2340 }
+      - { id: river_place, pos: noun, freq_rank: 1860 }
+      - { id: corner_place, pos: noun, freq_rank: 2070 }
+      - { id: direction_noun, pos: noun, freq_rank: 1930 }
+      - { id: address_noun, pos: noun, freq_rank: 2260 }
+      - { id: district_place, pos: noun, freq_rank: 2840 }
+      - { id: townhall_place, pos: noun, freq_rank: 3390 }
+      - { id: entrance_place, pos: noun, freq_rank: 2610 }
+      - { id: exit_place, pos: noun, freq_rank: 2480 }
+  a2:
+    concepts:
+      - { id: suburb_place, pos: noun, freq_rank: 3480 }
+      - { id: settlement_place, pos: noun, freq_rank: 4260 }
+      - { id: pavement_place, pos: noun, freq_rank: 4830 }
+      - { id: cyclepath_place, pos: noun, freq_rank: 5140 }
+      - { id: crosswalk_place, pos: noun, freq_rank: 5390 }
+      - { id: streetlamp_object, pos: noun, freq_rank: 4970 }
+      - { id: monument_place, pos: noun, freq_rank: 3720 }
+      - { id: fountain_place, pos: noun, freq_rank: 4410 }
+      - { id: cemetery_place, pos: noun, freq_rank: 3860 }
+      - { id: library_place, pos: noun, freq_rank: 3190 }
+      - { id: school_place, pos: noun, freq_rank: 1240 }
+      - { id: cinema_place, pos: noun, freq_rank: 2680 }
+      - { id: theatre_place, pos: noun, freq_rank: 2540 }
+      - { id: stadium_place, pos: noun, freq_rank: 3350 }
+      - { id: pool_place, pos: noun, freq_rank: 4090 }
+      - { id: playground_place, pos: noun, freq_rank: 4520 }
+      - { id: pedestrian_zone, pos: noun, freq_rank: 5240 }
+      - { id: resident_person, pos: noun, freq_rank: 3070 }
+      - { id: administration_noun, pos: noun, freq_rank: 2910 }
+      - { id: citizenoffice_place, pos: noun, freq_rank: 5680 }
+      - { id: police_noun, pos: noun, freq_rank: 1730 }
+      - { id: firebrigade_noun, pos: noun, freq_rank: 3610 }
+      - { id: emergency_call, pos: noun, freq_rank: 4180 }
+      - { id: sight_noun, pos: noun, freq_rank: 4740 }
+  b1:
+    concepts:
+      - { id: municipality_place, pos: noun, freq_rank: 3840 }
+      - { id: county_place, pos: noun, freq_rank: 4620 }
+      - { id: borough_place, pos: noun, freq_rank: 4180 }
+      - { id: mayor_person, pos: noun, freq_rank: 3560 }
+      - { id: citycouncil_noun, pos: noun, freq_rank: 4290 }
+      - { id: constituency_place, pos: noun, freq_rank: 5470 }
+      - { id: registrationoffice_place, pos: noun, freq_rank: 6130 }
+      - { id: publicorder_office, pos: noun, freq_rank: 5240 }
+      - { id: buildingauthority_place, pos: noun, freq_rank: 5960 }
+      - { id: permit_noun, pos: noun, freq_rank: 4510 }
+      - { id: application_form, pos: noun, freq_rank: 3970 }
+      - { id: form_object, pos: noun, freq_rank: 4340 }
+      - { id: fee_noun, pos: noun, freq_rank: 4060 }
+      - { id: notice_decision, pos: noun, freq_rank: 4780 }
+      - { id: civicobjection_noun, pos: noun, freq_rank: 5320 }
+      - { id: publicsurgery_noun, pos: noun, freq_rank: 7180 }
+      - { id: publicsphere_noun, pos: noun, freq_rank: 4930 }
+      - { id: infrastructure_noun, pos: noun, freq_rank: 4470 }
+      - { id: urbandevelopment_noun, pos: noun, freq_rank: 5680 }
+      - { id: greenspace_place, pos: noun, freq_rank: 5810 }
+      - { id: localsupply_noun, pos: noun, freq_rank: 6540 }
+      - { id: trafficcalming_noun, pos: noun, freq_rank: 7020 }
+      - { id: redevelopmentarea_place, pos: noun, freq_rank: 7390 }
+      - { id: jurisdiction_noun, pos: noun, freq_rank: 5150 }
+  b2:
+    concepts:
+      - { id: localpolitics_noun, pos: noun, freq_rank: 6340 }
+      - { id: budgetplan_noun, pos: noun, freq_rank: 6180 }
+      - { id: taxrevenue_noun, pos: noun, freq_rank: 6520 }
+      - { id: tradetax_noun, pos: noun, freq_rank: 6870 }
+      - { id: levy_noun, pos: noun, freq_rank: 7140 }
+      - { id: specialpurposeassoc_noun, pos: noun, freq_rank: 8260 }
+      - { id: publicservices_noun, pos: noun, freq_rank: 7480 }
+      - { id: landuseplan_noun, pos: noun, freq_rank: 7620 }
+      - { id: urbanplanninglaw_noun, pos: noun, freq_rank: 7940 }
+      - { id: sitedevelopment_noun, pos: noun, freq_rank: 7060 }
+      - { id: expropriation_noun, pos: noun, freq_rank: 7310 }
+      - { id: publicbenefit_noun, pos: noun, freq_rank: 6790 }
+      - { id: citizenspetition_noun, pos: noun, freq_rank: 7530 }
+      - { id: referendum_noun, pos: noun, freq_rank: 6410 }
+      - { id: councildecision_noun, pos: noun, freq_rank: 7180 }
+      - { id: officialgazette_noun, pos: noun, freq_rank: 7690 }
+      - { id: administrativeact_noun, pos: noun, freq_rank: 7250 }
+      - { id: legalremedy_noun, pos: noun, freq_rank: 6960 }
+      - { id: administrativecourt_place, pos: noun, freq_rank: 6640 }
+      - { id: minoroffence_noun, pos: noun, freq_rank: 7020 }
+      - { id: hazardprevention_noun, pos: noun, freq_rank: 7840 }
+      - { id: disasterresponse_noun, pos: noun, freq_rank: 6580 }
+      - { id: townplanning_noun, pos: noun, freq_rank: 5940 }
+      - { id: heritageconservation_noun, pos: noun, freq_rank: 7370 }

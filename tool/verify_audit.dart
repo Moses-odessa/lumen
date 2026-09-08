@@ -24,6 +24,22 @@ import 'package:yaml/yaml.dart';
 /// файл, а не исходник.
 final _snapshot = File('.dart_tool/content_review_snapshot.json');
 
+/// Язык изучения, чьи фразы попадают в выгрузку.
+const targetLang = 'de';
+
+/// YAML-файлы каталога в стабильном порядке. Порядок значим: выгрузка
+/// сравнивается между прогонами.
+List<File> _yamlFiles(String path) {
+  final dir = Directory(path);
+  if (!dir.existsSync()) return const [];
+  return dir
+      .listSync()
+      .whereType<File>()
+      .where((f) => f.path.endsWith('.yaml'))
+      .toList()
+    ..sort((a, b) => a.path.compareTo(b.path));
+}
+
 dynamic _plain(dynamic value) {
   if (value is Map) {
     return value.map((k, v) => MapEntry(k.toString(), _plain(v)));
@@ -130,13 +146,32 @@ void _verifyReport(String path) {
 
     dynamic actual;
     if (finding['field'] == 'phrase') {
-      final phrase = (doc['tiers'][finding['tier']]['phrases'] as List)
-          .singleWhere((p) => p['id'] == finding['phrase']);
-      actual = {'template': phrase['template'], 'answer': phrase['answer']};
+      // Фразы переехали: файл содержит tiers.<ярус> списком, без
+      // промежуточного ключа `phrases`. Поддерживаются оба вида — отчёт
+      // может быть снят до переезда, и падать на этом бессмысленно.
+      final node = doc['tiers'][finding['tier']];
+      final list = node is List ? node : (node['phrases'] as List);
+      final phrase = list.singleWhere((p) => p['id'] == finding['phrase']);
+      final answers = phrase['answers'] ?? phrase['answer'];
+      actual = {'template': phrase['template'], 'answer': answers};
+
       final proposal = finding['proposed'];
-      if (proposal != null &&
-          RegExp(r'\{[^}]+\}').allMatches(proposal['template']).length != 1) {
-        throw StateError('В предложенном шаблоне не один слот: $key');
+      if (proposal != null) {
+        // Раньше здесь требовался ровно один слот. Теперь пропусков может
+        // быть несколько — но их число обязано совпадать с числом ответов,
+        // иначе в собранном предложении останется пустое место.
+        final slots =
+            RegExp(r'\{[^}]+\}').allMatches(proposal['template']).length;
+        final proposed = proposal['answers'] ?? proposal['answer'];
+        final count = proposed is List ? proposed.length : 1;
+        if (slots == 0) {
+          throw StateError('В предложенном шаблоне нет слота: $key');
+        }
+        if (slots != count) {
+          throw StateError(
+            'В предложенном шаблоне $slots пропусков, а ответов $count: $key',
+          );
+        }
       }
     } else {
       final lex = doc['lexemes'][finding['concept']];
@@ -175,24 +210,21 @@ void _verifyReport(String path) {
 /// Собирает контент в один JSON, чтобы вычитку можно было вести по плоскому
 /// списку, а не по девяти файлам созвездий и четырём файлам языков.
 void _capture() {
+  // Языки не перечисляются списком: их находят перебором каталога — ровно
+  // так же, как это делает пайплайн. Список в коде разошёлся бы с
+  // содержимым, и выгрузка молча потеряла бы язык.
   final languages = <String, dynamic>{};
-  for (final lang in ['de', 'en', 'ru']) {
-    languages[lang] = _load('content/lang/$lang.yaml')['lexemes'];
+  for (final file in _yamlFiles('content/lang')) {
+    final data = _load(file.path);
+    final code = '${data['lang']}';
+    languages[code] = data['lexemes'] ?? <String, dynamic>{};
   }
 
-  final files = Directory('content/constellations')
-      .listSync()
-      .whereType<File>()
-      .where((f) => f.path.endsWith('.yaml'))
-      .toList()
-    ..sort((a, b) => a.path.compareTo(b.path));
-
   final rows = <dynamic>[];
-  final phrases = <dynamic>[];
-  for (final file in files) {
+  for (final file in _yamlFiles('content/concepts')) {
     final data = _load(file.path);
     for (final entry in (data['tiers'] as Map).entries) {
-      for (final concept in entry.value['concepts']) {
+      for (final concept in entry.value['concepts'] ?? []) {
         rows.add({
           'topic': data['constellation'],
           'tier': entry.key,
@@ -201,7 +233,14 @@ void _capture() {
             lang: languages[lang][concept['id']],
         });
       }
-      for (final phrase in entry.value['phrases'] ?? []) {
+    }
+  }
+
+  final phrases = <dynamic>[];
+  for (final file in _yamlFiles('content/phrases/$targetLang')) {
+    final data = _load(file.path);
+    for (final entry in (data['tiers'] as Map).entries) {
+      for (final phrase in entry.value ?? []) {
         phrases.add({
           'topic': data['constellation'],
           'tier': entry.key,

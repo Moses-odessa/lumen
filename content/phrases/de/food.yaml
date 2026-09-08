@@ -1,0 +1,263 @@
+# Фразы созвездия «Еда» на немецком.
+#
+# Фраза принадлежит языку изучения, а не концепту: немецкое
+# предложение нельзя положить в язык-нейтральный файл. Переводы фраз
+# на родные языки лежат в content/lang/<код>.yaml, секция phrases.
+lang: de
+constellation: food
+tiers:
+  a0:
+    - id: food_a0_bread
+      template: "Ich kaufe {bread}."
+      answer: Brot
+      register: casual
+      concepts: [bread_food]
+    - id: food_a0_water
+      template: "Ich trinke {water}."
+      answer: Wasser
+      register: casual
+      concepts: [water_drink]
+    - id: food_a0_hunger
+      template: "Ich habe {hunger}."
+      answer: Hunger
+      register: casual
+      concepts: [hunger_noun]
+    - id: food_a0_restaurant
+      template: "Wir gehen ins {restaurant}."
+      answer: Restaurant
+      register: casual
+      concepts: [restaurant_place]
+
+  a1:
+    - id: food_a1_breakfast
+      template: "Ich mache das {breakfast}."
+      answer: Frühstück
+      register: casual
+      concepts: [breakfast_meal]
+    - id: food_a1_cheese
+      template: "Ich hätte gern etwas {cheese}."
+      answer: Käse
+      register: casual
+      concepts: [cheese_food]
+    - id: food_a1_egg
+      template: "Möchtest du ein {egg}?"
+      answer: Ei
+      register: casual
+      concepts: [egg_food]
+    - id: food_a1_glass
+      template: "Bringen Sie mir ein {glass}."
+      answer: Glas
+      register: formal
+      concepts: [glass_object]
+    - id: food_a1_vegetable
+      template: "Ich esse viel {vegetable}."
+      answer: Gemüse
+      register: casual
+      concepts: [vegetable_food]
+    - id: food_a1_dinner
+      template: "Nach dem {dinner} gehen wir schlafen."
+      answer: Abendessen
+      ambiguity: reviewed
+      register: casual
+      concepts: [dinner_meal]
+    - id: food_a1_fork
+      template: "Mir fehlt eine {fork}."
+      answer: Gabel
+      register: casual
+      concepts: [fork_object]
+    - id: food_a1_lunch
+      template: "Um zwölf Uhr gibt es {lunch}."
+      answer: Mittagessen
+      ambiguity: reviewed
+      register: casual
+      concepts: [lunch_meal]
+
+  a2:
+    - id: food_a2_menu
+      template: "Bringen Sie mir bitte die {menu}."
+      answer: Speisekarte
+      register: formal
+      concepts: [menu_object]
+    - id: food_a2_bill
+      template: "Die {bill}, bitte."
+      answer: Rechnung
+      register: casual
+      concepts: [bill_noun]
+    - id: food_a2_order
+      template: "Meine {order} ist noch nicht da."
+      answer: Bestellung
+      register: casual
+      concepts: [order_noun]
+    - id: food_a2_wine
+      template: "Ein Glas {wine}, bitte."
+      answer: Wein
+      register: casual
+      concepts: [wine_drink]
+    - id: food_a2_tea
+      template: "Ich trinke lieber {tea}."
+      answer: Tee
+      register: casual
+      concepts: [tea_drink]
+    - id: food_a2_potato
+      template: "Die {potato} ist gekocht."
+      answer: Kartoffel
+      register: casual
+      concepts: [potato_food]
+    - id: food_a2_cake
+      template: "Der {cake} ist selbst gebacken."
+      answer: Kuchen
+      register: casual
+      concepts: [cake_food]
+    - id: food_a2_waiter
+      template: "Der {waiter} kommt gleich."
+      answer: Kellner
+      register: casual
+      concepts: [waiter_person]
+    - id: food_a2_tip
+      template: "Das {tip} ist schon dabei."
+      answer: Trinkgeld
+      register: casual
+      concepts: [tip_noun]
+    - id: food_a2_sausage
+      template: "Ich hätte gern eine {sausage}."
+      answer: Wurst
+      register: casual
+      concepts: [sausage_food]
+    - id: food_a2_juice
+      template: "Für das Kind einen {juice}."
+      answer: Saft
+      register: casual
+      concepts: [juice_drink]
+    - id: food_a2_chocolate
+      template: "Magst du dunkle {chocolate}?"
+      answer: Schokolade
+      register: casual
+      concepts: [chocolate_food]
+
+  b1:
+    - id: food_b1_ingredient
+      template: "Eine {ingredient} fehlt noch."
+      answer: Zutat
+      register: casual
+      concepts: [ingredient_noun]
+    - id: food_b1_recipe
+      template: "Das {recipe} ist von meiner Oma."
+      answer: Kochrezept
+      register: casual
+      concepts: [recipe_noun]
+    - id: food_b1_portion
+      template: "Die {portion} ist zu klein."
+      answer: Portion
+      register: casual
+      concepts: [portion_noun]
+    - id: food_b1_taste
+      template: "Der {taste} ist ungewöhnlich."
+      answer: Geschmack
+      register: casual
+      concepts: [taste_noun]
+    - id: food_b1_nutrition
+      template: "Achten Sie auf Ihre {nutrition}."
+      answer: Ernährung
+      register: formal
+      concepts: [nutrition_noun]
+    - id: food_b1_shelflife
+      template: "Wie kann man die {shelflife} verlängern?"
+      answer: Haltbarkeit
+      register: casual
+      concepts: [shelflife_noun]
+    - id: food_b1_dessert
+      template: "Zum {dessert} gibt es Eis."
+      answer: Nachtisch
+      register: casual
+      concepts: [dessert_food]
+    - id: food_b1_maincourse
+      template: "Nach der Vorspeise kommt das {maincourse}."
+      answer: Hauptgericht
+      ambiguity: reviewed
+      register: casual
+      concepts: [maincourse_food]
+    - id: food_b1_spice
+      template: "Welches {spice} ist das?"
+      answer: Gewürz
+      register: casual
+      concepts: [spice_food]
+    - id: food_b1_preparation
+      template: "Die {preparation} dauert zwanzig Minuten."
+      answer: Zubereitung
+      register: casual
+      concepts: [preparation_noun]
+    - id: food_b1_onion
+      template: "Schneiden Sie die {onion} klein."
+      answer: Zwiebel
+      register: formal
+      concepts: [onion_food]
+    - id: food_b1_groceries
+      template: "Die {groceries} sind teurer geworden."
+      answer: Nahrungsmittel
+      register: casual
+      concepts: [groceries_noun]
+
+  b2:
+    - id: food_b2_labelling
+      template: "Die {labelling} ist vorgeschrieben."
+      answer: Kennzeichnung
+      register: casual
+      concepts: [labelling_noun]
+    - id: food_b2_allergen
+      template: "Erdnüsse sind ein häufiges {allergen}."
+      answer: Allergen
+      register: casual
+      concepts: [allergen_noun]
+    - id: food_b2_intolerance
+      template: "Er hat eine {intolerance}."
+      answer: Unverträglichkeit
+      register: casual
+      concepts: [intolerance_noun]
+    - id: food_b2_origin
+      template: "Das {origin} steht auf der Packung."
+      answer: Herkunftsland
+      register: casual
+      concepts: [countryoforigin_noun]
+    - id: food_b2_supplychain
+      template: "Die {supplychain} ist unterbrochen."
+      answer: Lieferkette
+      register: casual
+      concepts: [supplychain_noun]
+    - id: food_b2_sustainability
+      template: "Wir setzen auf {sustainability}."
+      answer: Nachhaltigkeit
+      register: casual
+      concepts: [sustainability_noun]
+    - id: food_b2_additive
+      template: "Ein Konservierungsstoff ist ein {additive}."
+      answer: Zusatzstoff
+      ambiguity: reviewed
+      register: casual
+      concepts: [additive_noun]
+    - id: food_b2_retail
+      template: "Im {retail} kauft der Endkunde ein."
+      answer: Einzelhandel
+      ambiguity: reviewed
+      register: casual
+      concepts: [retail_noun]
+    - id: food_b2_consumerprotection
+      template: "Hier greift der {consumerprotection}."
+      answer: Verbraucherschutz
+      register: casual
+      concepts: [consumerprotection_noun]
+    - id: food_b2_nutritionalvalue
+      template: "Der {nutritionalvalue} gibt Fett, Zucker und Eiweiß an."
+      answer: Nährwert
+      ambiguity: reviewed
+      register: casual
+      concepts: [nutritionalvalue_noun]
+    - id: food_b2_organic
+      template: "Das {organic} ist teurer."
+      answer: Bioprodukt
+      register: casual
+      concepts: [organicproduct_noun]
+    - id: food_b2_hygiene
+      template: "Die {hygiene} gilt für alle Betriebe."
+      answer: Hygienevorschrift
+      register: casual
+      concepts: [hygienerule_noun]

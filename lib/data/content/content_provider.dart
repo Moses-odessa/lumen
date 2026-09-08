@@ -31,6 +31,24 @@ final contentMetaProvider = FutureProvider<Map<String, String>>((ref) =>
 final launchedTiersProvider = FutureProvider<Set<Tier>>((ref) =>
     ref.watch(currentContentDatabaseProvider).launchedTiers());
 
+/// Сколько слов курса лежит на ярусе и ниже.
+///
+/// Экран результата калибровки говорит игроку это число, и оно обязано
+/// приходить из базы: курс растёт файлами контента, а не константой в коде.
+final vocabularyUpToProvider =
+    FutureProvider.family<int, Tier>((ref, tier) =>
+        ref.watch(currentContentDatabaseProvider).countConceptsUpTo(tier));
+
+/// Языки, которыми можно подсказывать, и языки, на которых можно учить.
+///
+/// Читаются из базы, а не из списка в коде: язык — это файл в
+/// `content/lang/`, и добавление языка не должно требовать правки Dart.
+final nativeLanguagesProvider = FutureProvider<List<LanguageRow>>((ref) =>
+    ref.watch(currentContentDatabaseProvider).nativeLanguages());
+
+final targetLanguagesProvider = FutureProvider<List<LanguageRow>>((ref) =>
+    ref.watch(currentContentDatabaseProvider).targetLanguages());
+
 /// Самый высокий доступный ярус.
 final maxTierProvider = Provider<Tier>((ref) {
   final tiers = switch (ref.watch(launchedTiersProvider)) {

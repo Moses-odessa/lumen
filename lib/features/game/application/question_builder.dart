@@ -80,7 +80,8 @@ class QuestionBuilder {
     required Tier tier,
     required Lumens lumens,
   }) async {
-    final phrases = await content.phrasesFor(constellation, tier);
+    final phrases =
+        await content.phrasesFor(constellation, tier, lang: targetLang);
     if (phrases.isEmpty) return null;
     final phrase = phrases[_random.nextInt(phrases.length)];
 
@@ -101,8 +102,14 @@ class QuestionBuilder {
       excludeConceptId: anchor ?? '',
     ));
 
+    // Ответы фразы приехали в отдельную таблицу: пропусков может быть
+    // несколько. Здесь пока берётся первый — механики «заполни пропуски» и
+    // «собери предложение» приходят с вехой M10.
+    final answers = await content.phraseAnswers(phrase.id);
+    if (answers.isEmpty) return null;
+
     final options = _assembleOptions(
-      answer: phrase.answer,
+      answer: answers.first,
       distractors: distractors,
       count: ScoreBalance.optionsFor(GameMode.phrase,
           extra: extraOptions),
@@ -118,7 +125,7 @@ class QuestionBuilder {
       options: options.forms,
       answerIndex: options.answerIndex,
       lumens: lumens,
-      answerSpeech: _withAnswer(phrase.template, phrase.answer),
+      answerSpeech: _withAnswers(phrase.template, answers),
     );
   }
 
@@ -320,6 +327,12 @@ class QuestionBuilder {
   /// слово из пропуска — записывать четыреста тридцать два предложения было
   /// незачем. Синтез произносит их бесплатно, и игрок слышит фразу целиком,
   /// ради которой её и учит.
-  String _withAnswer(String template, String answer) =>
-      template.replaceAll(RegExp(r'\{[^}]*\}'), answer);
+  /// Порядок [answers] — это порядок слотов в шаблоне слева направо.
+  String _withAnswers(String template, List<String> answers) {
+    var i = 0;
+    return template.replaceAllMapped(
+      RegExp(r'\{[^}]*\}'),
+      (_) => i < answers.length ? answers[i++] : '',
+    );
+  }
 }

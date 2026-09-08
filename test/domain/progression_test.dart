@@ -242,20 +242,29 @@ void main() {
     });
   });
 
-  group('рост созвездия', () {
-    test('ярус добавляет звёзды, а не заменяет их', () {
-      expect(Progression.targetStars(Tier.a0), 12);
-      expect(Progression.addedStars(Tier.a0), 12);
-      expect(Progression.addedStars(Tier.a1), 12);
-      expect(Progression.addedStars(Tier.a2), 24);
-      expect(Progression.addedStars(Tier.b2), 24);
+  group('появление созвездия', () {
+    // Прежние тесты этой группы проверяли, что 12+12+24+24+24 = 96, то есть
+    // константу саму с собой. Обе функции, которые они вызывали
+    // (`targetStars`, `addedStars`), не имели ни одного вызова в приложении и
+    // существовали ради этой проверки.
+
+    test('созвездие из нескольких звёзд ещё не созвездие', () {
+      expect(Progression.appears(1), isFalse);
+      expect(Progression.appears(
+        ProgressionBalance.minStarsForConstellation - 1,
+      ), isFalse);
     });
 
-    test('сумма прибавок равна итоговому размеру', () {
-      var total = 0;
-      for (final tier in Tier.values) {
-        total += Progression.addedStars(tier);
-        expect(total, Progression.targetStars(tier), reason: '$tier');
+    test('на пороге созвездие появляется и больше не исчезает', () {
+      expect(
+        Progression.appears(ProgressionBalance.minStarsForConstellation),
+        isTrue,
+      );
+      // Размер накопительный: раз появившись, созвездие не может сжаться.
+      for (var stars = ProgressionBalance.minStarsForConstellation;
+          stars < 400;
+          stars += 37) {
+        expect(Progression.appears(stars), isTrue, reason: '$stars звёзд');
       }
     });
   });

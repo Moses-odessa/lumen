@@ -14,7 +14,7 @@ import 'content_schema.dart';
 import 'content_sources.dart';
 
 Future<void> main(List<String> args) async {
-  final lang = _argValue(args, '--lang') ?? targetLang;
+  final lang = _argValue(args, '--lang') ?? defaultTargetLang;
   final root = Directory.current;
   final outPath = '${root.path}/assets/content/$lang.db';
 
@@ -37,6 +37,15 @@ Future<void> main(List<String> args) async {
     'концептов: ${sources.concepts.length}, '
     'фраз: ${sources.phrases.length}',
   );
+  for (final l in sources.languages.values) {
+    // Покрытие печатается всегда: язык, который покрывает половину, должен
+    // быть виден при сборке, а не обнаружиться в игре пропущенными словами.
+    stdout.writeln(
+      '  ${l.code}: ${l.role}/${l.status}, '
+      'лексем ${l.lexemes.length}/${sources.concepts.length}, '
+      'переводов фраз ${l.phraseTranslations.length}/${sources.phrases.length}',
+    );
+  }
 
   await File(outPath).parent.create(recursive: true);
   // База пересоздаётся целиком: на устройстве она не мигрируется, а
@@ -61,8 +70,10 @@ Future<void> main(List<String> args) async {
     // с воспроизводимым ассетом не оставалось `-wal`.
     db.execute('BEGIN');
     _insertConcepts(db, sources);
+    _insertLanguages(db, sources);
     _insertLexemes(db, sources);
     _insertPhrases(db, sources, lang);
+    _insertPhraseTranslations(db, sources);
     _insertDistractors(db, sources, lang);
     _insertCalibration(db, sources, lang);
     _insertMeta(db, sources, lang, sources.hash);
@@ -121,11 +132,39 @@ void _insertLexemes(Database db, ContentSources sources) {
   }
 }
 
+void _insertLanguages(Database db, ContentSources sources) {
+  final stmt = db.prepare(
+    'INSERT INTO languages (code, role, status, name, concepts, phrases) '
+    'VALUES (?, ?, ?, ?, ?, ?)',
+  );
+  try {
+    for (final l in sources.languages.values) {
+      stmt.execute([
+        l.code,
+        l.role,
+        l.status,
+        l.name,
+        l.lexemes.length,
+        l.phraseTranslations.length,
+      ]);
+    }
+  } finally {
+    stmt.close();
+  }
+}
+
 void _insertPhrases(Database db, ContentSources sources, String lang) {
   final phraseStmt = db.prepare(
     'INSERT INTO phrases '
-    '(id, lang, tier, constellation, template, answer, register) '
-    'VALUES (?, ?, ?, ?, ?, ?, ?)',
+    '(id, lang, tier, constellation, template, register) '
+    'VALUES (?, ?, ?, ?, ?, ?)',
+  );
+  final slotStmt = db.prepare(
+    'INSERT INTO phrase_slots (phrase_id, idx, answer) VALUES (?, ?, ?)',
+  );
+  final optionStmt = db.prepare(
+    'INSERT OR IGNORE INTO phrase_options (phrase_id, idx, form) '
+    'VALUES (?, ?, ?)',
   );
   final linkStmt = db.prepare(
     'INSERT INTO phrase_concepts (phrase_id, concept_id) VALUES (?, ?)',
@@ -138,16 +177,49 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
         p.tier,
         p.constellation,
         p.template,
-        p.answer,
         p.register,
       ]);
+      for (var i = 0; i < p.answers.length; i++) {
+        slotStmt.execute([p.id, i, p.answers[i]]);
+        for (final form in p.optionsFor(i)) {
+          optionStmt.execute([p.id, i, form]);
+        }
+      }
       for (final conceptId in p.conceptIds) {
         linkStmt.execute([p.id, conceptId]);
       }
     }
   } finally {
     phraseStmt.close();
+    slotStmt.close();
+    optionStmt.close();
     linkStmt.close();
+  }
+}
+
+/// Переводы фраз: они приходят из языковых файлов, а не из файла фраз.
+///
+/// Фраза — предложение на языке изучения, её перевод — вклад родного языка.
+/// Держать их вместе значило бы, что добавление родного языка правит файл
+/// чужого.
+void _insertPhraseTranslations(Database db, ContentSources sources) {
+  final known = {for (final p in sources.phrases) p.id};
+  final stmt = db.prepare(
+    'INSERT OR IGNORE INTO phrase_translations (phrase_id, lang, text) '
+    'VALUES (?, ?, ?)',
+  );
+  try {
+    for (final l in sources.languages.values) {
+      for (final e in l.phraseTranslations.entries) {
+        // Перевод фразы, которой нет в этой сборке, молча пропускаем: базы
+        // собираются по одному языку изучения, и перевод немецкой фразы в
+        // французской сборке — не ошибка, а просто не про неё.
+        if (!known.contains(e.key)) continue;
+        stmt.execute([e.key, l.code, e.value]);
+      }
+    }
+  } finally {
+    stmt.close();
   }
 }
 
@@ -211,6 +283,10 @@ void _insertMeta(
     'concepts': '${sources.concepts.length}',
     'phrases': '${sources.phrases.length}',
     'constellations': sources.constellations.join(','),
+    // Языки перечислены и в таблице `languages`, но в метаданных они нужны
+    // затем же, зачем `launched_tiers`: по собранному ассету должно быть
+    // видно, что в нём лежит, без обхода таблиц.
+    'languages': (sources.languages.keys.toList()..sort()).join(','),
     // Запущенные ярусы: приложение не предлагает подниматься выше того,
     // что вычитано.
     'launched_tiers': (sources.launch.launched.toList()..sort()).join(','),

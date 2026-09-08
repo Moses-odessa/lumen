@@ -35,7 +35,37 @@ class Lexemes extends Table {
   Set<Column> get primaryKey => {conceptId, lang};
 }
 
-/// Фраза: шаблон со слотами, связывает несколько концептов.
+/// Язык базы: что он о себе объявил и сколько покрывает.
+///
+/// Таблица нужна затем, чтобы приложение не носило список языков в коде.
+/// Раньше `language_screen.dart` держал три карты кодов и названий, и добавить
+/// язык означало правку Dart в четырёх местах. Теперь язык — это файл, а
+/// экран читает то, что в базе.
+@DataClassName('LanguageRow')
+class Languages extends Table {
+  TextColumn get code => text()();
+
+  /// `native`, `target` или `both`.
+  TextColumn get role => text()();
+
+  /// `draft` или `launched`.
+  TextColumn get status => text()();
+
+  /// Самоназвание: «Українська», «Deutsch».
+  TextColumn get name => text()();
+
+  /// Сколько концептов и фраз язык покрывает. Считается при сборке.
+  IntColumn get concepts => integer()();
+  IntColumn get phrases => integer()();
+
+  @override
+  Set<Column> get primaryKey => {code};
+}
+
+/// Фраза: шаблон с одним или несколькими пропусками.
+///
+/// Ответы уехали в [PhraseSlots]: пропусков может быть больше одного, и это
+/// разница между «вставь слово» и «собери грамматику предложения».
 @DataClassName('PhraseRow')
 class Phrases extends Table {
   TextColumn get id => text()();
@@ -43,11 +73,54 @@ class Phrases extends Table {
   TextColumn get tier => text()();
   TextColumn get constellation => text()();
   TextColumn get template => text()();
-  TextColumn get answer => text()();
   TextColumn get register => text().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
+}
+
+/// Пропуски фразы по порядку слева направо.
+@DataClassName('PhraseSlotRow')
+class PhraseSlots extends Table {
+  TextColumn get phraseId => text()();
+  IntColumn get idx => integer()();
+  TextColumn get answer => text()();
+
+  @override
+  Set<Column> get primaryKey => {phraseId, idx};
+}
+
+/// Неверные слова для конкретного пропуска.
+///
+/// Необязательны: когда их нет, варианты добираются соседями по созвездию.
+/// Когда есть — вытесняют добор, потому что подобранное под пропуск всегда
+/// лучше подобранного под тему.
+@DataClassName('PhraseOptionRow')
+class PhraseOptions extends Table {
+  TextColumn get phraseId => text()();
+  IntColumn get idx => integer()();
+  TextColumn get form => text()();
+
+  @override
+  Set<Column> get primaryKey => {phraseId, idx, form};
+}
+
+/// Перевод фразы целиком на родной язык.
+///
+/// Проявляется после того, как все пропуски заполнены. Пропуск, заполненный
+/// верно, но так и не объяснённый, учит подбору формы и ничему больше.
+@DataClassName('PhraseTranslationRow')
+class PhraseTranslations extends Table {
+  TextColumn get phraseId => text()();
+  TextColumn get lang => text()();
+
+  /// В базе колонка называется `text`; в Dart так нельзя — `text()` это
+  /// собственный построитель колонок Drift, и совпадение имён ломает
+  /// кодогенерацию молча.
+  TextColumn get translation => text().named('text')();
+
+  @override
+  Set<Column> get primaryKey => {phraseId, lang};
 }
 
 @DataClassName('PhraseConceptRow')
@@ -108,7 +181,11 @@ class ContentMeta extends Table {
 @DriftDatabase(tables: [
   Concepts,
   Lexemes,
+  Languages,
   Phrases,
+  PhraseSlots,
+  PhraseOptions,
+  PhraseTranslations,
   PhraseConcepts,
   Distractors,
   CalibrationItems,
@@ -127,8 +204,12 @@ class ContentDatabase extends _$ContentDatabase {
   ///
   /// v2 убрала `audio_id`: озвучка перешла на синтез устройства и произносит
   /// текст лексемы. Идентификатор записанного файла стал не нужен.
+  ///
+  /// v3 сделала у фразы несколько пропусков и добавила таблицу языков. Первое
+  /// нужно механикам «заполни пропуски» и «собери предложение», второе — тому,
+  /// чтобы язык добавлялся файлом, а не правкой Dart.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -211,6 +292,23 @@ class ContentDatabase extends _$ContentDatabase {
   Future<ConceptRow?> concept(String id) =>
       (select(concepts)..where((t) => t.id.equals(id))).getSingleOrNull();
 
+  /// Сколько концептов на ярусе и ниже.
+  ///
+  /// Нужно экрану результата калибровки: он говорит игроку, сколькими словами
+  /// курса тот примерно уже владеет, и это число обязано приходить из базы.
+  Future<int> countConceptsUpTo(Tier upTo) async {
+    final codes = Tier.values
+        .where((t) => t.index <= upTo.index)
+        .map((t) => t.code)
+        .toList();
+    final count = concepts.id.count();
+    final row = await (selectOnly(concepts)
+          ..addColumns([count])
+          ..where(concepts.tier.isIn(codes)))
+        .getSingle();
+    return row.read(count) ?? 0;
+  }
+
   /// Все концепты яруса и ниже — из них планировщик берёт новые слова.
   Future<List<ConceptRow>> conceptsUpTo(Tier upTo) {
     final tiers = Tier.values
@@ -257,14 +355,25 @@ class ContentDatabase extends _$ContentDatabase {
   }
 
   /// Фразы созвездия на ярусе и ниже — из них берётся босс уровня.
-  Future<List<PhraseRow>> phrasesFor(String constellation, Tier upTo) {
+  ///
+  /// Фильтр по языку обязателен, хотя сегодня в базе один язык изучения:
+  /// раньше его не было, и это работало по совпадению. Как только языки
+  /// стали находиться перебором каталога, отсутствие фильтра превратилось в
+  /// живую ошибку — немецкая фраза попала бы в французскую сборку.
+  Future<List<PhraseRow>> phrasesFor(
+    String constellation,
+    Tier upTo, {
+    required String lang,
+  }) {
     final tiers = Tier.values
         .where((t) => t.index <= upTo.index)
         .map((t) => t.code)
         .toList();
     return (select(phrases)
           ..where((t) =>
-              t.constellation.equals(constellation) & t.tier.isIn(tiers)))
+              t.constellation.equals(constellation) &
+              t.tier.isIn(tiers) &
+              t.lang.equals(lang)))
         .get();
   }
 
@@ -274,5 +383,101 @@ class ContentDatabase extends _$ContentDatabase {
           ..where((t) => t.phraseId.equals(phraseId)))
         .get();
     return rows.map((r) => r.conceptId).toList();
+  }
+
+  /// Идентификаторы всех фраз базы.
+  ///
+  /// Нужны чистке `user.db`: фраза — такая же единица памяти, как слово, и
+  /// её строку нельзя счесть мусором только потому, что среди концептов
+  /// такого id нет.
+  Future<Set<String>> allPhraseIds() async {
+    final rows = await (selectOnly(phrases)..addColumns([phrases.id])).get();
+    return rows.map((r) => r.read(phrases.id)!).toSet();
+  }
+
+  /// Ответы фразы по порядку пропусков.
+  Future<List<String>> phraseAnswers(String phraseId) async {
+    final rows = await (select(phraseSlots)
+          ..where((t) => t.phraseId.equals(phraseId))
+          ..orderBy([(t) => OrderingTerm(expression: t.idx)]))
+        .get();
+    return rows.map((r) => r.answer).toList();
+  }
+
+  /// Неверные слова по пропускам: индекс слота → формы.
+  Future<Map<int, List<String>>> phraseOptionsFor(String phraseId) async {
+    final rows = await (select(phraseOptions)
+          ..where((t) => t.phraseId.equals(phraseId))
+          ..orderBy([(t) => OrderingTerm(expression: t.idx)]))
+        .get();
+    final result = <int, List<String>>{};
+    for (final row in rows) {
+      result.putIfAbsent(row.idx, () => []).add(row.form);
+    }
+    return result;
+  }
+
+  /// Перевод фразы на родной язык; `null`, если его ещё нет.
+  Future<String?> phraseTranslation(String phraseId, String lang) async {
+    final row = await (select(phraseTranslations)
+          ..where((t) => t.phraseId.equals(phraseId) & t.lang.equals(lang)))
+        .getSingleOrNull();
+    return row?.translation;
+  }
+
+  /// Языки базы: код, роль, готовность, самоназвание, покрытие.
+  Future<List<LanguageRow>> allLanguages() =>
+      (select(languages)..orderBy([(t) => OrderingTerm(expression: t.code)]))
+          .get();
+
+  /// Языки, которыми можно подсказывать: `native` или `both`, объявленные
+  /// готовыми.
+  Future<List<LanguageRow>> nativeLanguages() async {
+    final rows = await allLanguages();
+    return rows
+        .where((l) => l.role == 'native' || l.role == 'both')
+        .where((l) => l.status == 'launched')
+        .toList();
+  }
+
+  /// Языки, на которых можно учить.
+  Future<List<LanguageRow>> targetLanguages() async {
+    final rows = await allLanguages();
+    return rows
+        .where((l) => l.role == 'target' || l.role == 'both')
+        .where((l) => l.status == 'launched')
+        .toList();
+  }
+
+  /// Концепты яруса и ниже, у которых есть форма **в обоих** языках пары.
+  ///
+  /// Это тот запрос, который делает неполный язык безопасным. Раньше нехватку
+  /// закрывал английский, и украинский игрок получал в круге английское
+  /// слово; это не мягкая деградация, а другой вопрос вместо заданного.
+  /// Теперь неполнота означает меньше слов, а не чужие.
+  Future<List<ConceptRow>> playableConcepts({
+    required String targetLang,
+    required String nativeLang,
+    required Tier upTo,
+  }) async {
+    final codes = Tier.values
+        .where((t) => t.index <= upTo.index)
+        .map((t) => t.code)
+        .toList();
+
+    final target = alias(lexemes, 'lt');
+    final native = alias(lexemes, 'ln');
+
+    final query = select(concepts).join([
+      innerJoin(target, target.conceptId.equalsExp(concepts.id) &
+          target.lang.equals(targetLang)),
+      innerJoin(native, native.conceptId.equalsExp(concepts.id) &
+          native.lang.equals(nativeLang)),
+    ])
+      ..where(concepts.tier.isIn(codes))
+      ..orderBy([OrderingTerm(expression: concepts.freqRank)]);
+
+    final rows = await query.get();
+    return rows.map((r) => r.readTable(concepts)).toList();
   }
 }

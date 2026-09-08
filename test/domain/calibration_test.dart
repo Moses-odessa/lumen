@@ -448,16 +448,14 @@ void main() {
       expect(state.confirmed, contains(Tier.a1));
     });
 
-    test('оценка словаря растёт вместе с ярусом', () {
-      var previous = 0;
-      for (final tier in Tier.values) {
-        final size = Calibration.estimatedVocabulary(tier);
-        expect(size, greaterThan(previous), reason: '$tier');
-        previous = size;
-      }
-      // Объём курса из docs/CONCEPT.md: ~5 000 концептов на языке.
-      expect(Calibration.estimatedVocabulary(Tier.b2), 2880);
-    });
+    // Тест «оценка словаря растёт вместе с ярусом» удалён вместе с
+    // `Calibration.estimatedVocabulary`. Он утверждал, что на B2 игрок знает
+    // 2880 слов, — при том, что в базе их 864, а множитель «30 созвездий»
+    // был взят из планов, а не из содержимого. Тест защищал ложное число.
+    //
+    // Число теперь приходит из базы (`countConceptsUpTo`), и проверять его
+    // на выдуманных данных бессмысленно: проверяет его тот же ассет, что
+    // играет.
   });
 
   group('прогресс', () {

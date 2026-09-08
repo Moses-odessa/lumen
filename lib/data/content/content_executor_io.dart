@@ -20,13 +20,21 @@ String contentAssetPath(String lang) => 'assets/content/$lang.db';
 QueryExecutor openContentExecutor(String lang) =>
     LazyDatabase(() async => NativeDatabase(await ensureContentFile(lang)));
 
-/// Копирует ассет в support-директорию, если файла ещё нет или он отличается
-/// по размеру от ассета — то есть контент обновился вместе с приложением.
+/// Копирует ассет в support-директорию, если лежащая там копия отличается от
+/// ассета — то есть контент обновился вместе с приложением.
 ///
-/// Сравнение по размеру, а не по хешу: хешировать десятки мегабайт при каждом
-/// старте дороже, чем пересобрать файл в редком случае совпадения размеров.
-/// TODO(data): когда появится `package_info_plus`, сверять версию сборки из
-/// таблицы `content_meta` — это надёжнее размера.
+/// Сравниваются длина **и первые сто байт**: это заголовок SQLite, в котором
+/// лежат версия схемы (`user_version`, смещение 60), счётчик изменений и
+/// cookie схемы. Читать сто байт бесплатно, а хешировать мегабайты при каждом
+/// старте — нет.
+///
+/// Одной длины не хватало, и это была не теория. Контентная база на устройстве
+/// не мигрируется: если Drift видит версию схемы не ту, которую ждёт
+/// приложение, он падает намеренно. Сборка с новой схемой, случайно совпавшая
+/// по размеру со старой копией, оставляла бы старый файл на месте — и первый
+/// же запрос падал бы с «пересоберите контент» на устройстве, где пересобрать
+/// нечего. Версия схемы лежит ровно в этих ста байтах, поэтому проверка стоит
+/// столько же, сколько стоила прежняя.
 Future<File> ensureContentFile(String lang) async {
   final dir = await getApplicationSupportDirectory();
   final target = File('${dir.path}/content/$lang.db');
@@ -37,11 +45,31 @@ Future<File> ensureContentFile(String lang) async {
     asset.lengthInBytes,
   );
 
-  if (await target.exists() && await target.length() == bytes.length) {
-    return target;
-  }
+  if (await _matches(target, bytes)) return target;
 
   await target.parent.create(recursive: true);
   await target.writeAsBytes(bytes, flush: true);
   return target;
 }
+
+/// Совпадает ли копия с ассетом по длине и заголовку SQLite.
+Future<bool> _matches(File target, Uint8List asset) async {
+  if (!await target.exists()) return false;
+  if (await target.length() != asset.length) return false;
+  if (asset.length < _sqliteHeaderBytes) return true;
+
+  final handle = await target.open();
+  try {
+    final head = await handle.read(_sqliteHeaderBytes);
+    for (var i = 0; i < _sqliteHeaderBytes; i++) {
+      if (head[i] != asset[i]) return false;
+    }
+    return true;
+  } finally {
+    await handle.close();
+  }
+}
+
+/// Заголовок файла SQLite: сто байт, из которых нам важны версия схемы и
+/// счётчики изменений.
+const int _sqliteHeaderBytes = 100;

@@ -8,6 +8,7 @@ import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/domain/entities/player.dart';
 import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scoring/balance.dart';
+import 'package:lumen/domain/sky/progression.dart';
 
 /// Критерий приёмки M0: обе базы открываются. Проверяется на настоящем
 /// ассете `assets/content/de.db` и на настоящей Drift-схеме `user.db`, а не
@@ -25,8 +26,10 @@ void main() {
       // Версия растёт вместе с миграциями: v2 добавила затмения и
       // напоминания (M5), v3 убрала таблицу ночного вызова вместе с самой
       // фичей, v4 сделала фразы такой же единицей памяти, как слова,
-      // v5 добавила аркадные заходы к сессиям.
-      expect(db.schemaVersion, 5);
+      // v5 добавила аркадные заходы к сессиям, v6 — таблицу отложенного
+      // обслуживания, потому что чистку памяти о пропавшем контенте нельзя
+      // сделать внутри миграции: она не видит content.db.
+      expect(db.schemaVersion, 6);
       expect(await db.loadPlayer(), isNull);
 
       await db.savePlayer(Player(
@@ -84,6 +87,79 @@ void main() {
       await db.wipe();
       expect(await db.loadPlayer(), isNull);
     });
+
+    group('чистка памяти без контента', () {
+      // Единственная проверенная тестом миграционная работа в проекте. До
+      // неё ни одна ветка `from < N` не была прогнана ни разу: тест создавал
+      // свежую базу и проверял `onCreate`.
+
+      Future<void> seed(String itemId) => db.recordReview(
+            state: WordStatesCompanion.insert(
+              itemId: itemId,
+              tier: 'a0',
+              difficulty: 5,
+              stability: 1,
+            ),
+            review: ReviewsCompanion.insert(
+              itemId: itemId,
+              at: DateTime(2026, 9, 9),
+              latencyMs: 900,
+              mode: 'pickTarget',
+              correct: true,
+              grade: 3,
+            ),
+          );
+
+      test('убирает только то, чего в контенте нет', () async {
+        await seed('bread_food');
+        await seed('gone_forever');
+
+        final removed = await db.sweepUnknownItems({'bread_food'});
+
+        expect(removed, 1);
+        expect(await db.loadWordState('bread_food'), isNotNull);
+        expect(await db.loadWordState('gone_forever'), isNull);
+        // Журнал ответов чистится вместе с памятью: строки о слове, которого
+        // нет, не годятся ни для дообучения FSRS, ни для статистики.
+        final reviews = await db.recentReviews();
+        expect(reviews.map((r) => r.itemId), isNot(contains('gone_forever')));
+      });
+
+      test('фраза — такая же единица памяти, как слово', () async {
+        // `word_states.kind` никто не пишет: все строки лежат со значением по
+        // умолчанию `word`, включая те, чей itemId — идентификатор фразы.
+        // Поэтому принадлежность определяется членством в объединении
+        // «концепты ∪ фразы», а не типом.
+        await seed('food_a0_bread');
+        expect(await db.sweepUnknownItems({'food_a0_bread'}), 0);
+        expect(await db.loadWordState('food_a0_bread'), isNotNull);
+      });
+
+      test('пустой список известных не сносит прогресс', () async {
+        // Пустой список означает, что контентная база не открылась, а не что
+        // контент опустел. Снести всю память игрока из-за неудачного чтения
+        // ассета — цена, несопоставимая с задачей.
+        await seed('bread_food');
+        expect(await db.sweepUnknownItems(const {}), 0);
+        expect(await db.loadWordState('bread_food'), isNotNull);
+      });
+
+      test('метка обслуживания снимается после чистки', () async {
+        await db.into(db.maintenance).insertOnConflictUpdate(
+              MaintenanceCompanion.insert(key: pendingItemSweep, value: 'v6'),
+            );
+        expect(await db.needsItemSweep(), isTrue);
+
+        await db.sweepUnknownItems({'bread_food'});
+        expect(await db.needsItemSweep(), isFalse);
+      });
+
+      test('свежая база чистки не ждёт', () async {
+        // Метку кладёт только миграция с версии ниже шестой. У игрока,
+        // который начал играть после переезда контента, чистить нечего.
+        expect(await db.needsItemSweep(), isFalse);
+      });
+    });
   });
 
   group('content.db', () {
@@ -124,19 +200,25 @@ void main() {
       // Запущен только вычитанный ярус: играть по черновому контенту нельзя.
       expect(await db.launchedTiers(), {Tier.a0});
 
-      // Созвездие «У врача» написано целиком на всех пяти ярусах: размеры
-      // накопительные, 12 / 24 / 48 / 72 / 96 (docs/CONCEPT.md). Общее число
-      // концептов проверяется снизу, а не точным равенством: созвездий
-      // становится больше, и точная цифра здесь означала бы падающий тест
-      // на каждое добавление контента.
-      expect(await db.countConcepts(),
-          greaterThanOrEqualTo(ProgressionBalance.starsPerConstellation(Tier.b2)));
+      // Созвездие «У врача» написано целиком на всех пяти ярусах. Точных
+      // размеров тест больше не требует: правило «ровно 12/24/48/72/96»
+      // удалено, потому что на словнике из 6000 лемм его провалили бы десять
+      // тем из двадцати четырёх (PLAN.md, решение 3).
+      //
+      // Проверяется то, что осталось правдой и после смены правила: размер
+      // накопительный — ярус добавляет звёзды, а не заменяет их, — и на
+      // каждом ярусе созвездие набрало порог появления.
+      expect(await db.countConcepts(), greaterThan(0));
+
+      var previous = 0;
       for (final tier in Tier.values) {
-        expect(
-          (await db.conceptsFor('doctor', tier)).length,
-          ProgressionBalance.starsPerConstellation(tier),
-          reason: 'ярус ${tier.label}',
-        );
+        final count = (await db.conceptsFor('doctor', tier)).length;
+        expect(count, greaterThanOrEqualTo(previous),
+            reason: 'ярус ${tier.label}: созвездие сжалось');
+        expect(Progression.appears(count), isTrue,
+            reason: 'ярус ${tier.label}: $count звёзд, порог '
+                '${ProgressionBalance.minStarsForConstellation}');
+        previous = count;
       }
 
       // Файл действительно лёг в support-директорию.
@@ -161,6 +243,67 @@ void main() {
       final near = await db.distractorsFor('doctor_person', 'de', 'near');
       expect(far.length, greaterThanOrEqualTo(2));
       expect(near.length, greaterThanOrEqualTo(3));
+    });
+
+    test('языки читаются из базы, а не из списка в коде', () async {
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      final all = await db.allLanguages();
+      expect(all.map((l) => l.code), containsAll(['de', 'uk', 'ru', 'en']));
+
+      final de = all.firstWhere((l) => l.code == 'de');
+      expect(de.role, 'target');
+      expect(de.name, 'Deutsch');
+      // Покрытие считается при сборке, а не объявляется в файле.
+      expect(de.concepts, await db.countConcepts());
+
+      // Русский и английский лежат как draft: проект несёт немецкий и
+      // украинский. Значит, подсказывать предлагается только украинским.
+      final natives = await db.nativeLanguages();
+      expect(natives.map((l) => l.code), ['uk']);
+      expect((await db.targetLanguages()).map((l) => l.code), ['de']);
+    });
+
+    test('концепт играбелен только при форме в обоих языках пары', () async {
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      final pair = await db.playableConcepts(
+        targetLang: 'de',
+        nativeLang: 'uk',
+        upTo: Tier.b2,
+      );
+      expect(pair.length, await db.countConcepts());
+
+      // Языка, которого в базе нет, играбельных концептов не даёт — и это
+      // не падение, а пустой список: неполнота означает меньше слов.
+      final missing = await db.playableConcepts(
+        targetLang: 'de',
+        nativeLang: 'ja',
+        upTo: Tier.b2,
+      );
+      expect(missing, isEmpty);
+    });
+
+    test('у фразы есть ответы по слотам и перевод на родной', () async {
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      final phrases = await db.phrasesFor('food', Tier.a0, lang: 'de');
+      expect(phrases, isNotEmpty);
+
+      final phrase = phrases.first;
+      final answers = await db.phraseAnswers(phrase.id);
+      expect(answers, isNotEmpty);
+      // Ответы приехали в отдельную таблицу: пропусков может быть несколько,
+      // и порядок — это порядок слотов слева направо.
+      expect(answers.length, RegExp(r'\{[^}]*\}')
+          .allMatches(phrase.template)
+          .length);
+
+      // Перевод фразы целиком: он проявляется после заполнения пропусков.
+      expect(await db.phraseTranslation(phrase.id, 'uk'), isNotNull);
     });
 
     test('повторное открытие не перезаписывает файл', () async {

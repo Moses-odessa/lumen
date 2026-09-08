@@ -126,6 +126,27 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
             ),
+          const SizedBox(height: 28),
+          // Как проверялся контент — сказано игроку, а не спрятано в
+          // репозитории. Человек, который учит по нашим карточкам чужой язык,
+          // имеет право знать, кто писал эти карточки: вычитка носителем не
+          // проводилась, вместо неё перекрёстная проверка двумя моделями.
+          //
+          // Ограничение названо в том же месте, а не умолчано: две модели
+          // обучены на пересекающихся данных и ошибаются согласованно.
+          // Признание, из которого не следует ничего проверяемого, — это
+          // реклама честности, а не честность, поэтому рядом стоит и то, что
+          // с ошибкой делать: контент открыт, правка это один файл.
+          Text(l10n.aboutReviewTitle, style: theme.textTheme.titleSmall),
+          const SizedBox(height: 8),
+          Text(l10n.aboutReviewBody, style: theme.textTheme.bodySmall),
+          const SizedBox(height: 8),
+          Text(
+            l10n.aboutReviewLimit,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
           const SizedBox(height: 24),
           Text(
             l10n.aboutPrivacy,

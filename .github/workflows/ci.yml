@@ -39,7 +39,10 @@ jobs:
       # Контент проверяется до тестов: если исходники сломаны, дальше
       # смотреть незачем.
       - name: Validate content
-        run: dart run tool/validate_content.dart --lang de
+        # Без флага: проверяются все языки изучения, какие объявлены в
+        # content/lang/. Раньше здесь стояло `--lang de`, и второй язык
+        # изучения — английский — не проверялся никогда.
+        run: dart run tool/validate_content.dart
 
       # Сборка контентной БД должна быть воспроизводима из исходников.
       - name: Build content database

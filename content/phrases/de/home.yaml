@@ -1,0 +1,265 @@
+# Фразы созвездия «Дом» на немецком.
+#
+# Фраза принадлежит языку изучения, а не концепту: немецкое
+# предложение нельзя положить в язык-нейтральный файл. Переводы фраз
+# на родные языки лежат в content/lang/<код>.yaml, секция phrases.
+lang: de
+constellation: home
+tiers:
+  a0:
+    - id: home_a0_key
+      template: "Ich suche meinen {key}."
+      answer: Schlüssel
+      register: casual
+      concepts: [key_object]
+    - id: home_a0_kitchen
+      template: "Das ist die {kitchen}."
+      answer: Küche
+      register: casual
+      concepts: [kitchen_room]
+    - id: home_a0_rent
+      template: "Die {rent} ist zu hoch."
+      answer: Miete
+      register: casual
+      concepts: [rent_noun]
+    - id: home_a0_room
+      template: "Ich miete ein {room}."
+      answer: Zimmer
+      register: casual
+      concepts: [room_place]
+
+  a1:
+    - id: home_a1_flat
+      template: "Ich suche eine {flat}."
+      answer: Wohnung
+      register: casual
+      concepts: [flat_place]
+    - id: home_a1_garden
+      template: "Wir haben einen {garden}."
+      answer: Garten
+      register: casual
+      concepts: [garden_place]
+    - id: home_a1_bathroom
+      template: "Wo ist das {bathroom}?"
+      answer: Badezimmer
+      register: casual
+      concepts: [bathroom_room]
+    - id: home_a1_heating
+      template: "Die {heating} funktioniert nicht."
+      answer: Heizung
+      register: casual
+      concepts: [heating_object]
+    - id: home_a1_stairs
+      template: "Nehmen Sie die {stairs}."
+      answer: Treppe
+      register: formal
+      concepts: [stairs_object]
+    - id: home_a1_cellar
+      template: "Die Fahrräder stehen im {cellar}."
+      answer: Keller
+      register: casual
+      concepts: [cellar_place]
+    - id: home_a1_lamp
+      template: "Die {lamp} ist kaputt."
+      answer: Lampe
+      register: casual
+      concepts: [lamp_object]
+    - id: home_a1_wall
+      template: "Das Bild hängt an der {wall}."
+      answer: Wand
+      register: casual
+      concepts: [wall_object]
+
+  a2:
+    - id: home_a2_landlord
+      template: "Der {landlord} muss nicht der Eigentümer sein."
+      answer: Vermieter
+      register: casual
+      concepts: [landlord_person]
+    - id: home_a2_lease
+      template: "Lesen Sie den {lease} genau."
+      answer: Mietvertrag
+      register: formal
+      concepts: [lease_noun]
+    - id: home_a2_deposit
+      template: "Die {deposit} beträgt drei Kaltmieten."
+      answer: Kaution
+      register: casual
+      concepts: [deposit_noun]
+    - id: home_a2_utilities
+      template: "Die {utilities} kommen dazu."
+      answer: Nebenkosten
+      register: casual
+      concepts: [utilities_noun]
+    - id: home_a2_electricity
+      template: "Der {electricity} ist ausgefallen."
+      answer: Strom
+      register: casual
+      concepts: [electricity_noun]
+    - id: home_a2_fridge
+      template: "Der {fridge} ist leer."
+      answer: Kühlschrank
+      register: casual
+      concepts: [fridge_object]
+    - id: home_a2_furniture
+      template: "Die Wohnung hat schon {furniture}."
+      answer: Möbel
+      register: casual
+      concepts: [furniture_noun]
+    - id: home_a2_rubbish
+      template: "Wo kommt der {rubbish} hin?"
+      answer: Müll
+      register: casual
+      concepts: [rubbish_noun]
+    - id: home_a2_move
+      template: "Der {move} ist am Samstag."
+      answer: Umzug
+      register: casual
+      concepts: [move_noun]
+    - id: home_a2_balcony
+      template: "Wir sitzen auf dem {balcony}."
+      answer: Balkon
+      register: casual
+      concepts: [balcony_place]
+    - id: home_a2_washing
+      template: "Die {washing} wäscht meine Kleidung."
+      answer: Waschmaschine
+      ambiguity: reviewed
+      register: casual
+      concepts: [washing_machine]
+    - id: home_a2_caretaker
+      template: "Fragen Sie den {caretaker}."
+      answer: Hausmeister
+      register: formal
+      concepts: [caretaker_person]
+
+  b1:
+    - id: home_b1_noticeperiod
+      template: "Wer den Mietvertrag kündigt, muss die {noticeperiod} einhalten."
+      answer: Kündigungsfrist
+      ambiguity: reviewed
+      register: casual
+      concepts: [noticeperiod_noun]
+    - id: home_b1_rentincrease
+      template: "Die {rentincrease} kam per Brief."
+      answer: Mieterhöhung
+      register: casual
+      concepts: [rentincrease_noun]
+    - id: home_b1_defect
+      template: "Ich melde einen {defect}."
+      answer: Mangel
+      register: casual
+      concepts: [defect_noun]
+    - id: home_b1_mould
+      template: "An der Wand ist {mould}."
+      answer: Schimmel
+      register: casual
+      concepts: [mould_noun]
+    - id: home_b1_livingspace
+      template: "Kinderzimmer und Küche zählen zur {livingspace}."
+      answer: Wohnfläche
+      ambiguity: reviewed
+      register: casual
+      concepts: [livingspace_noun]
+    - id: home_b1_renovation
+      template: "Nach der {renovation} riecht es nach Farbe."
+      answer: Renovierung
+      register: casual
+      concepts: [renovation_noun]
+    - id: home_b1_registration
+      template: "Wer neu nach Deutschland kommt, braucht eine {registration}."
+      answer: Anmeldung
+      ambiguity: reviewed
+      register: casual
+      concepts: [residentregistration_noun]
+    - id: home_b1_heatingcosts
+      template: "Die {heatingcosts} hängen vom Gaspreis ab."
+      answer: Heizkosten
+      ambiguity: reviewed
+      register: casual
+      concepts: [heatingcosts_noun]
+    - id: home_b1_tradesman
+      template: "Der {tradesman} kommt am Dienstag."
+      answer: Handwerker
+      register: casual
+      concepts: [tradesman_person]
+    - id: home_b1_smokedetector
+      template: "Der {smokedetector} piept, wenn die Batterie leer ist."
+      answer: Rauchmelder
+      register: casual
+      concepts: [smokedetector_object]
+    - id: home_b1_wastesorting
+      template: "Die {wastesorting} ist hier Pflicht."
+      answer: Mülltrennung
+      register: casual
+      concepts: [wastesorting_noun]
+    - id: home_b1_sublet
+      template: "Für die {sublet} braucht man eine Erlaubnis."
+      answer: Untermiete
+      ambiguity: reviewed
+      register: casual
+      concepts: [sublet_noun]
+
+  b2:
+    - id: home_b2_rentindex
+      template: "Die ortsübliche Vergleichsmiete steht im {rentindex}."
+      answer: Mietspiegel
+      register: casual
+      concepts: [rentindex_noun]
+    - id: home_b2_landregister
+      template: "Das steht im {landregister}."
+      answer: Grundbuch
+      register: casual
+      concepts: [landregister_noun]
+    - id: home_b2_mortgage
+      template: "Die {mortgage} läuft zwanzig Jahre."
+      answer: Hypothek
+      register: casual
+      concepts: [mortgage_noun]
+    - id: home_b2_rentreduction
+      template: "Ich kündige eine {rentreduction} an."
+      answer: Mietminderung
+      register: casual
+      concepts: [rentreduction_noun]
+    - id: home_b2_handover
+      template: "Das {handover} unterschreiben beide Seiten."
+      answer: Übergabeprotokoll
+      register: casual
+      concepts: [handoverprotocol_noun]
+    - id: home_b2_insulation
+      template: "Die {insulation} spart Heizkosten."
+      answer: Wärmedämmung
+      register: casual
+      concepts: [insulation_noun]
+    - id: home_b2_buildingapplication
+      template: "Der {buildingapplication} wurde abgelehnt."
+      answer: Bauantrag
+      register: casual
+      concepts: [buildingapplication_noun]
+    - id: home_b2_owners
+      template: "Die {owners} entscheidet darüber."
+      answer: Eigentümergemeinschaft
+      register: casual
+      concepts: [ownersassociation_noun]
+    - id: home_b2_heritage
+      template: "Das alte Rathaus steht unter {heritage}."
+      answer: Denkmalschutz
+      ambiguity: reviewed
+      register: casual
+      concepts: [heritageprotection_noun]
+    - id: home_b2_marketvalue
+      template: "Beim Verkauf zählt der {marketvalue}."
+      answer: Verkehrswert
+      ambiguity: reviewed
+      register: casual
+      concepts: [marketvalue_noun]
+    - id: home_b2_repayment
+      template: "Die {repayment} beginnt sofort."
+      answer: Tilgung
+      register: casual
+      concepts: [repayment_noun]
+    - id: home_b2_defectnotice
+      template: "Die {defectnotice} ging per Einschreiben."
+      answer: Mängelanzeige
+      register: casual
+      concepts: [defectnotice_noun]

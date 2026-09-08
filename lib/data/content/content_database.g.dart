@@ -820,6 +820,420 @@ class LexemesCompanion extends UpdateCompanion<LexemeRow> {
   }
 }
 
+class $LanguagesTable extends Languages
+    with TableInfo<$LanguagesTable, LanguageRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $LanguagesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _codeMeta = const VerificationMeta('code');
+  @override
+  late final GeneratedColumn<String> code = GeneratedColumn<String>(
+    'code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _roleMeta = const VerificationMeta('role');
+  @override
+  late final GeneratedColumn<String> role = GeneratedColumn<String>(
+    'role',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _conceptsMeta = const VerificationMeta(
+    'concepts',
+  );
+  @override
+  late final GeneratedColumn<int> concepts = GeneratedColumn<int>(
+    'concepts',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phrasesMeta = const VerificationMeta(
+    'phrases',
+  );
+  @override
+  late final GeneratedColumn<int> phrases = GeneratedColumn<int>(
+    'phrases',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    code,
+    role,
+    status,
+    name,
+    concepts,
+    phrases,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'languages';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<LanguageRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('code')) {
+      context.handle(
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_codeMeta);
+    }
+    if (data.containsKey('role')) {
+      context.handle(
+        _roleMeta,
+        role.isAcceptableOrUnknown(data['role']!, _roleMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_roleMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('concepts')) {
+      context.handle(
+        _conceptsMeta,
+        concepts.isAcceptableOrUnknown(data['concepts']!, _conceptsMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_conceptsMeta);
+    }
+    if (data.containsKey('phrases')) {
+      context.handle(
+        _phrasesMeta,
+        phrases.isAcceptableOrUnknown(data['phrases']!, _phrasesMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_phrasesMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {code};
+  @override
+  LanguageRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return LanguageRow(
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
+      role: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}role'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      concepts: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}concepts'],
+      )!,
+      phrases: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}phrases'],
+      )!,
+    );
+  }
+
+  @override
+  $LanguagesTable createAlias(String alias) {
+    return $LanguagesTable(attachedDatabase, alias);
+  }
+}
+
+class LanguageRow extends DataClass implements Insertable<LanguageRow> {
+  final String code;
+
+  /// `native`, `target` или `both`.
+  final String role;
+
+  /// `draft` или `launched`.
+  final String status;
+
+  /// Самоназвание: «Українська», «Deutsch».
+  final String name;
+
+  /// Сколько концептов и фраз язык покрывает. Считается при сборке.
+  final int concepts;
+  final int phrases;
+  const LanguageRow({
+    required this.code,
+    required this.role,
+    required this.status,
+    required this.name,
+    required this.concepts,
+    required this.phrases,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['code'] = Variable<String>(code);
+    map['role'] = Variable<String>(role);
+    map['status'] = Variable<String>(status);
+    map['name'] = Variable<String>(name);
+    map['concepts'] = Variable<int>(concepts);
+    map['phrases'] = Variable<int>(phrases);
+    return map;
+  }
+
+  LanguagesCompanion toCompanion(bool nullToAbsent) {
+    return LanguagesCompanion(
+      code: Value(code),
+      role: Value(role),
+      status: Value(status),
+      name: Value(name),
+      concepts: Value(concepts),
+      phrases: Value(phrases),
+    );
+  }
+
+  factory LanguageRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return LanguageRow(
+      code: serializer.fromJson<String>(json['code']),
+      role: serializer.fromJson<String>(json['role']),
+      status: serializer.fromJson<String>(json['status']),
+      name: serializer.fromJson<String>(json['name']),
+      concepts: serializer.fromJson<int>(json['concepts']),
+      phrases: serializer.fromJson<int>(json['phrases']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'code': serializer.toJson<String>(code),
+      'role': serializer.toJson<String>(role),
+      'status': serializer.toJson<String>(status),
+      'name': serializer.toJson<String>(name),
+      'concepts': serializer.toJson<int>(concepts),
+      'phrases': serializer.toJson<int>(phrases),
+    };
+  }
+
+  LanguageRow copyWith({
+    String? code,
+    String? role,
+    String? status,
+    String? name,
+    int? concepts,
+    int? phrases,
+  }) => LanguageRow(
+    code: code ?? this.code,
+    role: role ?? this.role,
+    status: status ?? this.status,
+    name: name ?? this.name,
+    concepts: concepts ?? this.concepts,
+    phrases: phrases ?? this.phrases,
+  );
+  LanguageRow copyWithCompanion(LanguagesCompanion data) {
+    return LanguageRow(
+      code: data.code.present ? data.code.value : this.code,
+      role: data.role.present ? data.role.value : this.role,
+      status: data.status.present ? data.status.value : this.status,
+      name: data.name.present ? data.name.value : this.name,
+      concepts: data.concepts.present ? data.concepts.value : this.concepts,
+      phrases: data.phrases.present ? data.phrases.value : this.phrases,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LanguageRow(')
+          ..write('code: $code, ')
+          ..write('role: $role, ')
+          ..write('status: $status, ')
+          ..write('name: $name, ')
+          ..write('concepts: $concepts, ')
+          ..write('phrases: $phrases')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(code, role, status, name, concepts, phrases);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is LanguageRow &&
+          other.code == this.code &&
+          other.role == this.role &&
+          other.status == this.status &&
+          other.name == this.name &&
+          other.concepts == this.concepts &&
+          other.phrases == this.phrases);
+}
+
+class LanguagesCompanion extends UpdateCompanion<LanguageRow> {
+  final Value<String> code;
+  final Value<String> role;
+  final Value<String> status;
+  final Value<String> name;
+  final Value<int> concepts;
+  final Value<int> phrases;
+  final Value<int> rowid;
+  const LanguagesCompanion({
+    this.code = const Value.absent(),
+    this.role = const Value.absent(),
+    this.status = const Value.absent(),
+    this.name = const Value.absent(),
+    this.concepts = const Value.absent(),
+    this.phrases = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  LanguagesCompanion.insert({
+    required String code,
+    required String role,
+    required String status,
+    required String name,
+    required int concepts,
+    required int phrases,
+    this.rowid = const Value.absent(),
+  }) : code = Value(code),
+       role = Value(role),
+       status = Value(status),
+       name = Value(name),
+       concepts = Value(concepts),
+       phrases = Value(phrases);
+  static Insertable<LanguageRow> custom({
+    Expression<String>? code,
+    Expression<String>? role,
+    Expression<String>? status,
+    Expression<String>? name,
+    Expression<int>? concepts,
+    Expression<int>? phrases,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (code != null) 'code': code,
+      if (role != null) 'role': role,
+      if (status != null) 'status': status,
+      if (name != null) 'name': name,
+      if (concepts != null) 'concepts': concepts,
+      if (phrases != null) 'phrases': phrases,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  LanguagesCompanion copyWith({
+    Value<String>? code,
+    Value<String>? role,
+    Value<String>? status,
+    Value<String>? name,
+    Value<int>? concepts,
+    Value<int>? phrases,
+    Value<int>? rowid,
+  }) {
+    return LanguagesCompanion(
+      code: code ?? this.code,
+      role: role ?? this.role,
+      status: status ?? this.status,
+      name: name ?? this.name,
+      concepts: concepts ?? this.concepts,
+      phrases: phrases ?? this.phrases,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (code.present) {
+      map['code'] = Variable<String>(code.value);
+    }
+    if (role.present) {
+      map['role'] = Variable<String>(role.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (concepts.present) {
+      map['concepts'] = Variable<int>(concepts.value);
+    }
+    if (phrases.present) {
+      map['phrases'] = Variable<int>(phrases.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('LanguagesCompanion(')
+          ..write('code: $code, ')
+          ..write('role: $role, ')
+          ..write('status: $status, ')
+          ..write('name: $name, ')
+          ..write('concepts: $concepts, ')
+          ..write('phrases: $phrases, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -874,15 +1288,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _answerMeta = const VerificationMeta('answer');
-  @override
-  late final GeneratedColumn<String> answer = GeneratedColumn<String>(
-    'answer',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _registerMeta = const VerificationMeta(
     'register',
   );
@@ -901,7 +1306,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     tier,
     constellation,
     template,
-    answer,
     register,
   ];
   @override
@@ -956,14 +1360,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     } else if (isInserting) {
       context.missing(_templateMeta);
     }
-    if (data.containsKey('answer')) {
-      context.handle(
-        _answerMeta,
-        answer.isAcceptableOrUnknown(data['answer']!, _answerMeta),
-      );
-    } else if (isInserting) {
-      context.missing(_answerMeta);
-    }
     if (data.containsKey('register')) {
       context.handle(
         _registerMeta,
@@ -999,10 +1395,6 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
         DriftSqlType.string,
         data['${effectivePrefix}template'],
       )!,
-      answer: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}answer'],
-      )!,
       register: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}register'],
@@ -1022,7 +1414,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
   final String tier;
   final String constellation;
   final String template;
-  final String answer;
   final String? register;
   const PhraseRow({
     required this.id,
@@ -1030,7 +1421,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     required this.tier,
     required this.constellation,
     required this.template,
-    required this.answer,
     this.register,
   });
   @override
@@ -1041,7 +1431,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     map['tier'] = Variable<String>(tier);
     map['constellation'] = Variable<String>(constellation);
     map['template'] = Variable<String>(template);
-    map['answer'] = Variable<String>(answer);
     if (!nullToAbsent || register != null) {
       map['register'] = Variable<String>(register);
     }
@@ -1055,7 +1444,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       tier: Value(tier),
       constellation: Value(constellation),
       template: Value(template),
-      answer: Value(answer),
       register: register == null && nullToAbsent
           ? const Value.absent()
           : Value(register),
@@ -1073,7 +1461,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       tier: serializer.fromJson<String>(json['tier']),
       constellation: serializer.fromJson<String>(json['constellation']),
       template: serializer.fromJson<String>(json['template']),
-      answer: serializer.fromJson<String>(json['answer']),
       register: serializer.fromJson<String?>(json['register']),
     );
   }
@@ -1086,7 +1473,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       'tier': serializer.toJson<String>(tier),
       'constellation': serializer.toJson<String>(constellation),
       'template': serializer.toJson<String>(template),
-      'answer': serializer.toJson<String>(answer),
       'register': serializer.toJson<String?>(register),
     };
   }
@@ -1097,7 +1483,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     String? tier,
     String? constellation,
     String? template,
-    String? answer,
     Value<String?> register = const Value.absent(),
   }) => PhraseRow(
     id: id ?? this.id,
@@ -1105,7 +1490,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     tier: tier ?? this.tier,
     constellation: constellation ?? this.constellation,
     template: template ?? this.template,
-    answer: answer ?? this.answer,
     register: register.present ? register.value : this.register,
   );
   PhraseRow copyWithCompanion(PhrasesCompanion data) {
@@ -1117,7 +1501,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           ? data.constellation.value
           : this.constellation,
       template: data.template.present ? data.template.value : this.template,
-      answer: data.answer.present ? data.answer.value : this.answer,
       register: data.register.present ? data.register.value : this.register,
     );
   }
@@ -1130,7 +1513,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           ..write('tier: $tier, ')
           ..write('constellation: $constellation, ')
           ..write('template: $template, ')
-          ..write('answer: $answer, ')
           ..write('register: $register')
           ..write(')'))
         .toString();
@@ -1138,7 +1520,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
 
   @override
   int get hashCode =>
-      Object.hash(id, lang, tier, constellation, template, answer, register);
+      Object.hash(id, lang, tier, constellation, template, register);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1148,7 +1530,6 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           other.tier == this.tier &&
           other.constellation == this.constellation &&
           other.template == this.template &&
-          other.answer == this.answer &&
           other.register == this.register);
 }
 
@@ -1158,7 +1539,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
   final Value<String> tier;
   final Value<String> constellation;
   final Value<String> template;
-  final Value<String> answer;
   final Value<String?> register;
   final Value<int> rowid;
   const PhrasesCompanion({
@@ -1167,7 +1547,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     this.tier = const Value.absent(),
     this.constellation = const Value.absent(),
     this.template = const Value.absent(),
-    this.answer = const Value.absent(),
     this.register = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1177,22 +1556,19 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     required String tier,
     required String constellation,
     required String template,
-    required String answer,
     this.register = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        lang = Value(lang),
        tier = Value(tier),
        constellation = Value(constellation),
-       template = Value(template),
-       answer = Value(answer);
+       template = Value(template);
   static Insertable<PhraseRow> custom({
     Expression<String>? id,
     Expression<String>? lang,
     Expression<String>? tier,
     Expression<String>? constellation,
     Expression<String>? template,
-    Expression<String>? answer,
     Expression<String>? register,
     Expression<int>? rowid,
   }) {
@@ -1202,7 +1578,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       if (tier != null) 'tier': tier,
       if (constellation != null) 'constellation': constellation,
       if (template != null) 'template': template,
-      if (answer != null) 'answer': answer,
       if (register != null) 'register': register,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1214,7 +1589,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     Value<String>? tier,
     Value<String>? constellation,
     Value<String>? template,
-    Value<String>? answer,
     Value<String?>? register,
     Value<int>? rowid,
   }) {
@@ -1224,7 +1598,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       tier: tier ?? this.tier,
       constellation: constellation ?? this.constellation,
       template: template ?? this.template,
-      answer: answer ?? this.answer,
       register: register ?? this.register,
       rowid: rowid ?? this.rowid,
     );
@@ -1248,9 +1621,6 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     if (template.present) {
       map['template'] = Variable<String>(template.value);
     }
-    if (answer.present) {
-      map['answer'] = Variable<String>(answer.value);
-    }
     if (register.present) {
       map['register'] = Variable<String>(register.value);
     }
@@ -1268,8 +1638,806 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
           ..write('tier: $tier, ')
           ..write('constellation: $constellation, ')
           ..write('template: $template, ')
-          ..write('answer: $answer, ')
           ..write('register: $register, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PhraseSlotsTable extends PhraseSlots
+    with TableInfo<$PhraseSlotsTable, PhraseSlotRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PhraseSlotsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _phraseIdMeta = const VerificationMeta(
+    'phraseId',
+  );
+  @override
+  late final GeneratedColumn<String> phraseId = GeneratedColumn<String>(
+    'phrase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _idxMeta = const VerificationMeta('idx');
+  @override
+  late final GeneratedColumn<int> idx = GeneratedColumn<int>(
+    'idx',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _answerMeta = const VerificationMeta('answer');
+  @override
+  late final GeneratedColumn<String> answer = GeneratedColumn<String>(
+    'answer',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [phraseId, idx, answer];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'phrase_slots';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PhraseSlotRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('phrase_id')) {
+      context.handle(
+        _phraseIdMeta,
+        phraseId.isAcceptableOrUnknown(data['phrase_id']!, _phraseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_phraseIdMeta);
+    }
+    if (data.containsKey('idx')) {
+      context.handle(
+        _idxMeta,
+        idx.isAcceptableOrUnknown(data['idx']!, _idxMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_idxMeta);
+    }
+    if (data.containsKey('answer')) {
+      context.handle(
+        _answerMeta,
+        answer.isAcceptableOrUnknown(data['answer']!, _answerMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_answerMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {phraseId, idx};
+  @override
+  PhraseSlotRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PhraseSlotRow(
+      phraseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phrase_id'],
+      )!,
+      idx: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}idx'],
+      )!,
+      answer: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}answer'],
+      )!,
+    );
+  }
+
+  @override
+  $PhraseSlotsTable createAlias(String alias) {
+    return $PhraseSlotsTable(attachedDatabase, alias);
+  }
+}
+
+class PhraseSlotRow extends DataClass implements Insertable<PhraseSlotRow> {
+  final String phraseId;
+  final int idx;
+  final String answer;
+  const PhraseSlotRow({
+    required this.phraseId,
+    required this.idx,
+    required this.answer,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['phrase_id'] = Variable<String>(phraseId);
+    map['idx'] = Variable<int>(idx);
+    map['answer'] = Variable<String>(answer);
+    return map;
+  }
+
+  PhraseSlotsCompanion toCompanion(bool nullToAbsent) {
+    return PhraseSlotsCompanion(
+      phraseId: Value(phraseId),
+      idx: Value(idx),
+      answer: Value(answer),
+    );
+  }
+
+  factory PhraseSlotRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PhraseSlotRow(
+      phraseId: serializer.fromJson<String>(json['phraseId']),
+      idx: serializer.fromJson<int>(json['idx']),
+      answer: serializer.fromJson<String>(json['answer']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'phraseId': serializer.toJson<String>(phraseId),
+      'idx': serializer.toJson<int>(idx),
+      'answer': serializer.toJson<String>(answer),
+    };
+  }
+
+  PhraseSlotRow copyWith({String? phraseId, int? idx, String? answer}) =>
+      PhraseSlotRow(
+        phraseId: phraseId ?? this.phraseId,
+        idx: idx ?? this.idx,
+        answer: answer ?? this.answer,
+      );
+  PhraseSlotRow copyWithCompanion(PhraseSlotsCompanion data) {
+    return PhraseSlotRow(
+      phraseId: data.phraseId.present ? data.phraseId.value : this.phraseId,
+      idx: data.idx.present ? data.idx.value : this.idx,
+      answer: data.answer.present ? data.answer.value : this.answer,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseSlotRow(')
+          ..write('phraseId: $phraseId, ')
+          ..write('idx: $idx, ')
+          ..write('answer: $answer')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(phraseId, idx, answer);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PhraseSlotRow &&
+          other.phraseId == this.phraseId &&
+          other.idx == this.idx &&
+          other.answer == this.answer);
+}
+
+class PhraseSlotsCompanion extends UpdateCompanion<PhraseSlotRow> {
+  final Value<String> phraseId;
+  final Value<int> idx;
+  final Value<String> answer;
+  final Value<int> rowid;
+  const PhraseSlotsCompanion({
+    this.phraseId = const Value.absent(),
+    this.idx = const Value.absent(),
+    this.answer = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PhraseSlotsCompanion.insert({
+    required String phraseId,
+    required int idx,
+    required String answer,
+    this.rowid = const Value.absent(),
+  }) : phraseId = Value(phraseId),
+       idx = Value(idx),
+       answer = Value(answer);
+  static Insertable<PhraseSlotRow> custom({
+    Expression<String>? phraseId,
+    Expression<int>? idx,
+    Expression<String>? answer,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (phraseId != null) 'phrase_id': phraseId,
+      if (idx != null) 'idx': idx,
+      if (answer != null) 'answer': answer,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PhraseSlotsCompanion copyWith({
+    Value<String>? phraseId,
+    Value<int>? idx,
+    Value<String>? answer,
+    Value<int>? rowid,
+  }) {
+    return PhraseSlotsCompanion(
+      phraseId: phraseId ?? this.phraseId,
+      idx: idx ?? this.idx,
+      answer: answer ?? this.answer,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (phraseId.present) {
+      map['phrase_id'] = Variable<String>(phraseId.value);
+    }
+    if (idx.present) {
+      map['idx'] = Variable<int>(idx.value);
+    }
+    if (answer.present) {
+      map['answer'] = Variable<String>(answer.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseSlotsCompanion(')
+          ..write('phraseId: $phraseId, ')
+          ..write('idx: $idx, ')
+          ..write('answer: $answer, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PhraseOptionsTable extends PhraseOptions
+    with TableInfo<$PhraseOptionsTable, PhraseOptionRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PhraseOptionsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _phraseIdMeta = const VerificationMeta(
+    'phraseId',
+  );
+  @override
+  late final GeneratedColumn<String> phraseId = GeneratedColumn<String>(
+    'phrase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _idxMeta = const VerificationMeta('idx');
+  @override
+  late final GeneratedColumn<int> idx = GeneratedColumn<int>(
+    'idx',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _formMeta = const VerificationMeta('form');
+  @override
+  late final GeneratedColumn<String> form = GeneratedColumn<String>(
+    'form',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [phraseId, idx, form];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'phrase_options';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PhraseOptionRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('phrase_id')) {
+      context.handle(
+        _phraseIdMeta,
+        phraseId.isAcceptableOrUnknown(data['phrase_id']!, _phraseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_phraseIdMeta);
+    }
+    if (data.containsKey('idx')) {
+      context.handle(
+        _idxMeta,
+        idx.isAcceptableOrUnknown(data['idx']!, _idxMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_idxMeta);
+    }
+    if (data.containsKey('form')) {
+      context.handle(
+        _formMeta,
+        form.isAcceptableOrUnknown(data['form']!, _formMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_formMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {phraseId, idx, form};
+  @override
+  PhraseOptionRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PhraseOptionRow(
+      phraseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phrase_id'],
+      )!,
+      idx: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}idx'],
+      )!,
+      form: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}form'],
+      )!,
+    );
+  }
+
+  @override
+  $PhraseOptionsTable createAlias(String alias) {
+    return $PhraseOptionsTable(attachedDatabase, alias);
+  }
+}
+
+class PhraseOptionRow extends DataClass implements Insertable<PhraseOptionRow> {
+  final String phraseId;
+  final int idx;
+  final String form;
+  const PhraseOptionRow({
+    required this.phraseId,
+    required this.idx,
+    required this.form,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['phrase_id'] = Variable<String>(phraseId);
+    map['idx'] = Variable<int>(idx);
+    map['form'] = Variable<String>(form);
+    return map;
+  }
+
+  PhraseOptionsCompanion toCompanion(bool nullToAbsent) {
+    return PhraseOptionsCompanion(
+      phraseId: Value(phraseId),
+      idx: Value(idx),
+      form: Value(form),
+    );
+  }
+
+  factory PhraseOptionRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PhraseOptionRow(
+      phraseId: serializer.fromJson<String>(json['phraseId']),
+      idx: serializer.fromJson<int>(json['idx']),
+      form: serializer.fromJson<String>(json['form']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'phraseId': serializer.toJson<String>(phraseId),
+      'idx': serializer.toJson<int>(idx),
+      'form': serializer.toJson<String>(form),
+    };
+  }
+
+  PhraseOptionRow copyWith({String? phraseId, int? idx, String? form}) =>
+      PhraseOptionRow(
+        phraseId: phraseId ?? this.phraseId,
+        idx: idx ?? this.idx,
+        form: form ?? this.form,
+      );
+  PhraseOptionRow copyWithCompanion(PhraseOptionsCompanion data) {
+    return PhraseOptionRow(
+      phraseId: data.phraseId.present ? data.phraseId.value : this.phraseId,
+      idx: data.idx.present ? data.idx.value : this.idx,
+      form: data.form.present ? data.form.value : this.form,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseOptionRow(')
+          ..write('phraseId: $phraseId, ')
+          ..write('idx: $idx, ')
+          ..write('form: $form')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(phraseId, idx, form);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PhraseOptionRow &&
+          other.phraseId == this.phraseId &&
+          other.idx == this.idx &&
+          other.form == this.form);
+}
+
+class PhraseOptionsCompanion extends UpdateCompanion<PhraseOptionRow> {
+  final Value<String> phraseId;
+  final Value<int> idx;
+  final Value<String> form;
+  final Value<int> rowid;
+  const PhraseOptionsCompanion({
+    this.phraseId = const Value.absent(),
+    this.idx = const Value.absent(),
+    this.form = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PhraseOptionsCompanion.insert({
+    required String phraseId,
+    required int idx,
+    required String form,
+    this.rowid = const Value.absent(),
+  }) : phraseId = Value(phraseId),
+       idx = Value(idx),
+       form = Value(form);
+  static Insertable<PhraseOptionRow> custom({
+    Expression<String>? phraseId,
+    Expression<int>? idx,
+    Expression<String>? form,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (phraseId != null) 'phrase_id': phraseId,
+      if (idx != null) 'idx': idx,
+      if (form != null) 'form': form,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PhraseOptionsCompanion copyWith({
+    Value<String>? phraseId,
+    Value<int>? idx,
+    Value<String>? form,
+    Value<int>? rowid,
+  }) {
+    return PhraseOptionsCompanion(
+      phraseId: phraseId ?? this.phraseId,
+      idx: idx ?? this.idx,
+      form: form ?? this.form,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (phraseId.present) {
+      map['phrase_id'] = Variable<String>(phraseId.value);
+    }
+    if (idx.present) {
+      map['idx'] = Variable<int>(idx.value);
+    }
+    if (form.present) {
+      map['form'] = Variable<String>(form.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseOptionsCompanion(')
+          ..write('phraseId: $phraseId, ')
+          ..write('idx: $idx, ')
+          ..write('form: $form, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PhraseTranslationsTable extends PhraseTranslations
+    with TableInfo<$PhraseTranslationsTable, PhraseTranslationRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PhraseTranslationsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _phraseIdMeta = const VerificationMeta(
+    'phraseId',
+  );
+  @override
+  late final GeneratedColumn<String> phraseId = GeneratedColumn<String>(
+    'phrase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _langMeta = const VerificationMeta('lang');
+  @override
+  late final GeneratedColumn<String> lang = GeneratedColumn<String>(
+    'lang',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _translationMeta = const VerificationMeta(
+    'translation',
+  );
+  @override
+  late final GeneratedColumn<String> translation = GeneratedColumn<String>(
+    'text',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [phraseId, lang, translation];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'phrase_translations';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PhraseTranslationRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('phrase_id')) {
+      context.handle(
+        _phraseIdMeta,
+        phraseId.isAcceptableOrUnknown(data['phrase_id']!, _phraseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_phraseIdMeta);
+    }
+    if (data.containsKey('lang')) {
+      context.handle(
+        _langMeta,
+        lang.isAcceptableOrUnknown(data['lang']!, _langMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_langMeta);
+    }
+    if (data.containsKey('text')) {
+      context.handle(
+        _translationMeta,
+        translation.isAcceptableOrUnknown(data['text']!, _translationMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_translationMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {phraseId, lang};
+  @override
+  PhraseTranslationRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PhraseTranslationRow(
+      phraseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phrase_id'],
+      )!,
+      lang: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lang'],
+      )!,
+      translation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}text'],
+      )!,
+    );
+  }
+
+  @override
+  $PhraseTranslationsTable createAlias(String alias) {
+    return $PhraseTranslationsTable(attachedDatabase, alias);
+  }
+}
+
+class PhraseTranslationRow extends DataClass
+    implements Insertable<PhraseTranslationRow> {
+  final String phraseId;
+  final String lang;
+
+  /// В базе колонка называется `text`; в Dart так нельзя — `text()` это
+  /// собственный построитель колонок Drift, и совпадение имён ломает
+  /// кодогенерацию молча.
+  final String translation;
+  const PhraseTranslationRow({
+    required this.phraseId,
+    required this.lang,
+    required this.translation,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['phrase_id'] = Variable<String>(phraseId);
+    map['lang'] = Variable<String>(lang);
+    map['text'] = Variable<String>(translation);
+    return map;
+  }
+
+  PhraseTranslationsCompanion toCompanion(bool nullToAbsent) {
+    return PhraseTranslationsCompanion(
+      phraseId: Value(phraseId),
+      lang: Value(lang),
+      translation: Value(translation),
+    );
+  }
+
+  factory PhraseTranslationRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PhraseTranslationRow(
+      phraseId: serializer.fromJson<String>(json['phraseId']),
+      lang: serializer.fromJson<String>(json['lang']),
+      translation: serializer.fromJson<String>(json['translation']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'phraseId': serializer.toJson<String>(phraseId),
+      'lang': serializer.toJson<String>(lang),
+      'translation': serializer.toJson<String>(translation),
+    };
+  }
+
+  PhraseTranslationRow copyWith({
+    String? phraseId,
+    String? lang,
+    String? translation,
+  }) => PhraseTranslationRow(
+    phraseId: phraseId ?? this.phraseId,
+    lang: lang ?? this.lang,
+    translation: translation ?? this.translation,
+  );
+  PhraseTranslationRow copyWithCompanion(PhraseTranslationsCompanion data) {
+    return PhraseTranslationRow(
+      phraseId: data.phraseId.present ? data.phraseId.value : this.phraseId,
+      lang: data.lang.present ? data.lang.value : this.lang,
+      translation: data.translation.present
+          ? data.translation.value
+          : this.translation,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseTranslationRow(')
+          ..write('phraseId: $phraseId, ')
+          ..write('lang: $lang, ')
+          ..write('translation: $translation')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(phraseId, lang, translation);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PhraseTranslationRow &&
+          other.phraseId == this.phraseId &&
+          other.lang == this.lang &&
+          other.translation == this.translation);
+}
+
+class PhraseTranslationsCompanion
+    extends UpdateCompanion<PhraseTranslationRow> {
+  final Value<String> phraseId;
+  final Value<String> lang;
+  final Value<String> translation;
+  final Value<int> rowid;
+  const PhraseTranslationsCompanion({
+    this.phraseId = const Value.absent(),
+    this.lang = const Value.absent(),
+    this.translation = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PhraseTranslationsCompanion.insert({
+    required String phraseId,
+    required String lang,
+    required String translation,
+    this.rowid = const Value.absent(),
+  }) : phraseId = Value(phraseId),
+       lang = Value(lang),
+       translation = Value(translation);
+  static Insertable<PhraseTranslationRow> custom({
+    Expression<String>? phraseId,
+    Expression<String>? lang,
+    Expression<String>? translation,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (phraseId != null) 'phrase_id': phraseId,
+      if (lang != null) 'lang': lang,
+      if (translation != null) 'text': translation,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PhraseTranslationsCompanion copyWith({
+    Value<String>? phraseId,
+    Value<String>? lang,
+    Value<String>? translation,
+    Value<int>? rowid,
+  }) {
+    return PhraseTranslationsCompanion(
+      phraseId: phraseId ?? this.phraseId,
+      lang: lang ?? this.lang,
+      translation: translation ?? this.translation,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (phraseId.present) {
+      map['phrase_id'] = Variable<String>(phraseId.value);
+    }
+    if (lang.present) {
+      map['lang'] = Variable<String>(lang.value);
+    }
+    if (translation.present) {
+      map['text'] = Variable<String>(translation.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PhraseTranslationsCompanion(')
+          ..write('phraseId: $phraseId, ')
+          ..write('lang: $lang, ')
+          ..write('translation: $translation, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -2372,7 +3540,12 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   $ContentDatabaseManager get managers => $ContentDatabaseManager(this);
   late final $ConceptsTable concepts = $ConceptsTable(this);
   late final $LexemesTable lexemes = $LexemesTable(this);
+  late final $LanguagesTable languages = $LanguagesTable(this);
   late final $PhrasesTable phrases = $PhrasesTable(this);
+  late final $PhraseSlotsTable phraseSlots = $PhraseSlotsTable(this);
+  late final $PhraseOptionsTable phraseOptions = $PhraseOptionsTable(this);
+  late final $PhraseTranslationsTable phraseTranslations =
+      $PhraseTranslationsTable(this);
   late final $PhraseConceptsTable phraseConcepts = $PhraseConceptsTable(this);
   late final $DistractorsTable distractors = $DistractorsTable(this);
   late final $CalibrationItemsTable calibrationItems = $CalibrationItemsTable(
@@ -2386,7 +3559,11 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
     concepts,
     lexemes,
+    languages,
     phrases,
+    phraseSlots,
+    phraseOptions,
+    phraseTranslations,
     phraseConcepts,
     distractors,
     calibrationItems,
@@ -2845,13 +4022,238 @@ typedef $$LexemesTableProcessedTableManager =
       LexemeRow,
       PrefetchHooks Function()
     >;
+typedef $$LanguagesTableCreateCompanionBuilder = LanguagesCompanion Function({
+  required String code,
+  required String role,
+  required String status,
+  required String name,
+  required int concepts,
+  required int phrases,
+  Value<int> rowid,
+});
+typedef $$LanguagesTableUpdateCompanionBuilder = LanguagesCompanion Function({
+  Value<String> code,
+  Value<String> role,
+  Value<String> status,
+  Value<String> name,
+  Value<int> concepts,
+  Value<int> phrases,
+  Value<int> rowid,
+});
+
+class $$LanguagesTableFilterComposer
+    extends Composer<_$ContentDatabase, $LanguagesTable> {
+  $$LanguagesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get concepts => $composableBuilder(
+    column: $table.concepts,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get phrases => $composableBuilder(
+    column: $table.phrases,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$LanguagesTableOrderingComposer
+    extends Composer<_$ContentDatabase, $LanguagesTable> {
+  $$LanguagesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get role => $composableBuilder(
+    column: $table.role,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get concepts => $composableBuilder(
+    column: $table.concepts,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get phrases => $composableBuilder(
+    column: $table.phrases,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$LanguagesTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $LanguagesTable> {
+  $$LanguagesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get code =>
+      $composableBuilder(column: $table.code, builder: (column) => column);
+
+  GeneratedColumn<String> get role =>
+      $composableBuilder(column: $table.role, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<int> get concepts =>
+      $composableBuilder(column: $table.concepts, builder: (column) => column);
+
+  GeneratedColumn<int> get phrases =>
+      $composableBuilder(column: $table.phrases, builder: (column) => column);
+}
+
+class $$LanguagesTableTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          $LanguagesTable,
+          LanguageRow,
+          $$LanguagesTableFilterComposer,
+          $$LanguagesTableOrderingComposer,
+          $$LanguagesTableAnnotationComposer,
+          $$LanguagesTableCreateCompanionBuilder,
+          $$LanguagesTableUpdateCompanionBuilder,
+          (
+            LanguageRow,
+            BaseReferences<_$ContentDatabase, $LanguagesTable, LanguageRow>,
+          ),
+          LanguageRow,
+          PrefetchHooks Function()
+        > {
+  $$LanguagesTableTableManager(_$ContentDatabase db, $LanguagesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$LanguagesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$LanguagesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$LanguagesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> code = const Value.absent(),
+                Value<String> role = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<int> concepts = const Value.absent(),
+                Value<int> phrases = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => LanguagesCompanion(
+                code: code,
+                role: role,
+                status: status,
+                name: name,
+                concepts: concepts,
+                phrases: phrases,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String code,
+                required String role,
+                required String status,
+                required String name,
+                required int concepts,
+                required int phrases,
+                Value<int> rowid = const Value.absent(),
+              }) => LanguagesCompanion.insert(
+                code: code,
+                role: role,
+                status: status,
+                name: name,
+                concepts: concepts,
+                phrases: phrases,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$LanguagesTable, LanguageRow>(table),
+                  BaseReferences<
+                    _$ContentDatabase,
+                    $LanguagesTable,
+                    LanguageRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$LanguagesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      $LanguagesTable,
+      LanguageRow,
+      $$LanguagesTableFilterComposer,
+      $$LanguagesTableOrderingComposer,
+      $$LanguagesTableAnnotationComposer,
+      $$LanguagesTableCreateCompanionBuilder,
+      $$LanguagesTableUpdateCompanionBuilder,
+      (
+        LanguageRow,
+        BaseReferences<_$ContentDatabase, $LanguagesTable, LanguageRow>,
+      ),
+      LanguageRow,
+      PrefetchHooks Function()
+    >;
 typedef $$PhrasesTableCreateCompanionBuilder = PhrasesCompanion Function({
   required String id,
   required String lang,
   required String tier,
   required String constellation,
   required String template,
-  required String answer,
   Value<String?> register,
   Value<int> rowid,
 });
@@ -2861,7 +4263,6 @@ typedef $$PhrasesTableUpdateCompanionBuilder = PhrasesCompanion Function({
   Value<String> tier,
   Value<String> constellation,
   Value<String> template,
-  Value<String> answer,
   Value<String?> register,
   Value<int> rowid,
 });
@@ -2897,11 +4298,6 @@ class $$PhrasesTableFilterComposer
 
   ColumnFilters<String> get template => $composableBuilder(
     column: $table.template,
-    builder: (column) => ColumnFilters(column),
-  );
-
-  ColumnFilters<String> get answer => $composableBuilder(
-    column: $table.answer,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -2945,11 +4341,6 @@ class $$PhrasesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get answer => $composableBuilder(
-    column: $table.answer,
-    builder: (column) => ColumnOrderings(column),
-  );
-
   ColumnOrderings<String> get register => $composableBuilder(
     column: $table.register,
     builder: (column) => ColumnOrderings(column),
@@ -2981,9 +4372,6 @@ class $$PhrasesTableAnnotationComposer
 
   GeneratedColumn<String> get template =>
       $composableBuilder(column: $table.template, builder: (column) => column);
-
-  GeneratedColumn<String> get answer =>
-      $composableBuilder(column: $table.answer, builder: (column) => column);
 
   GeneratedColumn<String> get register =>
       $composableBuilder(column: $table.register, builder: (column) => column);
@@ -3025,7 +4413,6 @@ class $$PhrasesTableTableManager
                 Value<String> tier = const Value.absent(),
                 Value<String> constellation = const Value.absent(),
                 Value<String> template = const Value.absent(),
-                Value<String> answer = const Value.absent(),
                 Value<String?> register = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion(
@@ -3034,7 +4421,6 @@ class $$PhrasesTableTableManager
                 tier: tier,
                 constellation: constellation,
                 template: template,
-                answer: answer,
                 register: register,
                 rowid: rowid,
               ),
@@ -3045,7 +4431,6 @@ class $$PhrasesTableTableManager
                 required String tier,
                 required String constellation,
                 required String template,
-                required String answer,
                 Value<String?> register = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion.insert(
@@ -3054,7 +4439,6 @@ class $$PhrasesTableTableManager
                 tier: tier,
                 constellation: constellation,
                 template: template,
-                answer: answer,
                 register: register,
                 rowid: rowid,
               ),
@@ -3087,6 +4471,542 @@ typedef $$PhrasesTableProcessedTableManager =
       $$PhrasesTableUpdateCompanionBuilder,
       (PhraseRow, BaseReferences<_$ContentDatabase, $PhrasesTable, PhraseRow>),
       PhraseRow,
+      PrefetchHooks Function()
+    >;
+typedef $$PhraseSlotsTableCreateCompanionBuilder =
+    PhraseSlotsCompanion Function({
+      required String phraseId,
+      required int idx,
+      required String answer,
+      Value<int> rowid,
+    });
+typedef $$PhraseSlotsTableUpdateCompanionBuilder =
+    PhraseSlotsCompanion Function({
+      Value<String> phraseId,
+      Value<int> idx,
+      Value<String> answer,
+      Value<int> rowid,
+    });
+
+class $$PhraseSlotsTableFilterComposer
+    extends Composer<_$ContentDatabase, $PhraseSlotsTable> {
+  $$PhraseSlotsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get idx => $composableBuilder(
+    column: $table.idx,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get answer => $composableBuilder(
+    column: $table.answer,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PhraseSlotsTableOrderingComposer
+    extends Composer<_$ContentDatabase, $PhraseSlotsTable> {
+  $$PhraseSlotsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get idx => $composableBuilder(
+    column: $table.idx,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get answer => $composableBuilder(
+    column: $table.answer,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PhraseSlotsTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $PhraseSlotsTable> {
+  $$PhraseSlotsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get phraseId =>
+      $composableBuilder(column: $table.phraseId, builder: (column) => column);
+
+  GeneratedColumn<int> get idx =>
+      $composableBuilder(column: $table.idx, builder: (column) => column);
+
+  GeneratedColumn<String> get answer =>
+      $composableBuilder(column: $table.answer, builder: (column) => column);
+}
+
+class $$PhraseSlotsTableTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          $PhraseSlotsTable,
+          PhraseSlotRow,
+          $$PhraseSlotsTableFilterComposer,
+          $$PhraseSlotsTableOrderingComposer,
+          $$PhraseSlotsTableAnnotationComposer,
+          $$PhraseSlotsTableCreateCompanionBuilder,
+          $$PhraseSlotsTableUpdateCompanionBuilder,
+          (
+            PhraseSlotRow,
+            BaseReferences<_$ContentDatabase, $PhraseSlotsTable, PhraseSlotRow>,
+          ),
+          PhraseSlotRow,
+          PrefetchHooks Function()
+        > {
+  $$PhraseSlotsTableTableManager(_$ContentDatabase db, $PhraseSlotsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PhraseSlotsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PhraseSlotsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PhraseSlotsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> phraseId = const Value.absent(),
+                Value<int> idx = const Value.absent(),
+                Value<String> answer = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseSlotsCompanion(
+                phraseId: phraseId,
+                idx: idx,
+                answer: answer,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String phraseId,
+                required int idx,
+                required String answer,
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseSlotsCompanion.insert(
+                phraseId: phraseId,
+                idx: idx,
+                answer: answer,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PhraseSlotsTable, PhraseSlotRow>(table),
+                  BaseReferences<
+                    _$ContentDatabase,
+                    $PhraseSlotsTable,
+                    PhraseSlotRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PhraseSlotsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      $PhraseSlotsTable,
+      PhraseSlotRow,
+      $$PhraseSlotsTableFilterComposer,
+      $$PhraseSlotsTableOrderingComposer,
+      $$PhraseSlotsTableAnnotationComposer,
+      $$PhraseSlotsTableCreateCompanionBuilder,
+      $$PhraseSlotsTableUpdateCompanionBuilder,
+      (
+        PhraseSlotRow,
+        BaseReferences<_$ContentDatabase, $PhraseSlotsTable, PhraseSlotRow>,
+      ),
+      PhraseSlotRow,
+      PrefetchHooks Function()
+    >;
+typedef $$PhraseOptionsTableCreateCompanionBuilder =
+    PhraseOptionsCompanion Function({
+      required String phraseId,
+      required int idx,
+      required String form,
+      Value<int> rowid,
+    });
+typedef $$PhraseOptionsTableUpdateCompanionBuilder =
+    PhraseOptionsCompanion Function({
+      Value<String> phraseId,
+      Value<int> idx,
+      Value<String> form,
+      Value<int> rowid,
+    });
+
+class $$PhraseOptionsTableFilterComposer
+    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
+  $$PhraseOptionsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get idx => $composableBuilder(
+    column: $table.idx,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get form => $composableBuilder(
+    column: $table.form,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PhraseOptionsTableOrderingComposer
+    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
+  $$PhraseOptionsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get idx => $composableBuilder(
+    column: $table.idx,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get form => $composableBuilder(
+    column: $table.form,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PhraseOptionsTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
+  $$PhraseOptionsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get phraseId =>
+      $composableBuilder(column: $table.phraseId, builder: (column) => column);
+
+  GeneratedColumn<int> get idx =>
+      $composableBuilder(column: $table.idx, builder: (column) => column);
+
+  GeneratedColumn<String> get form =>
+      $composableBuilder(column: $table.form, builder: (column) => column);
+}
+
+class $$PhraseOptionsTableTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          $PhraseOptionsTable,
+          PhraseOptionRow,
+          $$PhraseOptionsTableFilterComposer,
+          $$PhraseOptionsTableOrderingComposer,
+          $$PhraseOptionsTableAnnotationComposer,
+          $$PhraseOptionsTableCreateCompanionBuilder,
+          $$PhraseOptionsTableUpdateCompanionBuilder,
+          (
+            PhraseOptionRow,
+            BaseReferences<
+              _$ContentDatabase,
+              $PhraseOptionsTable,
+              PhraseOptionRow
+            >,
+          ),
+          PhraseOptionRow,
+          PrefetchHooks Function()
+        > {
+  $$PhraseOptionsTableTableManager(
+    _$ContentDatabase db,
+    $PhraseOptionsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PhraseOptionsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PhraseOptionsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PhraseOptionsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> phraseId = const Value.absent(),
+                Value<int> idx = const Value.absent(),
+                Value<String> form = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseOptionsCompanion(
+                phraseId: phraseId,
+                idx: idx,
+                form: form,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String phraseId,
+                required int idx,
+                required String form,
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseOptionsCompanion.insert(
+                phraseId: phraseId,
+                idx: idx,
+                form: form,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PhraseOptionsTable, PhraseOptionRow>(table),
+                  BaseReferences<
+                    _$ContentDatabase,
+                    $PhraseOptionsTable,
+                    PhraseOptionRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PhraseOptionsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      $PhraseOptionsTable,
+      PhraseOptionRow,
+      $$PhraseOptionsTableFilterComposer,
+      $$PhraseOptionsTableOrderingComposer,
+      $$PhraseOptionsTableAnnotationComposer,
+      $$PhraseOptionsTableCreateCompanionBuilder,
+      $$PhraseOptionsTableUpdateCompanionBuilder,
+      (
+        PhraseOptionRow,
+        BaseReferences<_$ContentDatabase, $PhraseOptionsTable, PhraseOptionRow>,
+      ),
+      PhraseOptionRow,
+      PrefetchHooks Function()
+    >;
+typedef $$PhraseTranslationsTableCreateCompanionBuilder =
+    PhraseTranslationsCompanion Function({
+      required String phraseId,
+      required String lang,
+      required String translation,
+      Value<int> rowid,
+    });
+typedef $$PhraseTranslationsTableUpdateCompanionBuilder =
+    PhraseTranslationsCompanion Function({
+      Value<String> phraseId,
+      Value<String> lang,
+      Value<String> translation,
+      Value<int> rowid,
+    });
+
+class $$PhraseTranslationsTableFilterComposer
+    extends Composer<_$ContentDatabase, $PhraseTranslationsTable> {
+  $$PhraseTranslationsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lang => $composableBuilder(
+    column: $table.lang,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get translation => $composableBuilder(
+    column: $table.translation,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PhraseTranslationsTableOrderingComposer
+    extends Composer<_$ContentDatabase, $PhraseTranslationsTable> {
+  $$PhraseTranslationsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get phraseId => $composableBuilder(
+    column: $table.phraseId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lang => $composableBuilder(
+    column: $table.lang,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get translation => $composableBuilder(
+    column: $table.translation,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PhraseTranslationsTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $PhraseTranslationsTable> {
+  $$PhraseTranslationsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get phraseId =>
+      $composableBuilder(column: $table.phraseId, builder: (column) => column);
+
+  GeneratedColumn<String> get lang =>
+      $composableBuilder(column: $table.lang, builder: (column) => column);
+
+  GeneratedColumn<String> get translation => $composableBuilder(
+    column: $table.translation,
+    builder: (column) => column,
+  );
+}
+
+class $$PhraseTranslationsTableTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          $PhraseTranslationsTable,
+          PhraseTranslationRow,
+          $$PhraseTranslationsTableFilterComposer,
+          $$PhraseTranslationsTableOrderingComposer,
+          $$PhraseTranslationsTableAnnotationComposer,
+          $$PhraseTranslationsTableCreateCompanionBuilder,
+          $$PhraseTranslationsTableUpdateCompanionBuilder,
+          (
+            PhraseTranslationRow,
+            BaseReferences<
+              _$ContentDatabase,
+              $PhraseTranslationsTable,
+              PhraseTranslationRow
+            >,
+          ),
+          PhraseTranslationRow,
+          PrefetchHooks Function()
+        > {
+  $$PhraseTranslationsTableTableManager(
+    _$ContentDatabase db,
+    $PhraseTranslationsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PhraseTranslationsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PhraseTranslationsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PhraseTranslationsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> phraseId = const Value.absent(),
+                Value<String> lang = const Value.absent(),
+                Value<String> translation = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseTranslationsCompanion(
+                phraseId: phraseId,
+                lang: lang,
+                translation: translation,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String phraseId,
+                required String lang,
+                required String translation,
+                Value<int> rowid = const Value.absent(),
+              }) => PhraseTranslationsCompanion.insert(
+                phraseId: phraseId,
+                lang: lang,
+                translation: translation,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PhraseTranslationsTable, PhraseTranslationRow>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$ContentDatabase,
+                    $PhraseTranslationsTable,
+                    PhraseTranslationRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PhraseTranslationsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      $PhraseTranslationsTable,
+      PhraseTranslationRow,
+      $$PhraseTranslationsTableFilterComposer,
+      $$PhraseTranslationsTableOrderingComposer,
+      $$PhraseTranslationsTableAnnotationComposer,
+      $$PhraseTranslationsTableCreateCompanionBuilder,
+      $$PhraseTranslationsTableUpdateCompanionBuilder,
+      (
+        PhraseTranslationRow,
+        BaseReferences<
+          _$ContentDatabase,
+          $PhraseTranslationsTable,
+          PhraseTranslationRow
+        >,
+      ),
+      PhraseTranslationRow,
       PrefetchHooks Function()
     >;
 typedef $$PhraseConceptsTableCreateCompanionBuilder =
@@ -3821,8 +5741,16 @@ class $ContentDatabaseManager {
       $$ConceptsTableTableManager(_db, _db.concepts);
   $$LexemesTableTableManager get lexemes =>
       $$LexemesTableTableManager(_db, _db.lexemes);
+  $$LanguagesTableTableManager get languages =>
+      $$LanguagesTableTableManager(_db, _db.languages);
   $$PhrasesTableTableManager get phrases =>
       $$PhrasesTableTableManager(_db, _db.phrases);
+  $$PhraseSlotsTableTableManager get phraseSlots =>
+      $$PhraseSlotsTableTableManager(_db, _db.phraseSlots);
+  $$PhraseOptionsTableTableManager get phraseOptions =>
+      $$PhraseOptionsTableTableManager(_db, _db.phraseOptions);
+  $$PhraseTranslationsTableTableManager get phraseTranslations =>
+      $$PhraseTranslationsTableTableManager(_db, _db.phraseTranslations);
   $$PhraseConceptsTableTableManager get phraseConcepts =>
       $$PhraseConceptsTableTableManager(_db, _db.phraseConcepts);
   $$DistractorsTableTableManager get distractors =>

@@ -5,7 +5,18 @@
 # Goethe/ÖSD Wortlisten, для B1–B2 — из терминологии Krankenkassen
 # (Widerspruch, Zuzahlung, Kostenübernahme). Запущен только ярус A0,
 # см. content/launch.yaml.
+#
+# Заголовок ниже — это всё, что нужно, чтобы язык появился в приложении.
+# Языки находятся перебором каталога content/lang/, а не списком в коде:
+# добавить язык значит создать один файл, а не править Dart.
+#
+# role: target — на этом языке учат. Какие его ярусы запущены, говорит
+# content/launch.yaml; status здесь означает лишь то, что язык вообще можно
+# предложить.
 lang: de
+role: target
+status: launched
+name: Deutsch
 lexemes:
   # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:

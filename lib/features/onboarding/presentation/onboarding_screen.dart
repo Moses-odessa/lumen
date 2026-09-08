@@ -6,7 +6,6 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
-import '../../../domain/calibration/calibration.dart';
 import '../../../domain/entities/tier.dart';
 import '../application/calibration_controller.dart';
 import 'calibration_screen.dart';
@@ -144,7 +143,11 @@ class _Result extends ConsumerWidget {
         ref.watch(playerControllerProvider)?.tier ??
         Tier.a0;
     final tier = measured.atMost(ref.watch(maxTierProvider));
-    final vocabulary = Calibration.estimatedVocabulary(tier);
+    // Число приходит из базы, а не из константы: курс растёт файлами
+    // контента. Пока запрос не ответил, слово о количестве не говорится
+    // вовсе — обещать примерное число, а потом заменить его другим хуже, чем
+    // подождать.
+    final vocabulary = ref.watch(vocabularyUpToProvider(tier)).value;
 
     return Container(
       decoration: const BoxDecoration(
@@ -173,13 +176,14 @@ class _Result extends ConsumerWidget {
                   style: theme.textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  l10n.calibrationResultVocabulary(vocabulary),
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                if (vocabulary != null)
+                  Text(
+                    l10n.calibrationResultVocabulary(vocabulary),
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
-                ),
                 const SizedBox(height: 16),
                 Text(
                   l10n.calibrationResultTierChangeable,

@@ -3,6 +3,11 @@ import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 
+// Пайплайн — отдельная программа, и числа в нём дублируются намеренно.
+// Импорт здесь нужен затем, чтобы дублирование проверялось, а не бралось на
+// веру: путь относительный, потому что tool/ не пакет.
+import '../../tool/content_schema.dart' as schema;
+
 /// Тесты на константы баланса. Смысл не в том, чтобы «покрыть цифры», а в том,
 /// чтобы зафиксировать связи между ними: если правка баланса ломает
 /// договорённость из docs/CONCEPT.md, это должно быть видно сразу.
@@ -132,20 +137,36 @@ void main() {
   });
 
   group('ProgressionBalance', () {
-    test('созвездие растёт с ярусом и не сжимается', () {
-      for (var i = 1; i < Tier.values.length; i++) {
-        expect(
-          ProgressionBalance.starsPerConstellation(Tier.values[i]),
-          greaterThan(
-            ProgressionBalance.starsPerConstellation(Tier.values[i - 1]),
-          ),
-        );
-      }
+    // Таблицы накопительных размеров созвездия (12/24/48/72/96), фраз и
+    // уровней здесь больше нет, и тесты на них удалены вместе с ней. Они
+    // проверяли константу саму с собой: что 12 меньше 24, что 96 = 32×3, что
+    // 16×6 = 96. Ни один из них не мог упасть иначе как от правки той же
+    // таблицы, и ни один не сказал бы, разошлась ли она с контентом. А она
+    // разошлась: баланс обещал 4/8/16/24/32 фразы на созвездие, в контенте
+    // лежало 4/8/12/12/12, и никто этого не заметил.
+    //
+    // Осталось одно правило и один порог — и оба проверяются против чего-то
+    // внешнего, а не против себя.
+
+    test('порог появления созвездия одинаков в приложении и в пайплайне', () {
+      // Число дублируется намеренно: tool/ — отдельная программа и не тянет
+      // за собой lib/. Дублирование без проверки — это два правила, которые
+      // однажды начнут означать разное.
+      expect(
+        ProgressionBalance.minStarsForConstellation,
+        schema.minStarsForConstellation,
+      );
     });
 
-    test('размеры совпадают с таблицей прогрессии', () {
-      expect(ProgressionBalance.starsPerConstellation(Tier.a0), 12);
-      expect(ProgressionBalance.starsPerConstellation(Tier.b2), 96);
+    test('порог появления больше единицы и меньше уровня', () {
+      // Созвездие из одной звезды — точка, а не созвездие. Но порог выше
+      // размера уровня означал бы тему, которую нельзя пройти за один
+      // подход, ещё до того как она появилась.
+      expect(ProgressionBalance.minStarsForConstellation, greaterThan(1));
+      expect(
+        ProgressionBalance.minStarsForConstellation,
+        lessThanOrEqualTo(SessionBalance.newWordsPerLevel * 2),
+      );
     });
 
     test('порог «зажжено» выше порога открытия соседей', () {
@@ -154,49 +175,6 @@ void main() {
         ProgressionBalance.litStarMinLm,
         greaterThan(ProgressionBalance.unlockNeighborsAvgLm),
       );
-    });
-
-    test('фразы и уровни растут вместе со звёздами', () {
-      for (var i = 1; i < Tier.values.length; i++) {
-        final prev = Tier.values[i - 1];
-        final tier = Tier.values[i];
-        expect(
-          ProgressionBalance.phrasesPerConstellation(tier),
-          greaterThan(ProgressionBalance.phrasesPerConstellation(prev)),
-          reason: '$tier: фраз не больше, чем на $prev',
-        );
-        expect(
-          ProgressionBalance.levelsPerConstellation(tier),
-          greaterThan(ProgressionBalance.levelsPerConstellation(prev)),
-          reason: '$tier: уровней не больше, чем на $prev',
-        );
-      }
-    });
-
-    test('на каждые три звезды приходится примерно одна фраза', () {
-      // Соотношение из таблицы прогрессии: 12/4, 24/8, 48/16, 72/24, 96/32.
-      for (final tier in Tier.values) {
-        expect(
-          ProgressionBalance.starsPerConstellation(tier),
-          ProgressionBalance.phrasesPerConstellation(tier) * 3,
-          reason: '$tier',
-        );
-      }
-    });
-
-    test('каждый уровень закрывает шесть звёзд созвездия', () {
-      // Уровни, как и звёзды, величина накопительная: 12/2, 24/4, 48/8,
-      // 72/12, 96/16 — ровно по шесть новых слов на уровень. Если правка
-      // баланса разойдётся с этим, созвездие перестанет проходиться нацело.
-      for (final tier in Tier.values) {
-        expect(
-          ProgressionBalance.levelsPerConstellation(tier) *
-              SessionBalance.newWordsPerLevel,
-          ProgressionBalance.starsPerConstellation(tier),
-          reason: '$tier: звёзды не делятся на уровни по '
-              '${SessionBalance.newWordsPerLevel}',
-        );
-      }
     });
   });
 

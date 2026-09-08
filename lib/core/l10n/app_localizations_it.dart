@@ -334,7 +334,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String settingsTierLocked(String tier) {
-    return 'I livelli sopra $tier non sono ancora stati revisionati da madrelingua e non sono disponibili.';
+    return 'I livelli sopra $tier non sono ancora stati riletti e non sono disponibili.';
   }
 
   @override
@@ -471,6 +471,17 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aboutNoAds => 'Pubblicità e tracker';
+
+  @override
+  String get aboutReviewTitle => 'Come è stato verificato il contenuto';
+
+  @override
+  String get aboutReviewBody =>
+      'Le parole e le frasi tedesche sono state generate da un modello linguistico e poi rilette da un secondo modello, diverso. Nessun madrelingua le ha verificate.';
+
+  @override
+  String get aboutReviewLimit =>
+      'Due modelli possono sbagliare nello stesso modo: i loro dati di addestramento si sovrappongono. La rilettura incrociata trova le distrazioni e le contraddizioni, non l\'errore che entrambi condividono. Se ne noti uno, il contenuto è nel repository aperto e la correzione è un file.';
 
   @override
   String get aboutPrivacy =>

@@ -1,6 +1,19 @@
 /// Чтение YAML-исходников контента. Формат описан в
-/// docs/CONTENT_PIPELINE.md: файл на созвездие задаёт, какие концепты
-/// добавляются на каком ярусе, файл на язык — формы и дистракторы.
+/// docs/CONTENT_PIPELINE.md.
+///
+/// Три вида файлов, и деление между ними принципиальное:
+///
+/// * `content/concepts/<тема>.yaml` — **язык-нейтральное**: какой концепт
+///   появляется на каком ярусе. Ни одной немецкой буквы.
+/// * `content/lang/<код>.yaml` (или каталог `content/lang/<код>/*.yaml`) —
+///   всё, что язык добавляет: формы, дистракторы, переводы фраз. Плюс
+///   заголовок, которым язык объявляет о себе.
+/// * `content/phrases/<код>/<тема>.yaml` — фразы на языке изучения. Немецкое
+///   предложение не может лежать в язык-нейтральном файле, и раньше лежало.
+///
+/// Языки находятся перебором каталога, а не списком в коде. Разница не
+/// косметическая: она отделяет «добавить язык значит создать файл» от
+/// «добавить язык значит найти четыре места в Dart и ни одного не забыть».
 library;
 
 import 'dart:convert';
@@ -37,7 +50,31 @@ class ConceptSource {
   final String constellation;
   final String pos;
   final int? freqRank;
+
+  /// Служебное слово: круг из него не собрать.
+  ///
+  /// У `sich` нет ни перевода одним словом, ни осмысленного набора вариантов.
+  /// Но пропуск во фразе — ровно та форма, в которой предлоги и проверяют,
+  /// поэтому служебные слова живут только в механиках «заполни пропуски» и
+  /// «собери предложение», а звёздами на карте не становятся.
+  bool get isFunctionWord => functionWordPos.contains(pos);
 }
+
+/// Части речи, которые не годятся для круга с вариантами.
+///
+/// Дублируется с `lib/domain/entities/part_of_speech.dart`: `tool/` —
+/// отдельная программа и не тянет за собой `lib/`. Совпадение наборов
+/// проверяется тестом.
+const Set<String> functionWordPos = {
+  'pronoun',
+  'article',
+  'determiner',
+  'preposition',
+  'conjunction',
+  'particle',
+  'interjection',
+  'number',
+};
 
 class LexemeSource {
   LexemeSource({
@@ -65,23 +102,68 @@ class LexemeSource {
   final List<String> nearDistractors;
 }
 
+/// Язык проекта: что он о себе объявил и что принёс.
+class LanguageSource {
+  LanguageSource({
+    required this.code,
+    required this.role,
+    required this.status,
+    required this.name,
+    required this.lexemes,
+    required this.phraseTranslations,
+  });
+
+  final String code;
+
+  /// `native`, `target` или `both`.
+  final String role;
+
+  /// `draft` или `launched`. Полноты валидатор требует только от `launched`.
+  final String status;
+
+  /// Самоназвание: «Українська», «Deutsch». Живёт здесь, а не в коде, потому
+  /// что иначе добавление языка снова потребовало бы правки Dart.
+  final String name;
+
+  /// concept_id → лексема.
+  final Map<String, LexemeSource> lexemes;
+
+  /// phrase_id → перевод фразы целиком.
+  final Map<String, String> phraseTranslations;
+
+  bool get isTarget => role == 'target' || role == 'both';
+  bool get isNative => role == 'native' || role == 'both';
+  bool get isLaunched => status == 'launched';
+}
+
 class PhraseSource {
   PhraseSource({
     required this.id,
+    required this.lang,
     required this.tier,
     required this.constellation,
     required this.template,
-    required this.answer,
+    required this.answers,
     required this.conceptIds,
+    this.optionsBySlot = const [],
     this.register,
     this.ambiguityReviewed = false,
   });
 
   final String id;
+  final String lang;
   final String tier;
   final String constellation;
   final String template;
-  final String answer;
+
+  /// Ответы по слотам в порядке слева направо. Длина обязана совпадать с
+  /// числом `{…}` в шаблоне.
+  final List<String> answers;
+
+  /// Неверные слова по слоту. Необязательны: когда их нет, варианты
+  /// добираются соседями по созвездию.
+  final List<List<String>> optionsBySlot;
+
   final List<String> conceptIds;
   final String? register;
 
@@ -94,6 +176,14 @@ class PhraseSource {
   /// выход, она не в силах. Без отметки проверка ругалась бы на исправленную
   /// фразу вечно — а проверка, которую нельзя закрыть, отключается целиком.
   final bool ambiguityReviewed;
+
+  /// Одно слово в пропуске — частный случай, но самый частый.
+  String get answer => answers.isEmpty ? '' : answers.first;
+
+  int get slotCount => answers.length;
+
+  List<String> optionsFor(int slot) =>
+      slot < optionsBySlot.length ? optionsBySlot[slot] : const [];
 }
 
 class CalibrationItemSource {
@@ -123,7 +213,7 @@ class CalibrationItemSource {
 class TierReview {
   const TierReview({required this.by, this.constellations = const {}});
 
-  /// Кто читал. Строка человеческая: важно не имя, а то, носитель или нет.
+  /// Кто читал. Строка человеческая: важно не имя, а то, чем читали.
   final String by;
 
   /// Какие созвездия прочитаны. Сверяется с составом яруса.
@@ -132,9 +222,9 @@ class TierReview {
 
 /// Какие ярусы языка запущены, а какие только написаны.
 ///
-/// Машинная форма правила «язык не запускается, пока его ярусы не вычитаны
-/// человеком»: валидатор требует полноты только от запущенных ярусов и не
-/// даёт объявить запущенным ярус, вычитанный наполовину.
+/// Машинная форма правила «ярус не запускается без вычитки»: валидатор
+/// требует полноты только от запущенных ярусов и не даёт объявить запущенным
+/// ярус, вычитанный наполовину.
 class LaunchPolicy {
   const LaunchPolicy({
     this.launched = const {},
@@ -199,14 +289,15 @@ class ContentSources {
   ContentSources({
     required this.constellations,
     required this.concepts,
-    required this.lexemes,
+    required this.languages,
     required this.phrases,
     required this.calibration,
     required this.hash,
+    required this.targetLang,
     this.launch = const LaunchPolicy(),
   });
 
-  /// Политика запуска ярусов.
+  /// Политика запуска ярусов языка изучения.
   final LaunchPolicy launch;
 
   /// Хеш всех прочитанных файлов: попадает в `content_meta.source_hash` и
@@ -214,21 +305,38 @@ class ContentSources {
   /// на метку времени.
   final String hash;
 
+  /// Язык изучения, под который собирается эта база.
+  final String targetLang;
+
   /// Имена созвездий в порядке файлов.
   final List<String> constellations;
 
   /// Концепты по id.
   final Map<String, ConceptSource> concepts;
 
-  /// Лексемы: язык → concept_id → лексема.
-  final Map<String, Map<String, LexemeSource>> lexemes;
+  /// Языки по коду — со всем, что каждый принёс.
+  final Map<String, LanguageSource> languages;
 
   final List<PhraseSource> phrases;
 
   /// Набор калибровки по языку изучения.
   final Map<String, List<CalibrationItemSource>> calibration;
 
-  static ContentSources load(Directory root, {String lang = targetLang}) {
+  /// Лексемы: язык → concept_id → лексема. Вид, в котором их ждут проверки.
+  Map<String, Map<String, LexemeSource>> get lexemes =>
+      {for (final l in languages.values) l.code: l.lexemes};
+
+  /// Концепты, годные для круга с вариантами: без служебных слов.
+  Iterable<ConceptSource> get playableConcepts =>
+      concepts.values.where((c) => !c.isFunctionWord);
+
+  /// Сколько концептов покрывает язык. Считается, а не объявляется.
+  int coverageOf(String lang) => languages[lang]?.lexemes.length ?? 0;
+
+  static ContentSources load(
+    Directory root, {
+    String lang = defaultTargetLang,
+  }) {
     if (!root.existsSync()) {
       throw ContentSourceException(
         'нет каталога исходников ${root.path} — см. docs/CONTENT_PIPELINE.md',
@@ -237,32 +345,36 @@ class ContentSources {
 
     final constellations = <String>[];
     final concepts = <String, ConceptSource>{};
-    final phrases = <PhraseSource>[];
 
     // Порядок файлов фиксирован сортировкой: он определяет порядок вставки
     // в базу, а значит и байты собранного ассета.
-    final constellationFiles = _yamlFiles(
-      Directory('${root.path}/constellations'),
-    );
-    if (constellationFiles.isEmpty) {
+    final conceptFiles = _yamlFiles(Directory('${root.path}/concepts'));
+    if (conceptFiles.isEmpty) {
       throw ContentSourceException(
-        'в ${root.path}/constellations нет ни одного .yaml',
+        'в ${root.path}/concepts нет ни одного .yaml',
       );
     }
-    for (final file in constellationFiles) {
-      _readConstellation(file, constellations, concepts, phrases);
+    for (final file in conceptFiles) {
+      _readConceptFile(file, constellations, concepts);
     }
 
-    final lexemes = <String, Map<String, LexemeSource>>{};
+    final languages = <String, LanguageSource>{};
     final langFiles = <File>[];
-    for (final lang in projectLangs) {
-      final file = File('${root.path}/lang/$lang.yaml');
-      if (!file.existsSync()) continue;
-      langFiles.add(file);
-      lexemes[lang] = _readLexemes(file, lang);
+    for (final entry in _languageEntries(Directory('${root.path}/lang'))) {
+      langFiles.addAll(entry.files);
+      languages[entry.code] = _readLanguage(entry);
     }
-    if (lexemes.isEmpty) {
-      throw ContentSourceException('нет ни одного файла content/lang/*.yaml');
+    if (languages.isEmpty) {
+      throw ContentSourceException(
+        'в ${root.path}/lang нет ни одного языка. Язык — это файл '
+        '<код>.yaml или каталог <код>/ с файлами по темам.',
+      );
+    }
+
+    final phraseFiles = _yamlFiles(Directory('${root.path}/phrases/$lang'));
+    final phrases = <PhraseSource>[];
+    for (final file in phraseFiles) {
+      _readPhraseFile(file, lang, phrases);
     }
 
     final calibration = <String, List<CalibrationItemSource>>{};
@@ -270,25 +382,70 @@ class ContentSources {
       Directory('${root.path}/calibration'),
     );
     for (final file in calibrationFiles) {
-      final lang = file.uri.pathSegments.last.replaceAll('.yaml', '');
-      calibration[lang] = _readCalibration(file);
+      final code = file.uri.pathSegments.last.replaceAll('.yaml', '');
+      calibration[code] = _readCalibration(file);
     }
 
     return ContentSources(
       constellations: constellations,
       concepts: concepts,
-      lexemes: lexemes,
+      languages: languages,
       phrases: phrases,
       calibration: calibration,
+      targetLang: lang,
       launch: LaunchPolicy.read(File('${root.path}/launch.yaml'), lang),
       hash: _hashOf([
-        ...constellationFiles,
+        ...conceptFiles,
         ...langFiles,
+        ...phraseFiles,
         ...calibrationFiles,
         File('${root.path}/launch.yaml'),
       ]),
     );
   }
+
+  /// Языки, найденные в `content/lang/`.
+  ///
+  /// Язык — это либо файл `<код>.yaml`, либо каталог `<код>/` с файлами по
+  /// темам. Второй вид нужен потому, что 6299 концептов в одном YAML — это
+  /// сорок тысяч строк, которые нельзя ни читать, ни править по частям. Но
+  /// начинается язык всё равно с одного файла, и это важнее удобства.
+  static List<_LanguageEntry> _languageEntries(Directory dir) {
+    if (!dir.existsSync()) return const [];
+    final result = <_LanguageEntry>[];
+
+    for (final entity in dir.listSync()..sort(_byPath)) {
+      if (entity is File && entity.path.endsWith('.yaml')) {
+        final code = entity.uri.pathSegments.last.replaceAll('.yaml', '');
+        result.add(_LanguageEntry(code, [entity]));
+      } else if (entity is Directory) {
+        final code = entity.uri.pathSegments
+            .lastWhere((s) => s.isNotEmpty);
+        final files = _yamlFiles(entity);
+        if (files.isEmpty) {
+          throw ContentSourceException(
+            '${entity.path}: каталог языка пуст — либо положите файлы по '
+            'темам, либо уберите каталог',
+          );
+        }
+        result.add(_LanguageEntry(code, files));
+      }
+    }
+
+    final seen = <String>{};
+    for (final entry in result) {
+      if (!seen.add(entry.code)) {
+        throw ContentSourceException(
+          'язык ${entry.code} объявлен и файлом, и каталогом — '
+          'останьтесь на одном виде',
+        );
+      }
+    }
+    return result;
+  }
+
+  static int _byPath(FileSystemEntity a, FileSystemEntity b) =>
+      a.path.compareTo(b.path);
 
   /// YAML-файлы каталога в стабильном порядке.
   static List<File> _yamlFiles(Directory dir) {
@@ -304,7 +461,7 @@ class ContentSources {
   /// Хеш содержимого исходников. Имя файла входит в хеш, чтобы переименование
   /// созвездия тоже считалось изменением контента.
   static String _hashOf(List<File> files) {
-    // Исходники — текстовые YAML на десятки килобайт, поэтому склеить их в
+    // Исходники — текстовые YAML на сотни килобайт, поэтому склеить их в
     // памяти дешевле, чем возиться с потоковым хешированием.
     final buffer = BytesBuilder(copy: false);
     for (final file in files) {
@@ -315,11 +472,10 @@ class ContentSources {
     return sha256.convert(buffer.takeBytes()).toString().substring(0, 16);
   }
 
-  static void _readConstellation(
+  static void _readConceptFile(
     File file,
     List<String> constellations,
     Map<String, ConceptSource> concepts,
-    List<PhraseSource> phrases,
   ) {
     final doc = _loadMap(file);
     final name = _requireString(doc, 'constellation', file);
@@ -330,11 +486,25 @@ class ContentSources {
       throw ContentSourceException('${file.path}: нет секции tiers');
     }
 
+    if (doc.containsKey('phrases')) {
+      throw ContentSourceException(
+        '${file.path}: фразы больше не живут рядом с концептами. Немецкое '
+        'предложение — это язык изучения, ему место в '
+        'content/phrases/<код>/<тема>.yaml',
+      );
+    }
+
     for (final tier in tiers) {
       final node = tierMap[tier];
       if (node == null) continue;
       if (node is! YamlMap) {
         throw ContentSourceException('${file.path}: tiers.$tier не карта');
+      }
+      if (node.containsKey('phrases')) {
+        throw ContentSourceException(
+          '${file.path}: tiers.$tier.phrases — фразы переехали в '
+          'content/phrases/<код>/<тема>.yaml',
+        );
       }
 
       final conceptList = node['concepts'];
@@ -348,27 +518,6 @@ class ContentSources {
             );
           }
           concepts[concept.id] = concept;
-        }
-      }
-
-      final phraseList = node['phrases'];
-      if (phraseList is YamlList) {
-        for (final raw in phraseList) {
-          if (raw is! YamlMap) {
-            throw ContentSourceException(
-              '${file.path}: tiers.$tier.phrases содержит не карту',
-            );
-          }
-          phrases.add(PhraseSource(
-            id: _requireString(raw, 'id', file),
-            tier: tier,
-            constellation: name,
-            template: _requireString(raw, 'template', file),
-            answer: _requireString(raw, 'answer', file),
-            conceptIds: _stringList(raw['concepts']),
-            register: raw['register'] as String?,
-            ambiguityReviewed: raw['ambiguity'] == 'reviewed',
-          ));
         }
       }
     }
@@ -405,47 +554,252 @@ class ContentSources {
     );
   }
 
-  static Map<String, LexemeSource> _readLexemes(File file, String lang) {
+  static void _readPhraseFile(
+    File file,
+    String lang,
+    List<PhraseSource> phrases,
+  ) {
     final doc = _loadMap(file);
     final declared = doc['lang'];
     if (declared != lang) {
       throw ContentSourceException(
-        '${file.path}: внутри указан язык "$declared", а файл называется '
-        '"$lang.yaml"',
+        '${file.path}: внутри указан язык "$declared", а файл лежит в '
+        'phrases/$lang/',
+      );
+    }
+    final name = _requireString(doc, 'constellation', file);
+
+    final tierMap = doc['tiers'];
+    if (tierMap is! YamlMap) {
+      throw ContentSourceException('${file.path}: нет секции tiers');
+    }
+
+    for (final tier in tiers) {
+      final node = tierMap[tier];
+      if (node == null) continue;
+      if (node is! YamlList) {
+        throw ContentSourceException(
+          '${file.path}: tiers.$tier должен быть списком фраз',
+        );
+      }
+      for (final raw in node) {
+        if (raw is! YamlMap) {
+          throw ContentSourceException(
+            '${file.path}: tiers.$tier содержит не карту',
+          );
+        }
+        phrases.add(_readPhrase(raw, lang, tier, name, file));
+      }
+    }
+  }
+
+  static PhraseSource _readPhrase(
+    YamlMap raw,
+    String lang,
+    String tier,
+    String constellation,
+    File file,
+  ) {
+    final id = _requireString(raw, 'id', file);
+    final template = _requireString(raw, 'template', file);
+
+    // Ответ пишется либо одним словом, либо списком по слотам. Оба вида
+    // нужны: один пропуск — самый частый случай, и заставлять писать его
+    // списком значит утяжелять четыреста тридцать две строки ради двадцати.
+    final single = raw['answer'];
+    final many = raw['answers'];
+    if ((single == null) == (many == null)) {
+      throw ContentSourceException(
+        '${file.path}: фраза $id — нужен ровно один из answer / answers',
+      );
+    }
+    final answers = single != null ? ['$single'] : _stringList(many);
+    if (answers.isEmpty) {
+      throw ContentSourceException(
+        '${file.path}: фраза $id — пустой список answers',
       );
     }
 
-    final node = doc['lexemes'];
-    if (node is! YamlMap) {
-      throw ContentSourceException('${file.path}: нет секции lexemes');
+    final slots = phraseSlotCount(template);
+    if (slots != answers.length) {
+      throw ContentSourceException(
+        '${file.path}: фраза $id — в шаблоне $slots пропусков, '
+        'а ответов ${answers.length}',
+      );
     }
 
-    final result = <String, LexemeSource>{};
-    for (final entry in node.entries) {
-      final conceptId = entry.key as String;
-      final value = entry.value;
-      if (value is! YamlMap) {
+    return PhraseSource(
+      id: id,
+      lang: lang,
+      tier: tier,
+      constellation: constellation,
+      template: template,
+      answers: answers,
+      optionsBySlot: _optionsBySlot(raw['options'], answers.length, id, file),
+      conceptIds: _stringList(raw['concepts']),
+      register: raw['register'] as String?,
+      ambiguityReviewed: raw['ambiguity'] == 'reviewed',
+    );
+  }
+
+  /// Неверные слова по слоту.
+  ///
+  /// `options: [Milch, Wasser]` — плоский список для единственного слота.
+  /// `options: [[…], […]]` — по списку на слот. Первый вид годится только
+  /// когда пропуск один: иначе непонятно, к какому слоту он относится.
+  static List<List<String>> _optionsBySlot(
+    Object? node,
+    int slots,
+    String phraseId,
+    File file,
+  ) {
+    if (node == null) return const [];
+    if (node is! YamlList) {
+      throw ContentSourceException(
+        '${file.path}: фраза $phraseId — options должен быть списком',
+      );
+    }
+    if (node.isEmpty) return const [];
+
+    final nested = node.first is YamlList;
+    if (!nested) {
+      if (slots != 1) {
         throw ContentSourceException(
-          '${file.path}: lexemes.$conceptId не карта',
+          '${file.path}: фраза $phraseId — пропусков $slots, поэтому options '
+          'нужен списком на слот: [[…], […]]',
         );
       }
-      final distractors = value['distractors'];
-      result[conceptId] = LexemeSource(
-        conceptId: conceptId,
-        form: _requireString(value, 'form', file),
-        article: value['article'] as String?,
-        gender: value['gender'] as String?,
-        plural: value['plural'] as String?,
-        note: value['note'] as String?,
-        farDistractors: distractors is YamlMap
-            ? _stringList(distractors['far'])
-            : const [],
-        nearDistractors: distractors is YamlMap
-            ? _stringList(distractors['near'])
-            : const [],
+      return [_stringList(node)];
+    }
+
+    final result = <List<String>>[];
+    for (final entry in node) {
+      result.add(_stringList(entry));
+    }
+    if (result.length != slots) {
+      throw ContentSourceException(
+        '${file.path}: фраза $phraseId — в options ${result.length} групп, '
+        'а пропусков $slots',
       );
     }
     return result;
+  }
+
+  static LanguageSource _readLanguage(_LanguageEntry entry) {
+    final lexemes = <String, LexemeSource>{};
+    final translations = <String, String>{};
+    String? role;
+    String? status;
+    String? name;
+
+    for (final file in entry.files) {
+      final doc = _loadMap(file);
+      final declared = doc['lang'];
+      if (declared != entry.code) {
+        throw ContentSourceException(
+          '${file.path}: внутри указан язык "$declared", а файл лежит под '
+          '"${entry.code}"',
+        );
+      }
+
+      // Заголовок обязателен ровно один раз: у файла-языка — в нём самом, у
+      // каталога-языка — в любом из файлов, но одинаковый во всех.
+      for (final field in const ['role', 'status', 'name']) {
+        final value = doc[field];
+        if (value == null) continue;
+        final current = switch (field) {
+          'role' => role,
+          'status' => status,
+          _ => name,
+        };
+        if (current != null && current != '$value') {
+          throw ContentSourceException(
+            '${file.path}: $field="$value" расходится с "$current" в другом '
+            'файле того же языка',
+          );
+        }
+        switch (field) {
+          case 'role':
+            role = '$value';
+          case 'status':
+            status = '$value';
+          default:
+            name = '$value';
+        }
+      }
+
+      final node = doc['lexemes'];
+      if (node is YamlMap) {
+        for (final e in node.entries) {
+          final conceptId = e.key as String;
+          if (lexemes.containsKey(conceptId)) {
+            throw ContentSourceException(
+              '${file.path}: лексема $conceptId у языка ${entry.code} '
+              'объявлена дважды',
+            );
+          }
+          lexemes[conceptId] = _readLexeme(conceptId, e.value, file);
+        }
+      }
+
+      final phraseNode = doc['phrases'];
+      if (phraseNode is YamlMap) {
+        for (final e in phraseNode.entries) {
+          translations['${e.key}'] = '${e.value}';
+        }
+      }
+    }
+
+    final head = entry.files.first.path;
+    if (role == null || !languageRoles.contains(role)) {
+      throw ContentSourceException(
+        '$head: язык ${entry.code} не объявил role. Нужно одно из '
+        '${languageRoles.join(", ")} — иначе непонятно, учат на нём или '
+        'подсказывают им.',
+      );
+    }
+    if (status == null || !languageStatuses.contains(status)) {
+      throw ContentSourceException(
+        '$head: язык ${entry.code} не объявил status. Нужно одно из '
+        '${languageStatuses.join(", ")} — от этого зависит, требовать ли '
+        'полноты.',
+      );
+    }
+    if (name == null || name.isEmpty) {
+      throw ContentSourceException(
+        '$head: язык ${entry.code} не объявил name. Самоназвание живёт в '
+        'файле языка, а не в коде: иначе добавление языка снова потребует '
+        'правки Dart.',
+      );
+    }
+
+    return LanguageSource(
+      code: entry.code,
+      role: role,
+      status: status,
+      name: name,
+      lexemes: lexemes,
+      phraseTranslations: translations,
+    );
+  }
+
+  static LexemeSource _readLexeme(String conceptId, Object? value, File file) {
+    if (value is! YamlMap) {
+      throw ContentSourceException('${file.path}: lexemes.$conceptId не карта');
+    }
+    final distractors = value['distractors'];
+    return LexemeSource(
+      conceptId: conceptId,
+      form: _requireString(value, 'form', file),
+      article: value['article'] as String?,
+      gender: value['gender'] as String?,
+      plural: value['plural'] as String?,
+      note: value['note'] as String?,
+      farDistractors:
+          distractors is YamlMap ? _stringList(distractors['far']) : const [],
+      nearDistractors:
+          distractors is YamlMap ? _stringList(distractors['near']) : const [],
+    );
   }
 
   static List<CalibrationItemSource> _readCalibration(File file) {
@@ -482,7 +836,8 @@ class ContentSources {
   static YamlMap _loadMap(File file) {
     final doc = loadYaml(file.readAsStringSync());
     if (doc is! YamlMap) {
-      throw ContentSourceException('${file.path}: ожидалась карта на верхнем уровне');
+      throw ContentSourceException(
+          '${file.path}: ожидалась карта на верхнем уровне');
     }
     return doc;
   }
@@ -516,4 +871,12 @@ class ContentSources {
     }
     return const [];
   }
+}
+
+/// Язык и файлы, из которых он собран.
+class _LanguageEntry {
+  _LanguageEntry(this.code, this.files);
+
+  final String code;
+  final List<File> files;
 }

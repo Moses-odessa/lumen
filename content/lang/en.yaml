@@ -1,8 +1,21 @@
-# English lexemes — hint language, and the fallback when a concept has no
-# lexeme in the player's native language yet.
+# English lexemes — a hint language.
+#
+# It used to be described as the fallback for a concept the player's native
+# language does not cover. That fallback is gone, and deliberately: a concept
+# is now playable only when BOTH languages of the pair have a form. Slipping
+# an English word into a Ukrainian player's circle is not a graceful
+# degradation, it is a different question than the one the game meant to ask.
+# Missing coverage now means fewer words, not foreign ones.
 #
 # Distractors are only defined for A0; see the note in ru.yaml.
+#
+# status: draft — complete for today's 864 concepts, but not carried forward
+# to 6299 (PLAN.md). The file stays whole; draft only lifts the completeness
+# requirement and keeps the validator watching it.
 lang: en
+role: native
+status: draft
+name: English
 lexemes:
   # ── A0 ────────────────────────────────────────────────────────────────
   doctor_person:

@@ -1,0 +1,264 @@
+# Фразы созвездия «Магазин» на немецком.
+#
+# Фраза принадлежит языку изучения, а не концепту: немецкое
+# предложение нельзя положить в язык-нейтральный файл. Переводы фраз
+# на родные языки лежат в content/lang/<код>.yaml, секция phrases.
+lang: de
+constellation: shop
+tiers:
+  a0:
+    - id: shop_a0_money
+      template: "Ich habe kein {money}."
+      answer: Geld
+      register: casual
+      concepts: [money_noun]
+    - id: shop_a0_expensive
+      template: "Das ist zu {expensive}."
+      answer: teuer
+      register: casual
+      concepts: [expensive_adj]
+    - id: shop_a0_checkout
+      template: "Wo ist die {checkout}?"
+      answer: Kasse
+      register: casual
+      concepts: [checkout_place]
+    - id: shop_a0_price
+      template: "Das ist ein guter {price}."
+      answer: Preis
+      register: casual
+      concepts: [price_noun]
+
+  a1:
+    - id: shop_a1_cash
+      template: "Ich hebe {cash} am Automaten ab."
+      answer: Bargeld
+      ambiguity: reviewed
+      register: casual
+      concepts: [cash_noun]
+    - id: shop_a1_size
+      template: "Haben Sie diese {size}?"
+      answer: Größe
+      register: formal
+      concepts: [size_noun]
+    - id: shop_a1_discount
+      template: "Gibt es einen {discount}?"
+      answer: Rabatt
+      register: casual
+      concepts: [discount_noun]
+    - id: shop_a1_delivery
+      template: "Die {delivery} dauert drei Tage."
+      answer: Lieferung
+      register: casual
+      concepts: [delivery_noun]
+    - id: shop_a1_exchange
+      template: "Ist ein {exchange} möglich?"
+      answer: Umtausch
+      register: casual
+      concepts: [exchange_noun]
+    - id: shop_a1_quality
+      template: "Das Material bestimmt die {quality}."
+      answer: Qualität
+      register: casual
+      concepts: [quality_noun]
+    - id: shop_a1_offer
+      template: "Das ist ein gutes {offer}."
+      answer: Angebot
+      register: casual
+      concepts: [offer_noun]
+    - id: shop_a1_change
+      template: "Ich bekomme zwei Euro {change} zurück."
+      answer: Wechselgeld
+      ambiguity: reviewed
+      register: casual
+      concepts: [change_noun]
+
+  a2:
+    - id: shop_a2_warranty
+      template: "Der Hersteller gibt freiwillig eine {warranty}."
+      answer: Garantie
+      register: casual
+      concepts: [warranty_noun]
+    - id: shop_a2_return
+      template: "Ist eine {return} möglich?"
+      answer: Rückgabe
+      register: casual
+      concepts: [return_noun]
+    - id: shop_a2_receipt
+      template: "Bewahren Sie den {receipt} auf."
+      answer: Kassenbon
+      register: formal
+      concepts: [receipt_slip]
+    - id: shop_a2_creditcard
+      template: "Ich zahle mit {creditcard}."
+      answer: Kreditkarte
+      register: casual
+      concepts: [creditcard_object]
+    - id: shop_a2_voucher
+      template: "Ich habe noch einen {voucher}."
+      answer: Gutschein
+      register: casual
+      concepts: [voucher_noun]
+    - id: shop_a2_shipping
+      template: "Der {shipping} ist kostenlos."
+      answer: Versand
+      register: casual
+      concepts: [shipping_noun]
+    - id: shop_a2_complaint
+      template: "Ich möchte eine {complaint} einreichen."
+      answer: Reklamation
+      register: casual
+      concepts: [complaint_noun]
+    - id: shop_a2_openinghours
+      template: "Wie sind die {openinghours}?"
+      answer: Öffnungszeiten
+      register: casual
+      concepts: [openinghours_noun]
+    - id: shop_a2_special
+      template: "Das ist ein {special}."
+      answer: Sonderangebot
+      register: casual
+      concepts: [special_offer]
+    - id: shop_a2_vat
+      template: "Auf jeden Preis kommen 19 Prozent {vat}."
+      answer: Mehrwertsteuer
+      ambiguity: reviewed
+      register: casual
+      concepts: [vat_noun]
+    - id: shop_a2_transfer
+      template: "Bitte per {transfer} bezahlen."
+      answer: Banküberweisung
+      register: casual
+      concepts: [transfer_noun]
+    - id: shop_a2_seller
+      template: "Fragen Sie den {seller}."
+      answer: Verkäufer
+      register: formal
+      concepts: [seller_person]
+
+  b1:
+    - id: shop_b1_withdrawal
+      template: "Bei Online-Kauf haben Sie ein {withdrawal} von vierzehn Tagen."
+      answer: Widerrufsrecht
+      ambiguity: reviewed
+      register: formal
+      concepts: [withdrawalright_noun]
+    - id: shop_b1_deliverytime
+      template: "Die {deliverytime} beträgt drei Tage."
+      answer: Lieferzeit
+      register: casual
+      concepts: [deliverytime_noun]
+    - id: shop_b1_reminder
+      template: "Ich habe eine {reminder} bekommen."
+      answer: Mahnung
+      register: casual
+      concepts: [reminder_noun]
+    - id: shop_b1_tracking
+      template: "Die {tracking} zeigt nichts an."
+      answer: Sendungsverfolgung
+      register: casual
+      concepts: [tracking_noun]
+    - id: shop_b1_financing
+      template: "Wir bieten eine {financing} an."
+      answer: Finanzierung
+      register: casual
+      concepts: [financing_noun]
+    - id: shop_b1_directdebit
+      template: "Zahlung per {directdebit} ist möglich."
+      answer: Lastschrift
+      ambiguity: reviewed
+      register: casual
+      concepts: [directdebit_noun]
+    - id: shop_b1_review
+      template: "Die {review} war negativ."
+      answer: Kundenbewertung
+      register: casual
+      concepts: [review_noun]
+    - id: shop_b1_pricecomparison
+      template: "Ein {pricecomparison} lohnt sich."
+      answer: Preisvergleich
+      register: casual
+      concepts: [pricecomparison_noun]
+    - id: shop_b1_warranty
+      template: "Die {warranty} gilt zwei Jahre."
+      answer: Gewährleistung
+      register: casual
+      concepts: [statutorywarranty_noun]
+    - id: shop_b1_paymentterm
+      template: "Das {paymentterm} beträgt vierzehn Tage."
+      answer: Zahlungsziel
+      register: casual
+      concepts: [paymentterm_noun]
+    - id: shop_b1_billingaddress
+      template: "Die {billingaddress} kann von der Lieferadresse abweichen."
+      answer: Rechnungsadresse
+      ambiguity: reviewed
+      register: casual
+      concepts: [billingaddress_noun]
+    - id: shop_b1_contract
+      template: "Der {contract} kam per E-Mail."
+      answer: Kaufvertrag
+      register: casual
+      concepts: [purchasecontract_noun]
+
+  b2:
+    - id: shop_b2_terms
+      template: "Die {terms} gelten für alle Bestellungen."
+      answer: Geschäftsbedingungen
+      register: casual
+      concepts: [termsandconditions_noun]
+    - id: shop_b2_limitation
+      template: "Wann tritt die {limitation} ein?"
+      answer: Verjährung
+      register: casual
+      concepts: [limitationperiod_noun]
+    - id: shop_b2_damages
+      template: "Er fordert {damages}."
+      answer: Schadensersatz
+      register: casual
+      concepts: [damages_noun]
+    - id: shop_b2_defect
+      template: "Die Ware ist beschädigt, es liegt ein {defect} vor."
+      answer: Sachmangel
+      ambiguity: reviewed
+      register: casual
+      concepts: [materialdefect_noun]
+    - id: shop_b2_withdrawal
+      template: "Wir erklären den {withdrawal} vom Vertrag."
+      answer: Rücktritt
+      register: casual
+      concepts: [withdrawal_contract]
+    - id: shop_b2_burden
+      template: "Die {burden} entscheidet über den Prozess."
+      answer: Beweislast
+      register: casual
+      concepts: [burdenofproof_noun]
+    - id: shop_b2_margin
+      template: "Die {margin} ist zu klein."
+      answer: Marge
+      register: casual
+      concepts: [margin_noun]
+    - id: shop_b2_stocktaking
+      template: "Wegen {stocktaking} geschlossen."
+      answer: Inventur
+      register: casual
+      concepts: [stocktaking_noun]
+    - id: shop_b2_shortage
+      template: "Es gibt einen {shortage}."
+      answer: Lieferengpass
+      register: casual
+      concepts: [supplyshortage_noun]
+    - id: shop_b2_default
+      template: "Der Kunde ist in {default}."
+      answer: Zahlungsverzug
+      register: casual
+      concepts: [paymentdefault_noun]
+    - id: shop_b2_marketshare
+      template: "Der {marketshare} wächst."
+      answer: Marktanteil
+      register: casual
+      concepts: [marketshare_noun]
+    - id: shop_b2_consumercentre
+      template: "Die {consumercentre} berät zu Kaufverträgen."
+      answer: Verbraucherzentrale
+      register: casual
+      concepts: [consumercentre_noun]

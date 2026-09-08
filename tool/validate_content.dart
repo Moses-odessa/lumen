@@ -1,28 +1,71 @@
 // Проверки полноты и качества контента. Запускается в CI, падение блокирует
 // мерж (docs/CONTENT_PIPELINE.md).
 //
-//   dart run tool/validate_content.dart --lang de
+//   dart run tool/validate_content.dart            # все языки изучения
+//   dart run tool/validate_content.dart --lang de  # только немецкий
+//
+// Без флага проверяются **все** языки, объявившие себя языками изучения.
+// Так и должно быть, и это исправление конкретной дыры: CI вызывал валидатор
+// с жёстко прописанным `--lang de`, а в репозитории лежал второй язык
+// изучения — английский, — который никто никогда не проверял. В
+// assets/content/en.db из-за этого уехали немецкие фразы с пометкой
+// lang="en": 397 ошибок, которые валидатор находил сразу, как только его об
+// этом спрашивали. Спросить было некому.
 
 import 'dart:io';
+
+import 'package:yaml/yaml.dart';
 
 import 'content_schema.dart';
 import 'content_sources.dart';
 import 'morphology.dart';
 import 'phonetics.dart';
+import 'translation_lock.dart';
 
 Future<void> main(List<String> args) async {
-  final lang = _argValue(args, '--lang') ?? targetLang;
+  final requested = _argValue(args, '--lang');
+  final root = Directory('${Directory.current.path}/content');
 
-  final ContentSources sources;
-  try {
-    sources = ContentSources.load(
-      Directory('${Directory.current.path}/content'),
-      lang: lang,
-    );
-  } on ContentSourceException catch (e) {
-    stderr.writeln('✗ исходники: ${e.message}');
+  final langs = requested != null ? [requested] : _targetLanguages(root);
+  if (langs.isEmpty) {
+    stderr.writeln('✗ в content/lang/ нет ни одного языка изучения');
     exitCode = 1;
     return;
+  }
+
+  var failed = false;
+  for (final lang in langs) {
+    if (langs.length > 1) stdout.writeln('── $lang ──');
+    if (!_validate(root, lang)) failed = true;
+  }
+  if (failed) exitCode = 1;
+}
+
+/// Языки, объявившие `role: target`. Читаются из каталога, а не из списка:
+/// список в CI и был тем местом, где потерялся второй язык изучения.
+List<String> _targetLanguages(Directory root) {
+  try {
+    final sources = ContentSources.load(root, lang: defaultTargetLang);
+    final targets = sources.languages.values
+        .where((l) => l.isTarget)
+        .map((l) => l.code)
+        .toList()
+      ..sort();
+    return targets;
+  } on ContentSourceException catch (e) {
+    stderr.writeln('✗ исходники: ${e.message}');
+    return const [];
+  }
+}
+
+/// Прогон всех проверок для одного языка изучения. `true` — ошибок нет.
+bool _validate(Directory root, String lang) {
+  final ContentSources sources;
+  try {
+    sources = ContentSources.load(root, lang: lang);
+  } on ContentSourceException catch (e) {
+    stderr.writeln('✗ исходники: ${e.message}');
+    return false;
   }
 
   final report = _Report();
@@ -38,7 +81,10 @@ Future<void> main(List<String> args) async {
   }
 
   _checkLaunchPolicy(sources, report);
+  _checkLanguages(sources, report);
   _checkLexemeCoverage(sources, report);
+  _checkPhraseTranslations(sources, report);
+  _checkFunctionWords(sources, report);
   _checkOrphanLexemes(sources, report);
   _checkDistractors(sources, lang, report);
   _checkNearSoundalike(sources, lang, report);
@@ -56,26 +102,270 @@ Future<void> main(List<String> args) async {
   _checkCalibration(sources, lang, report);
 
   report.print(lang);
-  if (report.errors.isNotEmpty) exitCode = 1;
+  return report.errors.isEmpty;
 }
 
-/// У каждого концепта есть лексема на каждом языке проекта.
-void _checkLexemeCoverage(ContentSources sources, _Report report) {
-  for (final lang in projectLangs) {
-    final byConcept = sources.lexemes[lang];
-    if (byConcept == null) {
-      report.error('нет файла content/lang/$lang.yaml');
-      continue;
+/// Языки объявили о себе непротиворечиво, и играть вообще есть чем.
+///
+/// Список языков больше не константа в коде — он равен содержимому
+/// `content/lang/`. Поэтому проверять приходится то, что раньше гарантировала
+/// компиляция: что язык изучения существует, что хоть один родной язык
+/// запущен и что собираемая база собирается для языка изучения, а не для
+/// языка подсказок.
+void _checkLanguages(ContentSources sources, _Report report) {
+  final target = sources.languages[sources.targetLang];
+  if (target == null) {
+    report.error(
+      'нет языка "${sources.targetLang}" в content/lang/ — собирать нечего',
+    );
+    return;
+  }
+  if (!target.isTarget) {
+    report.error(
+      'язык ${target.code} объявлен role="${target.role}", а база собирается '
+      'для него как для языка изучения',
+    );
+  }
+
+  // Роль языка и запись о запуске обязаны говорить одно и то же.
+  //
+  // Расхождение здесь стоило проекту отгруженного бага. Английский был
+  // объявлен в launch.yaml языком изучения с запущенным A0, и сборщик
+  // штамповал `--lang en` на строки фраз — а фразы немецкие. В
+  // assets/content/en.db лежали немецкие шаблоны с пометкой lang="en", и
+  // валидатор находил 397 ошибок ровно в тот момент, когда его об этом
+  // спрашивали. Никто не спрашивал: CI собирал только de.
+  final launchFile = File('${Directory.current.path}/content/launch.yaml');
+  if (launchFile.existsSync()) {
+    final declared = _languagesInLaunchFile(launchFile);
+    for (final code in declared) {
+      final language = sources.languages[code];
+      if (language == null) {
+        report.error(
+          'launch.yaml объявляет ярусы языка "$code", которого нет в '
+          'content/lang/',
+        );
+      } else if (!language.isTarget) {
+        report.error(
+          'launch.yaml объявляет ярусы языка "$code", а сам он объявлен '
+          'role="${language.role}". Ярусы бывают только у языка изучения: '
+          'либо уберите секцию, либо поменяйте роль.',
+        );
+      }
     }
-    final missing = sources.concepts.keys
-        .where((id) => !byConcept.containsKey(id))
-        .toList();
-    if (missing.isNotEmpty) {
+    for (final language in sources.languages.values) {
+      if (!language.isTarget || declared.contains(language.code)) continue;
       report.error(
-        'язык $lang: нет лексем для ${missing.length} концептов '
-        '(${_head(missing)})',
+        'язык ${language.code} объявлен языком изучения, но секции в '
+        'launch.yaml у него нет — значит ни одна проверка запуска на него не '
+        'действует, и это молча',
       );
     }
+  }
+
+  final natives = sources.languages.values.where((l) => l.isNative).toList();
+  if (natives.isEmpty) {
+    report.error(
+      'ни один язык не объявлен role="native" — подсказывать будет нечем',
+    );
+  }
+  if (natives.isNotEmpty && !natives.any((l) => l.isLaunched)) {
+    report.pending(
+      'ни один родной язык не объявлен launched: играть можно, но ни одна '
+      'пара не считается готовой',
+    );
+  }
+}
+
+/// Полнота лексем.
+///
+/// Требуется от `launched`, у `draft` только считается и печатается. Это и
+/// есть механизм добавления языка: файл ложится в каталог со `status: draft`,
+/// валидатор говорит, сколько он покрывает, и ничего не блокирует. Концепт
+/// без лексемы в одном из языков пары планировщик просто не возьмёт — игрок
+/// увидит меньше слов, а не чужое слово вместо своего.
+void _checkLexemeCoverage(ContentSources sources, _Report report) {
+  final total = sources.concepts.length;
+
+  for (final language in sources.languages.values) {
+    final missing = sources.concepts.keys
+        .where((id) => !language.lexemes.containsKey(id))
+        .toList();
+    if (missing.isEmpty) continue;
+
+    if (!language.isLaunched) {
+      report.pending(
+        'язык ${language.code} (draft): лексем '
+        '${language.lexemes.length}/$total, не хватает ${missing.length}',
+      );
+      continue;
+    }
+
+    // У запущенного языка изучения спрос по ярусам: черновой ярус не обязан
+    // быть полным, а запущенный обязан.
+    final blocking = language.isTarget
+        ? missing
+            .where((id) =>
+                sources.launch.isLaunched(sources.concepts[id]!.tier))
+            .toList()
+        : missing;
+
+    if (blocking.isEmpty) {
+      report.pending(
+        'язык ${language.code}: лексем ${language.lexemes.length}/$total — '
+        'не хватает только на незапущенных ярусах',
+      );
+      continue;
+    }
+
+    report.error(
+      'язык ${language.code} объявлен launched, но нет лексем для '
+      '${blocking.length} концептов (${_head(blocking)})',
+    );
+  }
+}
+
+/// Переводы фраз: без них механика «заполни пропуски» нечем закончить.
+///
+/// Фраза заполняется, проигрывается — и под ней должен проявиться перевод.
+/// Это не украшение: пропуск, заполненный верно, но так и не объяснённый, не
+/// учит ничему, кроме подбора формы.
+void _checkPhraseTranslations(ContentSources sources, _Report report) {
+  final launchedPhrases = sources.phrases
+      .where((p) => sources.launch.isLaunched(p.tier))
+      .map((p) => p.id)
+      .toSet();
+  final all = {for (final p in sources.phrases) p.id};
+
+  for (final language in sources.languages.values) {
+    if (!language.isNative) continue;
+
+    final unknown = language.phraseTranslations.keys
+        .where((id) => !all.contains(id))
+        .toList();
+    if (unknown.isNotEmpty) {
+      report.error(
+        'язык ${language.code}: перевод фразы, которой нет — '
+        '${_head(unknown)}',
+      );
+    }
+
+    _checkTranslationFreshness(sources, language, report);
+
+    final missing = launchedPhrases
+        .where((id) => !language.phraseTranslations.containsKey(id))
+        .toList()
+      ..sort();
+    if (missing.isEmpty) continue;
+
+    final message = 'язык ${language.code}: нет перевода у ${missing.length} '
+        'фраз запущенных ярусов (${_head(missing)})';
+    if (language.isLaunched) {
+      report.error(message);
+    } else {
+      report.pending('$message — язык draft');
+    }
+  }
+}
+
+/// Перевод сделан с того текста, который лежит сейчас.
+///
+/// Отсутствующий перевод виден: его нет. Устаревший не виден никак — он на
+/// месте и выглядит рабочим. Поэтому рядом с переводами лежит замок
+/// `content/lang/<код>.lock` с отпечатком немецкого предложения на момент
+/// перевода, и расхождение означает, что фразу правили после.
+///
+/// Ошибка не гипотетическая. В этом проекте 432 украинских перевода были
+/// сделаны, а следующим действием изменились двадцать семь немецких фраз, и
+/// одна из них — «Die Rechnungsadresse steht auf der Rechnung» → «… kann von
+/// der Lieferadresse abweichen» — сменила смысл целиком. Перевод остался
+/// прежним, и ни одна проверка на это не указала.
+void _checkTranslationFreshness(
+  ContentSources sources,
+  LanguageSource language,
+  _Report report,
+) {
+  final lock = readTranslationLock(
+    translationLockFile('${Directory.current.path}/content', language.code),
+  );
+  if (lock.isEmpty) {
+    if (language.phraseTranslations.isNotEmpty) {
+      report.pending(
+        'язык ${language.code}: замка переводов нет — '
+        'dart run tool/lock_translations.dart --lang ${language.code}',
+      );
+    }
+    return;
+  }
+
+  final byId = {for (final p in sources.phrases) p.id: p};
+  final stale = <String>[];
+  final unlocked = <String>[];
+
+  for (final id in language.phraseTranslations.keys) {
+    final phrase = byId[id];
+    if (phrase == null) continue;
+    final locked = lock[id];
+    if (locked == null) {
+      unlocked.add(id);
+    } else if (locked != phraseFingerprint(phrase)) {
+      stale.add(id);
+    }
+  }
+
+  if (unlocked.isNotEmpty) {
+    report.pending(
+      'язык ${language.code}: ${unlocked.length} переводов без записи в '
+      'замке (${_head(unlocked..sort())})',
+    );
+  }
+  if (stale.isEmpty) return;
+
+  final message = 'язык ${language.code}: у ${stale.length} фраз немецкий '
+      'текст изменился после перевода — перевод описывает не тот текст '
+      '(${_head(stale..sort())})';
+  if (language.isLaunched) {
+    report.error(message);
+  } else {
+    report.pending('$message — язык draft');
+  }
+}
+
+/// Служебное слово живёт только во фразе.
+///
+/// У `sich` нет ни перевода одним словом, ни осмысленного набора вариантов:
+/// круг из него собрать нельзя. Поэтому с таких концептов не требуется
+/// дистракторов — но требуется другое: если служебное слово не входит ни в
+/// одну фразу, оно недостижимо. Это не звезда и не задание, а строка в базе,
+/// которая никогда не покажется игроку.
+void _checkFunctionWords(ContentSources sources, _Report report) {
+  final inPhrases = <String>{
+    for (final p in sources.phrases) ...p.conceptIds,
+  };
+
+  final unreachable = <String>[];
+  for (final concept in sources.concepts.values) {
+    if (!concept.isFunctionWord) continue;
+    if (inPhrases.contains(concept.id)) continue;
+    unreachable.add(concept.id);
+  }
+  if (unreachable.isEmpty) return;
+
+  final blocking = unreachable
+      .where((id) => sources.launch.isLaunched(sources.concepts[id]!.tier))
+      .toList();
+  if (blocking.isNotEmpty) {
+    report.error(
+      'служебные слова запущенного яруса не входят ни в одну фразу и потому '
+      'недостижимы: ${_head(blocking)}',
+    );
+  }
+  final drafted = unreachable.length - blocking.length;
+  if (drafted > 0) {
+    report.pending(
+      '$drafted служебных слов незапущенных ярусов пока не входят ни в одну '
+      'фразу — им нужна фраза, а не дистракторы',
+    );
   }
 }
 
@@ -107,7 +397,13 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
   var draftGaps = 0;
 
   for (final lex in byConcept.values) {
-    final tier = sources.concepts[lex.conceptId]?.tier;
+    final concept = sources.concepts[lex.conceptId];
+    // Со служебного слова дистракторов не требуется: круга из него нет, а
+    // выдумывать «неверные варианты» к `sich` — занятие без смысла и без
+    // конца. Достижимость служебных слов проверяет _checkFunctionWords.
+    if (concept != null && concept.isFunctionWord) continue;
+
+    final tier = concept?.tier;
     final launched = tier != null && sources.launch.isLaunched(tier);
 
     final short = lex.farDistractors.length < minFarDistractors ||
@@ -182,41 +478,73 @@ void _checkNearSoundalike(ContentSources sources, String lang, _Report report) {
   }
 }
 
-/// Размеры созвездий соответствуют ярусам. Размер накопительный: на A2 в
-/// созвездии 48 звёзд, включая 24 с A1.
+/// Созвездие, появившееся на карте, обязано быть созвездием, а не точкой.
+///
+/// Раньше здесь требовалось точное совпадение с накопительными 12/24/48/72/96.
+/// Это правило годилось для девяти тем, написанных под него, и провалилось бы
+/// на словнике из 6000 лемм: у «денег» и «общества» на A0 по одному слову, и
+/// дотягивать их до двенадцати значило бы придумывать A0-лексику там, где её
+/// нет, — то есть портить содержание ради формы.
+///
+/// Порог вместо равенства. Тема ждёт того яруса, на котором ей есть что
+/// показать, и прогрессия из этого получается сама. Ошибка теперь одна и
+/// осмысленная: созвездие показано игроку, а звёзд в нём меньше порога.
 void _checkConstellationSizes(ContentSources sources, _Report report) {
+  final opensAt = <String, String>{};
+
   for (final name in sources.constellations) {
     final byTier = <String, int>{};
-    for (final c in sources.concepts.values) {
+    for (final c in sources.playableConcepts) {
       if (c.constellation != name) continue;
       byTier[c.tier] = (byTier[c.tier] ?? 0) + 1;
     }
     if (byTier.isEmpty) {
-      report.error('созвездие $name: ни одного концепта');
+      report.error('созвездие $name: ни одного играбельного концепта');
       continue;
     }
 
     var cumulative = 0;
+    String? opened;
     for (final tier in tiers) {
-      final added = byTier[tier];
-      if (added == null) {
-        // Ярус ещё не написан — это нормально, пока язык не запущен.
-        continue;
+      cumulative += byTier[tier] ?? 0;
+      if (opened == null && cumulative >= minStarsForConstellation) {
+        opened = tier;
+        opensAt[name] = tier;
       }
-      cumulative += added;
-      final expected = starsPerTier[tier]!;
-      if (cumulative == expected) continue;
+      if (opened == null) continue;
+      // Ярус, на котором созвездие уже видно, а звёзд стало меньше порога,
+      // невозможен: накопительный размер только растёт. Проверять тут нечего
+      // — важно другое, ниже.
+    }
 
-      final message =
-          'созвездие $name, ярус $tier: $cumulative звёзд, ожидается $expected';
-      // С незапущенного яруса полноты не требуем: он пишется постепенно и
-      // блокировать им мерж бессмысленно.
-      if (sources.launch.isLaunched(tier)) {
+    if (opened == null) {
+      final message = 'созвездие $name: за все ярусы набралось $cumulative '
+          'звёзд, порог появления — $minStarsForConstellation';
+      // Созвездие, которое не открывается никогда, — это либо недописанная
+      // тема, либо тема, которой в курсе не место. Ошибка только если её
+      // ярусы объявлены запущенными.
+      final launched = tiers
+          .where((t) => (byTier[t] ?? 0) > 0)
+          .any(sources.launch.isLaunched);
+      if (launched) {
         report.error(message);
       } else {
-        report.pending('$message (ярус не запущен)');
+        report.pending('$message (ярусы не запущены)');
       }
     }
+  }
+
+  // Что открывается на каком ярусе — печатается всегда: это форма курса, и
+  // видеть её при каждой сборке полезнее, чем считать вручную.
+  final byTier = <String, List<String>>{};
+  for (final e in opensAt.entries) {
+    byTier.putIfAbsent(e.value, () => []).add(e.key);
+  }
+  for (final tier in tiers) {
+    final names = byTier[tier];
+    if (names == null) continue;
+    names.sort();
+    report.note('ярус $tier открывает созвездия: ${names.join(', ')}');
   }
 }
 
@@ -255,27 +583,54 @@ void _checkPhraseAnswers(ContentSources sources, String lang, _Report report) {
   if (byConcept == null) return;
 
   for (final phrase in sources.phrases) {
-    for (final conceptId in phrase.conceptIds) {
-      final lex = byConcept[conceptId];
-      if (lex == null) continue;
-      final form = lex.form;
-      final answer = phrase.answer;
-      if (answer == form) continue;
+    final forms = <String, String>{
+      for (final id in phrase.conceptIds)
+        if (byConcept[id] != null) id: byConcept[id]!.form,
+    };
+    if (forms.isEmpty) continue;
 
-      final a = form.toLowerCase();
-      final b = answer.toLowerCase();
-      final shared = commonPrefix(a, b);
-      final drift = (a.length - b.length).abs();
-      // Словоформа сохраняет основу и меняет хвост: Kartoffel / Kartoffeln.
-      // Другое слово либо теряет основу, либо резко меняет длину.
-      if (shared >= a.length - 2 && drift <= 3) continue;
+    // Когда пропусков и концептов одинаково, они соответствуют друг другу по
+    // порядку, и это можно проверить точно. Когда нет — проверяем слабее:
+    // каждый ответ обязан быть формой хоть одного из привязанных слов.
+    final pairwise = phrase.answers.length == phrase.conceptIds.length;
+
+    for (var i = 0; i < phrase.answers.length; i++) {
+      final answer = phrase.answers[i];
+      final candidates = pairwise
+          ? <String, String>{
+              phrase.conceptIds[i]:
+                  forms[phrase.conceptIds[i]] ?? phrase.conceptIds[i],
+            }
+          : forms;
+
+      if (candidates.values.any((form) => _isFormOf(answer, form))) continue;
 
       report.error(
-        'фраза ${phrase.id}: ответ "$answer" не форма слова "$form" '
-        '(концепт $conceptId)',
+        'фраза ${phrase.id}, пропуск ${i + 1}: ответ "$answer" не форма '
+        'слова ${candidates.values.map((f) => '"$f"').join(" / ")} '
+        '(${candidates.keys.join(", ")})',
+      );
+    }
+
+    if (!pairwise && phrase.answers.length > 1) {
+      report.review(
+        'фраза ${phrase.id}: ${phrase.answers.length} пропусков и '
+        '${phrase.conceptIds.length} концептов — соответствие по порядку не '
+        'проверить, перечислите концепты в порядке пропусков',
       );
     }
   }
+}
+
+/// Ответ — словоформа этого слова, а не другое слово.
+///
+/// Словоформа сохраняет основу и меняет хвост: Kartoffel / Kartoffeln. Другое
+/// слово либо теряет основу, либо резко меняет длину.
+bool _isFormOf(String answer, String form) {
+  if (answer == form) return true;
+  final a = form.toLowerCase();
+  final b = answer.toLowerCase();
+  return commonPrefix(a, b) >= a.length - 2 && (a.length - b.length).abs() <= 3;
 }
 
 /// Немецкое множественное образуется от самого слова: суффикс, иногда умлаут,
@@ -493,17 +848,26 @@ void _checkPhraseAmbiguity(
   for (final phrase in sources.phrases) {
     final anchor =
         phrase.conceptIds.isEmpty ? null : byConcept[phrase.conceptIds.first];
-    final options = <String>[
-      ...?anchor?.farDistractors,
-      ...?byTier[phrase.tier]?[phrase.constellation],
-    ];
 
-    final answer = _withoutDerivation(phrase.answer);
-    final clashing = options
-        .where((o) => foldSpelling(o) != foldSpelling(phrase.answer))
-        .where((o) => commonSuffix(answer, _withoutDerivation(o)) >= headLength)
-        .map(foldSpelling)
-        .toSet();
+    // Свои варианты слота вытесняют добор соседями: когда для пропуска
+    // выписаны неверные слова, игрок увидит именно их, и проверять надо их.
+    final clashing = <String>{};
+    for (var slot = 0; slot < phrase.answers.length; slot++) {
+      final own = phrase.optionsFor(slot);
+      final options = own.isNotEmpty
+          ? own
+          : <String>[
+              ...?anchor?.farDistractors,
+              ...?byTier[phrase.tier]?[phrase.constellation],
+            ];
+
+      final expected = phrase.answers[slot];
+      final stem = _withoutDerivation(expected);
+      clashing.addAll(options
+          .where((o) => foldSpelling(o) != foldSpelling(expected))
+          .where((o) => commonSuffix(stem, _withoutDerivation(o)) >= headLength)
+          .map(foldSpelling));
+    }
 
     if (clashing.isEmpty) {
       // Отметка осталась от прежней редакции фразы: она больше ничего не
@@ -520,8 +884,8 @@ void _checkPhraseAmbiguity(
 
     final message =
         'фраза ${phrase.id}: вариант ${clashing.join(", ")} имеет ту же '
-        'вершину, что ответ "${phrase.answer}", и может встать в тот же '
-        'пропуск';
+        'вершину, что ответ ${phrase.answers.map((a) => '"$a"').join(" / ")}, '
+        'и может встать в тот же пропуск';
     // Как и с полнотой дистракторов: с запущенного яруса спрос полный, с
     // невычитанного — список на потом. Иначе проверка блокировала бы мерж за
     // работу, которая и не объявлена законченной.
@@ -585,8 +949,8 @@ void _checkPhraseRegister(ContentSources sources, _Report report) {
   }
 }
 
-/// Фразы ссылаются на существующие концепты, и ответ действительно
-/// подставляется в шаблон.
+/// Фразы ссылаются на существующие концепты, шаблон имеет пропуски, и ответ
+/// в самом шаблоне не подсказан.
 void _checkPhrases(ContentSources sources, _Report report) {
   final ids = <String>{};
   for (final p in sources.phrases) {
@@ -597,8 +961,40 @@ void _checkPhrases(ContentSources sources, _Report report) {
         report.error('фраза ${p.id}: нет концепта $conceptId');
       }
     }
-    if (!p.template.contains('{')) {
+    if (p.conceptIds.isEmpty) {
+      report.error(
+        'фраза ${p.id}: не привязана ни к одному концепту — такая фраза не '
+        'зажигает ни одной звезды и не попадает ни в один уровень',
+      );
+    }
+    if (phraseSlotCount(p.template) == 0) {
       report.error('фраза ${p.id}: в шаблоне нет слота {…}');
+    }
+
+    // Ответ, стоящий в шаблоне открытым текстом, превращает пропуск в
+    // упражнение на списывание. Проверяется без учёта регистра, но целыми
+    // словами: «Ich habe Hunger und {hunger}» — ошибка, а «Handy» внутри
+    // «Handynummer» — нет.
+    for (final answer in p.answers) {
+      if (answer.length < 4) continue;
+      final visible = phraseWithGaps(p.template);
+      final word = RegExp(
+        r'(?<![\p{L}])' + RegExp.escape(answer) + r'(?![\p{L}])',
+        caseSensitive: false,
+        unicode: true,
+      );
+      if (!word.hasMatch(visible)) continue;
+      report.error(
+        'фраза ${p.id}: ответ "$answer" стоит в шаблоне открытым текстом',
+      );
+    }
+
+    // Пустой слот в собранном предложении означает, что шаблон и ответы
+    // разошлись, а это игрок увидит как «…» посреди фразы.
+    if (phraseSpeech(p.template, p.answers).contains('…')) {
+      report.error(
+        'фраза ${p.id}: пропусков в шаблоне больше, чем ответов',
+      );
     }
   }
 }
@@ -708,11 +1104,20 @@ class _Report {
   /// Осознанно не сделанное: приходит с будущей вехой.
   final List<String> pendings = [];
 
+  /// Не проблема, а форма контента: что открывается на каком ярусе, сколько
+  /// покрывает язык. Печатается затем, чтобы это было видно при каждой
+  /// сборке, а не считалось руками.
+  final List<String> notes = [];
+
   void error(String message) => errors.add(message);
   void review(String message) => reviews.add(message);
   void pending(String message) => pendings.add(message);
+  void note(String message) => notes.add(message);
 
   void print(String lang) {
+    for (final n in notes) {
+      stdout.writeln('· $n');
+    }
     for (final p in pendings) {
       stdout.writeln('… $p');
     }
@@ -735,6 +1140,19 @@ class _Report {
 
 
 
+
+/// Языки, у которых в `launch.yaml` есть секция.
+///
+/// Читается отдельным разбором: `LaunchPolicy.read` берёт один язык за раз и
+/// про остальные ничего не знает — а именно это и надо проверить.
+Set<String> _languagesInLaunchFile(File file) {
+  final doc = loadYaml(file.readAsStringSync());
+  if (doc is! YamlMap) return const {};
+  return {
+    for (final key in doc.keys)
+      if (doc[key] is YamlMap) '$key',
+  };
+}
 
 String _head(List<String> items, [int limit = 5]) {
   final shown = items.take(limit).join(', ');

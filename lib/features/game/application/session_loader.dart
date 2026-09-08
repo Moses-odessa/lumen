@@ -7,6 +7,7 @@ import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/entities/part_of_speech.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
@@ -125,11 +126,23 @@ class SessionLoader {
   }
 
   /// Слова яруса, которых игрок ещё не видел, в порядке частотности.
+  ///
+  /// Берутся только те, у которых форма есть **в обоих** языках пары. Это и
+  /// есть то, что делает неполный язык безопасным: раньше нехватку закрывал
+  /// английский, и украинский игрок получал в круге английское слово. Это не
+  /// мягкая деградация, а другой вопрос вместо заданного. Теперь неполнота
+  /// означает меньше слов, а не чужие.
   Future<List<StudyItem>> _freshWords(Set<String> known) async {
-    final concepts = await builder.content.conceptsUpTo(tier);
+    final concepts = await builder.content.playableConcepts(
+      targetLang: builder.targetLang,
+      nativeLang: builder.nativeLang,
+      upTo: tier,
+    );
     return [
       for (final concept in concepts)
-        if (!known.contains(concept.id))
+        // Служебные слова не становятся звёздами: круга из них нет. Они
+        // живут только в механиках с пропуском.
+        if (!known.contains(concept.id) && !isFunctionWord(concept.pos))
           StudyItem(
             itemId: concept.id,
             tier: Tier.fromCode(concept.tier),

@@ -140,6 +140,25 @@ class CustomConcepts extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+/// Отложенное обслуживание базы: что миграция попросила сделать, но сделать
+/// в момент миграции не могла.
+///
+/// Таблица на две колонки нужна ровно потому, что миграции `user.db` не
+/// видно `content.db`: базы отдельные, контентную открывают по языку изучения
+/// и копируют из ассетов уже после старта. Помеченная работа выполняется
+/// первым же запуском, когда оба файла открыты, и метка снимается.
+@DataClassName('MaintenanceRow')
+class Maintenance extends Table {
+  TextColumn get key => text()();
+  TextColumn get value => text()();
+
+  @override
+  Set<Column> get primaryKey => {key};
+}
+
+/// Метка «нужно вычистить единицы памяти, которых нет в контенте».
+const String pendingItemSweep = 'pending_item_sweep';
+
 /// Пользовательская база. Единственная в проекте, которая мигрирует:
 /// контент лежит в отдельной read-only `content.db` и заменяется целиком.
 @DriftDatabase(tables: [
@@ -149,13 +168,14 @@ class CustomConcepts extends Table {
   ConstellationProgress,
   Sessions,
   CustomConcepts,
+  Maintenance,
 ])
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor])
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 5;
+  int get schemaVersion => 6;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -204,8 +224,73 @@ class AppDatabase extends _$AppDatabase {
             await m.addColumn(sessions, sessions.climbId);
             await m.addColumn(sessions, sessions.climbLevel);
           }
+          if (from < 6) {
+            // Контент переехал: концепты живут в content/concepts/, часть
+            // идентификаторов сменилась. Строки памяти о словах, которых в
+            // контенте больше нет, — это не прогресс, а очередь повторений
+            // на пустоту.
+            //
+            // Сама чистка здесь не выполняется, и не может: `user.db` и
+            // `content.db` — две отдельные базы с отдельными исполнителями,
+            // а контентную ещё и открывают по языку изучения, скопировав из
+            // ассетов уже после старта. Узнать отсюда, существует ли
+            // `item_id`, нечем. Поэтому миграция только помечает, что
+            // чистка нужна, а делает её [sweepUnknownItems] после того, как
+            // контентная база открыта.
+            await m.createTable(maintenance);
+            await into(maintenance).insertOnConflictUpdate(
+              MaintenanceCompanion.insert(
+                key: pendingItemSweep,
+                value: 'v6',
+              ),
+            );
+          }
         },
       );
+
+  // ── Обслуживание ────────────────────────────────────────────────────────
+
+  /// Ждёт ли база чистки единиц памяти.
+  Future<bool> needsItemSweep() async {
+    final row = await (select(maintenance)
+          ..where((t) => t.key.equals(pendingItemSweep)))
+        .getSingleOrNull();
+    return row != null;
+  }
+
+  /// Убирает память о словах и фразах, которых в контенте больше нет.
+  ///
+  /// [known] — идентификаторы, существующие в контентной базе: концепты плюс
+  /// фразы. Проверять по `word_states.kind` нельзя: колонка добавлена для
+  /// фраз, но её никто не пишет — все строки лежат со значением по умолчанию
+  /// `word`, включая те, чей `item_id` на самом деле идентификатор фразы.
+  /// Поэтому принадлежность определяется членством в объединении, а не типом.
+  ///
+  /// Возвращает, сколько строк убрано. Ноль — нормальный результат: у игрока,
+  /// который начал играть после переезда контента, чистить нечего.
+  ///
+  /// Пустой [known] игнорируется: это означает, что контентная база не
+  /// открылась, а не что контент опустел. Снести всю память игрока из-за
+  /// неудачного чтения ассета — цена, несопоставимая с задачей.
+  Future<int> sweepUnknownItems(Set<String> known) async {
+    if (known.isEmpty) return 0;
+
+    final stale = (await select(wordStates).get())
+        .map((r) => r.itemId)
+        .where((id) => !known.contains(id))
+        .toSet();
+
+    await transaction(() async {
+      if (stale.isNotEmpty) {
+        await (delete(wordStates)..where((t) => t.itemId.isIn(stale))).go();
+        await (delete(reviews)..where((t) => t.itemId.isIn(stale))).go();
+      }
+      await (delete(maintenance)
+            ..where((t) => t.key.equals(pendingItemSweep)))
+          .go();
+    });
+    return stale.length;
+  }
 
   // ── Игрок ───────────────────────────────────────────────────────────────
 

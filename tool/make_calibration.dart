@@ -27,7 +27,7 @@ const _wordsPerTier = 26;
 const _phrasesPerTier = 4;
 
 Future<void> main(List<String> args) async {
-  final lang = _argValue(args, '--lang') ?? targetLang;
+  final lang = _argValue(args, '--lang') ?? defaultTargetLang;
   final root = Directory.current;
 
   final ContentSources sources;

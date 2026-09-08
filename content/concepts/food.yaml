@@ -1,0 +1,119 @@
+# Созвездие «Еда» — базовая бытовая тема.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: food
+tiers:
+  a0:
+    concepts:
+      - { id: bread_food, pos: noun, freq_rank: 1870 }
+      - { id: water_drink, pos: noun, freq_rank: 610 }
+      - { id: milk_drink, pos: noun, freq_rank: 2450 }
+      - { id: coffee_drink, pos: noun, freq_rank: 2180 }
+      - { id: apple_food, pos: noun, freq_rank: 3240 }
+      - { id: meat_food, pos: noun, freq_rank: 2760 }
+      - { id: fish_food, pos: noun, freq_rank: 2090 }
+      - { id: soup_food, pos: noun, freq_rank: 3510 }
+      - { id: salt_food, pos: noun, freq_rank: 3020 }
+      - { id: sugar_food, pos: noun, freq_rank: 3380 }
+      - { id: hunger_noun, pos: noun, freq_rank: 2640 }
+      - { id: restaurant_place, pos: noun, freq_rank: 1930 }
+  a1:
+    concepts:
+      - { id: breakfast_meal, pos: noun, freq_rank: 3120 }
+      - { id: lunch_meal, pos: noun, freq_rank: 3450 }
+      - { id: dinner_meal, pos: noun, freq_rank: 3280 }
+      - { id: plate_object, pos: noun, freq_rank: 4210 }
+      - { id: glass_object, pos: noun, freq_rank: 2380 }
+      - { id: fork_object, pos: noun, freq_rank: 5140 }
+      - { id: knife_object, pos: noun, freq_rank: 3960 }
+      - { id: spoon_object, pos: noun, freq_rank: 5320 }
+      - { id: cheese_food, pos: noun, freq_rank: 3870 }
+      - { id: butter_food, pos: noun, freq_rank: 4090 }
+      - { id: egg_food, pos: noun, freq_rank: 3640 }
+      - { id: vegetable_food, pos: noun, freq_rank: 3790 }
+  a2:
+    concepts:
+      - { id: fruit_food, pos: noun, freq_rank: 3410 }
+      - { id: potato_food, pos: noun, freq_rank: 4120 }
+      - { id: rice_food, pos: noun, freq_rank: 4380 }
+      - { id: pasta_food, pos: noun, freq_rank: 4760 }
+      - { id: chicken_food, pos: noun, freq_rank: 4210 }
+      - { id: beef_food, pos: noun, freq_rank: 5140 }
+      - { id: pork_food, pos: noun, freq_rank: 5320 }
+      - { id: sausage_food, pos: noun, freq_rank: 3980 }
+      - { id: sauce_food, pos: noun, freq_rank: 4890 }
+      - { id: pepper_food, pos: noun, freq_rank: 5060 }
+      - { id: oil_food, pos: noun, freq_rank: 3640 }
+      - { id: flour_food, pos: noun, freq_rank: 5480 }
+      - { id: cake_food, pos: noun, freq_rank: 4030 }
+      - { id: chocolate_food, pos: noun, freq_rank: 4570 }
+      - { id: icecream_food, pos: noun, freq_rank: 4940 }
+      - { id: juice_drink, pos: noun, freq_rank: 4260 }
+      - { id: tea_drink, pos: noun, freq_rank: 3520 }
+      - { id: beer_drink, pos: noun, freq_rank: 3170 }
+      - { id: wine_drink, pos: noun, freq_rank: 3060 }
+      - { id: menu_object, pos: noun, freq_rank: 5210 }
+      - { id: waiter_person, pos: noun, freq_rank: 4830 }
+      - { id: bill_noun, pos: noun, freq_rank: 3290 }
+      - { id: order_noun, pos: noun, freq_rank: 3750 }
+      - { id: tip_noun, pos: noun, freq_rank: 5390 }
+  b1:
+    concepts:
+      - { id: ingredient_noun, pos: noun, freq_rank: 5240 }
+      - { id: recipe_noun, pos: noun, freq_rank: 4870 }
+      - { id: pan_object, pos: noun, freq_rank: 5610 }
+      - { id: pot_object, pos: noun, freq_rank: 5430 }
+      - { id: starter_food, pos: noun, freq_rank: 6120 }
+      - { id: maincourse_food, pos: noun, freq_rank: 5890 }
+      - { id: dessert_food, pos: noun, freq_rank: 5340 }
+      - { id: portion_noun, pos: noun, freq_rank: 4760 }
+      - { id: sidedish_food, pos: noun, freq_rank: 6340 }
+      - { id: spice_food, pos: noun, freq_rank: 5180 }
+      - { id: garlic_food, pos: noun, freq_rank: 5920 }
+      - { id: onion_food, pos: noun, freq_rank: 5470 }
+      - { id: mushroom_food, pos: noun, freq_rank: 5760 }
+      - { id: bean_food, pos: noun, freq_rank: 5610 }
+      - { id: lentil_food, pos: noun, freq_rank: 6580 }
+      - { id: wholegrain_food, pos: noun, freq_rank: 6710 }
+      - { id: groceries_noun, pos: noun, freq_rank: 4390 }
+      - { id: shelflife_noun, pos: noun, freq_rank: 6240 }
+      - { id: preparation_noun, pos: noun, freq_rank: 5060 }
+      - { id: taste_noun, pos: noun, freq_rank: 3870 }
+      - { id: nutrition_noun, pos: noun, freq_rank: 4520 }
+      - { id: cookingtime_noun, pos: noun, freq_rank: 6890 }
+      - { id: freshness_noun, pos: noun, freq_rank: 6030 }
+      - { id: coldchain_noun, pos: noun, freq_rank: 7420 }
+  b2:
+    concepts:
+      - { id: nutritionalvalue_noun, pos: noun, freq_rank: 6840 }
+      - { id: calorie_noun, pos: noun, freq_rank: 5210 }
+      - { id: protein_noun, pos: noun, freq_rank: 5670 }
+      - { id: carbohydrate_noun, pos: noun, freq_rank: 6390 }
+      - { id: fibre_noun, pos: noun, freq_rank: 6910 }
+      - { id: preservative_noun, pos: noun, freq_rank: 7240 }
+      - { id: additive_noun, pos: noun, freq_rank: 6580 }
+      - { id: labelling_noun, pos: noun, freq_rank: 6120 }
+      - { id: intolerance_noun, pos: noun, freq_rank: 6740 }
+      - { id: allergen_noun, pos: noun, freq_rank: 7060 }
+      - { id: lactose_noun, pos: noun, freq_rank: 6470 }
+      - { id: gluten_noun, pos: noun, freq_rank: 6350 }
+      - { id: organicproduct_noun, pos: noun, freq_rank: 5930 }
+      - { id: countryoforigin_noun, pos: noun, freq_rank: 6280 }
+      - { id: bestbefore_noun, pos: noun, freq_rank: 7380 }
+      - { id: supplychain_noun, pos: noun, freq_rank: 6030 }
+      - { id: producer_person, pos: noun, freq_rank: 5480 }
+      - { id: wholesale_noun, pos: noun, freq_rank: 6160 }
+      - { id: retail_noun, pos: noun, freq_rank: 5740 }
+      - { id: consumerprotection_noun, pos: noun, freq_rank: 6620 }
+      - { id: foodlaw_noun, pos: noun, freq_rank: 7510 }
+      - { id: hygienerule_noun, pos: noun, freq_rank: 7190 }
+      - { id: sustainability_noun, pos: noun, freq_rank: 5360 }
+      - { id: regionality_noun, pos: noun, freq_rank: 7620 }
