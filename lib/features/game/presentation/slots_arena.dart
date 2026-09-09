@@ -245,6 +245,11 @@ class _SlotsArenaState extends State<SlotsArena> {
                     placed: _placed,
                     onDrop: _drop,
                     enabled: active,
+                    // Какой пропуск заполнит нажатие. Порядок «слева
+                    // направо» игрок должен видеть, а не выводить: пустые
+                    // пропуски рисовались одинаково, и на трёх и более
+                    // угадать, куда попадёт следующий тап, было нельзя.
+                    next: active ? _nextSlot : null,
                   ),
                   if (hint.isNotEmpty) ...[
                     const SizedBox(height: 10),
@@ -466,12 +471,16 @@ class _Template extends StatelessWidget {
     required this.placed,
     required this.onDrop,
     required this.enabled,
+    this.next,
   });
 
   final CircleQuestion question;
   final Map<int, int> placed;
   final void Function(int slot, _DragWord word) onDrop;
   final bool enabled;
+
+  /// Пропуск, который заполнит нажатие: он подсвечен.
+  final int? next;
 
   @override
   Widget build(BuildContext context) {
@@ -499,6 +508,7 @@ class _Template extends StatelessWidget {
                 child: _SlotTarget(
                   key: ValueKey('phrase-slot-$i'),
                   slot: i,
+                  armed: next == i,
                   text: placed.containsKey(i)
                       ? question.options[placed[i]!]
                       : null,
@@ -525,10 +535,14 @@ class _SlotTarget extends StatelessWidget {
     required this.option,
     required this.enabled,
     required this.onDrop,
+    this.armed = false,
   });
 
   final int slot;
   final String? text;
+
+  /// Сюда встанет слово, если игрок нажмёт на плитку, а не принесёт её.
+  final bool armed;
 
   /// Что здесь стоит — чтобы это можно было потащить дальше.
   final int? option;
@@ -543,7 +557,11 @@ class _SlotTarget extends StatelessWidget {
           enabled && details.data.fromSlot != slot,
       onAcceptWithDetails: (details) => onDrop(slot, details.data),
       builder: (context, candidate, rejected) {
-        final slotWidget = _Slot(text: text, highlight: candidate.isNotEmpty);
+        final slotWidget = _Slot(
+          text: text,
+          highlight: candidate.isNotEmpty,
+          armed: armed,
+        );
         final filled = option;
         if (!enabled || filled == null) return slotWidget;
 
@@ -561,12 +579,15 @@ class _SlotTarget extends StatelessWidget {
 
 /// Одно место под слово: пустое или заполненное.
 class _Slot extends StatelessWidget {
-  const _Slot({this.text, this.highlight = false});
+  const _Slot({this.text, this.highlight = false, this.armed = false});
 
   final String? text;
 
   /// Над пропуском держат слово: он должен показать, что примет его.
   final bool highlight;
+
+  /// Пропуск на очереди у нажатия — подсвечен слабее, чем под пальцем.
+  final bool armed;
 
   @override
   Widget build(BuildContext context) {
@@ -587,9 +608,11 @@ class _Slot extends StatelessWidget {
           color: LumenPalette.constellationLine.withValues(
             alpha: highlight
                 ? 0.9
-                : filled
-                    ? 0.5
-                    : 0.3,
+                : armed
+                    ? 0.65
+                    : filled
+                        ? 0.5
+                        : 0.3,
           ),
           width: highlight ? 2 : 1,
         ),
