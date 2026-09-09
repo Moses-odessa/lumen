@@ -54,19 +54,18 @@ void main() {
   group('ScoreBalance', () {
     test('множитель растёт вместе со сложностью механики', () {
       // Порядок перечислен руками, а не взят из enum: enum идёт по букве из
-      // docs (a–f), а дорожает игра иначе — понять на слух дешевле, чем
+      // docs (a–e), а дорожает игра иначе — понять на слух дешевле, чем
       // выбрать форму на изучаемом. Прежняя верхушка «Набор» (2.0) удалена
       // вместе с полем ввода, и её место занял buildPhrase.
       final ordered = [
         GameMode.pickNative,
         GameMode.listenNative,
         GameMode.pickTarget,
-        GameMode.listenTarget,
         GameMode.fillGaps,
         GameMode.buildPhrase,
       ];
-      // Иначе седьмая механика проехала бы мимо проверки: её просто не было
-      // бы в списке, и порядок остался бы «упорядоченным».
+      // Иначе новая механика проехала бы мимо проверки: её просто не было бы
+      // в списке, и порядок остался бы «упорядоченным».
       expect(ordered.toSet(), GameMode.values.toSet(),
           reason: 'механика без места в порядке цены');
       for (var i = 1; i < ordered.length; i++) {
@@ -155,8 +154,14 @@ void main() {
         final dearer = ScoreBalance.modeLumenRange(byPrice[i]);
         expect(dearer.min, greaterThan(cheaper.min),
             reason: '${byPrice[i].name} дороже, но начинается не позже');
-        expect(dearer.max, greaterThan(cheaper.max),
-            reason: '${byPrice[i].name} дороже, но кончается не позже');
+        // Конец диапазона проверяется нестрого: у двух самых дорогих
+        // словесных механик он общий — потолок неба. Вопрос на слух остался
+        // в игре один и обязан доставать до самых ярких звёзд, иначе
+        // выученное слово больше никогда не звучит вопросом. Планировщику
+        // достаточно порядка начал: где подходят обе, он берёт стоящую
+        // дальше в своём списке, то есть дорогую.
+        expect(dearer.max, greaterThanOrEqualTo(cheaper.max),
+            reason: '${byPrice[i].name} дороже, но кончается раньше');
       }
     });
 

@@ -133,10 +133,12 @@ abstract final class StageRules {
             GameMode.pickTarget,
             GameMode.listenNative,
           },
-        LevelStage.check => const {
-            GameMode.pickTarget,
-            GameMode.listenTarget,
-          },
+        // Проверка спрашивает только воспроизведение: этап решает, знает ли
+        // игрок слово настолько, чтобы выдать его, а не узнать. Вопрос на
+        // слух отсюда ушёл вместе с `listenTarget` — тот был продуктивным
+        // (варианты на изучаемом), а оставшийся `listenNative` спрашивает
+        // узнавание, и проверять им нечего.
+        LevelStage.check => const {GameMode.pickTarget},
         // Напоминание не сужает набор: слова здесь разной яркости, и выбор
         // механики — работа планировщика.
         LevelStage.reminder => null,

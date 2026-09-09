@@ -54,7 +54,6 @@ void main() {
         GameMode.pickNative,
         GameMode.pickTarget,
         GameMode.listenNative,
-        GameMode.listenTarget,
       ]) {
         final q = question(mode: mode, answerIndex: 2);
         expect(q.isSingleSlot, isTrue, reason: mode.name);

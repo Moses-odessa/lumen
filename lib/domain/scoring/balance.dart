@@ -91,11 +91,15 @@ abstract final class ScoreBalance {
   /// «Набор» стоил 2.0; его место в верхушке занял [GameMode.buildPhrase],
   /// потому что это единственная оставшаяся механика, где порядок слов надо
   /// восстановить, а не выбрать.
+  ///
+  /// `listenTarget` стоил 1.9 и стоял между `pickTarget` и фразой. Механики
+  /// больше нет, и в лестнице теперь нет ступени между «произвести слово» и
+  /// «собрать предложение» — так и должно быть: узнавание на слух дороже
+  /// узнавания с текста, но производством оно не становится.
   static double modeMultiplier(GameMode mode) => switch (mode) {
         GameMode.pickNative => 1.0,
         GameMode.listenNative => 1.4,
         GameMode.pickTarget => 1.6,
-        GameMode.listenTarget => 1.9,
         GameMode.fillGaps => 2.2,
         GameMode.buildPhrase => 2.5,
       };
@@ -108,12 +112,24 @@ abstract final class ScoreBalance {
   /// у них всё равно заданы, потому что проверка требует их от каждой
   /// механики: пустой диапазон означал бы механику, которую нельзя выбрать
   /// никогда.
+  /// Верхний конец шкалы держит [GameMode.pickTarget]: до 75 lm там стоял он,
+  /// а выше — `listenTarget`. Механики больше нет, и потолок пришлось поднять
+  /// до 100, иначе яркое слово не попадало ни в один диапазон и планировщик
+  /// уходил в запасной путь — то есть самое выученное слово спрашивалось бы
+  /// самой дешёвой механикой.
+  ///
+  /// Вопрос на слух заодно поднят с 55 до 100 — он стал единственной
+  /// механикой со звуком, и запирать его в тусклой половине неба значило бы,
+  /// что выученное слово больше никогда не звучит вопросом. Раньше выше 55 lm
+  /// звук спрашивал `listenTarget`; теперь спрашивать некому.
+  ///
+  /// Держать его выше потолка узнавания законно: под потолок слух больше не
+  /// попадает — см. `ScoreRules.scores`.
   static ({Lumens min, Lumens max}) modeLumenRange(GameMode mode) =>
       switch (mode) {
         GameMode.pickNative => (min: 0, max: 30),
-        GameMode.listenNative => (min: 20, max: 55),
-        GameMode.pickTarget => (min: 25, max: 75),
-        GameMode.listenTarget => (min: 50, max: 100),
+        GameMode.listenNative => (min: 20, max: 100),
+        GameMode.pickTarget => (min: 25, max: 100),
         GameMode.fillGaps => (min: 0, max: 100),
         GameMode.buildPhrase => (min: 0, max: 100),
       };

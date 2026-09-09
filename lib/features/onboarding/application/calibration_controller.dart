@@ -80,6 +80,17 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     await _record(question, question.acceptsSlots(bySlot), latency);
   }
 
+  /// Проигрывает центр сам, как только круг открылся.
+  ///
+  /// В калибровке это важнее, чем в забеге: тест мерит не только правильность,
+  /// но и время ответа. Пока слово надо было сначала добыть нажатием на
+  /// динамик, в это время попадала догадка «как вообще услышать задание» — на
+  /// первом же экране приложения, у игрока, который видит его впервые.
+  void _speakPrompt() {
+    final text = state.question?.promptSpeech;
+    if (text != null) ref.read(speechServiceProvider).speak(text);
+  }
+
   /// Проигрывает центр заново — механики на слух.
   void replayPrompt() {
     final text = state.question?.promptSpeech;
@@ -149,6 +160,7 @@ class CalibrationController extends Notifier<CalibrationUiState> {
         calibration: state.calibration,
         question: question,
       );
+      _speakPrompt();
     } catch (e) {
       state = CalibrationUiState(
         calibration: state.calibration,

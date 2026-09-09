@@ -296,14 +296,17 @@ void main() {
       // Митигация «узнавание вместо владения» сильнее аркады: на ярком
       // слове узнавание не приносит очков ни на каком уровне.
       //
-      // Непроизводящих механик теперь **две**: понимание проверяется и с
-      // текста, и со слуха. Поэтому перечисляются не имена, а признак —
-      // иначе третья такая механика появилась бы без проверки.
-      final nonProductive =
-          GameMode.values.where((m) => !m.isProductive).toList();
-      expect(nonProductive, hasLength(2));
+      // Перечисляется не имя, а признак — «механика, которой на этой яркости
+      // не платят», — иначе следующая такая появилась бы без проверки.
+      // Признак этот больше не совпадает с «непроизводящая»: вопрос на слух
+      // непроизводящий, но потолок узнавания его не режет, потому что
+      // написание на слух не показывают.
+      final unpaid = GameMode.values
+          .where((m) => !ScoreRules.scores(m, 90))
+          .toList();
+      expect(unpaid, [GameMode.pickNative]);
 
-      for (final mode in nonProductive) {
+      for (final mode in unpaid) {
         final result = ScoreRules.scoreConnection(
           correct: true,
           latency: const Duration(milliseconds: 500),

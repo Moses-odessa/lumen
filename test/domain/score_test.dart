@@ -231,7 +231,6 @@ void main() {
         GameMode.pickNative,
         GameMode.listenNative,
         GameMode.pickTarget,
-        GameMode.listenTarget,
         GameMode.fillGaps,
         GameMode.buildPhrase,
       ];
@@ -274,14 +273,15 @@ void main() {
       expect(result.score, greaterThan(0));
     });
 
-    test('потолок узнавания режет обе непроизводящие механики', () {
-      // Непроизводящих механик теперь две, а не одна: понимание проверяется
-      // и с текста (pickNative), и со слуха (listenNative). Если потолок
-      // накрыл бы только одну, вторая стала бы тем самым способом фармить
-      // лёгкое на выученном, от которого потолок и придуман.
-      final passive = GameMode.values.where((m) => !m.isProductive);
-      expect(passive, hasLength(greaterThan(1)));
-      for (final mode in passive) {
+    test('потолок узнавания не обходится ни комбо, ни скоростью', () {
+      // Проверяется, что ноль — это именно ноль: ни серия из десяти связей,
+      // ни быстрый ответ не пробивают потолок. Иначе фарм лёгкого на
+      // выученном вернулся бы через множители, от которых потолок и
+      // придуман.
+      final capped =
+          GameMode.values.where((m) => !ScoreRules.scores(m, 100));
+      expect(capped, isNotEmpty);
+      for (final mode in capped) {
         expect(
           ScoreRules.scoreConnection(
             correct: true,
@@ -300,18 +300,31 @@ void main() {
       for (final mode in GameMode.values.where((m) => m.isProductive)) {
         expect(ScoreRules.scores(mode, 100), isTrue, reason: '$mode');
       }
-      for (final mode in GameMode.values.where((m) => !m.isProductive)) {
-        expect(ScoreRules.scores(mode, 100), isFalse, reason: '$mode');
-      }
+      // Обратное утверждение — «непродуктивные не приносят» — переехало в
+      // «потолок режет узнавание с текста, а не со слуха»: оно перестало
+      // быть верным для звука.
     });
 
-    test('слух делится по производству, а не по наличию звука', () {
-      // Прежний «Слух» был одним режимом и попадал под потолок целиком.
-      // Теперь звук стоит по обе стороны деления, и потолок обязан резать
-      // ровно ту половину, где ответ выбирают на родном языке: различить
-      // созвучное на изучаемом — это уже владение, за него платят.
-      expect(ScoreRules.scores(GameMode.listenNative, 100), isFalse);
-      expect(ScoreRules.scores(GameMode.listenTarget, 100), isTrue);
+    test('потолок режет узнавание с текста, а не со слуха', () {
+      // Правило было «звук стоит по обе стороны деления, и потолок режет ту
+      // половину, где варианты на родном»: платный вопрос на слух в игре был,
+      // просто это был `listenTarget` с вариантами на изучаемом. Механику
+      // удалили — варианты на слух всегда на родном, — и прежнее правило
+      // оставило бы слух без оплаты выше 40 lm вообще.
+      //
+      // Цифры при этом сходятся в мёртвую точку: `speedBonusMinLm` и
+      // `recognitionScoreCapLm` равны 40 и зажимают слух с двух сторон. Ниже
+      // 40 скоростного множителя нет, от 40 не было бы очков — то есть
+      // «переслушивание снимает скорость» не срабатывало бы никогда.
+      expect(ScoreRules.scores(GameMode.listenNative, 100), isTrue);
+      expect(ScoreRules.scores(GameMode.pickTarget, 100), isTrue);
+
+      // Под потолком осталось ровно одно: узнавание слова, которое показали
+      // написанным. Именно там «знаю по написанию» и превращается в фарм.
+      final capped = GameMode.values
+          .where((m) => !ScoreRules.scores(m, ScoreBalance.recognitionScoreCapLm))
+          .toList();
+      expect(capped, [GameMode.pickNative]);
     });
   });
 

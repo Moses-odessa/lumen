@@ -99,13 +99,17 @@ void main() {
       expect(SessionPlanner.modeFor(5), GameMode.pickNative);
       expect(SessionPlanner.modeFor(22), GameMode.listenNative);
       expect(SessionPlanner.modeFor(40), GameMode.pickTarget);
-      expect(SessionPlanner.modeFor(90), GameMode.listenTarget);
+      // На 90 lm стоял `listenTarget`; механики больше нет, и верхнюю
+      // ступень занял `pickTarget` — потолок его диапазона поднят до 100
+      // ровно затем, чтобы самое выученное слово не спрашивалось самой
+      // дешёвой механикой.
+      expect(SessionPlanner.modeFor(90), GameMode.pickTarget);
     });
 
     test('без озвучки механики на слух не выбираются', () {
       final mode = SessionPlanner.modeFor(75, hasAudio: false);
-      // Проверяем свойство, а не имя: механик на слух две, и обе одинаково
-      // непоказуемы без записи.
+      // Проверяем свойство, а не имя: механика на слух одна, но признак
+      // остаётся признаком — непоказуема без голоса любая из них.
       expect(mode.needsAudio, isFalse);
     });
 
@@ -148,7 +152,7 @@ void main() {
       final random = Random(7);
       final seen = {
         for (var i = 0; i < 100; i++)
-          SessionPlanner.modeFor(65, random: random),
+          SessionPlanner.modeFor(28, random: random),
       };
       expect(seen.length, greaterThan(1));
     });
@@ -188,7 +192,7 @@ void main() {
       final mode = SessionPlanner.modeFor(
         70,
         capabilities: silent,
-        allowed: const {GameMode.listenNative, GameMode.listenTarget},
+        allowed: const {GameMode.listenNative},
       );
       // Разрешённого не осталось ничего: показать нечего, и притворяться
       // нечем — но круг без задания хуже, чем круг проще запрошенного.
@@ -468,7 +472,7 @@ void main() {
         now: now,
       );
       expect(plan.first.mode, GameMode.pickNative);
-      expect(plan.last.mode, GameMode.listenTarget);
+      expect(plan.last.mode, GameMode.pickTarget);
     });
   });
 

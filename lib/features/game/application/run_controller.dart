@@ -166,6 +166,9 @@ class RunController extends Notifier<RunState> {
   }) {
     _advanceTimer?.cancel();
     _lmGained = 0;
+    // Флаг переслушивания живёт на круге, а не на забеге: без сброса новый
+    // забег наследовал бы его с последнего круга предыдущего.
+    _replayed = false;
     // У спринта время своё: планка в связях, а срок — в цели.
     final limit = goal?.duration ?? maxDuration;
     _deadline = limit == null ? null : DateTime.now().add(limit);
@@ -202,6 +205,7 @@ class RunController extends Notifier<RunState> {
       'stage': stage?.name ?? '',
     });
     _preloadNext();
+    _speakPrompt();
   }
 
   /// Сколько кругов задано — для точности уровня целиком.
@@ -335,6 +339,7 @@ class RunController extends Notifier<RunState> {
       lastCorrect: () => null,
     );
     _preloadNext();
+    _speakPrompt();
   }
 
   /// Время Восхода вышло. Проверяется между кругами, а не по таймеру:
@@ -353,7 +358,24 @@ class RunController extends Notifier<RunState> {
     unawaited(ref.read(speechServiceProvider).status());
   }
 
-  /// Проигрывает центр в режиме «Слух».
+  /// Проигрывает центр сам, как только круг открылся.
+  ///
+  /// Механика на слух без этого начиналась тишиной: игрок видел динамик и
+  /// должен был сообразить, что по нему надо нажать. Задание — узнать слово
+  /// на слух, а не догадаться, как его услышать.
+  ///
+  /// И это же чинит скоростной множитель. `replayPrompt` ставит «переслушал»
+  /// на каждом нажатии, включая первое, — а услышать слово иначе было нельзя,
+  /// то есть множитель на «Слухе» терялся **всегда**, вопреки собственному
+  /// правилу «его снимает переслушивание». Теперь первый раз играет игра, и
+  /// снимает множитель только повторное нажатие.
+  void _speakPrompt() {
+    final text = state.current?.promptSpeech;
+    if (text == null) return;
+    ref.read(speechServiceProvider).speak(text);
+  }
+
+  /// Проигрывает центр заново по нажатию на динамик.
   ///
   /// Переслушивание разрешено, но снимает скоростной множитель — иначе
   /// «Слух» превращался бы в «Круг» с лишним тапом.

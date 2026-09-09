@@ -458,10 +458,15 @@ void main() {
     CircleQuestion heard() => const CircleQuestion(
           itemId: 'h1',
           tier: Tier.a0,
-          mode: GameMode.listenTarget,
+          mode: GameMode.listenNative,
           prompt: '',
-          options: ['Rechnung', 'Richtung'],
+          // Варианты на родном: вопрос на слух проверяет смысл, а не то,
+          // какая из двух немецких строчек похожа на услышанное.
+          options: ['рахунок', 'напрямок'],
           answers: [0],
+          // Яркая звезда — и это условие проверки, а не деталь. Скоростного
+          // множителя ниже 40 lm нет вовсе, так что «переслушивание снимает
+          // скорость» проверяется только выше этой границы.
           lumens: 80,
           promptSpeech: 'Rechnung',
           answerSpeech: 'Rechnung',
@@ -487,6 +492,47 @@ void main() {
           reason: 'переслушивание не изменило цену ответа');
       expect(replayed, greaterThan(0),
           reason: 'переслушивание не должно отнимать очки целиком');
+    });
+
+    test('первое проигрывание делает игра, а не игрок', () {
+      // До этого круг на слух начинался тишиной: игрок видел динамик и должен
+      // был сообразить, что по нему надо нажать. Задание — узнать слово, а не
+      // догадаться, как его услышать.
+      controller().start([heard()]);
+
+      expect(speech.spoken, ['Rechnung']);
+    });
+
+    test('автопроигрывание не считается переслушиванием', () {
+      // Это не мелочь, а починка правила, которое не работало ни дня.
+      // `replayPrompt` снимал множитель на **каждом** нажатии, включая первое,
+      // а услышать слово иначе было нельзя — то есть скоростной множитель на
+      // «Слухе» терялся всегда, вопреки собственному условию «его снимает
+      // переслушивание».
+      //
+      // Проверяется тем, что множитель вообще есть: если бы автопроигрывание
+      // ставило флаг, быстрый и медленный ответы стоили бы одинаково.
+      controller().start([heard()]);
+      controller().answerOption(0, const Duration(milliseconds: 500));
+      final fast = controller().state.score;
+
+      controller().start([heard()]);
+      controller().answerOption(0, const Duration(seconds: 6));
+      final slow = controller().state.score;
+
+      expect(fast, greaterThan(slow),
+          reason: 'скорость не оплачена: круг сочтён переслушанным');
+    });
+
+    test('следующий круг тоже звучит сам', () {
+      fakeAsync((async) {
+        controller().start([heard(), heard()]);
+        controller().answerOption(0, const Duration(milliseconds: 500));
+        async.elapse(const Duration(seconds: 2));
+
+        // Три произнесения: центр первого круга, верный ответ, центр второго.
+        expect(speech.spoken, ['Rechnung', 'Rechnung', 'Rechnung']);
+      });
     });
   });
 }

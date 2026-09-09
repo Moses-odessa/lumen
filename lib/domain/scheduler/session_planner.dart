@@ -444,7 +444,6 @@ abstract final class SessionPlanner {
     GameMode.pickNative,
     GameMode.listenNative,
     GameMode.pickTarget,
-    GameMode.listenTarget,
   ];
 
   /// Механика на случай, когда не подошла ни одна: без звука и без выбора.
