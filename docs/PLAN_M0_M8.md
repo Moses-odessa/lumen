@@ -1,6 +1,6 @@
 # План реализации Lumen
 
-Стек и архитектура — [README.md](README.md). Геймдизайн — [docs/CONCEPT.md](docs/CONCEPT.md).
+Стек и архитектура — [README.md](../README.md). Геймдизайн — [docs/CONCEPT.md](CONCEPT.md).
 
 Оценки даны в **вечерних неделях** для одного разработчика (примерно 8–12 часов
 в неделю) и намеренно грубые: диапазон, а не точка. Контентная веха M4 идёт
@@ -87,7 +87,7 @@
    Небо · Игра · Профиль · Настройки. Redirect-гейт: пока калибровка не пройдена
    — онбординг.
 5. `data/local/app_database.dart` — Drift-схема v1 (см.
-   [docs/DATA_MODEL.md](docs/DATA_MODEL.md)), `bootstrapPersistence`.
+   [docs/DATA_MODEL.md](DATA_MODEL.md)), `bootstrapPersistence`.
 6. `data/content/content_database.dart` — копирование `assets/content/de.db` в
    support-директорию при первом запуске и открытие read-only.
 7. `core/analytics` — фасад `AnalyticsService` с логирующей реализацией,
@@ -219,7 +219,7 @@ M4 и так идёт параллельно.
 
 ## M4 — Контент-пайплайн и первый язык ✅
 
-Идёт параллельно с M1–M3. Подробности — [docs/CONTENT_PIPELINE.md](docs/CONTENT_PIPELINE.md).
+Идёт параллельно с M1–M3. Подробности — [docs/CONTENT_PIPELINE.md](CONTENT_PIPELINE.md).
 
 **Задачи**
 
