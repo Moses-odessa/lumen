@@ -48,6 +48,11 @@ abstract class SpeechService {
   Future<SpeechStatus> status({bool refresh = false});
 
   /// Произносит текст. Не ждёт окончания и не бросает исключений.
+  ///
+  /// Начатое произнесение **договаривается**. Пока говорится слово, новый
+  /// запрос не обрывает его, а ждёт своей очереди — и очередь эта длиной в
+  /// один: если за время произнесения запросов пришло несколько, прозвучит
+  /// последний. См. [DeviceSpeechService.speak].
   void speak(String text);
 
   /// Прерывает текущее произнесение: игрок ответил раньше, чем оно кончилось.
@@ -156,8 +161,17 @@ class DeviceSpeechService implements SpeechService {
     await _tts.setLanguage(speechLocaleFor(lang));
     // Чуть медленнее обычного: это образец произношения, а не диктовка.
     await _tts.setSpeechRate(speechRate);
-    // Не ждём окончания: забег не должен упираться в длину слова.
-    await _tts.awaitSpeakCompletion(false);
+    // Ждём окончания — но ждёт **сервис**, а не забег.
+    //
+    // Было `false`, и тогда `speak` возвращался сразу, а следующий запрос
+    // рубил начатое: на Android новое произнесение по умолчанию идёт с
+    // `QUEUE_FLUSH`. Слышно это было так — игрок верно соединяет слово, оно
+    // начинает звучать и обрывается на середине, потому что следующий круг
+    // оказался кругом на слух и его центр заиграл поверх.
+    //
+    // Забег от этого не замедлился: `speak` по-прежнему возвращает
+    // управление немедленно, ожидание живёт внутри [_speaking].
+    await _tts.awaitSpeakCompletion(true);
   }
 
   /// Скорость речи. У платформ разная шкала: на Android 1.0 — это «в два
@@ -165,14 +179,50 @@ class DeviceSpeechService implements SpeechService {
   static double get speechRate =>
       defaultTargetPlatform == TargetPlatform.iOS ? 0.45 : 0.5;
 
+  /// Текущая цепочка произнесений; `null` — сейчас молчим.
+  Future<void>? _speaking;
+
+  /// Что прозвучит после текущего слова. Ровно одно, а не очередь.
+  ///
+  /// Очередь любой длины означала бы, что звук отстаёт от экрана на весь
+  /// хвост: игрок ушёл на три круга вперёд, а телефон дочитывает прошлые.
+  /// Поэтому ждёт своей очереди только **последний** запрос, а всё, что он
+  /// вытеснил, не звучит вовсе.
+  String? _pending;
+
+  /// Потолок ожидания одного произнесения.
+  ///
+  /// Страховка от движка, который не сообщает об окончании: без неё цепочка
+  /// осталась бы висеть, и игра замолчала бы до конца сессии. Слово читается
+  /// меньше двух секунд, предложение — меньше четырёх.
+  static const _speakCeiling = Duration(seconds: 6);
+
   @override
   void speak(String text) {
     if (!enabled || text.isEmpty) {
       haptic();
       return;
     }
+    if (_speaking != null) {
+      _pending = text;
+      return;
+    }
     // Намеренно не await: забег не ждёт звука.
-    unawaited(_speak(text));
+    _speaking = _chain(text);
+    unawaited(_speaking);
+  }
+
+  /// Договаривает начатое, потом произносит то, что ждало.
+  Future<void> _chain(String first) async {
+    var next = first;
+    while (true) {
+      await _speak(next);
+      final queued = _pending;
+      _pending = null;
+      if (queued == null) break;
+      next = queued;
+    }
+    _speaking = null;
   }
 
   Future<void> _speak(String text) async {
@@ -183,7 +233,7 @@ class DeviceSpeechService implements SpeechService {
         return;
       }
       await _configure();
-      await _tts.speak(text);
+      await _tts.speak(text).timeout(_speakCeiling, onTimeout: () => null);
       probe.record(DateTime.now().difference(started));
     } catch (e) {
       if (kDebugMode) debugPrint('[speech] speak "$text": $e');
@@ -193,6 +243,9 @@ class DeviceSpeechService implements SpeechService {
 
   @override
   void stop() {
+    // Ждавшее своей очереди отменяется вместе с текущим: «остановить» значит
+    // тишину, а не «домолчать до следующего слова».
+    _pending = null;
     // Движка ещё нет — останавливать нечего, и создавать его ради этого
     // тоже нечего.
     if (_instance == null) return;

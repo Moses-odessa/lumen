@@ -141,6 +141,89 @@ void main() {
       service.speak('Arzt');
       expect(calls, isEmpty);
     });
+
+    test('начатое слово договаривается, а не обрывается следующим', () async {
+      // Слышно это было так: игрок верно соединяет слово, оно начинает
+      // звучать и обрывается на середине, потому что следующий круг оказался
+      // кругом на слух и его центр заиграл поверх. На Android новое
+      // произнесение по умолчанию идёт с `QUEUE_FLUSH`, то есть рубит
+      // текущее.
+      //
+      // Платформа здесь отвечает не сразу — так же, как отвечает настоящий
+      // движок при `awaitSpeakCompletion(true)`: вызов возвращается по
+      // окончании произнесения.
+      final spoken = <String>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        if (call.method == 'speak') {
+          spoken.add(call.arguments as String);
+          await Future<void>.delayed(const Duration(milliseconds: 60));
+          return true;
+        }
+        if (call.method == 'isLanguageInstalled') return true;
+        return true;
+      });
+
+      final service = DeviceSpeechService(lang: 'de', engine: FlutterTts.new);
+      service.speak('Zeit');
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      service.speak('Uhr');
+
+      // Второе слово ещё не начиналось: первое договаривается.
+      expect(spoken, ['Zeit']);
+
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(spoken, ['Zeit', 'Uhr']);
+    });
+
+    test('ждёт своей очереди только последний запрос', () async {
+      // Очередь любой длины означала бы, что звук отстаёт от экрана на весь
+      // хвост: игрок ушёл на три круга вперёд, а телефон дочитывает прошлые.
+      final spoken = <String>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        if (call.method == 'speak') {
+          spoken.add(call.arguments as String);
+          await Future<void>.delayed(const Duration(milliseconds: 60));
+          return true;
+        }
+        if (call.method == 'isLanguageInstalled') return true;
+        return true;
+      });
+
+      final service = DeviceSpeechService(lang: 'de', engine: FlutterTts.new);
+      service.speak('Zeit');
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      service.speak('Uhr');
+      service.speak('Arzt');
+
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      expect(spoken, ['Zeit', 'Arzt'], reason: 'вытесненное слово прозвучало');
+    });
+
+    test('остановка снимает и ждавшее своей очереди', () async {
+      final spoken = <String>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        if (call.method == 'speak') {
+          spoken.add(call.arguments as String);
+          await Future<void>.delayed(const Duration(milliseconds: 60));
+          return true;
+        }
+        if (call.method == 'isLanguageInstalled') return true;
+        return true;
+      });
+
+      final service = DeviceSpeechService(lang: 'de', engine: FlutterTts.new);
+      service.speak('Zeit');
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      service.speak('Uhr');
+      service.stop();
+
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(spoken, ['Zeit'],
+          reason: '«остановить» домолчало до следующего слова');
+    });
   });
 
   group('заглушка', () {
