@@ -8,6 +8,7 @@ import 'package:lumen/data/local/database_provider.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/srs/review_grade.dart';
 import 'package:lumen/features/game/application/run_controller.dart';
 
 /// Забег — это состояние, а не экран, поэтому проверяется без виджетов.
@@ -277,8 +278,93 @@ void main() {
       // сдавать по одному пропуску, пока не угадаются все.
       expect(state().correct, 0);
       expect(state().lastCorrect, isFalse);
-      expect(speech.spoken, isEmpty);
       expect(state().queue, hasLength(2));
+
+      // А звучит при этом **верный** порядок, и проверка тут раньше стояла на
+      // тишине. У круга со словом озвучка ошибки была бы подсказкой к тому же
+      // вопросу — слово вернётся тем же кругом. Во фразе ответ это порядок,
+      // он уже показан рядом с неверной сборкой, и услышать его правильным —
+      // ровно то, зачем длинная пауза после ошибки и существует.
+      expect(speech.spoken, [gaps().assembled]);
+    });
+
+    test('темп фразы считается на размещение, а не на весь ответ', () async {
+      // Фраза с двумя пропусками, собранная за 2.4 с, — это 1.2 с на слово,
+      // то есть уверенный ответ. По исходному времени это `hard`: пороги
+      // (1.2 с и 2.0 с) рассчитаны на один тап в круге, а фразовая арена
+      // сообщает время до последней плитки. Так самая дорогая механика игры
+      // систематически укорачивала интервал и повышала трудность того
+      // самого слова, которое должна была подтвердить.
+      controller().start([gaps()]);
+      controller().answerSlots([0, 1], const Duration(milliseconds: 2400));
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+
+      final reviews = await db.select(db.reviews).get();
+      expect(reviews, hasLength(1));
+      expect(
+        ReviewGrade.fromValue(reviews.single.grade),
+        ReviewGrade.good,
+        reason: 'верно собранная фраза записана как «вспомнил медленно»',
+      );
+      // Время в журнале — исходное: судить по нему нельзя, а знать полезно.
+      expect(reviews.single.latencyMs, 2400);
+    });
+
+    test('быстрая сборка дороже медленной', () async {
+      // Проверка того же с другой стороны: скоростной множитель фразе теперь
+      // доступен вообще. Пока время не приводилось к размещению, любая сборка
+      // была «медленной», и множитель на самой дорогой механике не работал
+      // никогда.
+      controller().start([gaps()]);
+      controller().answerSlots([0, 1], const Duration(milliseconds: 2000));
+      final fast = state().score;
+
+      controller().start([gaps()]);
+      controller().answerSlots([0, 1], const Duration(seconds: 9));
+
+      expect(fast, greaterThan(state().score));
+    });
+
+    test('фраза стоит открытой дольше слова', () {
+      // Пауза после фразы длинная нарочно: предложение проигрывается целиком
+      // и под ним проявляется перевод. На 420 мс не влезало ни то, ни другое
+      // — игрок ставил последнее слово и получал следующий вопрос, так и не
+      // увидев, что собрал, а озвучка играла уже поверх следующего задания.
+      fakeAsync((async) {
+        controller().start([gaps(), question('after')]);
+        controller().answerSlots([0, 1], const Duration(seconds: 2));
+
+        async.elapse(const Duration(milliseconds: 600));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'словесной паузы фразе мало');
+        expect(state().current?.itemId, 'rechnung');
+
+        async.elapse(const Duration(seconds: 3));
+        expect(state().current?.itemId, 'after');
+        expect(state().phase, RunPhase.asking);
+      });
+    });
+
+    test('нажатие по арене закрывает паузу досрочно', () {
+      // Ждать не обязан никто, пропускать не обязан тоже.
+      fakeAsync((async) {
+        controller().start([gaps(), question('after')]);
+        controller().answerSlots([0, 1], const Duration(seconds: 2));
+
+        controller().skipReveal();
+        async.flushMicrotasks();
+
+        expect(state().current?.itemId, 'after');
+        expect(state().phase, RunPhase.asking);
+      });
+    });
+
+    test('пропуск паузы до ответа ничего не делает', () {
+      controller().start([question('a'), question('b')]);
+      controller().skipReveal();
+
+      expect(state().current?.itemId, 'a');
+      expect(state().phase, RunPhase.asking);
     });
 
     test('верный слот не спасает неверный', () {

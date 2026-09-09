@@ -6,6 +6,7 @@ import '../../../core/analytics/analytics.dart';
 import '../../../core/audio/speech_service.dart';
 import '../../../domain/entities/circle_question.dart';
 import '../../../domain/scheduler/level_stage.dart';
+import '../../../domain/scoring/balance.dart';
 import '../../../domain/scoring/climb.dart';
 import '../../../domain/scoring/score.dart';
 import '../../../data/repositories/word_state_repository.dart';
@@ -266,9 +267,21 @@ class RunController extends Notifier<RunState> {
 
 
   void _submit(CircleQuestion question, bool correct, Duration latency) {
+    // Скорость меряется на одно размещение, а не на весь ответ.
+    //
+    // Фразовая арена сообщает время до последней плитки: на два-девять
+    // размещений это заведомо несколько секунд, то есть медленнее любого
+    // порога, рассчитанного на один тап. Самая дорогая механика игры не могла
+    // заработать скоростной множитель никогда — и то же время шло в память,
+    // где давало `hard` и сбрасывало серию «горящего слова».
+    //
+    // Одно правило на очки и на память: `ScoreRules.paceFor`. Расходиться им
+    // нельзя — «быстро» для очков и «легко» для памяти это одно наблюдение.
+    final pace = ScoreRules.paceFor(latency, slots: question.slotCount);
+
     final result = _run.apply(
       correct: correct,
-      latency: latency,
+      latency: pace,
       mode: question.mode,
       lumens: question.lumens,
       replayed: _replayed,
@@ -279,11 +292,25 @@ class RunController extends Notifier<RunState> {
     final speech = ref.read(speechServiceProvider);
     if (correct && question.answerSpeech != null) {
       speech.speak(question.answerSpeech!);
+    } else if (!correct && question.mode.isPhrase &&
+        question.answerSpeech != null) {
+      // После неверной сборки предложение звучит тоже — верное.
+      //
+      // В круге со словом озвучка ошибки была бы подсказкой к тому же
+      // вопросу: слово вернётся тем же кругом, и произнести ответ значит
+      // выдать его. Фраза устроена иначе — там ответ это **порядок**, он уже
+      // показан рядом с неверной сборкой, и услышать его правильным ровно то,
+      // что нужно: длинная пауза после ошибки существует затем, чтобы
+      // сравнить своё с верным.
+      speech.speak(question.answerSpeech!);
+      speech.haptic();
     } else if (!correct) {
       speech.haptic();
     }
 
     // Память обновляется в фоне: диск между кругами игрок ждать не должен.
+    // Уходит исходное время, а не приведённое: приводить его — работа домена,
+    // а журнал отзывов хранит то, что было на самом деле.
     unawaited(_persist(question, correct, latency));
 
     final queue = List.of(state.queue);
@@ -308,14 +335,30 @@ class RunController extends Notifier<RunState> {
     );
 
     _advanceTimer?.cancel();
-    _advanceTimer = Timer(_revealDuration(correct), _advance);
+    _advanceTimer = Timer(_revealDuration(question, correct), _advance);
   }
 
-  /// Пауза перед следующим кругом. На ошибке она длиннее: игроку надо
-  /// успеть увидеть верный вариант, иначе ошибка ничему не учит.
-  Duration _revealDuration(bool correct) => correct
-      ? const Duration(milliseconds: 420)
-      : const Duration(milliseconds: 1100);
+  /// Пауза перед следующим кругом.
+  ///
+  /// На ошибке она длиннее: игроку надо успеть увидеть верный вариант, иначе
+  /// ошибка ничему не учит. У фразы длиннее всегда — и на верном ответе тоже,
+  /// потому что показывать там больше нечего было **только** из-за этой
+  /// паузы: собранное предложение проигрывается целиком и под ним проявляется
+  /// перевод, а 420 мс не хватало ни на то, ни на другое. Игрок ставил
+  /// последнее слово и получал следующий вопрос, так и не увидев, что собрал.
+  Duration _revealDuration(CircleQuestion question, bool correct) =>
+      RevealBalance.forMode(question.mode, correct: correct);
+
+  /// Досрочно закрывает паузу — игрок нажал по арене.
+  ///
+  /// Фразовая пауза длинная нарочно: предложение надо услышать и прочитать
+  /// перевод. Но заставлять ждать того, кто уже всё прочёл, — это плата за
+  /// чужую медлительность. Ждать не обязан никто, пропустить не обязан тоже.
+  void skipReveal() {
+    if (state.phase != RunPhase.revealing) return;
+    _advanceTimer?.cancel();
+    _advance();
+  }
 
   void _advance() {
     // Спринт кончается на достигнутой планке, а не на конце очереди:
@@ -421,6 +464,7 @@ class RunController extends Notifier<RunState> {
                 mode: question.mode,
                 correct: correct,
                 latency: latency,
+                slots: question.slotCount,
                 now: now,
               );
 

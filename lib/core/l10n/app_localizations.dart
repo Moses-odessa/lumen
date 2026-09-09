@@ -289,8 +289,38 @@ abstract class AppLocalizations {
   /// No description provided for @calibrationResultVocabulary.
   ///
   /// In en, this message translates to:
-  /// **'You already know about {count} words — they become stars that are already lit.'**
+  /// **'About {count} words of the course lie on this tier and below.'**
   String calibrationResultVocabulary(int count);
+
+  /// No description provided for @calibrationResultCircles.
+  ///
+  /// In en, this message translates to:
+  /// **'Circles in the test'**
+  String get calibrationResultCircles;
+
+  /// No description provided for @calibrationResultRecognised.
+  ///
+  /// In en, this message translates to:
+  /// **'Words you recognised'**
+  String get calibrationResultRecognised;
+
+  /// No description provided for @calibrationResultMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'The test measured'**
+  String get calibrationResultMeasured;
+
+  /// No description provided for @calibrationResultCapped.
+  ///
+  /// In en, this message translates to:
+  /// **'Only {tier} has been proofread and launched so far, so the sky begins there. It is not the ceiling of the game: the tier rises as the content does.'**
+  String calibrationResultCapped(String tier);
+
+  /// No description provided for @calibrationResultSeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} words from the test are already lit in your sky.'**
+  String calibrationResultSeeded(int count);
 
   /// No description provided for @calibrationResultTierChangeable.
   ///

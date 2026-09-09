@@ -50,14 +50,25 @@ class RunScreen extends ConsumerWidget {
             // механиках отзываться было нечему: там не выбирают вариант, а
             // заполняют слоты. Рамка одна на все механики — реакция не
             // должна зависеть от того, во что играют.
-            child: _Feedback(
-              outcome: state.lastCorrect,
-              child: _Arena(
-                question: question,
-                enabled: state.phase == RunPhase.asking,
-                onOption: controller.answerOption,
-                onSlots: controller.answerSlots,
-                onReplay: controller.replayPrompt,
+            // Нажатие по арене во время паузы открывает следующий круг.
+            //
+            // Фразовая пауза длинная нарочно: предложение надо услышать и
+            // прочитать перевод. Но заставлять ждать того, кто уже всё
+            // прочёл, — значит платить его временем за чужую медлительность.
+            // Ждать не обязан никто, пропускать не обязан тоже.
+            child: GestureDetector(
+              onTap: state.phase == RunPhase.revealing
+                  ? controller.skipReveal
+                  : null,
+              child: _Feedback(
+                outcome: state.lastCorrect,
+                child: _Arena(
+                  question: question,
+                  enabled: state.phase == RunPhase.asking,
+                  onOption: controller.answerOption,
+                  onSlots: controller.answerSlots,
+                  onReplay: controller.replayPrompt,
+                ),
               ),
             ),
           ),

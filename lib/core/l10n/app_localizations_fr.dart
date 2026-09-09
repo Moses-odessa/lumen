@@ -103,7 +103,26 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String calibrationResultVocabulary(int count) {
-    return 'Vous connaissez déjà environ $count mots : ils deviendront des étoiles déjà allumées.';
+    return 'À ce niveau et en dessous se trouvent environ $count mots du cours.';
+  }
+
+  @override
+  String get calibrationResultCircles => 'Cercles dans le test';
+
+  @override
+  String get calibrationResultRecognised => 'Mots reconnus';
+
+  @override
+  String get calibrationResultMeasured => 'Le test a mesuré';
+
+  @override
+  String calibrationResultCapped(String tier) {
+    return 'Seul $tier est relu et lancé pour l\'instant : le ciel commence là. Ce n\'est pas le plafond du jeu : le niveau montera avec le contenu.';
+  }
+
+  @override
+  String calibrationResultSeeded(int count) {
+    return '$count mots du test brillent déjà dans votre ciel.';
   }
 
   @override

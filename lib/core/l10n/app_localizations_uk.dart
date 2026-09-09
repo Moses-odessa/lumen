@@ -103,7 +103,26 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String calibrationResultVocabulary(int count) {
-    return 'Ви вже знаєте приблизно $count слів — вони стануть зорями, що вже світять.';
+    return 'На цьому ярусі й нижче лежить приблизно $count слів курсу.';
+  }
+
+  @override
+  String get calibrationResultCircles => 'Кіл у тесті';
+
+  @override
+  String get calibrationResultRecognised => 'Слів ви впізнали';
+
+  @override
+  String get calibrationResultMeasured => 'Тест показав';
+
+  @override
+  String calibrationResultCapped(String tier) {
+    return 'Вичитано й запущено поки лише $tier — небо починається з нього. Це не межа гри: ярус підніметься разом із контентом.';
+  }
+
+  @override
+  String calibrationResultSeeded(int count) {
+    return '$count слів із тесту вже світять на вашому небі.';
   }
 
   @override

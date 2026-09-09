@@ -296,6 +296,30 @@ void main() {
       }
     });
 
+    test('время ответа приводится к одному размещению', () {
+      // Круг остаётся как есть: один слот — одно размещение.
+      expect(
+        ScoreRules.paceFor(const Duration(seconds: 3), slots: 1),
+        const Duration(seconds: 3),
+      );
+
+      // Фраза из четырёх пропусков, собранная за четыре секунды, отвечена в
+      // темпе одной секунды на слово — то есть быстро. По исходному времени
+      // это «медленнее любого порога», и именно так и считалось: самая
+      // дорогая механика игры не могла заработать ни скоростной множитель,
+      // ни оценку выше `hard`, а серию «горящего слова» сбрасывала.
+      expect(
+        ScoreRules.paceFor(const Duration(seconds: 4), slots: 4),
+        const Duration(seconds: 1),
+      );
+
+      // Ноль слотов не бывает, но делить на него нельзя ни при каких данных.
+      expect(
+        ScoreRules.paceFor(const Duration(seconds: 2), slots: 0),
+        const Duration(seconds: 2),
+      );
+    });
+
     test('продуктивные режимы приносят очки на любой яркости', () {
       for (final mode in GameMode.values.where((m) => m.isProductive)) {
         expect(ScoreRules.scores(mode, 100), isTrue, reason: '$mode');

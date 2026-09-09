@@ -17,7 +17,7 @@ class SkySnapshot {
     required this.tier,
     required this.totalStars,
     required this.litConstellations,
-    required this.burningStars,
+    required this.litStars,
   });
 
   final List<ConstellationPlacement> placements;
@@ -29,8 +29,20 @@ class SkySnapshot {
 
   final int litConstellations;
 
-  /// Горящих слов — главная цифра профиля.
-  final int burningStars;
+  /// Сколько звёзд светит — главная цифра неба.
+  ///
+  /// Считается по яркости, а не по флагу «горящего слова», и это была не
+  /// придирка к названию. Флаг `word_states.burning` — это достижение за
+  /// скорость (три верных подряд быстрее 1.5 с в продуктивной механике), и
+  /// засев калибровки его не ставит вовсе. Поэтому сразу после онбординга
+  /// небо показывало три зажжённые звезды и подпись «0 світять»: картинку
+  /// рисовала живая яркость из тройки FSRS, а цифру брал SQL-запрос по
+  /// достижению, которого у новичка быть не может.
+  ///
+  /// Порог — выход из полосы [LumenBand.fading] («практически забыто,
+  /// вернётся как новое»). Ниже него звезда на карте самая тусклая, и назвать
+  /// её светящей было бы ложью в другую сторону.
+  final int litStars;
 
   int get unlockedConstellations =>
       states.values.where((s) => s.unlocked).length;
@@ -46,7 +58,17 @@ class SkySnapshot {
 /// яркость по слову на каждый кадр нельзя, а держать её в кеше базы — можно.
 final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   final player = ref.watch(playerControllerProvider);
-  final tier = player?.tier ?? Tier.a0;
+
+  // Ярус урезается до запущенного — та же последняя линия обороны, что в
+  // загрузчике сессии, и здесь её не было.
+  //
+  // Ценой был не только бейдж «B2» на сборке с одним запущенным A0.
+  // `conceptsUpTo` отдавал концепты всех пяти ярусов: 864 звезды вместо 108,
+  // а состав созвездия — 96 слов вместо 12. По этим 96 считаются `isLit`
+  // (80 % ярче 70 lm) и `opensNeighbours` (среднее ≥ 60 lm), то есть небо
+  // зажигалось примерно в восемь раз труднее, чем задумано, — при том что
+  // играть загрузчик давал всё равно только A0.
+  final tier = (player?.tier ?? Tier.a0).atMost(ref.watch(maxTierProvider));
   final content = ref.watch(currentContentDatabaseProvider);
   final db = ref.watch(appDatabaseProvider);
 
@@ -83,11 +105,17 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   final allStars = <String, List<Lumens>>{};
   final totals = <String, int>{};
 
+  // Светящие звёзды считаются по тем же концептам, что рисует карта, а не
+  // запросом по всей базе: строка памяти может остаться от яруса выше или от
+  // слова, которого в контенте больше нет.
+  var litStars = 0;
+
   for (final concept in concepts) {
     totals.update(concept.constellation, (n) => n + 1, ifAbsent: () => 1);
     final lumens = lumensByConcept[concept.id];
     allStars.putIfAbsent(concept.constellation, () => []).add(lumens ?? 0);
     if (lumens == null) continue;
+    if (lumens >= LumenBand.dimming.minLm) litStars++;
     worked.putIfAbsent(concept.constellation, () => []).add(
           StarInput(itemId: concept.id, lumens: lumens),
         );
@@ -138,7 +166,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
     tier: tier,
     totalStars: concepts.length,
     litConstellations: states.values.where((s) => s.isLit).length,
-    burningStars: await db.countBurning(),
+    litStars: litStars,
   );
 });
 

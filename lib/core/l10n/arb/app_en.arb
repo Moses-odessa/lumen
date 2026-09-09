@@ -39,8 +39,27 @@
   "calibrationHintPhrases": "Now whole phrases",
   "calibrationHintDone": "Done",
   "calibrationResultTitle": "Your sky begins here",
-  "calibrationResultVocabulary": "You already know about {count} words — they become stars that are already lit.",
+  "calibrationResultVocabulary": "About {count} words of the course lie on this tier and below.",
   "@calibrationResultVocabulary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "calibrationResultCircles": "Circles in the test",
+  "calibrationResultRecognised": "Words you recognised",
+  "calibrationResultMeasured": "The test measured",
+  "calibrationResultCapped": "Only {tier} has been proofread and launched so far, so the sky begins there. It is not the ceiling of the game: the tier rises as the content does.",
+  "@calibrationResultCapped": {
+    "placeholders": {
+      "tier": {
+        "type": "String"
+      }
+    }
+  },
+  "calibrationResultSeeded": "{count} words from the test are already lit in your sky.",
+  "@calibrationResultSeeded": {
     "placeholders": {
       "count": {
         "type": "int"

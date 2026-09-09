@@ -125,10 +125,22 @@ class _Welcome extends ConsumerWidget {
   }
 }
 
-/// Экран результата: где начинается небо и сколько слов игрок уже знает.
+/// Экран результата: **почему** небо начинается здесь, а не просто где.
 ///
-/// Число слов здесь важнее яруса: «B1» ничего не говорит человеку, который
-/// не сдавал экзаменов, а «вы уже знаете примерно 1 850 слов» говорит.
+/// Экран был написан, локализован на шесть языков — и недостижим. Калибровка
+/// в конце теста объявляла игрока откалиброванным, гейт роутера немедленно
+/// открывался, и роутер уводил с `/onboarding` на карту, не дав показать
+/// следующий шаг онбординга. Игрок узнавал свой ярус из бейджа в углу карты,
+/// без единого слова о том, откуда он взялся.
+///
+/// Поэтому здесь теперь не одна цифра, а разбор: сколько кругов было, сколько
+/// слов игрок узнал, что показал тест — и, если выданный ярус ниже
+/// измеренного, почему. «Я ответил почти всё, а получил A0» — это вопрос, на
+/// который экран обязан отвечать сам, а не оставлять игрока догадываться, что
+/// тест его не понял.
+///
+/// Число слов курса важнее ярусной буквы: «B1» ничего не говорит человеку,
+/// который не сдавал экзаменов.
 class _Result extends ConsumerWidget {
   const _Result();
 
@@ -137,36 +149,40 @@ class _Result extends ConsumerWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
     final state = ref.watch(calibrationControllerProvider);
-    // Показываем ровно тот ярус, на котором игрок будет играть: обещать
-    // B1 и выдать A0 хуже, чем сразу назвать доступное.
-    final measured = state.calibration.result ??
-        ref.watch(playerControllerProvider)?.tier ??
-        Tier.a0;
-    final tier = measured.atMost(ref.watch(maxTierProvider));
+
+    // Ярус приходит из состояния калибровки уже урезанным: решение принято
+    // по прочитанным метаданным, а не по заглушке провайдера. Пока оно не
+    // принято — а между концом теста и записью лежит одно ожидание —
+    // экран ничего не утверждает.
+    final granted = state.granted;
+    if (granted == null) {
+      return const _ResultShell(child: Center(
+        child: CircularProgressIndicator(),
+      ));
+    }
+
+    final measured = state.calibration.result;
+    final capped = measured != null && measured.index > granted.index;
+
     // Число приходит из базы, а не из константы: курс растёт файлами
     // контента. Пока запрос не ответил, слово о количестве не говорится
     // вовсе — обещать примерное число, а потом заменить его другим хуже, чем
     // подождать.
-    final vocabulary = ref.watch(vocabularyUpToProvider(tier)).value;
+    final vocabulary = ref.watch(vocabularyUpToProvider(granted)).value;
+    final muted = theme.textTheme.bodyMedium?.copyWith(
+      color: theme.colorScheme.onSurfaceVariant,
+    );
 
-    return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [LumenPalette.skyZenith, LumenPalette.skyHorizon],
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(28),
+    return _ResultShell(
+      child: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(28),
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  tier.label,
+                  granted.label,
                   style: theme.textTheme.displayMedium
                       ?.copyWith(color: LumenPalette.starlight),
                 ),
@@ -175,15 +191,46 @@ class _Result extends ConsumerWidget {
                   l10n.calibrationResultTitle,
                   style: theme.textTheme.titleMedium,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 24),
+                // Разбор теста: три строчки, по которым видно, откуда взялся
+                // ярус. «Тест показал» появляется только когда показал
+                // другое — иначе это строка, повторяющая заголовок.
+                _ResultRow(
+                  label: l10n.calibrationResultCircles,
+                  value: '${state.calibration.asked}',
+                ),
+                _ResultRow(
+                  label: l10n.calibrationResultRecognised,
+                  value: '${state.seeded}',
+                ),
+                if (capped)
+                  _ResultRow(
+                    label: l10n.calibrationResultMeasured,
+                    value: measured.label,
+                    highlight: true,
+                  ),
+                const SizedBox(height: 16),
+                if (capped)
+                  Text(
+                    l10n.calibrationResultCapped(granted.label),
+                    textAlign: TextAlign.center,
+                    style: muted,
+                  ),
+                if (capped) const SizedBox(height: 16),
                 if (vocabulary != null)
                   Text(
                     l10n.calibrationResultVocabulary(vocabulary),
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
+                    style: muted,
                   ),
+                if (state.seeded > 0) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    l10n.calibrationResultSeeded(state.seeded),
+                    textAlign: TextAlign.center,
+                    style: muted?.copyWith(color: LumenPalette.starlight),
+                  ),
+                ],
                 const SizedBox(height: 16),
                 Text(
                   l10n.calibrationResultTierChangeable,
@@ -194,17 +241,78 @@ class _Result extends ConsumerWidget {
                 ),
                 const SizedBox(height: 40),
                 FilledButton(
-                  // Гейт роутера уже открыт: игрок откалиброван, и его
-                  // достаточно вернуть на карту.
+                  // Гейт роутера открывает эта кнопка, и только она: пока
+                  // калибровка объявляла игрока откалиброванным сама, этот
+                  // экран не показывался вовсе.
                   onPressed: () => ref
                       .read(playerControllerProvider.notifier)
-                      .completeCalibration(tier),
+                      .completeCalibration(granted),
                   child: Text(l10n.calibrationResultOpen),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Небо за экраном результата — общий фон для готового результата и ожидания.
+class _ResultShell extends StatelessWidget {
+  const _ResultShell({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [LumenPalette.skyZenith, LumenPalette.skyHorizon],
+          ),
+        ),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: child,
+        ),
+      );
+}
+
+/// Строка разбора: подпись слева, число справа.
+class _ResultRow extends StatelessWidget {
+  const _ResultRow({
+    required this.label,
+    required this.value,
+    this.highlight = false,
+  });
+
+  final String label;
+  final String value;
+  final bool highlight;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+          Text(
+            value,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: highlight ? LumenPalette.starlight : null,
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -210,9 +210,9 @@ class _SkySummary extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _Metric(value: '${snapshot.totalStars}', label: l10n.skyStars),
-            // Горящие слова, а не XP — главная цифра.
+            // Светящие звёзды, а не XP — главная цифра.
             _Metric(
-              value: '${snapshot.burningStars}',
+              value: '${snapshot.litStars}',
               label: l10n.skyBurning,
               highlight: true,
             ),

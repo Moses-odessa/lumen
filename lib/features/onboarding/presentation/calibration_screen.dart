@@ -36,8 +36,14 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
     final state = ref.watch(calibrationControllerProvider);
     final controller = ref.read(calibrationControllerProvider.notifier);
 
+    // Дальше — когда результат **готов**, а не когда кончились круги.
+    //
+    // Условие было `next.isDone`, то есть последний ответ уводил экран сразу:
+    // паузу после последней фразы никто не видел, а экран результата
+    // открывался раньше, чем калибровка успевала урезать ярус и засеять
+    // память, — и показывал пустоту вместо разбора.
     ref.listen(calibrationControllerProvider, (previous, next) {
-      if (next.isDone && !(previous?.isDone ?? false)) widget.onDone();
+      if (next.granted != null && previous?.granted == null) widget.onDone();
     });
 
     final theme = Theme.of(context);

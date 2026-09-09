@@ -21,6 +21,8 @@ class CalibrationUiState {
     this.question,
     this.loading = false,
     this.error,
+    this.granted,
+    this.seeded = 0,
   });
 
   final CalibrationState calibration;
@@ -30,6 +32,18 @@ class CalibrationUiState {
 
   final bool loading;
   final String? error;
+
+  /// Ярус, который игрок получил, — уже урезанный до запущенного.
+  ///
+  /// Отдельно от `calibration.result`, и это не дублирование: замеренный ярус
+  /// и выданный — разные числа, и экран результата обязан показать оба.
+  /// Иначе игрок, ответивший на B1, видит «A0» без объяснения и делает
+  /// единственный доступный вывод: тест его не понял.
+  final Tier? granted;
+
+  /// Сколько слов теста уже засеяно в память — те самые звёзды, которые
+  /// горят на небе с первой минуты.
+  final int seeded;
 
   bool get isDone => calibration.isDone;
   double get progress => calibration.progress;
@@ -107,13 +121,53 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       if (question.answerSpeech != null) {
         ref.read(speechServiceProvider).speak(question.answerSpeech!);
       }
-      _confirmedConcepts[question.itemId] = question.tier;
+      // Засевается только слово, и это не мелочь в двух местах сразу.
+      //
+      // Во-первых, у фразового круга `itemId` — концепт, который фраза учит,
+      // а если фраза не привязана ни к одному концепту, то **её собственный
+      // id**. Такая строка памяти не соответствует ни одной звезде: на карте
+      // она невидима, круг из неё не собирается, отзыв по ней не пишется —
+      // значит она просрочена навсегда и вечно занимает место в начале
+      // очереди повторений.
+      //
+      // Во-вторых, доказательство слабое и без этого. Калибровочная фраза
+      // спрашивается на минимальной глубине: два пропуска, две плитки, то
+      // есть выбор из двух порядков. Верная сборка говорит о порядке слов, а
+      // не о том, что игрок знает вот это слово.
+      if (!question.mode.isPhrase) {
+        _confirmedConcepts[question.itemId] = question.tier;
+      }
     }
 
     final next = Calibration.answer(
       state.calibration,
       correct: correct,
       latency: latency,
+    );
+
+    // Круг остаётся на экране, пока идёт пауза, — и это единственное, чего
+    // калибровке не хватало, чтобы фраза вообще была играбельной.
+    //
+    // Здесь стояло `CalibrationUiState(calibration: next, loading: true)`, без
+    // `question`. Поле необязательное, так что вопрос становился `null`, и
+    // экран — он строится раньше арены, потому что он предок — переставал
+    // попадать в свою ветку `question: final question?` и падал в
+    // `CircularProgressIndicator`. Арену деактивировали в том же кадре, в
+    // котором игрок поставил последнее слово: кадр, где видно собранное
+    // предложение и проявившийся перевод, не рисовался **никогда**. В
+    // онбординге, то есть на первой же фразе, которую человек видит в игре.
+    //
+    // Пауза при этом равнялась нулю: у калибровки не было ни фазы показа, ни
+    // числа для неё. В забеге такое число было (420 мс), и расхождение двух
+    // путей игры именно этого рода и предотвращает правило «все игровые
+    // числа в balance.dart».
+    state = CalibrationUiState(
+      calibration: state.calibration,
+      question: question,
+      loading: true,
+    );
+    await Future<void>.delayed(
+      RevealBalance.forMode(question.mode, correct: correct),
     );
 
     state = CalibrationUiState(calibration: next, loading: true);
@@ -267,8 +321,22 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     // игроку ярус, который не вычитан и не озвучен, нельзя — правило
     // «ярус не запускается без вычитки» касается и калибровки.
     final measured = calibration.result ?? Tier.a0;
-    final tier = measured.atMost(ref.read(maxTierProvider));
 
+    // Потолок **дожидается**, а не читается на лету.
+    //
+    // `maxTierProvider` до ответа метаданных не запрещал ничего, а первым
+    // читателем этого потолка была вот эта строка — то есть на первом запуске
+    // ограничение не срабатывало никогда, и измеренный B2 записывался игроку
+    // насовсем на сборке с одним запущенным A0. Провайдер теперь осторожен по
+    // умолчанию, но правильный ответ здесь всё равно один: решение,
+    // записываемое в базу, принимается по готовым данным, а не по заглушке.
+    final launched = await ref.read(launchedTiersProvider.future);
+    final ceiling = launched.isEmpty
+        ? Tier.a0
+        : launched.reduce((a, b) => a.index >= b.index ? a : b);
+    final tier = measured.atMost(ceiling);
+
+    var seeded = 0;
     try {
       await ref.read(wordStateRepositoryProvider).seed(
             confirmed: _confirmedConcepts,
@@ -277,18 +345,36 @@ class CalibrationController extends Notifier<CalibrationUiState> {
                 2,
             now: DateTime.now(),
           );
+      seeded = _confirmedConcepts.length;
     } catch (_) {
       // Засев — оптимизация, а не условие игры.
     }
 
-    ref.read(playerControllerProvider.notifier).completeCalibration(tier);
+    // Ярус записывается, а калибровка **не** объявляется пройденной.
+    //
+    // Здесь стоял `completeCalibration`, и он открывал гейт роутера: тот
+    // немедленно уводил игрока с `/onboarding` на карту. Экран результата —
+    // следующий шаг онбординга — при этом не показывался вовсе. Он был
+    // написан, локализован на шесть языков и недостижим: игрок узнавал свой
+    // ярус из бейджа в углу карты, без единого слова о том, откуда он взялся.
+    //
+    // Теперь гейт открывает кнопка «Открыть небо» на экране результата. Цена
+    // — если приложение закрыть на этом экране, тест придётся пройти заново
+    // (засев при этом уже сохранён). Плата за то, что игрок вообще увидит
+    // результат, а не догадается о нём.
+    ref.read(playerControllerProvider.notifier).setTier(tier);
     ref.read(analyticsProvider).log(AnalyticsEvents.calibrationCompleted, {
       'tier': tier.code,
+      'measured': measured.code,
       'circles': calibration.asked,
-      'seeded': _confirmedConcepts.length,
+      'seeded': seeded,
     });
 
-    state = CalibrationUiState(calibration: calibration);
+    state = CalibrationUiState(
+      calibration: calibration,
+      granted: tier,
+      seeded: seeded,
+    );
   }
 }
 
