@@ -92,6 +92,34 @@ abstract final class StageRules {
     );
   }
 
+  /// Сколько слов вынимать из фразы.
+  ///
+  /// Та же шкала сложности, что число вариантов в круге, и живёт она здесь по
+  /// той же причине: вариантность и глубина пропусков есть сложность, а
+  /// сложностью распоряжается тот, кто за неё отвечает. Сборщик знает только,
+  /// как вынуть.
+  ///
+  /// Ноль означает «все слова» — это и есть «собери предложение»: не отдельная
+  /// механика, а максимум этой шкалы. Раньше их было две, с двумя
+  /// реализациями, и реализации расходились.
+  ///
+  /// Надбавка захода прибавляется, как и к вариантам: закрывающая уровень
+  /// фраза обязана дорожать вместе с уровнем. Пока не прибавлялась, словесные
+  /// круги дорожали, а фраза — нет.
+  static int gapsFor(LevelStage stage, {int extra = 0}) {
+    final base = switch (stage) {
+      // Знакомство фразой не спрашивает: слово только что показали.
+      LevelStage.introduction => SessionBalance.phraseGapsMin,
+      LevelStage.consolidation => SessionBalance.phraseGapsMin,
+      LevelStage.check => SessionBalance.phraseGapsMin + 1,
+      LevelStage.reminder => SessionBalance.phraseGapsMin + 1,
+      // Спринт — финальная проверка темы: предложение целиком.
+      LevelStage.sprint => SessionBalance.phraseGapsAll,
+    };
+    if (base == SessionBalance.phraseGapsAll) return base;
+    return base + extra;
+  }
+
   /// Какими механиками этап спрашивает. `null` — любыми.
   static Set<GameMode>? mechanicsFor(LevelStage stage) => switch (stage) {
         // Понимание: слово только что показали, требовать воспроизведения

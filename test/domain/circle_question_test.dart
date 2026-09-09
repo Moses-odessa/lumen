@@ -109,15 +109,16 @@ void main() {
       expect(gaps.assembled, 'Ich brauche einen Arzt.');
     });
 
-    test('в «собери фразу» предложение существует только как порядок слотов',
-        () {
-      // Центра у механики нет, шаблона тоже: сборка идёт из самих слов, и
-      // единственное, что проверяется, — порядок.
+    test('на максимуме пропусков скелет — строка из одних пропусков', () {
+      // «Собери предложение» это не отдельная механика, а максимум одной
+      // шкалы: вынуто всё, скелета не осталось. Отдельной ветки в
+      // `assembled` поэтому больше нет — раньше их было две ровно потому,
+      // что было две реализации механики.
       const built = CircleQuestion(
         itemId: 'doctor_person',
         tier: Tier.a1,
         mode: GameMode.buildPhrase,
-        prompt: '',
+        prompt: '_____ _____ _____ _____',
         options: ['Arzt', 'Ich', 'einen', 'brauche'],
         answers: [1, 3, 2, 0],
         lumens: 60,
@@ -125,6 +126,56 @@ void main() {
       expect(built.assembled, 'Ich brauche einen Arzt');
       expect(built.isCorrectFor(0, 1), isTrue);
       expect(built.isCorrectFor(0, 0), isFalse);
+    });
+
+    test('часть слов вынута, остальные видны как скелет', () {
+      // Самая лёгкая настройка: два пропуска, прочее на месте. Собранное
+      // предложение читается целиком, а не только из вынутых слов.
+      const built = CircleQuestion(
+        itemId: 'doctor_person',
+        tier: Tier.a1,
+        mode: GameMode.fillGaps,
+        prompt: 'Ich brauche _____ _____',
+        options: ['Arzt', 'einen'],
+        answers: [1, 0],
+        lumens: 60,
+      );
+      expect(built.assembled, 'Ich brauche einen Arzt');
+      expect(built.slotCount, 2);
+    });
+
+    test('принимается и другой верный порядок слов', () {
+      // Немецкий позволяет вынести в начало почти любой член предложения:
+      // «Heute habe ich Zeit» и «Ich habe heute Zeit» верны оба и означают
+      // одно. Механика даёт игроку слова предложения, значит собрать законный
+      // другой порядок он может — и объявлять это ошибкой нельзя.
+      const built = CircleQuestion(
+        itemId: 'time_noun',
+        tier: Tier.a1,
+        mode: GameMode.buildPhrase,
+        prompt: '_____ _____ _____ _____',
+        options: ['Zeit', 'Heute', 'habe', 'ich'],
+        answers: [1, 2, 3, 0],
+        lumens: 60,
+        accepted: ['Heute habe ich Zeit', 'Ich habe heute Zeit'],
+      );
+      expect(built.acceptsAssembly('Heute habe ich Zeit'), isTrue);
+      expect(built.acceptsAssembly('Ich habe heute Zeit'), isTrue);
+      expect(built.acceptsAssembly('Zeit habe ich heute'), isFalse);
+    });
+
+    test('без списка принимается только заданный шаблоном порядок', () {
+      const built = CircleQuestion(
+        itemId: 'doctor_person',
+        tier: Tier.a1,
+        mode: GameMode.buildPhrase,
+        prompt: '_____ _____ _____ _____',
+        options: ['Arzt', 'Ich', 'einen', 'brauche'],
+        answers: [1, 3, 2, 0],
+        lumens: 60,
+      );
+      expect(built.acceptsAssembly('Ich brauche einen Arzt'), isTrue);
+      expect(built.acceptsAssembly('Einen Arzt brauche ich'), isFalse);
     });
 
     test('одинаковые плитки взаимозаменяемы, а номера — нет', () {
@@ -145,7 +196,7 @@ void main() {
         itemId: 'doctor_person',
         tier: Tier.a1,
         mode: GameMode.buildPhrase,
-        prompt: '',
+        prompt: '_____ _____ _____ _____ _____',
         options: ['ich', 'ich', 'komme', 'und', 'gehe'],
         answers: [0, 2, 3, 1, 4],
         lumens: 60,

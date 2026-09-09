@@ -128,15 +128,21 @@ void main() {
               reason: '${q.itemId}: знакомство с выбором');
           continue;
         }
+        if (q.mode.isPhrase) {
+          // У фразы вокруг лежат ровно вынутые слова, поэтому пул равен числу
+          // пропусков — от двух до всех слов предложения. Потолка у него нет:
+          // его задаёт длина предложения, а не ширина экрана.
+          expect(q.options.length, q.slotCount,
+              reason: '${q.itemId}: в пуле не только вынутые слова');
+          expect(q.options.length,
+              greaterThanOrEqualTo(SessionBalance.phraseGapsMin),
+              reason: '${q.itemId}: пропусков меньше двух');
+          continue;
+        }
         expect(q.options.length, greaterThanOrEqualTo(3),
             reason: '${q.itemId}: слишком мало вариантов');
-        // Потолок держится только на круге со словом: в пуле фразы лежат
-        // ответы всех пропусков сверх неверных слов, и шесть их не
-        // ограничивают.
-        if (q.mode.isWordMode) {
-          expect(q.options.length, lessThanOrEqualTo(ScoreBalance.optionsMax),
-              reason: '${q.itemId}: круг шире экрана');
-        }
+        expect(q.options.length, lessThanOrEqualTo(ScoreBalance.optionsMax),
+            reason: '${q.itemId}: круг шире экрана');
       }
     });
 
@@ -291,6 +297,95 @@ void main() {
     });
   });
 
+  group('глубина пропусков', () {
+    test('пропусков ровно столько, сколько попросили', () async {
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(7),
+      );
+
+      // «Город»: все его фразы A0 длиннее порога, значит любая глубина от
+      // двух до всех слов на них достижима.
+      for (final gaps in [2, 3, 4]) {
+        final question = await builder.buildPhrase(
+          constellation: 'city',
+          tier: Tier.a0,
+          lumens: 0,
+          gaps: gaps,
+        );
+        expect(question, isNotNull, reason: 'глубина $gaps');
+        expect(question!.slotCount, gaps, reason: 'глубина $gaps');
+        // Вокруг лежат ровно вынутые слова — ни одного постороннего.
+        expect(question.options.length, gaps, reason: 'глубина $gaps');
+      }
+    });
+
+    test('ноль означает все слова, а не ни одного', () async {
+      // Ноль — максимум шкалы, то самое «собери предложение». Прогон его
+      // через `clamp(phraseGapsMin, total)` превращал самую трудную настройку
+      // в самую лёгкую, и молча: круг проходился, пропусков было два вместо
+      // всех, а заметить это можно было только по числу слотов.
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(11),
+      );
+      final question = await builder.buildPhrase(
+        constellation: 'city',
+        tier: Tier.a0,
+        lumens: 0,
+        gaps: SessionBalance.phraseGapsAll,
+      );
+
+      expect(question, isNotNull);
+      // Все слова вынуты: в скелете не осталось ни одного слова.
+      expect(question!.prompt.replaceAll('_____', '').trim(), isEmpty);
+      expect(question.options.length, question.slotCount);
+      expect(question.slotCount,
+          greaterThan(SessionBalance.phraseGapsMin),
+          reason: 'предложение из двух слов не отличило бы максимум от минимума');
+    });
+
+    test('слово, которому учит фраза, вынимается всегда', () async {
+      // Иначе круг перестаёт проверять то слово, ради которого существует, —
+      // а память всё равно запишется против него.
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(3),
+      );
+      final phrase = await builder.pickPhrase(
+        constellation: 'city',
+        tier: Tier.a0,
+      );
+      expect(phrase, isNotNull);
+
+      final answers = await content.phraseAnswers(phrase!.id);
+      final question = await builder.buildPhraseQuestion(
+        phrase: phrase,
+        lumens: 0,
+        gaps: SessionBalance.phraseGapsMin,
+      );
+
+      expect(question, isNotNull);
+      for (final answer in answers) {
+        // Плитка несёт слово ровно как в предложении — со знаком препинания,
+        // если он к нему прилип («rechts.»). Это немецкая орфография, ей и
+        // учит сборка предложения; заодно точка говорит, какое слово
+        // последнее, а заглавная — какое первое.
+        expect(
+          question!.options.any((o) => o.contains(answer)),
+          isTrue,
+          reason: 'слово фразы «$answer» не вынуто: ${question.options}',
+        );
+      }
+    });
+  });
+
   group('многослотовая фраза', () {
     test('каждый слот знает только свой вариант', () async {
       final builder = QuestionBuilder(
@@ -300,25 +395,30 @@ void main() {
         random: Random(3),
       );
       // «Город» взят не наугад: все его фразы A0 длиннее порога
-      // `buildPhraseMinWords`, поэтому слотов гарантированно несколько — на
-      // одном слоте проверять различимость слотов было бы нечем.
+      // `phraseMinWords`, поэтому слотов гарантированно несколько — на одном
+      // слоте проверять различимость слотов было бы нечем.
       final question = await builder.buildPhrase(
         constellation: 'city',
         tier: Tier.a0,
-        mode: GameMode.buildPhrase,
         lumens: 0,
+        gaps: SessionBalance.phraseGapsAll,
       );
 
       expect(question, isNotNull);
       expect(question!.slotCount,
-          greaterThanOrEqualTo(SessionBalance.buildPhraseMinWords));
+          greaterThanOrEqualTo(SessionBalance.phraseMinWords));
       expect(question.isSingleSlot, isFalse);
 
       for (var slot = 0; slot < question.slotCount; slot++) {
         for (var option = 0; option < question.options.length; option++) {
-          expect(question.isCorrectFor(slot, option),
-              option == question.answers[slot],
-              reason: 'слот $slot, вариант $option');
+          // Верным признаётся вариант с тем же **текстом**, а не только с тем
+          // же номером: слово в предложении может повторяться, и две
+          // неотличимые плитки взаимозаменяемы.
+          expect(
+            question.isCorrectFor(slot, option),
+            question.options[option] == question.answerFor(slot),
+            reason: 'слот $slot, вариант $option',
+          );
         }
       }
 
@@ -327,8 +427,9 @@ void main() {
       expect(question.isCorrectFor(question.slotCount, 0), isFalse);
       expect(question.isCorrectFor(-1, 0), isFalse);
 
-      // Порядок слов — это и есть задание: собранное из слотов предложение
-      // обязано совпасть с озвучкой целиком.
+      // Порядок слов — это и есть задание: собранное предложение обязано
+      // совпасть с озвучкой целиком. При максимуме пропусков в пуле лежит всё
+      // предложение, поэтому слов в нём столько же, сколько слотов.
       expect(question.assembled, question.answerSpeech);
       expect(question.assembled.split(' ').length, question.slotCount);
     });

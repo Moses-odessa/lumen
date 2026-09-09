@@ -159,6 +159,15 @@ class ConceptRow extends DataClass implements Insertable<ConceptRow> {
   final String tier;
   final String constellation;
   final String pos;
+
+  /// Частотный ранг: чем меньше, тем раньше слово вводится.
+  ///
+  /// Может отсутствовать, и это не пробел в данных: редакторский словник на
+  /// 6000 лемм частотности не несёт, а выдумать её значило бы записать
+  /// вымысел в поле, которое читается как измерение. Поэтому все запросы
+  /// сортируют «сначала с рангом, потом без»: NULL в SQLite сортируется
+  /// первым, и без этого правила слово без частотности вводилось бы раньше
+  /// самого частотного.
   final int? freqRank;
   const ConceptRow({
     required this.id,
@@ -1907,12 +1916,12 @@ class PhraseSlotsCompanion extends UpdateCompanion<PhraseSlotRow> {
   }
 }
 
-class $PhraseOptionsTable extends PhraseOptions
-    with TableInfo<$PhraseOptionsTable, PhraseOptionRow> {
+class $PhraseOrdersTable extends PhraseOrders
+    with TableInfo<$PhraseOrdersTable, PhraseOrderRow> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $PhraseOptionsTable(this.attachedDatabase, [this._alias]);
+  $PhraseOrdersTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _phraseIdMeta = const VerificationMeta(
     'phraseId',
   );
@@ -1933,25 +1942,27 @@ class $PhraseOptionsTable extends PhraseOptions
     type: DriftSqlType.int,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _formMeta = const VerificationMeta('form');
+  static const VerificationMeta _sentenceMeta = const VerificationMeta(
+    'sentence',
+  );
   @override
-  late final GeneratedColumn<String> form = GeneratedColumn<String>(
-    'form',
+  late final GeneratedColumn<String> sentence = GeneratedColumn<String>(
+    'text',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
   @override
-  List<GeneratedColumn> get $columns => [phraseId, idx, form];
+  List<GeneratedColumn> get $columns => [phraseId, idx, sentence];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'phrase_options';
+  static const String $name = 'phrase_orders';
   @override
   VerificationContext validateIntegrity(
-    Insertable<PhraseOptionRow> instance, {
+    Insertable<PhraseOrderRow> instance, {
     bool isInserting = false,
   }) {
     final context = VerificationContext();
@@ -1972,23 +1983,23 @@ class $PhraseOptionsTable extends PhraseOptions
     } else if (isInserting) {
       context.missing(_idxMeta);
     }
-    if (data.containsKey('form')) {
+    if (data.containsKey('text')) {
       context.handle(
-        _formMeta,
-        form.isAcceptableOrUnknown(data['form']!, _formMeta),
+        _sentenceMeta,
+        sentence.isAcceptableOrUnknown(data['text']!, _sentenceMeta),
       );
     } else if (isInserting) {
-      context.missing(_formMeta);
+      context.missing(_sentenceMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {phraseId, idx, form};
+  Set<GeneratedColumn> get $primaryKey => {phraseId, idx};
   @override
-  PhraseOptionRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+  PhraseOrderRow map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return PhraseOptionRow(
+    return PhraseOrderRow(
       phraseId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}phrase_id'],
@@ -1997,54 +2008,58 @@ class $PhraseOptionsTable extends PhraseOptions
         DriftSqlType.int,
         data['${effectivePrefix}idx'],
       )!,
-      form: attachedDatabase.typeMapping.read(
+      sentence: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
-        data['${effectivePrefix}form'],
+        data['${effectivePrefix}text'],
       )!,
     );
   }
 
   @override
-  $PhraseOptionsTable createAlias(String alias) {
-    return $PhraseOptionsTable(attachedDatabase, alias);
+  $PhraseOrdersTable createAlias(String alias) {
+    return $PhraseOrdersTable(attachedDatabase, alias);
   }
 }
 
-class PhraseOptionRow extends DataClass implements Insertable<PhraseOptionRow> {
+class PhraseOrderRow extends DataClass implements Insertable<PhraseOrderRow> {
   final String phraseId;
   final int idx;
-  final String form;
-  const PhraseOptionRow({
+
+  /// В базе колонка называется `text`; в Dart так нельзя — `text()` это
+  /// собственный построитель колонок Drift, и совпадение имён ломает
+  /// кодогенерацию молча. То же, что у `PhraseTranslations.translation`.
+  final String sentence;
+  const PhraseOrderRow({
     required this.phraseId,
     required this.idx,
-    required this.form,
+    required this.sentence,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['phrase_id'] = Variable<String>(phraseId);
     map['idx'] = Variable<int>(idx);
-    map['form'] = Variable<String>(form);
+    map['text'] = Variable<String>(sentence);
     return map;
   }
 
-  PhraseOptionsCompanion toCompanion(bool nullToAbsent) {
-    return PhraseOptionsCompanion(
+  PhraseOrdersCompanion toCompanion(bool nullToAbsent) {
+    return PhraseOrdersCompanion(
       phraseId: Value(phraseId),
       idx: Value(idx),
-      form: Value(form),
+      sentence: Value(sentence),
     );
   }
 
-  factory PhraseOptionRow.fromJson(
+  factory PhraseOrderRow.fromJson(
     Map<String, dynamic> json, {
     ValueSerializer? serializer,
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return PhraseOptionRow(
+    return PhraseOrderRow(
       phraseId: serializer.fromJson<String>(json['phraseId']),
       idx: serializer.fromJson<int>(json['idx']),
-      form: serializer.fromJson<String>(json['form']),
+      sentence: serializer.fromJson<String>(json['sentence']),
     );
   }
   @override
@@ -2053,88 +2068,88 @@ class PhraseOptionRow extends DataClass implements Insertable<PhraseOptionRow> {
     return <String, dynamic>{
       'phraseId': serializer.toJson<String>(phraseId),
       'idx': serializer.toJson<int>(idx),
-      'form': serializer.toJson<String>(form),
+      'sentence': serializer.toJson<String>(sentence),
     };
   }
 
-  PhraseOptionRow copyWith({String? phraseId, int? idx, String? form}) =>
-      PhraseOptionRow(
+  PhraseOrderRow copyWith({String? phraseId, int? idx, String? sentence}) =>
+      PhraseOrderRow(
         phraseId: phraseId ?? this.phraseId,
         idx: idx ?? this.idx,
-        form: form ?? this.form,
+        sentence: sentence ?? this.sentence,
       );
-  PhraseOptionRow copyWithCompanion(PhraseOptionsCompanion data) {
-    return PhraseOptionRow(
+  PhraseOrderRow copyWithCompanion(PhraseOrdersCompanion data) {
+    return PhraseOrderRow(
       phraseId: data.phraseId.present ? data.phraseId.value : this.phraseId,
       idx: data.idx.present ? data.idx.value : this.idx,
-      form: data.form.present ? data.form.value : this.form,
+      sentence: data.sentence.present ? data.sentence.value : this.sentence,
     );
   }
 
   @override
   String toString() {
-    return (StringBuffer('PhraseOptionRow(')
+    return (StringBuffer('PhraseOrderRow(')
           ..write('phraseId: $phraseId, ')
           ..write('idx: $idx, ')
-          ..write('form: $form')
+          ..write('sentence: $sentence')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(phraseId, idx, form);
+  int get hashCode => Object.hash(phraseId, idx, sentence);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is PhraseOptionRow &&
+      (other is PhraseOrderRow &&
           other.phraseId == this.phraseId &&
           other.idx == this.idx &&
-          other.form == this.form);
+          other.sentence == this.sentence);
 }
 
-class PhraseOptionsCompanion extends UpdateCompanion<PhraseOptionRow> {
+class PhraseOrdersCompanion extends UpdateCompanion<PhraseOrderRow> {
   final Value<String> phraseId;
   final Value<int> idx;
-  final Value<String> form;
+  final Value<String> sentence;
   final Value<int> rowid;
-  const PhraseOptionsCompanion({
+  const PhraseOrdersCompanion({
     this.phraseId = const Value.absent(),
     this.idx = const Value.absent(),
-    this.form = const Value.absent(),
+    this.sentence = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  PhraseOptionsCompanion.insert({
+  PhraseOrdersCompanion.insert({
     required String phraseId,
     required int idx,
-    required String form,
+    required String sentence,
     this.rowid = const Value.absent(),
   }) : phraseId = Value(phraseId),
        idx = Value(idx),
-       form = Value(form);
-  static Insertable<PhraseOptionRow> custom({
+       sentence = Value(sentence);
+  static Insertable<PhraseOrderRow> custom({
     Expression<String>? phraseId,
     Expression<int>? idx,
-    Expression<String>? form,
+    Expression<String>? sentence,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (phraseId != null) 'phrase_id': phraseId,
       if (idx != null) 'idx': idx,
-      if (form != null) 'form': form,
+      if (sentence != null) 'text': sentence,
       if (rowid != null) 'rowid': rowid,
     });
   }
 
-  PhraseOptionsCompanion copyWith({
+  PhraseOrdersCompanion copyWith({
     Value<String>? phraseId,
     Value<int>? idx,
-    Value<String>? form,
+    Value<String>? sentence,
     Value<int>? rowid,
   }) {
-    return PhraseOptionsCompanion(
+    return PhraseOrdersCompanion(
       phraseId: phraseId ?? this.phraseId,
       idx: idx ?? this.idx,
-      form: form ?? this.form,
+      sentence: sentence ?? this.sentence,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -2148,8 +2163,8 @@ class PhraseOptionsCompanion extends UpdateCompanion<PhraseOptionRow> {
     if (idx.present) {
       map['idx'] = Variable<int>(idx.value);
     }
-    if (form.present) {
-      map['form'] = Variable<String>(form.value);
+    if (sentence.present) {
+      map['text'] = Variable<String>(sentence.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -2159,10 +2174,10 @@ class PhraseOptionsCompanion extends UpdateCompanion<PhraseOptionRow> {
 
   @override
   String toString() {
-    return (StringBuffer('PhraseOptionsCompanion(')
+    return (StringBuffer('PhraseOrdersCompanion(')
           ..write('phraseId: $phraseId, ')
           ..write('idx: $idx, ')
-          ..write('form: $form, ')
+          ..write('sentence: $sentence, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -3543,7 +3558,7 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   late final $LanguagesTable languages = $LanguagesTable(this);
   late final $PhrasesTable phrases = $PhrasesTable(this);
   late final $PhraseSlotsTable phraseSlots = $PhraseSlotsTable(this);
-  late final $PhraseOptionsTable phraseOptions = $PhraseOptionsTable(this);
+  late final $PhraseOrdersTable phraseOrders = $PhraseOrdersTable(this);
   late final $PhraseTranslationsTable phraseTranslations =
       $PhraseTranslationsTable(this);
   late final $PhraseConceptsTable phraseConcepts = $PhraseConceptsTable(this);
@@ -3562,7 +3577,7 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     languages,
     phrases,
     phraseSlots,
-    phraseOptions,
+    phraseOrders,
     phraseTranslations,
     phraseConcepts,
     distractors,
@@ -4644,24 +4659,24 @@ typedef $$PhraseSlotsTableProcessedTableManager =
       PhraseSlotRow,
       PrefetchHooks Function()
     >;
-typedef $$PhraseOptionsTableCreateCompanionBuilder =
-    PhraseOptionsCompanion Function({
+typedef $$PhraseOrdersTableCreateCompanionBuilder =
+    PhraseOrdersCompanion Function({
       required String phraseId,
       required int idx,
-      required String form,
+      required String sentence,
       Value<int> rowid,
     });
-typedef $$PhraseOptionsTableUpdateCompanionBuilder =
-    PhraseOptionsCompanion Function({
+typedef $$PhraseOrdersTableUpdateCompanionBuilder =
+    PhraseOrdersCompanion Function({
       Value<String> phraseId,
       Value<int> idx,
-      Value<String> form,
+      Value<String> sentence,
       Value<int> rowid,
     });
 
-class $$PhraseOptionsTableFilterComposer
-    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
-  $$PhraseOptionsTableFilterComposer({
+class $$PhraseOrdersTableFilterComposer
+    extends Composer<_$ContentDatabase, $PhraseOrdersTable> {
+  $$PhraseOrdersTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4678,15 +4693,15 @@ class $$PhraseOptionsTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get form => $composableBuilder(
-    column: $table.form,
+  ColumnFilters<String> get sentence => $composableBuilder(
+    column: $table.sentence,
     builder: (column) => ColumnFilters(column),
   );
 }
 
-class $$PhraseOptionsTableOrderingComposer
-    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
-  $$PhraseOptionsTableOrderingComposer({
+class $$PhraseOrdersTableOrderingComposer
+    extends Composer<_$ContentDatabase, $PhraseOrdersTable> {
+  $$PhraseOrdersTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4703,15 +4718,15 @@ class $$PhraseOptionsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get form => $composableBuilder(
-    column: $table.form,
+  ColumnOrderings<String> get sentence => $composableBuilder(
+    column: $table.sentence,
     builder: (column) => ColumnOrderings(column),
   );
 }
 
-class $$PhraseOptionsTableAnnotationComposer
-    extends Composer<_$ContentDatabase, $PhraseOptionsTable> {
-  $$PhraseOptionsTableAnnotationComposer({
+class $$PhraseOrdersTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $PhraseOrdersTable> {
+  $$PhraseOrdersTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4724,77 +4739,77 @@ class $$PhraseOptionsTableAnnotationComposer
   GeneratedColumn<int> get idx =>
       $composableBuilder(column: $table.idx, builder: (column) => column);
 
-  GeneratedColumn<String> get form =>
-      $composableBuilder(column: $table.form, builder: (column) => column);
+  GeneratedColumn<String> get sentence =>
+      $composableBuilder(column: $table.sentence, builder: (column) => column);
 }
 
-class $$PhraseOptionsTableTableManager
+class $$PhraseOrdersTableTableManager
     extends
         RootTableManager<
           _$ContentDatabase,
-          $PhraseOptionsTable,
-          PhraseOptionRow,
-          $$PhraseOptionsTableFilterComposer,
-          $$PhraseOptionsTableOrderingComposer,
-          $$PhraseOptionsTableAnnotationComposer,
-          $$PhraseOptionsTableCreateCompanionBuilder,
-          $$PhraseOptionsTableUpdateCompanionBuilder,
+          $PhraseOrdersTable,
+          PhraseOrderRow,
+          $$PhraseOrdersTableFilterComposer,
+          $$PhraseOrdersTableOrderingComposer,
+          $$PhraseOrdersTableAnnotationComposer,
+          $$PhraseOrdersTableCreateCompanionBuilder,
+          $$PhraseOrdersTableUpdateCompanionBuilder,
           (
-            PhraseOptionRow,
+            PhraseOrderRow,
             BaseReferences<
               _$ContentDatabase,
-              $PhraseOptionsTable,
-              PhraseOptionRow
+              $PhraseOrdersTable,
+              PhraseOrderRow
             >,
           ),
-          PhraseOptionRow,
+          PhraseOrderRow,
           PrefetchHooks Function()
         > {
-  $$PhraseOptionsTableTableManager(
+  $$PhraseOrdersTableTableManager(
     _$ContentDatabase db,
-    $PhraseOptionsTable table,
+    $PhraseOrdersTable table,
   ) : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$PhraseOptionsTableFilterComposer($db: db, $table: table),
+              $$PhraseOrdersTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$PhraseOptionsTableOrderingComposer($db: db, $table: table),
+              $$PhraseOrdersTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$PhraseOptionsTableAnnotationComposer($db: db, $table: table),
+              $$PhraseOrdersTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<String> phraseId = const Value.absent(),
                 Value<int> idx = const Value.absent(),
-                Value<String> form = const Value.absent(),
+                Value<String> sentence = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
-              }) => PhraseOptionsCompanion(
+              }) => PhraseOrdersCompanion(
                 phraseId: phraseId,
                 idx: idx,
-                form: form,
+                sentence: sentence,
                 rowid: rowid,
               ),
           createCompanionCallback:
               ({
                 required String phraseId,
                 required int idx,
-                required String form,
+                required String sentence,
                 Value<int> rowid = const Value.absent(),
-              }) => PhraseOptionsCompanion.insert(
+              }) => PhraseOrdersCompanion.insert(
                 phraseId: phraseId,
                 idx: idx,
-                form: form,
+                sentence: sentence,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable<$PhraseOptionsTable, PhraseOptionRow>(table),
+                  e.readTable<$PhraseOrdersTable, PhraseOrderRow>(table),
                   BaseReferences<
                     _$ContentDatabase,
-                    $PhraseOptionsTable,
-                    PhraseOptionRow
+                    $PhraseOrdersTable,
+                    PhraseOrderRow
                   >(db, table, e),
                 ),
               )
@@ -4804,21 +4819,21 @@ class $$PhraseOptionsTableTableManager
       );
 }
 
-typedef $$PhraseOptionsTableProcessedTableManager =
+typedef $$PhraseOrdersTableProcessedTableManager =
     ProcessedTableManager<
       _$ContentDatabase,
-      $PhraseOptionsTable,
-      PhraseOptionRow,
-      $$PhraseOptionsTableFilterComposer,
-      $$PhraseOptionsTableOrderingComposer,
-      $$PhraseOptionsTableAnnotationComposer,
-      $$PhraseOptionsTableCreateCompanionBuilder,
-      $$PhraseOptionsTableUpdateCompanionBuilder,
+      $PhraseOrdersTable,
+      PhraseOrderRow,
+      $$PhraseOrdersTableFilterComposer,
+      $$PhraseOrdersTableOrderingComposer,
+      $$PhraseOrdersTableAnnotationComposer,
+      $$PhraseOrdersTableCreateCompanionBuilder,
+      $$PhraseOrdersTableUpdateCompanionBuilder,
       (
-        PhraseOptionRow,
-        BaseReferences<_$ContentDatabase, $PhraseOptionsTable, PhraseOptionRow>,
+        PhraseOrderRow,
+        BaseReferences<_$ContentDatabase, $PhraseOrdersTable, PhraseOrderRow>,
       ),
-      PhraseOptionRow,
+      PhraseOrderRow,
       PrefetchHooks Function()
     >;
 typedef $$PhraseTranslationsTableCreateCompanionBuilder =
@@ -5747,8 +5762,8 @@ class $ContentDatabaseManager {
       $$PhrasesTableTableManager(_db, _db.phrases);
   $$PhraseSlotsTableTableManager get phraseSlots =>
       $$PhraseSlotsTableTableManager(_db, _db.phraseSlots);
-  $$PhraseOptionsTableTableManager get phraseOptions =>
-      $$PhraseOptionsTableTableManager(_db, _db.phraseOptions);
+  $$PhraseOrdersTableTableManager get phraseOrders =>
+      $$PhraseOrdersTableTableManager(_db, _db.phraseOrders);
   $$PhraseTranslationsTableTableManager get phraseTranslations =>
       $$PhraseTranslationsTableTableManager(_db, _db.phraseTranslations);
   $$PhraseConceptsTableTableManager get phraseConcepts =>

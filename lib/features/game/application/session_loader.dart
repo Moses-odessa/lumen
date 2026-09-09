@@ -7,7 +7,6 @@ import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
 import '../../../domain/entities/circle_question.dart';
-import '../../../domain/entities/game_mode.dart';
 import '../../../domain/entities/part_of_speech.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/level_stage.dart';
@@ -248,8 +247,6 @@ class SessionLoader {
     final questions = <CircleQuestion>[];
     for (final circle in plan) {
       final question = await builder.build(circle);
-      // Круг, который не собрался из-за нехватки контента, пропускается:
-      // показать сломанный хуже, чем не показать вовсе.
       if (question != null) questions.add(question);
     }
     return questions;
@@ -292,23 +289,27 @@ class SessionLoader {
     if (phrase == null) return const [];
 
     final questions = <CircleQuestion>[];
-    for (final mode in [GameMode.fillGaps, GameMode.buildPhrase]) {
+
+    // Два круга на одном предложении, и различаются они глубиной, а не
+    // механикой: сперва вынута часть слов, потом всё предложение. Раньше это
+    // были две механики с двумя реализациями, и реализации расходились —
+    // одна искала индекс через `indexOf`, другая через `_firstUnused`.
+    final extra = difficulty?.extraOptions ?? 0;
+    for (final gaps in [
+      StageRules.gapsFor(LevelStage.check, extra: extra),
+      SessionBalance.phraseGapsAll,
+    ]) {
       final question = await builder.buildPhraseQuestion(
         phrase: phrase,
-        mode: mode,
-        constellation: leading,
         // Фраза проверяет сборку предложения, а не отдельное слово, поэтому
         // скоростного множителя на ней нет.
         lumens: 0,
-        // Заход теперь доходит и до фразы. Раньше её пул оставался шириной
-        // в шесть при любом уровне: словесные круги дорожали, а закрывающая
-        // уровень фраза — нет.
-        options: ScoreBalance.defaultOptions(
-          extra: difficulty?.extraOptions ?? 0,
-        ),
+        // Заход доходит и до фразы. Пока не доходил, словесные круги
+        // дорожали, а закрывающая уровень фраза — нет.
+        gaps: gaps,
       );
-      // «Собери предложение» не собирается из короткой фразы — это не
-      // поломка, а отказ по длине.
+      // Короткое предложение не даёт двух пропусков — это не поломка, а
+      // отказ по длине.
       if (question != null) questions.add(question);
     }
     return questions;

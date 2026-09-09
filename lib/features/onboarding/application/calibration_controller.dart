@@ -174,11 +174,14 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     if (step.mode.isPhrase) {
       final constellations = await content.constellations();
       if (constellations.isEmpty) return null;
+      // Калибровка спрашивает фразу на самой лёгкой глубине: она измеряет
+      // уровень игрока, а не его выносливость. Глубже — уже проверка, а не
+      // замер.
       return builder.buildPhrase(
         constellation: constellations[_random.nextInt(constellations.length)],
         tier: step.tier,
-        mode: step.mode,
         lumens: 0,
+        gaps: SessionBalance.phraseGapsMin,
       );
     }
 

@@ -138,40 +138,20 @@ class QuestionBuilder {
     );
   }
 
-  /// Фраза: заполнить пропуски (**e**) или собрать предложение (**f**).
+  /// Фраза целиком: выбрать предложение и вынуть из него слова.
   ///
-  /// Слова игрок знает, а предложение из них собрать не может — ровно эту
-  /// границу фразовые механики и проверяют.
-  ///
-  /// Варианты для пропуска берутся, в порядке предпочтения: собственные
-  /// неверные слова слота, потом `far` опорного концепта, потом соседи по
-  /// созвездию. Своих неверных слов у большинства фраз пока нет, и добор —
-  /// не запасной путь, а основной; но когда они появятся, они вытеснят
-  /// добор, потому что подобранное под пропуск всегда лучше подобранного под
-  /// тему.
-  ///
-  /// `far`, а не `near`, и это не мелочь. `near` — созвучные слова, а
-  /// созвучное составное существительное почти всегда имеет ту же вершину:
-  /// Stadtplan / Bauplan / Zeitplan, Kindeswohl / Gemeinwohl. Общая вершина
-  /// означает общий род, общее склонение и общую сочетаемость — то есть
-  /// такой «неверный» вариант встаёт в пропуск ничуть не хуже ответа, и
-  /// фраза перестаёт иметь единственное решение.
+  /// Число пропусков приходит извне — это шкала сложности, и распоряжаться
+  /// ею должен тот, кто отвечает за сложность. Сборщик знает только, где
+  /// взять предложение и как из него вынуть слова.
   Future<CircleQuestion?> buildPhrase({
     required String constellation,
     required Tier tier,
     required Lumens lumens,
-    GameMode mode = GameMode.fillGaps,
-    int options = ScoreBalance.optionsMax,
+    int gaps = SessionBalance.phraseGapsMin,
   }) async {
     final phrase = await pickPhrase(constellation: constellation, tier: tier);
     if (phrase == null) return null;
-    return buildPhraseQuestion(
-      phrase: phrase,
-      mode: mode,
-      constellation: constellation,
-      lumens: lumens,
-      options: options,
-    );
+    return buildPhraseQuestion(phrase: phrase, lumens: lumens, gaps: gaps);
   }
 
   /// Тянет случайную фразу созвездия.
@@ -194,10 +174,8 @@ class QuestionBuilder {
   /// Собирает вопрос по уже выбранной фразе.
   Future<CircleQuestion?> buildPhraseQuestion({
     required PhraseRow phrase,
-    required GameMode mode,
-    required String constellation,
     required Lumens lumens,
-    int options = ScoreBalance.optionsMax,
+    int gaps = SessionBalance.phraseGapsMin,
   }) async {
     final answers = await content.phraseAnswers(phrase.id);
     if (answers.isEmpty) return null;
@@ -207,149 +185,148 @@ class QuestionBuilder {
     final translation =
         await content.phraseTranslation(phrase.id, nativeLang);
 
-    return mode == GameMode.buildPhrase
-        ? _buildFromWords(phrase, answers, anchor, lumens, translation)
-        : _fillGaps(
-            phrase,
-            answers,
-            anchor,
-            constellation,
-            lumens,
-            translation,
-            options,
-          );
+    return _place(phrase, answers, anchor, lumens, translation, gaps);
   }
 
-  /// **e.** Шаблон с пропусками, слова-кандидаты вокруг.
-  Future<CircleQuestion?> _fillGaps(
+  /// **e и f — одна механика.** Предложение с пропусками, вокруг ровно
+  /// вынутые из него слова.
+  ///
+  /// Пропусков от двух до всех слов, и сколько именно — шкала сложности, как
+  /// число вариантов в круге. «Собери предложение» это она же на максимуме:
+  /// вынуто всё, скелета не осталось. Двух реализаций поэтому больше нет —
+  /// они расходились (одна искала индекс через `indexOf`, другая через
+  /// `_firstUnused`), и разошлись бы снова.
+  ///
+  /// Посторонних слов в пуле нет вовсе, и это главное изменение. Шесть
+  /// раундов вычитки ушло на списки неверных вариантов, и каждый находил в
+  /// них слово, дающее правильное немецкое предложение: в рамку, куда влезает
+  /// одно, влезает и второе. Слова самого предложения такого вопроса не
+  /// ставят — спрашивается порядок, а не выбор.
+  ///
+  /// Минимум два пропуска не из осторожности. Один пропуск и есть та самая
+  /// рамка с выбором: вокруг лежало бы одно слово, и задание вырождалось бы
+  /// в подстановку.
+  Future<CircleQuestion?> _place(
     PhraseRow phrase,
     List<String> answers,
     String? anchor,
-    String constellation,
     Lumens lumens,
     String? translation,
-    int options,
+    int gaps,
   ) async {
-    final own = await content.phraseOptionsFor(phrase.id);
+    final tokens = _tokenise(phrase.template, answers);
+    if (tokens.words.length < SessionBalance.phraseMinWords) return null;
 
-    // Пул общий на все пропуски: игрок видит слова сверху и снизу и тянет
-    // каждое к своему месту. Поэтому в пуле обязаны быть все ответы, и
-    // неверные слова к ним добавляются сверх.
-    final pool = <String>[...answers];
-    final seen = {for (final a in answers) a.toLowerCase()};
+    final chosen = _pickGaps(tokens, gaps);
+    if (chosen.length < SessionBalance.phraseGapsMin) return null;
 
-    Future<void> addAll(Iterable<String> forms) async {
-      for (final form in forms) {
-        if (pool.length >= options + answers.length - 1) return;
-        if (form.isEmpty || !seen.add(form.toLowerCase())) continue;
-        pool.add(form);
-      }
-    }
+    // Пул — ровно вынутые слова, перемешанные. Порядок в пуле случаен, но
+    // состав задан: игрок видит то, что вынуто, и ничего больше.
+    final pool = [for (final i in chosen) tokens.words[i]]..shuffle(_random);
 
-    for (var slot = 0; slot < answers.length; slot++) {
-      // Перемешивается до обрезки, а не после.
-      //
-      // База отдаёт варианты по первичному ключу, то есть по алфавиту и
-      // заглавными вперёд, а в пул влезают не все — только первые
-      // `options - 1`. Без перемешивания обрезка систематически предпочитала
-      // существительные прилагательным, и в двух фразах A0 ответ оставался
-      // единственным строчным словом на экране. Порядок автора при этом всё
-      // равно потерян: он не доезжает из YAML до базы.
-      await addAll((own[slot] ?? const <String>[]).toList()..shuffle(_random));
-    }
-    if (anchor != null) {
-      await addAll((await content.distractorsFor(anchor, targetLang, 'far'))
-          .map((d) => d.form));
-    }
-    await addAll(await content.siblingForms(
-      constellation: constellation,
-      tier: phrase.tier,
-      lang: targetLang,
-      excludeConceptId: anchor ?? '',
-    ));
-
-    // Меньше одного лишнего слова — это не задание, а подстановка.
-    if (pool.length <= answers.length) return null;
-
-    final shuffled = pool.toList()..shuffle(_random);
-
-    // Индексы ищутся по неиспользованным вхождениям, а не через `indexOf`.
-    //
-    // Одно и то же слово может отвечать на два пропуска («Ich {gehe} und du
-    // {gehe}»), и тогда `indexOf` вернул бы оба раза первый индекс: два слота
-    // спорили бы за один вариант, а второе такое же слово в пуле осталось бы
-    // недостижимым. Рядом, в `_buildFromWords`, от этого стоит защита — а
-    // здесь её не было, и два сборщика фраз расходились друг с другом.
+    // Индексы ищутся по неиспользованным вхождениям, а не через `indexOf`:
+    // слово в предложении может повторяться («Das ist ein guter Preis für so
+    // ein Auto»), и тогда два слота получили бы один индекс, а вторая плитка
+    // осталась бы недостижимой. Взаимозаменяемость одинаковых плиток при
+    // ответе обеспечивает `CircleQuestion.isCorrectFor` — она сравнивает
+    // текст, а не только номер.
     final used = <int>{};
     final bySlot = <int>[];
-    for (final answer in answers) {
-      final index = _firstUnused(shuffled, answer, used);
+    for (final i in chosen) {
+      final index = _firstUnused(pool, tokens.words[i], used);
       if (index < 0) return null;
       used.add(index);
       bySlot.add(index);
     }
 
+    // Скелет: слова на месте, вынутые — пропусками. При максимуме пропусков
+    // это строка из одних пропусков, и отдельного вида центра для неё не
+    // нужно: тот же виджет рисует и её.
+    final skeleton = [
+      for (var i = 0; i < tokens.words.length; i++)
+        chosen.contains(i) ? '_____' : tokens.words[i]
+    ].join(' ');
+
     return CircleQuestion(
       itemId: anchor ?? phrase.id,
       tier: Tier.fromCode(phrase.tier),
-      mode: GameMode.fillGaps,
-      prompt: _withGaps(phrase.template),
+      // Имя механики — от того, всё ли вынуто: игрок видит разные задания,
+      // и статистика с этапами их различают.
+      mode: chosen.length == tokens.words.length
+          ? GameMode.buildPhrase
+          : GameMode.fillGaps,
+      prompt: skeleton,
       promptTag: phrase.register,
-      options: shuffled,
+      options: pool,
       answers: bySlot,
       lumens: lumens,
-      answerSpeech: _withAnswers(phrase.template, answers),
+      answerSpeech: tokens.words.join(' '),
+      accepted: await content.phraseOrdersFor(phrase.id),
       translation: translation,
     );
   }
 
-  /// **f.** Слова врассыпную, пустые места по их числу.
+  /// Слова предложения и позиции тех, что несут пропуск шаблона.
   ///
-  /// Слова берутся из самого предложения, а не подбираются: цель — порядок, а
-  /// не выбор. Лишние слова здесь были бы другой задачей.
-  CircleQuestion? _buildFromWords(
-    PhraseRow phrase,
+  /// Режется **шаблон**, а не готовое предложение: только так известно, какое
+  /// слово фраза учит. Знак препинания при этом никуда не уезжает — он и так
+  /// прилип к слову (`"{water}."` → `"Wasser."`), поэтому один пропуск
+  /// шаблона это ровно одно слово.
+  static ({List<String> words, Set<int> taught}) _tokenise(
+    String template,
     List<String> answers,
-    String? anchor,
-    Lumens lumens,
-    String? translation,
   ) {
-    final sentence = _withAnswers(phrase.template, answers);
-    final words = sentence
-        .split(RegExp(r'\s+'))
-        .where((w) => w.isNotEmpty)
-        .toList();
+    final words = <String>[];
+    final taught = <int>{};
+    var next = 0;
 
-    // Короткое предложение собирается наугад: из трёх слов порядок угадать
-    // проще, чем вспомнить. Порог — в балансе.
-    if (words.length < SessionBalance.buildPhraseMinWords) return null;
-
-    final pool = words.toList()..shuffle(_random);
-    // Индексы ищутся по вхождениям, а не по `indexOf`: слово в предложении
-    // может повторяться («Ich habe ... und ich ...»), и тогда второй слот
-    // получил бы индекс первого, а один из вариантов остался бы висеть.
-    final used = <int>{};
-    final answersBySlot = <int>[];
-    for (final word in words) {
-      final index = _firstUnused(pool, word, used);
-      if (index < 0) return null;
-      used.add(index);
-      answersBySlot.add(index);
+    for (final chunk in template.split(RegExp(r'\s+'))) {
+      if (chunk.isEmpty) continue;
+      if (chunk.contains('{')) {
+        final answer = next < answers.length ? answers[next++] : '';
+        words.add(chunk.replaceAll(RegExp(r'\{[^}]*\}'), answer));
+        taught.add(words.length - 1);
+      } else {
+        words.add(chunk);
+      }
     }
+    return (words: words, taught: taught);
+  }
 
-    return CircleQuestion(
-      itemId: anchor ?? phrase.id,
-      tier: Tier.fromCode(phrase.tier),
-      mode: GameMode.buildPhrase,
-      // Центр пуст: его занимают пустые места по числу слов.
-      prompt: '',
-      promptTag: phrase.register,
-      options: pool,
-      answers: answersBySlot,
-      lumens: lumens,
-      answerSpeech: sentence,
-      translation: translation,
-    );
+  /// Какие слова вынуть: сперва те, что фраза учит, потом остальные.
+  ///
+  /// Слово из пропуска шаблона вынимается всегда. Иначе круг перестаёт
+  /// проверять то слово, ради которого существует, — а память всё равно
+  /// запишется против него.
+  ///
+  /// Остальные добираются случайно, а не по части речи: части речи в рантайме
+  /// нет. Она есть у концепта, а слова скелета концептами не являются —
+  /// «Buchstabieren» и «bitte» это текст шаблона. Правило «вынимать только
+  /// значимые слова» поэтому нереализуемо там, где выбираются пропуски, и
+  /// придумывать его на глаз хуже, чем честная случайность.
+  List<int> _pickGaps(({List<String> words, Set<int> taught}) tokens, int gaps) {
+    final total = tokens.words.length;
+    // Ноль означает «все слова», а не «ноль пропусков»: это максимум шкалы,
+    // то самое «собери предложение». Прогонять его через `clamp` нельзя —
+    // ноль превратился бы в минимум, и самая трудная настройка стала бы самой
+    // лёгкой. Молча: пропусков два вместо всех, круг проходится, ошибку видно
+    // только по числу слотов.
+    final wanted = gaps == SessionBalance.phraseGapsAll
+        ? total
+        : gaps.clamp(SessionBalance.phraseGapsMin, total);
+
+    final chosen = <int>{...tokens.taught.where((i) => i < total)};
+    if (chosen.length < wanted) {
+      final rest = [
+        for (var i = 0; i < total; i++)
+          if (!chosen.contains(i)) i
+      ]..shuffle(_random);
+      for (final i in rest) {
+        if (chosen.length >= wanted) break;
+        chosen.add(i);
+      }
+    }
+    return chosen.toList()..sort();
   }
 
   static int _firstUnused(List<String> pool, String word, Set<int> used) {
@@ -450,24 +427,4 @@ class QuestionBuilder {
   String? _freeText(String? note) =>
       note != null && !isPromptTag(note) ? note : null;
 
-  /// Заменяет слоты шаблона на пропуски:
-  /// `Ich brauche {help}.` → `Ich brauche _____.`
-  String _withGaps(String template) =>
-      template.replaceAll(RegExp(r'\{[^}]*\}'), '_____');
-
-  /// Заполняет слоты ответами: `Ich brauche {help}.` → `Ich brauche Hilfe.`
-  ///
-  /// Нужно для озвучки фразы. Пока озвучка была файлами, произносилось одно
-  /// слово из пропуска — записывать четыреста тридцать два предложения было
-  /// незачем. Синтез произносит их бесплатно, и игрок слышит фразу целиком,
-  /// ради которой её и учит.
-  ///
-  /// Порядок [answers] — это порядок слотов в шаблоне слева направо.
-  String _withAnswers(String template, List<String> answers) {
-    var i = 0;
-    return template.replaceAllMapped(
-      RegExp(r'\{[^}]*\}'),
-      (_) => i < answers.length ? answers[i++] : '',
-    );
-  }
 }

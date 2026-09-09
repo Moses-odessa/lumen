@@ -3,20 +3,24 @@ import 'package:flutter/material.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
-import '../../../domain/entities/game_mode.dart';
 import 'prompt_tag_text.dart';
 
-/// Арена со слотами: механики **e** (заполни пропуски) и **f** (собери
-/// предложение).
+/// Арена фразы: предложение с пропусками, вокруг вынутые из него слова.
 ///
-/// Одна арена на две механики, потому что задача у них одна и та же —
-/// расставить слова по местам. Различие только в том, что показано вокруг
-/// слотов: в **e** это фраза с пропусками, в **f** пустых мест столько же,
-/// сколько слов, и текста нет вовсе.
+/// Одна механика, а не две. Пропусков от двух до всех слов, и сколько именно
+/// — шкала сложности; «собери предложение» это она же на максимуме, когда
+/// вынуто всё и скелета не осталось. Двух арен и двух сборщиков поэтому
+/// больше нет: они расходились, и разошлись бы снова.
 ///
-/// Слова-кандидаты лежат сверху и снизу от фразы. Это не украшение раскладки:
-/// в круге вариант выбирают один раз, а здесь их несколько и порядок значим,
-/// поэтому пул должен быть виден целиком, не перекрывая саму фразу.
+/// **Вокруг лежат ровно вынутые слова**, ничего постороннего. Шесть раундов
+/// вычитки ушло на списки неверных вариантов, и каждый находил в них слово,
+/// дающее правильное немецкое предложение: в рамку, куда влезает одно, влезает
+/// и второе. Слова самого предложения такого вопроса не ставят —
+/// спрашивается порядок, а не выбор.
+///
+/// Слова лежат сверху и снизу от фразы. Это не украшение раскладки: в круге
+/// вариант выбирают один раз, а здесь их несколько и порядок значим, поэтому
+/// пул должен быть виден целиком, не перекрывая саму фразу.
 class SlotsArena extends StatefulWidget {
   const SlotsArena({
     super.key,
@@ -131,10 +135,12 @@ class _SlotsArenaState extends State<SlotsArena> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (question.mode == GameMode.fillGaps)
-                    _Template(question: question, placed: _placed)
-                  else
-                    _Slots(question: question, placed: _placed),
+                  // Один рисовальщик на любую глубину пропусков. При
+                  // максимуме скелет — строка из одних пропусков, и отдельного
+                  // вида центра для неё не нужно. Прежний `_Slots` рисовал её
+                  // через `Wrap`, тот самый, из-за которого точка отлетала от
+                  // заполненного слова.
+                  _Template(question: question, placed: _placed),
                   if (hint.isNotEmpty) ...[
                     const SizedBox(height: 10),
                     Text(
@@ -271,29 +277,6 @@ class _Template extends StatelessWidget {
       style: theme.textTheme.titleMedium,
     );
   }
-}
-
-/// Пустые места по числу слов: механика **f**.
-class _Slots extends StatelessWidget {
-  const _Slots({required this.question, required this.placed});
-
-  final CircleQuestion question;
-  final Map<int, int> placed;
-
-  @override
-  Widget build(BuildContext context) => Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 6,
-        runSpacing: 8,
-        children: [
-          for (var i = 0; i < question.slotCount; i++)
-            _Slot(
-              text: placed.containsKey(i)
-                  ? question.options[placed[i]!]
-                  : null,
-            ),
-        ],
-      );
 }
 
 /// Одно место под слово: пустое или заполненное.

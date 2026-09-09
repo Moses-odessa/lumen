@@ -109,10 +109,9 @@ Findings validateContent(Directory root, String lang) {
   _checkPluralMorphology(sources, lang, report);
   _checkPluraleTantum(sources, lang, report);
   _checkDistractorCase(sources, lang, report);
-  _checkPhraseAmbiguity(sources, lang, report);
-  _checkPhraseOptionCoverage(sources, report);
-  _checkOptionAgreement(sources, lang, report);
-  _checkDraftedOptions(sources, lang, report);
+  _checkSingleSentence(sources, report);
+  _checkPhraseOrders(sources, report);
+  _checkRearrangement(sources, report);
   _checkPhraseRegister(sources, report);
   _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
@@ -961,125 +960,6 @@ void _checkDistractorVariety(
   }
 }
 
-/// Немецкие суффиксы образования существительных.
-///
-/// Их приходится снимать перед сравнением окончаний, иначе проверка на общую
-/// вершину сложного слова превращается в проверку на «оба слова абстрактные».
-/// На конкретной лексике A0–A2 это было незаметно, на B1 стало очевидно:
-/// `Zuständigkeit` и `Öffentlichkeit` делят `keit`, `Infektion` и `Operation`
-/// делят `tion` — и ни в одном случае это не общая вершина, а всего лишь
-/// один и тот же способ сделать из слова существительное.
-const _derivationalEndings = [
-  'ierung', 'schaft', 'igkeit', 'lichkeit', 'ismus', 'ität', 'keit', 'heit',
-  'ung', 'tion', 'sion', 'nis', 'tum', 'anz', 'enz', 'ling', 'chen', 'lein',
-];
-
-/// Слово без суффикса образования: `Überweisung` → `überweis`.
-String _withoutDerivation(String word) {
-  final folded = foldSpelling(word);
-  for (final ending in _derivationalEndings) {
-    // Оставляем не меньше трёх букв основы: иначе от короткого слова вроде
-    // «Union» не останется ничего и оно совпадёт со всем подряд.
-    if (folded.endsWith(ending) && folded.length - ending.length >= 3) {
-      return folded.substring(0, folded.length - ending.length);
-    }
-  }
-  return folded;
-}
-
-/// У фразы должен быть ровно один верный ответ.
-///
-/// Проверить это в общем виде нельзя — нужен смысл. Но один и притом самый
-/// частый источник вторых верных ответов машина видит: варианты, у которых с
-/// ответом общая вершина сложного слова. Stadtplan / Bauplan / Zeitplan,
-/// Kindeswohl / Gemeinwohl, Projektphase / Testphase — общая вершина даёт
-/// общий род, общее склонение и общую сочетаемость, поэтому такой вариант
-/// встаёт в пропуск наравне с ответом.
-///
-/// Считается ровно тот набор, который соберёт `QuestionBuilder.buildBoss`:
-/// `far` опорного концепта плюс соседи по созвездию и ярусу. Проверять другой
-/// набор бессмысленно — игрок увидит этот.
-void _checkPhraseAmbiguity(
-  ContentSources sources,
-  String lang,
-  Findings report,
-) {
-  // Четыре буквы: -plan, -wohl, -zeit, -kosten.
-  const headLength = 4;
-
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  var drafted = 0;
-  final byTier = <String, Map<String, List<String>>>{};
-  for (final concept in sources.concepts.values) {
-    final form = byConcept[concept.id]?.form;
-    if (form == null) continue;
-    byTier
-        .putIfAbsent(concept.tier, () => {})
-        .putIfAbsent(concept.constellation, () => [])
-        .add(form);
-  }
-
-  for (final phrase in sources.phrases) {
-    final anchor =
-        phrase.conceptIds.isEmpty ? null : byConcept[phrase.conceptIds.first];
-
-    // Свои варианты слота вытесняют добор соседями: когда для пропуска
-    // выписаны неверные слова, игрок увидит именно их, и проверять надо их.
-    final clashing = <String>{};
-    for (var slot = 0; slot < phrase.answers.length; slot++) {
-      final own = phrase.optionsFor(slot);
-      final options = own.isNotEmpty
-          ? own
-          : <String>[
-              ...?anchor?.farDistractors,
-              ...?byTier[phrase.tier]?[phrase.constellation],
-            ];
-
-      final expected = phrase.answers[slot];
-      final stem = _withoutDerivation(expected);
-      clashing.addAll(options
-          .where((o) => foldSpelling(o) != foldSpelling(expected))
-          .where((o) => commonSuffix(stem, _withoutDerivation(o)) >= headLength)
-          .map(foldSpelling));
-    }
-
-    if (clashing.isEmpty) {
-      // Отметка осталась от прежней редакции фразы: она больше ничего не
-      // прикрывает и вводит в заблуждение следующего читающего.
-      if (phrase.ambiguityReviewed) {
-        report.review(
-          'фраза ${phrase.id}: пометка «ambiguity: reviewed» лишняя — '
-          'вариантов с той же вершиной больше нет',
-        );
-      }
-      continue;
-    }
-    if (phrase.ambiguityReviewed) continue;
-
-    final message =
-        'фраза ${phrase.id}: вариант ${clashing.join(", ")} имеет ту же '
-        'вершину, что ответ ${phrase.answers.map((a) => '"$a"').join(" / ")}, '
-        'и может встать в тот же пропуск';
-    // Как и с полнотой дистракторов: с запущенного яруса спрос полный, с
-    // невычитанного — список на потом. Иначе проверка блокировала бы мерж за
-    // работу, которая и не объявлена законченной.
-    if (sources.launch.isLaunched(phrase.tier)) {
-      report.error(message);
-    } else {
-      drafted++;
-    }
-  }
-
-  if (drafted > 0) {
-    report.pending(
-      'у $drafted фраз незапущенных ярусов вариант делит вершину с ответом — '
-      'разбирать при вычитке яруса',
-    );
-  }
-}
-
 /// `register: formal` означает обращение на Sie — и ничего больше.
 ///
 /// Определение нужно было выбрать: в docs/CONTENT_PIPELINE.md поле значилось
@@ -1167,51 +1047,6 @@ void _checkLexemeNotes(ContentSources sources, Findings report) {
   }
 }
 
-/// У фразы запущенного яруса свои варианты закрывают весь пул.
-///
-/// Пул пропуска набирается по предпочтению: свои неверные слова слота, потом
-/// `far` опорного концепта, потом соседи по созвездию и ярусу. Добор соседями
-/// никем не выбирался под этот пропуск — он выбирался под тему, — и в
-/// безартиклевую или согласованную рамку встаёт ничуть не хуже ответа.
-/// Двойная вычитка A0 нашла ровно это: в 24 фразах из 36 пул содержал минимум
-/// два слова, дающих правильное немецкое предложение.
-///
-/// Своих слов должно быть столько, чтобы добор не начался **при самом широком
-/// пуле**, а не при обычном. Широкий пул даёт аркадный заход, и провал в нём
-/// злее: игрок вложился в серию, а круг оказался без единственного ответа.
-///
-/// Считается по формуле сборщика: пул ограничен `options + слотов - 1`, в него
-/// сперва кладутся все ответы. Значит своих неверных слов нужно
-/// `maxOptions - 1` на фразу.
-void _checkPhraseOptionCoverage(ContentSources sources, Findings report) {
-  const needed = phraseOptionsPerSlot;
-
-  var drafted = 0;
-  for (final phrase in sources.phrases) {
-    var short = 0;
-    for (var slot = 0; slot < phrase.answers.length; slot++) {
-      if (phrase.optionsFor(slot).length < needed) short++;
-    }
-    if (short == 0) continue;
-
-    if (!sources.launch.isLaunched(phrase.tier)) {
-      drafted++;
-      continue;
-    }
-    report.error(
-      'фраза ${phrase.id}: у $short слотов меньше $needed своих неверных '
-      'слов — остальное доберётся соседями по теме, а сосед встаёт в пропуск '
-      'не хуже ответа',
-    );
-  }
-
-  if (drafted > 0) {
-    report.pending(
-      'у $drafted фраз незапущенных ярусов нет своих неверных слов — пул '
-      'добирается соседями по теме; разбирать при вычитке яруса',
-    );
-  }
-}
 
 /// Созвучные дистракторы у родного языка не доходят до игрока никогда.
 ///
@@ -1243,149 +1078,118 @@ void _checkNativeNearDistractors(ContentSources sources, Findings report) {
   }
 }
 
-/// Черновое слово не должно стоять в вариантах фразы.
-///
-/// Пометка `draft` обещает «в игру не идёт», и на концептах фразы это
-/// работало: сборка выкидывает фразу целиком, если хоть одно её слово
-/// черновое. Но неверный вариант слота — строка, а не ссылка на концепт, и
-/// ворот на этом пути не было: черновое слово уезжало игроку через `options`.
-///
-/// Нашла это вычитка A0 — `gern` (черновой) показывался пять раз из семи.
-/// Слово оказалось хорошим, и именно поэтому проверка нужна: ворота были
-/// открыты, а следующее слово могло быть любым.
-///
-/// Сборка теперь такие варианты пропускает, но молча — и фраза лишается
-/// варианта, о чём никто не узнает. Поэтому это ошибка в исходниках, а не
-/// тихая правка при сборке.
-void _checkDraftedOptions(
-  ContentSources sources,
-  String lang,
-  Findings report,
-) {
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
 
-  final draftedForms = <String, String>{};
-  for (final concept in sources.concepts.values) {
-    if (!concept.draft) continue;
-    final lex = byConcept[concept.id];
-    if (lex != null) draftedForms[lex.form.toLowerCase()] = concept.id;
-  }
-  if (draftedForms.isEmpty) return;
-
+/// Заявленный порядок слов обязан быть настоящей перестановкой предложения.
+///
+/// Механика собирает предложение из его же слов, поэтому «этот порядок тоже
+/// верен» — заявление про **те же** слова, а не про другое предложение.
+/// Опечатка здесь безобиднее не бывает по виду и злее всех по последствиям:
+/// заявленная сборка, отличающаяся от исходной хоть одним словом, объявила бы
+/// верным то, чего игрок собрать не может, и наоборот.
+///
+/// Проверяется поэтому машинно и точно: набор слов совпадает, а порядок —
+/// нет.
+void _checkPhraseOrders(ContentSources sources, Findings report) {
   for (final phrase in sources.phrases) {
-    for (var slot = 0; slot < phrase.answers.length; slot++) {
-      for (final form in phrase.optionsFor(slot)) {
-        final conceptId = draftedForms[form.toLowerCase()];
-        if (conceptId == null) continue;
+    final canonical = phraseSpeech(phrase.template, phrase.answers);
+    final expected = (canonical.split(RegExp(r'\s+')).toList()..sort()).join(' ');
+
+    for (final order in phrase.orders) {
+      final words = order.trim().split(RegExp(r'\s+'));
+      final actual = (words.toList()..sort()).join(' ');
+      if (actual != expected) {
         report.error(
-          'фраза ${phrase.id}: вариант "$form" — форма чернового концепта '
-          '$conceptId. Невычитанное слово в круге ровно то, от чего пометка '
-          'защищает',
+          'фраза ${phrase.id}: заявленный порядок «$order» собран не из тех '
+          'слов, что «$canonical» — механика даёт игроку слова предложения, '
+          'и собрать заявленное он не сможет',
+        );
+        continue;
+      }
+      if (order.trim() == canonical) {
+        report.error(
+          'фраза ${phrase.id}: заявленный порядок совпадает с заданным '
+          'шаблоном — записывать его отдельно незачем',
         );
       }
     }
   }
 }
 
-/// Ответ не должен опознаваться без знания слова.
+/// Предложение, которое собирается из своих слов в другом верном порядке.
 ///
-/// Это зеркальная ошибка к неоднозначности, и обе настоящие. Вычитка A0 нашла
-/// сперва одну, потом другую: сначала в пуле были слова, дающие правильное
-/// немецкое предложение (у пропуска не было единственного ответа), а после
-/// правки все варианты стали отвергаться грамматикой — и ответ опознавался
-/// сопоставлением с видимым артиклем, без знания слова. 27 фраз из 36.
+/// Это единственный источник вторых верных ответов, оставшийся у фразовой
+/// механики после того, как посторонние варианты из неё ушли. И он конечный:
+/// раньше вторым ответом могло оказаться любое из шести показанных слов, а
+/// теперь только перестановка слов самого предложения — их можно перечислить.
 ///
-/// Требование поэтому двойное: единственный правильный ответ **и**
-/// невозможность найти его грамматикой. Второе проверяется здесь, и способ
-/// зависит от рамки:
+/// Машина решает не «верен ли другой порядок» (для этого нужен смысл), а
+/// «есть ли у него шанс»: у немецкого свободен только вынос в начало, всё
+/// прочее закреплено. Поэтому в `pending` уходят те предложения, где вынос
+/// физически возможен, — их и читает вычитка.
 ///
-/// * **Рамка с артиклем** («Wo ist die \_\_\_?»). Нужно хотя бы два варианта
-///   того же рода, что ответ: тогда род не выделяет. Род берётся из лексем
-///   языка изучения по форме; у прилагательных и наречий рода нет, и это тоже
-///   сравнение — ответ-наречие требует вариантов-наречий.
-/// * **Рамка без артикля** («Ich brauche \_\_\_.»). Согласовывать не с чем:
-///   отсеивает не род, а требование артикля у исчисляемого. Значит нужно два
-///   варианта, законных без артикля, — неисчисляемых. «Ich brauche Salz»
-///   грамматически безупречно и по смыслу невозможно, а это ровно то, что
-///   заставляет знать слово.
-///
-/// Слово, которого нет в лексемах, не считается ни там, ни там: проверка от
-/// этого мягче, а не строже. Так же и неизвестный определитель — рамка
-/// считается безартиклевой. Оба выбора сделаны в сторону пропуска находки, а
-/// не ложной: список определителей ниже придётся дописывать, и лучше, чтобы
-/// забытое слово не роняло сборку зря.
-void _checkOptionAgreement(
-  ContentSources sources,
-  String lang,
-  Findings report,
-) {
-  const needed = minSameClassOptions;
+/// Признаки, по которым вынос невозможен и читать нечего:
+///   • меньше трёх слов — переставлять нечего;
+///   • вопрос с вопросительным словом в начале: «Wo ist die Post?» —
+///     вопросительное слово стоит первым и никуда не уходит;
+///   • повелительное наклонение: «Gehen Sie nach rechts» — глагол первый.
+void _checkRearrangement(ContentSources sources, Findings report) {
+  const questionWords = {
+    'wo', 'was', 'wer', 'wie', 'wann', 'warum', 'wohin', 'woher', 'welche',
+    'welcher', 'welches', 'wen', 'wem', 'wessen', 'wieviel',
+  };
 
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  final genderOf = <String, String>{};
-  final uncountable = <String>{};
-  for (final lex in byConcept.values) {
-    genderOf[lex.form.toLowerCase()] = lex.gender ?? '';
-    final plural = lex.plural;
-    if (plural != null) {
-      genderOf.putIfAbsent(plural.toLowerCase(), () => lex.gender ?? '');
-    }
-    // Законно без артикля: неисчисляемое, множественное-только и то, у чего
-    // множественного нет вовсе.
-    if (lex.note == 'uncountable' ||
-        lex.note == 'plural_only' ||
-        lex.gender == null ||
-        lex.plural == null) {
-      uncountable.add(lex.form.toLowerCase());
-    }
-  }
-
-  var drafted = 0;
+  var open = 0;
+  final examples = <String>[];
   for (final phrase in sources.phrases) {
-    final slots = phraseSlotMarkers(phrase.template);
-    for (var slot = 0; slot < phrase.answers.length; slot++) {
-      final options = phrase.optionsFor(slot);
-      if (options.isEmpty) continue;
+    final sentence = phraseSpeech(phrase.template, phrase.answers);
+    final words = sentence.split(RegExp(r'\s+'));
+    if (words.length < 3) continue;
 
-      final marked = slot < slots.length && genderMarkers.contains(slots[slot]);
-      final int matching;
-      final String why;
-      if (marked) {
-        final answerGender = genderOf[phrase.answers[slot].toLowerCase()];
-        if (answerGender == null) continue;
-        matching = options
-            .where((f) => genderOf[f.toLowerCase()] == answerGender)
-            .length;
-        why = 'того же рода, что ответ — ответ опознаётся по согласованию с '
-            'артиклем';
-      } else {
-        matching =
-            options.where((f) => uncountable.contains(f.toLowerCase())).length;
-        why = 'законных без артикля — ответ опознаётся по тому, что все '
-            'остальные требуют артикля';
-      }
-      if (matching >= needed) continue;
+    final first = words.first.toLowerCase().replaceAll(RegExp(r'[^a-zäöüß]'), '');
+    if (questionWords.contains(first)) continue;
+    // Повелительное: «Gehen Sie …», «Buchstabieren Sie …».
+    if (words.length > 1 && words[1] == 'Sie') continue;
+    if (phrase.orders.isNotEmpty) continue;
 
-      final message = 'фраза ${phrase.id}: у слота $slot всего $matching '
-          'вариантов $why, знать слово не нужно';
-      if (sources.launch.isLaunched(phrase.tier)) {
-        report.error(message);
-      } else {
-        drafted++;
-      }
-    }
+    open++;
+    if (examples.length < 5) examples.add(phrase.id);
   }
 
-  if (drafted > 0) {
-    report.pending(
-      'у $drafted слотов незапущенных ярусов варианты отсеиваются одной '
-      'грамматикой — разбирать при вычитке яруса',
+  if (open == 0) return;
+  report.pending(
+    'у $open фраз вынос члена предложения в начало возможен, а принимаемые '
+    'порядки не заявлены (${examples.join(", ")}…) — «Heute habe ich Zeit» и '
+    '«Ich habe heute Zeit» верны оба, и второе игра объявит ошибкой',
+  );
+}
+
+/// Фраза — одно предложение.
+///
+/// Два предложения в одной фразе свободно меняются местами: «Wo ist die
+/// Post? Ich muss einen Brief schicken» и «Ich muss einen Brief schicken. Wo
+/// ist die Post?» — оба правильные и означают одно и то же. Для механики,
+/// которая просит собрать предложение из его же слов, это готовый ложный
+/// отказ: игрок собрал верно, а игра говорит «неверно».
+///
+/// Все пять таких фраз появились от правки шаблонов ради смыслового
+/// ограничения — придаточное добавить было проще, чем перестроить фразу.
+/// Проверка стоит именно поэтому: соблазн вернётся при следующей такой
+/// правке.
+void _checkSingleSentence(ContentSources sources, Findings report) {
+  // Знак конца предложения, за которым ещё что-то есть.
+  final inner = RegExp(r'[.!?]\s+\S');
+
+  for (final phrase in sources.phrases) {
+    final assembled = phraseSpeech(phrase.template, phrase.answers);
+    if (!inner.hasMatch(assembled)) continue;
+    report.error(
+      'фраза ${phrase.id}: два предложения в одной фразе — «$assembled». Они '
+      'меняются местами без потери смысла, и сборка из своих же слов начнёт '
+      'отвергать верный порядок',
     );
   }
 }
+
 
 /// Фразы ссылаются на существующие концепты, шаблон имеет пропуски, и ответ
 /// в самом шаблоне не подсказан.

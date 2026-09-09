@@ -157,7 +157,7 @@ class PhraseSource {
     required this.template,
     required this.answers,
     required this.conceptIds,
-    this.optionsBySlot = const [],
+    this.orders = const [],
     this.register,
     this.ambiguityReviewed = false,
   });
@@ -172,9 +172,16 @@ class PhraseSource {
   /// числом `{…}` в шаблоне.
   final List<String> answers;
 
-  /// Неверные слова по слоту. Необязательны: когда их нет, варианты
-  /// добираются соседями по созвездию.
-  final List<List<String>> optionsBySlot;
+  /// Порядки слов, которые принимаются верными **сверх** заданного шаблоном.
+  ///
+  /// Немецкий позволяет вынести в начало почти любой член предложения:
+  /// «Heute habe ich Zeit» и «Ich habe heute Zeit» правильны оба и означают
+  /// одно. Механика просит собрать предложение из его же слов, значит игрок
+  /// может собрать законный другой порядок — и говорить ему «неверно» нельзя.
+  ///
+  /// Пишутся целыми предложениями, а не перестановками индексов: читать и
+  /// вычитывать надо предложение.
+  final List<String> orders;
 
   final List<String> conceptIds;
   final String? register;
@@ -194,8 +201,20 @@ class PhraseSource {
 
   int get slotCount => answers.length;
 
-  List<String> optionsFor(int slot) =>
-      slot < optionsBySlot.length ? optionsBySlot[slot] : const [];
+  /// Все принимаемые сборки: заданная шаблоном первой, затем остальные.
+  ///
+  /// Дубликаты отсеиваются: записать в `orders` тот же порядок, что в
+  /// шаблоне, — обычная описка, и молча удваивать строку в базе незачем.
+  List<String> acceptedOrders(String canonical) {
+    final seen = <String>{canonical};
+    final result = [canonical];
+    for (final order in orders) {
+      final trimmed = order.trim();
+      if (trimmed.isEmpty || !seen.add(trimmed)) continue;
+      result.add(trimmed);
+    }
+    return result;
+  }
 }
 
 class CalibrationItemSource {
@@ -481,16 +500,13 @@ class ContentSources {
         phrase.template,
         phrase.answers.join('|'),
         phrase.register ?? '',
-        // Свои неверные слова слота — тоже прочитанный текст, и притом
-        // главный. Вычитка A0 четыре раунда занималась именно ими: сперва в
-        // пуле были слова, дающие правильное немецкое предложение, потом все
-        // стали отсеиваться грамматикой. Без них в отпечатке правка вариантов
-        // не сдвигала хеш — то есть механизм «текст не менялся после вычитки»
-        // молчал ровно о том, что менялось.
-        [
-          for (var slot = 0; slot < phrase.answers.length; slot++)
-            (phrase.optionsFor(slot).toList()..sort()).join('|')
-        ].join('/'),
+        // Принимаемые порядки слов — тоже прочитанный текст, и притом самый
+        // спорный: решение «этот порядок тоже верен» принимает человек, и
+        // отпечаток обязан его учитывать. Раньше на этом месте стояли
+        // неверные варианты слота, и до них отпечаток не доходил вовсе —
+        // шесть раундов вычитки занимались почти исключительно ими, а правка
+        // хеш не сдвигала.
+        (phrase.orders.toList()..sort()).join('|'),
       ].join(''));
     }
 
@@ -804,55 +820,13 @@ class ContentSources {
       constellation: constellation,
       template: template,
       answers: answers,
-      optionsBySlot: _optionsBySlot(raw['options'], answers.length, id, file),
+      orders: _stringList(raw['orders']),
       conceptIds: _stringList(raw['concepts']),
       register: raw['register'] as String?,
       ambiguityReviewed: raw['ambiguity'] == 'reviewed',
     );
   }
 
-  /// Неверные слова по слоту.
-  ///
-  /// `options: [Milch, Wasser]` — плоский список для единственного слота.
-  /// `options: [[…], […]]` — по списку на слот. Первый вид годится только
-  /// когда пропуск один: иначе непонятно, к какому слоту он относится.
-  static List<List<String>> _optionsBySlot(
-    Object? node,
-    int slots,
-    String phraseId,
-    File file,
-  ) {
-    if (node == null) return const [];
-    if (node is! YamlList) {
-      throw ContentSourceException(
-        '${file.path}: фраза $phraseId — options должен быть списком',
-      );
-    }
-    if (node.isEmpty) return const [];
-
-    final nested = node.first is YamlList;
-    if (!nested) {
-      if (slots != 1) {
-        throw ContentSourceException(
-          '${file.path}: фраза $phraseId — пропусков $slots, поэтому options '
-          'нужен списком на слот: [[…], […]]',
-        );
-      }
-      return [_stringList(node)];
-    }
-
-    final result = <List<String>>[];
-    for (final entry in node) {
-      result.add(_stringList(entry));
-    }
-    if (result.length != slots) {
-      throw ContentSourceException(
-        '${file.path}: фраза $phraseId — в options ${result.length} групп, '
-        'а пропусков $slots',
-      );
-    }
-    return result;
-  }
 
   static LanguageSource _readLanguage(_LanguageEntry entry) {
     final lexemes = <String, LexemeSource>{};

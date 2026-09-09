@@ -130,103 +130,8 @@ $phrases''');
     expect(findings.errors.join('\n'), contains('не код'));
   });
 
-  test('фраза запущенного яруса без своих вариантов — ошибка', () {
-    // Иначе пул доберётся соседями по теме, а сосед выбирался под тему, а не
-    // под пропуск, и встаёт в рамку не хуже ответа.
-    write(
-      phrases: '''    - id: food_a0_bread
-      template: "Ich kaufe {bread}."
-      answer: Brot
-      register: casual
-      concepts: [bread_food]
-''',
-      launch: '''de:
-  launched: [a0]
-  drafted: []
-  reviewers:
-    a0:
-      by: 'тест'
-      constellations: [food]
-      passes: []
-''',
-    );
 
-    final findings = validateContent(root, 'de');
-    expect(findings.errors.join('\n'), contains('своих неверных слов'));
-  });
 
-  test('в безартиклевой рамке нужны варианты, законные без артикля', () {
-    // Рамка «Ich kaufe ___» ничего не согласует: вариант отсеивает
-    // требование артикля у исчисляемого. Значит и проверять надо другое —
-    // сколько вариантов законны без артикля. Спутать две рамки значит
-    // требовать от одной того, чего в ней нет.
-    write(
-      phrases: '''    - id: food_a0_bread
-      template: "Ich kaufe {bread}."
-      answer: Brot
-      options: [Apfel, Tisch, Stuhl, Bett, Fenster, Uhr, Karte]
-      register: casual
-      concepts: [bread_food]
-''',
-      launch: '''de:
-  launched: [a0]
-  drafted: []
-  reviewers:
-    a0:
-      by: 'тест'
-      constellations: [food]
-      passes: []
-''',
-    );
-
-    final findings = validateContent(root, 'de');
-    expect(findings.errors.join('\n'), contains('законных без артикля'));
-  });
-
-  test('варианты одного рода с ответом обязательны', () {
-    // Зеркальная ошибка к неоднозначности: если род ответа единственный в
-    // пуле, ответ опознаётся согласованием с артиклем — знать слово не нужно.
-    // Ошибку нашла вычитка A0 после того, как исправили неоднозначность, и
-    // без этой проверки следующая правка вернёт её молча.
-    write(
-      deLexemes: '''
-  bread_food:
-    form: Brot
-    article: das
-    gender: n
-    plural: Brote
-    distractors:
-      far: [Butter, Käse]
-      near: [Boot, Bord, Brust]
-  milk_drink:
-    form: Milch
-    article: die
-    gender: f
-    distractors:
-      far: [Saft, Tee]
-      near: [Milbe, Mulch, Molke]
-''',
-      phrases: '''    - id: food_a0_bread
-      template: "Ich kaufe das {bread}."
-      answer: Brot
-      options: [Milch, Suppe, Uhr, Karte, Tüte, Kasse, Hand]
-      register: casual
-      concepts: [bread_food]
-''',
-      launch: '''de:
-  launched: [a0]
-  drafted: []
-  reviewers:
-    a0:
-      by: 'тест'
-      constellations: [food]
-      passes: []
-''',
-    );
-
-    final findings = validateContent(root, 'de');
-    expect(findings.errors.join('\n'), contains('того же рода'));
-  });
 
   test('вычитка требуется от нынешнего текста, а не от всей истории', () {
     // Раньше любой устаревший проход был ошибкой, и это делало честную
@@ -293,5 +198,38 @@ $phrases''');
         reason: 'проходы описывают нынешний текст, а ошибка всё равно есть');
     expect(fresh.notes.join('\n'), contains('более ранние версии'),
         reason: 'история должна быть видна, но не быть ошибкой');
+  });
+
+  test('заявленный порядок обязан быть перестановкой предложения', () {
+    // «Этот порядок тоже верен» — заявление про **те же** слова. Заявленная
+    // сборка, отличающаяся хоть одним словом, объявила бы верным то, чего
+    // игрок собрать не может: слова ему выдаются из предложения.
+    write(
+      phrases: """    - id: food_a0_bread
+      template: "Heute kaufe ich {bread}."
+      answer: Brot
+      orders:
+        - "Ich kaufe heute Kuchen."
+      concepts: [bread_food]
+""",
+    );
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('собран не из тех слов'));
+  });
+
+  test('два предложения в одной фразе — ошибка', () {
+    // Они меняются местами без потери смысла, и сборка из своих же слов
+    // начнёт отвергать верный порядок.
+    write(
+      phrases: """    - id: food_a0_bread
+      template: "Ich kaufe {bread}. Ich habe Hunger."
+      answer: Brot
+      concepts: [bread_food]
+""",
+    );
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('два предложения'));
   });
 }

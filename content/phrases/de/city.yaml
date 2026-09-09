@@ -14,7 +14,7 @@ tiers:
       register: casual
       concepts: [map_object]
     - id: city_a0_post
-      template: "Wo ist die {post}? Ich muss einen Brief schicken."
+      template: "Ich bringe den Brief zur {post}."
       answer: Post
       options: [Milch, Tüte, Hand, Uhr, Bahnhof, Museum, Park]
       register: casual

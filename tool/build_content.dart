@@ -205,16 +205,6 @@ Set<String> _insertPhrases(
 ) {
   final shipped = <String>{};
 
-  // Формы черновых слов. Неверный вариант слота — это строка, а не ссылка на
-  // концепт, поэтому пометка `draft` его не касалась: проверка стояла на
-  // `concepts:` фразы, и невычитанное слово уезжало игроку через `options`.
-  // Нашла это вычитка A0 — `gern` (черновой) показывался в круге пять раз из
-  // семи. Слово оказалось хорошим, но ворота были открыты, и следующее могло
-  // быть любым.
-  final draftedForms = <String>{
-    for (final lex in sources.lexemes[lang]?.values ?? const <LexemeSource>[])
-      if (drafted.contains(lex.conceptId)) lex.form.toLowerCase(),
-  };
   final phraseStmt = db.prepare(
     'INSERT INTO phrases '
     '(id, lang, tier, constellation, template, register) '
@@ -223,8 +213,8 @@ Set<String> _insertPhrases(
   final slotStmt = db.prepare(
     'INSERT INTO phrase_slots (phrase_id, idx, answer) VALUES (?, ?, ?)',
   );
-  final optionStmt = db.prepare(
-    'INSERT OR IGNORE INTO phrase_options (phrase_id, idx, form) '
+  final orderStmt = db.prepare(
+    'INSERT OR IGNORE INTO phrase_orders (phrase_id, idx, text) '
     'VALUES (?, ?, ?)',
   );
   final linkStmt = db.prepare(
@@ -247,10 +237,11 @@ Set<String> _insertPhrases(
       ]);
       for (var i = 0; i < p.answers.length; i++) {
         slotStmt.execute([p.id, i, p.answers[i]]);
-        for (final form in p.optionsFor(i)) {
-          if (draftedForms.contains(form.toLowerCase())) continue;
-          optionStmt.execute([p.id, i, form]);
-        }
+      }
+      // Сборки, которые принимаются верными. Нулевая — заданная шаблоном.
+      final orders = p.acceptedOrders(phraseSpeech(p.template, p.answers));
+      for (var i = 0; i < orders.length; i++) {
+        orderStmt.execute([p.id, i, orders[i]]);
       }
       for (final conceptId in p.conceptIds) {
         linkStmt.execute([p.id, conceptId]);
@@ -259,7 +250,7 @@ Set<String> _insertPhrases(
   } finally {
     phraseStmt.close();
     slotStmt.close();
-    optionStmt.close();
+    orderStmt.close();
     linkStmt.close();
   }
   return shipped;

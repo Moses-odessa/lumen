@@ -239,19 +239,43 @@ class RunController extends Notifier<RunState> {
     _submit(question, question.isCorrectOption(index), latency);
   }
 
-  /// Ответ заполнением всех слотов — механики e и f.
+  /// Ответ расстановкой всех слов — фразовая механика.
   ///
-  /// [byslot] — что игрок поставил в каждый слот: индекс варианта из пула.
-  /// Верным считается только полностью собранное предложение: половина
-  /// заполненных пропусков — это не половина знания, а незаконченный ответ.
+  /// [bySlot] — что игрок поставил в каждый слот: индекс слова из пула.
+  ///
+  /// Верным считается только полностью собранное предложение, и это не
+  /// строгость, а свойство задания: пропусков столько же, сколько вынутых
+  /// слов, поэтому одно слово не может стоять неверно в одиночку — неверных
+  /// всегда минимум два. «Половина заполненных пропусков» это не половина
+  /// знания, а незаконченный ответ.
+  ///
+  /// Сравнивается **собранное предложение**, а не расстановка по слотам.
+  /// Немецкий позволяет вынести в начало почти любой член предложения, и
+  /// собранный из своих же слов законный другой порядок — не ошибка игрока:
+  /// «Heute habe ich Zeit» и «Ich habe heute Zeit» верны оба. Какие порядки
+  /// принимаются, говорит контент (`orders:` у фразы).
   void answerSlots(List<int> bySlot, Duration latency) {
     final question = state.current;
     if (question == null || state.phase != RunPhase.asking) return;
+    if (bySlot.length != question.slotCount) {
+      _submit(question, false, latency);
+      return;
+    }
 
-    final correct = bySlot.length == question.slotCount &&
-        List.generate(question.slotCount, (i) => i)
-            .every((i) => question.isCorrectFor(i, bySlot[i]));
-    _submit(question, correct, latency);
+    final sentence = _assemble(question, bySlot);
+    _submit(question, question.acceptsAssembly(sentence), latency);
+  }
+
+  /// Предложение, собранное игроком: скелет с подставленными словами.
+  static String _assemble(CircleQuestion question, List<int> bySlot) {
+    var slot = 0;
+    return question.prompt.replaceAllMapped(RegExp('_____'), (_) {
+      if (slot >= bySlot.length) return '';
+      final index = bySlot[slot++];
+      return index >= 0 && index < question.options.length
+          ? question.options[index]
+          : '';
+    });
   }
 
   void _submit(CircleQuestion question, bool correct, Duration latency) {

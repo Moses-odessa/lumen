@@ -20,7 +20,7 @@ tiers:
       register: casual
       concepts: [expensive_adj]
     - id: shop_a0_checkout
-      template: "Wo ist hier die {checkout}? Ich möchte bezahlen."
+      template: "Ich möchte an der {checkout} bezahlen."
       answer: Kasse
       options: [Tür, Milch, Hand, Uhr, Laden, Preis, Markt]
       register: casual

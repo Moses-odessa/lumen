@@ -10,7 +10,7 @@
 # Валидатор выносит такие фразы на перевод заново.
 city_a0_hotel 805a77f63ede
 city_a0_map 5be309d374a0
-city_a0_post 6a67a891bdee
+city_a0_post 07a4da9122f8
 city_a0_right 2ef329f395b6
 city_a1_address 534218201998
 city_a1_bridge 2b0151460017
@@ -107,7 +107,7 @@ doctor_b2_secondopinion c01944d389e0
 family_a0_child cb0f7dc80c9e
 family_a0_family ecf3238c6f0c
 family_a0_friend 15b4586aec84
-family_a0_name ff24f9307848
+family_a0_name ed0bc071069a
 family_a1_aunt b147f2eb7b93
 family_a1_birthday 997d4745a681
 family_a1_brother c8fb94901c4a
@@ -248,7 +248,7 @@ home_b2_owners 80effdbaeea1
 home_b2_rentindex fe93f9d1e25b
 home_b2_rentreduction 0ddd9351f548
 home_b2_repayment b65cc51bd3d3
-shop_a0_checkout 12c014052c3d
+shop_a0_checkout 832c47e94f9d
 shop_a0_expensive ed359c0354c9
 shop_a0_money 70c2d9f4025c
 shop_a0_price afa9792f80de
@@ -296,7 +296,7 @@ shop_b2_shortage f24434ea2cca
 shop_b2_stocktaking 909c8c35c139
 shop_b2_terms 06446d8e1bb9
 shop_b2_withdrawal 2e26fcec2785
-time_a0_clock 225e64eaeba1
+time_a0_clock 1b06e7fcb25b
 time_a0_evening 83510c001af2
 time_a0_today c19aa1dc557d
 time_a0_week c247e2302a0a
@@ -346,7 +346,7 @@ time_b2_timemanagement 4f29163364d5
 time_b2_transition bd755584f9e2
 transport_a0_bus 161aaa1b116f
 transport_a0_late e55d44f0c80a
-transport_a0_station b07030c43cc3
+transport_a0_station 8bee590c4f96
 transport_a0_ticket bec5666a4e74
 transport_a1_connection a9bfbe1356eb
 transport_a1_delay ef555be95057

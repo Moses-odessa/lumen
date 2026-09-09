@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scheduler/level_stage.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 
 // Пайплайн — отдельная программа, и числа в нём дублируются намеренно.
@@ -304,7 +305,38 @@ void main() {
       // Из трёх слов перестановок шесть, и по-немецки допустима не одна из
       // них: задание проходится тыком, а не памятью, и тогда оно не проверяет
       // ничего. Четыре слова дают 24 порядка — там уже надо вспоминать.
-      expect(SessionBalance.buildPhraseMinWords, greaterThan(3));
+      expect(SessionBalance.phraseMinWords, greaterThan(3));
+    });
+
+    test('пропусков минимум два, и это не осторожность', () {
+      // Один пропуск — это рамка с выбором: вокруг лежало бы одно слово, и
+      // задание вырождалось бы в подстановку. Два уже спрашивают порядок, то
+      // есть то, чего круг со словом не спрашивает вовсе.
+      expect(SessionBalance.phraseGapsMin, greaterThanOrEqualTo(2));
+      // Предложение должно быть длиннее минимума пропусков: иначе самая
+      // лёгкая настройка вынимает всё и совпадает с самой трудной.
+      expect(SessionBalance.phraseMinWords,
+          greaterThan(SessionBalance.phraseGapsMin));
+    });
+
+    test('глубина пропусков растёт по этапам и доходит до всех слов', () {
+      // Та же шкала, что число вариантов в круге. Проверка и напоминание
+      // спрашивают глубже закрепления, а спринт — предложение целиком.
+      expect(
+        StageRules.gapsFor(LevelStage.check),
+        greaterThan(StageRules.gapsFor(LevelStage.consolidation)),
+      );
+      expect(StageRules.gapsFor(LevelStage.sprint),
+          SessionBalance.phraseGapsAll);
+      // Надбавка захода доходит и до фразы: пока не доходила, словесные круги
+      // дорожали, а закрывающая уровень фраза — нет.
+      expect(
+        StageRules.gapsFor(LevelStage.check, extra: 2),
+        greaterThan(StageRules.gapsFor(LevelStage.check)),
+      );
+      // Кроме максимума: «все слова» плюс надбавка это по-прежнему все слова.
+      expect(StageRules.gapsFor(LevelStage.sprint, extra: 2),
+          SessionBalance.phraseGapsAll);
     });
   });
 

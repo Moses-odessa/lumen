@@ -30,6 +30,7 @@ class CircleQuestion {
     this.promptTag,
     this.answerArticle,
     this.translation,
+    this.accepted = const [],
   });
 
   /// Круг с одним слотом — самый частый случай.
@@ -48,6 +49,7 @@ class CircleQuestion {
     this.promptTag,
     this.answerArticle,
     this.translation,
+    this.accepted = const [],
   }) : answers = [answerIndex];
 
   final String itemId;
@@ -111,6 +113,17 @@ class CircleQuestion {
   /// Артикль верного ответа: показывается вместе с ответом.
   final String? answerArticle;
 
+  /// Сборки предложения, которые принимаются верными.
+  ///
+  /// Пустой список означает «только та, что задана шаблоном». Список нужен
+  /// потому, что немецкий позволяет вынести в начало почти любой член
+  /// предложения: «Heute habe ich Zeit» и «Ich habe heute Zeit» правильны оба
+  /// и означают одно. Механика даёт игроку слова предложения, значит он может
+  /// собрать законный другой порядок — и объявлять это ошибкой нельзя.
+  ///
+  /// Только у фразовых механик: у круга со словом собирать нечего.
+  final List<String> accepted;
+
   /// Тот же вопрос, но другой объект.
   ///
   /// Нужен затем, чтобы промах можно было показать заново. Арена сбрасывает
@@ -141,6 +154,7 @@ class CircleQuestion {
         promptTag: promptTag,
         answerArticle: answerArticle,
         translation: translation,
+        accepted: accepted,
       );
 
   /// Сколько слотов нужно заполнить.
@@ -164,16 +178,32 @@ class CircleQuestion {
 
   /// Собранное предложение: все слоты заполнены верно.
   ///
-  /// Для механики f это и есть цель; для e — то, что проигрывается в конце.
+  /// Считается одинаково при любой глубине пропусков. Отдельной ветки для
+  /// «собери предложение» больше нет: при максимуме скелет — строка из одних
+  /// пропусков, и подстановка в неё даёт то же предложение. Две ветки были
+  /// ровно потому, что было две реализации механики.
   String get assembled {
-    if (mode == GameMode.buildPhrase) {
-      return [for (var i = 0; i < slotCount; i++) answerFor(i)].join(' ');
-    }
     var slot = 0;
     return prompt.replaceAllMapped(
       _gap,
       (_) => slot < slotCount ? answerFor(slot++) : '',
     );
+  }
+
+  /// Принимается ли собранное игроком предложение.
+  ///
+  /// Сравнивается предложение, а не расстановка по слотам, и это то самое
+  /// решение «все правильные варианты считать правильными». Немецкий
+  /// позволяет вынести в начало почти любой член предложения, поэтому у
+  /// собранного из своих же слов предложения может быть больше одного
+  /// верного порядка — «Heute habe ich Zeit» и «Ich habe heute Zeit».
+  ///
+  /// Пустой [accepted] означает «только заданный шаблоном»: у круга со
+  /// словом собирать нечего, и там это поле не заполняется вовсе.
+  bool acceptsAssembly(String sentence) {
+    final normalised = sentence.trim();
+    if (normalised == assembled.trim()) return true;
+    return accepted.any((order) => order.trim() == normalised);
   }
 
   /// Верен ли выбор варианта для слота.

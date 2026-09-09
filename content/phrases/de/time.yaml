@@ -8,7 +8,7 @@ constellation: time
 tiers:
   a0:
     - id: time_a0_clock
-      template: "Ich habe keine {clock}. Wie spät ist es?"
+      template: "Ich sehe auf die {clock}."
       answer: Uhr
       options: [Milch, Küche, Tür, Hand, Tag, Jahr, Geld]
       register: casual

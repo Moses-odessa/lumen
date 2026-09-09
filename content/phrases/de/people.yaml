@@ -8,7 +8,7 @@ constellation: people
 tiers:
   a0:
     - id: family_a0_name
-      template: "Wie ist Ihr {name}? Buchstabieren Sie bitte."
+      template: "Buchstabieren Sie bitte Ihren {name}."
       answer: Name
       options: [Apfel, Tisch, Bauch, Bahnhof, Frau, Mutter, Familie]
       register: formal

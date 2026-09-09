@@ -186,40 +186,29 @@ lexemes:
       );
     });
 
-    test('варианты по слоту разбираются в порядке слотов', () {
+    test('принимаемые порядки слов разбираются списком', () {
+      // Неверных вариантов у фразовой механики больше нет: вокруг лежат ровно
+      // вынутые слова. Вместо них у фразы могут быть заявлены другие верные
+      // порядки — немецкий позволяет вынести в начало почти любой член
+      // предложения, и собранный из своих же слов законный порядок не ошибка.
       _writePhrases(root, '''
   a0:
-    - id: food_a0_two
-      template: "Ich {want} das {bread}."
-      answers: [möchte, Brot]
-      options:
-        - [kaufe, esse]
-        - [Wasser, Milch]
+    - id: food_a0_bread
+      template: "Heute kaufe ich {bread}."
+      answer: Brot
+      orders:
+        - "Ich kaufe heute Brot."
       concepts: [bread_food]
 ''');
       final phrase = ContentSources.load(root, lang: 'de').phrases.single;
-      expect(phrase.optionsFor(0), ['kaufe', 'esse']);
-      expect(phrase.optionsFor(1), ['Wasser', 'Milch']);
-      expect(phrase.optionsFor(2), isEmpty);
-    });
-
-    test('плоский список вариантов при нескольких пропусках — ошибка', () {
-      _writePhrases(root, '''
-  a0:
-    - id: food_a0_two
-      template: "Ich {want} das {bread}."
-      answers: [möchte, Brot]
-      options: [kaufe, esse]
-      concepts: [bread_food]
-''');
-      expect(
-        () => ContentSources.load(root, lang: 'de'),
-        throwsA(isA<ContentSourceException>().having(
-          (e) => e.message,
-          'message',
-          contains('на слот'),
-        )),
-      );
+      expect(phrase.orders, ['Ich kaufe heute Brot.']);
+      // Заданный шаблоном порядок идёт первым и не дублируется.
+      expect(phrase.acceptedOrders('Heute kaufe ich Brot.'), [
+        'Heute kaufe ich Brot.',
+        'Ich kaufe heute Brot.',
+      ]);
+      expect(phrase.acceptedOrders('Ich kaufe heute Brot.').length, 1,
+          reason: 'заявленный порядок совпал с заданным — дубля быть не должно');
     });
 
     test('фразы рядом с концептами больше не принимаются', () {

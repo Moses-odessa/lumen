@@ -14,7 +14,7 @@ tiers:
       register: casual
       concepts: [ticket_transport]
     - id: transport_a0_station
-      template: "Wo ist der {station}? Mein Zug fährt um acht."
+      template: "Mein Zug fährt um acht vom {station} ab."
       answer: Bahnhof
       options: [Apfel, Tisch, Kopf, Bauch, Haltestelle, Straße, Post]
       register: casual
