@@ -204,6 +204,17 @@ Set<String> _insertPhrases(
   Set<String> drafted,
 ) {
   final shipped = <String>{};
+
+  // Формы черновых слов. Неверный вариант слота — это строка, а не ссылка на
+  // концепт, поэтому пометка `draft` его не касалась: проверка стояла на
+  // `concepts:` фразы, и невычитанное слово уезжало игроку через `options`.
+  // Нашла это вычитка A0 — `gern` (черновой) показывался в круге пять раз из
+  // семи. Слово оказалось хорошим, но ворота были открыты, и следующее могло
+  // быть любым.
+  final draftedForms = <String>{
+    for (final lex in sources.lexemes[lang]?.values ?? const <LexemeSource>[])
+      if (drafted.contains(lex.conceptId)) lex.form.toLowerCase(),
+  };
   final phraseStmt = db.prepare(
     'INSERT INTO phrases '
     '(id, lang, tier, constellation, template, register) '
@@ -237,6 +248,7 @@ Set<String> _insertPhrases(
       for (var i = 0; i < p.answers.length; i++) {
         slotStmt.execute([p.id, i, p.answers[i]]);
         for (final form in p.optionsFor(i)) {
+          if (draftedForms.contains(form.toLowerCase())) continue;
           optionStmt.execute([p.id, i, form]);
         }
       }

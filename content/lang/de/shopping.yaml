@@ -21,7 +21,7 @@ lexemes:
     form: Geld
     article: das
     gender: n
-    note: неисчисляемое
+    plural: Gelder
     distractors:
       far: [Münze, Schein]
       near: [Feld, Held, Gold]
@@ -83,19 +83,19 @@ lexemes:
       near: [Wunde, Runde, Kunst]
   cheap_adj:
     form: billig
-    note: прилагательное
+    note: adjective
     distractors:
       far: [kostenlos, gebraucht]
       near: [willig, bissig, hitzig]
   expensive_adj:
     form: teuer
-    note: прилагательное
+    note: adjective
     distractors:
       far: [wertvoll, knapp]
       near: [Feuer, Steuer, treuer]
   open_adj:
     form: offen
-    note: прилагательное
+    note: adjective
     distractors:
       far: [geschlossen, besetzt]
       near: [Ofen, hoffen, Koffer]
@@ -104,7 +104,7 @@ lexemes:
     form: Bargeld
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Kreditkarte, Überweisung]
       near: [bargeldlos, Barhocker, Barometer]
@@ -272,7 +272,7 @@ lexemes:
     form: Versand
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Abholung, Zustellung], near: [Verstand, Bestand, Versatz] }
   packaging_noun:
     form: Verpackung
@@ -332,7 +332,7 @@ lexemes:
     form: Öffnungszeiten
     article: die
     plural: Öffnungszeiten
-    note: только множественное
+    note: plural_only
     distractors: { far: [Betriebsferien, Mittagspause], near: [Öffnungsklausel, Übungszeiten, Ordnungsamt] }
   publicholiday_noun:
     form: Feiertag
@@ -483,14 +483,14 @@ lexemes:
     form: Treuepunkte
     article: die
     plural: Treuepunkte
-    note: только множественное
+    note: plural_only
     distractors: { far: [Rabattmarke, Bonusmeilen], near: [Treuerabatt, Streupunkte, Treuhänder] }
   # ── B2 ────────────────────────────────────────────────────────────────
   termsandconditions_noun:
     form: Geschäftsbedingungen
     article: die
     plural: Geschäftsbedingungen
-    note: только множественное
+    note: plural_only
     distractors: { far: [Vertragstext, Widerrufsbelehrung], near: [Geschäftsführung, Lieferbedingungen, Geschäftsordnung] }
   contractclause_noun:
     form: Vertragsklausel
@@ -544,7 +544,7 @@ lexemes:
     form: Schadensersatz
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Schmerzensgeld, Entschädigung], near: [Schadensersatzklage, Ersatzteil, Schadensfall] }
   consumercentre_noun:
     form: Verbraucherzentrale
@@ -615,7 +615,7 @@ lexemes:
     form: Warenwirtschaft
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Lagerverwaltung, Bestellsystem], near: [Warenwirtschaftssystem, Landwirtschaft, Warenannahme] }
   paymentdefault_noun:
     form: Zahlungsverzug
@@ -1175,7 +1175,7 @@ lexemes:
   lx2838:
     form: Versandkosten
     article: die
-    note: только множественное
+    note: plural_only
   lx2839:
     form: angemessen
   lx2840:

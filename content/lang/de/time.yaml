@@ -23,8 +23,8 @@ lexemes:
     gender: f
     plural: Nächte
     distractors:
-      far: [Dämmerung, Mitternacht]
-      near: [Macht, Naht, Nacken]
+      far: [Dämmerung, Feiertag]
+      near: [Macht, Naht, Mitternacht]
   hour_time:
     form: Stunde
     article: die
@@ -47,8 +47,8 @@ lexemes:
     gender: f
     plural: Wochen
     distractors:
-      far: [Wochenende, Feiertag]
-      near: [Wolke, Wache, Woge]
+      far: [Feiertag, Zeitraum]
+      near: [Wolke, Wache, Wochenende]
   month_time:
     form: Monat
     article: der
@@ -63,8 +63,8 @@ lexemes:
     gender: n
     plural: Jahre
     distractors:
-      far: [Jahrzehnt, Zeitraum]
-      near: [Haar, Paar, Jahrmarkt]
+      far: [Zeitraum, Epoche]
+      near: [Haar, Paar, Jahrzehnt]
   morning_time:
     form: Morgen
     article: der
@@ -91,16 +91,16 @@ lexemes:
       near: [Ohr, Tour, Spur]
   today_adv:
     form: heute
-    note: наречие
+    note: adverb
     distractors:
       far: [morgen, immer]
-      near: [Leute, Beute, Häute]
+      near: [heiß, hell, hoch]
   yesterday_adv:
     form: gestern
-    note: наречие
+    note: adverb
     distractors:
       far: [damals, neulich]
-      near: [Geste, Gerste, Western]
+      near: [gern, gesund, vorgestern]
   # ── A1 ────────────────────────────────────────────────────────────────
   weekend_time:
     form: Wochenende
@@ -136,49 +136,49 @@ lexemes:
       near: [Mitte, Montag, Mitleid]
   tomorrow_adv:
     form: morgen
-    note: наречие
+    note: adverb
     distractors:
       far: [heute, gestern]
       near: [Sorgen, Orgel, Bogen]
   always_adv:
     form: immer
-    note: наречие
+    note: adverb
     distractors:
       far: [nie, selten]
       near: [Zimmer, Imker, Kummer]
   never_adv:
     form: nie
-    note: наречие
+    note: adverb
     distractors:
       far: [immer, oft]
       near: [nieder, Niete, Knie]
   often_adv:
     form: oft
-    note: наречие
+    note: adverb
     distractors:
       far: [selten, nie]
       near: [Ofen, offen, Loft]
   sometimes_adv:
     form: manchmal
-    note: наречие
+    note: adverb
     distractors:
       far: [immer, ständig]
       near: [mancher, Mahlzeit, Marschall]
   early_adv:
     form: früh
-    note: наречие
+    note: adverb
     distractors:
       far: [spät, pünktlich]
       near: [Frühling, Brühe, Frucht]
   now_adv:
     form: jetzt
-    note: наречие
+    note: adverb
     distractors:
       far: [später, damals]
       near: [Netz, letzt, Hetze]
   soon_adv:
     form: bald
-    note: наречие
+    note: adverb
     distractors:
       far: [später, sofort]
       near: [Wald, Bad, kalt]
@@ -259,7 +259,7 @@ lexemes:
     form: Ferien
     article: die
     plural: Ferien
-    note: только множественное
+    note: plural_only
     distractors: { far: [Auszeit, schulfrei], near: [Serien, Fasern, Ferne] }
   appointment_meeting:
     form: Verabredung
@@ -471,7 +471,7 @@ lexemes:
     form: Zeitmanagement
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Selbstorganisation, Arbeitsplanung], near: [Zeiterfassung, Krisenmanagement, Zeitgefühl] }
   prioritisation_noun:
     form: Priorisierung
@@ -501,7 +501,7 @@ lexemes:
     form: Periodizität
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Wiederkehr, Rhythmus], near: [Peripherie, Elektrizität, Produktivität] }
   synchronisation_noun:
     form: Synchronisierung

@@ -8,23 +8,27 @@ constellation: home
 tiers:
   a0:
     - id: home_a0_key
-      template: "Ich suche meinen {key}."
+      template: "Ich suche meinen {key}, die Tür ist zu."
       answer: Schlüssel
+      options: [Apfel, Tisch, Stuhl, Kopf, Tür, Küche, Fenster]
       register: casual
       concepts: [key_object]
     - id: home_a0_kitchen
-      template: "Das ist die {kitchen}."
+      template: "Das ist die {kitchen}, hier koche ich."
       answer: Küche
+      options: [Tür, Uhr, Karte, Hand, Haus, Zimmer, Tisch]
       register: casual
       concepts: [kitchen_room]
     - id: home_a0_rent
-      template: "Die {rent} ist zu hoch."
+      template: "Die {rent} ist zu hoch, ich suche ein neues Zimmer."
       answer: Miete
+      options: [Tür, Uhr, Küche, Karte, Preis, Zimmer, Gehalt]
       register: casual
       concepts: [rent_noun]
     - id: home_a0_room
       template: "Ich miete ein {room}."
       answer: Zimmer
+      options: [Fenster, Licht, Medikament, Gehalt, Küche, Tür, Stuhl]
       register: casual
       concepts: [room_place]
 

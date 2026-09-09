@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/domain/entities/part_of_speech.dart' as domain;
+import 'package:lumen/domain/entities/prompt_tag.dart' as domain;
 
 import '../../tool/content_schema.dart';
 import '../../tool/content_sources.dart';
@@ -253,6 +254,16 @@ tiers:
       // test/domain/balance_test.dart; здесь фиксируется само значение,
       // чтобы правка в одну сторону была видна сразу.
       expect(minStarsForConstellation, 8);
+    });
+  });
+
+  group('пометки под центром', () {
+    test('набор кодов одинаков в пайплайне и в приложении', () {
+      // Дубль намеренный: tool/ не тянет за собой lib/. Расхождение здесь
+      // означало бы, что валидатор пропустил код, к которому у приложения нет
+      // перевода, — и пометка просто не показалась бы. Именно это и лечится:
+      // раньше на её месте стоял свободный текст на языке файла.
+      expect(promptTags, domain.promptTags);
     });
   });
 

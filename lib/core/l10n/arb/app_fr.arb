@@ -125,7 +125,7 @@
   "aboutTagline": "Le vocabulaire comme un ciel nocturne. L'éclat d'une étoile, c'est la probabilité de se rappeler le mot à l'instant.",
   "aboutFreeTitle": "Entièrement gratuit",
   "aboutFreeBody": "Ni abonnement, ni paliers payants, ni publicité, ni monnaie contre de l'argent. Tout ce qui existe dans le jeu est accessible à tous, toujours.",
-  "aboutCostBody": "Cela tient parce qu'un utilisateur ne coûte presque rien au projet : le contenu et l'audio sont dans l'application, il n'y a pas de serveur, et la seule requête réseau est le défi nocturne, un fichier statique par jour.",
+  "aboutCostBody": "Cela tient parce qu'un utilisateur ne coûte presque rien au projet : le contenu est dans l'application, la parole est synthétisée par l'appareil, et il n'y a ni serveur ni requête réseau.",
   "aboutDonate": "Soutenir le projet",
   "aboutDonateNote": "Un donateur reçoit une mention et son nom au générique, et rien qui donne un avantage dans le jeu ou dans l'apprentissage.",
   "aboutExpenses": "Où va l'argent",
@@ -181,5 +181,12 @@
   "recordsToBeat": "encore {value}",
   "recordsBeaten": "record !",
   "recordsEmpty": "Joue un niveau et les premiers records apparaîtront ici.",
-  "recordsClimbLevel": "Niveau {level} · ×{multiplier}"
+  "recordsClimbLevel": "Niveau {level} · ×{multiplier}",
+  "promptTagAdverb": "adverbe",
+  "promptTagAdjective": "adjectif",
+  "promptTagUncountable": "indénombrable",
+  "promptTagPluralOnly": "pluriel uniquement",
+  "promptTagUsuallyPlural": "généralement au pluriel",
+  "promptTagCasual": "familier",
+  "promptTagFormal": "formel"
 }

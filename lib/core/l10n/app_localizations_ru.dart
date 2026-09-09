@@ -425,7 +425,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get aboutCostBody =>
-      'Держится это на том, что один пользователь стоит проекту около нуля: контент и озвучка лежат в самом приложении, сервера нет, а единственный сетевой запрос — ночной вызов, один статический файл в день.';
+      'Держится это на том, что один пользователь стоит проекту около нуля: контент лежит в самом приложении, речь синтезирует устройство, а сервера и сетевых запросов нет вовсе.';
 
   @override
   String get aboutDonate => 'Поддержать проект';
@@ -630,4 +630,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Уровень $level · ×$multiplier';
   }
+
+  @override
+  String get promptTagAdverb => 'наречие';
+
+  @override
+  String get promptTagAdjective => 'прилагательное';
+
+  @override
+  String get promptTagUncountable => 'неисчисляемое';
+
+  @override
+  String get promptTagPluralOnly => 'только множественное';
+
+  @override
+  String get promptTagUsuallyPlural => 'обычно во множественном';
+
+  @override
+  String get promptTagCasual => 'разговорное';
+
+  @override
+  String get promptTagFormal => 'официальное';
 }

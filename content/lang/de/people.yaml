@@ -99,10 +99,10 @@ lexemes:
       near: [Grau, Braut, Frost]
   old_adj:
     form: alt
-    note: прилагательное
+    note: adjective
     distractors:
       far: [jung, neu]
-      near: [Halt, Wald, Anwalt]
+      near: [kalt, bald, laut]
   # ── A1 ────────────────────────────────────────────────────────────────
   brother_person:
     form: Bruder
@@ -194,7 +194,7 @@ lexemes:
       near: [Hochsaison, Hochhaus, Hoheit]
   young_adj:
     form: jung
-    note: прилагательное
+    note: adjective
     distractors:
       far: [alt, erwachsen]
       near: [Junge, Zunge, Sprung]
@@ -204,7 +204,7 @@ lexemes:
     form: Verwandten
     article: die
     plural: Verwandten
-    note: только множественное
+    note: plural_only
     distractors: { far: [Bekannte, Nachbarn], near: [Verwandlung, Verbannte, Gewandte] }
   brotherinlaw_person:
     form: Schwager
@@ -258,7 +258,7 @@ lexemes:
     form: Geschwister
     article: die
     plural: Geschwister
-    note: только множественное
+    note: plural_only
     distractors: { far: [Cousin, Schwiegereltern], near: [Gespenster, Geschworene, Geschwader] }
   engagement_noun:
     form: Verlobung
@@ -361,7 +361,7 @@ lexemes:
     form: Unterhalt
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Kindergeld, Beihilfe], near: [Unterhaltung, Aufenthalt, Unterlage] }
   childbenefit_noun:
     form: Kindergeld
@@ -496,7 +496,7 @@ lexemes:
     form: Gütertrennung
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Gütergemeinschaft, Vermögensaufteilung], near: [Güterstand, Mülltrennung, Güterverkehr] }
   communityofaccrued_noun:
     form: Zugewinngemeinschaft
@@ -538,7 +538,7 @@ lexemes:
     form: Kindeswohl
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Umgangsregelung, Schutzauftrag], near: [Kindeswille, Gemeinwohl, Kindergeld] }
   youthoffice_place:
     form: Jugendamt
@@ -616,7 +616,7 @@ lexemes:
     form: Familiennachzug
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Visumverfahren, Aufenthaltserlaubnis], near: [Familienname, Rückzug, Familienfeier] }
   residencepermit_noun:
     form: Aufenthaltstitel
@@ -710,7 +710,7 @@ lexemes:
   lx0325:
     form: Eltern
     article: die
-    note: только множественное
+    note: plural_only
   # Субстантивированное прилагательное: der Erwachsene, ein Erwachsener, die Erwachsene.
   lx0326:
     form: Erwachsene
@@ -727,7 +727,7 @@ lexemes:
   lx0329:
     form: Großeltern
     article: die
-    note: только множественное
+    note: plural_only
   lx0330:
     form: Großmutter
     article: die
@@ -739,7 +739,7 @@ lexemes:
   lx0332:
     form: Leute
     article: die
-    note: только множественное
+    note: plural_only
   lx0333:
     form: Nachbarschaft
     article: die

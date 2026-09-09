@@ -428,7 +428,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get aboutCostBody =>
-      'Cela tient parce qu\'un utilisateur ne coûte presque rien au projet : le contenu et l\'audio sont dans l\'application, il n\'y a pas de serveur, et la seule requête réseau est le défi nocturne, un fichier statique par jour.';
+      'Cela tient parce qu\'un utilisateur ne coûte presque rien au projet : le contenu est dans l\'application, la parole est synthétisée par l\'appareil, et il n\'y a ni serveur ni requête réseau.';
 
   @override
   String get aboutDonate => 'Soutenir le projet';
@@ -634,4 +634,25 @@ class AppLocalizationsFr extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Niveau $level · ×$multiplier';
   }
+
+  @override
+  String get promptTagAdverb => 'adverbe';
+
+  @override
+  String get promptTagAdjective => 'adjectif';
+
+  @override
+  String get promptTagUncountable => 'indénombrable';
+
+  @override
+  String get promptTagPluralOnly => 'pluriel uniquement';
+
+  @override
+  String get promptTagUsuallyPlural => 'généralement au pluriel';
+
+  @override
+  String get promptTagCasual => 'familier';
+
+  @override
+  String get promptTagFormal => 'formel';
 }

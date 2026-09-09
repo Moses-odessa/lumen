@@ -179,7 +179,7 @@ lexemes:
   lx1752:
     form: Daten
     article: die
-    note: только множественное
+    note: plural_only
   lx1753:
     form: Dokument
     article: das

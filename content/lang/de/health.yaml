@@ -22,6 +22,7 @@ lexemes:
     article: der
     gender: m
     plural: Schmerzen
+    note: usually_plural
     distractors:
       far: [Wunde, Husten]
       near: [Scherz, Schmelz, Schwarz]
@@ -29,6 +30,7 @@ lexemes:
     form: Hilfe
     article: die
     gender: f
+    plural: Hilfen
     distractors:
       far: [Pflege, Notruf]
       near: [Hilfsmittel, Hilfskraft, hilflos]
@@ -60,6 +62,7 @@ lexemes:
     form: Fieber
     article: das
     gender: n
+    note: uncountable
     distractors:
       far: [Husten, Schnupfen]
       near: [Feder, Leber, Fiber]
@@ -89,7 +92,7 @@ lexemes:
       near: [Krankenkasse, Kaufhaus, Krankenwagen]
   sick_adj:
     form: krank
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [müde, gesund]
       near: [Kranz, blank, krallen]
@@ -181,7 +184,7 @@ lexemes:
       near: [Versicherung, Kundenkarte, Speisekarte]
   healthy_adj:
     form: gesund
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [munter, kräftig]
       near: [gesendet, Gesundheit, gesungen]
@@ -344,7 +347,7 @@ lexemes:
       near: [Stunde, Kunde, Wunder]
   dizzy_adj:
     form: schwindelig
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [übel, benommen]
       near: [Schwindel, schwierig, windig]
@@ -445,7 +448,7 @@ lexemes:
       near: [Arztpraxis, Bericht, Arztwahl]
   chronic_adj:
     form: chronisch
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [akut, dauerhaft]
       near: [chronologisch, Chronik, ironisch]
@@ -546,7 +549,7 @@ lexemes:
     form: Beschwerden
     article: die
     gender: f
-    note: обычно во множественном числе
+    note: usually_plural
     distractors:
       far: [Symptome, Anzeichen]
       near: [Beschwerlichkeit, Beschreibung, Bescheidenheit]
@@ -693,19 +696,19 @@ lexemes:
       near: [Darreichung, Verpackungsform, Erscheinungsform]
   prescription_only:
     form: verschreibungspflichtig
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [rezeptfrei, apothekenpflichtig]
       near: [versicherungspflichtig, verschreiben, verschwiegen]
   outpatient_adj:
     form: ambulant
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [stationär, tagesklinisch]
       near: [Ambulanz, amüsant, brillant]
   inpatient_adj:
     form: stationär
-    note: прилагательное, артикля нет
+    note: adjective
     distractors:
       far: [ambulant, tagesklinisch]
       near: [Station, stationieren, sanitär]

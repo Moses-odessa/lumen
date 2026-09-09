@@ -91,16 +91,16 @@ lexemes:
       near: [Urwald, Erlaubnis, Umlauf]
   free_adj:
     form: frei
-    note: прилагательное
+    note: adjective
     distractors:
       far: [besetzt, beschäftigt]
       near: [drei, Brei, treu]
   tired_adj:
     form: müde
-    note: прилагательное
+    note: adjective
     distractors:
       far: [wach, fit]
-      near: [Mode, Mütze, Münze]
+      near: [Mode, mutig, mündlich]
   # ── A1 ────────────────────────────────────────────────────────────────
   application_noun:
     form: Bewerbung
@@ -170,7 +170,7 @@ lexemes:
     form: Überstunden
     article: die
     plural: Überstunden
-    note: только множественное
+    note: plural_only
     distractors:
       far: [Schicht, Bereitschaft]
       near: [Übernachtung, Überraschung, Überschrift]
@@ -233,13 +233,13 @@ lexemes:
     form: Vollzeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Minijob, Nebentätigkeit], near: [Vollmacht, Vorzeit, Vollwert] }
   parttime_noun:
     form: Teilzeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Minijob, Schichtdienst], near: [Teilnahme, Teilhabe, Teilstück] }
   shift_noun:
     form: Schicht
@@ -521,19 +521,19 @@ lexemes:
     form: Kurzarbeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Freistellung, Betriebsferien], near: [Kurzarbeitergeld, Zeitarbeit, Kurzurlaub] }
   insolvencypay_noun:
     form: Insolvenzgeld
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Abfindung, Übergangsgeld], near: [Insolvenzverfahren, Krankengeld, Insolvenzmasse] }
   bogusselfemployment_noun:
     form: Scheinselbstständigkeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Freiberuflichkeit, Werkvertragsmodell], near: [Selbstständigkeit, Scheinschwangerschaft, Scheingeschäft] }
   contractforwork_noun:
     form: Werkvertrag
@@ -545,7 +545,7 @@ lexemes:
     form: Zeitarbeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Saisonarbeit, Minijob], near: [Zeitarbeitsfirma, Kurzarbeit, Zeitaufwand] }
   staffleasing_noun:
     form: Arbeitnehmerüberlassung
@@ -557,7 +557,7 @@ lexemes:
     form: Mitbestimmung
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Beteiligungsrecht, Anhörung], near: [Mitbestimmungsgesetz, Bestimmung, Mitversicherung] }
   supervisoryboard_noun:
     form: Aufsichtsrat
@@ -585,7 +585,7 @@ lexemes:
     form: Lohnnebenkosten
     article: die
     plural: Lohnnebenkosten
-    note: только множественное
+    note: plural_only
     distractors: { far: [Bruttolohn, Arbeitgeberanteil], near: [Lohnkosten, Nebenkosten, Lohnfortzahlung] }
   socialinsurance_noun:
     form: Sozialversicherung

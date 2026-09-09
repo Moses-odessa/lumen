@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
+import 'prompt_tag_text.dart';
 
 /// Что произошло с кругом после ответа.
 enum CircleOutcome { correct, wrong }
@@ -173,6 +174,17 @@ class _CircleArenaState extends State<CircleArena>
     final theme = Theme.of(context);
     final replay = widget.onReplay;
 
+    // Подсказка родного языка и переведённая пометка — одна строка под
+    // центром. Обе сразу бывают редко, и тогда они читаются как «банковская ·
+    // неисчисляемое».
+    //
+    // Локализация запрашивается только когда есть что переводить: круг без
+    // пометки не должен требовать её наличия в дереве.
+    final tag = question.promptTag == null
+        ? null
+        : promptTagText(AppLocalizations.of(context), question.promptTag);
+    final hint = [question.promptHint, tag].nonNulls.join(' · ');
+
     return Positioned(
       left: layout.center.dx - layout.centerRadius,
       top: layout.center.dy - layout.centerRadius,
@@ -202,10 +214,10 @@ class _CircleArenaState extends State<CircleArena>
                         height: 1.2,
                       ),
                     ),
-                    if (question.promptHint != null) ...[
+                    if (hint.isNotEmpty) ...[
                       const SizedBox(height: 6),
                       Text(
-                        question.promptHint!,
+                        hint,
                         textAlign: TextAlign.center,
                         style: theme.textTheme.bodySmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant,

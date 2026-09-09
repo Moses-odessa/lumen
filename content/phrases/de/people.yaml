@@ -8,23 +8,27 @@ constellation: people
 tiers:
   a0:
     - id: family_a0_name
-      template: "Wie lautet Ihr {name}?"
+      template: "Wie ist Ihr {name}? Buchstabieren Sie bitte."
       answer: Name
+      options: [Apfel, Tisch, Bauch, Bahnhof, Frau, Mutter, Familie]
       register: formal
       concepts: [name_noun]
     - id: family_a0_family
-      template: "Das ist meine {family}."
+      template: "Das ist meine {family}: Frau, Sohn und Tochter."
       answer: Familie
+      options: [Mutter, Tochter, Schwester, Küche, Vater, Sohn, Kind]
       register: casual
       concepts: [family_noun]
     - id: family_a0_child
-      template: "Ich habe ein {child}."
+      template: "Ich habe ein {child}, es schläft noch."
       answer: Kind
+      options: [Auto, Haus, Fahrrad, Zimmer, Tochter, Mutter, Vater]
       register: casual
       concepts: [child_person]
     - id: family_a0_friend
-      template: "Er ist mein {friend}."
+      template: "Er ist ein {friend} von mir."
       answer: Freund
+      options: [Apfel, Tisch, Bahnhof, Bauch, Mutter, Schwester, Küche]
       register: casual
       concepts: [friend_person]
 
@@ -80,7 +84,6 @@ tiers:
     - id: family_a2_surname
       template: "Nach der Hochzeit nahm sie meinen {surname}."
       answer: Nachnamen
-      ambiguity: reviewed
       register: casual
       concepts: [surname_noun]
     - id: family_a2_marriage

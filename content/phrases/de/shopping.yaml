@@ -8,23 +8,27 @@ constellation: shopping
 tiers:
   a0:
     - id: shop_a0_money
-      template: "Ich habe kein {money}."
+      template: "Ich habe kein {money}, ich kann das nicht kaufen."
       answer: Geld
+      options: [Krankenhaus, Zentrum, Museum, Restaurant, Uhr, Kasse, Preis]
       register: casual
       concepts: [money_noun]
     - id: shop_a0_expensive
-      template: "Das ist zu {expensive}."
+      template: "Das ist zu {expensive}, ich kaufe es nicht."
       answer: teuer
+      options: [offen, müde, krank, frei, Preis, Kasse, Geld]
       register: casual
       concepts: [expensive_adj]
     - id: shop_a0_checkout
-      template: "Wo ist die {checkout}?"
+      template: "Wo ist hier die {checkout}? Ich möchte bezahlen."
       answer: Kasse
+      options: [Tür, Milch, Hand, Uhr, Laden, Preis, Markt]
       register: casual
       concepts: [checkout_place]
     - id: shop_a0_price
-      template: "Das ist ein guter {price}."
+      template: "Das ist ein guter {price} für so ein Auto."
       answer: Preis
+      options: [Kopf, Tisch, Apfel, Chef, Kasse, Karte, Geld]
       register: casual
       concepts: [price_noun]
 

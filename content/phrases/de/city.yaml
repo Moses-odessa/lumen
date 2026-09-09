@@ -10,21 +10,25 @@ tiers:
     - id: city_a0_map
       template: "Auf dem {map} finde ich jede Straße."
       answer: Stadtplan
+      options: [Tisch, Apfel, Kopf, Bauch, Stadt, Post, Kirche]
       register: casual
       concepts: [map_object]
     - id: city_a0_post
-      template: "Wo ist die {post}?"
+      template: "Wo ist die {post}? Ich muss einen Brief schicken."
       answer: Post
+      options: [Milch, Tüte, Hand, Uhr, Bahnhof, Museum, Park]
       register: casual
       concepts: [post_place]
     - id: city_a0_hotel
-      template: "Wir suchen ein {hotel}."
+      template: "Wir suchen ein {hotel} für zwei Nächte."
       answer: Hotel
+      options: [Fenster, Licht, Fahrrad, Restaurant, Bahnhof, Kirche, Stadt]
       register: casual
       concepts: [hotel_place]
     - id: city_a0_right
       template: "Gehen Sie nach {right}."
       answer: rechts
+      options: [heute, gestern, spät, müde, krank, alt, frei]
       register: formal
       concepts: [right_adv]
 

@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/data/content/content_database.dart';
 import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/data/repositories/word_state_repository.dart';
+import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scheduler/session_planner.dart';
@@ -249,6 +250,44 @@ void main() {
       for (var i = 1; i < ids.length; i++) {
         expect(ids[i], isNot(ids[i - 1]), reason: 'позиция $i');
       }
+    });
+  });
+
+  group('добор соседями', () {
+    test('набор неверных вариантов меняется от круга к кругу', () async {
+      // Третий случай одной и той же ошибки: список без порядка плюс
+      // обрезка. `siblingForms` порядка не задаёт, в созвездии ровно
+      // двенадцать концептов при лимите двенадцать, а `_assembleOptions`
+      // берёт первые `wanted - 1`. На родном языке своих дистракторов почти
+      // ни у кого нет — и восемь концептов из двенадцати получали одну и ту
+      // же четвёрку неверных вариантов в каждой сессии. Игрок учил при этом
+      // не слово, а то, что «эти четыре никогда не верны».
+      //
+      // Финальный `shuffle` в `_assembleOptions` это не лечит: он тасует
+      // показанное, а не выбранное. Поэтому тест смотрит на **состав**, а не
+      // на порядок.
+      final sets = <Set<String>>[];
+      for (var seed = 0; seed < 12; seed++) {
+        final builder = QuestionBuilder(
+          content: content,
+          targetLang: 'de',
+          nativeLang: 'uk',
+          random: Random(seed),
+        );
+        final question = await builder.build(const PlannedCircle(
+          itemId: 'checkout_place',
+          mode: GameMode.pickNative,
+          isNew: false,
+          lumens: 0,
+          options: 4,
+        ));
+        expect(question, isNotNull);
+        sets.add(question!.options.toSet());
+      }
+
+      expect(sets.toSet().length, greaterThan(1),
+          reason: 'состав вариантов один и тот же при любом зерне — значит '
+              'соседи снова берутся по фиксированному порядку');
     });
   });
 
@@ -507,18 +546,26 @@ void main() {
         difficulty: ClimbRules.difficultyFor(40),
       );
 
-      int widest(LoadedSession s, bool phrase) {
-        final matching = s.questions
-            .where((q) => q.mode.isPhrase == phrase && !q.isNew)
-            .map((q) => q.options.length);
+      // Мерить надо ту механику, чья ширина и есть параметр сложности.
+      // «Собери предложение» под это не подходит: его пул — слова самого
+      // предложения, и от захода он не зависит вовсе. Пока фразы были
+      // короткими, разницы не было; после того как девятнадцать шаблонов
+      // получили придаточное, пул сборки дорос до девяти — и «самый широкий
+      // фразовый круг» стал мерить длину предложения вместо сложности.
+      int widest(LoadedSession s, bool Function(CircleQuestion) pick) {
+        final matching =
+            s.questions.where(pick).map((q) => q.options.length);
         return matching.isEmpty ? 0 : matching.reduce(max);
       }
 
-      expect(widest(hard, false), greaterThan(widest(easy, false)),
+      bool words(CircleQuestion q) => q.mode.isWordMode && !q.isNew;
+      bool gaps(CircleQuestion q) => q.mode == GameMode.fillGaps && !q.isNew;
+
+      expect(widest(hard, words), greaterThan(widest(easy, words)),
           reason: 'словесные круги не расширились');
-      if (widest(easy, true) > 0) {
-        expect(widest(hard, true), greaterThan(widest(easy, true)),
-            reason: 'фраза не расширилась вместе с заходом');
+      if (widest(easy, gaps) > 0) {
+        expect(widest(hard, gaps), greaterThan(widest(easy, gaps)),
+            reason: 'пропуски не расширились вместе с заходом');
       }
     });
 

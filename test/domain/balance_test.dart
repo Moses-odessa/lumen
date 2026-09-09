@@ -347,4 +347,55 @@ void main() {
       expect(CalibrationBalance.borderConfirmations, greaterThan(1));
     });
   });
+
+  group('пул пропуска фразы', () {
+    test('своих слов ровно столько, чтобы добор не начался', () {
+      // Запас нулевой, и это надо знать. Сборщик ограничивает пул величиной
+      // `optionsMax + extraOptionsMax` и сперва кладёт в него ответы, поэтому
+      // на слот остаётся ровно `phraseOptionsPerSlot` неверных слов. При
+      // семи добор `far`-дистракторами и соседями по теме не начинается
+      // никогда.
+      //
+      // Поднять `extraOptionsMax` до трёх — и добор включится, а вместе с ним
+      // вернутся находки первого раунда вычитки A0: `far` у `right_adv` это
+      // `[links, geradeaus]`, то есть «Gehen Sie nach links», а у
+      // `hunger_noun` — `[Durst, Appetit]`, то есть «Ich habe großen Durst».
+      // Оба предложения правильные, и оба игра объявит неверными.
+      //
+      // Тест поэтому не «проверяет число», а держит зависимость: правка
+      // баланса обязана сопровождаться правкой контента, и узнать об этом
+      // нужно здесь, а не от игрока.
+      expect(
+        schema.phraseOptionsPerSlot,
+        ScoreBalance.optionsMax + ClimbBalance.extraOptionsMax - 1,
+        reason: 'после правки баланса у каждой фразы запущенного яруса надо '
+            'дописать неверные слова: dart run tool/validate_content.dart '
+            'покажет, у каких',
+      );
+    });
+
+    test('слово перед пропуском находится', () {
+      // От этого зависит, какую из двух проверок применять к фразе: рамка с
+      // артиклем отсеивает вариант несовпадением рода, безартиклевая —
+      // требованием артикля у исчисляемого.
+      expect(
+        schema.phraseSlotMarkers('Wo ist die {post}?'),
+        ['die'],
+      );
+      expect(
+        schema.phraseSlotMarkers('Ich habe seit gestern {pain}.'),
+        ['gestern'],
+      );
+      expect(
+        schema.phraseSlotMarkers('Ich {want} einen Termin {book}.'),
+        ['ich', 'termin'],
+      );
+      expect(schema.phraseSlotMarkers('{word} ist da.'), ['']);
+
+      expect(schema.genderMarkers.contains('die'), isTrue);
+      expect(schema.genderMarkers.contains('zur'), isTrue,
+          reason: 'предлог, слипшийся с артиклем, задаёт род не хуже артикля');
+      expect(schema.genderMarkers.contains('gestern'), isFalse);
+    });
+  });
 }

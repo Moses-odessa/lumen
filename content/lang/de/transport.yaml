@@ -99,10 +99,10 @@ lexemes:
       near: [Baustelle, Halterung, Haltestange]
   late_adj:
     form: spät
-    note: прилагательное
+    note: adjective
     distractors:
       far: [pünktlich, früh]
-      near: [Spaten, Speer, Saat]
+      near: [spitz, nett, satt]
   # ── A1 ────────────────────────────────────────────────────────────────
   platform_place:
     form: Bahnsteig
@@ -140,7 +140,7 @@ lexemes:
     form: Gepäck
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Koffer, Tasche]
       near: [Gebäck, Gepäckwagen, Geräusch]
@@ -217,7 +217,7 @@ lexemes:
     form: Benzin
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Diesel, Gas], near: [Benzol, Bengel, Benzinkanister] }
   licence_noun:
     form: Führerschein
@@ -361,7 +361,7 @@ lexemes:
     form: Fernverkehr
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Regionalverkehr, Pendelverkehr], near: [Fernsehen, Fernglas, Fernweh] }
   surcharge_noun:
     form: Zuschlag
@@ -409,7 +409,7 @@ lexemes:
     form: Vorfahrt
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Wartepflicht, Halteverbot], near: [Vorfahren, Abfahrt, Vorsicht] }
   overtakingban_noun:
     form: Überholverbot
@@ -530,25 +530,25 @@ lexemes:
     form: Feinstaub
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Stickoxid, Ruß], near: [Feinstaubalarm, Hausstaub, Feingefühl] }
   noiseprotection_noun:
     form: Lärmschutz
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Schallwand, Nachtflugverbot], near: [Lärmschutzwand, Wärmeschutz, Lärmbelästigung] }
   mobilityshift_noun:
     form: Verkehrswende
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Klimapolitik, Mobilitätskonzept], near: [Verkehrswesen, Energiewende, Verkehrswert] }
   electromobility_noun:
     form: Elektromobilität
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Wasserstoffantrieb, Hybridtechnik], near: [Elektrotechnik, Immobilität, Elektroinstallation] }
   charginginfra_noun:
     form: Ladeinfrastruktur
@@ -602,7 +602,7 @@ lexemes:
     form: Verkehrssicherheit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Unfallverhütung, Schutzausrüstung], near: [Verkehrsberuhigung, Rechtssicherheit, Verkehrsschild] }
   accidentstatistics_noun:
     form: Unfallstatistik
@@ -614,7 +614,7 @@ lexemes:
     form: Güterverkehr
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Personenverkehr, Schwertransport], near: [Güterbahnhof, Nahverkehr, Güterwagen] }
   logisticschain_noun:
     form: Logistikkette
@@ -1094,7 +1094,7 @@ lexemes:
   lx4753:
     form: Fahrgastrechte
     article: die
-    note: только множественное
+    note: plural_only
   lx4754:
     form: Fahrgemeinschaft
     article: die

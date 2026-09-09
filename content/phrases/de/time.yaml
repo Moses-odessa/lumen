@@ -8,23 +8,27 @@ constellation: time
 tiers:
   a0:
     - id: time_a0_clock
-      template: "Ich habe keine {clock}."
+      template: "Ich habe keine {clock}. Wie spät ist es?"
       answer: Uhr
+      options: [Milch, Küche, Tür, Hand, Tag, Jahr, Geld]
       register: casual
       concepts: [clock_object]
     - id: time_a0_today
-      template: "Wir treffen uns {today}."
+      template: "Wir treffen uns {today}, nicht morgen."
       answer: heute
+      options: [gestern, spät, müde, krank, alt, Abend, Woche]
       register: casual
       concepts: [today_adv]
     - id: time_a0_week
       template: "Nächste {week} bin ich frei."
       answer: Woche
+      options: [Milch, Küche, Hand, Tür, Monat, Jahr, Tag]
       register: casual
       concepts: [week_time]
     - id: time_a0_evening
       template: "Am {evening} habe ich Zeit."
       answer: Abend
+      options: [Apfel, Tisch, Bauch, Kopf, Nacht, Stunde, Woche]
       register: casual
       concepts: [evening_time]
 

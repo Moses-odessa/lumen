@@ -8,23 +8,27 @@ constellation: health
 tiers:
   a0:
     - id: doctor_a0_help
-      template: "Ich brauche {help}."
+      template: "Ich brauche {help}, das kann ich nicht allein."
       answer: Hilfe
+      options: [Salz, Zucker, Wasser, Fleisch, Apfel, Uhr, Tisch]
       register: casual
       concepts: [help_noun]
     - id: doctor_a0_pain
-      template: "Ich habe {pain}."
+      template: "Ich habe seit gestern {pain} im Rücken."
       answer: Schmerzen
+      options: [Salz, Zucker, Fleisch, Milch, Uhr, Karte, Tisch]
       register: casual
       concepts: [pain_noun]
     - id: doctor_a0_doctor
-      template: "Ich muss zum {doctor}."
+      template: "Ich muss zum {doctor}, mein Kopf tut weh."
       answer: Arzt
+      options: [Markt, Bahnhof, Laden, Chef, Apotheke, Kasse, Post]
       register: casual
       concepts: [doctor_person]
     - id: doctor_a0_appointment
-      template: "Ich habe einen {appointment}."
+      template: "Ich habe einen {appointment} beim Arzt."
       answer: Termin
+      options: [Apfel, Stuhl, Tisch, Schlüssel, Uhr, Hand, Medikament]
       register: casual
       concepts: [appointment_noun]
 

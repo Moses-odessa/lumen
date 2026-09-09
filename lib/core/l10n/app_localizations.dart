@@ -859,7 +859,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutCostBody.
   ///
   /// In en, this message translates to:
-  /// **'This holds because one user costs the project close to nothing: content and audio live inside the app, there is no server, and the only network request is the night challenge — one static file a day.'**
+  /// **'This holds because one user costs the project close to nothing: the content lives inside the app, speech is synthesised by the device, and there is no server and no network request at all.'**
   String get aboutCostBody;
 
   /// No description provided for @aboutDonate.
@@ -1197,6 +1197,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level {level} · ×{multiplier}'**
   String recordsClimbLevel(int level, String multiplier);
+
+  /// Grammar tag under the circle centre: the word is an adverb
+  ///
+  /// In en, this message translates to:
+  /// **'adverb'**
+  String get promptTagAdverb;
+
+  /// Grammar tag under the circle centre: the word is an adjective
+  ///
+  /// In en, this message translates to:
+  /// **'adjective'**
+  String get promptTagAdjective;
+
+  /// Grammar tag: the noun has no plural
+  ///
+  /// In en, this message translates to:
+  /// **'uncountable'**
+  String get promptTagUncountable;
+
+  /// Grammar tag: the noun exists only in the plural
+  ///
+  /// In en, this message translates to:
+  /// **'plural only'**
+  String get promptTagPluralOnly;
+
+  /// Grammar tag: the noun is normally used in the plural
+  ///
+  /// In en, this message translates to:
+  /// **'usually plural'**
+  String get promptTagUsuallyPlural;
+
+  /// Register of a phrase: everyday speech
+  ///
+  /// In en, this message translates to:
+  /// **'informal'**
+  String get promptTagCasual;
+
+  /// Register of a phrase: formal speech
+  ///
+  /// In en, this message translates to:
+  /// **'formal'**
+  String get promptTagFormal;
 }
 
 class _AppLocalizationsDelegate

@@ -8,23 +8,27 @@ constellation: work
 tiers:
   a0:
     - id: work_a0_work
-      template: "Ich gehe zur {work}."
+      template: "Ich gehe zur {work}, mein Chef wartet."
       answer: Arbeit
+      options: [Milch, Hand, Uhr, Quittung, Chef, Büro, Vertrag]
       register: casual
       concepts: [work_noun]
     - id: work_a0_office
-      template: "Er ist im {office}."
+      template: "Er ist im {office} und telefoniert."
       answer: Büro
+      options: [Brot, Medikament, Gehalt, Fenster, Firma, Arbeit, Küche]
       register: casual
       concepts: [office_place]
     - id: work_a0_holiday
-      template: "Ich habe {holiday}."
+      template: "Ich habe im August {holiday}."
       answer: Urlaub
+      options: [Salz, Zucker, Wasser, Fleisch, Apfel, Uhr, Tisch]
       register: casual
       concepts: [holiday_noun]
     - id: work_a0_tired
-      template: "Ich bin sehr {tired}."
+      template: "Ich bin sehr {tired}, ich gehe ins Bett."
       answer: müde
+      options: [spät, frei, offen, teuer, billig, Arbeit, Chef]
       register: casual
       concepts: [tired_adj]
 

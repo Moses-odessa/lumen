@@ -223,7 +223,7 @@
   "aboutTagline": "A vocabulary as a night sky. A star's brightness is the probability of recalling a word right now.",
   "aboutFreeTitle": "Completely free",
   "aboutFreeBody": "No subscription, no paid tiers, no ads, no currency for money. Everything in the game is available to everyone, always.",
-  "aboutCostBody": "This holds because one user costs the project close to nothing: content and audio live inside the app, there is no server, and the only network request is the night challenge — one static file a day.",
+  "aboutCostBody": "This holds because one user costs the project close to nothing: the content lives inside the app, speech is synthesised by the device, and there is no server and no network request at all.",
   "aboutDonate": "Support the project",
   "aboutDonateNote": "A donor gets a badge and a name in the credits — and nothing that gives an advantage in the game or in learning.",
   "aboutExpenses": "Where the money goes",
@@ -412,5 +412,33 @@
         "type": "String"
       }
     }
+  },
+  "promptTagAdverb": "adverb",
+  "@promptTagAdverb": {
+    "description": "Grammar tag under the circle centre: the word is an adverb"
+  },
+  "promptTagAdjective": "adjective",
+  "@promptTagAdjective": {
+    "description": "Grammar tag under the circle centre: the word is an adjective"
+  },
+  "promptTagUncountable": "uncountable",
+  "@promptTagUncountable": {
+    "description": "Grammar tag: the noun has no plural"
+  },
+  "promptTagPluralOnly": "plural only",
+  "@promptTagPluralOnly": {
+    "description": "Grammar tag: the noun exists only in the plural"
+  },
+  "promptTagUsuallyPlural": "usually plural",
+  "@promptTagUsuallyPlural": {
+    "description": "Grammar tag: the noun is normally used in the plural"
+  },
+  "promptTagCasual": "informal",
+  "@promptTagCasual": {
+    "description": "Register of a phrase: everyday speech"
+  },
+  "promptTagFormal": "formal",
+  "@promptTagFormal": {
+    "description": "Register of a phrase: formal speech"
   }
 }

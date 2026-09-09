@@ -22,80 +22,68 @@ lexemes:
     plural: врачи
     distractors:
       far: [зуб, уход]
-      near: [грач, врал, врозь]
   pain_noun:
     form: боль
     gender: f
     distractors:
       far: [рана, кашель]
-      near: [соль, моль, роль]
   help_noun:
     form: помощь
     gender: f
     distractors:
       far: [уход, вызов]
-      near: [помощник, помочь, немощь]
   head_body:
     form: голова
     gender: f
     plural: головы
     distractors:
       far: [шея, спина]
-      near: [половина, головка, голод]
   belly_body:
     form: живот
     gender: m
     plural: животы
     distractors:
       far: [грудь, нога]
-      near: [животное, жизнь, живой]
   hand_body:
     form: рука
     gender: f
     plural: руки
     distractors:
       far: [нога, палец]
-      near: [ручка, мука, река]
   fever_noun:
     form: жар
     gender: m
     distractors:
       far: [кашель, насморк]
-      near: [жара, пар, шар]
   medicine_noun:
     form: лекарство
     gender: n
     plural: лекарства
     distractors:
       far: [рецепт, мазь]
-      near: [лекарь, лекарственный, лакомство]
   pharmacy_place:
     form: аптека
     gender: f
     plural: аптеки
     distractors:
       far: [приём, клиника]
-      near: [аптекарь, апатия, аптечка]
   hospital_place:
     form: больница
     gender: f
     plural: больницы
     distractors:
       far: [приём, скорая]
-      near: [больной, больничный, лечебница]
   sick_adj:
     form: больной
-    note: прилагательное
+    note: adjective
     distractors:
       far: [усталый, здоровый]
-      near: [больно, больница, вольный]
   appointment_noun:
     form: приём
     gender: m
     plural: приёмы
     distractors:
       far: [рецепт, запись]
-      near: [приёмная, приятный, подъём]
 
   # ── A1 ────────────────────────────────────────────────────────────────
   tooth_body: { form: зуб, gender: m, plural: зубы }
@@ -108,7 +96,7 @@ lexemes:
   nurse_person: { form: медсестра, gender: f, plural: медсёстры }
   waiting_room: { form: приёмная, gender: f }
   insurance_card: { form: страховая карта, gender: f }
-  healthy_adj: { form: здоровый, note: прилагательное }
+  healthy_adj: { form: здоровый, note: adjective }
   temperature_noun: { form: температура, gender: f }
 
   # ── A2 ────────────────────────────────────────────────────────────────
@@ -146,7 +134,7 @@ lexemes:
   specialist_person: { form: профильный врач, gender: m }
   health_insurance: { form: больничная касса, gender: f }
   medical_report: { form: заключение врача, gender: n }
-  chronic_adj: { form: хронический, note: прилагательное }
+  chronic_adj: { form: хронический, note: adjective }
   inflammation_noun: { form: воспаление, gender: n }
   infection_noun: { form: инфекция, gender: f }
   antibiotic_noun: { form: антибиотик, gender: m, plural: антибиотики }
@@ -159,7 +147,7 @@ lexemes:
   rehab_noun: { form: реабилитация, gender: f }
   physiotherapy_noun: { form: физиотерапия, gender: f }
   symptom_noun: { form: симптом, gender: m, plural: симптомы }
-  complaints_noun: { form: жалобы, gender: f, note: множественное число }
+  complaints_noun: { form: жалобы, gender: f, note: plural_only }
   medical_history: { form: анамнез, gender: m }
   discharge_noun: { form: выписка, gender: f }
 
@@ -180,9 +168,9 @@ lexemes:
   contraindication_noun: { form: противопоказание, gender: n }
   interaction_noun: { form: взаимодействие, gender: n }
   dosage_form: { form: форма выпуска, gender: f }
-  prescription_only: { form: рецептурный, note: прилагательное }
-  outpatient_adj: { form: амбулаторный, note: прилагательное }
-  inpatient_adj: { form: стационарный, note: прилагательное }
+  prescription_only: { form: рецептурный, note: adjective }
+  outpatient_adj: { form: амбулаторный, note: adjective }
+  inpatient_adj: { form: стационарный, note: adjective }
   patient_file: { form: медицинская карта, gender: f }
   data_protection: { form: защита данных, gender: f }
   second_opinion: { form: второе мнение, gender: n }
@@ -215,7 +203,7 @@ lexemes:
   way_noun: { form: путь, gender: m, plural: пути }
   driver_person: { form: водитель, gender: m, plural: водители }
   stop_place: { form: остановка, gender: f, plural: остановки }
-  late_adj: { form: поздно, note: наречие }
+  late_adj: { form: поздно, note: adverb }
 
   # ── Созвездие «Дом», A0 ───────────────────────────────────────────────
   house_place: { form: дом, gender: m, plural: дома }
@@ -242,9 +230,9 @@ lexemes:
   purchase_noun: { form: покупка, gender: f, plural: покупки }
   receipt_noun: { form: чек, gender: m, plural: чеки }
   customer_person: { form: покупатель, gender: m, plural: покупатели }
-  cheap_adj: { form: дешёвый, note: прилагательное }
-  expensive_adj: { form: дорогой, note: прилагательное }
-  open_adj: { form: открыто, note: наречие }
+  cheap_adj: { form: дешёвый, note: adjective }
+  expensive_adj: { form: дорогой, note: adjective }
+  open_adj: { form: открыто, note: adverb }
 
   # ── Созвездие «Семья», A0 ─────────────────────────────────────────────
   mother_person: { form: мать, gender: f, plural: матери }
@@ -258,7 +246,7 @@ lexemes:
   family_noun: { form: семья, gender: f, plural: семьи }
   man_person: { form: мужчина, gender: m, plural: мужчины }
   woman_person: { form: женщина, gender: f, plural: женщины }
-  old_adj: { form: старый, note: прилагательное }
+  old_adj: { form: старый, note: adjective }
 
   # ── Созвездие «Время», A0 ─────────────────────────────────────────────
   day_time: { form: день, gender: m, plural: дни }
@@ -271,8 +259,8 @@ lexemes:
   morning_time: { form: утро, gender: n }
   evening_time: { form: вечер, gender: m, plural: вечера }
   clock_object: { form: часы, gender: m, plural: часы }
-  today_adv: { form: сегодня, note: наречие }
-  yesterday_adv: { form: вчера, note: наречие }
+  today_adv: { form: сегодня, note: adverb }
+  yesterday_adv: { form: вчера, note: adverb }
 
   # ── Созвездие «Город», A0 ─────────────────────────────────────────────
   city_place: { form: город, gender: m, plural: города }
@@ -286,7 +274,7 @@ lexemes:
   hotel_place: { form: гостиница, gender: f, plural: гостиницы }
   centre_place: { form: центр, gender: m, plural: центры }
   map_object: { form: карта города, gender: f }
-  right_adv: { form: направо, note: наречие }
+  right_adv: { form: направо, note: adverb }
 
   # ── Созвездие «Работа», A0 ────────────────────────────────────────────
   work_noun: { form: работа, gender: f, plural: работы }
@@ -299,8 +287,8 @@ lexemes:
   contract_noun: { form: договор, gender: m, plural: договоры }
   meeting_noun: { form: совещание, gender: n, plural: совещания }
   holiday_noun: { form: отпуск, gender: m, plural: отпуска }
-  free_adj: { form: свободный, note: прилагательное }
-  tired_adj: { form: усталый, note: прилагательное }
+  free_adj: { form: свободный, note: adjective }
+  tired_adj: { form: усталый, note: adjective }
 
   # ── A1, все созвездия ─────────────────────────────────────────────────
   breakfast_meal: { form: завтрак, gender: m, plural: завтраки }
@@ -362,19 +350,19 @@ lexemes:
   grandchild_person: { form: внук, gender: m, plural: внуки }
   birthday_noun: { form: день рождения, gender: m }
   wedding_noun: { form: свадьба, gender: f, plural: свадьбы }
-  young_adj: { form: молодой, note: прилагательное }
+  young_adj: { form: молодой, note: adjective }
   weekend_time: { form: выходные, gender: m, plural: выходные }
   date_noun: { form: дата, gender: f, plural: даты }
   calendar_object: { form: календарь, gender: m, plural: календари }
   noon_time: { form: полдень, gender: m }
-  tomorrow_adv: { form: завтра, note: наречие }
-  always_adv: { form: всегда, note: наречие }
-  never_adv: { form: никогда, note: наречие }
-  often_adv: { form: часто, note: наречие }
-  sometimes_adv: { form: иногда, note: наречие }
-  early_adv: { form: рано, note: наречие }
-  now_adv: { form: сейчас, note: наречие }
-  soon_adv: { form: скоро, note: наречие }
+  tomorrow_adv: { form: завтра, note: adverb }
+  always_adv: { form: всегда, note: adverb }
+  never_adv: { form: никогда, note: adverb }
+  often_adv: { form: часто, note: adverb }
+  sometimes_adv: { form: иногда, note: adverb }
+  early_adv: { form: рано, note: adverb }
+  now_adv: { form: сейчас, note: adverb }
+  soon_adv: { form: скоро, note: adverb }
   crossing_place: { form: перекрёсток, gender: m, plural: перекрёстки }
   traffic_light: { form: светофор, gender: m, plural: светофоры }
   pedestrian_person: { form: пешеход, gender: m, plural: пешеходы }

@@ -69,7 +69,7 @@ lexemes:
     form: Post
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Amt, Rathaus]
       near: [Rost, Posten, Pfosten]
@@ -99,7 +99,7 @@ lexemes:
       near: [Bauplan, Zeitplan, Stadtrand]
   right_adv:
     form: rechts
-    note: наречие
+    note: adverb
     distractors:
       far: [links, geradeaus]
       near: [Recht, echt, sechs]
@@ -494,7 +494,7 @@ lexemes:
     form: Kommunalpolitik
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Landespolitik, Stadtverwaltung], near: [Kommunalwahl, Sozialpolitik, Kommunalverband] }
   budgetplan_noun:
     form: Haushaltsplan
@@ -530,7 +530,7 @@ lexemes:
     form: Daseinsvorsorge
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Verwaltungsaufgabe, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Gesundheitsvorsorge] }
   landuseplan_noun:
     form: Flächennutzungsplan
@@ -560,7 +560,7 @@ lexemes:
     form: Gemeinnützigkeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Steuerbefreiung, Ehrenamt], near: [Gemeinheit, Gemeinsamkeit, Gemeindeamt] }
   citizenspetition_noun:
     form: Bürgerbegehren
@@ -614,13 +614,13 @@ lexemes:
     form: Gefahrenabwehr
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Prävention, Ordnungsrecht], near: [Gefahrenquelle, Notwehr, Gefahrenstelle] }
   disasterresponse_noun:
     form: Katastrophenschutz
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Zivilschutz, Rettungsdienst], near: [Katastrophenfall, Brandschutz, Katastrophenalarm] }
   townplanning_noun:
     form: Stadtplanung
@@ -632,7 +632,7 @@ lexemes:
     form: Denkmalpflege
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Bauforschung, Restaurierung], near: [Denkmalschutz, Krankenpflege, Denkmalliste] }
   # ── импортировано из словника, не вычитано ─────────────────────────────
   lx0171:

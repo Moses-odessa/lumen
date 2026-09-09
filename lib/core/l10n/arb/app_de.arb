@@ -125,7 +125,7 @@
   "aboutTagline": "Der Wortschatz als Nachthimmel. Die Helligkeit eines Sterns ist die Wahrscheinlichkeit, das Wort gerade jetzt zu erinnern.",
   "aboutFreeTitle": "Komplett kostenlos",
   "aboutFreeBody": "Kein Abo, keine kostenpflichtigen Stufen, keine Werbung, keine Währung für Geld. Alles im Spiel ist für alle da, immer.",
-  "aboutCostBody": "Das hält, weil ein Nutzer das Projekt fast nichts kostet: Inhalte und Ton liegen in der App selbst, es gibt keinen Server, und die einzige Netzanfrage ist die nächtliche Herausforderung — eine statische Datei pro Tag.",
+  "aboutCostBody": "Das hält, weil ein Nutzer das Projekt fast nichts kostet: die Inhalte liegen in der App selbst, die Sprache erzeugt das Gerät, und es gibt weder Server noch Netzanfragen.",
   "aboutDonate": "Projekt unterstützen",
   "aboutDonateNote": "Wer spendet, bekommt eine Markierung und einen Namen im Abspann — und nichts, was im Spiel oder beim Lernen einen Vorteil verschafft.",
   "aboutExpenses": "Wohin das Geld geht",
@@ -181,5 +181,12 @@
   "recordsToBeat": "noch {value}",
   "recordsBeaten": "Rekord!",
   "recordsEmpty": "Spiel eine Ebene, dann stehen hier die ersten Rekorde.",
-  "recordsClimbLevel": "Ebene {level} · ×{multiplier}"
+  "recordsClimbLevel": "Ebene {level} · ×{multiplier}",
+  "promptTagAdverb": "Adverb",
+  "promptTagAdjective": "Adjektiv",
+  "promptTagUncountable": "unzählbar",
+  "promptTagPluralOnly": "nur Plural",
+  "promptTagUsuallyPlural": "meist Plural",
+  "promptTagCasual": "umgangssprachlich",
+  "promptTagFormal": "formell"
 }

@@ -8,23 +8,27 @@ constellation: food
 tiers:
   a0:
     - id: food_a0_bread
-      template: "Ich kaufe {bread}."
+      template: "Zum Frühstück esse ich {bread}."
       answer: Brot
+      options: [Salz, Zucker, Wasser, Milch, Uhr, Tisch, Karte]
       register: casual
       concepts: [bread_food]
     - id: food_a0_water
       template: "Ich trinke {water}."
       answer: Wasser
+      options: [Salz, Zucker, Fleisch, Hunger, Apfel, Uhr, Tisch]
       register: casual
       concepts: [water_drink]
     - id: food_a0_hunger
-      template: "Ich habe {hunger}."
+      template: "Ich habe großen {hunger}."
       answer: Hunger
+      options: [Zucker, Kaffee, Urlaub, Uhr, Karte, Tisch, Apotheke]
       register: casual
       concepts: [hunger_noun]
     - id: food_a0_restaurant
-      template: "Wir gehen ins {restaurant}."
+      template: "Wir gehen ins {restaurant} und essen Fisch."
       answer: Restaurant
+      options: [Brot, Krankenhaus, Gehalt, Fenster, Kirche, Apotheke, Bahnhof]
       register: casual
       concepts: [restaurant_place]
 

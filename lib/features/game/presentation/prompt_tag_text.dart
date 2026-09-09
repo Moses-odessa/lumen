@@ -1,0 +1,31 @@
+import '../../../core/l10n/app_localizations.dart';
+import '../../../domain/entities/prompt_tag.dart';
+
+/// Строка пометки под центром круга — на языке интерфейса.
+///
+/// Одно место на оба арены. Раньше пометка печаталась как пришла из контента,
+/// и это давало два разных сорта неправды на одном экране: под немецким
+/// словом стоял русский грамматический ярлык (немецкий файл читает автор
+/// контента, а не игрок, — правильного языка у такой пометки нет), а под
+/// каждой из 432 фраз — английское `casual` из внутреннего кода.
+///
+/// Неизвестный код не показывается вовсе. Это выбор: показать код игроку
+/// значит вернуть ту же ошибку, а промолчать — потерять подсказку. Потеря
+/// подсказки заметна автору контента (валидатор требует, чтобы пометка
+/// изучаемого языка была из набора) и не заметна игроку.
+String? promptTagText(AppLocalizations l10n, String? tag) {
+  if (tag == null || !isPromptTag(tag)) return null;
+  return switch (tag) {
+    'adverb' => l10n.promptTagAdverb,
+    'adjective' => l10n.promptTagAdjective,
+    'uncountable' => l10n.promptTagUncountable,
+    'plural_only' => l10n.promptTagPluralOnly,
+    'usually_plural' => l10n.promptTagUsuallyPlural,
+    'casual' => l10n.promptTagCasual,
+    'formal' => l10n.promptTagFormal,
+    // Недостижимо: `promptTags` и этот switch проверяются тестом на
+    // совпадение. Ветка нужна, потому что набор — множество строк, а не
+    // перечисление: строки приходят из YAML, где перечисления нет.
+    _ => null,
+  };
+}

@@ -48,6 +48,7 @@ void main() {
     bool enabled = true,
     CircleQuestion? q,
     VoidCallback? onReplay,
+    Locale? locale,
   }) async {
     final answers = <(int, Duration)>[];
     await tester.pumpWidget(
@@ -56,6 +57,10 @@ void main() {
         // механики на слух не собрались бы вовсе.
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        // Локаль задаётся явно там, где проверяется именно перевод: на
+        // английском код пометки и её строка совпадают по написанию, и тест
+        // не отличил бы перевод от выведенного кода.
+        locale: locale,
         home: Scaffold(
           body: Center(
             child: SizedBox(
@@ -176,6 +181,52 @@ void main() {
     );
 
     expect(find.text('женский род'), findsOneWidget);
+  });
+
+  testWidgets('пометка показывается на языке интерфейса, а не как код',
+      (tester) async {
+    // Раньше пометка печаталась как пришла из контента, и это давало два
+    // сорта неправды: под немецким словом русский грамматический ярлык
+    // (немецкий файл читает автор контента, а не игрок), а под фразой —
+    // английское `casual` из внутреннего кода.
+    await pumpArena(
+      tester,
+      locale: const Locale('uk'),
+      q: CircleQuestion.single(
+        itemId: 'x',
+        tier: Tier.a0,
+        mode: GameMode.pickNative,
+        prompt: 'das Wasser',
+        promptTag: 'uncountable',
+        options: const ['вода', 'молоко', 'сок'],
+        answerIndex: 0,
+        lumens: 30,
+      ),
+    );
+
+    expect(find.text('uncountable'), findsNothing);
+    expect(find.text('незлічуване'), findsOneWidget);
+  });
+
+  testWidgets('подсказка и пометка стоят рядом, а не вместо друг друга',
+      (tester) async {
+    await pumpArena(
+      tester,
+      locale: const Locale('uk'),
+      q: CircleQuestion.single(
+        itemId: 'x',
+        tier: Tier.a0,
+        mode: GameMode.pickTarget,
+        prompt: 'карта',
+        promptHint: 'банковская',
+        promptTag: 'uncountable',
+        options: const ['Karte', 'Kasse', 'Kunde'],
+        answerIndex: 0,
+        lumens: 30,
+      ),
+    );
+
+    expect(find.text('банковская · незлічуване'), findsOneWidget);
   });
 
   testWidgets('новый вопрос сбрасывает круг', (tester) async {

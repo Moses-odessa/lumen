@@ -79,8 +79,8 @@ lexemes:
     gender: m
     plural: Schlüssel
     distractors:
-      far: [Schloss, Klingel]
-      near: [Schüssel, Schlüpfer, Schlucht]
+      far: [Klingel, Briefkasten]
+      near: [Schloss, Schüssel, Schlucht]
   rent_noun:
     form: Miete
     article: die
@@ -225,7 +225,7 @@ lexemes:
     form: Nebenkosten
     article: die
     plural: Nebenkosten
-    note: только множественное
+    note: plural_only
     distractors: { far: [Kaltmiete, Warmmiete], near: [Nebensache, Reisekosten, Nebenraum] }
   caretaker_person:
     form: Hausmeister
@@ -255,7 +255,7 @@ lexemes:
     form: Möbel
     article: die
     plural: Möbel
-    note: только множественное
+    note: plural_only
     distractors: { far: [Tapete, Hausrat], near: [Nebel, Möwe, Mörtel] }
   sofa_object:
     form: Sofa
@@ -321,7 +321,7 @@ lexemes:
     form: Strom
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Gas, Heizöl], near: [Sturm, Stroh, Strang] }
   tap_object:
     form: Wasserhahn
@@ -333,7 +333,7 @@ lexemes:
     form: Müll
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Kompost, Schrott], near: [Mühle, "Null", Müsli] }
   bin_object:
     form: Mülltonne
@@ -418,13 +418,13 @@ lexemes:
     form: Schimmel
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Rost, Nässe], near: [Schimmer, Himmel, Schemel] }
   damp_noun:
     form: Feuchtigkeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Zugluft, Kondenswasser], near: [Fruchtbarkeit, Feuchtgebiet, Flüchtigkeit] }
   tradesman_person:
     form: Handwerker
@@ -478,7 +478,7 @@ lexemes:
     form: Heizkosten
     article: die
     plural: Heizkosten
-    note: только множественное
+    note: plural_only
     distractors: { far: [Stromkosten, Wasserkosten], near: [Heizkörper, Reisekosten, Heizperiode] }
   watermeter_object:
     form: Wasserzähler
@@ -515,7 +515,7 @@ lexemes:
     form: Wohnungseigentum
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Mietwohnung, Erbbaurecht], near: [Wohnungsbau, Grundeigentum, Wohnungsamt] }
   ownersassociation_noun:
     form: Eigentümergemeinschaft
@@ -605,13 +605,13 @@ lexemes:
     form: Denkmalschutz
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Bestandsschutz, Ensembleschutz], near: [Denkmalpflege, Brandschutz, Denkmalamt] }
   insulation_noun:
     form: Wärmedämmung
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Fassadenanstrich, Fensteraustausch], near: [Wärmepumpe, Schalldämmung, Wärmebrücke] }
   efficiencyclass_noun:
     form: Energieeffizienzklasse

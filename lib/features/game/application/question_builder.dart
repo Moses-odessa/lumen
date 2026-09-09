@@ -3,6 +3,7 @@ import 'dart:math';
 import '../../../data/content/content_database.dart';
 import '../../../domain/entities/circle_question.dart';
 import '../../../domain/entities/game_mode.dart';
+import '../../../domain/entities/prompt_tag.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
@@ -117,7 +118,16 @@ class QuestionBuilder {
       mode: circle.mode,
       // В механиках на слух центр пуст: его занимает динамик.
       prompt: audio ? '' : (toTarget ? native.form : _withArticle(target)),
-      promptHint: audio ? null : (toTarget ? native.note : target.note),
+      // Пометка описывает **центр**, а не ответ: в круге «родное слово →
+      // варианты на изучаемом» подсказка идёт от родной лексемы, в обратном
+      // — от изучаемой.
+      //
+      // Свободный текст берётся только с родной стороны: там язык файла и
+      // есть язык игрока. Пометка изучаемой лексемы — всегда код, потому что
+      // правильного языка у неё нет: немецкий файл читает автор контента, и
+      // написанное в нём «неисчисляемое» показывалось украинцу как есть.
+      promptHint: audio ? null : _freeText(toTarget ? native.note : target.note),
+      promptTag: audio ? null : _tag(toTarget ? native.note : target.note),
       options: options.forms,
       answerIndex: options.answerIndex,
       lumens: circle.lumens,
@@ -237,7 +247,15 @@ class QuestionBuilder {
     }
 
     for (var slot = 0; slot < answers.length; slot++) {
-      await addAll(own[slot] ?? const []);
+      // Перемешивается до обрезки, а не после.
+      //
+      // База отдаёт варианты по первичному ключу, то есть по алфавиту и
+      // заглавными вперёд, а в пул влезают не все — только первые
+      // `options - 1`. Без перемешивания обрезка систематически предпочитала
+      // существительные прилагательным, и в двух фразах A0 ответ оставался
+      // единственным строчным словом на экране. Порядок автора при этом всё
+      // равно потерян: он не доезжает из YAML до базы.
+      await addAll((own[slot] ?? const <String>[]).toList()..shuffle(_random));
     }
     if (anchor != null) {
       await addAll((await content.distractorsFor(anchor, targetLang, 'far'))
@@ -276,7 +294,7 @@ class QuestionBuilder {
       tier: Tier.fromCode(phrase.tier),
       mode: GameMode.fillGaps,
       prompt: _withGaps(phrase.template),
-      promptHint: phrase.register,
+      promptTag: phrase.register,
       options: shuffled,
       answers: bySlot,
       lumens: lumens,
@@ -325,7 +343,7 @@ class QuestionBuilder {
       mode: GameMode.buildPhrase,
       // Центр пуст: его занимают пустые места по числу слов.
       prompt: '',
-      promptHint: phrase.register,
+      promptTag: phrase.register,
       options: pool,
       answers: answersBySlot,
       lumens: lumens,
@@ -359,12 +377,26 @@ class QuestionBuilder {
     // созвездию — из слов, которые уже написаны и проверены. Придумать
     // несуществующее слово при этом структурно невозможно, а 31 000 единиц
     // ручной работы не появляется. Заданные руками имеют приоритет.
-    picked.addAll(await content.siblingForms(
+    //
+    // Соседи перемешиваются, и это не украшение. `siblingForms` не задаёт
+    // порядок вовсе, а в созвездии ровно двенадцать концептов при лимите
+    // двенадцать — то есть база отдаёт один и тот же список в одном и том же
+    // порядке всегда. Дальше `_assembleOptions` берёт из него первые
+    // `wanted - 1`, и на родном языке, где своих дистракторов почти ни у кого
+    // нет, восемь концептов из двенадцати получали одну и ту же четвёрку
+    // неверных вариантов **каждый раз**. Игрок при этом учил не слово, а то,
+    // что «эти четыре никогда не верны».
+    //
+    // Ровно та же ошибка, что была у `phrase_options`: список без порядка
+    // плюс обрезка. Финальный `shuffle` в `_assembleOptions` её не лечит — он
+    // тасует показанное, а не выбранное.
+    final siblings = await content.siblingForms(
       constellation: concept.constellation,
       tier: concept.tier,
       lang: lang,
       excludeConceptId: itemId,
-    ));
+    );
+    picked.addAll(siblings..shuffle(_random));
     return picked;
   }
 
@@ -404,6 +436,19 @@ class QuestionBuilder {
   String _withArticle(LexemeRow lexeme) => lexeme.article == null
       ? lexeme.form
       : '${lexeme.article} ${lexeme.form}';
+
+  /// Пометка кодом — её переведёт локализация.
+  String? _tag(String? note) =>
+      note != null && isPromptTag(note) ? note : null;
+
+  /// Пометка свободным текстом — её покажут как есть.
+  ///
+  /// Две функции на одно поле, а не разбор в вызывающем: пометка приходит из
+  /// контента одной строкой, и решать, код это или подсказка, должно одно
+  /// место. Иначе третий вызывающий покажет код игроку — как показывал
+  /// `register: casual` под каждой из 432 фраз.
+  String? _freeText(String? note) =>
+      note != null && !isPromptTag(note) ? note : null;
 
   /// Заменяет слоты шаблона на пропуски:
   /// `Ich brauche {help}.` → `Ich brauche _____.`

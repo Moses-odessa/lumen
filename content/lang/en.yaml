@@ -23,70 +23,58 @@ lexemes:
     plural: doctors
     distractors:
       far: [tooth, care]
-      near: [doctorate, dockyard, actor]
   pain_noun:
     form: pain
     distractors:
       far: [wound, cough]
-      near: [pane, rain, plain]
   help_noun:
     form: help
     distractors:
       far: [care, emergency]
-      near: [held, helm, helpful]
   head_body:
     form: head
     plural: heads
     distractors:
       far: [neck, back]
-      near: [heap, heal, bead]
   belly_body:
     form: belly
     plural: bellies
     distractors:
       far: [chest, leg]
-      near: [bell, jelly, belt]
   hand_body:
     form: hand
     plural: hands
     distractors:
       far: [foot, finger]
-      near: [land, band, hard]
   fever_noun:
     form: fever
     distractors:
       far: [cough, cold]
-      near: [feather, ever, favour]
   medicine_noun:
     form: medicine
     plural: medicines
     distractors:
       far: [prescription, ointment]
-      near: [medical, medicinal, meddling]
   pharmacy_place:
     form: pharmacy
     plural: pharmacies
     distractors:
       far: [surgery, clinic]
-      near: [pharmacist, farmacy, phase]
   hospital_place:
     form: hospital
     plural: hospitals
     distractors:
       far: [surgery, ambulance]
-      near: [hospitality, hostel, hospice]
   sick_adj:
     form: sick
     note: adjective
     distractors:
       far: [tired, healthy]
-      near: [sicken, stick, slick]
   appointment_noun:
     form: appointment
     plural: appointments
     distractors:
       far: [prescription, booking]
-      near: [appoint, apportionment, disappointment]
 
   # ── A1 ────────────────────────────────────────────────────────────────
   tooth_body: { form: tooth, plural: teeth }
@@ -150,7 +138,7 @@ lexemes:
   rehab_noun: { form: rehab }
   physiotherapy_noun: { form: physiotherapy }
   symptom_noun: { form: symptom, plural: symptoms }
-  complaints_noun: { form: complaints, note: usually plural }
+  complaints_noun: { form: complaints, note: usually_plural }
   medical_history: { form: medical history }
   discharge_noun: { form: discharge }
 
@@ -186,68 +174,56 @@ lexemes:
     plural: breads
     distractors:
       far: [butter, cheese]
-      near: [breath, broad, thread]
   water_drink:
     form: water
     plural: waters
     distractors:
       far: [juice, tea]
-      near: [waiter, wader, otter]
   milk_drink:
     form: milk
     distractors:
       far: [cream, yoghurt]
-      near: [silk, milt, mild]
   coffee_drink:
     form: coffee
     plural: coffees
     distractors:
       far: [tea, cocoa]
-      near: [coffer, toffee, copy]
   apple_food:
     form: apple
     plural: apples
     distractors:
       far: [pear, grape]
-      near: [ample, ripple, chapel]
   meat_food:
     form: meat
     distractors:
       far: [sausage, ham]
-      near: [neat, mead, moat]
   fish_food:
     form: fish
     plural: fish
     distractors:
       far: [crab, mussel]
-      near: [dish, fist, wish]
   soup_food:
     form: soup
     plural: soups
     distractors:
       far: [salad, sauce]
-      near: [soap, scoop, sour]
   salt_food:
     form: salt
     distractors:
       far: [pepper, vinegar]
-      near: [halt, silt, sale]
   sugar_food:
     form: sugar
     distractors:
       far: [honey, syrup]
-      near: [cigar, sucker, saga]
   hunger_noun:
     form: hunger
     distractors:
       far: [thirst, appetite]
-      near: [hanger, hunter, hinge]
   restaurant_place:
     form: restaurant
     plural: restaurants
     distractors:
       far: [canteen, snack bar]
-      near: [restraint, resonant, reluctant]
 
   # ── Constellation "transport", A0 ─────────────────────────────────────
   train_transport:
@@ -255,73 +231,61 @@ lexemes:
     plural: trains
     distractors:
       far: [track, carriage]
-      near: [trait, drain, grain]
   bus_transport:
     form: bus
     plural: buses
     distractors:
       far: [tram, taxi]
-      near: [bush, bust, buzz]
   car_transport:
     form: car
     plural: cars
     distractors:
       far: [motorbike, scooter]
-      near: [card, cart, jar]
   ticket_transport:
     form: ticket
     plural: tickets
     distractors:
       far: [passport, luggage]
-      near: [thicket, picket, tickle]
   station_place:
     form: station
     plural: stations
     distractors:
       far: [airport, harbour]
-      near: [stallion, ration, statue]
   street_place:
     form: street
     plural: streets
     distractors:
       far: [lane, square]
-      near: [streak, stress, sheet]
   bicycle_transport:
     form: bicycle
     plural: bicycles
     distractors:
       far: [scooter, trailer]
-      near: [bifocal, icicle, cycle]
   airplane_transport:
     form: airplane
     plural: airplanes
     distractors:
       far: [helicopter, rocket]
-      near: [airline, aeroplane, airfield]
   way_noun:
     form: way
     plural: ways
     distractors:
       far: [path, route]
-      near: [wave, sway, wag]
   driver_person:
     form: driver
     plural: drivers
     distractors:
       far: [conductor, pilot]
-      near: [diver, drier, river]
   stop_place:
     form: stop
     plural: stops
     distractors:
       far: [platform, shelter]
-      near: [step, shop, stoop]
   late_adj:
     form: late
     note: adjective
     distractors:
       far: [punctual, early]
-      near: [lace, rate, plate]
 
   # ── Constellation "home", A0 ──────────────────────────────────────────
   house_place:
@@ -329,72 +293,60 @@ lexemes:
     plural: houses
     distractors:
       far: [flat, garden]
-      near: [mouse, hose, horse]
   door_object:
     form: door
     plural: doors
     distractors:
       far: [wall, stairs]
-      near: [floor, doom, deer]
   window_object:
     form: window
     plural: windows
     distractors:
       far: [balcony, curtain]
-      near: [widow, winnow, winter]
   table_object:
     form: table
     plural: tables
     distractors:
       far: [wardrobe, shelf]
-      near: [cable, stable, tablet]
   chair_object:
     form: chair
     plural: chairs
     distractors:
       far: [armchair, bench]
-      near: [chain, char, hair]
   bed_object:
     form: bed
     plural: beds
     distractors:
       far: [blanket, pillow]
-      near: [bead, bad, bet]
   kitchen_room:
     form: kitchen
     plural: kitchens
     distractors:
       far: [bathroom, hallway]
-      near: [kitten, chicken, kitsch]
   room_place:
     form: room
     plural: rooms
     distractors:
       far: [flat, cellar]
-      near: [broom, roam, boom]
   key_object:
     form: key
     plural: keys
     distractors:
       far: [lock, doorbell]
-      near: [quay, kev, keg]
   rent_noun:
     form: rent
     distractors:
       far: [deposit, utilities]
-      near: [rant, rend, dent]
   neighbour_person:
     form: neighbour
     plural: neighbours
     distractors:
       far: [landlord, caretaker]
-      near: [neighbourhood, labour, harbour]
   light_object:
     form: light
     plural: lights
     distractors:
       far: [lamp, candle]
-      near: [night, sight, slight]
 
   # ── Constellation "shop", A0 ──────────────────────────────────────────
   shop_place:
@@ -402,72 +354,60 @@ lexemes:
     plural: shops
     distractors:
       far: [market, kiosk]
-      near: [chop, ship, shot]
   money_noun:
     form: money
     distractors:
       far: [coin, note]
-      near: [monkey, honey, moody]
   price_noun:
     form: price
     plural: prices
     distractors:
       far: [discount, offer]
-      near: [prize, pride, rice]
   card_object:
     form: card
     plural: cards
     distractors:
       far: [cash, account]
-      near: [cart, cord, guard]
   checkout_place:
     form: checkout
     plural: checkouts
     distractors:
       far: [shelf, entrance]
-      near: [checkup, blackout, checklist]
   bag_object:
     form: bag
     plural: bags
     distractors:
       far: [basket, pouch]
-      near: [bug, beg, bang]
   purchase_noun:
     form: purchase
     plural: purchases
     distractors:
       far: [order, delivery]
-      near: [perch, pursue, purpose]
   receipt_noun:
     form: receipt
     plural: receipts
     distractors:
       far: [invoice, warranty]
-      near: [recipe, receive, deceit]
   customer_person:
     form: customer
     plural: customers
     distractors:
       far: [seller, owner]
-      near: [custom, costume, customs]
   cheap_adj:
     form: cheap
     note: adjective
     distractors:
       far: [free, secondhand]
-      near: [cheat, heap, chip]
   expensive_adj:
     form: expensive
     note: adjective
     distractors:
       far: [valuable, scarce]
-      near: [expansive, extensive, expression]
   open_adj:
     form: open
     note: adjective
     distractors:
       far: [closed, occupied]
-      near: [oven, often, opera]
 
   # ── Constellation "family", A0 ────────────────────────────────────────
   mother_person:
@@ -475,73 +415,61 @@ lexemes:
     plural: mothers
     distractors:
       far: [grandmother, aunt]
-      near: [smother, bother, mutter]
   father_person:
     form: father
     plural: fathers
     distractors:
       far: [grandfather, uncle]
-      near: [feather, rather, fathom]
   child_person:
     form: child
     plural: children
     distractors:
       far: [baby, teenager]
-      near: [chilled, mild, chide]
   son_person:
     form: son
     plural: sons
     distractors:
       far: [nephew, grandson]
-      near: [sun, sod, song]
   daughter_person:
     form: daughter
     plural: daughters
     distractors:
       far: [niece, granddaughter]
-      near: [laughter, slaughter, doughnut]
   sister_person:
     form: sister
     plural: sisters
     distractors:
       far: [brother, cousin]
-      near: [sinister, blister, sifter]
   friend_person:
     form: friend
     plural: friends
     distractors:
       far: [acquaintance, guest]
-      near: [fiend, trend, fried]
   name_noun:
     form: name
     plural: names
     distractors:
       far: [address, age]
-      near: [fame, tame, flame]
   family_noun:
     form: family
     plural: families
     distractors:
       far: [relatives, household]
-      near: [familiar, famine, facility]
   man_person:
     form: man
     plural: men
     distractors:
       far: [boy, sir]
-      near: [mane, ban, mat]
   woman_person:
     form: woman
     plural: women
     distractors:
       far: [girl, lady]
-      near: [wooden, omen, wombat]
   old_adj:
     form: old
     note: adjective
     distractors:
       far: [young, new]
-      near: [bold, hold, odd]
 
   # ── Constellation "time", A0 ──────────────────────────────────────────
   day_time:
@@ -549,73 +477,61 @@ lexemes:
     plural: days
     distractors:
       far: [date, appointment]
-      near: [dye, bay, dray]
   night_time:
     form: night
     plural: nights
     distractors:
       far: [dusk, midnight]
-      near: [might, knight, nigh]
   hour_time:
     form: hour
     plural: hours
     distractors:
       far: [moment, while]
-      near: [our, sour, honour]
   minute_time:
     form: minute
     plural: minutes
     distractors:
       far: [second, instant]
-      near: [mint, minuet, mandate]
   week_time:
     form: week
     plural: weeks
     distractors:
       far: [weekend, holiday]
-      near: [weak, wick, meek]
   month_time:
     form: month
     plural: months
     distractors:
       far: [quarter, season]
-      near: [mouth, moth, mount]
   year_time:
     form: year
     plural: years
     distractors:
       far: [decade, age]
-      near: [yeast, ear, yearn]
   morning_time:
     form: morning
     plural: mornings
     distractors:
       far: [noon, midday]
-      near: [mourning, warning, morning star]
   evening_time:
     form: evening
     plural: evenings
     distractors:
       far: [afternoon, midnight]
-      near: [evenly, eleven, weaning]
   clock_object:
     form: clock
     plural: clocks
     distractors:
       far: [calendar, alarm]
-      near: [cloak, block, clod]
   today_adv:
     form: today
     note: adverb
     distractors:
       far: [tomorrow, always]
-      near: [toady, tuba, doughy]
   yesterday_adv:
     form: yesterday
     note: adverb
     distractors:
       far: [formerly, recently]
-      near: [yester, yesteryear, westerly]
 
   # ── Constellation "city", A0 ──────────────────────────────────────────
   city_place:
@@ -623,146 +539,122 @@ lexemes:
     plural: cities
     distractors:
       far: [village, countryside]
-      near: [pity, citizen, sitter]
   square_place:
     form: square
     plural: squares
     distractors:
       far: [lane, embankment]
-      near: [squad, squire, scare]
   park_place:
     form: park
     plural: parks
     distractors:
       far: [garden, forest]
-      near: [bark, pack, spark]
   bank_place:
     form: bank
     plural: banks
     distractors:
       far: [savings bank, cash machine]
-      near: [tank, blank, bang]
   church_place:
     form: church
     plural: churches
     distractors:
       far: [cathedral, monastery]
-      near: [chur, lurch, crutch]
   market_place:
     form: market
     plural: markets
     distractors:
       far: [store, hall]
-      near: [marker, mark, musket]
   museum_place:
     form: museum
     plural: museums
     distractors:
       far: [gallery, theatre]
-      near: [mausoleum, medium, muse]
   post_place:
     form: post office
     plural: post offices
     distractors:
       far: [council, town hall]
-      near: [post box, postage, posture]
   hotel_place:
     form: hotel
     plural: hotels
     distractors:
       far: [guesthouse, inn]
-      near: [motel, hostel, hostile]
   centre_place:
     form: centre
     plural: centres
     distractors:
       far: [outskirts, district]
-      near: [central, sentry, centaur]
   map_object:
     form: city map
     plural: city maps
     distractors:
       far: [signpost, sign]
-      near: [city plan, road map, mat]
   right_adv:
     form: right
     note: adverb
     distractors:
       far: [left, straight on]
-      near: [rite, bright, write]
 
   # ── Constellation "work", A0 ──────────────────────────────────────────
   work_noun:
     form: work
     distractors:
       far: [task, duty]
-      near: [worker, walk, wok]
   job_noun:
     form: profession
     plural: professions
     distractors:
       far: [position, career]
-      near: [jab, jog, rob]
   boss_person:
     form: boss
     plural: bosses
     distractors:
       far: [manager, owner]
-      near: [loss, moss, bosh]
   colleague_person:
     form: colleague
     plural: colleagues
     distractors:
       far: [intern, team]
-      near: [collage, college, colony]
   office_place:
     form: office
     plural: offices
     distractors:
       far: [workshop, warehouse]
-      near: [orifice, offer, officer]
   company_noun:
     form: company
     plural: companies
     distractors:
       far: [business, corporation]
-      near: [companion, compact, canopy]
   salary_noun:
     form: salary
     plural: salaries
     distractors:
       far: [wage, bonus]
-      near: [celery, salad, gallery]
   contract_noun:
     form: contract
     plural: contracts
     distractors:
       far: [dismissal, reference]
-      near: [contrast, contact, contract law]
   meeting_noun:
     form: meeting
     plural: meetings
     distractors:
       far: [conference, training]
-      near: [melting, meeting point, mending]
   holiday_noun:
     form: holiday
     plural: holidays
     distractors:
       far: [public holiday, break]
-      near: [holy day, holdall, hollow]
   free_adj:
     form: free
     note: adjective
     distractors:
       far: [occupied, busy]
-      near: [flee, tree, freeze]
   tired_adj:
     form: tired
     note: adjective
     distractors:
       far: [awake, fit]
-      near: [tried, tiled, hired]
 
   # ── A1, all constellations ────────────────────────────────────────────
   breakfast_meal: { form: breakfast, plural: breakfasts }

@@ -19,80 +19,68 @@ lexemes:
     plural: лікарі
     distractors:
       far: [зуб, догляд]
-      near: [лікарня, лікоть, ліки]
   pain_noun:
     form: біль
     gender: m
     distractors:
       far: [рана, кашель]
-      near: [білий, більше, сіль]
   help_noun:
     form: допомога
     gender: f
     distractors:
       far: [догляд, виклик]
-      near: [допомогти, підмога, домовина]
   head_body:
     form: голова
     gender: f
     plural: голови
     distractors:
       far: [шия, спина]
-      near: [головка, голод, половина]
   belly_body:
     form: живіт
     gender: m
     plural: животи
     distractors:
       far: [груди, нога]
-      near: [життя, живий, тварина]
   hand_body:
     form: рука
     gender: f
     plural: руки
     distractors:
       far: [нога, палець]
-      near: [ручка, ріка, мука]
   fever_noun:
     form: жар
     gender: m
     distractors:
       far: [кашель, нежить]
-      near: [жара, пар, шар]
   medicine_noun:
     form: ліки
-    gender: n
-    note: тільки множина
+    note: plural_only
     distractors:
       far: [рецепт, мазь]
-      near: [лікар, лікування, лічити]
   pharmacy_place:
     form: аптека
     gender: f
     plural: аптеки
     distractors:
       far: [прийом, клініка]
-      near: [аптекар, аптечка, апатія]
   hospital_place:
     form: лікарня
     gender: f
     plural: лікарні
     distractors:
       far: [прийом, швидка]
-      near: [лікарський, книгарня, пекарня]
   sick_adj:
     form: хворий
-    note: прикметник
+    note: adjective
     distractors:
       far: [втомлений, здоровий]
-      near: [хвороба, хворіти, хвора]
   appointment_noun:
     form: запис
     gender: m
     plural: записи
+    note: на прийом
     distractors:
       far: [рецепт, прийом]
-      near: [записка, записати, припис]
 
   # ── A1 ────────────────────────────────────────────────────────────────
   tooth_body: { form: зуб, gender: m, plural: зуби }
@@ -105,7 +93,7 @@ lexemes:
   nurse_person: { form: медсестра, gender: f, plural: медсестри }
   waiting_room: { form: приймальня, gender: f }
   insurance_card: { form: страхова картка, gender: f }
-  healthy_adj: { form: здоровий, note: прикметник }
+  healthy_adj: { form: здоровий, note: adjective }
   temperature_noun: { form: температура, gender: f }
 
   # ── A2 ────────────────────────────────────────────────────────────────
@@ -143,7 +131,7 @@ lexemes:
   specialist_person: { form: профільний лікар, gender: m }
   health_insurance: { form: лікарняна каса, gender: f }
   medical_report: { form: висновок лікаря, gender: m }
-  chronic_adj: { form: хронічний, note: прикметник }
+  chronic_adj: { form: хронічний, note: adjective }
   inflammation_noun: { form: запалення, gender: n }
   infection_noun: { form: інфекція, gender: f }
   antibiotic_noun: { form: антибіотик, gender: m, plural: антибіотики }
@@ -156,7 +144,7 @@ lexemes:
   rehab_noun: { form: реабілітація, gender: f }
   physiotherapy_noun: { form: фізіотерапія, gender: f }
   symptom_noun: { form: симптом, gender: m, plural: симптоми }
-  complaints_noun: { form: скарги, gender: f, note: множина }
+  complaints_noun: { form: скарги, gender: f, note: plural_only }
   medical_history: { form: анамнез, gender: m }
   discharge_noun: { form: виписка, gender: f }
 
@@ -177,9 +165,9 @@ lexemes:
   contraindication_noun: { form: протипоказання, gender: n }
   interaction_noun: { form: взаємодія, gender: f }
   dosage_form: { form: форма випуску, gender: f }
-  prescription_only: { form: рецептурний, note: прикметник }
-  outpatient_adj: { form: амбулаторний, note: прикметник }
-  inpatient_adj: { form: стаціонарний, note: прикметник }
+  prescription_only: { form: рецептурний, note: adjective }
+  outpatient_adj: { form: амбулаторний, note: adjective }
+  inpatient_adj: { form: стаціонарний, note: adjective }
   patient_file: { form: медична картка, gender: f }
   data_protection: { form: захист даних, gender: m }
   second_opinion: { form: друга думка, gender: f }
@@ -212,11 +200,11 @@ lexemes:
   way_noun: { form: шлях, gender: m, plural: шляхи }
   driver_person: { form: водій, gender: m, plural: водії }
   stop_place: { form: зупинка, gender: f, plural: зупинки }
-  late_adj: { form: пізно, note: прислівник }
+  late_adj: { form: пізно, note: adverb }
 
   # ── Сузір'я «Дім», A0 ─────────────────────────────────────────────────
   house_place: { form: будинок, gender: m, plural: будинки }
-  door_object: { form: двері, gender: f, plural: двері }
+  door_object: { form: двері, note: plural_only }
   window_object: { form: вікно, gender: n, plural: вікна }
   table_object: { form: стіл, gender: m, plural: столи }
   chair_object: { form: стілець, gender: m, plural: стільці }
@@ -230,17 +218,17 @@ lexemes:
 
   # ── Сузір'я «Магазин», A0 ─────────────────────────────────────────────
   shop_place: { form: магазин, gender: m, plural: магазини }
-  money_noun: { form: гроші, gender: m, plural: гроші }
+  money_noun: { form: гроші, note: plural_only }
   price_noun: { form: ціна, gender: f, plural: ціни }
   card_object: { form: картка, gender: f, plural: картки }
   checkout_place: { form: каса, gender: f, plural: каси }
   bag_object: { form: пакет, gender: m, plural: пакети }
   purchase_noun: { form: покупка, gender: f, plural: покупки }
-  receipt_noun: { form: чек, gender: m, plural: чеки }
+  receipt_noun: { form: квитанція, gender: f, plural: квитанції }
   customer_person: { form: покупець, gender: m, plural: покупці }
-  cheap_adj: { form: дешевий, note: прикметник }
-  expensive_adj: { form: дорогий, note: прикметник }
-  open_adj: { form: відчинено, note: прислівник }
+  cheap_adj: { form: дешевий, note: adjective }
+  expensive_adj: { form: дорогий, note: adjective }
+  open_adj: { form: відчинено, note: adverb }
 
   # ── Сузір'я «Сім'я», A0 ───────────────────────────────────────────────
   mother_person: { form: мати, gender: f, plural: матері }
@@ -254,7 +242,7 @@ lexemes:
   family_noun: { form: сім'я, gender: f, plural: сім'ї }
   man_person: { form: чоловік, gender: m, plural: чоловіки }
   woman_person: { form: жінка, gender: f, plural: жінки }
-  old_adj: { form: старий, note: прикметник }
+  old_adj: { form: старий, note: adjective }
 
   # ── Сузір'я «Час», A0 ─────────────────────────────────────────────────
   day_time: { form: день, gender: m, plural: дні }
@@ -267,8 +255,8 @@ lexemes:
   morning_time: { form: ранок, gender: m, plural: ранки }
   evening_time: { form: вечір, gender: m, plural: вечори }
   clock_object: { form: годинник, gender: m, plural: годинники }
-  today_adv: { form: сьогодні, note: прислівник }
-  yesterday_adv: { form: вчора, note: прислівник }
+  today_adv: { form: сьогодні, note: adverb }
+  yesterday_adv: { form: вчора, note: adverb }
 
   # ── Сузір'я «Місто», A0 ───────────────────────────────────────────────
   city_place: { form: місто, gender: n, plural: міста }
@@ -281,8 +269,8 @@ lexemes:
   post_place: { form: пошта, gender: f }
   hotel_place: { form: готель, gender: m, plural: готелі }
   centre_place: { form: центр, gender: m, plural: центри }
-  map_object: { form: карта міста, gender: f }
-  right_adv: { form: праворуч, note: прислівник }
+  map_object: { form: мапа, gender: f, plural: мапи }
+  right_adv: { form: праворуч, note: adverb }
 
   # ── Сузір'я «Робота», A0 ──────────────────────────────────────────────
   work_noun: { form: робота, gender: f, plural: роботи }
@@ -295,8 +283,8 @@ lexemes:
   contract_noun: { form: договір, gender: m, plural: договори }
   meeting_noun: { form: нарада, gender: f, plural: наради }
   holiday_noun: { form: відпустка, gender: f, plural: відпустки }
-  free_adj: { form: вільний, note: прикметник }
-  tired_adj: { form: втомлений, note: прикметник }
+  free_adj: { form: вільний, note: adjective }
+  tired_adj: { form: втомлений, note: adjective }
 
   # ── A1, всі сузір'я ───────────────────────────────────────────────────
   breakfast_meal: { form: сніданок, gender: m, plural: сніданки }
@@ -350,7 +338,7 @@ lexemes:
   brother_person: { form: брат, gender: m, plural: брати }
   grandmother_person: { form: бабуся, gender: f, plural: бабусі }
   grandfather_person: { form: дідусь, gender: m, plural: дідусі }
-  husband_person: { form: чоловік, gender: m, plural: чоловіки }
+  husband_person: { form: чоловік, gender: m, plural: чоловіки, note: у шлюбі }
   wife_person: { form: дружина, gender: f, plural: дружини }
   aunt_person: { form: тітка, gender: f, plural: тітки }
   uncle_person: { form: дядько, gender: m, plural: дядьки }
@@ -358,19 +346,19 @@ lexemes:
   grandchild_person: { form: онук, gender: m, plural: онуки }
   birthday_noun: { form: день народження, gender: m }
   wedding_noun: { form: весілля, gender: n, plural: весілля }
-  young_adj: { form: молодий, note: прикметник }
+  young_adj: { form: молодий, note: adjective }
   weekend_time: { form: вихідні, gender: m, plural: вихідні }
   date_noun: { form: дата, gender: f, plural: дати }
   calendar_object: { form: календар, gender: m, plural: календарі }
   noon_time: { form: полудень, gender: m }
-  tomorrow_adv: { form: завтра, note: прислівник }
-  always_adv: { form: завжди, note: прислівник }
-  never_adv: { form: ніколи, note: прислівник }
-  often_adv: { form: часто, note: прислівник }
-  sometimes_adv: { form: іноді, note: прислівник }
-  early_adv: { form: рано, note: прислівник }
-  now_adv: { form: зараз, note: прислівник }
-  soon_adv: { form: скоро, note: прислівник }
+  tomorrow_adv: { form: завтра, note: adverb }
+  always_adv: { form: завжди, note: adverb }
+  never_adv: { form: ніколи, note: adverb }
+  often_adv: { form: часто, note: adverb }
+  sometimes_adv: { form: іноді, note: adverb }
+  early_adv: { form: рано, note: adverb }
+  now_adv: { form: зараз, note: adverb }
+  soon_adv: { form: скоро, note: adverb }
   crossing_place: { form: перехрестя, gender: n }
   traffic_light: { form: світлофор, gender: m, plural: світлофори }
   pedestrian_person: { form: пішохід, gender: m, plural: пішоходи }
@@ -991,8 +979,8 @@ lexemes:
 phrases:
   # ── city / a0 ─────────────────────────────────
   city_a0_map: "На карті міста я знаходжу кожну вулицю."
-  city_a0_post: "Де пошта?"
-  city_a0_hotel: "Ми шукаємо готель."
+  city_a0_post: "Де пошта? Мені потрібно надіслати лист."
+  city_a0_hotel: "Ми шукаємо готель на дві ночі."
   city_a0_right: "Ідіть праворуч."
   # ── city / a1 ─────────────────────────────────
   city_a1_address: "Яка ваша адреса?"
@@ -1043,10 +1031,10 @@ phrases:
   city_b2_disaster: "Захист від катастроф — це завдання федеральних земель."
   city_b2_landuse: "План землекористування діє на всій території громади."
   # ── doctor / a0 ─────────────────────────────────
-  doctor_a0_help: "Мені потрібна допомога."
-  doctor_a0_pain: "У мене болі."
-  doctor_a0_doctor: "Мені треба до лікаря."
-  doctor_a0_appointment: "У мене є запис на прийом."
+  doctor_a0_help: "Мені потрібна допомога, сам я цього не зроблю."
+  doctor_a0_pain: "У мене з учора болить спина."
+  doctor_a0_doctor: "Мені потрібно до лікаря, у мене болить голова."
+  doctor_a0_appointment: "У мене запис до лікаря."
   # ── doctor / a1 ─────────────────────────────────
   doctor_a1_prescription: "Мені потрібен рецепт?"
   doctor_a1_throat: "У мене болить горло."
@@ -1096,9 +1084,9 @@ phrases:
   doctor_b2_privacy: "Захист даних забороняє передавати їх далі."
   doctor_b2_file: "Я подаю запит на доступ до своєї медичної картки."
   # ── family / a0 ─────────────────────────────────
-  family_a0_name: "Як ваше ім'я?"
-  family_a0_family: "Це моя сім'я."
-  family_a0_child: "У мене є дитина."
+  family_a0_name: "Як ваше ім’я? Продиктуйте по літерах, будь ласка."
+  family_a0_family: "Це моя родина: дружина, син і донька."
+  family_a0_child: "У мене є дитина, вона ще спить."
   family_a0_friend: "Він мій друг."
   # ── family / a1 ─────────────────────────────────
   family_a1_brother: "Це мій брат."
@@ -1149,10 +1137,10 @@ phrases:
   family_b2_pensionclaim: "Rentenversicherung перевіряє моє право на пенсію."
   family_b2_childwelfare: "Інтереси дитини важливіші за бажання батьків."
   # ── food / a0 ─────────────────────────────────
-  food_a0_bread: "Я купую хліб."
+  food_a0_bread: "На сніданок я їм хліб."
   food_a0_water: "Я п'ю воду."
-  food_a0_hunger: "Я відчуваю голод."
-  food_a0_restaurant: "Ми йдемо в ресторан."
+  food_a0_hunger: "Я відчуваю сильний голод."
+  food_a0_restaurant: "Ми йдемо в ресторан і їмо рибу."
   # ── food / a1 ─────────────────────────────────
   food_a1_breakfast: "Я готую сніданок."
   food_a1_cheese: "Я хотів би трохи сиру."
@@ -1202,9 +1190,9 @@ phrases:
   food_b2_organic: "Біопродукт дорожчий."
   food_b2_hygiene: "Санітарна норма діє для всіх підприємств."
   # ── home / a0 ─────────────────────────────────
-  home_a0_key: "Я шукаю свій ключ."
-  home_a0_kitchen: "Це кухня."
-  home_a0_rent: "Оренда занадто висока."
+  home_a0_key: "Я шукаю свій ключ, двері зачинені."
+  home_a0_kitchen: "Це кухня, тут я готую."
+  home_a0_rent: "Орендна плата надто висока, я шукаю нову кімнату."
   home_a0_room: "Я знімаю кімнату."
   # ── home / a1 ─────────────────────────────────
   home_a1_flat: "Я шукаю квартиру."
@@ -1255,10 +1243,10 @@ phrases:
   home_b2_repayment: "Погашення починається відразу."
   home_b2_defectnotice: "Повідомлення про дефекти надіслали рекомендованим листом."
   # ── shop / a0 ─────────────────────────────────
-  shop_a0_money: "У мене немає грошей."
-  shop_a0_expensive: "Це занадто дорого."
-  shop_a0_checkout: "Де тут каса?"
-  shop_a0_price: "Це добра ціна."
+  shop_a0_money: "У мене немає грошей, я не можу це купити."
+  shop_a0_expensive: "Це занадто дорого, я цього не куплю."
+  shop_a0_checkout: "Де тут каса? Я хочу заплатити."
+  shop_a0_price: "Це добра ціна за таке авто."
   # ── shop / a1 ─────────────────────────────────
   shop_a1_cash: "Я знімаю готівку в банкоматі."
   shop_a1_size: "У вас є цей розмір?"
@@ -1308,8 +1296,8 @@ phrases:
   shop_b2_marketshare: "Частка ринку зростає."
   shop_b2_consumercentre: "Центр захисту прав споживачів консультує щодо договорів купівлі-продажу."
   # ── time / a0 ─────────────────────────────────
-  time_a0_clock: "У мене немає годинника."
-  time_a0_today: "Ми зустрічаємося сьогодні."
+  time_a0_clock: "У мене немає годинника. Котра година?"
+  time_a0_today: "Ми зустрічаємося сьогодні, а не завтра."
   time_a0_week: "Наступного тижня я вільний."
   time_a0_evening: "Увечері я маю час."
   # ── time / a1 ─────────────────────────────────
@@ -1361,9 +1349,9 @@ phrases:
   time_b2_qualifying: "Перед першою виплатою діє період очікування."
   time_b2_chronology: "Хронологія починається з найдавнішої події."
   # ── transport / a0 ─────────────────────────────────
-  transport_a0_ticket: "Мені потрібен квиток."
-  transport_a0_station: "Де вокзал?"
-  transport_a0_bus: "Автобус зараз приїде."
+  transport_a0_ticket: "Мені потрібен квиток до Берліна."
+  transport_a0_station: "Де вокзал? Мій поїзд о восьмій."
+  transport_a0_bus: "Автобус скоро приїде, нам треба на зупинку."
   transport_a0_late: "Я запізнююся."
   # ── transport / a1 ─────────────────────────────────
   transport_a1_delay: "Поїзд запізнюється."
@@ -1414,10 +1402,10 @@ phrases:
   transport_b2_network: "Мережу маршрутів розширюють."
   transport_b2_logbook: "Дорожній журнал показує кожну окрему поїздку."
   # ── work / a0 ─────────────────────────────────
-  work_a0_work: "Я йду на роботу."
-  work_a0_office: "Він в офісі."
-  work_a0_holiday: "Я у відпустці."
-  work_a0_tired: "Я дуже втомився."
+  work_a0_work: "Я йду на роботу, мій начальник чекає."
+  work_a0_office: "Він у кабінеті й розмовляє по телефону."
+  work_a0_holiday: "У серпні я у відпустці."
+  work_a0_tired: "Я дуже втомлений, іду спати."
   # ── work / a1 ─────────────────────────────────
   work_a1_application: "Я пишу заявку на роботу."
   work_a1_cv: "Надішліть мені своє резюме."

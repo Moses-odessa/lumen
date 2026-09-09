@@ -21,7 +21,7 @@ lexemes:
     form: Wasser
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Saft, Tee]
       near: [Messer, Wachs, Masse]
@@ -29,7 +29,7 @@ lexemes:
     form: Milch
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Sahne, Joghurt]
       near: [Molch, Milbe, Mulch]
@@ -53,7 +53,7 @@ lexemes:
     form: Fleisch
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Wurst, Schinken]
       near: [Fleiß, Fleck, Flasche]
@@ -77,7 +77,7 @@ lexemes:
     form: Salz
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Pfeffer, Essig]
       near: [Satz, Salbe, Schmalz]
@@ -85,7 +85,7 @@ lexemes:
     form: Zucker
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Honig, Sirup]
       near: [Zocker, Zunder, Zacken]
@@ -93,7 +93,7 @@ lexemes:
     form: Hunger
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Durst, Appetit]
       near: [Finger, Hummer, Anger]
@@ -174,7 +174,7 @@ lexemes:
     form: Käse
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Quark, Joghurt]
       near: [Kiste, Kerze, Käfig]
@@ -182,7 +182,7 @@ lexemes:
     form: Butter
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Margarine, Schmalz]
       near: [Futter, Kutter, Bütte]
@@ -198,7 +198,7 @@ lexemes:
     form: Gemüse
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors:
       far: [Obst, Salat]
       near: [Gemüt, Gemüsebeet, Gehäuse]
@@ -207,7 +207,7 @@ lexemes:
     form: Obst
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Konfitüre, Nuss], near: [Ost, Obhut, Obstler] }
   potato_food:
     form: Kartoffel
@@ -219,13 +219,13 @@ lexemes:
     form: Reis
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Grieß, Hirse], near: [Preis, Kreis, Fleiß] }
   pasta_food:
     form: Nudeln
     article: die
     plural: Nudeln
-    note: только множественное
+    note: plural_only
     distractors: { far: [Klöße, Couscous], near: [Nadeln, Rudeln, Buddeln] }
   chicken_food:
     form: Hähnchen
@@ -237,13 +237,13 @@ lexemes:
     form: Rindfleisch
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Kalb, Lamm], near: [Rindvieh, Hackfleisch, Rindsleder] }
   pork_food:
     form: Schweinefleisch
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinwerfer] }
   sausage_food:
     form: Wurst
@@ -261,7 +261,7 @@ lexemes:
     form: Pfeffer
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Paprika, Chili], near: [Pfarrer, Kläffer, Pfeifer] }
   oil_food:
     form: Öl
@@ -273,7 +273,7 @@ lexemes:
     form: Mehl
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Stärke, Backpulver], near: [Mahl, Kehle, Fell] }
   cake_food:
     form: Kuchen
@@ -291,7 +291,7 @@ lexemes:
     form: Speiseeis
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Sorbet, Pudding], near: [Speisesaal, Eisbein, Speisekammer] }
   juice_drink:
     form: Saft
@@ -412,7 +412,7 @@ lexemes:
     form: Knoblauch
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Ingwer, Petersilie], near: [Knopfloch, Knochenbau, Blaulicht] }
   onion_food:
     form: Zwiebel
@@ -442,7 +442,7 @@ lexemes:
     form: Vollkorn
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Weißmehl, Kleie], near: [Vollmond, Vollmacht, Einhorn] }
   groceries_noun:
     form: Nahrungsmittel
@@ -471,7 +471,7 @@ lexemes:
     form: Ernährung
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Diät, Kost], near: [Erfahrung, Erwärmung, Ernennung] }
   cookingtime_noun:
     form: Garzeit
@@ -483,7 +483,7 @@ lexemes:
     form: Frische
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Qualität, Reife], near: [Kirsche, Frisur, Fritten] }
   coldchain_noun:
     form: Kühlkette
@@ -556,13 +556,13 @@ lexemes:
     form: Laktose
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Fruktose, Gluten], near: [Narkose, Diagnose, Lakritze] }
   gluten_noun:
     form: Gluten
     article: das
     gender: n
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Laktose, Histamin], near: [Glut, Glasur, Klausel] }
   organicproduct_noun:
     form: Bioprodukt
@@ -598,13 +598,13 @@ lexemes:
     form: Großhandel
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Einzelhandel, Direktvertrieb], near: [Großhändler, Menschenhandel, Großstadt] }
   retail_noun:
     form: Einzelhandel
     article: der
     gender: m
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Großhandel, Versandhandel], near: [Einzelhändler, Einzelfall, Fernhandel] }
   consumerprotection_noun:
     form: Verbraucherschutz
@@ -626,13 +626,13 @@ lexemes:
     form: Nachhaltigkeit
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Umweltschutz, Klimabilanz], near: [Nachhilfe, Haltbarkeit, Nachlässigkeit] }
   regionality_noun:
     form: Regionalität
     article: die
     gender: f
-    note: неисчисляемое
+    note: uncountable
     distractors: { far: [Saisonalität, Herkunft], near: [Rationalität, Regionalbahn, Legalität] }
   # ── импортировано из словника, не вычитано ─────────────────────────────
   # Глагол: есть, принимать пищу; отдельно от существительного das Essen.

@@ -4,6 +4,7 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
 import '../../../domain/entities/game_mode.dart';
+import 'prompt_tag_text.dart';
 
 /// Арена со слотами: механики **e** (заполни пропуски) и **f** (собери
 /// предложение).
@@ -105,6 +106,13 @@ class _SlotsArenaState extends State<SlotsArena> {
     final used = _placed.values.toSet();
     final half = (question.options.length / 2).ceil();
 
+    // Регистр фразы (`casual`) — код, а не текст: под каждой из 432 фраз
+    // стояло английское служебное слово, независимо от языка интерфейса.
+    final hint = [
+      question.promptHint,
+      promptTagText(l10n, question.promptTag),
+    ].nonNulls.join(' · ');
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -127,10 +135,10 @@ class _SlotsArenaState extends State<SlotsArena> {
                     _Template(question: question, placed: _placed)
                   else
                     _Slots(question: question, placed: _placed),
-                  if (question.promptHint != null) ...[
+                  if (hint.isNotEmpty) ...[
                     const SizedBox(height: 10),
                     Text(
-                      question.promptHint!,
+                      hint,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -232,26 +240,35 @@ class _Template extends StatelessWidget {
     final theme = Theme.of(context);
     final parts = question.prompt.split('_____');
 
-    return Wrap(
-      alignment: WrapAlignment.center,
-      crossAxisAlignment: WrapCrossAlignment.center,
-      spacing: 4,
-      runSpacing: 8,
-      children: [
-        for (var i = 0; i < parts.length; i++) ...[
-          if (parts[i].trim().isNotEmpty)
-            Text(
-              parts[i].trim(),
-              style: theme.textTheme.titleMedium,
-            ),
-          if (i < parts.length - 1)
-            _Slot(
-              text: placed.containsKey(i)
-                  ? question.options[placed[i]!]
-                  : null,
-            ),
+    // Одна строка текста со слотами внутри, а не `Wrap` из отдельных `Text`.
+    //
+    // `Wrap` расставлял равные отступы между всеми детьми, а точка после
+    // пропуска попадала в отдельного ребёнка: игрок видел заполненное слово и
+    // отлетевшую от него точку. Задевало 24 шаблона A0 из 36 — все, где
+    // пропуск стоит перед знаком без пробела: «Ich trinke {water}.», «Wo ist
+    // die {post}? …», «Ich muss zum {doctor}, …».
+    //
+    // Дело не в контенте: так `Wrap` расставляет любой список детей. Поэтому
+    // и лечится это разметкой, а не пробелами в шаблонах.
+    return Text.rich(
+      TextSpan(
+        children: [
+          for (var i = 0; i < parts.length; i++) ...[
+            if (parts[i].isNotEmpty) TextSpan(text: parts[i]),
+            if (i < parts.length - 1)
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: _Slot(
+                  text: placed.containsKey(i)
+                      ? question.options[placed[i]!]
+                      : null,
+                ),
+              ),
+          ],
         ],
-      ],
+      ),
+      textAlign: TextAlign.center,
+      style: theme.textTheme.titleMedium,
     );
   }
 }

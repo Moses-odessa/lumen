@@ -8,23 +8,27 @@ constellation: transport
 tiers:
   a0:
     - id: transport_a0_ticket
-      template: "Ich brauche eine {ticket}."
+      template: "Ich brauche eine {ticket} nach Berlin."
       answer: Fahrkarte
+      options: [Milch, Küche, Hand, Tür, Zug, Bus, Auto]
       register: casual
       concepts: [ticket_transport]
     - id: transport_a0_station
-      template: "Wo ist der {station}?"
+      template: "Wo ist der {station}? Mein Zug fährt um acht."
       answer: Bahnhof
+      options: [Apfel, Tisch, Kopf, Bauch, Haltestelle, Straße, Post]
       register: casual
       concepts: [station_place]
     - id: transport_a0_bus
-      template: "Der {bus} kommt gleich."
+      template: "Der {bus} kommt gleich, wir müssen zur Haltestelle."
       answer: Bus
+      options: [Apfel, Tisch, Kopf, Preis, Fahrkarte, Straße, Auto]
       register: casual
       concepts: [bus_transport]
     - id: transport_a0_late
       template: "Ich komme zu {late}."
       answer: spät
+      options: [krank, alt, müde, teuer, Bahnhof, Zug, Fahrkarte]
       register: casual
       concepts: [late_adj]
 

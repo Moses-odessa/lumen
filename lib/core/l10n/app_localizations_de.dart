@@ -430,7 +430,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aboutCostBody =>
-      'Das hält, weil ein Nutzer das Projekt fast nichts kostet: Inhalte und Ton liegen in der App selbst, es gibt keinen Server, und die einzige Netzanfrage ist die nächtliche Herausforderung — eine statische Datei pro Tag.';
+      'Das hält, weil ein Nutzer das Projekt fast nichts kostet: die Inhalte liegen in der App selbst, die Sprache erzeugt das Gerät, und es gibt weder Server noch Netzanfragen.';
 
   @override
   String get aboutDonate => 'Projekt unterstützen';
@@ -637,4 +637,25 @@ class AppLocalizationsDe extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Ebene $level · ×$multiplier';
   }
+
+  @override
+  String get promptTagAdverb => 'Adverb';
+
+  @override
+  String get promptTagAdjective => 'Adjektiv';
+
+  @override
+  String get promptTagUncountable => 'unzählbar';
+
+  @override
+  String get promptTagPluralOnly => 'nur Plural';
+
+  @override
+  String get promptTagUsuallyPlural => 'meist Plural';
+
+  @override
+  String get promptTagCasual => 'umgangssprachlich';
+
+  @override
+  String get promptTagFormal => 'formell';
 }

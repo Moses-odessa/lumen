@@ -8,9 +8,9 @@
 # Расхождение означает, что немецкую фразу изменили после
 # перевода: перевод на месте, но описывает не тот текст.
 # Валидатор выносит такие фразы на перевод заново.
-city_a0_hotel 90f1cb999b08
+city_a0_hotel 805a77f63ede
 city_a0_map 5be309d374a0
-city_a0_post 186061ab03bf
+city_a0_post 6a67a891bdee
 city_a0_right 2ef329f395b6
 city_a1_address 534218201998
 city_a1_bridge 2b0151460017
@@ -56,10 +56,10 @@ city_b2_planning 7ba0026b5dfd
 city_b2_referendum 058315b564ad
 city_b2_remedy 698f2dd3ef95
 city_b2_tradetax 1cdbbf199aa0
-doctor_a0_appointment b345f9b51202
-doctor_a0_doctor 11d2c1bb4e72
-doctor_a0_help da4092712b6c
-doctor_a0_pain 4032a1695093
+doctor_a0_appointment 0486c541af22
+doctor_a0_doctor 276da99362c3
+doctor_a0_help 6f32908f4f6f
+doctor_a0_pain 577d555502db
 doctor_a1_card 205def6e746b
 doctor_a1_cough becefa65a805
 doctor_a1_healthy 681625148d70
@@ -104,10 +104,10 @@ doctor_b2_outpatient 1a7d7208d82e
 doctor_b2_privacy 9683ca62a260
 doctor_b2_reimbursement b24c6eaecbb2
 doctor_b2_secondopinion c01944d389e0
-family_a0_child 9f3def57cba3
-family_a0_family b04507be23ac
-family_a0_friend 90525bb74feb
-family_a0_name 59c7f7068d12
+family_a0_child cb0f7dc80c9e
+family_a0_family ecf3238c6f0c
+family_a0_friend 15b4586aec84
+family_a0_name ff24f9307848
 family_a1_aunt b147f2eb7b93
 family_a1_birthday 997d4745a681
 family_a1_brother c8fb94901c4a
@@ -152,9 +152,9 @@ family_b2_prenup c586a94521d7
 family_b2_residencepermit 8d043420cb4c
 family_b2_reunion bb08aace3a1b
 family_b2_youthoffice 8afbbb7bd22e
-food_a0_bread 479535b98341
-food_a0_hunger d86fda50e8ec
-food_a0_restaurant c0ee4ca4d272
+food_a0_bread ab6ef26d4004
+food_a0_hunger b2b1f62e0c4a
+food_a0_restaurant 3c6f2faa0d29
 food_a0_water f3c6626e154a
 food_a1_breakfast 6e21d9c3df34
 food_a1_cheese 5aea681eb2dd
@@ -200,9 +200,9 @@ food_b2_origin cdc37c035d27
 food_b2_retail b5b74d6bea3c
 food_b2_supplychain f991748f75da
 food_b2_sustainability 17e5e0c9cba2
-home_a0_key e619c4c455e7
-home_a0_kitchen 243a16d82a41
-home_a0_rent 901d6035433c
+home_a0_key cee384bf56cd
+home_a0_kitchen 56d38771f989
+home_a0_rent 5f61b5fdfcd0
 home_a0_room 439bf7711a53
 home_a1_bathroom 9aaa446bfdbd
 home_a1_cellar 51f82eddbbee
@@ -248,10 +248,10 @@ home_b2_owners 80effdbaeea1
 home_b2_rentindex fe93f9d1e25b
 home_b2_rentreduction 0ddd9351f548
 home_b2_repayment b65cc51bd3d3
-shop_a0_checkout 9d765f68b346
-shop_a0_expensive c192512cd91a
-shop_a0_money c21a175fe976
-shop_a0_price b986f3faa8da
+shop_a0_checkout 12c014052c3d
+shop_a0_expensive ed359c0354c9
+shop_a0_money 70c2d9f4025c
+shop_a0_price afa9792f80de
 shop_a1_cash a178230eaba8
 shop_a1_change f756bc95ba08
 shop_a1_delivery 4ab5d57cc18f
@@ -296,9 +296,9 @@ shop_b2_shortage f24434ea2cca
 shop_b2_stocktaking 909c8c35c139
 shop_b2_terms 06446d8e1bb9
 shop_b2_withdrawal 2e26fcec2785
-time_a0_clock e0f1c5d1f1b4
+time_a0_clock 225e64eaeba1
 time_a0_evening 83510c001af2
-time_a0_today 59b71ae5130c
+time_a0_today c19aa1dc557d
 time_a0_week c247e2302a0a
 time_a1_date 6885a4d9e878
 time_a1_never e8eb0ed2020d
@@ -344,10 +344,10 @@ time_b2_qualifying 5c022cb12a79
 time_b2_retroactivity ea7c26434baa
 time_b2_timemanagement 4f29163364d5
 time_b2_transition bd755584f9e2
-transport_a0_bus cfc1316e5a4e
+transport_a0_bus 161aaa1b116f
 transport_a0_late e55d44f0c80a
-transport_a0_station af5e07f202b4
-transport_a0_ticket a6ddd41ced33
+transport_a0_station b07030c43cc3
+transport_a0_ticket bec5666a4e74
 transport_a1_connection a9bfbe1356eb
 transport_a1_delay ef555be95057
 transport_a1_departure 4825ac71a627
@@ -392,10 +392,10 @@ transport_b2_network 970574ba9276
 transport_b2_noise ef795313c89f
 transport_b2_roadsafety cb602ea9b8d7
 transport_b2_subsidy fa2d9703ddc3
-work_a0_holiday 2544ac809992
-work_a0_office 9bd0b3785a16
-work_a0_tired 792b567c44e6
-work_a0_work 1d02374da1fa
+work_a0_holiday 7d0426704742
+work_a0_office a16b2a109c11
+work_a0_tired 427a05629152
+work_a0_work 9cd0a762d1dd
 work_a1_application 27e7e0a7c5f0
 work_a1_break 05f8879fbe46
 work_a1_cv 0d13d043500a

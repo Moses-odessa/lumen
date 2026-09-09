@@ -10,6 +10,8 @@ import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/sky/progression.dart';
 
+import '../../tool/content_sources.dart';
+
 /// Критерий приёмки M0: обе базы открываются. Проверяется на настоящем
 /// ассете `assets/content/de.db` и на настоящей Drift-схеме `user.db`, а не
 /// на моках — иначе проверка ничего не значит.
@@ -294,6 +296,23 @@ void main() {
 
       // Файл действительно лёг в support-директорию.
       expect(File('${support.path}/content/de.db').existsSync(), isTrue);
+    });
+
+    test('отгруженный ассет собран из нынешних исходников', () async {
+      // Пересборка базы — ручной шаг в AGENT.md, а ручные шаги забывают.
+      // Забытый выглядит как работающая игра со старым контентом: правка YAML
+      // есть в git, а в установке её нет. Хуже того, вычитка читает
+      // исходники — то есть проверяет текст, которого игрок не видит. Это
+      // назвала слепым пятном сама вычитка: «я читал YAML, а не собранную
+      // базу, и git показывает её изменённой».
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      final meta = await db.loadMeta();
+      final sources = ContentSources.load(Directory('content'));
+      expect(meta['source_hash'], sources.hash,
+          reason: 'assets/content/de.db собран не из этих исходников: '
+              'dart run tool/build_content.dart --lang de');
     });
 
     test('черновых концептов в отгруженной базе нет', () async {

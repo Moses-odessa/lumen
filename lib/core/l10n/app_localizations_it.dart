@@ -431,7 +431,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aboutCostBody =>
-      'Regge perché un utente costa al progetto quasi nulla: contenuti e audio stanno dentro l\'app, non c\'è un server e l\'unica richiesta di rete è la sfida notturna, un file statico al giorno.';
+      'Regge perché un utente costa al progetto quasi nulla: i contenuti stanno dentro l\'app, la voce la sintetizza il dispositivo, e non ci sono né server né richieste di rete.';
 
   @override
   String get aboutDonate => 'Sostieni il progetto';
@@ -639,4 +639,25 @@ class AppLocalizationsIt extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Livello $level · ×$multiplier';
   }
+
+  @override
+  String get promptTagAdverb => 'avverbio';
+
+  @override
+  String get promptTagAdjective => 'aggettivo';
+
+  @override
+  String get promptTagUncountable => 'non numerabile';
+
+  @override
+  String get promptTagPluralOnly => 'solo plurale';
+
+  @override
+  String get promptTagUsuallyPlural => 'di solito plurale';
+
+  @override
+  String get promptTagCasual => 'informale';
+
+  @override
+  String get promptTagFormal => 'formale';
 }
