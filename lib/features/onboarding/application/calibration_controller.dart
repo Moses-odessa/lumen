@@ -73,10 +73,11 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     final question = state.question;
     if (question == null || state.loading) return;
 
-    final correct = bySlot.length == question.slotCount &&
-        List.generate(question.slotCount, (i) => i)
-            .every((i) => question.isCorrectFor(i, bySlot[i]));
-    await _record(question, correct, latency);
+    // Тем же способом, что забег: сравнивается собранное предложение, а не
+    // расстановка по слотам. Сверка по слотам игнорировала заявленные
+    // порядки слов и объявила бы верную сборку ошибкой — при замере уровня,
+    // где ошибка стоит яруса.
+    await _record(question, question.acceptsSlots(bySlot), latency);
   }
 
   /// Проигрывает центр заново — механики на слух.
@@ -172,11 +173,41 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     );
 
     if (step.mode.isPhrase) {
+      // Фраза берётся из **отобранного** набора, а не наугад.
+      //
+      // `content/calibration/de.yaml` несёт по четыре фразы на ярус,
+      // выбранные по кругу через созвездия, и они отгружались в базу — а
+      // читать их было некому: эта ветка брала случайное созвездие и
+      // случайную фразу, а `phrase_id` из набора не спрашивал никто. Правка
+      // файла ни на что не влияла.
+      //
+      // Это не косметика: финальная проверка фразами решает, оставить игроку
+      // измеренный ярус или спустить на один. Решение, принятое по четырём
+      // случайным фразам вместо четырёх отобранных, зависит от жеребьёвки —
+      // а фразы разной длины теперь и разной трудности.
+      final curated = (await content.calibrationFor(step.tier))
+          .where((i) => i.phraseId != null)
+          .map((i) => i.phraseId!)
+          .toList();
+
+      if (curated.isNotEmpty) {
+        final phrase = await content
+            .phrase(curated[_random.nextInt(curated.length)]);
+        if (phrase != null) {
+          // Калибровка спрашивает фразу на самой лёгкой глубине: она измеряет
+          // уровень игрока, а не его выносливость.
+          return builder.buildPhraseQuestion(
+            phrase: phrase,
+            lumens: 0,
+            gaps: SessionBalance.phraseGapsMin,
+          );
+        }
+      }
+
+      // Набора нет — берём любую фразу яруса. Прежнее поведение осталось
+      // запасным путём, а не основным.
       final constellations = await content.constellations();
       if (constellations.isEmpty) return null;
-      // Калибровка спрашивает фразу на самой лёгкой глубине: она измеряет
-      // уровень игрока, а не его выносливость. Глубже — уже проверка, а не
-      // замер.
       return builder.buildPhrase(
         constellation: constellations[_random.nextInt(constellations.length)],
         tier: step.tier,

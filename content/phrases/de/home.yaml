@@ -10,25 +10,21 @@ tiers:
     - id: home_a0_key
       template: "Ich suche meinen {key}, die Tür ist zu."
       answer: Schlüssel
-      options: [Apfel, Tisch, Stuhl, Kopf, Tür, Küche, Fenster]
       register: casual
       concepts: [key_object]
     - id: home_a0_kitchen
       template: "Das ist die {kitchen}, hier koche ich."
       answer: Küche
-      options: [Tür, Uhr, Karte, Hand, Haus, Zimmer, Tisch]
       register: casual
       concepts: [kitchen_room]
     - id: home_a0_rent
       template: "Die {rent} ist zu hoch, ich suche ein neues Zimmer."
       answer: Miete
-      options: [Tür, Uhr, Küche, Karte, Preis, Zimmer, Gehalt]
       register: casual
       concepts: [rent_noun]
     - id: home_a0_room
       template: "Ich miete ein {room}."
       answer: Zimmer
-      options: [Fenster, Licht, Medikament, Gehalt, Küche, Tür, Stuhl]
       register: casual
       concepts: [room_place]
 
@@ -128,7 +124,6 @@ tiers:
     - id: home_a2_washing
       template: "Die {washing} wäscht meine Kleidung."
       answer: Waschmaschine
-      ambiguity: reviewed
       register: casual
       concepts: [washing_machine]
     - id: home_a2_caretaker
@@ -141,7 +136,6 @@ tiers:
     - id: home_b1_noticeperiod
       template: "Wer den Mietvertrag kündigt, muss die {noticeperiod} einhalten."
       answer: Kündigungsfrist
-      ambiguity: reviewed
       register: casual
       concepts: [noticeperiod_noun]
     - id: home_b1_rentincrease
@@ -162,7 +156,6 @@ tiers:
     - id: home_b1_livingspace
       template: "Kinderzimmer und Küche zählen zur {livingspace}."
       answer: Wohnfläche
-      ambiguity: reviewed
       register: casual
       concepts: [livingspace_noun]
     - id: home_b1_renovation
@@ -173,13 +166,11 @@ tiers:
     - id: home_b1_registration
       template: "Wer neu nach Deutschland kommt, braucht eine {registration}."
       answer: Anmeldung
-      ambiguity: reviewed
       register: casual
       concepts: [residentregistration_noun]
     - id: home_b1_heatingcosts
       template: "Die {heatingcosts} hängen vom Gaspreis ab."
       answer: Heizkosten
-      ambiguity: reviewed
       register: casual
       concepts: [heatingcosts_noun]
     - id: home_b1_tradesman
@@ -200,7 +191,6 @@ tiers:
     - id: home_b1_sublet
       template: "Für die {sublet} braucht man eine Erlaubnis."
       answer: Untermiete
-      ambiguity: reviewed
       register: casual
       concepts: [sublet_noun]
 
@@ -248,13 +238,11 @@ tiers:
     - id: home_b2_heritage
       template: "Das alte Rathaus steht unter {heritage}."
       answer: Denkmalschutz
-      ambiguity: reviewed
       register: casual
       concepts: [heritageprotection_noun]
     - id: home_b2_marketvalue
       template: "Beim Verkauf zählt der {marketvalue}."
       answer: Verkehrswert
-      ambiguity: reviewed
       register: casual
       concepts: [marketvalue_noun]
     - id: home_b2_repayment

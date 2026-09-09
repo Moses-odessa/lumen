@@ -10,25 +10,21 @@ tiers:
     - id: work_a0_work
       template: "Ich gehe zur {work}, mein Chef wartet."
       answer: Arbeit
-      options: [Milch, Hand, Uhr, Quittung, Chef, Büro, Vertrag]
       register: casual
       concepts: [work_noun]
     - id: work_a0_office
       template: "Er ist im {office} und telefoniert."
       answer: Büro
-      options: [Brot, Medikament, Gehalt, Fenster, Firma, Arbeit, Küche]
       register: casual
       concepts: [office_place]
     - id: work_a0_holiday
       template: "Ich habe im August {holiday}."
       answer: Urlaub
-      options: [Salz, Zucker, Wasser, Fleisch, Apfel, Uhr, Tisch]
       register: casual
       concepts: [holiday_noun]
     - id: work_a0_tired
       template: "Ich bin sehr {tired}, ich gehe ins Bett."
       answer: müde
-      options: [spät, frei, offen, teuer, billig, Arbeit, Chef]
       register: casual
       concepts: [tired_adj]
 
@@ -78,13 +74,11 @@ tiers:
     - id: work_a2_contract
       template: "Ich habe den {contract} mit meinem Arbeitgeber unterschrieben."
       answer: Arbeitsvertrag
-      ambiguity: reviewed
       register: casual
       concepts: [employment_contract]
     - id: work_a2_probation
       template: "Die {probation} dauert sechs Monate."
       answer: Probezeit
-      ambiguity: reviewed
       register: casual
       concepts: [probation_noun]
     - id: work_a2_dismissal
@@ -95,7 +89,6 @@ tiers:
     - id: work_a2_parttime
       template: "In {parttime} arbeite ich nur zwanzig Stunden."
       answer: Teilzeit
-      ambiguity: reviewed
       register: casual
       concepts: [parttime_noun]
     - id: work_a2_shift
@@ -106,7 +99,6 @@ tiers:
     - id: work_a2_training
       template: "Nach der Schule beginnt er eine {training}."
       answer: Ausbildung
-      ambiguity: reviewed
       register: casual
       concepts: [training_noun]
     - id: work_a2_sicknote
@@ -154,13 +146,11 @@ tiers:
     - id: work_b1_minimumwage
       template: "Der gesetzliche {minimumwage} wird vom Bund festgelegt."
       answer: Mindestlohn
-      ambiguity: reviewed
       register: casual
       concepts: [minimumwage_noun]
     - id: work_b1_collectiveagreement
       template: "Der {collectiveagreement} regelt Lohn und Arbeitszeit."
       answer: Tarifvertrag
-      ambiguity: reviewed
       register: casual
       concepts: [collectiveagreement_noun]
     - id: work_b1_qualification
@@ -191,19 +181,16 @@ tiers:
     - id: work_b1_fixedterm
       template: "Die {fixedterm} läuft aus."
       answer: Befristung
-      ambiguity: reviewed
       register: casual
       concepts: [fixedterm_noun]
     - id: work_b1_coverletter
       template: "Ohne {coverletter} ist die Bewerbung nicht vollständig."
       answer: Anschreiben
-      ambiguity: reviewed
       register: casual
       concepts: [coverletter_noun]
     - id: work_b1_safety
       template: "Der {safety} soll Unfälle im Betrieb verhindern."
       answer: Arbeitsschutz
-      ambiguity: reviewed
       register: casual
       concepts: [occupationalsafety_noun]
 
@@ -211,13 +198,11 @@ tiers:
     - id: work_b2_labourlaw
       template: "Das {labourlaw} regelt das Verhältnis von Arbeitgeber und Arbeitnehmer."
       answer: Arbeitsrecht
-      ambiguity: reviewed
       register: casual
       concepts: [labourlaw_noun]
     - id: work_b2_shorttime
       template: "Bei Auftragsmangel gehen wir in {shorttime}."
       answer: Kurzarbeit
-      ambiguity: reviewed
       register: casual
       concepts: [shorttimework_noun]
     - id: work_b2_socialplan
@@ -233,19 +218,16 @@ tiers:
     - id: work_b2_labourcourt
       template: "Über die Kündigung streiten wir vor dem {labourcourt}."
       answer: Arbeitsgericht
-      ambiguity: reviewed
       register: casual
       concepts: [labourcourt_place]
     - id: work_b2_socialinsurance
       template: "Renten-, Kranken- und Pflegekasse gehören zur {socialinsurance}."
       answer: Sozialversicherung
-      ambiguity: reviewed
       register: casual
       concepts: [socialinsurance_noun]
     - id: work_b2_temporarywork
       template: "Eine Agentur verleiht ihre Mitarbeiter an Betriebe, das ist {temporarywork}."
       answer: Zeitarbeit
-      ambiguity: reviewed
       register: casual
       concepts: [temporarywork_noun]
     - id: work_b2_ancillary
@@ -256,19 +238,16 @@ tiers:
     - id: work_b2_strike
       template: "Das {strike} folgt aus der Koalitionsfreiheit."
       answer: Streikrecht
-      ambiguity: reviewed
       register: casual
       concepts: [righttostrike_noun]
     - id: work_b2_redundancy
       template: "Das Werk schließt, eine {redundancy} steht bevor."
       answer: Massenentlassung
-      ambiguity: reviewed
       register: casual
       concepts: [massredundancy_noun]
     - id: work_b2_careinsurance
       template: "Die {careinsurance} zahlt bei dauerhafter Pflegebedürftigkeit."
       answer: Pflegeversicherung
-      ambiguity: reviewed
       register: casual
       concepts: [careinsurance_noun]
     - id: work_b2_conciliation

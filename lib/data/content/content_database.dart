@@ -332,6 +332,11 @@ class ContentDatabase extends _$ContentDatabase {
   Future<List<CalibrationItemRow>> calibrationFor(Tier tier) =>
       (select(calibrationItems)..where((t) => t.tier.equals(tier.code))).get();
 
+  /// Одна фраза по идентификатору — нужна набору калибровки, который
+  /// хранит именно `phrase_id`.
+  Future<PhraseRow?> phrase(String id) =>
+      (select(phrases)..where((t) => t.id.equals(id))).getSingleOrNull();
+
   Future<ConceptRow?> concept(String id) =>
       (select(concepts)..where((t) => t.id.equals(id))).getSingleOrNull();
 
@@ -392,12 +397,20 @@ class ContentDatabase extends _$ContentDatabase {
   /// `ORDER BY` здесь не добавлен намеренно: случайность нужна на каждый
   /// вопрос, а не одна на сборку, и живёт она в `QuestionBuilder`, где есть
   /// свой `Random` с зерном для тестов.
+  ///
+  /// **Лимита у запроса поэтому нет.** Был `limit: 12` с обоснованием «в
+  /// созвездии ровно двенадцать концептов» — верным для A0 и A1 и неверным
+  /// дальше: на A2 и выше их двадцать четыре, и запрос отдавал половину,
+  /// выбранную тем индексом, который подберёт SQLite. Одну и ту же половину
+  /// навсегда. Перемешивание у вызывающего этого не лечит: оно тасует то, что
+  /// уже выбрано. Обрезать должен тот, кто перемешал, — иначе получается
+  /// ровно та ошибка, что была у `phrase_options`, только заметная не сразу, а
+  /// в день запуска A2.
   Future<List<String>> siblingForms({
     required String constellation,
     required String tier,
     required String lang,
     required String excludeConceptId,
-    int limit = 12,
   }) async {
     final query = select(lexemes).join([
       innerJoin(concepts, concepts.id.equalsExp(lexemes.conceptId)),
@@ -405,8 +418,7 @@ class ContentDatabase extends _$ContentDatabase {
       ..where(concepts.constellation.equals(constellation) &
           concepts.tier.equals(tier) &
           lexemes.lang.equals(lang) &
-          lexemes.conceptId.equals(excludeConceptId).not())
-      ..limit(limit);
+          lexemes.conceptId.equals(excludeConceptId).not());
 
     final rows = await query.get();
     return rows.map((r) => r.readTable(lexemes).form).toList();

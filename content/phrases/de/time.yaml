@@ -10,25 +10,21 @@ tiers:
     - id: time_a0_clock
       template: "Ich sehe auf die {clock}."
       answer: Uhr
-      options: [Milch, Küche, Tür, Hand, Tag, Jahr, Geld]
       register: casual
       concepts: [clock_object]
     - id: time_a0_today
       template: "Wir treffen uns {today}, nicht morgen."
       answer: heute
-      options: [gestern, spät, müde, krank, alt, Abend, Woche]
       register: casual
       concepts: [today_adv]
     - id: time_a0_week
       template: "Nächste {week} bin ich frei."
       answer: Woche
-      options: [Milch, Küche, Hand, Tür, Monat, Jahr, Tag]
       register: casual
       concepts: [week_time]
     - id: time_a0_evening
       template: "Am {evening} habe ich Zeit."
       answer: Abend
-      options: [Apfel, Tisch, Bauch, Kopf, Nacht, Stunde, Woche]
       register: casual
       concepts: [evening_time]
 
@@ -71,7 +67,6 @@ tiers:
     - id: time_a1_noon
       template: "Um zwölf Uhr ist {noon}."
       answer: Mittag
-      ambiguity: reviewed
       register: casual
       concepts: [noon_time]
 
@@ -79,7 +74,6 @@ tiers:
     - id: time_a2_monday
       template: "Der {monday} ist der erste Tag der Woche."
       answer: Montag
-      ambiguity: reviewed
       register: casual
       concepts: [monday_time]
     - id: time_a2_summer
@@ -115,7 +109,6 @@ tiers:
     - id: time_a2_clocktime
       template: "Zu welcher {clocktime} treffen wir uns?"
       answer: Uhrzeit
-      ambiguity: reviewed
       register: casual
       concepts: [clocktime_noun]
     - id: time_a2_alarm
@@ -183,7 +176,6 @@ tiers:
     - id: time_b1_summertime
       template: "Die {summertime} beginnt im März."
       answer: Sommerzeit
-      ambiguity: reviewed
       register: casual
       concepts: [summertime_noun]
     - id: time_b1_anniversary
@@ -211,13 +203,11 @@ tiers:
     - id: time_b2_limitation
       template: "Nach Ablauf der {limitation} ist die Forderung nicht mehr durchsetzbar."
       answer: Verjährungsfrist
-      ambiguity: reviewed
       register: casual
       concepts: [limitationdeadline_noun]
     - id: time_b2_transition
       template: "Bis zum Inkrafttreten des neuen Gesetzes gilt eine {transition}."
       answer: Übergangsfrist
-      ambiguity: reviewed
       register: casual
       concepts: [transitionperiod_noun]
     - id: time_b2_prioritisation
@@ -243,7 +233,6 @@ tiers:
     - id: time_b2_retroactivity
       template: "Die {retroactivity} gilt für die Zeit vor dem Inkrafttreten."
       answer: Rückwirkung
-      ambiguity: reviewed
       register: casual
       concepts: [retroactivity_noun]
     - id: time_b2_projectphase
@@ -259,7 +248,6 @@ tiers:
     - id: time_b2_qualifying
       template: "Vor der ersten Zahlung liegt die {qualifying}."
       answer: Karenzzeit
-      ambiguity: reviewed
       register: casual
       concepts: [qualifyingperiod_noun]
     - id: time_b2_chronology

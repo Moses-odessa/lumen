@@ -110,6 +110,7 @@ Findings validateContent(Directory root, String lang) {
   _checkPluraleTantum(sources, lang, report);
   _checkDistractorCase(sources, lang, report);
   _checkSingleSentence(sources, report);
+  _checkPhraseLength(sources, report);
   _checkPhraseOrders(sources, report);
   _checkRearrangement(sources, report);
   _checkPhraseRegister(sources, report);
@@ -1117,39 +1118,48 @@ void _checkPhraseOrders(ContentSources sources, Findings report) {
 
 /// Предложение, которое собирается из своих слов в другом верном порядке.
 ///
-/// Это единственный источник вторых верных ответов, оставшийся у фразовой
-/// механики после того, как посторонние варианты из неё ушли. И он конечный:
-/// раньше вторым ответом могло оказаться любое из шести показанных слов, а
-/// теперь только перестановка слов самого предложения — их можно перечислить.
+/// Единственный источник вторых верных ответов, оставшийся у фразовой
+/// механики после того, как посторонние слова из неё ушли. И он оказался
+/// намного уже, чем выглядел: **из 36 фраз A0 перестановка собирается у
+/// двух**.
 ///
-/// Машина решает не «верен ли другой порядок» (для этого нужен смысл), а
-/// «есть ли у него шанс»: у немецкого свободен только вынос в начало, всё
-/// прочее закреплено. Поэтому в `pending` уходят те предложения, где вынос
-/// физически возможен, — их и читает вычитка.
+/// Причина — в том, что плитка несёт слово ровно как в предложении. Точка
+/// закрепляет последнее слово. Заглавная закрепляет первое, если это не
+/// существительное: `ich` пишется со строчной везде, кроме начала, поэтому
+/// плитки `ich` для первой позиции просто не существует. А вынос члена в
+/// начало требует поставить что-то в первую позицию — значит при закреплённом
+/// начале он не собирается вовсе.
 ///
-/// Признаки, по которым вынос невозможен и читать нечего:
-///   • меньше трёх слов — переставлять нечего;
-///   • вопрос с вопросительным словом в начале: «Wo ist die Post?» —
-///     вопросительное слово стоит первым и никуда не уходит;
-///   • повелительное наклонение: «Gehen Sie nach rechts» — глагол первый.
+/// Свободное переднее поле остаётся у **второго** предложения, после запятой:
+/// там строчная плитка законна. Ровно там и нашлись оба случая: «das kann ich
+/// nicht allein» ↔ «ich kann das nicht allein».
+///
+/// Проверка поэтому спрашивает не «возможен ли вынос по-немецки» (по-немецки
+/// он возможен почти везде, и список из 389 фраз читать никто не станет), а
+/// «есть ли у этой фразы свободное переднее поле». Остальное закреплено
+/// орфографией.
 void _checkRearrangement(ContentSources sources, Findings report) {
-  const questionWords = {
-    'wo', 'was', 'wer', 'wie', 'wann', 'warum', 'wohin', 'woher', 'welche',
-    'welcher', 'welches', 'wen', 'wem', 'wessen', 'wieviel',
-  };
-
   var open = 0;
   final examples = <String>[];
+
   for (final phrase in sources.phrases) {
-    final sentence = phraseSpeech(phrase.template, phrase.answers);
-    final words = sentence.split(RegExp(r'\s+'));
+    if (phrase.orders.isNotEmpty) continue;
+    // На запущенном ярусе на этот вопрос отвечает запись о вычитке: сплошной
+    // проход прочитал фразу и сказал, что переставить её нельзя. Держать её
+    // в списке «не заявлено» значило бы требовать пустой список как
+    // доказательство прочтения — а пустой список от отсутствующего в YAML не
+    // отличить.
+    if (sources.launch.isLaunched(phrase.tier)) continue;
+
+    final words = phraseSpeech(phrase.template, phrase.answers).split(' ');
     if (words.length < 3) continue;
 
-    final first = words.first.toLowerCase().replaceAll(RegExp(r'[^a-zäöüß]'), '');
-    if (questionWords.contains(first)) continue;
-    // Повелительное: «Gehen Sie …», «Buchstabieren Sie …».
-    if (words.length > 1 && words[1] == 'Sie') continue;
-    if (phrase.orders.isNotEmpty) continue;
+    // Запятая внутри предложения: у придаточного или второго главного своё
+    // переднее поле, и оно свободно.
+    final hasFreeFront = words
+        .take(words.length - 1)
+        .any((w) => w.endsWith(','));
+    if (!hasFreeFront) continue;
 
     open++;
     if (examples.length < 5) examples.add(phrase.id);
@@ -1157,10 +1167,56 @@ void _checkRearrangement(ContentSources sources, Findings report) {
 
   if (open == 0) return;
   report.pending(
-    'у $open фраз вынос члена предложения в начало возможен, а принимаемые '
-    'порядки не заявлены (${examples.join(", ")}…) — «Heute habe ich Zeit» и '
-    '«Ich habe heute Zeit» верны оба, и второе игра объявит ошибкой',
+    'у $open фраз есть свободное переднее поле после запятой, а принимаемые '
+    'порядки не заявлены (${examples.join(", ")}…) — «das kann ich nicht '
+    'allein» и «ich kann das nicht allein» верны оба, и второе игра объявит '
+    'ошибкой. Начало и конец закреплены заглавной и точкой, поэтому '
+    'остальные фразы переставить нельзя',
   );
+}
+
+/// Фраза, которую нельзя показать.
+///
+/// Предложение короче `phraseMinWords` слов фразовая механика не берёт, и до
+/// сих пор это было **невидимо**: сборщик отдавал `null`, загрузчик молча
+/// пропускал круг, и уровень заканчивался без обеих закрывающих фраз.
+/// «Ich trinke Wasser.» — три слова при пороге четыре, то есть каждый
+/// четвёртый уровень «Еды» терял фразовый заход целиком, а слово `water_drink`
+/// не появлялось во фразах никогда. Ошибки при этом нет: просто кругов
+/// меньше.
+///
+/// Порог не в переборе, а в закреплениях: плитка несёт заглавную и точку,
+/// поэтому первое и последнее слово стоят на месте, и внутренних расстановок
+/// у предложения из n слов ровно (n − 2)!. Три слова дают одну — задания нет.
+///
+/// Выбор фразы теперь фильтрует по длине сам, так что круг не теряется. Но
+/// написанная и непоказываемая фраза остаётся тратой, и считать её надо.
+void _checkPhraseLength(ContentSources sources, Findings report) {
+  // Дубль `SessionBalance.phraseMinWords`: tool/ не тянет за собой lib/.
+  const minWords = 4;
+
+  final tooShort = <String, List<String>>{};
+  for (final phrase in sources.phrases) {
+    final words = phraseSpeech(phrase.template, phrase.answers).split(' ');
+    if (words.length >= minWords) continue;
+    (tooShort[phrase.tier] ??= []).add(phrase.id);
+  }
+  if (tooShort.isEmpty) return;
+
+  for (final tier in tiers) {
+    final ids = tooShort[tier];
+    if (ids == null) continue;
+    final message = 'ярус $tier: ${ids.length} фраз короче $minWords слов '
+        '(${_head(ids)}) — фразовая механика их не берёт, и слова, которые '
+        'они закрывают, во фразах не появятся';
+    // На запущенном ярусе это трата, о которой надо знать сразу; на
+    // незапущенном — работа, которая ещё впереди.
+    if (sources.launch.isLaunched(tier)) {
+      report.error(message);
+    } else {
+      report.pending(message);
+    }
+  }
 }
 
 /// Фраза — одно предложение.

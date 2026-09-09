@@ -10,25 +10,21 @@ tiers:
     - id: food_a0_bread
       template: "Zum Frühstück esse ich {bread}."
       answer: Brot
-      options: [Salz, Zucker, Wasser, Milch, Uhr, Tisch, Karte]
       register: casual
       concepts: [bread_food]
     - id: food_a0_water
-      template: "Ich trinke {water}."
+      template: "Ich trinke jeden Tag {water}."
       answer: Wasser
-      options: [Salz, Zucker, Fleisch, Hunger, Apfel, Uhr, Tisch]
       register: casual
       concepts: [water_drink]
     - id: food_a0_hunger
       template: "Ich habe großen {hunger}."
       answer: Hunger
-      options: [Zucker, Kaffee, Urlaub, Uhr, Karte, Tisch, Apotheke]
       register: casual
       concepts: [hunger_noun]
     - id: food_a0_restaurant
       template: "Wir gehen ins {restaurant} und essen Fisch."
       answer: Restaurant
-      options: [Brot, Krankenhaus, Gehalt, Fenster, Kirche, Apotheke, Bahnhof]
       register: casual
       concepts: [restaurant_place]
 
@@ -61,7 +57,6 @@ tiers:
     - id: food_a1_dinner
       template: "Nach dem {dinner} gehen wir schlafen."
       answer: Abendessen
-      ambiguity: reviewed
       register: casual
       concepts: [dinner_meal]
     - id: food_a1_fork
@@ -72,7 +67,6 @@ tiers:
     - id: food_a1_lunch
       template: "Um zwölf Uhr gibt es {lunch}."
       answer: Mittagessen
-      ambiguity: reviewed
       register: casual
       concepts: [lunch_meal]
 
@@ -177,7 +171,6 @@ tiers:
     - id: food_b1_maincourse
       template: "Nach der Vorspeise kommt das {maincourse}."
       answer: Hauptgericht
-      ambiguity: reviewed
       register: casual
       concepts: [maincourse_food]
     - id: food_b1_spice
@@ -235,13 +228,11 @@ tiers:
     - id: food_b2_additive
       template: "Ein Konservierungsstoff ist ein {additive}."
       answer: Zusatzstoff
-      ambiguity: reviewed
       register: casual
       concepts: [additive_noun]
     - id: food_b2_retail
       template: "Im {retail} kauft der Endkunde ein."
       answer: Einzelhandel
-      ambiguity: reviewed
       register: casual
       concepts: [retail_noun]
     - id: food_b2_consumerprotection
@@ -252,7 +243,6 @@ tiers:
     - id: food_b2_nutritionalvalue
       template: "Der {nutritionalvalue} gibt Fett, Zucker und Eiweiß an."
       answer: Nährwert
-      ambiguity: reviewed
       register: casual
       concepts: [nutritionalvalue_noun]
     - id: food_b2_organic

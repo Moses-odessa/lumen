@@ -167,8 +167,27 @@ class QuestionBuilder {
   }) async {
     final phrases =
         await content.phrasesFor(constellation, tier, lang: targetLang);
-    if (phrases.isEmpty) return null;
-    return phrases[_random.nextInt(phrases.length)];
+
+    // Слишком короткое предложение отбрасывается здесь, а не в сборке.
+    //
+    // Раньше его отбрасывал `_place`, возвращая `null`, а загрузчик молча
+    // пропускал такой круг — и уровень заканчивался без обеих закрывающих
+    // фраз. «Ich trinke Wasser.» это три слова при пороге четыре, то есть
+    // каждый четвёртый уровень «Еды» терял фразовый заход целиком, и заметить
+    // это было нельзя: ошибки нет, просто кругов меньше.
+    //
+    // Порог держится не на угадывании перебором, а на том, что при
+    // закреплённых начале и конце у предложения из n слов внутренних
+    // расстановок ровно (n − 2)!: три слова дают одну, то есть задания нет
+    // вовсе.
+    final long = <PhraseRow>[];
+    for (final phrase in phrases) {
+      final answers = await content.phraseAnswers(phrase.id);
+      final words = _tokenise(phrase.template, answers).words.length;
+      if (words >= SessionBalance.phraseMinWords) long.add(phrase);
+    }
+    if (long.isEmpty) return null;
+    return long[_random.nextInt(long.length)];
   }
 
   /// Собирает вопрос по уже выбранной фразе.
@@ -185,7 +204,15 @@ class QuestionBuilder {
     final translation =
         await content.phraseTranslation(phrase.id, nativeLang);
 
-    return _place(phrase, answers, anchor, lumens, translation, gaps);
+    return _place(
+      phrase,
+      answers,
+      anchor,
+      lumens,
+      translation,
+      gaps,
+      partial: gaps != SessionBalance.phraseGapsAll,
+    );
   }
 
   /// **e и f — одна механика.** Предложение с пропусками, вокруг ровно
@@ -212,12 +239,13 @@ class QuestionBuilder {
     String? anchor,
     Lumens lumens,
     String? translation,
-    int gaps,
-  ) async {
+    int gaps, {
+    required bool partial,
+  }) async {
     final tokens = _tokenise(phrase.template, answers);
     if (tokens.words.length < SessionBalance.phraseMinWords) return null;
 
-    final chosen = _pickGaps(tokens, gaps);
+    final chosen = _pickGaps(tokens, gaps, partial: partial);
     if (chosen.length < SessionBalance.phraseGapsMin) return null;
 
     // Пул — ровно вынутые слова, перемешанные. Порядок в пуле случаен, но
@@ -304,16 +332,28 @@ class QuestionBuilder {
   /// «Buchstabieren» и «bitte» это текст шаблона. Правило «вынимать только
   /// значимые слова» поэтому нереализуемо там, где выбираются пропуски, и
   /// придумывать его на глаз хуже, чем честная случайность.
-  List<int> _pickGaps(({List<String> words, Set<int> taught}) tokens, int gaps) {
+  List<int> _pickGaps(
+    ({List<String> words, Set<int> taught}) tokens,
+    int gaps, {
+    required bool partial,
+  }) {
     final total = tokens.words.length;
     // Ноль означает «все слова», а не «ноль пропусков»: это максимум шкалы,
     // то самое «собери предложение». Прогонять его через `clamp` нельзя —
     // ноль превратился бы в минимум, и самая трудная настройка стала бы самой
     // лёгкой. Молча: пропусков два вместо всех, круг проходится, ошибку видно
     // только по числу слотов.
+    // Частичный круг обязан оставить хоть одно слово на месте, иначе он
+    // совпадает с полным. Уровень закрывается двумя кругами на одном
+    // предложении — сперва часть слов, потом всё, — и на коротких фразах при
+    // заходе от четвёртого уровня оба вынимали всё: обещанное «сперва часть,
+    // потом целиком» молча превращалось в «целиком, целиком».
+    final ceiling = partial && total > SessionBalance.phraseGapsMin
+        ? total - 1
+        : total;
     final wanted = gaps == SessionBalance.phraseGapsAll
         ? total
-        : gaps.clamp(SessionBalance.phraseGapsMin, total);
+        : gaps.clamp(SessionBalance.phraseGapsMin, ceiling);
 
     final chosen = <int>{...tokens.taught.where((i) => i < total)};
     if (chosen.length < wanted) {

@@ -10,25 +10,23 @@ tiers:
     - id: shop_a0_money
       template: "Ich habe kein {money}, ich kann das nicht kaufen."
       answer: Geld
-      options: [Krankenhaus, Zentrum, Museum, Restaurant, Uhr, Kasse, Preis]
+      orders:
+        - "Ich habe kein Geld, das kann ich nicht kaufen."
       register: casual
       concepts: [money_noun]
     - id: shop_a0_expensive
       template: "Das ist zu {expensive}, ich kaufe es nicht."
       answer: teuer
-      options: [offen, müde, krank, frei, Preis, Kasse, Geld]
       register: casual
       concepts: [expensive_adj]
     - id: shop_a0_checkout
       template: "Ich möchte an der {checkout} bezahlen."
       answer: Kasse
-      options: [Tür, Milch, Hand, Uhr, Laden, Preis, Markt]
       register: casual
       concepts: [checkout_place]
     - id: shop_a0_price
       template: "Das ist ein guter {price} für so ein Auto."
       answer: Preis
-      options: [Kopf, Tisch, Apfel, Chef, Kasse, Karte, Geld]
       register: casual
       concepts: [price_noun]
 
@@ -36,7 +34,6 @@ tiers:
     - id: shop_a1_cash
       template: "Ich hebe {cash} am Automaten ab."
       answer: Bargeld
-      ambiguity: reviewed
       register: casual
       concepts: [cash_noun]
     - id: shop_a1_size
@@ -72,7 +69,6 @@ tiers:
     - id: shop_a1_change
       template: "Ich bekomme zwei Euro {change} zurück."
       answer: Wechselgeld
-      ambiguity: reviewed
       register: casual
       concepts: [change_noun]
 
@@ -125,7 +121,6 @@ tiers:
     - id: shop_a2_vat
       template: "Auf jeden Preis kommen 19 Prozent {vat}."
       answer: Mehrwertsteuer
-      ambiguity: reviewed
       register: casual
       concepts: [vat_noun]
     - id: shop_a2_transfer
@@ -143,7 +138,6 @@ tiers:
     - id: shop_b1_withdrawal
       template: "Bei Online-Kauf haben Sie ein {withdrawal} von vierzehn Tagen."
       answer: Widerrufsrecht
-      ambiguity: reviewed
       register: formal
       concepts: [withdrawalright_noun]
     - id: shop_b1_deliverytime
@@ -169,7 +163,6 @@ tiers:
     - id: shop_b1_directdebit
       template: "Zahlung per {directdebit} ist möglich."
       answer: Lastschrift
-      ambiguity: reviewed
       register: casual
       concepts: [directdebit_noun]
     - id: shop_b1_review
@@ -195,7 +188,6 @@ tiers:
     - id: shop_b1_billingaddress
       template: "Die {billingaddress} kann von der Lieferadresse abweichen."
       answer: Rechnungsadresse
-      ambiguity: reviewed
       register: casual
       concepts: [billingaddress_noun]
     - id: shop_b1_contract
@@ -223,7 +215,6 @@ tiers:
     - id: shop_b2_defect
       template: "Die Ware ist beschädigt, es liegt ein {defect} vor."
       answer: Sachmangel
-      ambiguity: reviewed
       register: casual
       concepts: [materialdefect_noun]
     - id: shop_b2_withdrawal

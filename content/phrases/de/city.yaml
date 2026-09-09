@@ -10,25 +10,21 @@ tiers:
     - id: city_a0_map
       template: "Auf dem {map} finde ich jede Straße."
       answer: Stadtplan
-      options: [Tisch, Apfel, Kopf, Bauch, Stadt, Post, Kirche]
       register: casual
       concepts: [map_object]
     - id: city_a0_post
       template: "Ich bringe den Brief zur {post}."
       answer: Post
-      options: [Milch, Tüte, Hand, Uhr, Bahnhof, Museum, Park]
       register: casual
       concepts: [post_place]
     - id: city_a0_hotel
       template: "Wir suchen ein {hotel} für zwei Nächte."
       answer: Hotel
-      options: [Fenster, Licht, Fahrrad, Restaurant, Bahnhof, Kirche, Stadt]
       register: casual
       concepts: [hotel_place]
     - id: city_a0_right
       template: "Gehen Sie nach {right}."
       answer: rechts
-      options: [heute, gestern, spät, müde, krank, alt, frei]
       register: formal
       concepts: [right_adv]
 
@@ -61,7 +57,6 @@ tiers:
     - id: city_a1_exit
       template: "Wir gehen durch den {exit} hinaus."
       answer: Ausgang
-      ambiguity: reviewed
       register: casual
       concepts: [exit_place]
     - id: city_a1_river
@@ -89,13 +84,11 @@ tiers:
     - id: city_a2_emergency
       template: "Die {emergency} ist die 112."
       answer: Notrufnummer
-      ambiguity: reviewed
       register: casual
       concepts: [emergency_call]
     - id: city_a2_school
       template: "Meine Kinder gehen in diese {school}."
       answer: Schule
-      ambiguity: reviewed
       register: casual
       concepts: [school_place]
     - id: city_a2_cinema
@@ -215,7 +208,6 @@ tiers:
     - id: city_b2_court
       template: "Gegen den Verwaltungsakt klagt man vor dem {court}."
       answer: Verwaltungsgericht
-      ambiguity: reviewed
       register: casual
       concepts: [administrativecourt_place]
     - id: city_b2_offence
@@ -226,7 +218,6 @@ tiers:
     - id: city_b2_budget
       template: "Der {budget} legt Einnahmen und Ausgaben fest."
       answer: Haushaltsplan
-      ambiguity: reviewed
       register: casual
       concepts: [budgetplan_noun]
     - id: city_b2_expropriation
@@ -242,13 +233,11 @@ tiers:
     - id: city_b2_tradetax
       template: "Betriebe zahlen die {tradetax} an die Gemeinde."
       answer: Gewerbesteuer
-      ambiguity: reviewed
       register: casual
       concepts: [tradetax_noun]
     - id: city_b2_planning
       template: "Die {planning} umfasst Verkehr, Wohnen und Grünflächen."
       answer: Stadtplanung
-      ambiguity: reviewed
       register: casual
       concepts: [townplanning_noun]
     - id: city_b2_remedy
@@ -259,12 +248,10 @@ tiers:
     - id: city_b2_disaster
       template: "Der {disaster} ist Aufgabe der Länder."
       answer: Katastrophenschutz
-      ambiguity: reviewed
       register: casual
       concepts: [disasterresponse_noun]
     - id: city_b2_landuse
       template: "Der {landuse} gilt für das ganze Gemeindegebiet."
       answer: Flächennutzungsplan
-      ambiguity: reviewed
       register: casual
       concepts: [landuseplan_noun]

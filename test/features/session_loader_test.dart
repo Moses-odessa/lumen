@@ -386,6 +386,146 @@ void main() {
     });
   });
 
+  group('фраза, которую нельзя показать', () {
+    test('короткое предложение не выбирается вовсе', () async {
+      // «Ich trinke Wasser.» — три слова при пороге четыре. Раньше его
+      // отбрасывала сборка, возвращая `null`, а загрузчик молча пропускал
+      // круг: уровень «Еды» заканчивался без обеих закрывающих фраз, и
+      // заметить это было нельзя — ошибки нет, просто кругов меньше. В
+      // калибровке было хуже: `null` превращался в автоматический неверный
+      // ответ на невиданный вопрос, то есть в потерянный ярус.
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(5),
+      );
+
+      // Все фразы «Еды» на A0 должны быть выбираемы: короткие отбрасывает
+      // выбор, а не сборка, значит выбранная всегда собирается.
+      for (var seed = 0; seed < 20; seed++) {
+        final b = QuestionBuilder(
+          content: content,
+          targetLang: 'de',
+          nativeLang: 'uk',
+          random: Random(seed),
+        );
+        final phrase =
+            await b.pickPhrase(constellation: 'food', tier: Tier.a0);
+        expect(phrase, isNotNull, reason: 'зерно $seed');
+        final question = await b.buildPhraseQuestion(
+          phrase: phrase!,
+          lumens: 0,
+          gaps: SessionBalance.phraseGapsAll,
+        );
+        expect(question, isNotNull,
+            reason: 'зерно $seed: выбрана фраза, которую не собрать — '
+                '${phrase.id}');
+      }
+
+      expect(builder, isNotNull);
+    });
+
+    test('частичный круг оставляет хоть одно слово на месте', () async {
+      // Уровень закрывается двумя кругами на одном предложении: сперва часть
+      // слов, потом всё. На коротких фразах при заходе от четвёртого уровня
+      // запрошенная глубина упиралась в длину, и оба круга вынимали всё —
+      // обещанное «сперва часть, потом целиком» превращалось в «целиком,
+      // целиком».
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(9),
+      );
+      final phrase =
+          await builder.pickPhrase(constellation: 'transport', tier: Tier.a0);
+      expect(phrase, isNotNull);
+
+      // Глубина заведомо больше длины любой фразы A0.
+      final partial = await builder.buildPhraseQuestion(
+        phrase: phrase!,
+        lumens: 0,
+        gaps: 99,
+      );
+      final full = await builder.buildPhraseQuestion(
+        phrase: phrase,
+        lumens: 0,
+        gaps: SessionBalance.phraseGapsAll,
+      );
+
+      expect(partial, isNotNull);
+      expect(full, isNotNull);
+      expect(partial!.slotCount, lessThan(full!.slotCount),
+          reason: 'частичный круг совпал с полным');
+      // В скелете частичного осталось хоть одно слово.
+      expect(partial.prompt.replaceAll('_____', '').trim(), isNotEmpty);
+    });
+  });
+
+  group('заявленный порядок слов', () {
+    test('принимается и забегом, и калибровкой одинаково', () async {
+      // Две реализации «верен ли ответ на фразу» расходились: забег собирал
+      // предложение и сверял со списком принимаемых порядков, а калибровка
+      // сверяла по слотам — то есть заявленные порядки игнорировала. Пока
+      // калибровка спрашивала только минимальную глубину, разница не
+      // проявлялась; первый же порядок, укладывающийся в два пропуска, дал бы
+      // «неверно» на верном ответе при замере уровня.
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(4),
+      );
+      final phrases = await content.phrasesFor('health', Tier.a0, lang: 'de');
+      final phrase = phrases.firstWhere((p) => p.id == 'doctor_a0_help');
+
+      final question = await builder.buildPhraseQuestion(
+        phrase: phrase,
+        lumens: 0,
+        gaps: SessionBalance.phraseGapsAll,
+      );
+      expect(question, isNotNull);
+      expect(question!.accepted, isNotEmpty,
+          reason: 'фраза заявляет порядок, а до вопроса он не доехал');
+
+      // Заявленный порядок собирается из тех же слов и принимается.
+      final declared = question.accepted
+          .firstWhere((o) => o != question.assembled, orElse: () => '');
+      expect(declared, isNotEmpty);
+      expect(question.acceptsAssembly(declared), isTrue);
+
+      // А переставленное наугад — нет.
+      final scrambled = question.options.reversed.join(' ');
+      expect(question.acceptsAssembly(scrambled), isFalse);
+    });
+  });
+
+  group('добор соседями на больших созвездиях', () {
+    test('соседи не обрезаются запросом', () async {
+      // Третий случай одного класса, найденный до того, как выстрелил.
+      // `siblingForms` обрезал запросом с `limit: 12` — «в созвездии ровно
+      // двенадцать концептов». Верно для A0 и A1; на A2 и выше их двадцать
+      // четыре, и запрос отдавал половину, выбранную индексом SQLite. Одну и
+      // ту же половину навсегда, а перемешивание у вызывающего тасует уже
+      // выбранное.
+      final all = await content.siblingForms(
+        constellation: 'health',
+        tier: 'a2',
+        lang: 'de',
+        excludeConceptId: '',
+      );
+      final onTier = (await content.conceptsFor('health', Tier.a2))
+          .where((c) => c.tier == 'a2')
+          .length;
+
+      expect(onTier, greaterThan(12),
+          reason: 'ярус мельче лимита — обрезка не проявилась бы');
+      expect(all.length, onTier,
+          reason: 'запрос вернул не всех соседей яруса');
+    });
+  });
+
   group('многослотовая фраза', () {
     test('каждый слот знает только свой вариант', () async {
       final builder = QuestionBuilder(

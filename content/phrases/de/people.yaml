@@ -9,26 +9,22 @@ tiers:
   a0:
     - id: family_a0_name
       template: "Buchstabieren Sie bitte Ihren {name}."
-      answer: Name
-      options: [Apfel, Tisch, Bauch, Bahnhof, Frau, Mutter, Familie]
+      answer: Namen
       register: formal
       concepts: [name_noun]
     - id: family_a0_family
       template: "Das ist meine {family}: Frau, Sohn und Tochter."
       answer: Familie
-      options: [Mutter, Tochter, Schwester, Küche, Vater, Sohn, Kind]
       register: casual
       concepts: [family_noun]
     - id: family_a0_child
       template: "Ich habe ein {child}, es schläft noch."
       answer: Kind
-      options: [Auto, Haus, Fahrrad, Zimmer, Tochter, Mutter, Vater]
       register: casual
       concepts: [child_person]
     - id: family_a0_friend
       template: "Er ist ein {friend} von mir."
       answer: Freund
-      options: [Apfel, Tisch, Bahnhof, Bauch, Mutter, Schwester, Küche]
       register: casual
       concepts: [friend_person]
 
@@ -71,7 +67,6 @@ tiers:
     - id: family_a1_uncle
       template: "Mein {uncle} ist der Bruder meiner Mutter."
       answer: Onkel
-      ambiguity: reviewed
       register: casual
       concepts: [uncle_person]
 
@@ -141,7 +136,6 @@ tiers:
     - id: family_b1_custody
       template: "Das {custody} umfasst alle Entscheidungen für das Kind."
       answer: Sorgerecht
-      ambiguity: reviewed
       register: casual
       concepts: [custody_noun]
     - id: family_b1_maintenance
@@ -152,7 +146,6 @@ tiers:
     - id: family_b1_childbenefit
       template: "Für jedes Kind gibt es {childbenefit}."
       answer: Kindergeld
-      ambiguity: reviewed
       register: casual
       concepts: [childbenefit_noun]
     - id: family_b1_parentalleave
@@ -178,13 +171,11 @@ tiers:
     - id: family_b1_birthcertificate
       template: "In der {birthcertificate} stehen Ort und Tag der Geburt."
       answer: Geburtsurkunde
-      ambiguity: reviewed
       register: casual
       concepts: [birthcertificate_noun]
     - id: family_b1_powerofattorney
       template: "Für dieses Geschäft genügt eine einfache {powerofattorney}."
       answer: Vollmacht
-      ambiguity: reviewed
       register: casual
       concepts: [powerofattorney_noun]
     - id: family_b1_adoption
@@ -207,13 +198,11 @@ tiers:
     - id: family_b2_prenup
       template: "Ohne {prenup} gilt die gesetzliche Regelung."
       answer: Ehevertrag
-      ambiguity: reviewed
       register: casual
       concepts: [prenup_noun]
     - id: family_b2_accessright
       template: "Das {accessright} erlaubt regelmäßige Besuche beim Kind."
       answer: Umgangsrecht
-      ambiguity: reviewed
       register: casual
       concepts: [accessright_noun]
     - id: family_b2_youthoffice
@@ -224,7 +213,6 @@ tiers:
     - id: family_b2_familycourt
       template: "Über die Scheidung entscheidet das {familycourt}."
       answer: Familiengericht
-      ambiguity: reviewed
       register: casual
       concepts: [familycourt_place]
     - id: family_b2_compulsoryshare
@@ -235,7 +223,6 @@ tiers:
     - id: family_b2_inheritancetax
       template: "Nach dem Erbfall wird die {inheritancetax} fällig."
       answer: Erbschaftsteuer
-      ambiguity: reviewed
       register: casual
       concepts: [inheritancetax_noun]
     - id: family_b2_livingwill
@@ -246,7 +233,6 @@ tiers:
     - id: family_b2_residencepermit
       template: "Der {residencepermit} läuft ab."
       answer: Aufenthaltstitel
-      ambiguity: reviewed
       register: casual
       concepts: [residencepermit_noun]
     - id: family_b2_naturalisation

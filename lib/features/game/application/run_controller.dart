@@ -257,26 +257,9 @@ class RunController extends Notifier<RunState> {
   void answerSlots(List<int> bySlot, Duration latency) {
     final question = state.current;
     if (question == null || state.phase != RunPhase.asking) return;
-    if (bySlot.length != question.slotCount) {
-      _submit(question, false, latency);
-      return;
-    }
-
-    final sentence = _assemble(question, bySlot);
-    _submit(question, question.acceptsAssembly(sentence), latency);
+    _submit(question, question.acceptsSlots(bySlot), latency);
   }
 
-  /// Предложение, собранное игроком: скелет с подставленными словами.
-  static String _assemble(CircleQuestion question, List<int> bySlot) {
-    var slot = 0;
-    return question.prompt.replaceAllMapped(RegExp('_____'), (_) {
-      if (slot >= bySlot.length) return '';
-      final index = bySlot[slot++];
-      return index >= 0 && index < question.options.length
-          ? question.options[index]
-          : '';
-    });
-  }
 
   void _submit(CircleQuestion question, bool correct, Duration latency) {
     final result = _run.apply(

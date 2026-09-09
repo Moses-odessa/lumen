@@ -10,25 +10,23 @@ tiers:
     - id: transport_a0_ticket
       template: "Ich brauche eine {ticket} nach Berlin."
       answer: Fahrkarte
-      options: [Milch, Küche, Hand, Tür, Zug, Bus, Auto]
       register: casual
       concepts: [ticket_transport]
     - id: transport_a0_station
       template: "Mein Zug fährt um acht vom {station} ab."
       answer: Bahnhof
-      options: [Apfel, Tisch, Kopf, Bauch, Haltestelle, Straße, Post]
+      orders:
+        - "Mein Zug fährt vom Bahnhof um acht ab."
       register: casual
       concepts: [station_place]
     - id: transport_a0_bus
       template: "Der {bus} kommt gleich, wir müssen zur Haltestelle."
       answer: Bus
-      options: [Apfel, Tisch, Kopf, Preis, Fahrkarte, Straße, Auto]
       register: casual
       concepts: [bus_transport]
     - id: transport_a0_late
       template: "Ich komme zu {late}."
       answer: spät
-      options: [krank, alt, müde, teuer, Bahnhof, Zug, Fahrkarte]
       register: casual
       concepts: [late_adj]
 
@@ -83,7 +81,6 @@ tiers:
     - id: transport_a2_licence
       template: "Den {licence} macht man in der Fahrschule."
       answer: Führerschein
-      ambiguity: reviewed
       register: casual
       concepts: [licence_noun]
     - id: transport_a2_accident
@@ -119,7 +116,6 @@ tiers:
     - id: transport_a2_airport
       template: "Vom {airport} fliegen wir nach Rom."
       answer: Flughafen
-      ambiguity: reviewed
       register: casual
       concepts: [airport_place]
     - id: transport_a2_ferry
@@ -192,7 +188,6 @@ tiers:
     - id: transport_b1_localtransport
       template: "Bus und Straßenbahn gehören zum {localtransport}."
       answer: Nahverkehr
-      ambiguity: reviewed
       register: casual
       concepts: [localtransport_noun]
     - id: transport_b1_breakdown
@@ -225,13 +220,11 @@ tiers:
     - id: transport_b2_roadsafety
       template: "Die {roadsafety} hat Vorrang."
       answer: Verkehrssicherheit
-      ambiguity: reviewed
       register: casual
       concepts: [roadsafety_noun]
     - id: transport_b2_freight
       template: "Im {freight} werden Waren transportiert, keine Menschen."
       answer: Güterverkehr
-      ambiguity: reviewed
       register: casual
       concepts: [freighttransport_noun]
     - id: transport_b2_customs
@@ -242,7 +235,6 @@ tiers:
     - id: transport_b2_infra
       template: "Straßen, Brücken und Schienen bilden die {infra}."
       answer: Verkehrsinfrastruktur
-      ambiguity: reviewed
       register: casual
       concepts: [transportinfra_noun]
     - id: transport_b2_noise
