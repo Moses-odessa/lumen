@@ -179,18 +179,41 @@ class RunController extends Notifier<RunState> {
   /// Сколько длился забег — уходит в журнал сессий.
   Duration get elapsed => DateTime.now().difference(_startedAt);
 
-  /// Ответ выбором варианта.
+  /// Ответ выбором варианта — механики a, b, c, d.
+  ///
+  /// Многослотовый вопрос сюда не пускается, и это не паранойя.
+  /// `isCorrectOption(i)` — это `isCorrectFor(0, i)`, то есть проверка только
+  /// первого слота: фраза с двумя пропусками засчиталась бы полностью верной
+  /// от одного тапа. Раньше такой путь был невозможен, потому что верный
+  /// индекс был один; теперь оба обработчика приходят в одну арену, и ошибка
+  /// в разводке виджета молча превратилась бы в бесплатные очки.
   void answerOption(int index, Duration latency) {
     final question = state.current;
     if (question == null || state.phase != RunPhase.asking) return;
+    if (!question.isSingleSlot) {
+      assert(
+        false,
+        'answerOption на вопросе с ${question.slotCount} слотами: '
+        'механика ${question.mode.name} отвечается через answerSlots',
+      );
+      return;
+    }
     _submit(question, question.isCorrectOption(index), latency);
   }
 
-  /// Ответ вводом текста.
-  void answerInput(String input, Duration latency) {
+  /// Ответ заполнением всех слотов — механики e и f.
+  ///
+  /// [byslot] — что игрок поставил в каждый слот: индекс варианта из пула.
+  /// Верным считается только полностью собранное предложение: половина
+  /// заполненных пропусков — это не половина знания, а незаконченный ответ.
+  void answerSlots(List<int> bySlot, Duration latency) {
     final question = state.current;
     if (question == null || state.phase != RunPhase.asking) return;
-    _submit(question, question.isCorrectInput(input), latency);
+
+    final correct = bySlot.length == question.slotCount &&
+        List.generate(question.slotCount, (i) => i)
+            .every((i) => question.isCorrectFor(i, bySlot[i]));
+    _submit(question, correct, latency);
   }
 
   void _submit(CircleQuestion question, bool correct, Duration latency) {
@@ -199,6 +222,7 @@ class RunController extends Notifier<RunState> {
       latency: latency,
       mode: question.mode,
       lumens: question.lumens,
+      replayed: _replayed,
     );
 
     // Каждое верное соединение озвучивается — во всех режимах, а не только
@@ -245,6 +269,7 @@ class RunController extends Notifier<RunState> {
       _finish();
       return;
     }
+    _replayed = false;
     state = state.copyWith(
       index: next,
       phase: RunPhase.asking,
@@ -275,8 +300,16 @@ class RunController extends Notifier<RunState> {
   /// «Слух» превращался бы в «Круг» с лишним тапом.
   void replayPrompt() {
     final text = state.current?.promptSpeech;
-    if (text != null) ref.read(speechServiceProvider).speak(text);
+    if (text == null) return;
+    _replayed = true;
+    ref.read(speechServiceProvider).speak(text);
   }
+
+  /// Переслушивал ли игрок центр на текущем круге.
+  ///
+  /// Сбрасывается при переходе к следующему кругу, а не при ответе: между
+  /// ответом и переходом круг заморожен, и нажать динамик всё равно нельзя.
+  bool _replayed = false;
 
   void _finish() {
     _advanceTimer?.cancel();

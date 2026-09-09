@@ -2,11 +2,18 @@ import 'game_mode.dart';
 import 'tier.dart';
 import '../scoring/balance.dart';
 
-/// Один круг: что в центре, что вокруг и что считается верным.
+/// Один вопрос: что в центре, что вокруг и что считается верным.
 ///
-/// Геометрия экрана одна и та же во всех режимах — меняется только
-/// содержимое этой структуры. Поэтому виджет круга не знает про режимы
-/// ничего, кроме того, что здесь написано.
+/// Геометрия экрана одна и та же во всех механиках — меняется только
+/// содержимое этой структуры. Поэтому виджет не знает про механики ничего,
+/// кроме того, что здесь написано.
+///
+/// **Один слот или несколько.** Механики a–d ставят один вопрос: выбрать
+/// вариант. Механики e и f ставят несколько: заполнить пропуски или собрать
+/// предложение. Раньше на это завели бы вторую структуру и второй виджет, но
+/// разница между ними ровно одна — число слотов. Круг это фраза с одним
+/// слотом, у которой нет видимого шаблона; поэтому [answers] список, а не
+/// одно число, и `answers.length == 1` покрывает четыре механики из шести.
 class CircleQuestion {
   const CircleQuestion({
     required this.itemId,
@@ -14,14 +21,32 @@ class CircleQuestion {
     required this.mode,
     required this.prompt,
     required this.options,
-    required this.answerIndex,
+    required this.answers,
     required this.lumens,
     this.isNew = false,
     this.promptSpeech,
     this.answerSpeech,
     this.promptHint,
     this.answerArticle,
+    this.translation,
   });
+
+  /// Круг с одним слотом — самый частый случай.
+  CircleQuestion.single({
+    required this.itemId,
+    required this.tier,
+    required this.mode,
+    required this.prompt,
+    required this.options,
+    required int answerIndex,
+    required this.lumens,
+    this.isNew = false,
+    this.promptSpeech,
+    this.answerSpeech,
+    this.promptHint,
+    this.answerArticle,
+    this.translation,
+  }) : answers = [answerIndex];
 
   final String itemId;
 
@@ -31,18 +56,25 @@ class CircleQuestion {
 
   final GameMode mode;
 
-  /// Что в центре: слово на родном языке, слово на изучаемом или фраза с
-  /// пропуском. В режиме «Слух» пустая строка — центр занимает звук.
+  /// Что в центре: слово, фраза с пропусками или пустая строка, когда центр
+  /// занимает звук либо слоты.
   final String prompt;
 
   /// Пояснение под центром: артикль, часть речи, регистр фразы.
   final String? promptHint;
 
-  /// Варианты вокруг. Для «Набора» пустой список: там поле ввода.
+  /// Пул вариантов. В механиках a–d это варианты вокруг центра; в e и f —
+  /// слова, которые нужно расставить по слотам.
   final List<String> options;
 
-  /// Индекс верного варианта в [options]; −1 для «Набора».
-  final int answerIndex;
+  /// Для каждого слота — индекс верного варианта в [options].
+  /// Длина списка равна числу слотов.
+  final List<int> answers;
+
+  /// Перевод фразы целиком на родной язык: проявляется, когда все пропуски
+  /// заполнены. Пропуск, заполненный верно, но так и не объяснённый, учит
+  /// подбирать форму и ничему больше.
+  final String? translation;
 
   /// Яркость слова **до** этого ответа: от неё зависят очки.
   final Lumens lumens;
@@ -50,85 +82,61 @@ class CircleQuestion {
   /// Первый показ нового слова: таймера нет.
   final bool isNew;
 
-  /// Что произносится в центре — нужно режиму «Слух».
+  /// Что произносится в центре — нужно механикам на слух.
   final String? promptSpeech;
 
-  /// Что произносится при верном соединении. Звучит в каждом режиме: за пять
-  /// минут игрок слышит полсотни образцов произношения, ничего для этого не
-  /// делая.
+  /// Что произносится при верном соединении. Звучит в каждой механике: за
+  /// пять минут игрок слышит полсотни образцов произношения, ничего для
+  /// этого не делая.
   ///
   /// Это текст, а не идентификатор записи. Разница не техническая: у фразы
   /// здесь стоит всё предложение целиком, а не одно слово из пропуска, —
   /// записывать столько файлов было незачем, а произнести их можно.
   final String? answerSpeech;
 
-  /// Артикль верного ответа: в «Наборе» он обязателен, в остальных режимах
-  /// показывается вместе с ответом.
+  /// Артикль верного ответа: показывается вместе с ответом.
   final String? answerArticle;
 
-  /// Текст верного варианта.
-  String get answer =>
-      answerIndex >= 0 && answerIndex < options.length
-          ? options[answerIndex]
-          : '';
+  /// Сколько слотов нужно заполнить.
+  int get slotCount => answers.length;
 
-  /// Ответ вводится с клавиатуры, а не выбирается.
-  bool get isTyped => mode == GameMode.typing;
+  /// Один слот — четыре механики из шести.
+  bool get isSingleSlot => slotCount == 1;
 
-  /// Верен ли выбор варианта.
-  bool isCorrectOption(int index) => index == answerIndex;
+  /// Индекс верного варианта, когда слот один.
+  int get answerIndex => answers.first;
 
-  /// Верен ли введённый текст.
+  /// Текст верного варианта единственного слота.
+  String get answer => answerFor(0);
+
+  /// Текст верного варианта для слота.
+  String answerFor(int slot) {
+    if (slot < 0 || slot >= slotCount) return '';
+    final index = answers[slot];
+    return index >= 0 && index < options.length ? options[index] : '';
+  }
+
+  /// Собранное предложение: все слоты заполнены верно.
   ///
-  /// Опечатка в одну букву засчитывается: игра проверяет знание слова, а не
-  /// умение попадать по клавишам на телефоне. Артикль, если он есть,
-  /// принимается и с ним, и без него.
-  bool isCorrectInput(String input) {
-    final typed = _normalize(input);
-    if (typed.isEmpty) return false;
-
-    for (final variant in _acceptedForms) {
-      final expected = _normalize(variant);
-      if (typed == expected) return true;
-      // Порог опечатки зависит от длины: в слове из трёх букв одна ошибка —
-      // это уже другое слово.
-      final tolerance = expected.length >= 5 ? 1 : 0;
-      if (tolerance > 0 && _editDistance(typed, expected) <= tolerance) {
-        return true;
-      }
+  /// Для механики f это и есть цель; для e — то, что проигрывается в конце.
+  String get assembled {
+    if (mode == GameMode.buildPhrase) {
+      return [for (var i = 0; i < slotCount; i++) answerFor(i)].join(' ');
     }
-    return false;
+    var slot = 0;
+    return prompt.replaceAllMapped(
+      _gap,
+      (_) => slot < slotCount ? answerFor(slot++) : '',
+    );
   }
 
-  Iterable<String> get _acceptedForms sync* {
-    yield answer;
-    final article = answerArticle;
-    if (article != null && article.isNotEmpty) {
-      yield '$article $answer';
-    }
-  }
+  /// Верен ли выбор варианта для слота.
+  bool isCorrectFor(int slot, int optionIndex) =>
+      slot >= 0 && slot < slotCount && answers[slot] == optionIndex;
 
-  static String _normalize(String value) =>
-      value.trim().toLowerCase().replaceAll(RegExp(r'\s+'), ' ');
+  /// Верен ли выбор, когда слот один.
+  bool isCorrectOption(int index) => isCorrectFor(0, index);
 
-  /// Расстояние Левенштейна с ранним выходом: слова короткие, но считать
-  /// на каждый ввод всё равно незачем.
-  static int _editDistance(String a, String b) {
-    if ((a.length - b.length).abs() > 2) return 3;
-    var previous = List<int>.generate(b.length + 1, (i) => i);
-    for (var i = 1; i <= a.length; i++) {
-      final current = List<int>.filled(b.length + 1, 0);
-      current[0] = i;
-      for (var j = 1; j <= b.length; j++) {
-        final cost = a[i - 1] == b[j - 1] ? 0 : 1;
-        current[j] = [
-          current[j - 1] + 1,
-          previous[j] + 1,
-          previous[j - 1] + cost,
-        ].reduce((x, y) => x < y ? x : y);
-      }
-      previous = current;
-    }
-    return previous[b.length];
-  }
+  /// Пропуск в шаблоне: `_____`.
+  static final _gap = RegExp('_____');
 }

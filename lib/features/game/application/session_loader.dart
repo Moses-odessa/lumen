@@ -7,6 +7,7 @@ import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/entities/game_mode.dart';
 import '../../../domain/entities/part_of_speech.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
@@ -83,16 +84,21 @@ class SessionLoader {
       difficulty: difficulty,
     );
 
-    final questions = await _build(plan, difficulty);
+    final questions = await _build(plan);
     final runs = SessionPlanner.intoRuns(
       questions,
       perRun: difficulty?.circlesPerRun ?? SessionBalance.circlesPerRunMin,
     ).map((run) => run.toList()).toList();
 
-    // Босс закрывает уровень отдельным коротким забегом: фраза целиком —
-    // это другой масштаб задачи, и мешать её со словами не стоит.
-    final boss = await _boss(plan);
-    if (boss != null) runs.add([boss]);
+    // Фразы закрывают уровень отдельным коротким забегом: предложение
+    // целиком — другой масштаб задачи, и мешать его со словами не стоит.
+    //
+    // Их две, и обе на одном материале: сначала заполнить пропуски, потом
+    // собрать предложение из слов. Порядок не случаен — вторая механика
+    // требует того же предложения по памяти, и увидеть его перед этим
+    // полезнее, чем не увидеть.
+    final phrases = await _phraseRuns(plan, difficulty);
+    if (phrases.isNotEmpty) runs.add(phrases);
 
     return LoadedSession(
       runs: runs,
@@ -152,22 +158,16 @@ class SessionLoader {
     ];
   }
 
-  Future<List<CircleQuestion>> _build(
-    List<PlannedCircle> plan, [
-    ClimbDifficulty? difficulty,
-  ]) async {
-    final built = difficulty == null
-        ? builder
-        : QuestionBuilder(
-            content: builder.content,
-            targetLang: builder.targetLang,
-            nativeLang: builder.nativeLang,
-            extraOptions: difficulty.extraOptions,
-            random: random,
-          );
+  /// Собирает круги по плану.
+  ///
+  /// Сложность захода сюда больше не передаётся: число вариантов приходит в
+  /// самом плане. Раньше здесь пересобирался сборщик с `extraOptions`, и он
+  /// прибавлял их к каждому кругу — включая знакомство, которому планировщик
+  /// намеренно оставил один вариант.
+  Future<List<CircleQuestion>> _build(List<PlannedCircle> plan) async {
     final questions = <CircleQuestion>[];
     for (final circle in plan) {
-      final question = await built.build(circle);
+      final question = await builder.build(circle);
       // Круг, который не собрался из-за нехватки контента, пропускается:
       // показать сломанный хуже, чем не показать вовсе.
       if (question != null) questions.add(question);
@@ -175,9 +175,12 @@ class SessionLoader {
     return questions;
   }
 
-  /// Босс уровня — фраза из того созвездия, которого в уровне больше всего.
-  Future<CircleQuestion?> _boss(List<PlannedCircle> plan) async {
-    if (plan.isEmpty) return null;
+  /// Фразовый забег — из того созвездия, которого в уровне больше всего.
+  Future<List<CircleQuestion>> _phraseRuns(
+    List<PlannedCircle> plan,
+    ClimbDifficulty? difficulty,
+  ) async {
+    if (plan.isEmpty) return const [];
 
     final byConstellation = <String, int>{};
     for (final circle in plan) {
@@ -189,19 +192,46 @@ class SessionLoader {
         ifAbsent: () => 1,
       );
     }
-    if (byConstellation.isEmpty) return null;
+    if (byConstellation.isEmpty) return const [];
 
     final leading = byConstellation.entries
         .reduce((a, b) => a.value >= b.value ? a : b)
         .key;
 
-    return builder.buildBoss(
+    // Фраза выбирается **один раз** на оба круга.
+    //
+    // Комментарий выше обещал «обе на одном материале», а код звал
+    // `buildPhrase` дважды — и тот каждый раз тянул случайную фразу из
+    // созвездия заново. На четырёх фразах A0 они совпадали примерно в
+    // четверти случаев, то есть обещание выполнялось иногда. Обещание,
+    // которое выполняется иногда, хуже отсутствующего.
+    final phrase = await builder.pickPhrase(
       constellation: leading,
       tier: tier,
-      // Фраза проверяет сборку предложения, а не отдельное слово, поэтому
-      // скоростного множителя на ней нет.
-      lumens: 0,
     );
+    if (phrase == null) return const [];
+
+    final questions = <CircleQuestion>[];
+    for (final mode in [GameMode.fillGaps, GameMode.buildPhrase]) {
+      final question = await builder.buildPhraseQuestion(
+        phrase: phrase,
+        mode: mode,
+        constellation: leading,
+        // Фраза проверяет сборку предложения, а не отдельное слово, поэтому
+        // скоростного множителя на ней нет.
+        lumens: 0,
+        // Заход теперь доходит и до фразы. Раньше её пул оставался шириной
+        // в шесть при любом уровне: словесные круги дорожали, а закрывающая
+        // уровень фраза — нет.
+        options: ScoreBalance.defaultOptions(
+          extra: difficulty?.extraOptions ?? 0,
+        ),
+      );
+      // «Собери предложение» не собирается из короткой фразы — это не
+      // поломка, а отказ по длине.
+      if (question != null) questions.add(question);
+    }
+    return questions;
   }
 }
 

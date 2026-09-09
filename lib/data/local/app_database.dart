@@ -3,6 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 
 import '../../domain/entities/player.dart';
 import '../../domain/entities/tier.dart';
+import '../../domain/scoring/play_time.dart';
 import '../../domain/scoring/records.dart';
 
 part 'app_database.g.dart';
@@ -372,6 +373,60 @@ class AppDatabase extends _$AppDatabase {
             ])
             ..limit(limit))
           .get();
+
+  /// Время и дни: сколько всего играл, сколько дней и сколько подряд.
+  ///
+  /// Отдельный запрос, а не поле в `PlayerStats`, потому что ни одного такого
+  /// запроса в проекте не было: `loadSessions` берёт последние 60–90 строк, а
+  /// `loadScoredLevels` намеренно выбрасывает `durationMs`. Считать «всего
+  /// времени» по последним шестидесяти записям — значит показать неправду
+  /// тому, кто играет второй год.
+  ///
+  /// Читается вся история. Строк здесь единицы тысяч за годы, и запрос идёт
+  /// на экране профиля, а не в забеге.
+  Future<PlayTime> loadPlayTime(DateTime now) async {
+    final rows = await (selectOnly(sessions)
+          ..addColumns([sessions.startedAt, sessions.durationMs]))
+        .get();
+
+    if (rows.isEmpty) return const PlayTime.empty();
+
+    var total = 0;
+    final days = <DateTime>{};
+    for (final row in rows) {
+      total += row.read(sessions.durationMs) ?? 0;
+      final at = row.read(sessions.startedAt);
+      if (at != null) days.add(DateTime(at.year, at.month, at.day));
+    }
+
+    return PlayTime(
+      total: Duration(milliseconds: total),
+      days: days.length,
+      streak: _streak(days, now),
+      sessions: rows.length,
+    );
+  }
+
+  /// Дней подряд, считая сегодня или, если сегодня ещё не играли, вчера.
+  ///
+  /// Вчера тоже считается началом: серия не должна обрываться в полночь у
+  /// человека, который просто ещё не садился за игру. Это отдельная величина
+  /// от «орбиты» — та игровая механика со своими правилами роста и падения,
+  /// а здесь простой факт календаря.
+  static int _streak(Set<DateTime> days, DateTime now) {
+    final today = DateTime(now.year, now.month, now.day);
+    var cursor = days.contains(today)
+        ? today
+        : today.subtract(const Duration(days: 1));
+    if (!days.contains(cursor)) return 0;
+
+    var streak = 0;
+    while (days.contains(cursor)) {
+      streak++;
+      cursor = cursor.subtract(const Duration(days: 1));
+    }
+    return streak;
+  }
 
   /// Сыгранные уровни для стены рекордов: когда, на сколько, в каком заходе.
   ///

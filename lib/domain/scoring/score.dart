@@ -109,6 +109,7 @@ abstract final class ScoreRules {
     required ComboState combo,
     ClimbDifficulty? difficulty,
     double climbMultiplier = 1.0,
+    bool replayed = false,
   }) {
     if (!correct) {
       return ConnectionResult(
@@ -121,11 +122,23 @@ abstract final class ScoreRules {
     }
 
     final next = _comboAfterSuccess(combo);
-    final speed = speedMultiplier(
-      latency,
-      lumens: lumens,
-      fastest: difficulty?.speedFastest,
-    );
+    // Переслушивание снимает скоростной множитель.
+    //
+    // Правило было записано в комментариях с самого начала и не работало
+    // ни дня: `replayPrompt` просто проигрывал звук, ничего не считая. Без
+    // него механика на слух вырождается в обычный круг с лишним тапом —
+    // слушать один раз незачем, если второй бесплатен.
+    //
+    // Снимается именно скорость, а не очки целиком: переслушать — законное
+    // действие, и запрещать его вредно. Платит игрок только тем, что
+    // перестаёт мерить автоматизм, которого в этот раз не было.
+    final speed = replayed
+        ? ScoreBalance.kSpeedSlow
+        : speedMultiplier(
+            latency,
+            lumens: lumens,
+            fastest: difficulty?.speedFastest,
+          );
     final mult = ScoreBalance.modeMultiplier(mode);
     // Комбо берётся то, что действует НА этой связи, а не после неё:
     // иначе первая же верная связь получала бы бонус за саму себя.
@@ -256,6 +269,7 @@ class RunScore {
     required Duration latency,
     required GameMode mode,
     required Lumens lumens,
+    bool replayed = false,
   }) {
     final result = ScoreRules.scoreConnection(
       correct: correct,
@@ -265,6 +279,7 @@ class RunScore {
       combo: _combo,
       difficulty: difficulty,
       climbMultiplier: climbMultiplier,
+      replayed: replayed,
     );
 
     _combo = result.combo;

@@ -330,7 +330,60 @@ void main() {
       }
     });
 
-    test('созвездия не налезают друг на друга', () {
+    test('расстояние между центрами не зависит от числа созвездий', () {
+      // Свойство, ради которого радиус на спирали считается от постоянного
+      // числа, а не от фактического: добавление созвездия не сдвигает
+      // остальные. Из него же следует, что потолок радиуса звёзд можно
+      // задать константой.
+      for (final count in [9, 15, 24, 30]) {
+        final placed = SkyLayout.place(constellations: {
+          for (var i = 0; i < count; i++)
+            'c$i': [StarInput(itemId: 'c$i-0', lumens: 50)],
+        });
+        var nearest = double.infinity;
+        for (var i = 0; i < placed.length; i++) {
+          for (var j = i + 1; j < placed.length; j++) {
+            final d = placed[i].center.distanceTo(placed[j].center);
+            if (d < nearest) nearest = d;
+          }
+        }
+        expect(nearest, closeTo(SkyLayout.minCenterDistance, 0.001),
+            reason: '$count созвездий');
+      }
+    });
+
+    test('звёзды разных созвездий не налезают друг на друга', () {
+      // Прежний тест назывался так же и проверял, что расстояние между
+      // центрами больше нуля. Он проходил всегда — и потому не заметил, что
+      // созвездия перекрывались на 41 % уже на A0: двум созвездиям по
+      // двенадцать звёзд требовалось 0.200 при доступных 0.119.
+      //
+      // Проверять надо не центры, а то, могут ли отдельные звёзды оказаться
+      // в одном месте. Свечению налезать можно, звёздам нельзя.
+      for (final stars in [12, 24, 96, 250]) {
+        final placed = SkyLayout.place(constellations: {
+          for (var i = 0; i < 24; i++)
+            'c$i': [
+              for (var j = 0; j < stars; j++)
+                StarInput(itemId: 'c$i-$j', lumens: 50),
+            ],
+        });
+
+        for (var i = 0; i < placed.length; i++) {
+          for (var j = i + 1; j < placed.length; j++) {
+            final distance = placed[i].center.distanceTo(placed[j].center);
+            expect(
+              distance,
+              greaterThanOrEqualTo(placed[i].radius + placed[j].radius - 1e-9),
+              reason: '$stars звёзд: ${placed[i].name} и ${placed[j].name} '
+                  'перекрываются',
+            );
+          }
+        }
+      }
+    });
+
+    test('центры созвездий различны', () {
       final placed = SkyLayout.place(constellations: {
         for (var i = 0; i < 30; i++)
           'c$i': [

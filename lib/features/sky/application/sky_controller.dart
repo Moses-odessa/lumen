@@ -66,17 +66,47 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   }
 
   final concepts = await content.conceptsUpTo(tier);
-  final byConstellation = <String, List<StarInput>>{};
+
+  // Небо делится на два множества, и это деление принципиальное.
+  //
+  // Отдельные координаты получают только **тронутые** звёзды — те, у которых
+  // есть строка памяти. Всё остальное рисуется свечением Млечного Пути. Это и
+  // делает карту масштабируемой: координаты растут вместе с прогрессом, а не
+  // вместе с объёмом контента, и созвездие из трёхсот слов не превращается в
+  // пятно из трёхсот точек, где ни одну нельзя различить.
+  //
+  // Но состояния созвездий считаются по **полному** составу яруса. Возьми
+  // прогрессия только выученные — и «зажжено» означало бы «80 % из того, что
+  // я уже знаю», то есть загоралось бы с двух ярких слов, а предложение
+  // подняться ярусом выше приходило бы в первый день.
+  final worked = <String, List<StarInput>>{};
+  final allStars = <String, List<Lumens>>{};
+  final totals = <String, int>{};
+
   for (final concept in concepts) {
-    byConstellation.putIfAbsent(concept.constellation, () => []).add(
-          StarInput(
-            itemId: concept.id,
-            lumens: lumensByConcept[concept.id] ?? 0,
-          ),
+    totals.update(concept.constellation, (n) => n + 1, ifAbsent: () => 1);
+    final lumens = lumensByConcept[concept.id];
+    allStars.putIfAbsent(concept.constellation, () => []).add(lumens ?? 0);
+    if (lumens == null) continue;
+    worked.putIfAbsent(concept.constellation, () => []).add(
+          StarInput(itemId: concept.id, lumens: lumens),
         );
   }
 
-  final placements = SkyLayout.place(constellations: byConstellation);
+  // Созвездие, где не тронуто ни одного слова, всё равно должно быть на
+  // карте: непроработанная тема — это приглашение, а не пустота.
+  for (final name in totals.keys) {
+    worked.putIfAbsent(name, () => []);
+  }
+
+  // Созвездие показывается на ярусе, только если набрало порог звёзд. Тема
+  // из одного слова — не созвездие, а точка.
+  worked.removeWhere((name, _) => !Progression.appears(totals[name] ?? 0));
+
+  final placements = SkyLayout.place(
+    constellations: worked,
+    totals: totals,
+  );
 
   // Первое созвездие открыто всегда: с чего-то начинать надо, а выбирать
   // из пустого списка игрок не может.
@@ -87,7 +117,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
       ConstellationState(
         name: placement.name,
         tier: tier,
-        starLumens: [for (final s in placement.stars) s.lumens],
+        starLumens: allStars[placement.name] ?? const [],
       ),
   ];
 

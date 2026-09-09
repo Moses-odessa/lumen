@@ -2,14 +2,20 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
 
 /// Что произошло с кругом после ответа.
 enum CircleOutcome { correct, wrong }
 
-/// Круг: в центре слово или фраза, вокруг 5–6 вариантов. Игрок тянет пальцем
-/// от центра к нужному.
+/// Круг: в центре слово или динамик, вокруг от одного до восьми вариантов.
+/// Игрок тянет пальцем от центра к нужному.
+///
+/// Границы именно такие. Один вариант — это знакомство с новым словом:
+/// выбирать не из чего, и круг становится показом. Восемь — шесть по балансу
+/// плюс два, которые добавляет заход; дальше круг перестаёт читаться, и
+/// потолок держится на этом, а не на математике угадывания.
 ///
 /// Основной глагол игры — **соединять**, поэтому ответ здесь не «тап по
 /// кнопке», а протянутая линия: то же движение, которым соединяют звёзды в
@@ -21,6 +27,7 @@ class CircleArena extends StatefulWidget {
     required this.question,
     required this.onAnswer,
     this.enabled = true,
+    this.onReplay,
   });
 
   final CircleQuestion question;
@@ -30,6 +37,10 @@ class CircleArena extends StatefulWidget {
 
   /// Круг заморожен: идёт анимация схлопывания или показывается результат.
   final bool enabled;
+
+  /// Проиграть центр заново. Задан только в механиках на слух: там в центре
+  /// динамик вместо текста, и нажатие на него — часть задания, а не помощь.
+  final VoidCallback? onReplay;
 
   @override
   State<CircleArena> createState() => _CircleArenaState();
@@ -160,6 +171,7 @@ class _CircleArenaState extends State<CircleArena>
   Widget _buildCenter(BuildContext context, _ArenaLayout layout) {
     final question = widget.question;
     final theme = Theme.of(context);
+    final replay = widget.onReplay;
 
     return Positioned(
       left: layout.center.dx - layout.centerRadius,
@@ -169,29 +181,39 @@ class _CircleArenaState extends State<CircleArena>
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(12),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                question.prompt,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleLarge?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                  height: 1.2,
+          // В механиках на слух в центре нет текста — только динамик.
+          // Показать здесь слово значило бы отдать ответ: задание в том,
+          // чтобы узнать его на слух.
+          child: replay != null
+              ? IconButton.filledTonal(
+                  iconSize: layout.centerRadius * 0.8,
+                  onPressed: widget.enabled ? replay : null,
+                  icon: const Icon(Icons.volume_up),
+                  tooltip: AppLocalizations.of(context).audioReplay,
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      question.prompt,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                        height: 1.2,
+                      ),
+                    ),
+                    if (question.promptHint != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        question.promptHint!,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
-              ),
-              if (question.promptHint != null) ...[
-                const SizedBox(height: 6),
-                Text(
-                  question.promptHint!,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ],
-          ),
         ),
       ),
     );

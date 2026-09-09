@@ -30,10 +30,13 @@ void main() {
     await db.close();
   });
 
-  CircleQuestion question(String id, {int answerIndex = 0}) => CircleQuestion(
+  /// Круг с одним слотом: центр на родном, варианты на изучаемом. Вид
+  /// дистракторов забег не интересует — он остался в плане, а не в вопросе.
+  CircleQuestion question(String id, {int answerIndex = 0}) =>
+      CircleQuestion.single(
         itemId: id,
         tier: Tier.a0,
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
         prompt: id,
         options: const ['a', 'b', 'c'],
         answerIndex: answerIndex,
@@ -117,6 +120,33 @@ void main() {
       controller().answerOption(0, const Duration(milliseconds: 900));
       expect(state().score, score);
     });
+
+    test('круг с одним вариантом играется как обычный', () {
+      // Знакомство с новым словом: выбирать не из чего — соединил, услышал,
+      // увидел перевод. Раньше такой круг был недостижим, сборщик отдавал
+      // `null`, не набрав двух дистракторов, и круг молча исчезал из уровня.
+      final intro = CircleQuestion.single(
+        itemId: 'rechnung',
+        tier: Tier.a1,
+        mode: GameMode.pickTarget,
+        prompt: 'счёт',
+        options: const ['Rechnung'],
+        answerIndex: 0,
+        lumens: 0,
+        isNew: true,
+        answerSpeech: 'Rechnung',
+        translation: 'счёт',
+      );
+
+      controller().start([intro]);
+      expect(state().phase, RunPhase.asking);
+
+      controller().answerOption(0, const Duration(seconds: 3));
+
+      expect(state().correct, 1);
+      expect(state().score, greaterThan(0));
+      expect(speech.spoken, ['Rechnung']);
+    });
   });
 
   group('переход к следующему кругу', () {
@@ -185,24 +215,98 @@ void main() {
     });
   });
 
-  group('ввод текста', () {
-    test('ответ вводом проверяется по тексту, а не по индексу', () {
-      const typed = CircleQuestion(
-        itemId: 'bill',
-        tier: Tier.a1,
-        mode: GameMode.typing,
-        prompt: 'счёт',
-        options: ['Rechnung'],
-        answerIndex: 0,
-        lumens: 70,
-        answerSpeech: 'Rechnung',
-      );
+  // УДАЛЕНО: группа «ввод текста».
+  //
+  // Она держала правило «ответ вводом проверяется по тексту, а не по индексу»
+  // и вместе с ним допуск в одну опечатку: `answerInput('rechnung')`
+  // засчитывался за `Rechnung`. Механики набора больше нет — ни поля ввода,
+  // ни `answerInput`, ни сравнения строк, — поэтому и правила нет: любой
+  // ответ в игре теперь индекс варианта. Ближайшее по смыслу место, где
+  // форму приходится восстанавливать по памяти, — `buildPhrase` ниже, но
+  // написание там не проверяется вовсе, и это осознанный размен.
+  group('слоты', () {
+    /// Фраза с двумя пропусками: пул общий на оба слота, лишние слова в нём —
+    /// дистракторы.
+    CircleQuestion gaps() => const CircleQuestion(
+          itemId: 'rechnung',
+          tier: Tier.a1,
+          mode: GameMode.fillGaps,
+          prompt: 'Die _____ bitte, ich _____ zahlen',
+          options: ['Rechnung', 'möchte', 'Fahrkarte', 'kann'],
+          answers: [0, 1],
+          lumens: 70,
+          answerSpeech: 'Die Rechnung bitte, ich möchte zahlen',
+          translation: 'Счёт, пожалуйста, я хочу заплатить',
+        );
 
-      controller().start([typed]);
-      controller().answerInput('rechnung', const Duration(seconds: 2));
+    /// Слова врассыпную: слотов столько же, сколько слов, и все они из пула.
+    CircleQuestion scattered() => const CircleQuestion(
+          itemId: 'pay-today',
+          tier: Tier.a2,
+          mode: GameMode.buildPhrase,
+          prompt: '',
+          options: ['zahlen', 'Ich', 'heute', 'möchte'],
+          answers: [1, 3, 2, 0],
+          lumens: 80,
+          answerSpeech: 'Ich möchte heute zahlen',
+        );
+
+    test('заполненная фраза звучит целиком', () {
+      final phrase = gaps();
+      controller().start([phrase]);
+      controller().answerSlots([0, 1], const Duration(seconds: 3));
 
       expect(state().correct, 1);
-      expect(speech.spoken, ['Rechnung']);
+      expect(state().score, greaterThan(0));
+      // Звучит собранное предложение, а не слово из пропуска: пропуск,
+      // заполненный верно и не услышанный целиком, учит подбирать форму и
+      // ничему больше.
+      expect(speech.spoken, [phrase.assembled]);
+      expect(phrase.assembled, 'Die Rechnung bitte, ich möchte zahlen');
+    });
+
+    test('половина пропусков — это не половина ответа', () {
+      controller().start([gaps()]);
+      controller().answerSlots([0], const Duration(seconds: 3));
+
+      // Незаконченный ответ считается ошибкой целиком: иначе фразу можно
+      // сдавать по одному пропуску, пока не угадаются все.
+      expect(state().correct, 0);
+      expect(state().lastCorrect, isFalse);
+      expect(speech.spoken, isEmpty);
+      expect(state().queue, hasLength(2));
+    });
+
+    test('верный слот не спасает неверный', () {
+      final phrase = gaps();
+      controller().start([phrase]);
+      // Первый пропуск угадан, второй — созвучный дистрактор из того же пула.
+      controller().answerSlots([0, 3], const Duration(seconds: 3));
+
+      expect(phrase.isCorrectFor(0, 0), isTrue);
+      expect(phrase.isCorrectFor(1, 3), isFalse);
+      expect(state().correct, 0);
+      expect(state().lastCorrect, isFalse);
+    });
+
+    test('порядок слов проверяется, а не набор', () {
+      final phrase = scattered();
+      controller().start([phrase]);
+      // Те же четыре слова, но глагол не на втором месте — по-немецки это и
+      // есть ошибка, и механика существует ровно ради неё.
+      controller().answerSlots([1, 2, 3, 0], const Duration(seconds: 3));
+
+      expect(state().lastCorrect, isFalse);
+      expect(phrase.assembled, 'Ich möchte heute zahlen');
+    });
+
+    test('собранное предложение засчитывается', () {
+      final phrase = scattered();
+      controller().start([phrase]);
+      controller().answerSlots(phrase.answers, const Duration(seconds: 3));
+
+      expect(state().correct, 1);
+      expect(speech.spoken, [phrase.assembled]);
     });
   });
 
@@ -222,7 +326,7 @@ void main() {
       final reviews = await db.select(db.reviews).get();
       expect(reviews, hasLength(1));
       expect(reviews.single.correct, isTrue);
-      expect(reviews.single.mode, GameMode.circle.code);
+      expect(reviews.single.mode, GameMode.pickTarget.code);
     });
 
     test('быстрые верные ответы зажигают слово', () async {
@@ -247,6 +351,138 @@ void main() {
       expect(row!.fastStreak, 3);
       expect(row.burning, isTrue);
       expect(await db.countBurning(), 1);
+    });
+
+    test('понимание на слух слово не зажигает', () async {
+      // Непроизводящих механик теперь две, и вторая коварнее первой: со
+      // слуха отвечать быстро легко, а произвести слово всё ещё не нужно.
+      CircleQuestion heard() => CircleQuestion.single(
+            itemId: 'b',
+            tier: Tier.a0,
+            mode: GameMode.listenNative,
+            prompt: '',
+            options: const ['счёт', 'поезд', 'дом'],
+            answerIndex: 0,
+            lumens: 50,
+            promptSpeech: 'Rechnung',
+            answerSpeech: 'Rechnung',
+          );
+
+      controller().start([heard(), heard(), heard()]);
+
+      for (var i = 0; i < 3; i++) {
+        controller().answerOption(0, const Duration(milliseconds: 600));
+        await Future<void>.delayed(const Duration(milliseconds: 120));
+        controller().state = controller().state.copyWith(
+              index: i + 1,
+              phase: RunPhase.asking,
+            );
+      }
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+
+      final row = await db.loadWordState('b');
+      expect(row!.reps, 3, reason: 'ответы всё равно должны дойти до памяти');
+      expect(row.fastStreak, 0);
+      expect(row.burning, isFalse);
+      expect(await db.countBurning(), 0);
+    });
+  });
+
+  group('многослотовый вопрос', () {
+    CircleQuestion phrase() => const CircleQuestion(
+          itemId: 'p1',
+          tier: Tier.a0,
+          mode: GameMode.fillGaps,
+          prompt: 'Ich _____ einen _____.',
+          options: ['brauche', 'Arzt', 'gehe', 'Hals'],
+          answers: [0, 1],
+          lumens: 40,
+          answerSpeech: 'Ich brauche einen Arzt.',
+        );
+
+    test('один тап не закрывает фразу с двумя пропусками', () async {
+      // `isCorrectOption(i)` — это `isCorrectFor(0, i)`, то есть проверка
+      // только первого слота. Пока верный индекс был один, попасть сюда
+      // фразой было нельзя; теперь оба обработчика приходят в одну арену, и
+      // ошибка в разводке виджета молча превратилась бы в бесплатные очки.
+      //
+      // В debug-сборке путь падает ассертом — на это и рассчитано: тихо
+      // проглотить неверный вызов значило бы оставить дефект незаметным.
+      controller().start([phrase()]);
+      expect(
+        () => controller().answerOption(0, const Duration(milliseconds: 900)),
+        throwsA(isA<AssertionError>()),
+      );
+      expect(controller().state.score, 0);
+      expect(controller().state.answered, 0);
+    });
+
+    test('фраза закрывается только полным набором слотов', () async {
+      controller().start([phrase()]);
+
+      controller().answerSlots([0, 1], const Duration(milliseconds: 1500));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+
+      expect(controller().state.answered, 1);
+      expect(controller().state.score, greaterThan(0));
+    });
+
+    test('верное слово в чужом пропуске — ошибка', () async {
+      controller().start([phrase()]);
+
+      controller().answerSlots([1, 0], const Duration(milliseconds: 1500));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+
+      expect(controller().state.answered, 0);
+      expect(controller().state.score, 0);
+      // Ошибка возвращает вопрос в конец очереди, а не отнимает доступ.
+      expect(controller().state.queue.length, 2);
+    });
+
+    test('незаполненные слоты не считаются половиной знания', () async {
+      controller().start([phrase()]);
+
+      controller().answerSlots([0], const Duration(milliseconds: 1500));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+
+      expect(controller().state.answered, 0);
+      expect(controller().state.score, 0);
+    });
+  });
+
+  group('переслушивание', () {
+    CircleQuestion heard() => const CircleQuestion(
+          itemId: 'h1',
+          tier: Tier.a0,
+          mode: GameMode.listenTarget,
+          prompt: '',
+          options: ['Rechnung', 'Richtung'],
+          answers: [0],
+          lumens: 80,
+          promptSpeech: 'Rechnung',
+          answerSpeech: 'Rechnung',
+        );
+
+    test('снимает скоростной множитель, но не запрещает ответ', () async {
+      // Правило было записано в комментариях с самого начала и не работало
+      // ни дня: `replayPrompt` просто проигрывал звук, ничего не считая. Без
+      // него механика на слух вырождается в обычный круг с лишним тапом —
+      // слушать один раз незачем, если второй бесплатен.
+      controller().start([heard()]);
+      controller().answerOption(0, const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+      final fast = controller().state.score;
+
+      controller().start([heard()]);
+      controller().replayPrompt();
+      controller().answerOption(0, const Duration(milliseconds: 500));
+      await Future<void>.delayed(const Duration(milliseconds: 60));
+      final replayed = controller().state.score;
+
+      expect(fast, greaterThan(replayed),
+          reason: 'переслушивание не изменило цену ответа');
+      expect(replayed, greaterThan(0),
+          reason: 'переслушивание не должно отнимать очки целиком');
     });
   });
 }

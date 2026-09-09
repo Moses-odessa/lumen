@@ -51,18 +51,28 @@ void main() {
   });
 
   group('ScoreBalance', () {
-    test('множитель растёт вместе со сложностью режима', () {
+    test('множитель растёт вместе со сложностью механики', () {
+      // Порядок перечислен руками, а не взят из enum: enum идёт по букве из
+      // docs (a–f), а дорожает игра иначе — понять на слух дешевле, чем
+      // выбрать форму на изучаемом. Прежняя верхушка «Набор» (2.0) удалена
+      // вместе с полем ввода, и её место занял buildPhrase.
       final ordered = [
-        GameMode.recognition,
-        GameMode.circle,
-        GameMode.tight,
-        GameMode.typing,
-        GameMode.phrase,
+        GameMode.pickNative,
+        GameMode.listenNative,
+        GameMode.pickTarget,
+        GameMode.listenTarget,
+        GameMode.fillGaps,
+        GameMode.buildPhrase,
       ];
+      // Иначе седьмая механика проехала бы мимо проверки: её просто не было
+      // бы в списке, и порядок остался бы «упорядоченным».
+      expect(ordered.toSet(), GameMode.values.toSet(),
+          reason: 'механика без места в порядке цены');
       for (var i = 1; i < ordered.length; i++) {
         expect(
           ScoreBalance.modeMultiplier(ordered[i]),
           greaterThan(ScoreBalance.modeMultiplier(ordered[i - 1])),
+          reason: '${ordered[i].name} не дороже ${ordered[i - 1].name}',
         );
       }
     });
@@ -87,30 +97,40 @@ void main() {
 
     test('узнавание не приносит очков там, где начинается скоростной бонус',
         () {
-      // Иначе выгодно фармить лёгкий режим на уже выученном слове.
+      // Иначе выгодно фармить лёгкую механику на уже выученном слове.
       expect(
         ScoreBalance.recognitionScoreCapLm,
         ScoreBalance.speedBonusMinLm,
       );
     });
 
-    test('режимы на производство начинаются не ниже, чем узнавание кончается',
+    test('механики на производство включаются раньше, чем кончается узнавание',
         () {
-      final recognition = ScoreBalance.modeLumenRange(GameMode.recognition);
-      final circle = ScoreBalance.modeLumenRange(GameMode.circle);
-      expect(circle.min, lessThan(recognition.max));
-      expect(circle.max, greaterThan(recognition.max));
+      // Перекрытие, а не стык: без него есть яркость, на которой понимание
+      // уже не ставится, а производство ещё не ставится, и планировщику
+      // приходится выбирать механику вопреки своему же правилу.
+      final pickNative = ScoreBalance.modeLumenRange(GameMode.pickNative);
+      final pickTarget = ScoreBalance.modeLumenRange(GameMode.pickTarget);
+      expect(pickTarget.min, lessThan(pickNative.max));
+      expect(pickTarget.max, greaterThan(pickNative.max));
     });
 
-    test('диапазоны режимов заданы для всех шести и перекрываются', () {
-      // Перекрытие обязательно: планировщик выбирает режим по яркости, и
-      // на каждом значении 0–100 должен находиться хотя бы один режим.
-      for (final lm in [0, 25, 45, 65, 85, 100]) {
-        final fits = GameMode.values.where((m) {
+    test('диапазоны механик заданы для всех шести и перекрываются', () {
+      // Перекрытие обязательно: планировщик выбирает механику по яркости, и
+      // на каждом значении 0–100 должна находиться хотя бы одна.
+      //
+      // В подсчёт идут только механики на слово. Фразовые накрывают всю шкалу
+      // не потому, что уместны везде, а потому, что яркость одного слова к
+      // ним неприменима: их ставит этап уровня. Пусти их сюда — и проверка
+      // станет тавтологией «шкала накрыта, потому что fillGaps накрывает
+      // всё», а дырку между механиками на слово перестанет ловить.
+      final wordModes = GameMode.values.where((m) => m.isWordMode);
+      for (var lm = 0; lm <= 100; lm++) {
+        final fits = wordModes.where((m) {
           final r = ScoreBalance.modeLumenRange(m);
           return lm >= r.min && lm <= r.max;
         });
-        expect(fits, isNotEmpty, reason: 'для $lm lm нет режима');
+        expect(fits, isNotEmpty, reason: 'для $lm lm нет механики на слово');
       }
 
       for (final mode in GameMode.values) {
@@ -121,18 +141,103 @@ void main() {
       }
     });
 
-    test('узнавание — единственный режим не на производство', () {
+    test('чем дороже механика, тем позже она включается', () {
+      // На этом согласии держится правило планировщика «из подходящих берём
+      // самую требовательную»: он читает свой список по порядку и берёт
+      // последнюю подходящую. Разойдись цена с диапазоном — и за самую
+      // сложную он начнёт выдавать ту, что просто стоит ниже в списке.
+      final byPrice = GameMode.values.where((m) => m.isWordMode).toList()
+        ..sort((a, b) => ScoreBalance.modeMultiplier(a)
+            .compareTo(ScoreBalance.modeMultiplier(b)));
+      for (var i = 1; i < byPrice.length; i++) {
+        final cheaper = ScoreBalance.modeLumenRange(byPrice[i - 1]);
+        final dearer = ScoreBalance.modeLumenRange(byPrice[i]);
+        expect(dearer.min, greaterThan(cheaper.min),
+            reason: '${byPrice[i].name} дороже, но начинается не позже');
+        expect(dearer.max, greaterThan(cheaper.max),
+            reason: '${byPrice[i].name} дороже, но кончается не позже');
+      }
+    });
+
+    // Тест «узнавание — единственный режим не на производство» удалён:
+    // гарантии больше нет ни в одной форме. Понимание теперь проверяется
+    // двумя механиками — с текста (pickNative) и со слуха (listenNative), —
+    // так что «единственный» стало неверным утверждением, а не сломанным
+    // тестом; вместе с ним ушёл и сам GameMode.recognition, чьё имя тест
+    // называл. Ниже стоит проверка нового, уже двухэлементного набора.
+    test('на производство работают все механики, кроме двух на понимание', () {
+      // Набор обязан быть закрытым списком, а не «всё, что не перечислено»:
+      // правило «горящего слова» считается только в продуктивных механиках, и
+      // механика, случайно оказавшаяся продуктивной, начнёт закрывать слово
+      // как выученное на одном узнавании.
       expect(
-        GameMode.values.where((m) => !m.isProductive),
-        [GameMode.recognition],
+        GameMode.values.where((m) => !m.isProductive).toSet(),
+        {GameMode.pickNative, GameMode.listenNative},
       );
     });
 
-    test('множитель задан для всех режимов и не ниже единицы', () {
+    test('множитель задан для всех механик и не ниже единицы', () {
       for (final mode in GameMode.values) {
         expect(ScoreBalance.modeMultiplier(mode), greaterThanOrEqualTo(1.0),
             reason: '$mode');
       }
+    });
+
+    test('круг из одного варианта законен', () {
+      // Раньше минимумом было три варианта: сборщик возвращал null, если не
+      // набралось двух дистракторов, и такой круг молча исчезал из уровня.
+      // Знакомство с новым словом устроено ровно на одном варианте —
+      // соединил, услышал, увидел перевод. Вернись минимум к двум, и
+      // знакомство исчезнет так же тихо, как исчезали те круги.
+      expect(ScoreBalance.optionsMin, 1);
+      expect(
+        SessionBalance.introductionOptions,
+        greaterThanOrEqualTo(ScoreBalance.optionsMin),
+      );
+      expect(
+        SessionBalance.introductionOptions,
+        lessThan(ScoreBalance.defaultOptions()),
+        reason: 'знакомство — показ, а не проверка: вариантов должно быть '
+            'меньше, чем в обычном круге',
+      );
+    });
+
+    test('число вариантов задаёт этап, а не механика', () {
+      // Раньше решала механика: узнавание 4, остальные 6, набор 0. Отсюда
+      // росла невозможность попросить «то же самое, но легче» — этап уровня
+      // мог менять сложность только сменой механики. Начни механика решать
+      // это снова, и вариантность перестанет быть шкалой.
+      // Проверять «одинаково ли для всех механик» больше нечем и незачем:
+      // `defaultOptions` не принимает механику вовсе, и попытка вернуть
+      // зависимость не пройдёт компиляцию. Это сильнее теста.
+      //
+      // Сначала здесь стояла подпись `optionsFor(GameMode mode, {int extra})`
+      // с неиспользуемым аргументом — «на будущее». Она обещала зависимость,
+      // которой не было, и тест против неё проверял бы воображаемое
+      // поведение. Осталось то, что остаётся проверять: число не ниже
+      // минимума, не выше потолка и растёт от захода.
+      expect(ScoreBalance.defaultOptions(), ScoreBalance.optionsMax);
+      expect(ScoreBalance.defaultOptions(),
+          greaterThanOrEqualTo(ScoreBalance.optionsMin));
+    });
+
+    test('заход добавляет варианты и не выходит за края', () {
+      // Единственный способ снизить шанс угадать, не меняя ни механику, ни
+      // материал. Потолок при этом обязан остаться: восьмой вариант в круге
+      // читается уже плохо, и предел здесь экранный, а не балансный.
+      expect(ClimbBalance.extraOptionsMax, greaterThan(0));
+      var previous = ScoreBalance.defaultOptions();
+      for (var extra = 1; extra <= ClimbBalance.extraOptionsMax; extra++) {
+        final current =
+            ScoreBalance.defaultOptions(extra: extra);
+        expect(current, greaterThan(previous), reason: 'заход +$extra не дал');
+        previous = current;
+      }
+      expect(
+        previous,
+        ScoreBalance.optionsMax + ClimbBalance.extraOptionsMax,
+        reason: 'потолок обрезал прибавку захода',
+      );
     });
   });
 
@@ -194,6 +299,13 @@ void main() {
         ),
       );
     });
+
+    test('собрать фразу нельзя перебором', () {
+      // Из трёх слов перестановок шесть, и по-немецки допустима не одна из
+      // них: задание проходится тыком, а не памятью, и тогда оно не проверяет
+      // ничего. Четыре слова дают 24 порядка — там уже надо вспоминать.
+      expect(SessionBalance.buildPhraseMinWords, greaterThan(3));
+    });
   });
 
   group('RetentionBalance', () {
@@ -230,7 +342,8 @@ void main() {
     });
 
     test('граница яруса подтверждается больше одного раза', () {
-      // Шесть вариантов дают 17 % случайного попадания.
+      // Круг из ScoreBalance.optionsMax вариантов даёт 17 % случайного
+      // попадания: одного подтверждения мало, чтобы отличить знание от тыка.
       expect(CalibrationBalance.borderConfirmations, greaterThan(1));
     });
   });

@@ -7,7 +7,7 @@ import 'package:lumen/domain/scheduler/session_planner.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 
 /// Планировщик проверяется на синтетическом словаре: важны не конкретные
-/// слова, а свойства раскладки — тусклые вперёд, новые вразбивку, режим по
+/// слова, а свойства раскладки — тусклые вперёд, новые вразбивку, механика по
 /// владению.
 void main() {
   final now = DateTime.utc(2026, 3, 1, 8);
@@ -90,41 +90,49 @@ void main() {
     });
   });
 
-  group('выбор режима', () {
-    test('сложность растёт вслед за владением', () {
-      expect(SessionPlanner.modeFor(5), GameMode.recognition);
-      expect(SessionPlanner.modeFor(30), GameMode.circle);
-      expect(SessionPlanner.modeFor(55), GameMode.audio);
-      expect(SessionPlanner.modeFor(90), GameMode.typing);
+  group('выбор механики', () {
+    test('требовательность растёт вслед за владением', () {
+      // Лестница та же, что была (узнавание → круг → слух → производство),
+      // но ступеней теперь четыре, и разделены они не режимами, а тем, что
+      // в центре и на каком языке варианты.
+      expect(SessionPlanner.modeFor(5), GameMode.pickNative);
+      expect(SessionPlanner.modeFor(22), GameMode.listenNative);
+      expect(SessionPlanner.modeFor(40), GameMode.pickTarget);
+      expect(SessionPlanner.modeFor(90), GameMode.listenTarget);
     });
 
-    test('без озвучки «Слух» не выбирается', () {
+    test('без озвучки механики на слух не выбираются', () {
       final mode = SessionPlanner.modeFor(75, hasAudio: false);
-      expect(mode, isNot(GameMode.audio));
+      // Проверяем свойство, а не имя: механик на слух две, и обе одинаково
+      // непоказуемы без записи.
+      expect(mode.needsAudio, isFalse);
     });
 
-    test('беззвучный режим исключает «Слух» на всей шкале', () {
+    test('беззвучный режим исключает слух на всей шкале', () {
       const silent = SessionCapabilities(audioEnabled: false);
       for (var lm = 0; lm <= 100; lm += 5) {
-        expect(SessionPlanner.modeFor(lm, capabilities: silent),
-            isNot(GameMode.audio), reason: '$lm lm');
-      }
-    });
-
-    test('выключенный набор исключает «Набор»', () {
-      const noTyping = SessionCapabilities(typingEnabled: false);
-      expect(SessionPlanner.modeFor(95, capabilities: noTyping),
-          isNot(GameMode.typing));
-    });
-
-    test('босс-фраза по яркости не выбирается — её ставят явно', () {
-      for (var lm = 0; lm <= 100; lm++) {
-        expect(SessionPlanner.modeFor(lm), isNot(GameMode.phrase),
+        expect(SessionPlanner.modeFor(lm, capabilities: silent).needsAudio,
+            isFalse,
             reason: '$lm lm');
       }
     });
 
-    test('со случайностью режим всё равно подходит по яркости', () {
+    // УДАЛЕНО: «выключенный набор исключает «Набор»».
+    //
+    // Механики с полем ввода больше нет, а вместе с ней ушёл и переключатель
+    // SessionCapabilities.typingEnabled. Гарантия «планировщик не поставит
+    // круг с вводом, когда ввод выключен» стала беспредметной: вводить текст
+    // в игре негде, и выключать нечего.
+
+    test('фразовые механики по яркости не выбираются — их ставит этап', () {
+      // Раньше так вела себя одна «фраза», теперь фразовых механик две, и
+      // обе не имеют диапазона по яркости слова: их материал — предложение.
+      for (var lm = 0; lm <= 100; lm++) {
+        expect(SessionPlanner.modeFor(lm).isPhrase, isFalse, reason: '$lm lm');
+      }
+    });
+
+    test('со случайностью механика всё равно подходит по яркости', () {
       final random = Random(42);
       for (var i = 0; i < 200; i++) {
         final lm = random.nextInt(101);
@@ -135,7 +143,7 @@ void main() {
       }
     });
 
-    test('со случайностью появляется разнообразие режимов', () {
+    test('со случайностью появляется разнообразие механик', () {
       final random = Random(7);
       final seen = {
         for (var i = 0; i < 100; i++)
@@ -145,11 +153,46 @@ void main() {
     });
 
     test('битые данные не роняют планировщик', () {
-      // Все режимы отключены — играть всё равно можно.
-      const nothing =
-          SessionCapabilities(audioEnabled: false, typingEnabled: false);
+      // Яркость вне всех диапазонов и без звука — играть всё равно можно:
+      // берётся самая требовательная из доступных механик.
+      const nothing = SessionCapabilities(audioEnabled: false);
       expect(SessionPlanner.modeFor(200, capabilities: nothing),
-          GameMode.circle);
+          GameMode.pickTarget);
+    });
+
+    test('этап сужает набор, а яркость лишь выбирает внутри него', () {
+      // Новое: `allowed`. На 22 lm сама по себе выбралась бы listenNative;
+      // этап, который слуха не разрешил, обязан получить механику из своего
+      // набора, а не «почти ту же».
+      expect(
+        SessionPlanner.modeFor(22,
+            allowed: const {GameMode.pickNative, GameMode.pickTarget}),
+        GameMode.pickNative,
+      );
+    });
+
+    test('яркость вне разрешённых диапазонов не выводит за набор этапа', () {
+      // 90 lm не накрывает ни pickNative, ни listenNative. Прежний код в
+      // такой ситуации возвращал «Круг» — механику, которую этап не
+      // разрешал; теперь берётся самая требовательная из разрешённых.
+      expect(
+        SessionPlanner.modeFor(90,
+            allowed: const {GameMode.pickNative, GameMode.listenNative}),
+        GameMode.listenNative,
+      );
+    });
+
+    test('этап только на слух без звука не даёт непоказуемый круг', () {
+      const silent = SessionCapabilities(audioEnabled: false);
+      final mode = SessionPlanner.modeFor(
+        70,
+        capabilities: silent,
+        allowed: const {GameMode.listenNative, GameMode.listenTarget},
+      );
+      // Разрешённого не осталось ничего: показать нечего, и притворяться
+      // нечем — но круг без задания хуже, чем круг проще запрошенного.
+      expect(mode, GameMode.pickNative);
+      expect(mode.needsAudio, isFalse);
     });
   });
 
@@ -174,14 +217,33 @@ void main() {
       expect(plan.length, 30);
     });
 
-    test('первый показ нового слова — узнавание без таймера', () {
+    test('первый показ нового слова — понимание без таймера', () {
       final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
 
       for (final id in ['n0', 'n1', 'n2', 'n3', 'n4', 'n5']) {
         final shows = plan.where((c) => c.itemId == id).toList();
         expect(shows, hasLength(SessionBalance.newWordRepeats));
         expect(shows.first.isNew, isTrue);
-        expect(shows.first.mode, GameMode.recognition);
+        expect(shows.first.mode, GameMode.pickNative);
+      }
+    });
+
+    test('знакомство идёт с одним вариантом — это показ, а не проверка', () {
+      // Новое: круг с одним вариантом стал законным. Прежний сборщик
+      // возвращал null, если не набралось двух дистракторов, и знакомство
+      // молча исчезало из уровня; теперь вариантность едет на круге.
+      final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
+
+      for (final id in ['n0', 'n1', 'n2', 'n3', 'n4', 'n5']) {
+        final shows = plan.where((c) => c.itemId == id).toList();
+        expect(shows.first.options, SessionBalance.introductionOptions);
+        expect(shows.first.options, ScoreBalance.optionsMin);
+        // Остальные показы того же слова — обычные круги: одна ручка
+        // сложности на круг, а не на слово.
+        for (final show in shows.skip(1)) {
+          expect(show.options, greaterThan(SessionBalance.introductionOptions));
+          expect(show.isNew, isFalse);
+        }
       }
     });
 
@@ -259,13 +321,13 @@ void main() {
       expect(plan.every((c) => !c.isNew), isTrue);
     });
 
-    test('режим подбирается по яркости каждого слова', () {
+    test('механика подбирается по яркости каждого слова', () {
       final plan = SessionPlanner.sunrise(
         candidates: [word('a', lumens: 10), word('b', lumens: 95)],
         now: now,
       );
-      expect(plan.first.mode, GameMode.recognition);
-      expect(plan.last.mode, GameMode.typing);
+      expect(plan.first.mode, GameMode.pickNative);
+      expect(plan.last.mode, GameMode.listenTarget);
     });
   });
 
@@ -288,7 +350,7 @@ void main() {
         for (var i = 0; i < 22; i++)
           PlannedCircle(
               itemId: 'w$i',
-              mode: GameMode.circle,
+              mode: GameMode.pickTarget,
               isNew: false,
               lumens: 50),
       ];
@@ -309,7 +371,7 @@ void main() {
         for (var i = 0; i < 4; i++)
           PlannedCircle(
               itemId: 'w$i',
-              mode: GameMode.circle,
+              mode: GameMode.pickTarget,
               isNew: false,
               lumens: 50),
       ];
@@ -365,10 +427,66 @@ void main() {
     });
   });
 
+  group('сложность круга', () {
+    test('вид дистракторов едет на круге, а не выводится из механики', () {
+      // Раньше «созвучные» означало другую механику («Тесный круг»), и
+      // спросить «то же самое, но с созвучными» было нельзя. Теперь два
+      // круга одной механики отличаются только этим параметром.
+      const wide = PlannedCircle(
+          itemId: 'arzt',
+          mode: GameMode.pickTarget,
+          isNew: false,
+          lumens: 62);
+      final tight = wide.copyWith(distractorKind: DistractorKind.near);
+
+      expect(wide.distractorKind, DistractorKind.far);
+      expect(tight.distractorKind, DistractorKind.near);
+      expect(tight.mode, wide.mode);
+    });
+
+    test('по умолчанию круг тематический и на полное число вариантов', () {
+      const circle = PlannedCircle(
+          itemId: 'arzt',
+          mode: GameMode.pickTarget,
+          isNew: false,
+          lumens: 62);
+      expect(circle.distractorKind, DistractorKind.far);
+      expect(circle.options, ScoreBalance.optionsMax);
+    });
+
+    test('copyWith меняет сложность, но не слово и не его яркость', () {
+      const circle = PlannedCircle(
+          itemId: 'arzt',
+          mode: GameMode.pickTarget,
+          isNew: false,
+          lumens: 62);
+      final easier = circle.copyWith(
+        mode: GameMode.pickNative,
+        options: ScoreBalance.optionsMin,
+        isNew: true,
+      );
+
+      expect(easier.itemId, 'arzt');
+      expect(easier.lumens, 62);
+      expect(easier.mode, GameMode.pickNative);
+      expect(easier.options, 1);
+      expect(easier.isNew, isTrue);
+    });
+  });
+
   test('PlannedCircle читаемо печатается', () {
+    // Круг с созвучными вариантами — то, что прежде было отдельным режимом
+    // «tight»: в печати это должно быть видно, иначе два внешне одинаковых
+    // круга не различить в логе.
     const circle = PlannedCircle(
-        itemId: 'arzt', mode: GameMode.tight, isNew: false, lumens: 62);
+      itemId: 'arzt',
+      mode: GameMode.pickTarget,
+      isNew: false,
+      lumens: 62,
+      distractorKind: DistractorKind.near,
+    );
     expect(circle.toString(), contains('arzt'));
-    expect(circle.toString(), contains('tight'));
+    expect(circle.toString(), contains('pickTarget'));
+    expect(circle.toString(), contains('near'));
   });
 }

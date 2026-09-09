@@ -24,7 +24,16 @@ enum CalibrationPhase {
   /// Адаптивный поиск: два верных подряд поднимают, две ошибки опускают.
   search,
 
-  /// Тройное подтверждение границы, минимум один раз «тесным кругом».
+  /// Тройное подтверждение границы, минимум один раз созвучными вариантами.
+  ///
+  /// **Фаза не обязательна.** Забег, взявший все пять ярусов гребёнкой с
+  /// ходу, уходит прямо к фразам и созвучного круга не видит ни разу — это
+  /// примерно 42 % синтетических прогонов на игроке уровня B2. Так и
+  /// задумано: угадать всю гребёнку — это (1/6)⁵, один шанс из семи с
+  /// половиной тысяч, и подтверждать тут нечего.
+  ///
+  /// Написано это здесь потому, что докстрока раньше обещала «граница всегда
+  /// проверена созвучными», а код обещания не давал.
   confirm,
 
   /// Четыре фразы на найденном ярусе.
@@ -40,6 +49,7 @@ class CalibrationStep {
     required this.tier,
     required this.mode,
     required this.phase,
+    this.distractorKind = DistractorKind.far,
     this.isRepeat = false,
   });
 
@@ -47,8 +57,22 @@ class CalibrationStep {
   final GameMode mode;
   final CalibrationPhase phase;
 
+  /// Тематические варианты или созвучные.
+  ///
+  /// Поле обязано быть здесь, а не выводиться из механики. Раньше «тесный
+  /// круг» был отдельным режимом, и правило «границу нужно подтвердить хотя
+  /// бы раз созвучными» читалось как `mode == GameMode.tight`. После слияния
+  /// круга и тесного круга в одну механику такая проверка не упала бы — она
+  /// просто перестала бы срабатывать никогда, и каждая граница
+  /// подтверждалась бы с шансом угадать один к шести. Тесты калибровки при
+  /// этом остались бы зелёными.
+  final DistractorKind distractorKind;
+
   /// Переспрос подозрительно быстрого ответа: в зачёт не идёт.
   final bool isRepeat;
+
+  /// Круг с созвучными вариантами: угадать вдвое труднее.
+  bool get isTight => distractorKind == DistractorKind.near;
 }
 
 /// Состояние теста. Неизменяемое: каждый ответ порождает новое.
@@ -126,13 +150,16 @@ class CalibrationState {
         phase: phase,
         isRepeat: pendingRepeat,
         mode: switch (phase) {
-          CalibrationPhase.phrases => GameMode.phrase,
-          // Граница обязана быть проверена «тесным кругом» хотя бы раз:
-          // шесть вариантов дают 17 % случайного попадания, и на обычном
-          // круге это слишком дёшево.
-          CalibrationPhase.confirm when !tightConfirmed => GameMode.tight,
-          _ => GameMode.circle,
+          // Фразы проверяют сборку предложения — это механика e.
+          CalibrationPhase.phrases => GameMode.fillGaps,
+          _ => GameMode.pickTarget,
         },
+        // Граница обязана быть проверена созвучными вариантами хотя бы раз:
+        // шесть тематических дают 17 % случайного попадания, и на них это
+        // слишком дёшево.
+        distractorKind: phase == CalibrationPhase.confirm && !tightConfirmed
+            ? DistractorKind.near
+            : DistractorKind.far,
       );
 
   CalibrationState copyWith({
@@ -348,7 +375,7 @@ abstract final class Calibration {
   /// случайного попадания, и без повторной проверки каждый шестой игрок
   /// получал бы завышенный результат.
   static CalibrationState _confirm(CalibrationState state, bool correct) {
-    final wasTight = state.step.mode == GameMode.tight;
+    final wasTight = state.step.isTight;
     var next = state.copyWith(asked: state.asked + 1);
 
     if (!correct) {
@@ -362,10 +389,19 @@ abstract final class Calibration {
 
       final down = state.probe.down;
       if (down == null) {
+        // Ниже A0 некуда: остаётся проверка фразами.
+        //
+        // `result` здесь не выставляется. Раньше выставлялся — и нарушал
+        // собственный контракт поля («итог; null, пока тест не закончен»):
+        // состояние читалось как `phase: phrases, isDone: false, result: a0`
+        // все четыре оставшихся круга. Ничего в приложении на это не
+        // смотрело, потому что гейт стоит на `isDone`, — но любой, кто
+        // проверил бы `result != null`, закончил бы тест на четыре круга
+        // раньше и выдал незаработанный A0.
         return next.copyWith(
           phase: CalibrationPhase.phrases,
           probe: Tier.a0,
-          result: () => Tier.a0,
+          phrasesAsked: 0,
         );
       }
       return next.copyWith(
@@ -380,6 +416,14 @@ abstract final class Calibration {
     next = next.copyWith(
       confirmations: state.confirmations + 1,
       tightConfirmed: state.tightConfirmed || wasTight,
+      // Счётчик промахов обнуляется верным ответом.
+      //
+      // Без этого «промах → верно → промах» ронял ярус, хотя правило рядом
+      // сказано так: «ярус роняет только вторая осечка **подряд**». Счётчик
+      // копился накопительно, и правило означало не то, что написано, — а
+      // расхождение между комментарием и кодом здесь особенно дорого: игрок
+      // получал ярус ниже заслуженного и не мог понять, за что.
+      confirmFailures: 0,
       confirmed: {...state.confirmed, state.probe},
       lowest: () => _higher(state.lowest, state.probe),
       highest: () => _clearIfStale(state.highest, state.probe),

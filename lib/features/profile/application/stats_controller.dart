@@ -7,6 +7,7 @@ import '../../../data/repositories/player_repository.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/retention/orbit.dart';
 import '../../../domain/scoring/balance.dart';
+import '../../../domain/scoring/play_time.dart';
 import '../../../domain/srs/memory_state.dart';
 
 /// Яркость одного созвездия — строка на экране статистики.
@@ -34,7 +35,9 @@ class PlayerStats {
     required this.medianLatency,
     required this.constellations,
     required this.sparks,
-    required this.playedDays,
+    required this.playTime,
+    required this.tier,
+    required this.tierProgress,
   });
 
   final OrbitState orbit;
@@ -53,7 +56,31 @@ class PlayerStats {
 
   final List<ConstellationBrightness> constellations;
   final int sparks;
-  final int playedDays;
+
+  /// Время и дни: всего, в день, дней подряд.
+  ///
+  /// Здесь было поле `playedDays`, и оно лгало: `sessions.length` по выборке,
+  /// ограниченной шестьюдесятью строками, то есть «дней» считалось сессиями и
+  /// упиралось в потолок запроса. Читателей у поля не было ни одного — иначе
+  /// ошибку бы заметили.
+  final PlayTime playTime;
+
+  /// Где игрок на шкале A0→B2.
+  final Tier tier;
+
+  /// Насколько заполнен текущий ярус: доля его слов с яркостью не ниже
+  /// порога «зажжено».
+  ///
+  /// Порог взят существующий — [ProgressionBalance.litStarMinLm], тот же, по
+  /// которому зажигается созвездие. Заводить рядом второе число «70» значило
+  /// бы, что шкала и карта считают прогресс по-разному, и игрок не смог бы
+  /// их сопоставить.
+  ///
+  /// Считается по словам, которые игрок **помнит**, а не видел: «сколько
+  /// слов я знаю» в профиле уже показывается тремя разными числами
+  /// (горящие по флагу, яркие по 85 lm, известные по факту показа), и
+  /// четвёртое с тем же названием было бы издевательством.
+  final double tierProgress;
 
   bool get weeklyGoalMet =>
       weeklyProgress >= RetentionBalance.weeklyGoalDays;
@@ -83,10 +110,13 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
   }
 
   // Яркость по созвездиям: состав берём из контента, значения — из памяти.
+  final tier = player?.tier ?? Tier.a0;
   final byConstellation = <String, List<Lumens>>{};
   final burningByConstellation = <String, int>{};
-  for (final concept
-      in await content.conceptsUpTo(player?.tier ?? Tier.a0)) {
+  var onTier = 0;
+  var litOnTier = 0;
+
+  for (final concept in await content.conceptsUpTo(tier)) {
     final value = lumens[concept.id] ?? 0;
     byConstellation.putIfAbsent(concept.constellation, () => []).add(value);
     if (value >= LumenBand.burning.minLm) {
@@ -96,6 +126,12 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
         ifAbsent: () => 1,
       );
     }
+    // Заполнение шкалы считается по словам **текущего** яруса, а не по всему,
+    // что ниже: иначе на B1 шкала показывала бы почти полный ярус за счёт
+    // выученного A0, и подъём выше выглядел бы как откат назад.
+    if (concept.tier != tier.code) continue;
+    onTier++;
+    if (value >= ProgressionBalance.litStarMinLm) litOnTier++;
   }
 
   final constellations = [
@@ -127,7 +163,9 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
     medianLatency: await _medianLatency(db, lumens),
     constellations: constellations,
     sparks: player?.sparks ?? 0,
-    playedDays: sessions.length,
+    playTime: await db.loadPlayTime(now),
+    tier: tier,
+    tierProgress: onTier == 0 ? 0 : litOnTier / onTier,
   );
 });
 

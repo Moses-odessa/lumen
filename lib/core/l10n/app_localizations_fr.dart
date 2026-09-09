@@ -37,6 +37,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get settingsTitle => 'Réglages';
 
   @override
+  String get commonUndo => 'Annuler';
+
+  @override
   String get commonNext => 'Suivant';
 
   @override
@@ -479,6 +482,41 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get aboutReviewLimit =>
       'Deux modèles peuvent se tromper de la même façon : leurs données d\'entraînement se recoupent. La relecture croisée repère les inattentions et les contradictions, pas l\'erreur qu\'ils partagent. Si vous en repérez une, le contenu est dans le dépôt ouvert et la correction tient dans un fichier.';
+
+  @override
+  String get profileDays => 'jours joués';
+
+  @override
+  String get profileStreak => 'jours d\'affilée';
+
+  @override
+  String get profileTimeTotal => 'temps dans l\'app';
+
+  @override
+  String get profileTimePerDay => 'par jour joué';
+
+  @override
+  String get profileScaleTitle => 'De A0 à B2';
+
+  @override
+  String profileScaleHint(String tier, int percent) {
+    return 'Vous êtes au palier $tier : $percent% de ses mots sont en mémoire.';
+  }
+
+  @override
+  String profileScaleLocked(String tier) {
+    return 'Les paliers au-dessus de $tier ne sont pas encore relus, le jeu ne les propose donc pas.';
+  }
+
+  @override
+  String unitMinutes(int value) {
+    return '$value min';
+  }
+
+  @override
+  String unitHoursMinutes(int hours, int minutes) {
+    return '$hours h $minutes min';
+  }
 
   @override
   String get aboutPrivacy =>

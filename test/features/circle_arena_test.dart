@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lumen/core/l10n/app_localizations.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
@@ -10,6 +11,13 @@ import 'package:lumen/features/game/presentation/circle_arena.dart';
 /// Круг проверяется по поведению, а не по пикселям: главный жест игры должен
 /// работать, промах по варианту не должен считаться ответом, а повторный
 /// ответ на закрытый круг — проходить.
+///
+/// Арена одна на четыре механики из шести, и знает она о них ровно две вещи:
+/// стоит ли в центре текст или динамик и сколько вокруг вариантов. Ни язык
+/// вариантов, ни вид дистракторов сюда не доходят — язык арена получает
+/// готовым списком, а вид дистракторов остался в плане круга. Поэтому тесты
+/// на разницу «тематические против созвучных» здесь и не появляются: с точки
+/// зрения арены это один и тот же круг.
 void main() {
   const size = 400.0;
   const center = Offset(size / 2, size / 2);
@@ -23,12 +31,14 @@ void main() {
     return center + Offset(math.cos(angle), math.sin(angle)) * orbit;
   }
 
-  const question = CircleQuestion(
+  // Прежний «круг» — это pickTarget: в центре родное слово, вокруг варианты
+  // на изучаемом. Один слот, поэтому `single`.
+  final question = CircleQuestion.single(
     itemId: 'doctor_person',
     tier: Tier.a0,
-    mode: GameMode.circle,
+    mode: GameMode.pickTarget,
     prompt: 'врач',
-    options: ['Arzt', 'Art', 'Arm', 'Ast'],
+    options: const ['Arzt', 'Art', 'Arm', 'Ast'],
     answerIndex: 0,
     lumens: 45,
   );
@@ -36,19 +46,25 @@ void main() {
   Future<List<(int, Duration)>> pumpArena(
     WidgetTester tester, {
     bool enabled = true,
-    CircleQuestion q = question,
+    CircleQuestion? q,
+    VoidCallback? onReplay,
   }) async {
     final answers = <(int, Duration)>[];
     await tester.pumpWidget(
       MaterialApp(
+        // Динамик в центре несёт подпись из локализации: без делегатов
+        // механики на слух не собрались бы вовсе.
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         home: Scaffold(
           body: Center(
             child: SizedBox(
               width: size,
               height: size,
               child: CircleArena(
-                question: q,
+                question: q ?? question,
                 enabled: enabled,
+                onReplay: onReplay,
                 onAnswer: (index, latency) => answers.add((index, latency)),
               ),
             ),
@@ -147,13 +163,13 @@ void main() {
       (tester) async {
     await pumpArena(
       tester,
-      q: const CircleQuestion(
+      q: CircleQuestion.single(
         itemId: 'x',
         tier: Tier.a0,
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
         prompt: 'счёт',
         promptHint: 'женский род',
-        options: ['Rechnung', 'Richtung', 'Rechner'],
+        options: const ['Rechnung', 'Richtung', 'Rechner'],
         answerIndex: 0,
         lumens: 30,
       ),
@@ -186,12 +202,12 @@ void main() {
     await tester.pump();
     expect(answers, hasLength(1));
 
-    const next = CircleQuestion(
+    final next = CircleQuestion.single(
       itemId: 'pain_noun',
       tier: Tier.a0,
-      mode: GameMode.circle,
+      mode: GameMode.pickTarget,
       prompt: 'боль',
-      options: ['Schmerz', 'Scherz', 'Schmelz'],
+      options: const ['Schmerz', 'Scherz', 'Schmelz'],
       answerIndex: 0,
       lumens: 20,
     );
@@ -203,5 +219,140 @@ void main() {
     await tester.pump();
     expect(answers, hasLength(2));
     expect(answers.last.$1, 0);
+  });
+
+  // Знакомство с новым словом: вариант один. Раньше такой круг был
+  // недостижим — сборщик возвращал `null`, не набрав двух дистракторов, — и
+  // проверять, что арена его переживает, было незачем. Теперь это законный
+  // круг, и он обязан работать тем же жестом, что и остальные: соединил,
+  // услышал, увидел перевод.
+  testWidgets('круг из одного варианта отвечает тапом', (tester) async {
+    final answers = await pumpArena(
+      tester,
+      q: CircleQuestion.single(
+        itemId: 'nurse_person',
+        tier: Tier.a0,
+        mode: GameMode.pickTarget,
+        prompt: 'медсестра',
+        options: const ['die Krankenschwester'],
+        answerIndex: 0,
+        isNew: true,
+        lumens: 0,
+      ),
+    );
+
+    expect(find.text('die Krankenschwester'), findsOneWidget);
+
+    await tester.tap(find.text('die Krankenschwester'));
+    await tester.pump();
+
+    expect(answers, hasLength(1));
+    expect(answers.single.$1, 0);
+  });
+
+  testWidgets('единственный вариант соединяется линией от центра',
+      (tester) async {
+    final answers = await pumpArena(
+      tester,
+      q: CircleQuestion.single(
+        itemId: 'nurse_person',
+        tier: Tier.a0,
+        mode: GameMode.pickTarget,
+        prompt: 'медсестра',
+        options: const ['die Krankenschwester'],
+        answerIndex: 0,
+        isNew: true,
+        lumens: 0,
+      ),
+    );
+
+    final gesture = await tester.startGesture(
+      tester.getCenter(find.byType(CircleArena)),
+    );
+    await gesture.moveTo(
+      tester.getTopLeft(find.byType(CircleArena)) + optionCenter(0, 1),
+    );
+    await tester.pump();
+    await gesture.up();
+    await tester.pump();
+
+    expect(answers, hasLength(1));
+    expect(answers.single.$1, 0);
+  });
+
+  // Механики на слух: в центре динамик. Текст в центре отдал бы ответ, а
+  // задание в том, чтобы узнать слово на слух, — поэтому вопрос здесь
+  // нарочно несёт слово в `prompt`, и арена обязана его не показать.
+  testWidgets('центр на слух показывает динамик, а не слово', (tester) async {
+    await pumpArena(
+      tester,
+      q: CircleQuestion.single(
+        itemId: 'doctor_person',
+        tier: Tier.a0,
+        mode: GameMode.listenNative,
+        prompt: 'Arzt',
+        promptSpeech: 'Arzt',
+        options: const ['врач', 'учитель', 'сосед'],
+        answerIndex: 0,
+        lumens: 35,
+      ),
+      onReplay: () {},
+    );
+
+    expect(find.text('Arzt'), findsNothing);
+    expect(find.byIcon(Icons.volume_up), findsOneWidget);
+    for (final option in const ['врач', 'учитель', 'сосед']) {
+      expect(find.text(option), findsOneWidget);
+    }
+  });
+
+  testWidgets('нажатие на динамик проигрывает заново', (tester) async {
+    var replays = 0;
+    final listen = CircleQuestion.single(
+      itemId: 'doctor_person',
+      tier: Tier.a0,
+      mode: GameMode.listenNative,
+      prompt: '',
+      promptSpeech: 'Arzt',
+      options: const ['врач', 'учитель', 'сосед'],
+      answerIndex: 0,
+      lumens: 35,
+    );
+
+    await pumpArena(tester, q: listen, onReplay: () => replays++);
+
+    // Повторное прослушивание — часть задания, а не подсказка: слушать можно
+    // сколько нужно, пока ответ не выбран.
+    await tester.tap(find.byIcon(Icons.volume_up));
+    await tester.pump();
+    await tester.tap(find.byIcon(Icons.volume_up));
+    await tester.pump();
+
+    expect(replays, 2);
+  });
+
+  testWidgets('замороженный круг не проигрывает заново', (tester) async {
+    var replays = 0;
+
+    await pumpArena(
+      tester,
+      enabled: false,
+      q: CircleQuestion.single(
+        itemId: 'doctor_person',
+        tier: Tier.a0,
+        mode: GameMode.listenNative,
+        prompt: '',
+        promptSpeech: 'Arzt',
+        options: const ['врач', 'учитель', 'сосед'],
+        answerIndex: 0,
+        lumens: 35,
+      ),
+      onReplay: () => replays++,
+    );
+
+    await tester.tap(find.byIcon(Icons.volume_up), warnIfMissed: false);
+    await tester.pump();
+
+    expect(replays, 0);
   });
 }

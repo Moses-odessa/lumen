@@ -7,32 +7,38 @@ import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
 
-/// Собирает круг из контентной базы: что в центре, какие варианты вокруг.
+/// Собирает вопрос из контентной базы: что в центре, какие варианты вокруг.
 ///
-/// Качество круга целиком определяется вариантами вокруг — случайные слова
+/// Качество вопроса целиком определяется вариантами — случайные слова
 /// превращают игру в угадайку. Поэтому дистракторы берутся из контента, где
 /// их подобрал человек, и только при их нехватке добираются соседями по
 /// созвездию.
+///
+/// **Что решает сборщик, а что нет.** Раньше здесь решалось всё: и сколько
+/// вариантов, и какого они вида, — по механике, а сверху сборщик прибавлял
+/// надбавку захода. Теперь всё это приходит в [PlannedCircle]: вариантность
+/// есть шкала сложности, и распоряжаться ею должен тот, кто отвечает за
+/// сложность. Сборщик знает только, где взять слова.
+///
+/// Про заход он не знает ничего, и это не изящество, а починка. Пока надбавка
+/// была здесь, она прибавлялась к каждому кругу — включая тот, которому
+/// планировщик намеренно поставил один вариант, чтобы знакомство с новым
+/// словом было показом, а не проверкой.
 class QuestionBuilder {
   QuestionBuilder({
     required this.content,
     required this.targetLang,
     required this.nativeLang,
-    this.extraOptions = 0,
     Random? random,
   }) : _random = random ?? Random();
 
   final ContentDatabase content;
 
-  /// Язык изучения — на нём варианты в продуктивных режимах.
+  /// Язык изучения.
   final String targetLang;
 
-  /// Язык подсказок — на нём центр круга.
+  /// Язык подсказок.
   final String nativeLang;
-
-  /// Сколько лишних вариантов добавляет уровень захода: чем выше, тем меньше
-  /// шанс угадать.
-  final int extraOptions;
 
   final Random _random;
 
@@ -50,217 +56,290 @@ class QuestionBuilder {
     if (target == null || native == null) return null;
 
     return switch (circle.mode) {
-      GameMode.recognition => _recognition(circle, concept, target, native),
-      GameMode.typing => _typing(circle, concept, target, native),
-      GameMode.audio => _audio(circle, concept, target),
-      GameMode.circle => _productive(circle, concept, target, native, 'far'),
-      GameMode.tight => _productive(circle, concept, target, native, 'near'),
-      // Фраза-босс собирается отдельно, через buildBoss: у неё другой
-      // источник центра. Ветка достижима только через круг, запланированный
-      // по концепту, — и `far` здесь по той же причине, что и там.
-      GameMode.phrase => _productive(circle, concept, target, native, 'far'),
+      // Варианты на родном: центр — изучаемый язык или звук.
+      GameMode.pickNative =>
+        _pick(circle, concept, target, native, toTarget: false, audio: false),
+      GameMode.listenNative =>
+        _pick(circle, concept, target, native, toTarget: false, audio: true),
+
+      // Варианты на изучаемом: центр — родной язык или звук.
+      GameMode.pickTarget =>
+        _pick(circle, concept, target, native, toTarget: true, audio: false),
+      GameMode.listenTarget =>
+        _pick(circle, concept, target, native, toTarget: true, audio: true),
+
+      // Фразовые механики собираются отдельно: у них другой источник центра.
+      // Ветка достижима только если этап поставил их на круг по концепту, —
+      // тогда собрать нечего, и это честнее, чем показать слово под видом
+      // фразы.
+      GameMode.fillGaps || GameMode.buildPhrase => null,
     };
   }
 
-  /// Босс уровня: предложение с пропуском, вокруг слова той же темы.
+  /// Круг с выбором: механики a, b, c, d.
+  ///
+  /// Одна функция на четыре механики, потому что различий между ними ровно
+  /// два: на каком языке варианты и что в центре — текст или звук. Держать
+  /// четыре почти одинаковые функции значило бы четыре раза повторить
+  /// подстановку артикля и сборку вариантов.
+  Future<CircleQuestion?> _pick(
+    PlannedCircle circle,
+    ConceptRow concept,
+    LexemeRow target,
+    LexemeRow native, {
+    required bool toTarget,
+    required bool audio,
+  }) async {
+    final lang = toTarget ? targetLang : nativeLang;
+    final answer = toTarget ? target.form : native.form;
+
+    final distractors = await _distractors(
+      concept: concept,
+      lang: lang,
+      // Созвучные дистракторы существуют только на языке изучения: их
+      // подбирают по фонетике, и на родном языке их писать не стали
+      // намеренно. Просить их там — значит гарантированно получить пустоту и
+      // добор соседями.
+      kind: toTarget ? circle.distractorKind : DistractorKind.far,
+      itemId: circle.itemId,
+    );
+
+    final options = _assembleOptions(
+      answer: answer,
+      distractors: distractors,
+      count: circle.options,
+    );
+    if (options == null) return null;
+
+    return CircleQuestion.single(
+      itemId: circle.itemId,
+      tier: Tier.fromCode(concept.tier),
+      mode: circle.mode,
+      // В механиках на слух центр пуст: его занимает динамик.
+      prompt: audio ? '' : (toTarget ? native.form : _withArticle(target)),
+      promptHint: audio ? null : (toTarget ? native.note : target.note),
+      options: options.forms,
+      answerIndex: options.answerIndex,
+      lumens: circle.lumens,
+      isNew: circle.isNew,
+      promptSpeech: audio ? target.form : null,
+      answerSpeech: target.form,
+      answerArticle: target.article,
+    );
+  }
+
+  /// Фраза: заполнить пропуски (**e**) или собрать предложение (**f**).
   ///
   /// Слова игрок знает, а предложение из них собрать не может — ровно эту
-  /// границу босс и проверяет.
+  /// границу фразовые механики и проверяют.
   ///
-  /// Варианты берутся из `far`, а не из `near`, и это не мелочь. `near` — это
-  /// созвучные слова, а созвучное составное существительное почти всегда имеет
-  /// ту же вершину: Stadtplan / Bauplan / Zeitplan, Kindeswohl / Gemeinwohl.
-  /// Общая вершина означает общий род, общее склонение и общую сочетаемость —
-  /// то есть такой «неверный» вариант встаёт в пропуск ничуть не хуже ответа,
-  /// и круг перестаёт иметь единственное решение. `far` — слова той же темы с
-  /// другим значением; они в пропуск обычно не встают, а когда встают, разница
-  /// именно смысловая, и её проверять честно.
-  Future<CircleQuestion?> buildBoss({
+  /// Варианты для пропуска берутся, в порядке предпочтения: собственные
+  /// неверные слова слота, потом `far` опорного концепта, потом соседи по
+  /// созвездию. Своих неверных слов у большинства фраз пока нет, и добор —
+  /// не запасной путь, а основной; но когда они появятся, они вытеснят
+  /// добор, потому что подобранное под пропуск всегда лучше подобранного под
+  /// тему.
+  ///
+  /// `far`, а не `near`, и это не мелочь. `near` — созвучные слова, а
+  /// созвучное составное существительное почти всегда имеет ту же вершину:
+  /// Stadtplan / Bauplan / Zeitplan, Kindeswohl / Gemeinwohl. Общая вершина
+  /// означает общий род, общее склонение и общую сочетаемость — то есть
+  /// такой «неверный» вариант встаёт в пропуск ничуть не хуже ответа, и
+  /// фраза перестаёт иметь единственное решение.
+  Future<CircleQuestion?> buildPhrase({
     required String constellation,
     required Tier tier,
     required Lumens lumens,
+    GameMode mode = GameMode.fillGaps,
+    int options = ScoreBalance.optionsMax,
+  }) async {
+    final phrase = await pickPhrase(constellation: constellation, tier: tier);
+    if (phrase == null) return null;
+    return buildPhraseQuestion(
+      phrase: phrase,
+      mode: mode,
+      constellation: constellation,
+      lumens: lumens,
+      options: options,
+    );
+  }
+
+  /// Тянет случайную фразу созвездия.
+  ///
+  /// Отдельный шаг нужен затем, чтобы две фразовые механики можно было
+  /// построить на **одном** предложении. Пока выбор был внутри сборки, вызов
+  /// её дважды давал два независимых предложения, и обещание «сначала
+  /// заполни пропуски, потом собери то же самое» выполнялось только когда
+  /// случайность совпадала.
+  Future<PhraseRow?> pickPhrase({
+    required String constellation,
+    required Tier tier,
   }) async {
     final phrases =
         await content.phrasesFor(constellation, tier, lang: targetLang);
     if (phrases.isEmpty) return null;
-    final phrase = phrases[_random.nextInt(phrases.length)];
+    return phrases[_random.nextInt(phrases.length)];
+  }
+
+  /// Собирает вопрос по уже выбранной фразе.
+  Future<CircleQuestion?> buildPhraseQuestion({
+    required PhraseRow phrase,
+    required GameMode mode,
+    required String constellation,
+    required Lumens lumens,
+    int options = ScoreBalance.optionsMax,
+  }) async {
+    final answers = await content.phraseAnswers(phrase.id);
+    if (answers.isEmpty) return null;
 
     final conceptIds = await content.phraseConceptIds(phrase.id);
     final anchor = conceptIds.isEmpty ? null : conceptIds.first;
+    final translation =
+        await content.phraseTranslation(phrase.id, nativeLang);
 
-    final distractors = <String>[];
-    if (anchor != null) {
-      distractors.addAll(
-        (await content.distractorsFor(anchor, targetLang, 'far'))
-            .map((d) => d.form),
-      );
+    return mode == GameMode.buildPhrase
+        ? _buildFromWords(phrase, answers, anchor, lumens, translation)
+        : _fillGaps(
+            phrase,
+            answers,
+            anchor,
+            constellation,
+            lumens,
+            translation,
+            options,
+          );
+  }
+
+  /// **e.** Шаблон с пропусками, слова-кандидаты вокруг.
+  Future<CircleQuestion?> _fillGaps(
+    PhraseRow phrase,
+    List<String> answers,
+    String? anchor,
+    String constellation,
+    Lumens lumens,
+    String? translation,
+    int options,
+  ) async {
+    final own = await content.phraseOptionsFor(phrase.id);
+
+    // Пул общий на все пропуски: игрок видит слова сверху и снизу и тянет
+    // каждое к своему месту. Поэтому в пуле обязаны быть все ответы, и
+    // неверные слова к ним добавляются сверх.
+    final pool = <String>[...answers];
+    final seen = {for (final a in answers) a.toLowerCase()};
+
+    Future<void> addAll(Iterable<String> forms) async {
+      for (final form in forms) {
+        if (pool.length >= options + answers.length - 1) return;
+        if (form.isEmpty || !seen.add(form.toLowerCase())) continue;
+        pool.add(form);
+      }
     }
-    distractors.addAll(await content.siblingForms(
+
+    for (var slot = 0; slot < answers.length; slot++) {
+      await addAll(own[slot] ?? const []);
+    }
+    if (anchor != null) {
+      await addAll((await content.distractorsFor(anchor, targetLang, 'far'))
+          .map((d) => d.form));
+    }
+    await addAll(await content.siblingForms(
       constellation: constellation,
       tier: phrase.tier,
       lang: targetLang,
       excludeConceptId: anchor ?? '',
     ));
 
-    // Ответы фразы приехали в отдельную таблицу: пропусков может быть
-    // несколько. Здесь пока берётся первый — механики «заполни пропуски» и
-    // «собери предложение» приходят с вехой M10.
-    final answers = await content.phraseAnswers(phrase.id);
-    if (answers.isEmpty) return null;
+    // Меньше одного лишнего слова — это не задание, а подстановка.
+    if (pool.length <= answers.length) return null;
 
-    final options = _assembleOptions(
-      answer: answers.first,
-      distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.phrase,
-          extra: extraOptions),
-    );
-    if (options == null) return null;
+    final shuffled = pool.toList()..shuffle(_random);
+
+    // Индексы ищутся по неиспользованным вхождениям, а не через `indexOf`.
+    //
+    // Одно и то же слово может отвечать на два пропуска («Ich {gehe} und du
+    // {gehe}»), и тогда `indexOf` вернул бы оба раза первый индекс: два слота
+    // спорили бы за один вариант, а второе такое же слово в пуле осталось бы
+    // недостижимым. Рядом, в `_buildFromWords`, от этого стоит защита — а
+    // здесь её не было, и два сборщика фраз расходились друг с другом.
+    final used = <int>{};
+    final bySlot = <int>[];
+    for (final answer in answers) {
+      final index = _firstUnused(shuffled, answer, used);
+      if (index < 0) return null;
+      used.add(index);
+      bySlot.add(index);
+    }
 
     return CircleQuestion(
       itemId: anchor ?? phrase.id,
       tier: Tier.fromCode(phrase.tier),
-      mode: GameMode.phrase,
-      prompt: _withGap(phrase.template),
+      mode: GameMode.fillGaps,
+      prompt: _withGaps(phrase.template),
       promptHint: phrase.register,
-      options: options.forms,
-      answerIndex: options.answerIndex,
+      options: shuffled,
+      answers: bySlot,
       lumens: lumens,
       answerSpeech: _withAnswers(phrase.template, answers),
+      translation: translation,
     );
   }
 
-  // ── Режимы ──────────────────────────────────────────────────────────────
+  /// **f.** Слова врассыпную, пустые места по их числу.
+  ///
+  /// Слова берутся из самого предложения, а не подбираются: цель — порядок, а
+  /// не выбор. Лишние слова здесь были бы другой задачей.
+  CircleQuestion? _buildFromWords(
+    PhraseRow phrase,
+    List<String> answers,
+    String? anchor,
+    Lumens lumens,
+    String? translation,
+  ) {
+    final sentence = _withAnswers(phrase.template, answers);
+    final words = sentence
+        .split(RegExp(r'\s+'))
+        .where((w) => w.isNotEmpty)
+        .toList();
 
-  /// Узнавание: в центре изучаемый язык, вокруг варианты на родном.
-  Future<CircleQuestion?> _recognition(
-    PlannedCircle circle,
-    ConceptRow concept,
-    LexemeRow target,
-    LexemeRow native,
-  ) async {
-    final distractors = await _distractors(
-      concept: concept,
-      lang: nativeLang,
-      kind: 'far',
-      itemId: circle.itemId,
-    );
+    // Короткое предложение собирается наугад: из трёх слов порядок угадать
+    // проще, чем вспомнить. Порог — в балансе.
+    if (words.length < SessionBalance.buildPhraseMinWords) return null;
 
-    final options = _assembleOptions(
-      answer: native.form,
-      distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.recognition,
-          extra: extraOptions),
-    );
-    if (options == null) return null;
-
-    return CircleQuestion(
-      itemId: circle.itemId,
-      tier: Tier.fromCode(concept.tier),
-      mode: GameMode.recognition,
-      prompt: _withArticle(target),
-      promptHint: target.note,
-      options: options.forms,
-      answerIndex: options.answerIndex,
-      lumens: circle.lumens,
-      isNew: circle.isNew,
-      answerSpeech: target.form,
-      answerArticle: target.article,
-    );
-  }
-
-  /// Круг и тесный круг: в центре родной язык, вокруг изучаемый.
-  /// Отличаются только видом дистракторов — тематические или созвучные.
-  Future<CircleQuestion?> _productive(
-    PlannedCircle circle,
-    ConceptRow concept,
-    LexemeRow target,
-    LexemeRow native,
-    String kind,
-  ) async {
-    final distractors = await _distractors(
-      concept: concept,
-      lang: targetLang,
-      kind: kind,
-      itemId: circle.itemId,
-    );
-
-    final options = _assembleOptions(
-      answer: target.form,
-      distractors: distractors,
-      count: ScoreBalance.optionsFor(circle.mode,
-          extra: extraOptions),
-    );
-    if (options == null) return null;
+    final pool = words.toList()..shuffle(_random);
+    // Индексы ищутся по вхождениям, а не по `indexOf`: слово в предложении
+    // может повторяться («Ich habe ... und ich ...»), и тогда второй слот
+    // получил бы индекс первого, а один из вариантов остался бы висеть.
+    final used = <int>{};
+    final answersBySlot = <int>[];
+    for (final word in words) {
+      final index = _firstUnused(pool, word, used);
+      if (index < 0) return null;
+      used.add(index);
+      answersBySlot.add(index);
+    }
 
     return CircleQuestion(
-      itemId: circle.itemId,
-      tier: Tier.fromCode(concept.tier),
-      mode: circle.mode,
-      prompt: native.form,
-      promptHint: native.note,
-      options: options.forms,
-      answerIndex: options.answerIndex,
-      lumens: circle.lumens,
-      isNew: circle.isNew,
-      answerSpeech: target.form,
-      answerArticle: target.article,
-    );
-  }
-
-  /// Слух: в центре только звук.
-  Future<CircleQuestion?> _audio(
-    PlannedCircle circle,
-    ConceptRow concept,
-    LexemeRow target,
-  ) async {
-    final distractors = await _distractors(
-      concept: concept,
-      lang: targetLang,
-      kind: 'near',
-      itemId: circle.itemId,
-    );
-
-    final options = _assembleOptions(
-      answer: target.form,
-      distractors: distractors,
-      count: ScoreBalance.optionsFor(GameMode.audio,
-          extra: extraOptions),
-    );
-    if (options == null) return null;
-
-    return CircleQuestion(
-      itemId: circle.itemId,
-      tier: Tier.fromCode(concept.tier),
-      mode: GameMode.audio,
+      itemId: anchor ?? phrase.id,
+      tier: Tier.fromCode(phrase.tier),
+      mode: GameMode.buildPhrase,
+      // Центр пуст: его занимают пустые места по числу слов.
       prompt: '',
-      options: options.forms,
-      answerIndex: options.answerIndex,
-      lumens: circle.lumens,
-      promptSpeech: target.form,
-      answerSpeech: target.form,
-      answerArticle: target.article,
+      promptHint: phrase.register,
+      options: pool,
+      answers: answersBySlot,
+      lumens: lumens,
+      answerSpeech: sentence,
+      translation: translation,
     );
   }
 
-  /// Набор: поле ввода, вариантов нет.
-  CircleQuestion _typing(
-    PlannedCircle circle,
-    ConceptRow concept,
-    LexemeRow target,
-    LexemeRow native,
-  ) =>
-      CircleQuestion(
-        itemId: circle.itemId,
-        tier: Tier.fromCode(concept.tier),
-        mode: GameMode.typing,
-        prompt: native.form,
-        promptHint: target.gender,
-        options: [target.form],
-        answerIndex: 0,
-        lumens: circle.lumens,
-        answerSpeech: target.form,
-        answerArticle: target.article,
-      );
+  static int _firstUnused(List<String> pool, String word, Set<int> used) {
+    for (var i = 0; i < pool.length; i++) {
+      if (!used.contains(i) && pool[i] == word) return i;
+    }
+    return -1;
+  }
 
   // ── Варианты ────────────────────────────────────────────────────────────
 
@@ -268,15 +347,18 @@ class QuestionBuilder {
   Future<List<String>> _distractors({
     required ConceptRow concept,
     required String lang,
-    required String kind,
+    required DistractorKind kind,
     required String itemId,
   }) async {
-    final picked = (await content.distractorsFor(itemId, lang, kind))
+    final picked = (await content.distractorsFor(itemId, lang, kind.code))
         .map((d) => d.form)
         .toList();
 
-    // На родном языке дистракторы есть не всегда — их пишут прежде всего
-    // для языка изучения. Соседи по созвездию закрывают дыру.
+    // На родном языке дистракторы есть только у горстки концептов, и это
+    // решение, а не пробел: варианты на родном берутся из соседей по
+    // созвездию — из слов, которые уже написаны и проверены. Придумать
+    // несуществующее слово при этом структурно невозможно, а 31 000 единиц
+    // ручной работы не появляется. Заданные руками имеют приоритет.
     picked.addAll(await content.siblingForms(
       constellation: concept.constellation,
       tier: concept.tier,
@@ -290,23 +372,30 @@ class QuestionBuilder {
   ///
   /// Дубли и совпадения с ответом отсеиваются: два одинаковых варианта в
   /// круге — это не сложность, а поломка.
+  ///
+  /// Один вариант — законный случай, а не вырождение: так устроено
+  /// знакомство с новым словом. Раньше сборщик возвращал `null`, если не
+  /// набралось двух дистракторов, и такой круг молча исчезал из уровня.
   ({List<String> forms, int answerIndex})? _assembleOptions({
     required String answer,
     required List<String> distractors,
     required int count,
   }) {
-    if (count <= 0) return (forms: [answer], answerIndex: 0);
+    final wanted = count.clamp(ScoreBalance.optionsMin, 64);
+    if (wanted <= 1) return (forms: [answer], answerIndex: 0);
 
     final seen = {answer.toLowerCase()};
     final picked = <String>[];
     for (final form in distractors) {
-      if (picked.length >= count - 1) break;
+      if (picked.length >= wanted - 1) break;
       if (form.isEmpty || !seen.add(form.toLowerCase())) continue;
       picked.add(form);
     }
 
-    // Меньше двух вариантов — это не круг, а подсказка.
-    if (picked.length < 2) return null;
+    // Ни одного варианта не нашлось: показать один и назвать это выбором
+    // хуже, чем не показать. Но круг из двух — уже вопрос, и монетка честнее
+    // пропуска слова.
+    if (picked.isEmpty) return null;
 
     final forms = [...picked, answer]..shuffle(_random);
     return (forms: forms, answerIndex: forms.indexOf(answer));
@@ -316,17 +405,18 @@ class QuestionBuilder {
       ? lexeme.form
       : '${lexeme.article} ${lexeme.form}';
 
-  /// Заменяет слот шаблона на пропуск:
+  /// Заменяет слоты шаблона на пропуски:
   /// `Ich brauche {help}.` → `Ich brauche _____.`
-  String _withGap(String template) =>
+  String _withGaps(String template) =>
       template.replaceAll(RegExp(r'\{[^}]*\}'), '_____');
 
-  /// Заполняет слот ответом: `Ich brauche {help}.` → `Ich brauche Hilfe.`
+  /// Заполняет слоты ответами: `Ich brauche {help}.` → `Ich brauche Hilfe.`
   ///
   /// Нужно для озвучки фразы. Пока озвучка была файлами, произносилось одно
   /// слово из пропуска — записывать четыреста тридцать два предложения было
   /// незачем. Синтез произносит их бесплатно, и игрок слышит фразу целиком,
   /// ради которой её и учит.
+  ///
   /// Порядок [answers] — это порядок слотов в шаблоне слева направо.
   String _withAnswers(String template, List<String> answers) {
     var i = 0;

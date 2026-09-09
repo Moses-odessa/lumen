@@ -37,6 +37,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get settingsTitle => 'Налаштування';
 
   @override
+  String get commonUndo => 'Скасувати';
+
+  @override
   String get commonNext => 'Далі';
 
   @override
@@ -478,6 +481,41 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String get aboutReviewLimit =>
       'Дві моделі можуть помилятися однаково: вони навчені на даних, що перетинаються. Перехресна перевірка ловить недбалість і суперечності, але не спільну для обох помилку. Якщо ви побачили неточність — контент лежить у відкритому репозиторії, і виправлення це один файл.';
+
+  @override
+  String get profileDays => 'днів грали';
+
+  @override
+  String get profileStreak => 'днів підряд';
+
+  @override
+  String get profileTimeTotal => 'часу в застосунку';
+
+  @override
+  String get profileTimePerDay => 'на день, коли грали';
+
+  @override
+  String get profileScaleTitle => 'Від A0 до B2';
+
+  @override
+  String profileScaleHint(String tier, int percent) {
+    return 'Ви на $tier: $percent% його слів тримаються в памʼяті.';
+  }
+
+  @override
+  String profileScaleLocked(String tier) {
+    return 'Яруси вище $tier ще не вичитані, і гра їх не пропонує.';
+  }
+
+  @override
+  String unitMinutes(int value) {
+    return '$value хв';
+  }
+
+  @override
+  String unitHoursMinutes(int hours, int minutes) {
+    return '$hours год $minutes хв';
+  }
 
   @override
   String get aboutPrivacy =>

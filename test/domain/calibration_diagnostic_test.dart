@@ -28,11 +28,17 @@ void main() {
         var guard = 0;
         while (!state.isDone && guard++ < 200) {
           final step = state.step;
-          final penalty = step.mode == GameMode.phrase
+          // Штраф к вероятности верного ответа: фраза труднее слова, а
+          // созвучные варианты труднее тематических. Второе спрашивается у
+          // круга, а не у механики: «тесный круг» перестал быть режимом и
+          // стал видом дистракторов, и `mode == ...` здесь не упало бы —
+          // оно просто перестало бы срабатывать, и модель игрока тихо стала
+          // бы оптимистичнее самой калибровки.
+          final penalty = step.mode == GameMode.fillGaps
               ? 0.15
-              : step.mode == GameMode.tight
-                  ? 0.08
-                  : 0.0;
+              : step.isTight
+              ? 0.08
+              : 0.0;
           final known = step.tier.index <= tier.index;
           final correct = known
               ? random.nextDouble() > 0.08 + penalty
@@ -70,5 +76,83 @@ void main() {
     }
     // ignore: avoid_print
     print(buffer);
+  });
+
+  test('созвучные варианты доходят до границы', () {
+    // Мера того, чего прежний набор режимов измерить не давал.
+    //
+    // Правило «границу нужно подтвердить хотя бы раз созвучными» раньше
+    // читалось как `mode == GameMode.tight`. Круг и тесный круг слились в
+    // одну механику, и такая проверка не упала бы — она перестала бы
+    // срабатывать никогда, а каждая граница подтверждалась бы шестью
+    // тематическими, то есть с шансом угадать один к шести трижды подряд.
+    //
+    // Поэтому спрашивается не механика, а `distractorKind`, который теперь
+    // едет на самом круге: доля созвучных кругов и то, добираются ли они до
+    // фазы подтверждения в каждом забеге, который до этой фазы дошёл.
+    const runs = 400;
+    final random = Random(11);
+    var circles = 0;
+    var tightCircles = 0;
+    var throughConfirm = 0;
+    var confirmWithoutTight = 0;
+
+    for (var i = 0; i < runs; i++) {
+      var state = CalibrationState.start();
+      var guard = 0;
+      var sawConfirm = false;
+      var sawTight = false;
+
+      while (!state.isDone && guard++ < 200) {
+        final step = state.step;
+        circles++;
+        if (step.phase == CalibrationPhase.confirm) sawConfirm = true;
+        if (step.isTight) {
+          tightCircles++;
+          sawTight = true;
+        }
+        state = Calibration.answer(
+          state,
+          // Игрок средней руки: ошибается примерно каждый седьмой круг вне
+          // зависимости от яруса. Здесь важен не точный итог, а чтобы забеги
+          // разошлись по обеим ветвям — и через подтверждение границы, и
+          // сразу во фразы, когда верхний ярус взят с ходу.
+          correct: random.nextDouble() > 0.15,
+          latency: Duration(milliseconds: 1100 + random.nextInt(900)),
+        );
+      }
+
+      // Незавершённый забег исказил бы измерение молча.
+      expect(
+        state.isDone,
+        isTrue,
+        reason: 'калибровка не сошлась за 200 кругов',
+      );
+
+      if (sawConfirm) {
+        throughConfirm++;
+        if (!sawTight) confirmWithoutTight++;
+      }
+    }
+
+    // Единственная жёсткая проверка в этом файле: ни один забег не имеет
+    // права подтвердить границу одними тематическими вариантами.
+    expect(
+      confirmWithoutTight,
+      0,
+      reason: 'граница подтверждена без созвучных вариантов',
+    );
+    // И сама ветвь подтверждения обязана встречаться: измерение, в котором
+    // её нет, не проверяет ничего.
+    expect(throughConfirm, greaterThan(0));
+
+    // ignore: avoid_print
+    print(
+      '\nСозвучные круги в калибровке:\n'
+      '  забегов через подтверждение границы '
+      '${(throughConfirm * 100 / runs).toStringAsFixed(0)} %\n'
+      '  созвучных кругов ${(tightCircles * 100 / circles).toStringAsFixed(1)}'
+      ' % ($tightCircles из $circles)\n',
+    );
   });
 }

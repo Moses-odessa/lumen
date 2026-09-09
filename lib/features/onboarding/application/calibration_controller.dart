@@ -9,7 +9,6 @@ import '../../../data/repositories/player_repository.dart';
 import '../../../data/repositories/word_state_repository.dart';
 import '../../../domain/calibration/calibration.dart';
 import '../../../domain/entities/circle_question.dart';
-import '../../../domain/entities/game_mode.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
@@ -61,12 +60,36 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     await _loadQuestion();
   }
 
-  /// Ответ на текущий круг.
+  /// Ответ на текущий круг — выбором варианта.
   Future<void> answer(int index, Duration latency) async {
     final question = state.question;
     if (question == null || state.loading) return;
+    if (!question.isSingleSlot) return;
+    await _record(question, question.isCorrectOption(index), latency);
+  }
 
-    final correct = question.isCorrectOption(index);
+  /// Ответ на фразовый вопрос — заполнением всех слотов.
+  Future<void> answerSlots(List<int> bySlot, Duration latency) async {
+    final question = state.question;
+    if (question == null || state.loading) return;
+
+    final correct = bySlot.length == question.slotCount &&
+        List.generate(question.slotCount, (i) => i)
+            .every((i) => question.isCorrectFor(i, bySlot[i]));
+    await _record(question, correct, latency);
+  }
+
+  /// Проигрывает центр заново — механики на слух.
+  void replayPrompt() {
+    final text = state.question?.promptSpeech;
+    if (text != null) ref.read(speechServiceProvider).speak(text);
+  }
+
+  Future<void> _record(
+    CircleQuestion question,
+    bool correct,
+    Duration latency,
+  ) async {
     if (correct) {
       // Верный ответ озвучивается и здесь: калибровка — это уже игра.
       if (question.answerSpeech != null) {
@@ -148,12 +171,13 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       random: _random,
     );
 
-    if (step.mode == GameMode.phrase) {
+    if (step.mode.isPhrase) {
       final constellations = await content.constellations();
       if (constellations.isEmpty) return null;
-      return builder.buildBoss(
+      return builder.buildPhrase(
         constellation: constellations[_random.nextInt(constellations.length)],
         tier: step.tier,
+        mode: step.mode,
         lumens: 0,
       );
     }
@@ -178,6 +202,10 @@ class CalibrationController extends Notifier<CalibrationUiState> {
         mode: step.mode,
         isNew: false,
         lumens: 0,
+        // Вид дистракторов приходит из шага, а не выводится из механики.
+        // На подтверждении границы он созвучный: шесть тематических дают
+        // 17 % случайного попадания, и подтверждать ярус на них дёшево.
+        distractorKind: step.distractorKind,
       ),
     );
   }

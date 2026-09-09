@@ -160,6 +160,12 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get settingsTitle;
 
+  /// No description provided for @commonUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get commonUndo;
+
   /// No description provided for @commonNext.
   ///
   /// In en, this message translates to:
@@ -951,6 +957,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Two models can be wrong in the same way: they are trained on overlapping data. Cross-checking catches carelessness and contradictions, not a mistake both share. If you spot an error, the content lives in the open repository and a fix is one file away.'**
   String get aboutReviewLimit;
+
+  /// No description provided for @profileDays.
+  ///
+  /// In en, this message translates to:
+  /// **'days played'**
+  String get profileDays;
+
+  /// No description provided for @profileStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'days in a row'**
+  String get profileStreak;
+
+  /// No description provided for @profileTimeTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'time in the app'**
+  String get profileTimeTotal;
+
+  /// No description provided for @profileTimePerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'per day played'**
+  String get profileTimePerDay;
+
+  /// No description provided for @profileScaleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'From A0 to B2'**
+  String get profileScaleTitle;
+
+  /// No description provided for @profileScaleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You are on {tier}: {percent}% of its words are held in memory.'**
+  String profileScaleHint(String tier, int percent);
+
+  /// No description provided for @profileScaleLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiers above {tier} are not proofread yet, so the game does not offer them.'**
+  String profileScaleLocked(String tier);
+
+  /// No description provided for @unitMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} min'**
+  String unitMinutes(int value);
+
+  /// No description provided for @unitHoursMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String unitHoursMinutes(int hours, int minutes);
 
   /// No description provided for @aboutPrivacy.
   ///

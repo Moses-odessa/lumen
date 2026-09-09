@@ -6,6 +6,12 @@ import 'package:lumen/domain/scoring/score.dart';
 /// Очки — это не «сколько красивых цифр показать», а стимул. Каждый тест
 /// здесь защищает одно из четырёх правил из docs/CONCEPT.md, которые не дают
 /// формуле выродиться в угадайку.
+///
+/// Механика в начислении участвует только множителем: вид дистракторов
+/// ([DistractorKind]) в формулу не входит вообще, поэтому «тесный круг» и
+/// «круг» здесь неотличимы — и правильно, что неотличимы: за одинаковое
+/// требование к игроку платится одинаково, а сложность круга регулируется
+/// числом вариантов.
 void main() {
   const fast = Duration(milliseconds: 900);
   const medium = Duration(milliseconds: 1500);
@@ -69,7 +75,7 @@ void main() {
         run.apply(
           correct: true,
           latency: medium,
-          mode: GameMode.circle,
+          mode: GameMode.pickTarget,
           lumens: 50,
         );
       }
@@ -81,17 +87,26 @@ void main() {
       final run = RunScore();
       for (var i = 0; i < 3; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
       }
       run.apply(
-        correct: false, latency: slow, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: slow,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       expect(run.combo.streak, 0);
       expect(run.combo.isLocked, isFalse);
 
       // Следующая верная связь сразу поднимает серию.
       run.apply(
-        correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+        correct: true,
+        latency: medium,
+        mode: GameMode.pickTarget,
+        lumens: 50);
       expect(run.combo.streak, 1);
     });
 
@@ -99,10 +114,16 @@ void main() {
       final run = RunScore();
       for (var i = 0; i < 5; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
       }
       run.apply(
-        correct: false, latency: fast, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: fast,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       expect(run.combo.streak, 0);
       expect(run.combo.lockRemaining, ScoreBalance.fastErrorComboLock);
@@ -111,21 +132,33 @@ void main() {
       // математически убыточно.
       for (var i = 0; i < ScoreBalance.fastErrorComboLock; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
         expect(run.combo.streak, 0, reason: 'связь ${i + 1} под блокировкой');
       }
 
       run.apply(
-        correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+        correct: true,
+        latency: medium,
+        mode: GameMode.pickTarget,
+        lumens: 50);
       expect(run.combo.streak, 1);
     });
 
     test('под блокировкой очки идут, но без бонуса комбо', () {
       final run = RunScore();
       run.apply(
-        correct: false, latency: fast, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: fast,
+        mode: GameMode.pickTarget,
+        lumens: 50);
       final result = run.apply(
-        correct: true, latency: slow, mode: GameMode.circle, lumens: 50);
+        correct: true,
+        latency: slow,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       expect(result.score, greaterThan(0));
       expect(result.comboMultiplier, 1.0);
@@ -135,11 +168,11 @@ void main() {
       final run = RunScore();
       // Первая верная связь не должна получить бонус за саму себя.
       final first = run.apply(
-        correct: true, latency: slow, mode: GameMode.circle, lumens: 0);
+        correct: true, latency: slow, mode: GameMode.pickTarget, lumens: 0);
       expect(first.comboMultiplier, 1.0);
 
       final second = run.apply(
-        correct: true, latency: slow, mode: GameMode.circle, lumens: 0);
+        correct: true, latency: slow, mode: GameMode.pickTarget, lumens: 0);
       expect(second.comboMultiplier, closeTo(1.1, 1e-9));
     });
   });
@@ -149,32 +182,38 @@ void main() {
       final result = ScoreRules.scoreConnection(
         correct: true,
         latency: const Duration(milliseconds: 500),
-        mode: GameMode.typing,
+        mode: GameMode.pickTarget,
         lumens: 80,
         combo: const ComboState(streak: 5),
       );
 
-      // 10 × 3.0 × 1.5 × 2.0 = 90
-      expect(result.score, 90);
+      // 10 × 3.0 × 1.5 × 1.6 = 72
+      expect(result.score, 72);
       expect(result.speedMultiplier, 3.0);
       expect(result.comboMultiplier, closeTo(1.5, 1e-9));
-      expect(result.modeMultiplier, 2.0);
+      expect(result.modeMultiplier, 1.6);
     });
 
     test('ошибка не приносит очков и не отнимает набранные', () {
       final run = RunScore();
       run.apply(
-        correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+        correct: true,
+        latency: medium,
+        mode: GameMode.pickTarget,
+        lumens: 50);
       final before = run.score;
 
       final result = run.apply(
-        correct: false, latency: medium, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: medium,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       expect(result.score, 0);
       expect(run.score, before);
     });
 
-    test('сложный режим приносит больше очков за тот же ответ', () {
+    test('чем больше механика требует, тем дороже тот же верный ответ', () {
       int scoreIn(GameMode mode) => ScoreRules.scoreConnection(
             correct: true,
             latency: medium,
@@ -183,8 +222,30 @@ void main() {
             combo: const ComboState(),
           ).score;
 
-      expect(scoreIn(GameMode.phrase), greaterThan(scoreIn(GameMode.typing)));
-      expect(scoreIn(GameMode.typing), greaterThan(scoreIn(GameMode.circle)));
+      // Лестница идёт по требованию к игроку: узнать значение по тексту
+      // дешевле всего, восстановить порядок слов по памяти — дороже всего.
+      // На верхушке стоял «Набор» (2.0); после его удаления там buildPhrase,
+      // потому что это единственная оставшаяся механика, где форму надо
+      // произвести, а не выбрать.
+      const ladder = [
+        GameMode.pickNative,
+        GameMode.listenNative,
+        GameMode.pickTarget,
+        GameMode.listenTarget,
+        GameMode.fillGaps,
+        GameMode.buildPhrase,
+      ];
+      // Механика без места в лестнице стоила бы столько же, сколько соседняя,
+      // и разница в требовании к игроку перестала бы оплачиваться.
+      expect(ladder.toSet(), GameMode.values.toSet());
+
+      for (var i = 1; i < ladder.length; i++) {
+        expect(
+          scoreIn(ladder[i]),
+          greaterThan(scoreIn(ladder[i - 1])),
+          reason: '${ladder[i].name} дешевле ${ladder[i - 1].name}',
+        );
+      }
     });
   });
 
@@ -193,7 +254,7 @@ void main() {
       final result = ScoreRules.scoreConnection(
         correct: true,
         latency: fast,
-        mode: GameMode.recognition,
+        mode: GameMode.pickNative,
         lumens: ScoreBalance.recognitionScoreCapLm,
         combo: const ComboState(streak: 10),
       );
@@ -206,18 +267,51 @@ void main() {
       final result = ScoreRules.scoreConnection(
         correct: true,
         latency: medium,
-        mode: GameMode.recognition,
+        mode: GameMode.pickNative,
         lumens: 0,
         combo: const ComboState(),
       );
       expect(result.score, greaterThan(0));
     });
 
+    test('потолок узнавания режет обе непроизводящие механики', () {
+      // Непроизводящих механик теперь две, а не одна: понимание проверяется
+      // и с текста (pickNative), и со слуха (listenNative). Если потолок
+      // накрыл бы только одну, вторая стала бы тем самым способом фармить
+      // лёгкое на выученном, от которого потолок и придуман.
+      final passive = GameMode.values.where((m) => !m.isProductive);
+      expect(passive, hasLength(greaterThan(1)));
+      for (final mode in passive) {
+        expect(
+          ScoreRules.scoreConnection(
+            correct: true,
+            latency: fast,
+            mode: mode,
+            lumens: 100,
+            combo: const ComboState(streak: 10),
+          ).score,
+          0,
+          reason: mode.name,
+        );
+      }
+    });
+
     test('продуктивные режимы приносят очки на любой яркости', () {
       for (final mode in GameMode.values.where((m) => m.isProductive)) {
         expect(ScoreRules.scores(mode, 100), isTrue, reason: '$mode');
       }
-      expect(ScoreRules.scores(GameMode.recognition, 100), isFalse);
+      for (final mode in GameMode.values.where((m) => !m.isProductive)) {
+        expect(ScoreRules.scores(mode, 100), isFalse, reason: '$mode');
+      }
+    });
+
+    test('слух делится по производству, а не по наличию звука', () {
+      // Прежний «Слух» был одним режимом и попадал под потолок целиком.
+      // Теперь звук стоит по обе стороны деления, и потолок обязан резать
+      // ровно ту половину, где ответ выбирают на родном языке: различить
+      // созвучное на изучаемом — это уже владение, за него платят.
+      expect(ScoreRules.scores(GameMode.listenNative, 100), isFalse);
+      expect(ScoreRules.scores(GameMode.listenTarget, 100), isTrue);
     });
   });
 
@@ -229,24 +323,29 @@ void main() {
           current: streak,
           correct: true,
           latency: const Duration(milliseconds: 1000),
-          mode: GameMode.circle,
+          mode: GameMode.pickTarget,
         );
       }
       expect(ScoreRules.isBurning(streak), isTrue);
     });
 
-    test('узнавание не зажигает слово, как бы быстро ни отвечали', () {
-      var streak = 0;
-      for (var i = 0; i < 10; i++) {
-        streak = ScoreRules.nextFastStreak(
-          current: streak,
-          correct: true,
-          latency: const Duration(milliseconds: 300),
-          mode: GameMode.recognition,
-        );
+    test('ни одно узнавание не зажигает слово, как бы быстро ни отвечали', () {
+      // Проверяются обе непроизводящие механики: узнавание с текста и
+      // узнавание со слуха. Скорость на них не доказывает владения, и
+      // счётчик горящих слов не должен от них расти ни на единицу.
+      for (final mode in GameMode.values.where((m) => !m.isProductive)) {
+        var streak = 0;
+        for (var i = 0; i < 10; i++) {
+          streak = ScoreRules.nextFastStreak(
+            current: streak,
+            correct: true,
+            latency: const Duration(milliseconds: 300),
+            mode: mode,
+          );
+        }
+        expect(streak, 0, reason: mode.name);
+        expect(ScoreRules.isBurning(streak), isFalse, reason: mode.name);
       }
-      expect(streak, 0);
-      expect(ScoreRules.isBurning(streak), isFalse);
     });
 
     test('медленный верный ответ обнуляет серию', () {
@@ -254,7 +353,7 @@ void main() {
         current: 2,
         correct: true,
         latency: const Duration(seconds: 3),
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
       );
       expect(streak, 0);
     });
@@ -265,7 +364,7 @@ void main() {
           current: 2,
           correct: false,
           latency: const Duration(milliseconds: 500),
-          mode: GameMode.circle,
+          mode: GameMode.pickTarget,
         ),
         0,
       );
@@ -277,7 +376,7 @@ void main() {
         current: 2,
         correct: true,
         latency: const Duration(milliseconds: 1400),
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
       );
       expect(streak, 3);
     });
@@ -288,7 +387,10 @@ void main() {
       final run = RunScore();
       for (var i = 0; i < 10; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
       }
       final summary = run.summary();
 
@@ -302,10 +404,16 @@ void main() {
       final run = RunScore();
       for (var i = 0; i < 9; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
       }
       run.apply(
-        correct: false, latency: slow, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: slow,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       final summary = run.summary();
       expect(summary.isPerfect, isFalse);
@@ -324,13 +432,41 @@ void main() {
       final run = RunScore();
       for (var i = 0; i < 7; i++) {
         run.apply(
-          correct: true, latency: medium, mode: GameMode.circle, lumens: 50);
+          correct: true,
+          latency: medium,
+          mode: GameMode.pickTarget,
+          lumens: 50);
       }
       run.apply(
-        correct: false, latency: slow, mode: GameMode.circle, lumens: 50);
+        correct: false,
+        latency: slow,
+        mode: GameMode.pickTarget,
+        lumens: 50);
 
       expect(run.combo.streak, 0);
       expect(run.summary().maxCombo, 7);
+    });
+
+    test('фразовая механика идёт в тот же забег, что и словесная', () {
+      // Забег смешанный: fillGaps и buildPhrase ставятся этапом уровня, а не
+      // яркостью слова, и попадают в те же десять кругов. Накопитель не
+      // должен ничего знать про источник материала — иначе точность забега
+      // считалась бы по одной его половине.
+      final run = RunScore();
+      run.apply(
+        correct: true,
+        latency: medium,
+        mode: GameMode.pickTarget,
+        lumens: 50);
+      run.apply(
+        correct: true, latency: medium, mode: GameMode.fillGaps, lumens: 50);
+      run.apply(
+        correct: true, latency: medium, mode: GameMode.buildPhrase, lumens: 50);
+
+      final summary = run.summary();
+      expect(summary.circles, 3);
+      expect(summary.isPerfect, isTrue);
+      expect(summary.maxCombo, 3);
     });
   });
 

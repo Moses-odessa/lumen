@@ -37,6 +37,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsTitle => 'Настройки';
 
   @override
+  String get commonUndo => 'Отменить';
+
+  @override
   String get commonNext => 'Дальше';
 
   @override
@@ -476,6 +479,41 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get aboutReviewLimit =>
       'Две модели могут ошибаться одинаково: они обучены на пересекающихся данных. Перекрёстная проверка ловит невнимательность и противоречия, но не общую для обеих ошибку. Если вы заметили неточность — контент лежит в открытом репозитории, и правка это один файл.';
+
+  @override
+  String get profileDays => 'дней играл';
+
+  @override
+  String get profileStreak => 'дней подряд';
+
+  @override
+  String get profileTimeTotal => 'времени в приложении';
+
+  @override
+  String get profileTimePerDay => 'в день, когда играл';
+
+  @override
+  String get profileScaleTitle => 'От A0 до B2';
+
+  @override
+  String profileScaleHint(String tier, int percent) {
+    return 'Вы на $tier: $percent% его слов держатся в памяти.';
+  }
+
+  @override
+  String profileScaleLocked(String tier) {
+    return 'Ярусы выше $tier ещё не вычитаны, и игра их не предлагает.';
+  }
+
+  @override
+  String unitMinutes(int value) {
+    return '$value мин';
+  }
+
+  @override
+  String unitHoursMinutes(int hours, int minutes) {
+    return '$hours ч $minutes мин';
+  }
 
   @override
   String get aboutPrivacy =>

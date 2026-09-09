@@ -120,6 +120,13 @@ class _SkyPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     _paintDust(canvas, size);
 
+    // Свечение рисуется отдельным слоем и до звёзд: иначе пятно соседнего
+    // созвездия ложится поверх уже нарисованных звёзд этого и гасит их.
+    for (final constellation in constellations) {
+      _paintMilkyWay(canvas, size, constellation,
+          states[constellation.name]?.unlocked ?? false);
+    }
+
     for (final constellation in constellations) {
       final state = states[constellation.name];
       final unlocked = state?.unlocked ?? false;
@@ -127,6 +134,50 @@ class _SkyPainter extends CustomPainter {
     }
 
     _paintSelection(canvas, size);
+  }
+
+  /// Млечный Путь: непроработанное созвездие — размытое пятно, а не набор
+  /// тёмных точек.
+  ///
+  /// Так оно и должно читаться: тема, которой игрок не касался, существует и
+  /// обещает объём, но отдельных слов в ней ещё не видно. Звёзды проступают
+  /// из пятна по мере усвоения, и пятно слабеет.
+  ///
+  /// Это не только метафора. Отдельные координаты нужны лишь выученным
+  /// звёздам, а невыученная масса рисуется одним градиентом — поэтому карта
+  /// растёт вместе с прогрессом, а не вместе с объёмом контента. Иначе
+  /// созвездие из трёхсот слов превратилось бы в пятно из трёхсот точек, где
+  /// ни одну нельзя различить, и небо перестало бы быть «моим».
+  void _paintMilkyWay(
+    Canvas canvas,
+    Size size,
+    ConstellationPlacement constellation,
+    bool unlocked,
+  ) {
+    // Полностью проработанное созвездие свечения не имеет: его роль сыграна,
+    // и лишний блюр под яркими звёздами только мутит картинку.
+    final unworked = 1 - constellation.worked;
+    if (unworked <= 0.01) return;
+
+    final center = _center(constellation, size);
+    final radius = _radius(constellation.glowRadius, size);
+
+    // Закрытое созвездие светит слабее: небо больше открытого, и это должно
+    // быть видно, но не должно перетягивать внимание.
+    final strength = (unlocked ? 0.16 : 0.07) * unworked;
+
+    canvas.drawCircle(
+      center,
+      radius,
+      Paint()
+        ..shader = ui.Gradient.radial(center, radius, [
+          LumenPalette.starlight.withValues(alpha: strength),
+          LumenPalette.starlight.withValues(alpha: 0),
+        ])
+        // Резкий край у пятна выдал бы окружность и превратил Млечный Путь в
+        // круг с заливкой.
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, radius * 0.35),
+    );
   }
 
   /// Фон: мелкие звёзды, не относящиеся ни к каким словам. Нужны затем,
@@ -211,9 +262,8 @@ class _SkyPainter extends CustomPainter {
     if (state != null && state.isLit && unlocked) {
       // Зажжённое созвездие обведено: это цель, и она должна читаться
       // с общего плана без зума.
-      canvas.drawCircle(
-        toPixels(constellation.center),
-        constellation.radius * size.shortestSide * 0.5,
+      canvas.drawOval(
+        _bounds(constellation, constellation.radius, size),
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1
@@ -221,6 +271,27 @@ class _SkyPainter extends CustomPainter {
       );
     }
   }
+
+  /// Центр созвездия в пикселях.
+  static Offset _center(ConstellationPlacement c, Size size) =>
+      Offset(c.center.x * size.width, c.center.y * size.height);
+
+  /// Радиус в пикселях для круга, которому вытянутость не важна (пятно).
+  static double _radius(double normalized, Size size) =>
+      normalized * size.shortestSide;
+
+  /// Границы созвездия в пикселях.
+  ///
+  /// Овал, а не круг, и это не придирка. Позиции звёзд нормированы и
+  /// умножаются на ширину и высоту по отдельности, а обводка считалась от
+  /// `shortestSide` — то есть на вытянутом экране кольцо не совпадало с тем,
+  /// что оно обводит: часть звёзд оказывалась снаружи.
+  static Rect _bounds(ConstellationPlacement c, double radius, Size size) =>
+      Rect.fromCenter(
+        center: _center(c, size),
+        width: radius * 2 * size.width,
+        height: radius * 2 * size.height,
+      );
 
   void _paintSelection(Canvas canvas, Size size) {
     final name = selected;
@@ -230,12 +301,8 @@ class _SkyPainter extends CustomPainter {
         constellations.where((c) => c.name == name).firstOrNull;
     if (constellation == null) return;
 
-    canvas.drawCircle(
-      Offset(
-        constellation.center.x * size.width,
-        constellation.center.y * size.height,
-      ),
-      constellation.radius * size.shortestSide * 0.62,
+    canvas.drawOval(
+      _bounds(constellation, constellation.radius * 1.24, size),
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = 1.5

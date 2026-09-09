@@ -43,12 +43,20 @@ class StudyItem {
 }
 
 /// Один запланированный круг.
+///
+/// [options] и [distractorKind] появились здесь потому, что раньше их решала
+/// механика внутри сборщика вопросов, и между планировщиком и экраном не было
+/// ничего, что могло бы сказать «этот круг — с одним вариантом» или «этот —
+/// с созвучными». Вариантность и вид дистракторов есть шкала сложности, и
+/// распоряжаться ею должен тот, кто отвечает за сложность.
 class PlannedCircle {
   const PlannedCircle({
     required this.itemId,
     required this.mode,
     required this.isNew,
     required this.lumens,
+    this.options = ScoreBalance.optionsMax,
+    this.distractorKind = DistractorKind.far,
   });
 
   final String itemId;
@@ -59,24 +67,43 @@ class PlannedCircle {
 
   final Lumens lumens;
 
+  /// Сколько вариантов показать. Один — это не проверка, а показ.
+  final int options;
+
+  /// Тематические варианты или созвучные.
+  final DistractorKind distractorKind;
+
+  PlannedCircle copyWith({
+    GameMode? mode,
+    bool? isNew,
+    int? options,
+    DistractorKind? distractorKind,
+  }) =>
+      PlannedCircle(
+        itemId: itemId,
+        mode: mode ?? this.mode,
+        isNew: isNew ?? this.isNew,
+        lumens: lumens,
+        options: options ?? this.options,
+        distractorKind: distractorKind ?? this.distractorKind,
+      );
+
   @override
-  String toString() => '$itemId (${mode.name}, $lumens lm)';
+  String toString() =>
+      '$itemId (${mode.name}, $lumens lm, $options вар., '
+      '${distractorKind.name})';
 }
 
-/// Что умеет текущая сессия. Режим, который невозможно показать, планировщик
-/// не выбирает — вместо того чтобы упасть на пустом аудиофайле.
+/// Что умеет текущая сессия. Механику, которую невозможно показать,
+/// планировщик не выбирает — вместо того чтобы поставить круг без задания.
 class SessionCapabilities {
-  const SessionCapabilities({
-    this.audioEnabled = true,
-    this.typingEnabled = true,
-  });
+  const SessionCapabilities({this.audioEnabled = true});
 
-  /// Беззвучный режим: «Слух» недоступен, остальное работает.
+  /// Беззвучный режим или отсутствие голоса в системе: механики на слух
+  /// недоступны, остальное работает.
+  ///
+  /// Настройки «выключить набор» больше нет вместе с самим набором.
   final bool audioEnabled;
-
-  /// Клавиатура на маленьком экране в транспорте — сомнительное удовольствие,
-  /// поэтому «Набор» отключаем настройкой.
-  final bool typingEnabled;
 }
 
 abstract final class SessionPlanner {
@@ -102,44 +129,60 @@ abstract final class SessionPlanner {
     return due.take(size).toList();
   }
 
-  /// Режим по яркости слова.
+  /// Механика по яркости слова.
   ///
-  /// Правило простое: берём **самый требовательный** режим из тех, чей
+  /// Правило простое: берём **самую требовательную** механику из тех, чей
   /// диапазон накрывает текущую яркость. Сложность растёт вслед за владением,
-  /// а не по расписанию. Режим «Фраза» сюда не попадает: это босс уровня,
-  /// его ставят явно, а не по яркости.
+  /// а не по расписанию. Фразовые механики сюда не попадают: их материал —
+  /// предложение, а не звезда, и ставятся они явно.
   ///
-  /// [random] добавляет разнообразия: без него игрок выше 60 lm видел бы
-  /// один «Набор» и ничего больше.
+  /// [allowed] сужает набор: этап уровня разрешает не все механики.
+  /// [random] добавляет разнообразия: без него игрок с яркими словами видел
+  /// бы одну и ту же механику и ничего больше.
   static GameMode modeFor(
     Lumens lumens, {
     SessionCapabilities capabilities = const SessionCapabilities(),
     bool hasAudio = true,
     Random? random,
     int draws = ClimbBalance.modeDrawsBase,
+    Set<GameMode>? allowed,
   }) {
-    final eligible = _selectableModes
-        .where((m) => _fits(m, lumens))
-        .where((m) => m != GameMode.audio || (hasAudio && capabilities.audioEnabled))
-        .where((m) => m != GameMode.typing || capabilities.typingEnabled)
+    bool playable(GameMode m) =>
+        !m.needsAudio || (hasAudio && capabilities.audioEnabled);
+
+    final permitted = _selectableModes
+        .where((m) => allowed == null || allowed.contains(m))
+        .where(playable)
         .toList();
 
-    if (eligible.isEmpty) {
-      // Яркость вне всех диапазонов бывает только при битых данных.
-      // Круг — самый нейтральный режим, играть можно всегда.
-      return GameMode.circle;
-    }
-    if (random == null) return eligible.last;
+    final eligible = permitted.where((m) => _fits(m, lumens)).toList();
 
-    // Смещение к сложным режимам: берём лучшую из [draws] случайных попыток.
-    // Чем больше попыток, тем выше доля продуктивных режимов — так заход и
-    // повышает сложность, не отбирая у планировщика право выбирать по
-    // яркости.
-    var index = 0;
-    for (var i = 0; i < max(draws, 1); i++) {
-      index = max(index, random.nextInt(eligible.length));
+    if (eligible.isNotEmpty) {
+      if (random == null) return eligible.last;
+
+      // Смещение к сложным механикам: берём лучшую из [draws] случайных
+      // попыток. Чем больше попыток, тем выше доля продуктивных — так заход
+      // и повышает сложность, не отбирая у планировщика право выбирать по
+      // яркости.
+      var index = 0;
+      for (var i = 0; i < max(draws, 1); i++) {
+        index = max(index, random.nextInt(eligible.length));
+      }
+      return eligible[index];
     }
-    return eligible[index];
+
+    // Яркость вне разрешённых диапазонов бывает не только при битых данных.
+    // Этап тоже может так сузить набор: «знакомство» разрешает a и c, а слово
+    // на 90 lm не попадает ни в один из их диапазонов. Прежний код в такой
+    // ситуации молча возвращал «Круг» — механику, которую этап не разрешал.
+    //
+    // Правильный ответ — самая требовательная из **разрешённых**, а не из
+    // всех: этап решает, что можно, яркость решает лишь порядок внутри.
+    if (permitted.isNotEmpty) return permitted.last;
+
+    // Не осталось ничего: звука нет, а этап разрешил только механики на слух.
+    // Такой круг показать нельзя, и притворяться нечем.
+    return _fallback;
   }
 
   /// Уровень: новые слова вперемешку с повторами.
@@ -163,6 +206,19 @@ abstract final class SessionPlanner {
     final chosenReviews = reviews.toList()
       ..sort((a, b) => a.lumens.compareTo(b.lumens));
 
+    // Надбавка вариантов от захода живёт здесь, а не в сборщике вопросов.
+    //
+    // Сначала она была там, и это ломало знакомство: сборщик прибавлял
+    // `extraOptions` к КАЖДОМУ кругу, включая тот, которому планировщик
+    // намеренно поставил один вариант. С четвёртого уровня захода первый в
+    // жизни показ слова становился выбором из двух, с седьмого — из трёх, то
+    // есть показ превращался в проверку слова, которого игрок ещё не видел.
+    //
+    // Вариантность по новому контракту живёт в плане. Значит и надбавка
+    // должна применяться там, где известно, что за круг: [_markFirstShows]
+    // ставит знакомству свой один вариант последним и надбавку не наследует.
+    final extra = difficulty?.extraOptions ?? 0;
+
     PlannedCircle circleFor(StudyItem word) => PlannedCircle(
           itemId: word.itemId,
           mode: modeFor(
@@ -174,6 +230,7 @@ abstract final class SessionPlanner {
           ),
           isNew: false,
           lumens: word.lumens,
+          options: ScoreBalance.defaultOptions(extra: extra),
         );
 
     final slots = [
@@ -197,9 +254,12 @@ abstract final class SessionPlanner {
     );
   }
 
-  /// Помечает первый по порядку показ каждого нового слова: узнавание,
-  /// без таймера. Остальные показы остаются такими, какими их выбрал
-  /// [modeFor].
+  /// Помечает первый по порядку показ каждого нового слова.
+  ///
+  /// Первый показ — это знакомство, а не проверка: механика на понимание,
+  /// один вариант, таймера нет. Один вариант выбран не для лёгкости: выбирать
+  /// не из чего, и круг превращается в показ — соединил, услышал, увидел
+  /// перевод. Остальные показы остаются такими, какими их выбрал [modeFor].
   static List<PlannedCircle> _markFirstShows(
     List<PlannedCircle> circles,
     Set<String> newWordIds,
@@ -208,11 +268,10 @@ abstract final class SessionPlanner {
     return [
       for (final circle in circles)
         if (newWordIds.contains(circle.itemId) && seen.add(circle.itemId))
-          PlannedCircle(
-            itemId: circle.itemId,
-            mode: GameMode.recognition,
+          circle.copyWith(
+            mode: GameMode.pickNative,
             isNew: true,
-            lumens: circle.lumens,
+            options: SessionBalance.introductionOptions,
           )
         else
           circle,
@@ -296,15 +355,21 @@ abstract final class SessionPlanner {
 
   // ── Внутреннее ──────────────────────────────────────────────────────────
 
-  /// Режимы, которые планировщик выбирает сам, в порядке возрастания
-  /// требовательности.
+  /// Механики, которые планировщик выбирает сам, в порядке возрастания
+  /// требовательности. Фразовых здесь нет: их ставит этап.
   static const List<GameMode> _selectableModes = [
-    GameMode.recognition,
-    GameMode.circle,
-    GameMode.tight,
-    GameMode.audio,
-    GameMode.typing,
+    GameMode.pickNative,
+    GameMode.listenNative,
+    GameMode.pickTarget,
+    GameMode.listenTarget,
   ];
+
+  /// Механика на случай, когда не подошла ни одна: без звука и без выбора.
+  ///
+  /// Единственная механика на слово, которая не требует ни звука, ни
+  /// вариантов на изучаемом языке, — то есть работает при любом контенте и
+  /// любых настройках.
+  static const GameMode _fallback = GameMode.pickNative;
 
   static bool _fits(GameMode mode, Lumens lumens) {
     final range = ScoreBalance.modeLumenRange(mode);

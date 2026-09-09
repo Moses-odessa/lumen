@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
+import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scheduler/session_planner.dart';
+import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/scoring/climb.dart';
 import 'package:lumen/domain/scoring/score.dart';
 
@@ -10,6 +12,12 @@ import 'package:lumen/domain/scoring/score.dart';
 /// сложность**. Если сделать наоборот, оптимальной игрой станет топтание на
 /// первом уровне, и вся затея развалится молча — игра останется рабочей, но
 /// перестанет тянуть вверх.
+///
+/// После смены набора механик заход стал ортогонален механике: он крутит
+/// четыре ручки — вариантность, порог автоматизма, смещение к сложным
+/// механикам, длину забега — и ни одна из них больше не привязана к тому,
+/// какая именно механика попалась. Проверки ниже написаны так, чтобы это
+/// свойство ломалось шумно.
 void main() {
   group('множитель', () {
     test('первый уровень без надбавки', () {
@@ -73,17 +81,58 @@ void main() {
             greaterThanOrEqualTo(ClimbBalance.speedFastestFloor));
       }
     });
+
+    test('надбавка вариантов одинакова для всех механик', () {
+      // Раньше число вариантов решала механика — узнавание 4, остальные 6, —
+      // и один и тот же уровень захода означал для разных механик разную
+      // вариантность: игрок не мог понять, от чего именно круг стал труднее.
+      // Теперь вариантность приходит из плана, а заход добавляет к ней
+      // число сверху. Проверка нужна именно потому, что заход этого не
+      // видит: он не знает механики, и вернуть зависимость легко.
+      // Что вариантность одинакова для всех механик, проверять больше нечем:
+      // `defaultOptions` не принимает механику, и вернуть зависимость нельзя
+      // без правки подписи. Осталось проверить то, что заход действительно
+      // делает: не уменьшает число вариантов и растёт монотонно.
+      var previous = ScoreBalance.defaultOptions();
+      for (var level = 1; level <= 40; level++) {
+        final extra = ClimbRules.difficultyFor(level).extraOptions;
+        final options = ScoreBalance.defaultOptions(extra: extra);
+        expect(options, greaterThanOrEqualTo(previous),
+            reason: 'уровень $level: вариантов стало меньше');
+        previous = options;
+      }
+    });
+
+    test('заход не выводит круг за экранный потолок вариантов', () {
+      // Шесть — предел не баланса, а экрана. Седьмой и восьмой заход
+      // добавляет, и `extraOptionsMax` держится ровно на этом: если ручка
+      // уползёт выше, круг перестанет читаться, и никакие очки этого не
+      // оправдают.
+      final ceiling = ScoreBalance.optionsMax + ClimbBalance.extraOptionsMax;
+      for (var level = 1; level <= 100; level++) {
+        final options = ScoreBalance.defaultOptions(extra: ClimbRules.difficultyFor(level).extraOptions,
+        );
+        expect(options, inInclusiveRange(ScoreBalance.optionsMin, ceiling),
+            reason: 'уровень $level: $options вариантов');
+      }
+    });
   });
 
   group('награда против сложности', () {
     test('к пятому уровню шанс угадать падает медленнее, чем растут очки', () {
       // Оба множителя считаем относительно первого уровня и сравниваем.
       // Это и есть аркадный контракт: подниматься должно быть выгодно.
-      const optionsAtFirst = 6;
+      //
+      // Число вариантов берётся из `defaultOptions`, а не вписано в тест
+      // шестёркой: иначе тест продолжил бы считать по старому базовому
+      // числу и после того, как этап уровня начнёт двигать вариантность
+      // сам.
+      final optionsAtFirst = ScoreBalance.defaultOptions();
       for (var level = 2; level <= 9; level++) {
         final d = ClimbRules.difficultyFor(level);
         final guessPenalty =
-            (optionsAtFirst + d.extraOptions) / optionsAtFirst;
+            ScoreBalance.defaultOptions(extra: d.extraOptions) /
+                optionsAtFirst;
         final reward = ClimbRules.multiplierFor(level);
         expect(reward, greaterThan(guessPenalty),
             reason: 'уровень $level: награда ×$reward против сложности '
@@ -178,7 +227,7 @@ void main() {
       const args = (
         correct: true,
         latency: Duration(milliseconds: 900),
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
         lumens: 70,
       );
 
@@ -202,6 +251,32 @@ void main() {
       expect(climbed.climbMultiplier, 2.0);
     });
 
+    test('множитель захода умножает начисление в любой из шести механик', () {
+      // Заход — надстройка над счётом, а не его часть: он не должен знать
+      // механику. Пока механик было шесть прежних, это держалось на том, что
+      // множитель захода стоит последним в произведении; проверки не было
+      // ни у одной. Теперь механик снова шесть, и множители у них другие —
+      // ошибка в одной ветке `modeMultiplier` иначе видна не была бы.
+      //
+      // Яркость 30 намеренно ниже [ScoreBalance.speedBonusMinLm]: на ней
+      // скоростного множителя нет, и остаётся ровно то, что проверяется.
+      for (final mode in GameMode.values) {
+        ConnectionResult scoreWith(double climb) =>
+            ScoreRules.scoreConnection(
+              correct: true,
+              latency: const Duration(milliseconds: 900),
+              mode: mode,
+              lumens: 30,
+              combo: const ComboState(),
+              climbMultiplier: climb,
+            );
+
+        final plain = scoreWith(1.0);
+        expect(plain.score, greaterThan(0), reason: mode.name);
+        expect(scoreWith(2.0).score, plain.score * 2, reason: mode.name);
+      }
+    });
+
     test('сжатый порог автоматизма отбирает скоростной множитель', () {
       // Тот же ответ за 1000 мс: на первом уровне это «автоматизм», на
       // высоком — уже нет. Это и есть самая болезненная ручка сложности.
@@ -216,18 +291,28 @@ void main() {
       expect(hard, lessThan(easy));
     });
 
-    test('заход не даёт очков там, где их не даёт режим', () {
+    test('заход не даёт очков там, где их не даёт механика', () {
       // Митигация «узнавание вместо владения» сильнее аркады: на ярком
       // слове узнавание не приносит очков ни на каком уровне.
-      final result = ScoreRules.scoreConnection(
-        correct: true,
-        latency: const Duration(milliseconds: 500),
-        mode: GameMode.recognition,
-        lumens: 90,
-        combo: const ComboState(),
-        climbMultiplier: 3.0,
-      );
-      expect(result.score, 0);
+      //
+      // Непроизводящих механик теперь **две**: понимание проверяется и с
+      // текста, и со слуха. Поэтому перечисляются не имена, а признак —
+      // иначе третья такая механика появилась бы без проверки.
+      final nonProductive =
+          GameMode.values.where((m) => !m.isProductive).toList();
+      expect(nonProductive, hasLength(2));
+
+      for (final mode in nonProductive) {
+        final result = ScoreRules.scoreConnection(
+          correct: true,
+          latency: const Duration(milliseconds: 500),
+          mode: mode,
+          lumens: 90,
+          combo: const ComboState(),
+          climbMultiplier: 3.0,
+        );
+        expect(result.score, 0, reason: mode.name);
+      }
     });
 
     test('забег на уровне захода считает по его правилам', () {
@@ -238,17 +323,74 @@ void main() {
       run.apply(
         correct: true,
         latency: const Duration(milliseconds: 500),
-        mode: GameMode.circle,
+        mode: GameMode.pickTarget,
         lumens: 70,
       );
       final plain = RunScore()
         ..apply(
           correct: true,
           latency: const Duration(milliseconds: 500),
-          mode: GameMode.circle,
+          mode: GameMode.pickTarget,
           lumens: 70,
         );
       expect(run.score, greaterThan(plain.score));
+    });
+  });
+
+  group('чего заход не трогает', () {
+    List<PlannedCircle> planAt(int level) => SessionPlanner.level(
+          reviews: [
+            for (var i = 0; i < 3; i++)
+              StudyItem(itemId: 'old$i', tier: Tier.a1, lumens: 70),
+          ],
+          fresh: [
+            for (var i = 0; i < 2; i++)
+              StudyItem(
+                itemId: 'new$i',
+                tier: Tier.a1,
+                lumens: 0,
+                isNew: true,
+              ),
+          ],
+          newWords: 2,
+          reviewWords: 3,
+          difficulty: ClimbRules.difficultyFor(level),
+        );
+
+    test('знакомство остаётся показом на любом уровне', () {
+      // Один вариант — не поблажка, а показ: соединил, услышал, увидел
+      // перевод. Проверять то, чего игрок ещё ни разу не видел, — способ
+      // научить его, что игра непроходима, и никакой уровень захода этого
+      // не оправдывает.
+      //
+      // Проверяемым это стало только теперь: вариантность едет в плане, а
+      // не выводится из механики внутри сборщика вопросов, — и круг из
+      // одного варианта наконец законен. Прежний сборщик возвращал `null`,
+      // если не набралось двух дистракторов, и такой круг молча исчезал.
+      for (final level in [1, 30]) {
+        final firstShows = planAt(level).where((c) => c.isNew).toList();
+        expect(firstShows, hasLength(2), reason: 'уровень $level');
+        for (final circle in firstShows) {
+          expect(circle.options, SessionBalance.introductionOptions,
+              reason: 'уровень $level');
+          expect(circle.options, ScoreBalance.optionsMin,
+              reason: 'уровень $level');
+          expect(circle.mode.isProductive, isFalse,
+              reason: 'уровень $level: знакомство проверяет понимание');
+        }
+      }
+    });
+
+    test('вид дистракторов остаётся делом этапа, а не уровня', () {
+      // Созвучные дистракторы — тоже сложность, но не та, которой
+      // распоряжается заход: они уместны на проверке точности и вредны на
+      // закреплении, и решает это этап уровня. Заход крутит четыре ручки,
+      // и `distractorKind` среди них нет — раньше это было невыразимо,
+      // потому что вид дистракторов был отдельным режимом («Тесный круг»),
+      // и «поднять уровень» неизбежно означало бы «сменить механику».
+      for (final circle in planAt(30)) {
+        expect(circle.distractorKind, DistractorKind.far);
+      }
     });
   });
 }

@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/theme/palette.dart';
+import '../../../data/content/content_provider.dart';
+import '../../../domain/entities/tier.dart';
 import '../../../domain/retention/orbit.dart';
 import '../../../domain/scoring/balance.dart';
 import '../application/records_controller.dart';
@@ -46,6 +48,12 @@ class ProfileScreen extends ConsumerWidget {
                 _OrbitCard(l10n: l10n, stats: value),
                 const SizedBox(height: 12),
                 _KeyNumbers(l10n: l10n, stats: value),
+                const SizedBox(height: 12),
+                _TierScale(
+                  l10n: l10n,
+                  stats: value,
+                  maxTier: ref.watch(maxTierProvider),
+                ),
                 const SizedBox(height: 12),
                 const RecordsWall(),
                 const SizedBox(height: 20),
@@ -174,36 +182,226 @@ class _KeyNumbers extends StatelessWidget {
   Widget build(BuildContext context) {
     final latency = stats.medianLatency;
 
+    final time = stats.playTime;
+
+    // Восемь чисел в одну строку не влезают: на экране 360dp уже четыре
+    // делили место впритык. Сетка по четыре в ряд, а не Row со
+    // spaceEvenly, — иначе добавление девятого числа снова означало бы
+    // переписывать раскладку.
     return Card(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _Number(
-              value: '${stats.burningWords}',
-              label: l10n.profileBurning,
-              highlight: true,
-            ),
-            _Number(
-              value: '${stats.knownWords}',
-              label: l10n.profileWordsInWork,
-            ),
-            _Number(
-              value: latency == null
-                  ? '—'
-                  : l10n.unitSeconds(
-                      (latency.inMilliseconds / 1000).toStringAsFixed(1),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final columns = constraints.maxWidth < 340 ? 3 : 4;
+            final width = constraints.maxWidth / columns;
+
+            return Wrap(
+              alignment: WrapAlignment.center,
+              runSpacing: 18,
+              children: [
+                for (final number in [
+                  _NumberData(
+                    value: '${stats.burningWords}',
+                    label: l10n.profileBurning,
+                    highlight: true,
+                  ),
+                  _NumberData(
+                    value: '${stats.knownWords}',
+                    label: l10n.profileWordsInWork,
+                  ),
+                  _NumberData(
+                    value: latency == null
+                        ? '—'
+                        : l10n.unitSeconds(
+                            (latency.inMilliseconds / 1000).toStringAsFixed(1),
+                          ),
+                    label: l10n.profileLatency,
+                    // Целевая метрика из CONCEPT.md — медиана меньше 1.8 с.
+                    highlight: latency != null &&
+                        latency <= const Duration(milliseconds: 1800),
+                  ),
+                  _NumberData(
+                    value: '${stats.sparks}',
+                    label: l10n.profileSparks,
+                  ),
+                  _NumberData(
+                    value: '${time.days}',
+                    label: l10n.profileDays,
+                  ),
+                  _NumberData(
+                    value: '${time.streak}',
+                    label: l10n.profileStreak,
+                    highlight: time.streak > 1,
+                  ),
+                  _NumberData(
+                    value: _hours(l10n, time.total),
+                    label: l10n.profileTimeTotal,
+                  ),
+                  _NumberData(
+                    value: _minutes(l10n, time.perDay),
+                    label: l10n.profileTimePerDay,
+                  ),
+                ])
+                  SizedBox(
+                    width: width,
+                    child: _Number(
+                      value: number.value,
+                      label: number.label,
+                      highlight: number.highlight,
                     ),
-              label: l10n.profileLatency,
-              // Целевая метрика из CONCEPT.md — медиана меньше 1.8 с.
-              highlight: latency != null &&
-                  latency <= const Duration(milliseconds: 1800),
+                  ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Часы и минуты: «7 ч 20 мин», а не «440 мин».
+  static String _hours(AppLocalizations l10n, Duration d) {
+    if (d.inMinutes < 60) return l10n.unitMinutes(d.inMinutes);
+    return l10n.unitHoursMinutes(d.inHours, d.inMinutes % 60);
+  }
+
+  static String _minutes(AppLocalizations l10n, Duration d) =>
+      l10n.unitMinutes(d.inMinutes);
+}
+
+/// Число профиля до раскладки: чтобы список чисел читался списком, а не
+/// восемью вложенными виджетами.
+class _NumberData {
+  const _NumberData({
+    required this.value,
+    required this.label,
+    this.highlight = false,
+  });
+
+  final String value;
+  final String label;
+  final bool highlight;
+}
+
+/// Шкала A0→B2: где игрок сейчас и насколько заполнен его ярус.
+///
+/// Пять засечек, из них доступна не каждая: ярус выше запущенного игра не
+/// предлагает. Недоступные показаны, но приглушены — обещать пять уровней и
+/// молча держать четыре запертыми хуже, чем сказать, что дальше пока не
+/// написано.
+class _TierScale extends StatelessWidget {
+  const _TierScale({
+    required this.l10n,
+    required this.stats,
+    required this.maxTier,
+  });
+
+  final AppLocalizations l10n;
+  final PlayerStats stats;
+  final Tier maxTier;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 16, 20, 18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.profileScaleTitle, style: theme.textTheme.titleSmall),
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                for (final tier in Tier.values) ...[
+                  Expanded(
+                    child: _Tick(
+                      label: tier.label,
+                      // Заполнение показывается только у текущего яруса:
+                      // ниже он пройден по определению, выше не начат.
+                      fill: switch (tier.index.compareTo(stats.tier.index)) {
+                        < 0 => 1.0,
+                        0 => stats.tierProgress,
+                        _ => 0.0,
+                      },
+                      current: tier == stats.tier,
+                      available: tier.index <= maxTier.index,
+                    ),
+                  ),
+                  if (tier != Tier.values.last) const SizedBox(width: 4),
+                ],
+              ],
             ),
-            _Number(value: '${stats.sparks}', label: l10n.profileSparks),
+            const SizedBox(height: 12),
+            Text(
+              l10n.profileScaleHint(
+                stats.tier.label,
+                (stats.tierProgress * 100).round(),
+              ),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            if (maxTier != Tier.values.last) ...[
+              const SizedBox(height: 6),
+              Text(
+                l10n.profileScaleLocked(maxTier.label),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
           ],
         ),
       ),
+    );
+  }
+}
+
+class _Tick extends StatelessWidget {
+  const _Tick({
+    required this.label,
+    required this.fill,
+    required this.current,
+    required this.available,
+  });
+
+  final String label;
+  final double fill;
+  final bool current;
+  final bool available;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final dim = available ? 1.0 : 0.35;
+
+    return Column(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(3),
+          child: LinearProgressIndicator(
+            value: fill.clamp(0.0, 1.0),
+            minHeight: 6,
+            backgroundColor:
+                LumenPalette.constellationLine.withValues(alpha: 0.2 * dim),
+            valueColor: AlwaysStoppedAnimation(
+              LumenPalette.starlight.withValues(alpha: dim),
+            ),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          label,
+          style: theme.textTheme.labelSmall?.copyWith(
+            color: current
+                ? LumenPalette.starlight
+                : theme.colorScheme.onSurfaceVariant.withValues(alpha: dim),
+            fontWeight: current ? FontWeight.w600 : null,
+          ),
+        ),
+      ],
     );
   }
 }

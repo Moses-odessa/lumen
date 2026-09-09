@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
-import '../../../domain/entities/game_mode.dart';
 import '../application/run_controller.dart';
 import 'circle_arena.dart';
 import 'run_summary_view.dart';
-import 'typing_arena.dart';
+import 'slots_arena.dart';
 
 /// Экран забега: 10–14 кругов подряд без пауз.
 ///
@@ -44,12 +42,21 @@ class RunScreen extends ConsumerWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(16),
-            child: _Arena(
-              question: question,
-              enabled: state.phase == RunPhase.asking,
-              onOption: controller.answerOption,
-              onInput: controller.answerInput,
-              onReplay: controller.replayPrompt,
+            // Рамка реакции: зелёная на верном ответе, красная на неверном.
+            //
+            // Раньше цветом отзывались только сами варианты, и на фразовых
+            // механиках отзываться было нечему: там не выбирают вариант, а
+            // заполняют слоты. Рамка одна на все шесть механик — реакция не
+            // должна зависеть от того, во что играют.
+            child: _Feedback(
+              outcome: state.lastCorrect,
+              child: _Arena(
+                question: question,
+                enabled: state.phase == RunPhase.asking,
+                onOption: controller.answerOption,
+                onSlots: controller.answerSlots,
+                onReplay: controller.replayPrompt,
+              ),
             ),
           ),
         ),
@@ -58,51 +65,34 @@ class RunScreen extends ConsumerWidget {
   }
 }
 
-/// Выбор арены по режиму. Геометрия одна на все режимы, кроме «Набора»,
-/// где вместо круга поле ввода.
+/// Выбор арены по механике.
+///
+/// Геометрия одна на четыре механики из шести: центр и варианты вокруг.
+/// Отличаются они тем, что в центре — текст или динамик, — и на каком языке
+/// варианты; второе арену не касается вовсе, она получает готовый список.
+/// Механики e и f заполняют слоты, и это единственная другая арена.
 class _Arena extends StatelessWidget {
   const _Arena({
     required this.question,
     required this.enabled,
     required this.onOption,
-    required this.onInput,
+    required this.onSlots,
     required this.onReplay,
   });
 
   final CircleQuestion question;
   final bool enabled;
   final void Function(int, Duration) onOption;
-  final void Function(String, Duration) onInput;
+  final void Function(List<int>, Duration) onSlots;
   final VoidCallback onReplay;
 
   @override
   Widget build(BuildContext context) {
-    if (question.isTyped) {
-      return TypingArena(
+    if (question.mode.isPhrase) {
+      return SlotsArena(
         question: question,
-        onAnswer: onInput,
+        onAnswer: onSlots,
         enabled: enabled,
-      );
-    }
-
-    if (question.mode == GameMode.audio) {
-      return Stack(
-        children: [
-          CircleArena(
-            question: question,
-            onAnswer: onOption,
-            enabled: enabled,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: IconButton.filledTonal(
-              iconSize: 40,
-              onPressed: enabled ? onReplay : null,
-              icon: const Icon(Icons.volume_up),
-              tooltip: AppLocalizations.of(context).audioReplay,
-            ),
-          ),
-        ],
       );
     }
 
@@ -110,6 +100,44 @@ class _Arena extends StatelessWidget {
       question: question,
       onAnswer: onOption,
       enabled: enabled,
+      // Динамик в центре вместо текста: нажатие проигрывает заново.
+      onReplay: question.mode.needsAudio ? onReplay : null,
+    );
+  }
+}
+
+/// Рамка вокруг арены: зелёная на верном, красная на неверном.
+class _Feedback extends StatelessWidget {
+  const _Feedback({required this.outcome, required this.child});
+
+  /// `null` — ответа ещё нет.
+  final bool? outcome;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = switch (outcome) {
+      true => LumenPalette.correct,
+      false => LumenPalette.wrong,
+      null => Colors.transparent,
+    };
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 160),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: color.withValues(alpha: 0.75), width: 2),
+        boxShadow: outcome == null
+            ? const []
+            : [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.18),
+                  blurRadius: 24,
+                  spreadRadius: 2,
+                ),
+              ],
+      ),
+      child: child,
     );
   }
 }
