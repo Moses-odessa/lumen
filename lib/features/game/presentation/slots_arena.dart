@@ -33,6 +33,21 @@ import 'prompt_tag_text.dart';
 /// Отсюда же перестановка: слово из пропуска тащится в другой пропуск, и если
 /// там кто-то стоит, они меняются местами. Тащить слово обратно в пул —
 /// значит снять его.
+///
+/// **Ответ отправляет кнопка, а не последняя плитка.** Пока отправка уходила
+/// из того же жеста, которым игрок ставил последнее слово, заметить ошибку
+/// было уже поздно: «отменить» возвращалась раньше времени при полной
+/// расстановке, а её кнопка была скрыта тем же условием. Человек видел
+/// неверный порядок в момент, когда сделать с ним ничего нельзя.
+///
+/// Поэтому «заполнено» и «отвечено» — два разных состояния, и почти все
+/// условия арены смотрят на второе. На первое смотрит только сама кнопка
+/// «Готово»: она включается, когда заполнены все пропуски.
+///
+/// Отсюда же и перевод: он проявляется по «Готово», а не по заполнению. Пока
+/// он появлялся при заполнении, он был подсказкой к смыслу фразы, которую
+/// игрок ещё мог переставить, — то есть отдавал ответ тому, кто ещё не
+/// ответил.
 class SlotsArena extends StatefulWidget {
   const SlotsArena({
     super.key,
@@ -44,7 +59,14 @@ class SlotsArena extends StatefulWidget {
   final CircleQuestion question;
 
   /// Что игрок поставил в каждый слот — индексы вариантов из пула — и время
-  /// от появления задания до последнего заполнения.
+  /// от появления задания до последнего **изменения** расстановки.
+  ///
+  /// До нажатия «Готово», а не до него: между последней плиткой и кнопкой
+  /// игрок проверяет себя, и это время не про скорость ответа. Отдавать его
+  /// нельзя — домен приводит время к одному размещению
+  /// (`ScoreRules.paceFor`) и по нему же ставит оценку памяти, так что
+  /// десять секунд раздумий вернули бы ровно тот дефект, из-за которого
+  /// всякая верно собранная фраза записывалась как `hard`.
   final void Function(List<int> bySlot, Duration latency) onAnswer;
 
   final bool enabled;
@@ -86,7 +108,30 @@ class _SlotsArenaState extends State<SlotsArena> {
     return null;
   }
 
+  /// Когда расстановку изменили последний раз.
+  ///
+  /// Это и есть время ответа: расстановка сложилась тогда, а не когда игрок
+  /// дотянулся до кнопки. Штампуется в каждой мутации, а не только при
+  /// полноте: игрок может заполнить всё, потом переставить два слова — ответ
+  /// сложился на второй перестановке.
+  DateTime? _changedAt;
+
   bool get _complete => _placed.length == widget.question.slotCount;
+
+  /// Ответ отправлен: дальше арена ничего не принимает.
+  ///
+  /// Производный признак, а не отдельный флаг, и это выбор в пользу того,
+  /// чтобы залипшая защёлка была невозможна. [_accepted] обнуляется на смене
+  /// вопроса и присваивается ровно в один момент — в [_submit], — так что
+  /// «отвечено» не может остаться истинным на новом вопросе. Отдельное поле
+  /// пришлось бы сбрасывать вручную, а именно такой несброшенный признак уже
+  /// вешал уровень насмерть: промах возвращается в очередь тем же вопросом
+  /// (`CircleQuestion.again`), и арена, не принимающая ответов, ждёт вечно.
+  ///
+  /// Отдельно от [_complete], и это главное разделение в этом виджете.
+  /// «Заполнено» больше не значит «отвечено»: заполненную расстановку можно
+  /// разбирать, переставлять и отменять, пока не нажата «Готово».
+  bool get _answered => _accepted != null;
 
   /// Приняли ли расстановку — считается здесь же, как в круге.
   ///
@@ -112,6 +157,10 @@ class _SlotsArenaState extends State<SlotsArena> {
       _placed.clear();
       _order.clear();
       _accepted = null;
+      // Штамп прошлого вопроса с новым `_shownAt` дал бы **отрицательную**
+      // длительность ответа: в журнале отзывов отрицательные миллисекунды, а
+      // оценка памяти — «легко», потому что любой порог она проходит.
+      _changedAt = null;
     }
   }
 
@@ -122,20 +171,20 @@ class _SlotsArenaState extends State<SlotsArena> {
   /// — это добавило бы к заданию вторую задачу, вспомнить, какой пропуск ты
   /// уже занял. Кому нужен конкретный пропуск, тот его туда тащит.
   void _place(int optionIndex) {
-    if (!widget.enabled || _complete) return;
+    if (!widget.enabled || _answered) return;
     final slot = _nextSlot;
     if (slot == null) return;
 
     setState(() {
       _placed[slot] = optionIndex;
       _order.add(slot);
+      _changedAt = DateTime.now();
     });
-    _answerIfComplete();
   }
 
   /// Кладёт принесённое пальцем слово в конкретный пропуск.
   void _drop(int slot, _DragWord word) {
-    if (!widget.enabled || _complete) return;
+    if (!widget.enabled || _answered) return;
     if (word.fromSlot == slot) return;
 
     setState(() {
@@ -158,32 +207,63 @@ class _SlotsArenaState extends State<SlotsArena> {
       _order
         ..remove(slot)
         ..add(slot);
+      _changedAt = DateTime.now();
     });
-    _answerIfComplete();
   }
 
-  /// Снимает слово с пропуска — его вытащили обратно в пул.
+  /// Снимает слово с пропуска — его вытащили обратно в пул или нажали по нему.
+  ///
+  /// Нажатие по занятому пропуску тоже снимает слово, и это не удобство, а
+  /// доступность. При полной расстановке других путей правки не остаётся:
+  /// плитки пула все заняты, значит нажимать нечего, а «отменить» снимает
+  /// только последнее поставленное — чтобы освободить первый пропуск из трёх,
+  /// пришлось бы нажать её трижды. Оставалось одно перетаскивание, а это
+  /// самый трудный жест для человека с дрожью в руках или треснувшим экраном.
+  /// Правка делается ровно для того, кто заметил ошибку.
   void _pullOut(int slot) {
-    if (!widget.enabled || _complete) return;
+    if (!widget.enabled || _answered) return;
+    if (!_placed.containsKey(slot)) return;
     setState(() {
       _placed.remove(slot);
       _order.remove(slot);
+      _changedAt = DateTime.now();
     });
   }
 
-  void _answerIfComplete() {
-    if (_placed.length != widget.question.slotCount) return;
+  /// Отправляет расстановку — нажатие «Готово».
+  ///
+  /// Вердикт считается здесь же, в одном `setState` с флагом «отвечено», и
+  /// только потом уходит колбэк. Порядок важен дважды: второе нажатие по
+  /// кнопке не должно отправить ответ второй раз (хозяин гасит арену своим
+  /// `enabled` только **после** колбэка, то есть кадром позже), а верный
+  /// порядок не должен появиться раньше рамки хозяина, которая рисуется по
+  /// его же состоянию.
+  void _submit() {
+    if (!widget.enabled || !_complete || _answered) return;
     final bySlot = [
       for (var i = 0; i < widget.question.slotCount; i++) _placed[i]!,
     ];
     setState(() => _accepted = widget.question.acceptsSlots(bySlot));
-    widget.onAnswer(bySlot, DateTime.now().difference(_shownAt));
+
+    // Время — до последнего изменения расстановки, а не до нажатия. Между
+    // последней плиткой и кнопкой игрок проверяет себя, и это время не про
+    // скорость ответа: домен приводит его к одному размещению и по нему же
+    // ставит оценку памяти и серию «горящего слова». Очков это не касается —
+    // фразовый круг приходит с нулевой яркостью нарочно, а скоростной
+    // множитель включается только с 40 lm.
+    widget.onAnswer(
+      bySlot,
+      (_changedAt ?? DateTime.now()).difference(_shownAt),
+    );
   }
 
   /// Снимает последнее поставленное слово.
   void _undo() {
-    if (!widget.enabled || _order.isEmpty || _complete) return;
-    setState(() => _placed.remove(_order.removeLast()));
+    if (!widget.enabled || _order.isEmpty || _answered) return;
+    setState(() {
+      _placed.remove(_order.removeLast());
+      _changedAt = DateTime.now();
+    });
   }
 
   @override
@@ -193,7 +273,7 @@ class _SlotsArenaState extends State<SlotsArena> {
     final theme = Theme.of(context);
 
     final used = _placed.values.toSet();
-    final active = widget.enabled && !_complete;
+    final live = widget.enabled && !_answered;
 
     // Пул делится надвое только когда его есть смысл делить.
     //
@@ -225,7 +305,7 @@ class _SlotsArenaState extends State<SlotsArena> {
             used: used,
             onTap: _place,
             onReturn: _pullOut,
-            enabled: active,
+            enabled: live,
           ),
           const SizedBox(height: 20),
         ],
@@ -244,12 +324,13 @@ class _SlotsArenaState extends State<SlotsArena> {
                     question: question,
                     placed: _placed,
                     onDrop: _drop,
-                    enabled: active,
+                    onPullOut: _pullOut,
+                    enabled: live,
                     // Какой пропуск заполнит нажатие. Порядок «слева
                     // направо» игрок должен видеть, а не выводить: пустые
                     // пропуски рисовались одинаково, и на трёх и более
                     // угадать, куда попадёт следующий тап, было нельзя.
-                    next: active ? _nextSlot : null,
+                    next: live ? _nextSlot : null,
                   ),
                   if (hint.isNotEmpty) ...[
                     const SizedBox(height: 10),
@@ -260,10 +341,21 @@ class _SlotsArenaState extends State<SlotsArena> {
                       ),
                     ),
                   ],
-                  // Перевод проявляется только когда всё заполнено. Показать
-                  // его раньше — значит отдать ответ; не показать вовсе —
-                  // значит научить подбирать форму, не поняв фразы.
-                  if (_complete && question.translation != null) ...[
+                  // Перевод проявляется по «Готово», а не по заполнению.
+                  //
+                  // Условие было «все пропуски заполнены», и собственный
+                  // комментарий рядом объяснял его так: показать раньше —
+                  // значит отдать ответ. С кнопкой «заполнено» перестало
+                  // значить «отвечено», и тот же довод переехал вместе с
+                  // условием: задание фразы — порядок, а перевод сообщает
+                  // смысл целиком, то есть подтверждает или опровергает
+                  // выбранную расстановку до того, как её оценили. Больнее
+                  // всего там, где порядок меняет смысл: подлежащее и
+                  // дополнение, место отрицания, вопрос против утверждения.
+                  //
+                  // Не показать вовсе — тоже нельзя: это учит подбирать
+                  // форму, не поняв фразы.
+                  if (_answered && question.translation != null) ...[
                     const SizedBox(height: 16),
                     Text(
                       question.translation!,
@@ -287,20 +379,33 @@ class _SlotsArenaState extends State<SlotsArena> {
                       ),
                     ),
                   ],
-                  if (_placed.isNotEmpty && !_complete) ...[
-                    const SizedBox(height: 12),
-                    TextButton.icon(
-                      onPressed: _undo,
-                      icon: const Icon(Icons.undo, size: 18),
-                      label: Text(l10n.commonUndo),
-                    ),
-                  ],
                 ],
               ),
             ),
           ),
         ),
-        const SizedBox(height: 20),
+        // Ряд управления: «отменить» и «Готово».
+        //
+        // Вне прокрутки, и это не вкус. «Готово» — единственный способ
+        // отправить ответ, и уехавшая за сгиб кнопка означала бы молча
+        // зависший забег: игрок видит заполненную фразу и не может ничего
+        // сделать. Прокрутке остаётся середина — сама фраза, перевод и
+        // верный порядок.
+        //
+        // Ряд стоит всегда и обе кнопки только выключаются, а не исчезают.
+        // Так игрок узнаёт о шаге «отправить» с первого кадра, а не в тот
+        // момент, когда шаг уже нужен, — незамеченная кнопка это и есть
+        // зависший забег. Заодно исчезает скачок раскладки при заполнении.
+        //
+        // Ряд съедает прежний отступ, а не добавляется к нему: высоту он
+        // отбирает у фразы, а на самой глубокой сборке за сгиб уехал бы уже
+        // не элемент управления, а вопрос.
+        _Controls(
+          onUndo: live && _order.isNotEmpty ? _undo : null,
+          // «Готово» включается по заполнению — единственное место, где
+          // «заполнено» ещё что-то значит.
+          onDone: widget.enabled && _complete && !_answered ? _submit : null,
+        ),
         _Pool(
           options: question.options,
           from: half,
@@ -308,9 +413,71 @@ class _SlotsArenaState extends State<SlotsArena> {
           used: used,
           onTap: _place,
           onReturn: _pullOut,
-          enabled: active,
+          enabled: live,
         ),
       ],
+    );
+  }
+}
+
+/// Ряд управления под фразой: «отменить» слева, «Готово» справа.
+///
+/// «Готово» — заполненная кнопка, а «отменить» — текстовая, и различие тут
+/// содержательное. В калибровке в шестнадцати пикселях под ареной стоит
+/// постоянная текстовая кнопка «я с нуля», одним нажатием выбрасывающая
+/// измеренный ярус: две текстовые кнопки рядом на первой же фразе, которую
+/// человек видит в игре, читались бы как пара. Поэтому ряд лежит **над**
+/// нижним пулом, а не под ним, и главная кнопка выглядит главной.
+class _Controls extends StatelessWidget {
+  const _Controls({required this.onUndo, required this.onDone});
+
+  /// `null` — кнопка выключена, но на месте.
+  final VoidCallback? onUndo;
+  final VoidCallback? onDone;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+      child: Row(
+        children: [
+          // «Отменить» отдана вся оставшаяся ширина, а «Готово» берёт свою
+          // естественную. В `Row` нефлексовые дети размеряются первыми, так
+          // что главная кнопка целиком есть всегда, а сжимается и обрезается
+          // подпись второй.
+          //
+          // Не запас на будущее: на 360 px ряд из двух кнопок с подписями
+          // переполнялся на 12 px по-украински, а по-немецки «Rückgängig»
+          // шире ещё на треть. Переполненный ряд — это невидимая часть
+          // единственной кнопки, которой отправляют ответ.
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton.icon(
+                key: const ValueKey('phrase-undo'),
+                onPressed: onUndo,
+                icon: const Icon(Icons.undo, size: 18),
+                label: Text(
+                  l10n.commonUndo,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ),
+          FilledButton.icon(
+            key: const ValueKey('phrase-done'),
+            onPressed: onDone,
+            icon: const Icon(Icons.check, size: 18),
+            label: Text(
+              l10n.commonDone,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -470,6 +637,7 @@ class _Template extends StatelessWidget {
     required this.question,
     required this.placed,
     required this.onDrop,
+    required this.onPullOut,
     required this.enabled,
     this.next,
   });
@@ -477,6 +645,10 @@ class _Template extends StatelessWidget {
   final CircleQuestion question;
   final Map<int, int> placed;
   final void Function(int slot, _DragWord word) onDrop;
+
+  /// Нажали по занятому пропуску — снять слово.
+  final ValueChanged<int> onPullOut;
+
   final bool enabled;
 
   /// Пропуск, который заполнит нажатие: он подсвечен.
@@ -515,6 +687,7 @@ class _Template extends StatelessWidget {
                   option: placed[i],
                   enabled: enabled,
                   onDrop: onDrop,
+                  onPullOut: onPullOut,
                 ),
               ),
           ],
@@ -535,6 +708,7 @@ class _SlotTarget extends StatelessWidget {
     required this.option,
     required this.enabled,
     required this.onDrop,
+    required this.onPullOut,
     this.armed = false,
   });
 
@@ -549,6 +723,7 @@ class _SlotTarget extends StatelessWidget {
 
   final bool enabled;
   final void Function(int slot, _DragWord word) onDrop;
+  final ValueChanged<int> onPullOut;
 
   @override
   Widget build(BuildContext context) {
@@ -565,12 +740,19 @@ class _SlotTarget extends StatelessWidget {
         final filled = option;
         if (!enabled || filled == null) return slotWidget;
 
-        // Поставленное слово можно унести в другой пропуск или обратно в пул.
+        // Поставленное слово можно унести в другой пропуск или обратно в
+        // пул — и просто снять нажатием. Нажатие тут не дубль
+        // перетаскивания: при полной расстановке других путей правки не
+        // остаётся вовсе, потому что все плитки пула заняты, а «отменить»
+        // снимает только последнее поставленное.
         return Draggable<_DragWord>(
           data: _DragWord(option: filled, fromSlot: slot),
           feedback: _DragChip(label: text ?? ''),
           childWhenDragging: const _Slot(),
-          child: slotWidget,
+          child: GestureDetector(
+            onTap: () => onPullOut(slot),
+            child: slotWidget,
+          ),
         );
       },
     );
