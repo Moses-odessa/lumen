@@ -1,0 +1,1411 @@
+# Немецкие лексемы созвездия «Тело, здоровье и помощь».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  doctor_person:
+    form: Arzt
+    article: der
+    gender: m
+    plural: Ärzte
+    distractors:
+      far: [Zahn, Pflege]
+      near: [Art, Arm, Ast]
+  pain_noun:
+    form: Schmerz
+    article: der
+    gender: m
+    plural: Schmerzen
+    distractors:
+      far: [Wunde, Husten]
+      near: [Scherz, Schmelz, Schwarz]
+  help_noun:
+    form: Hilfe
+    article: die
+    gender: f
+    distractors:
+      far: [Pflege, Notruf]
+      near: [Hilfsmittel, Hilfskraft, hilflos]
+  head_body:
+    form: Kopf
+    article: der
+    gender: m
+    plural: Köpfe
+    distractors:
+      far: [Hals, Rücken]
+      near: [Knopf, Kopie, Korb]
+  belly_body:
+    form: Bauch
+    article: der
+    gender: m
+    plural: Bäuche
+    distractors:
+      far: [Brust, Bein]
+      near: [Baum, Rauch, Bauer]
+  hand_body:
+    form: Hand
+    article: die
+    gender: f
+    plural: Hände
+    distractors:
+      far: [Fuß, Finger]
+      near: [Land, Wand, Rand]
+  fever_noun:
+    form: Fieber
+    article: das
+    gender: n
+    distractors:
+      far: [Husten, Schnupfen]
+      near: [Feder, Leber, Fiber]
+  medicine_noun:
+    form: Medikament
+    article: das
+    gender: n
+    plural: Medikamente
+    distractors:
+      far: [Rezept, Salbe]
+      near: [Medikation, Dokument, Instrument]
+  pharmacy_place:
+    form: Apotheke
+    article: die
+    gender: f
+    plural: Apotheken
+    distractors:
+      far: [Praxis, Klinik]
+      near: [Apotheker, Bibliothek, Diskothek]
+  hospital_place:
+    form: Krankenhaus
+    article: das
+    gender: n
+    plural: Krankenhäuser
+    distractors:
+      far: [Praxis, Notaufnahme]
+      near: [Krankenkasse, Kaufhaus, Krankenwagen]
+  sick_adj:
+    form: krank
+    note: прилагательное, артикля нет
+    distractors:
+      far: [müde, gesund]
+      near: [Kranz, blank, krallen]
+  appointment_noun:
+    form: Termin
+    article: der
+    gender: m
+    plural: Termine
+    distractors:
+      far: [Rezept, Anmeldung]
+      near: [Termite, Terminal, Terrine]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  tooth_body:
+    form: Zahn
+    article: der
+    gender: m
+    plural: Zähne
+    distractors:
+      far: [Kiefer, Zunge]
+      near: [Zaun, Bahn, Hahn]
+  back_body:
+    form: Rücken
+    article: der
+    gender: m
+    distractors:
+      far: [Schulter, Nacken]
+      near: [Rucksack, Brücken, Rücktritt]
+  leg_body:
+    form: Bein
+    article: das
+    gender: n
+    plural: Beine
+    distractors:
+      far: [Knie, Ferse]
+      near: [Wein, Stein, klein]
+  throat_body:
+    form: Hals
+    article: der
+    gender: m
+    plural: Hälse
+    distractors:
+      far: [Nase, Ohr]
+      near: [Halt, Salz, falls]
+  cough_noun:
+    form: Husten
+    article: der
+    gender: m
+    distractors:
+      far: [Fieber, Schnupfen]
+      near: [Küsten, Kosten, Kasten]
+  cold_illness:
+    form: Erkältung
+    article: die
+    gender: f
+    plural: Erkältungen
+    distractors:
+      far: [Grippe, Halsschmerzen]
+      near: [Erklärung, Erkennung, Erkundung]
+  prescription_noun:
+    form: Rezept
+    article: das
+    gender: n
+    plural: Rezepte
+    distractors:
+      far: [Salbe, Tablette]
+      near: [Konzept, Rezeption, Respekt]
+  nurse_person:
+    form: Krankenschwester
+    article: die
+    gender: f
+    plural: Krankenschwestern
+    distractors:
+      far: [Sanitäter, Assistentin]
+      near: [Krankenkasse, Krankenwagen, Krankenbett]
+  waiting_room:
+    form: Wartezimmer
+    article: das
+    gender: n
+    distractors:
+      far: [Behandlungsraum, Empfang]
+      near: [Wartezeit, Wohnzimmer, Warteliste]
+  insurance_card:
+    form: Versichertenkarte
+    article: die
+    gender: f
+    plural: Versichertenkarten
+    distractors:
+      far: [Ausweis, Impfpass]
+      near: [Versicherung, Kundenkarte, Speisekarte]
+  healthy_adj:
+    form: gesund
+    note: прилагательное, артикля нет
+    distractors:
+      far: [munter, kräftig]
+      near: [gesendet, Gesundheit, gesungen]
+  temperature_noun:
+    form: Temperatur
+    article: die
+    gender: f
+    plural: Temperaturen
+    distractors:
+      far: [Puls, Gewicht]
+      near: [Literatur, Struktur, Natur]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  sick_note:
+    form: Krankmeldung
+    article: die
+    gender: f
+    plural: Krankmeldungen
+    distractors:
+      far: [Attest, Nachweis]
+      near: [Anmeldung, Meldung, Abmeldung]
+  dosage_noun:
+    form: Dosis
+    article: die
+    gender: f
+    plural: Dosen
+    distractors:
+      far: [Menge, Packung]
+      near: [Dose, Basis, Dossier]
+  side_effect:
+    form: Nebenwirkung
+    article: die
+    gender: f
+    plural: Nebenwirkungen
+    distractors:
+      far: [Risiko, Vorteil]
+      near: [Auswirkung, Nebensache, Nebenkosten]
+  allergy_noun:
+    form: Allergie
+    article: die
+    gender: f
+    plural: Allergien
+    distractors:
+      far: [Unverträglichkeit, Ausschlag]
+      near: [Energie, Chirurgie, Alchemie]
+  blood_noun:
+    form: Blut
+    article: das
+    gender: n
+    distractors:
+      far: [Urin, Speichel]
+      near: [Blüte, Glut, Flut]
+  plaster_noun:
+    form: Pflaster
+    article: das
+    gender: n
+    distractors:
+      far: [Verband, Binde]
+      near: [Pflanze, Laster, Muster]
+  ointment_noun:
+    form: Salbe
+    article: die
+    gender: f
+    plural: Salben
+    distractors:
+      far: [Kompresse, Tropfen]
+      near: [Farbe, Halbe, Schwalbe]
+  tablet_noun:
+    form: Tablette
+    article: die
+    gender: f
+    plural: Tabletten
+    distractors:
+      far: [Kapsel, Zäpfchen]
+      near: [Tafel, Toilette, Manschette]
+  injection_noun:
+    form: Spritze
+    article: die
+    gender: f
+    plural: Spritzen
+    distractors:
+      far: [Infusion, Kanüle]
+      near: [Spitze, Skizze, Hitze]
+  vaccination_noun:
+    form: Impfung
+    article: die
+    gender: f
+    plural: Impfungen
+    distractors:
+      far: [Auffrischung, Vorsorge]
+      near: [Impfstoff, Umformung, Prüfung]
+  emergency_noun:
+    form: Notfall
+    article: der
+    gender: m
+    plural: Notfälle
+    distractors:
+      far: [Unfall, Zwischenfall]
+      near: [Notruf, Zufall, Ausfall]
+  ambulance_noun:
+    form: Krankenwagen
+    article: der
+    gender: m
+    distractors:
+      far: [Notarzt, Rettung]
+      near: [Kinderwagen, Lastwagen, Krankenpfleger]
+  surgery_place:
+    form: Praxis
+    article: die
+    gender: f
+    plural: Praxen
+    distractors:
+      far: [Klinik, Ambulanz]
+      near: [Praktikum, Prothese, Achse]
+  dentist_person:
+    form: Zahnarzt
+    article: der
+    gender: m
+    plural: Zahnärzte
+    distractors:
+      far: [Kieferchirurg, Prophylaxe]
+      near: [Zahnbürste, Hausarzt, Zahnschmerz]
+  examination_noun:
+    form: Untersuchung
+    article: die
+    gender: f
+    plural: Untersuchungen
+    distractors:
+      far: [Beratung, Kontrolle]
+      near: [Unterhaltung, Unterbrechung, Versuchung]
+  treatment_noun:
+    form: Behandlung
+    article: die
+    gender: f
+    plural: Behandlungen
+    distractors:
+      far: [Pflege, Betreuung]
+      near: [Verhandlung, Behauptung, Abhandlung]
+  painkiller_noun:
+    form: Schmerzmittel
+    article: das
+    gender: n
+    distractors:
+      far: [Beruhigungsmittel, Schlafmittel]
+      near: [Schmerzensgeld, Hilfsmittel, Lebensmittel]
+  flu_illness:
+    form: Grippe
+    article: die
+    gender: f
+    plural: Grippen
+    distractors:
+      far: [Lungenentzündung, Fieberkrampf]
+      near: [Gruppe, Krippe, Rippe]
+  wound_noun:
+    form: Wunde
+    article: die
+    gender: f
+    plural: Wunden
+    distractors:
+      far: [Narbe, Bluterguss]
+      near: [Stunde, Kunde, Wunder]
+  dizzy_adj:
+    form: schwindelig
+    note: прилагательное, артикля нет
+    distractors:
+      far: [übel, benommen]
+      near: [Schwindel, schwierig, windig]
+  breath_noun:
+    form: Atem
+    article: der
+    gender: m
+    distractors:
+      far: [Puls, Herzschlag]
+      near: [Atemnot, Atom, Ampel]
+  heart_body:
+    form: Herz
+    article: das
+    gender: n
+    plural: Herzen
+    distractors:
+      far: [Lunge, Leber]
+      near: [Herd, Harz, Hertz]
+  stomach_organ:
+    form: Magen
+    article: der
+    gender: m
+    plural: Mägen
+    distractors:
+      far: [Darm, Niere]
+      near: [Wagen, Magie, Magnet]
+  skin_body:
+    form: Haut
+    article: die
+    gender: f
+    plural: Häute
+    distractors:
+      far: [Nagel, Haar]
+      near: [Laut, Braut, Haus]
+  # ── B1 ────────────────────────────────────────────────────────────────
+  cost_coverage:
+    form: Kostenübernahme
+    article: die
+    gender: f
+    distractors:
+      far: [Zuschuss, Beihilfe]
+      near: [Übernahme, Kostenstelle, Kostenfalle]
+  referral_noun:
+    form: Überweisung
+    article: die
+    gender: f
+    plural: Überweisungen
+    distractors:
+      far: [Einweisung, Verordnung]
+      near: [Anweisung, Überraschung, Verweisung]
+  lab_result:
+    form: Laborbefund
+    article: der
+    gender: m
+    plural: Laborbefunde
+    distractors:
+      far: [Blutwerte, Analyse]
+      near: [Laborwert, Fundbüro, Laborarzt]
+  diagnosis_noun:
+    form: Diagnose
+    article: die
+    gender: f
+    plural: Diagnosen
+    distractors:
+      far: [Verdacht, Anamnese]
+      near: [Narkose, Dose, Diagnostik]
+  therapy_noun:
+    form: Therapie
+    article: die
+    gender: f
+    plural: Therapien
+    distractors:
+      far: [Kur, Nachsorge]
+      near: [Chirurgie, Energie, Serie]
+  specialist_person:
+    form: Facharzt
+    article: der
+    gender: m
+    plural: Fachärzte
+    distractors:
+      far: [Hausarzt, Chefarzt]
+      near: [Fachmann, Facharbeit, Fachbereich]
+  health_insurance:
+    form: Krankenkasse
+    article: die
+    gender: f
+    plural: Krankenkassen
+    distractors:
+      far: [Beihilfe, Beitragssatz]
+      near: [Sparkasse, Krankenpflege, Krankenakte]
+  medical_report:
+    form: Arztbericht
+    article: der
+    gender: m
+    plural: Arztberichte
+    distractors:
+      far: [Attest, Entlassungsbrief]
+      near: [Arztpraxis, Bericht, Arztwahl]
+  chronic_adj:
+    form: chronisch
+    note: прилагательное, артикля нет
+    distractors:
+      far: [akut, dauerhaft]
+      near: [chronologisch, Chronik, ironisch]
+  inflammation_noun:
+    form: Entzündung
+    article: die
+    gender: f
+    plural: Entzündungen
+    distractors:
+      far: [Schwellung, Reizung]
+      near: [Entscheidung, Zündung, Entladung]
+  infection_noun:
+    form: Infektion
+    article: die
+    gender: f
+    plural: Infektionen
+    distractors:
+      far: [Ansteckung, Erreger]
+      near: [Injektion, Inspektion, Funktion]
+  antibiotic_noun:
+    form: Antibiotikum
+    article: das
+    gender: n
+    plural: Antibiotika
+    distractors:
+      far: [Impfstoff, Wirkstoff]
+      near: [Antiseptikum, Antikörper, Publikum]
+  blood_pressure:
+    form: Blutdruck
+    article: der
+    gender: m
+    distractors:
+      far: [Puls, Cholesterin]
+      near: [Ausdruck, Blutzucker, Blutbild]
+  blood_draw:
+    form: Blutabnahme
+    article: die
+    gender: f
+    plural: Blutabnahmen
+    distractors:
+      far: [Infusion, Punktion]
+      near: [Abnahme, Blutspende, Blutgruppe]
+  ultrasound_noun:
+    form: Ultraschall
+    article: der
+    gender: m
+    distractors:
+      far: [Kernspin, Szintigrafie]
+      near: [Widerhall, Nachhall, Schallwelle]
+  xray_noun:
+    form: Röntgenbild
+    article: das
+    gender: n
+    plural: Röntgenbilder
+    distractors:
+      far: [Aufnahme, Kontrastmittel]
+      near: [Röntgengerät, Vorbild, Röntgenraum]
+  operation_noun:
+    form: Operation
+    article: die
+    gender: f
+    plural: Operationen
+    distractors:
+      far: [Nachbehandlung, Sedierung]
+      near: [Kooperation, Organisation, Ration]
+  anesthesia_noun:
+    form: Narkose
+    article: die
+    gender: f
+    plural: Narkosen
+    distractors:
+      far: [Betäubung, Beruhigung]
+      near: [Nekrose, Narkotikum, Narbe]
+  rehab_noun:
+    form: Reha
+    article: die
+    gender: f
+    distractors:
+      far: [Pflegeheim, Nachsorge]
+      near: [Rehe, Reihe, Rebe]
+  physiotherapy_noun:
+    form: Physiotherapie
+    article: die
+    gender: f
+    plural: Physiotherapien
+    distractors:
+      far: [Ergotherapie, Massage]
+      near: [Psychotherapie, Chemotherapie, Physiologie]
+  symptom_noun:
+    form: Symptom
+    article: das
+    gender: n
+    plural: Symptome
+    distractors:
+      far: [Diagnose, Verlauf]
+      near: [System, Sympathie, Syndrom]
+  complaints_noun:
+    form: Beschwerden
+    article: die
+    gender: f
+    note: обычно во множественном числе
+    distractors:
+      far: [Symptome, Anzeichen]
+      near: [Beschwerlichkeit, Beschreibung, Bescheidenheit]
+  medical_history:
+    form: Vorgeschichte
+    article: die
+    gender: f
+    plural: Vorgeschichten
+    distractors:
+      far: [Befund, Verlauf]
+      near: [Geschichte, Vorsorge, Vorschrift]
+  discharge_noun:
+    form: Entlassung
+    article: die
+    gender: f
+    plural: Entlassungen
+    distractors:
+      far: [Aufnahme, Verlegung]
+      near: [Zulassung, Belastung, Entlastung]
+  # ── B2 ────────────────────────────────────────────────────────────────
+  copayment_noun:
+    form: Zuzahlung
+    article: die
+    gender: f
+    plural: Zuzahlungen
+    distractors:
+      far: [Sachleistung, Kassenleistung]
+      near: [Auszahlung, Bezahlung, Anzahlung]
+  objection_noun:
+    form: Widerspruch
+    article: der
+    gender: m
+    plural: Widersprüche
+    distractors:
+      far: [Klage, Antragstellung]
+      near: [Widerstand, Anspruch, Widerruf]
+  findings_report:
+    form: Befundbericht
+    article: der
+    gender: m
+    plural: Befundberichte
+    distractors:
+      far: [Kurzbrief, Aktenvermerk]
+      near: [Fundstelle, Fundament, Wetterbericht]
+  reimbursement_noun:
+    form: Erstattung
+    article: die
+    gender: f
+    plural: Erstattungen
+    distractors:
+      far: [Zuzahlung, Vergütung]
+      near: [Bestattung, Ausstattung, Gestaltung]
+  supplementary_insurance:
+    form: Zusatzversicherung
+    article: die
+    gender: f
+    plural: Zusatzversicherungen
+    distractors:
+      far: [Pflegeversicherung, Auslandsschutz]
+      near: [Rentenversicherung, Zusatzbeitrag, Zusatzleistung]
+  contribution_noun:
+    form: Beitrag
+    article: der
+    gender: m
+    plural: Beiträge
+    distractors:
+      far: [Gebühr, Prämie]
+      near: [Betrag, Vertrag, Auftrag]
+  certificate_noun:
+    form: Bescheinigung
+    article: die
+    gender: f
+    plural: Bescheinigungen
+    distractors:
+      far: [Formblatt, Ausdruck]
+      near: [Bescheid, Beschichtung, Erscheinung]
+  incapacity_noun:
+    form: Arbeitsunfähigkeit
+    article: die
+    gender: f
+    distractors:
+      far: [Berufsunfähigkeit, Krankschreibung]
+      near: [Arbeitslosigkeit, Unfähigkeit, Arbeitszeit]
+  expert_opinion:
+    form: Gutachten
+    article: das
+    gender: n
+    distractors:
+      far: [Stellungnahme, Empfehlung]
+      near: [Gutachter, Verhalten, Vorhaben]
+  consent_noun:
+    form: Einwilligung
+    article: die
+    gender: f
+    plural: Einwilligungen
+    distractors:
+      far: [Aufklärung, Vollmacht]
+      near: [Bewilligung, Einladung, Einweihung]
+  liability_noun:
+    form: Haftung
+    article: die
+    gender: f
+    distractors:
+      far: [Fahrlässigkeit, Schuld]
+      near: [Haltung, Heftung, Achtung]
+  malpractice_noun:
+    form: Behandlungsfehler
+    article: der
+    gender: m
+    distractors:
+      far: [Nebenwirkung, Versäumnis]
+      near: [Behandlungsraum, Denkfehler, Bedienungsfehler]
+  prognosis_noun:
+    form: Prognose
+    article: die
+    gender: f
+    plural: Prognosen
+    distractors:
+      far: [Aussicht, Verlauf]
+      near: [Prothese, Prophylaxe, Progression]
+  contraindication_noun:
+    form: Gegenanzeige
+    article: die
+    gender: f
+    plural: Gegenanzeigen
+    distractors:
+      far: [Warnhinweis, Vorsichtsmaßnahme]
+      near: [Anzeige, Gegenmittel, Gegenwehr]
+  interaction_noun:
+    form: Wechselwirkung
+    article: die
+    gender: f
+    plural: Wechselwirkungen
+    distractors:
+      far: [Unverträglichkeit, Überdosierung]
+      near: [Wechselgeld, Wechseljahre, Rückwirkung]
+  dosage_form:
+    form: Darreichungsform
+    article: die
+    gender: f
+    plural: Darreichungsformen
+    distractors:
+      far: [Wirkstoff, Packungsgröße]
+      near: [Darreichung, Verpackungsform, Erscheinungsform]
+  prescription_only:
+    form: verschreibungspflichtig
+    note: прилагательное, артикля нет
+    distractors:
+      far: [rezeptfrei, apothekenpflichtig]
+      near: [versicherungspflichtig, verschreiben, verschwiegen]
+  outpatient_adj:
+    form: ambulant
+    note: прилагательное, артикля нет
+    distractors:
+      far: [stationär, tagesklinisch]
+      near: [Ambulanz, amüsant, brillant]
+  inpatient_adj:
+    form: stationär
+    note: прилагательное, артикля нет
+    distractors:
+      far: [ambulant, tagesklinisch]
+      near: [Station, stationieren, sanitär]
+  patient_file:
+    form: Patientenakte
+    article: die
+    gender: f
+    plural: Patientenakten
+    distractors:
+      far: [Krankenblatt, Karteikarte]
+      near: [Personalakte, Patientin, Patientenkarte]
+  data_protection:
+    form: Datenschutz
+    article: der
+    gender: m
+    distractors:
+      far: [Schweigepflicht, Vertraulichkeit]
+      near: [Brandschutz, Datenbank, Datenschutzerklärung]
+  second_opinion:
+    form: Zweitmeinung
+    article: die
+    gender: f
+    plural: Zweitmeinungen
+    distractors:
+      far: [Rücksprache, Konsil]
+      near: [Meinung, Zweitschrift, Zeitung]
+  waiting_period:
+    form: Wartezeit
+    article: die
+    gender: f
+    plural: Wartezeiten
+    distractors:
+      far: [Frist, Bearbeitungsdauer]
+      near: [Warteliste, Arbeitszeit, Wartung]
+  cost_estimate:
+    form: Kostenvoranschlag
+    article: der
+    gender: m
+    plural: Kostenvoranschläge
+    distractors:
+      far: [Angebot, Rechnung]
+      near: [Vorschlag, Kostenplan, Kostenpunkt]
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0167:
+    form: helfen
+  lx0168:
+    form: wehtun
+  lx0169:
+    form: Auge
+    article: das
+    gender: n
+  lx0170:
+    form: Ohr
+    article: das
+    gender: n
+  lx0573:
+    form: atmen
+  # Употребление: sich ausruhen
+  lx0574:
+    form: ausruhen
+  lx0575:
+    form: fehlen
+  lx0576:
+    form: niesen
+  lx0577:
+    form: rauchen
+  lx0578:
+    form: schwitzen
+  lx0579:
+    form: 'sich erkälten'
+  lx0580:
+    form: untersuchen
+  lx0581:
+    form: verletzen
+  # Существительное: рука от плеча; отдельно от прилагательного arm.
+  lx0582:
+    form: Arm
+    article: der
+    gender: m
+  lx0583:
+    form: Feuer
+    article: das
+    gender: n
+  lx0584:
+    form: Finger
+    article: der
+    gender: m
+  lx0585:
+    form: Fuß
+    article: der
+    gender: m
+  lx0586:
+    form: Gesicht
+    article: das
+    gender: n
+  lx0587:
+    form: Gesundheit
+    article: die
+    gender: f
+  lx0588:
+    form: Haar
+    article: das
+    gender: n
+  lx0589:
+    form: Knie
+    article: das
+    gender: n
+  lx0590:
+    form: Körper
+    article: der
+    gender: m
+  lx0591:
+    form: Krankheit
+    article: die
+    gender: f
+  lx0592:
+    form: Medizin
+    article: die
+    gender: f
+  lx0593:
+    form: Mund
+    article: der
+    gender: m
+  lx0594:
+    form: Nase
+    article: die
+    gender: f
+  lx0595:
+    form: Schnupfen
+    article: der
+    gender: m
+  lx0596:
+    form: Sprechstunde
+    article: die
+    gender: f
+  lx0597:
+    form: Vorsicht
+    article: die
+    gender: f
+  lx0598:
+    form: schwach
+  lx0599:
+    form: stark
+  lx0600:
+    form: übel
+  lx1391:
+    form: ausatmen
+  lx1392:
+    form: behandeln
+  lx1393:
+    form: bluten
+  lx1394:
+    form: einatmen
+  lx1395:
+    form: einnehmen
+  lx1396:
+    form: erbrechen
+  lx1397:
+    form: gähnen
+  lx1398:
+    form: heilen
+  lx1399:
+    form: impfen
+  lx1400:
+    form: messen
+  lx1401:
+    form: 'sich erholen'
+  lx1402:
+    form: 'sich übergeben'
+  lx1403:
+    form: sterben
+  lx1404:
+    form: verschreiben
+  lx1405:
+    form: Attest
+    article: das
+    gender: n
+  lx1406:
+    form: Brust
+    article: die
+    gender: f
+  lx1407:
+    form: Darm
+    article: der
+    gender: m
+  lx1408:
+    form: Ellbogen
+    article: der
+    gender: m
+  lx1409:
+    form: Ferse
+    article: die
+    gender: f
+  lx1410:
+    form: Fußgelenk
+    article: das
+    gender: n
+  lx1411:
+    form: Gehirn
+    article: das
+    gender: n
+  lx1412:
+    form: Gehör
+    article: das
+    gender: n
+  lx1413:
+    form: Gelenk
+    article: das
+    gender: n
+  lx1414:
+    form: Handgelenk
+    article: das
+    gender: n
+  lx1415:
+    form: Hausarzt
+    article: der
+    gender: m
+  lx1416:
+    form: Hüfte
+    article: die
+    gender: f
+  lx1417:
+    form: Kapsel
+    article: die
+    gender: f
+  lx1418:
+    form: Knochen
+    article: der
+    gender: m
+  lx1419:
+    form: Krankenversicherung
+    article: die
+    gender: f
+  lx1420:
+    form: Kreislauf
+    article: der
+    gender: m
+  lx1421:
+    form: Leber
+    article: die
+    gender: f
+  lx1422:
+    form: Lippe
+    article: die
+    gender: f
+  lx1423:
+    form: Lunge
+    article: die
+    gender: f
+  lx1424:
+    form: Muskel
+    article: der
+    gender: m
+  lx1425:
+    form: Nacken
+    article: der
+    gender: m
+  lx1426:
+    form: Nagel
+    article: der
+    gender: m
+  lx1427:
+    form: Niere
+    article: die
+    gender: f
+  lx1428:
+    form: Patient
+    article: der
+    gender: m
+  lx1429:
+    form: Pille
+    article: die
+    gender: f
+  lx1430:
+    form: Puls
+    article: der
+    gender: m
+  lx1431:
+    form: Rettung
+    article: die
+    gender: f
+  lx1432:
+    form: Rettungswagen
+    article: der
+    gender: m
+  lx1433:
+    form: Schulter
+    article: die
+    gender: f
+  lx1434:
+    form: Sehvermögen
+    article: das
+    gender: n
+  lx1435:
+    form: Stirn
+    article: die
+    gender: f
+  lx1436:
+    form: Unglück
+    article: das
+    gender: n
+  lx1437:
+    form: Verband
+    article: der
+    gender: m
+  lx1438:
+    form: Verletzung
+    article: die
+    gender: f
+  lx1439:
+    form: Wange
+    article: die
+    gender: f
+  lx1440:
+    form: Zeh
+    article: der
+    gender: m
+  lx1441:
+    form: Zunge
+    article: die
+    gender: f
+  lx1442:
+    form: allergisch
+  lx1443:
+    form: ansteckend
+  lx1444:
+    form: blind
+  lx1445:
+    form: erkältet
+  lx1446:
+    form: fiebrig
+  lx1447:
+    form: heiser
+  lx1448:
+    form: schmerzfrei
+  lx1449:
+    form: schmerzhaft
+  lx1450:
+    form: taub
+  lx1451:
+    form: verletzt
+  lx2854:
+    form: abmagern
+  lx2855:
+    form: abnehmen
+  lx2856:
+    form: anstecken
+  lx2857:
+    form: auskurieren
+  lx2858:
+    form: betäuben
+  lx2859:
+    form: desinfizieren
+  lx2860:
+    form: diagnostizieren
+  lx2861:
+    form: durchschlafen
+  lx2862:
+    form: erkranken
+  lx2863:
+    form: genesen
+  lx2864:
+    form: gesunden
+  lx2865:
+    form: infizieren
+  lx2866:
+    form: lindern
+  lx2867:
+    form: operieren
+  lx2868:
+    form: schonen
+  lx2869:
+    form: therapieren
+  lx2870:
+    form: vorbeugen
+  lx2871:
+    form: zunehmen
+  lx2872:
+    form: Abhängigkeit
+    article: die
+    gender: f
+  lx2873:
+    form: Arbeitsunfähigkeitsbescheinigung
+    article: die
+    gender: f
+  lx2874:
+    form: Ausschlag
+    article: der
+    gender: m
+  lx2875:
+    form: Befund
+    article: der
+    gender: m
+  lx2876:
+    form: Beipackzettel
+    article: der
+    gender: m
+  lx2877:
+    form: Belastung
+    article: die
+    gender: f
+  lx2878:
+    form: Bereitschaftsdienst
+    article: der
+    gender: m
+  lx2879:
+    form: Beruhigungsmittel
+    article: das
+    gender: n
+  lx2880:
+    form: Blutbild
+    article: das
+    gender: n
+  lx2881:
+    form: Blutzucker
+    article: der
+    gender: m
+  lx2882:
+    form: Brechreiz
+    article: der
+    gender: m
+  lx2883:
+    form: Bronchitis
+    article: die
+    gender: f
+  lx2884:
+    form: Bruch
+    article: der
+    gender: m
+  lx2885:
+    form: Dosierung
+    article: die
+    gender: f
+  lx2886:
+    form: Durchfall
+    article: der
+    gender: m
+  lx2887:
+    form: Erschöpfung
+    article: die
+    gender: f
+  lx2888:
+    form: Fieberthermometer
+    article: das
+    gender: n
+  lx2889:
+    form: Früherkennung
+    article: die
+    gender: f
+  lx2890:
+    form: Heilungsprozess
+    article: der
+    gender: m
+  lx2891:
+    form: Herzinfarkt
+    article: der
+    gender: m
+  lx2892:
+    form: Herzschlag
+    article: der
+    gender: m
+  lx2893:
+    form: Immunsystem
+    article: das
+    gender: n
+  lx2894:
+    form: Juckreiz
+    article: der
+    gender: m
+  lx2895:
+    form: Labor
+    article: das
+    gender: n
+  lx2896:
+    form: Migräne
+    article: die
+    gender: f
+  lx2897:
+    form: Nervensystem
+    article: das
+    gender: n
+  lx2898:
+    form: Notdienst
+    article: der
+    gender: m
+  lx2899:
+    form: Schlafstörung
+    article: die
+    gender: f
+  lx2900:
+    form: Schlaganfall
+    article: der
+    gender: m
+  lx2901:
+    form: Schüttelfrost
+    article: der
+    gender: m
+  lx2902:
+    form: Schwindel
+    article: der
+    gender: m
+  lx2903:
+    form: Sucht
+    article: die
+    gender: f
+  lx2904:
+    form: Überlastung
+    article: die
+    gender: f
+  lx2905:
+    form: Vorsorge
+    article: die
+    gender: f
+  lx2906:
+    form: Wirkstoff
+    article: der
+    gender: m
+  lx2907:
+    form: Wirkung
+    article: die
+    gender: f
+  lx2908:
+    form: akut
+  lx2909:
+    form: harmlos
+  lx2910:
+    form: körperlich
+  lx2911:
+    form: lebensgefährlich
+  lx2912:
+    form: psychisch
+  lx2913:
+    form: rezeptfrei
+  lx2914:
+    form: rezeptpflichtig
+  lx2915:
+    form: seelisch
+  lx2916:
+    form: übergewichtig
+  lx2917:
+    form: untergewichtig
+  lx2918:
+    form: unwirksam
+  lx2919:
+    form: wirksam
+  lx4604:
+    form: auslösen
+  lx4605:
+    form: benachrichtigen
+  lx4606:
+    form: einwilligen
+  lx4607:
+    form: kompensieren
+  lx4608:
+    form: mobilisieren
+  lx4609:
+    form: nachbehandeln
+  lx4610:
+    form: nachlassen
+  lx4611:
+    form: rehabilitieren
+  lx4612:
+    form: sensibilisieren
+  lx4613:
+    form: stabilisieren
+  lx4614:
+    form: überlasten
+  lx4615:
+    form: verabreichen
+  lx4616:
+    form: verschlimmern
+  lx4617:
+    form: Ansteckungsrisiko
+    article: das
+    gender: n
+  lx4618:
+    form: Aufklärung
+    article: die
+    gender: f
+  lx4619:
+    form: Beratungsgespräch
+    article: das
+    gender: n
+  lx4620:
+    form: Bewegungsmangel
+    article: der
+    gender: m
+  lx4621:
+    form: Blutkreislauf
+    article: der
+    gender: m
+  lx4622:
+    form: Genesung
+    article: die
+    gender: f
+  lx4623:
+    form: Gesundheitssystem
+    article: das
+    gender: n
+  lx4624:
+    form: Gesundheitsversorgung
+    article: die
+    gender: f
+  lx4625:
+    form: Gesundheitswesen
+    article: das
+    gender: n
+  lx4626:
+    form: Gesundheitszustand
+    article: der
+    gender: m
+  lx4627:
+    form: Hospiz
+    article: das
+    gender: n
+  lx4628:
+    form: Infektionsrisiko
+    article: das
+    gender: n
+  lx4629:
+    form: Krankheitsbild
+    article: das
+    gender: n
+  lx4630:
+    form: Krankheitsverlauf
+    article: der
+    gender: m
+  lx4631:
+    form: Lebenserwartung
+    article: die
+    gender: f
+  lx4632:
+    form: Lebensqualität
+    article: die
+    gender: f
+  lx4633:
+    form: Organspende
+    article: die
+    gender: f
+  lx4634:
+    form: Pflegebedarf
+    article: der
+    gender: m
+  lx4635:
+    form: Pflegeheim
+    article: das
+    gender: n
+  lx4636:
+    form: Prävention
+    article: die
+    gender: f
+  lx4637:
+    form: Psychotherapeut
+    article: der
+    gender: m
+  lx4638:
+    form: Psychotherapie
+    article: die
+    gender: f
+  lx4639:
+    form: Rehabilitation
+    article: die
+    gender: f
+  lx4640:
+    form: Rettungsdienst
+    article: der
+    gender: m
+  lx4641:
+    form: Risikofaktor
+    article: der
+    gender: m
+  lx4642:
+    form: Schlafmangel
+    article: der
+    gender: m
+  lx4643:
+    form: Schweigepflicht
+    article: die
+    gender: f
+  lx4644:
+    form: Selbsthilfe
+    article: die
+    gender: f
+  lx4645:
+    form: Stressbewältigung
+    article: die
+    gender: f
+  lx4646:
+    form: entzündungshemmend
+  lx4647:
+    form: ganzheitlich
+  lx4648:
+    form: heilbar
+  lx4649:
+    form: präventiv
+  lx4650:
+    form: schmerzlindernd
+  lx4651:
+    form: therapeutisch
+  lx4652:
+    form: unheilbar
+  lx4653:
+    form: vorbeugend

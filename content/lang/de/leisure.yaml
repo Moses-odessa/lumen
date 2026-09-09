@@ -1,0 +1,738 @@
+# Немецкие лексемы созвездия «Досуг, спорт и увлечения».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0193:
+    form: schwimmen
+  lx0194:
+    form: singen
+  lx0195:
+    form: spielen
+  lx0196:
+    form: tanzen
+  lx0197:
+    form: Fußball
+    article: der
+    gender: m
+  lx0198:
+    form: Hobby
+    article: das
+    gender: n
+  lx0199:
+    form: Spiel
+    article: das
+    gender: n
+  lx0200:
+    form: Sport
+    article: der
+    gender: m
+  lx0709:
+    form: basteln
+  lx0710:
+    form: feiern
+  lx0711:
+    form: fernsehen
+  lx0712:
+    form: fotografieren
+  lx0713:
+    form: joggen
+  lx0714:
+    form: malen
+  lx0715:
+    form: zeichnen
+  lx0716:
+    form: Ball
+    article: der
+    gender: m
+  lx0717:
+    form: Feier
+    article: die
+    gender: f
+  lx0718:
+    form: Freizeit
+    article: die
+    gender: f
+  lx0719:
+    form: Konzert
+    article: das
+    gender: n
+  lx0720:
+    form: Party
+    article: die
+    gender: f
+  lx0721:
+    form: Spaziergang
+    article: der
+    gender: m
+  lx0722:
+    form: Tennis
+    article: das
+    gender: n
+  lx0723:
+    form: Verein
+    article: der
+    gender: m
+  lx0724:
+    form: interessant
+  lx0725:
+    form: langweilig
+  lx1790:
+    form: angeln
+  lx1791:
+    form: boxen
+  lx1792:
+    form: entspannen
+  lx1793:
+    form: gewinnen
+  lx1794:
+    form: radeln
+  lx1795:
+    form: reiten
+  lx1796:
+    form: rudern
+  lx1797:
+    form: schießen
+  lx1798:
+    form: schlagen
+  lx1799:
+    form: segeln
+  lx1800:
+    form: surfen
+  lx1801:
+    form: tauchen
+  lx1802:
+    form: trainieren
+  lx1803:
+    form: turnen
+  lx1804:
+    form: verlieren
+  lx1805:
+    form: Badminton
+    article: das
+    gender: n
+  lx1806:
+    form: Basketball
+    article: der
+    gender: m
+  lx1807:
+    form: Bergtour
+    article: die
+    gender: f
+  lx1808:
+    form: Brettspiel
+    article: das
+    gender: n
+  lx1809:
+    form: Computerspiel
+    article: das
+    gender: n
+  lx1810:
+    form: Entspannung
+    article: die
+    gender: f
+  lx1811:
+    form: Erholung
+    article: die
+    gender: f
+  lx1812:
+    form: Fitness
+    article: die
+    gender: f
+  lx1813:
+    form: Fitnessstudio
+    article: das
+    gender: n
+  lx1814:
+    form: Gegner
+    article: der
+    gender: m
+  lx1815:
+    form: Gruppe
+    article: die
+    gender: f
+  lx1816:
+    form: Halbzeit
+    article: die
+    gender: f
+  lx1817:
+    form: Handball
+    article: der
+    gender: m
+  lx1818:
+    form: Kartenspiel
+    article: das
+    gender: n
+  lx1819:
+    form: Kletterwand
+    article: die
+    gender: f
+  lx1820:
+    form: Laufschuh
+    article: der
+    gender: m
+  lx1821:
+    form: Mannschaft
+    article: die
+    gender: f
+  lx1822:
+    form: Medaille
+    article: die
+    gender: f
+  lx1823:
+    form: Netz
+    article: das
+    gender: n
+  lx1824:
+    form: Niederlage
+    article: die
+    gender: f
+  lx1825:
+    form: Puzzle
+    article: das
+    gender: n
+  lx1826:
+    form: Radtour
+    article: die
+    gender: f
+  lx1827:
+    form: Runde
+    article: die
+    gender: f
+  lx1828:
+    form: Sieg
+    article: der
+    gender: m
+  lx1829:
+    form: Sieger
+    article: der
+    gender: m
+  lx1830:
+    form: Spieler
+    article: der
+    gender: m
+  lx1831:
+    form: Spielfeld
+    article: das
+    gender: n
+  lx1832:
+    form: Sportart
+    article: die
+    gender: f
+  lx1833:
+    form: Sporthalle
+    article: die
+    gender: f
+  lx1834:
+    form: Sportkurs
+    article: der
+    gender: m
+  lx1835:
+    form: Sportplatz
+    article: der
+    gender: m
+  lx1836:
+    form: Sportschuh
+    article: der
+    gender: m
+  lx1837:
+    form: Sportverein
+    article: der
+    gender: m
+  lx1838:
+    form: Tanzkurs
+    article: der
+    gender: m
+  lx1839:
+    form: Tischtennis
+    article: der
+    gender: m
+  lx1840:
+    form: Tor
+    article: das
+    gender: n
+  lx1841:
+    form: Trainer
+    article: der
+    gender: m
+  lx1842:
+    form: Training
+    article: das
+    gender: n
+  lx1843:
+    form: Turnhalle
+    article: die
+    gender: f
+  lx1844:
+    form: Turnier
+    article: das
+    gender: n
+  lx1845:
+    form: Verlierer
+    article: der
+    gender: m
+  lx1846:
+    form: Volleyball
+    article: der
+    gender: m
+  lx1847:
+    form: Wanderung
+    article: die
+    gender: f
+  lx1848:
+    form: Wettbewerb
+    article: der
+    gender: m
+  lx1849:
+    form: Wettkampf
+    article: der
+    gender: m
+  lx1850:
+    form: Würfelspiel
+    article: das
+    gender: n
+  lx1851:
+    form: abenteuerlich
+  lx1852:
+    form: aktiv
+  lx1853:
+    form: anstrengend
+  lx1854:
+    form: fit
+  lx1855:
+    form: gefährlich
+  lx1856:
+    form: passiv
+  lx1857:
+    form: sportlich
+  lx1858:
+    form: unsportlich
+  lx3300:
+    form: anfeuern
+  lx3301:
+    form: antreten
+  lx3302:
+    form: applaudieren
+  lx3303:
+    form: aufgeben
+  # Употребление: sich auspowern
+  lx3304:
+    form: auspowern
+  lx3305:
+    form: ausscheiden
+  lx3306:
+    form: besiegen
+  lx3307:
+    form: bezwingen
+  lx3308:
+    form: bluffen
+  lx3309:
+    form: durchhalten
+  lx3310:
+    form: durchziehen
+  lx3311:
+    form: einholen
+  lx3312:
+    form: häkeln
+  lx3313:
+    form: jubeln
+  lx3314:
+    form: knobeln
+  lx3315:
+    form: kräftigen
+  lx3316:
+    form: mitspielen
+  lx3317:
+    form: modellieren
+  lx3318:
+    form: nähen
+  lx3319:
+    form: rätseln
+  lx3320:
+    form: schnitzen
+  lx3321:
+    form: schummeln
+  lx3322:
+    form: 'sich verausgaben'
+  lx3323:
+    form: stricken
+  lx3324:
+    form: töpfern
+  lx3325:
+    form: tüfteln
+  lx3326:
+    form: übertreffen
+  lx3327:
+    form: werkeln
+  lx3328:
+    form: würfeln
+  lx3329:
+    form: zuspielen
+  lx3330:
+    form: Ausdauer
+    article: die
+    gender: f
+  lx3331:
+    form: Ausdauertraining
+    article: das
+    gender: n
+  lx3332:
+    form: Auswärtsspiel
+    article: das
+    gender: n
+  lx3333:
+    form: Balance
+    article: die
+    gender: f
+  lx3334:
+    form: Beweglichkeit
+    article: die
+    gender: f
+  lx3335:
+    form: Breitensport
+    article: der
+    gender: m
+  lx3336:
+    form: Dauerlauf
+    article: der
+    gender: m
+  lx3337:
+    form: Dehnung
+    article: die
+    gender: f
+  lx3338:
+    form: Endspiel
+    article: das
+    gender: n
+  lx3339:
+    form: Erwärmung
+    article: die
+    gender: f
+  lx3340:
+    form: Fairness
+    article: die
+    gender: f
+  lx3341:
+    form: Fanbasis
+    article: die
+    gender: f
+  lx3342:
+    form: Finale
+    article: das
+    gender: n
+  lx3343:
+    form: Freundschaftsspiel
+    article: das
+    gender: n
+  lx3344:
+    form: Geschicklichkeit
+    article: die
+    gender: f
+  lx3345:
+    form: Halbfinale
+    article: das
+    gender: n
+  lx3346:
+    form: Heimspiel
+    article: das
+    gender: n
+  lx3347:
+    form: Hochsprung
+    article: der
+    gender: m
+  lx3348:
+    form: Kajak
+    article: das
+    gender: n
+  lx3349:
+    form: Kanu
+    article: das
+    gender: n
+  lx3350:
+    form: Kondition
+    article: die
+    gender: f
+  lx3351:
+    form: Koordination
+    article: die
+    gender: f
+  lx3352:
+    form: Kraft
+    article: die
+    gender: f
+  lx3353:
+    form: Krafttraining
+    article: das
+    gender: n
+  lx3354:
+    form: Laufsport
+    article: der
+    gender: m
+  lx3355:
+    form: Leistungssport
+    article: der
+    gender: m
+  lx3356:
+    form: Mannschaftssport
+    article: der
+    gender: m
+  lx3357:
+    form: Marathon
+    article: der
+    gender: m
+  lx3358:
+    form: Mitgliedschaft
+    article: die
+    gender: f
+  lx3359:
+    form: Mitspieler
+    article: der
+    gender: m
+  lx3360:
+    form: Poker
+    article: das
+    gender: n
+  lx3361:
+    form: Schach
+    article: das
+    gender: n
+  lx3362:
+    form: Schachfigur
+    article: die
+    gender: f
+  lx3363:
+    form: Schachzug
+    article: der
+    gender: m
+  lx3364:
+    form: Segelbrett
+    article: das
+    gender: n
+  lx3365:
+    form: Skat
+    article: das
+    gender: n
+  # Лексикализованное название занятия, субстантивированный инфинитив; не основание добавлять все инфинитивы как новые существительные.
+  lx3366:
+    form: Skifahren
+    article: das
+    gender: n
+  lx3367:
+    form: Snowboard
+    article: das
+    gender: n
+  lx3368:
+    form: Spielanleitung
+    article: die
+    gender: f
+  lx3369:
+    form: Spielfreude
+    article: die
+    gender: f
+  lx3370:
+    form: Spielkarte
+    article: die
+    gender: f
+  lx3371:
+    form: Spielkonsole
+    article: die
+    gender: f
+  lx3372:
+    form: Spielleiter
+    article: der
+    gender: m
+  lx3373:
+    form: Spielregel
+    article: die
+    gender: f
+  lx3374:
+    form: Spielrunde
+    article: die
+    gender: f
+  lx3375:
+    form: Spielstand
+    article: der
+    gender: m
+  lx3376:
+    form: Spielstrategie
+    article: die
+    gender: f
+  lx3377:
+    form: Spieltaktik
+    article: die
+    gender: f
+  lx3378:
+    form: Spielzeit
+    article: die
+    gender: f
+  lx3379:
+    form: Spielzug
+    article: der
+    gender: m
+  lx3380:
+    form: Sportverletzung
+    article: die
+    gender: f
+  lx3381:
+    form: Sprint
+    article: der
+    gender: m
+  lx3382:
+    form: Trainingspause
+    article: die
+    gender: f
+  lx3383:
+    form: Trainingszeit
+    article: die
+    gender: f
+  lx3384:
+    form: Verstauchung
+    article: die
+    gender: f
+  lx3385:
+    form: Viertelfinale
+    article: das
+    gender: n
+  lx3386:
+    form: Wassersport
+    article: der
+    gender: m
+  lx3387:
+    form: Weitsprung
+    article: der
+    gender: m
+  lx3388:
+    form: Wintersport
+    article: der
+    gender: m
+  lx3389:
+    form: Zerrung
+    article: die
+    gender: f
+  lx3390:
+    form: ausdauernd
+  lx3391:
+    form: beweglich
+  lx3392:
+    form: diszipliniert
+  lx3393:
+    form: ehrgeizig
+  lx3394:
+    form: gelenkig
+  lx3395:
+    form: leistungsstark
+  lx3396:
+    form: unfair
+  lx4950:
+    form: anspornen
+  lx4951:
+    form: anstacheln
+  lx4952:
+    form: bewältigen
+  lx4953:
+    form: disziplinieren
+  lx4954:
+    form: einbüßen
+  lx4955:
+    form: herausfordern
+  lx4956:
+    form: regenerieren
+  lx4957:
+    form: rivalisieren
+  lx4958:
+    form: zurückfallen
+  lx4959:
+    form: Doping
+    article: das
+    gender: n
+  lx4960:
+    form: Dopingskandal
+    article: der
+    gender: m
+  lx4961:
+    form: Erfolgsdruck
+    article: der
+    gender: m
+  lx4962:
+    form: Erfolgserlebnis
+    article: das
+    gender: n
+  lx4963:
+    form: Gemeinschaftserlebnis
+    article: das
+    gender: n
+  lx4964:
+    form: Jugendarbeit
+    article: die
+    gender: f
+  lx4965:
+    form: Kampfgeist
+    article: der
+    gender: m
+  lx4966:
+    form: Leistungsfähigkeit
+    article: die
+    gender: f
+  lx4967:
+    form: Nachwuchsförderung
+    article: die
+    gender: f
+  lx4968:
+    form: Regeneration
+    article: die
+    gender: f
+  lx4969:
+    form: Rekord
+    article: der
+    gender: m
+  lx4970:
+    form: Selbstdisziplin
+    article: die
+    gender: f
+  lx4971:
+    form: Sportförderung
+    article: die
+    gender: f
+  lx4972:
+    form: Teamgeist
+    article: der
+    gender: m
+  lx4973:
+    form: Trainingspensum
+    article: das
+    gender: n
+  lx4974:
+    form: Trainingsplan
+    article: der
+    gender: m
+  lx4975:
+    form: Überwindung
+    article: die
+    gender: f
+  lx4976:
+    form: Vereinsarbeit
+    article: die
+    gender: f
+  lx4977:
+    form: Verletzungsrisiko
+    article: das
+    gender: n
+  lx4978:
+    form: Weltrekord
+    article: der
+    gender: m
+  lx4979:
+    form: gesundheitsfördernd
+  lx4980:
+    form: leistungsfördernd
+  lx4981:
+    form: leistungshemmend
+  lx4982:
+    form: leistungssteigernd
+  lx4983:
+    form: verletzungsbedingt

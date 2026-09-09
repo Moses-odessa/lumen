@@ -1,0 +1,777 @@
+# Немецкие лексемы созвездия «Общество, права и участие».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0213:
+    form: Land
+    article: das
+    gender: n
+  lx0774:
+    form: erlauben
+  lx0775:
+    form: verbieten
+  lx0776:
+    form: Ausweis
+    article: der
+    gender: m
+  lx0777:
+    form: Bürger
+    article: der
+    gender: m
+  lx0778:
+    form: Gesetz
+    article: das
+    gender: n
+  lx0779:
+    form: Polizist
+    article: der
+    gender: m
+  # Существительное: право. Отдельно от наречия recht.
+  lx0780:
+    form: Recht
+    article: das
+    gender: n
+  lx0781:
+    form: Regel
+    article: die
+    gender: f
+  lx0782:
+    form: Welt
+    article: die
+    gender: f
+  lx0783:
+    form: erlaubt
+  lx0784:
+    form: verboten
+  lx2101:
+    form: abstimmen
+  lx2102:
+    form: anzeigen
+  lx2103:
+    form: bestrafen
+  lx2104:
+    form: entscheiden
+  lx2105:
+    form: fliehen
+  lx2106:
+    form: kontrollieren
+  lx2107:
+    form: melden
+  lx2108:
+    form: retten
+  lx2109:
+    form: stehlen
+  lx2110:
+    form: wählen
+  lx2111:
+    form: Anwalt
+    article: der
+    gender: m
+  lx2112:
+    form: Anzeige
+    article: die
+    gender: f
+  lx2113:
+    form: Anzeigeerstattung
+    article: die
+    gender: f
+  lx2114:
+    form: Ausländer
+    article: der
+    gender: m
+  # Форма с определённым артиклем: der Beamte; без него ein Beamter. Женская лексема Beamtin не выделена в отдельную строку.
+  lx2115:
+    form: Beamte
+    article: der
+    gender: m
+  lx2116:
+    form: Demokratie
+    article: die
+    gender: f
+  lx2117:
+    form: Dieb
+    article: der
+    gender: m
+  lx2118:
+    form: Diebstahl
+    article: der
+    gender: m
+  lx2119:
+    form: Erlaubnis
+    article: die
+    gender: f
+  lx2120:
+    form: Freiheit
+    article: die
+    gender: f
+  lx2121:
+    form: Gefahr
+    article: die
+    gender: f
+  lx2122:
+    form: Gefängnis
+    article: das
+    gender: n
+  lx2123:
+    form: Gemeinschaft
+    article: die
+    gender: f
+  lx2124:
+    form: Gericht
+    article: das
+    gender: n
+  lx2125:
+    form: Gesellschaft
+    article: die
+    gender: f
+  lx2126:
+    form: Minister
+    article: der
+    gender: m
+  lx2127:
+    form: Opfer
+    article: das
+    gender: n
+  lx2128:
+    form: Parlament
+    article: das
+    gender: n
+  lx2129:
+    form: Partei
+    article: die
+    gender: f
+  lx2130:
+    form: Pflicht
+    article: die
+    gender: f
+  lx2131:
+    form: Politiker
+    article: der
+    gender: m
+  lx2132:
+    form: Präsident
+    article: der
+    gender: m
+  lx2133:
+    form: Regierung
+    article: die
+    gender: f
+  lx2134:
+    form: Richter
+    article: der
+    gender: m
+  lx2135:
+    form: Sicherheit
+    article: die
+    gender: f
+  lx2136:
+    form: Staat
+    article: der
+    gender: m
+  lx2137:
+    form: Strafe
+    article: die
+    gender: f
+  lx2138:
+    form: Straftat
+    article: die
+    gender: f
+  lx2139:
+    form: Täter
+    article: der
+    gender: m
+  lx2140:
+    form: Verantwortung
+    article: die
+    gender: f
+  lx2141:
+    form: Verbot
+    article: das
+    gender: n
+  lx2142:
+    form: Wahl
+    article: die
+    gender: f
+  lx2143:
+    form: Zeuge
+    article: der
+    gender: m
+  lx2144:
+    form: friedlich
+  lx2145:
+    form: gewalttätig
+  lx2146:
+    form: illegal
+  lx2147:
+    form: legal
+  lx2148:
+    form: politisch
+  lx3798:
+    form: angreifen
+  lx3799:
+    form: beschließen
+  lx3800:
+    form: beschuldigen
+  # Употребление: sich an etwas beteiligen; jemanden beteiligen
+  lx3801:
+    form: beteiligen
+  lx3802:
+    form: beweisen
+  lx3803:
+    form: demonstrieren
+  lx3804:
+    form: durchsetzen
+  # Употребление: sich für etwas engagieren; jemanden engagieren
+  lx3805:
+    form: engagieren
+  lx3806:
+    form: entschädigen
+  lx3807:
+    form: ermitteln
+  lx3808:
+    form: festnehmen
+  lx3809:
+    form: freisprechen
+  lx3810:
+    form: gelten
+  lx3811:
+    form: gestehen
+  lx3812:
+    form: kandidieren
+  lx3813:
+    form: mitbestimmen
+  lx3814:
+    form: mitentscheiden
+  lx3815:
+    form: mitwirken
+  lx3816:
+    form: protestieren
+  lx3817:
+    form: regieren
+  lx3818:
+    form: töten
+  lx3819:
+    form: überwachen
+  lx3820:
+    form: verdächtigen
+  lx3821:
+    form: verhaften
+  lx3822:
+    form: verteidigen
+  lx3823:
+    form: verurteilen
+  # Субстантивированное прилагательное: der Abgeordnete, ein Abgeordneter, die Abgeordnete.
+  lx3824:
+    form: Abgeordnete
+    article: der
+    gender: m
+  lx3825:
+    form: Alibi
+    article: das
+    gender: n
+  lx3826:
+    form: Angriff
+    article: der
+    gender: m
+  lx3827:
+    form: Armee
+    article: die
+    gender: f
+  lx3828:
+    form: Betrug
+    article: der
+    gender: m
+  lx3829:
+    form: Bevölkerung
+    article: die
+    gender: f
+  lx3830:
+    form: Beweis
+    article: der
+    gender: m
+  lx3831:
+    form: Bund
+    article: der
+    gender: m
+  lx3832:
+    form: Bundeskanzler
+    article: der
+    gender: m
+  lx3833:
+    form: Bundesland
+    article: das
+    gender: n
+  lx3834:
+    form: Bundespräsident
+    article: der
+    gender: m
+  lx3835:
+    form: Bundesrat
+    article: der
+    gender: m
+  lx3836:
+    form: Bundesrepublik
+    article: die
+    gender: f
+  lx3837:
+    form: Bundestag
+    article: der
+    gender: m
+  lx3838:
+    form: Bürgerbeteiligung
+    article: die
+    gender: f
+  lx3839:
+    form: Bürgerinitiative
+    article: die
+    gender: f
+  lx3840:
+    form: Bürgerrecht
+    article: das
+    gender: n
+  lx3841:
+    form: Delikt
+    article: das
+    gender: n
+  lx3842:
+    form: Demonstration
+    article: die
+    gender: f
+  lx3843:
+    form: Diktatur
+    article: die
+    gender: f
+  lx3844:
+    form: Ehrenamt
+    article: das
+    gender: n
+  lx3845:
+    form: Einbruch
+    article: der
+    gender: m
+  lx3846:
+    form: Freispruch
+    article: der
+    gender: m
+  lx3847:
+    form: Frieden
+    article: der
+    gender: m
+  lx3848:
+    form: Gemeinwohl
+    article: das
+    gender: n
+  lx3849:
+    form: Gerechtigkeit
+    article: die
+    gender: f
+  lx3850:
+    form: Gesetzgebung
+    article: die
+    gender: f
+  lx3851:
+    form: Geständnis
+    article: das
+    gender: n
+  lx3852:
+    form: Gewalt
+    article: die
+    gender: f
+  lx3853:
+    form: Gewaltenteilung
+    article: die
+    gender: f
+  lx3854:
+    form: Gleichberechtigung
+    article: die
+    gender: f
+  lx3855:
+    form: Gleichstellung
+    article: die
+    gender: f
+  lx3856:
+    form: Grundgesetz
+    article: das
+    gender: n
+  lx3857:
+    form: Grundrecht
+    article: das
+    gender: n
+  lx3858:
+    form: Intoleranz
+    article: die
+    gender: f
+  lx3859:
+    form: Kampf
+    article: der
+    gender: m
+  lx3860:
+    form: Kandidat
+    article: der
+    gender: m
+  lx3861:
+    form: Koalition
+    article: die
+    gender: f
+  lx3862:
+    form: Konflikt
+    article: der
+    gender: m
+  lx3863:
+    form: Krieg
+    article: der
+    gender: m
+  lx3864:
+    form: Kriminalität
+    article: die
+    gender: f
+  lx3865:
+    form: Landtag
+    article: der
+    gender: m
+  lx3866:
+    form: Macht
+    article: die
+    gender: f
+  lx3867:
+    form: Mehrheitsentscheid
+    article: der
+    gender: m
+  lx3868:
+    form: Menschenrecht
+    article: das
+    gender: n
+  lx3869:
+    form: Monarchie
+    article: die
+    gender: f
+  lx3870:
+    form: Opposition
+    article: die
+    gender: f
+  lx3871:
+    form: Petition
+    article: die
+    gender: f
+  lx3872:
+    form: Protest
+    article: die
+    gender: f
+  lx3873:
+    form: Prozess
+    article: der
+    gender: m
+  lx3874:
+    form: Raub
+    article: der
+    gender: m
+  lx3875:
+    form: Rechtsprechung
+    article: die
+    gender: f
+  lx3876:
+    form: Rechtsstaat
+    article: der
+    gender: m
+  lx3877:
+    form: Republik
+    article: die
+    gender: f
+  lx3878:
+    form: Schuldspruch
+    article: der
+    gender: m
+  lx3879:
+    form: Solidarität
+    article: die
+    gender: f
+  lx3880:
+    form: Sozialstaat
+    article: der
+    gender: m
+  lx3881:
+    form: Stimmrecht
+    article: das
+    gender: n
+  lx3882:
+    form: Toleranz
+    article: die
+    gender: f
+  lx3883:
+    form: Überfall
+    article: der
+    gender: m
+  lx3884:
+    form: Ungerechtigkeit
+    article: die
+    gender: f
+  lx3885:
+    form: Unrecht
+    article: das
+    gender: n
+  lx3886:
+    form: Urteil
+    article: das
+    gender: n
+  lx3887:
+    form: Verbrechen
+    article: das
+    gender: n
+  lx3888:
+    form: Verdacht
+    article: der
+    gender: m
+  lx3889:
+    form: Vereinbarung
+    article: die
+    gender: f
+  lx3890:
+    form: Verfassung
+    article: die
+    gender: f
+  lx3891:
+    form: Versammlung
+    article: die
+    gender: f
+  lx3892:
+    form: Versöhnung
+    article: die
+    gender: f
+  lx3893:
+    form: Volk
+    article: das
+    gender: n
+  lx3894:
+    form: Völkerrecht
+    article: das
+    gender: n
+  lx3895:
+    form: Wähler
+    article: der
+    gender: m
+  lx3896:
+    form: Wahlkampf
+    article: der
+    gender: m
+  lx3897:
+    form: Wahlrecht
+    article: das
+    gender: n
+  lx3898:
+    form: Zivilcourage
+    article: die
+    gender: f
+  lx3899:
+    form: demokratisch
+  lx3900:
+    form: ehrenamtlich
+  lx3901:
+    form: freiheitlich
+  lx3902:
+    form: freiwillig
+  lx3903:
+    form: mehrheitlich
+  lx3904:
+    form: rechtsstaatlich
+  lx3905:
+    form: sozialstaatlich
+  lx3906:
+    form: undemokratisch
+  lx3907:
+    form: verantwortlich
+  lx5146:
+    form: diskriminieren
+  lx5147:
+    form: inkludieren
+  lx5148:
+    form: legitimieren
+  lx5149:
+    form: partizipieren
+  lx5150:
+    form: polarisieren
+  lx5151:
+    form: radikalisieren
+  lx5152:
+    form: repräsentieren
+  lx5153:
+    form: 'sich emanzipieren'
+  lx5154:
+    form: 'sich solidarisieren'
+  lx5155:
+    form: unterdrücken
+  lx5156:
+    form: Aktivismus
+    article: der
+    gender: m
+  lx5157:
+    form: Amtsmissbrauch
+    article: der
+    gender: m
+  lx5158:
+    form: Asylrecht
+    article: das
+    gender: n
+  lx5159:
+    form: Aufenthaltsrecht
+    article: das
+    gender: n
+  lx5160:
+    form: Autonomie
+    article: die
+    gender: f
+  lx5161:
+    form: Benachteiligung
+    article: die
+    gender: f
+  lx5162:
+    form: Diskriminierung
+    article: die
+    gender: f
+  lx5163:
+    form: Extremismus
+    article: der
+    gender: m
+  lx5164:
+    form: Feminismus
+    article: der
+    gender: m
+  lx5165:
+    form: Föderalismus
+    article: der
+    gender: m
+  lx5166:
+    form: Jugendschutz
+    article: der
+    gender: m
+  lx5167:
+    form: Kapitalismus
+    article: der
+    gender: m
+  lx5168:
+    form: Kinderschutz
+    article: der
+    gender: m
+  lx5169:
+    form: Kommunismus
+    article: der
+    gender: m
+  lx5170:
+    form: Konservatismus
+    article: der
+    gender: m
+  lx5171:
+    form: Legitimation
+    article: die
+    gender: f
+  lx5172:
+    form: Liberalismus
+    article: der
+    gender: m
+  lx5173:
+    form: Machtmissbrauch
+    article: der
+    gender: m
+  lx5174:
+    form: Misstrauen
+    article: das
+    gender: n
+  lx5175:
+    form: Mitspracherecht
+    article: das
+    gender: n
+  lx5176:
+    form: Nachvollziehbarkeit
+    article: die
+    gender: f
+  lx5177:
+    form: Nationalismus
+    article: der
+    gender: m
+  lx5178:
+    form: Patriotismus
+    article: der
+    gender: m
+  lx5179:
+    form: Pluralismus
+    article: der
+    gender: m
+  lx5180:
+    form: Populismus
+    article: der
+    gender: m
+  lx5181:
+    form: Rassismus
+    article: der
+    gender: m
+  lx5182:
+    form: Rechtsanspruch
+    article: der
+    gender: m
+  lx5183:
+    form: Rechtsschutz
+    article: der
+    gender: m
+  lx5184:
+    form: Rechtssicherheit
+    article: die
+    gender: f
+  lx5185:
+    form: Repräsentation
+    article: die
+    gender: f
+  lx5186:
+    form: Selbstbestimmung
+    article: die
+    gender: f
+  lx5187:
+    form: Selbstverwaltung
+    article: die
+    gender: f
+  lx5188:
+    form: Souveränität
+    article: die
+    gender: f
+  lx5189:
+    form: Sozialismus
+    article: der
+    gender: m
+  lx5190:
+    form: Teilhabe
+    article: die
+    gender: f
+  lx5191:
+    form: Unschuldsvermutung
+    article: die
+    gender: f
+  lx5192:
+    form: diskriminierend
+  lx5193:
+    form: diskriminierungsfrei
+  lx5194:
+    form: divers
+  lx5195:
+    form: extremistisch
+  lx5196:
+    form: konservativ
+  lx5197:
+    form: liberal
+  lx5198:
+    form: nationalistisch
+  lx5199:
+    form: pluralistisch
+  lx5200:
+    form: populistisch
+  lx5201:
+    form: progressiv
+  lx5202:
+    form: rassistisch
+  lx5203:
+    form: reformbedürftig
+  lx5204:
+    form: vielfältig

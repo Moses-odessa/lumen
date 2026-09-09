@@ -1,0 +1,210 @@
+# Созвездие «Путешествия и гостеприимство».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: travel
+tiers:
+  a0:
+    concepts:
+      - { id: lx0172, pos: verb, draft: true }  # fliegen
+      - { id: lx0173, pos: verb, draft: true }  # reisen
+      - { id: lx0174, pos: noun, draft: true }  # Koffer
+      - { id: lx0175, pos: noun, draft: true }  # Pass
+      - { id: lx0176, pos: noun, draft: true }  # Ticket
+  a1:
+    concepts:
+      - { id: lx0615, pos: verb, draft: true }  # abfahren
+      - { id: lx0616, pos: verb, draft: true }  # ankommen
+      - { id: lx0617, pos: verb, draft: true }  # buchen
+      - { id: lx0618, pos: verb, draft: true }  # reservieren
+      - { id: lx0619, pos: verb, draft: true }  # übernachten
+      - { id: lx0620, pos: verb, draft: true }  # wandern
+      - { id: lx0621, pos: noun, draft: true }  # Ausflug
+      - { id: lx0622, pos: noun, draft: true }  # Berg
+      - { id: lx0623, pos: noun, draft: true }  # Buchung
+      - { id: lx0624, pos: noun, draft: true }  # Doppelzimmer
+      - { id: lx0625, pos: noun, draft: true }  # Einzelzimmer
+      - { id: lx0626, pos: noun, draft: true }  # Jugendherberge
+      - { id: lx0627, pos: noun, draft: true }  # Reservierung
+      - { id: lx0628, pos: noun, draft: true }  # Rezeption
+      - { id: lx0629, pos: noun, draft: true }  # See
+      - { id: lx0630, pos: noun, draft: true }  # Strand
+      - { id: lx0631, pos: noun, draft: true }  # Tourist
+      - { id: lx0632, pos: noun, draft: true }  # Übernachtung
+      - { id: lx0633, pos: noun, draft: true }  # Unterkunft
+      - { id: lx0634, pos: adj, draft: true }  # besetzt
+      - { id: lx0635, pos: adj, draft: true }  # sonnig
+  a2:
+    concepts:
+      - { id: lx1502, pos: verb, draft: true }  # abreisen
+      - { id: lx1503, pos: verb, draft: true }  # auschecken
+      - { id: lx1504, pos: verb, draft: true }  # ausreisen
+      - { id: lx1505, pos: verb, draft: true }  # einchecken
+      - { id: lx1506, pos: verb, draft: true }  # einreisen
+      - { id: lx1507, pos: verb, draft: true }  # entdecken
+      - { id: lx1508, pos: verb, draft: true }  # erleben
+      - { id: lx1509, pos: verb, draft: true }  # packen
+      - { id: lx1510, pos: verb, draft: true }  # stornieren
+      - { id: lx1511, pos: verb, draft: true }  # umbuchen
+      - { id: lx1512, pos: verb, draft: true }  # verreisen
+      - { id: lx1513, pos: noun, draft: true }  # Aufenthalt
+      - { id: lx1514, pos: noun, draft: true }  # Ausland
+      - { id: lx1515, pos: noun, draft: true }  # Aussicht
+      - { id: lx1516, pos: noun, draft: true }  # Badeurlaub
+      - { id: lx1517, pos: noun, draft: true }  # Besichtigung
+      - { id: lx1518, pos: noun, draft: true }  # Bucht
+      - { id: lx1519, pos: noun, draft: true }  # Camping
+      - { id: lx1520, pos: noun, draft: true }  # Campingplatz
+      - { id: lx1521, pos: noun, draft: true }  # Dienstreise
+      - { id: lx1522, pos: noun, draft: true }  # Ferienhaus
+      - { id: lx1523, pos: noun, draft: true }  # Ferienwohnung
+      - { id: lx1524, pos: noun, draft: true }  # Gästehaus
+      - { id: lx1525, pos: noun, draft: true }  # Geschäftsreise
+      - { id: lx1526, pos: noun, draft: true }  # Halbinsel
+      - { id: lx1527, pos: noun, draft: true }  # Handgepäck
+      - { id: lx1528, pos: noun, draft: true }  # Hostel
+      - { id: lx1529, pos: noun, draft: true }  # Inland
+      - { id: lx1530, pos: noun, draft: true }  # Insel
+      - { id: lx1531, pos: noun, draft: true }  # Klassenfahrt
+      - { id: lx1532, pos: noun, draft: true }  # Küste
+      - { id: lx1533, pos: noun, draft: true }  # Landkarte
+      - { id: lx1534, pos: noun, draft: true }  # Landschaft
+      - { id: lx1535, pos: noun, draft: true }  # Motel
+      - { id: lx1536, pos: noun, draft: true }  # Pauschalreise
+      - { id: lx1537, pos: noun, draft: true }  # Reiseadapter
+      - { id: lx1538, pos: noun, draft: true }  # Reisebüro
+      - { id: lx1539, pos: noun, draft: true }  # Reiseführer
+      - { id: lx1540, pos: noun, draft: true }  # Reiseleiter
+      - { id: lx1541, pos: noun, draft: true }  # Reiseplan
+      - { id: lx1542, pos: noun, draft: true }  # Reiseroute
+      - { id: lx1543, pos: noun, draft: true }  # Reiseziel
+      - { id: lx1544, pos: noun, draft: true }  # Rundgang
+      - { id: lx1545, pos: noun, draft: true }  # Rundreise
+      - { id: lx1546, pos: noun, draft: true }  # Schlafsack
+      - { id: lx1547, pos: noun, draft: true }  # Städtereise
+      - { id: lx1548, pos: noun, draft: true }  # Stadtführer
+      - { id: lx1549, pos: noun, draft: true }  # Stadtführung
+      - { id: lx1550, pos: noun, draft: true }  # Visum
+      - { id: lx1551, pos: noun, draft: true }  # Wanderkarte
+      - { id: lx1552, pos: noun, draft: true }  # Zelt
+      - { id: lx1553, pos: noun, draft: true }  # Zeltplatz
+      - { id: lx1554, pos: adj, draft: true }  # abgelegen
+      - { id: lx1555, pos: adj, draft: true }  # abwechslungsreich
+      - { id: lx1556, pos: adj, draft: true }  # ausländisch
+      - { id: lx1557, pos: adj, draft: true }  # erholsam
+      - { id: lx1558, pos: adj, draft: true }  # inländisch
+      - { id: lx1559, pos: adj, draft: true }  # international
+      - { id: lx1560, pos: adj, draft: true }  # sehenswert
+      - { id: lx1561, pos: adj, draft: true }  # touristisch
+      - { id: lx1562, pos: adj, draft: true }  # überfüllt
+  b1:
+    concepts:
+      - { id: lx2978, pos: verb, draft: true }  # abfertigen
+      - { id: lx2979, pos: verb, draft: true }  # anreisen
+      - { id: lx2980, pos: verb, draft: true }  # beherbergen
+      - { id: lx2981, pos: verb, draft: true }  # bereisen
+      - { id: lx2982, pos: verb, draft: true }  # besteigen
+      - { id: lx2983, pos: verb, draft: true }  # durchreisen
+      - { id: lx2984, pos: verb, draft: true }  # durchwandern
+      - { id: lx2985, pos: verb, draft: true }  # empfangen
+      - { id: lx2986, pos: verb, draft: true }  # erkunden
+      - { id: lx2987, pos: verb, draft: true }  # gastieren
+      - { id: lx2988, pos: verb, draft: true }  # unterbringen
+      - { id: lx2989, pos: verb, draft: true }  # verweilen
+      - { id: lx2990, pos: verb, draft: true }  # zurückreisen
+      - { id: lx2991, pos: noun, draft: true }  # Anschlussflug
+      - { id: lx2992, pos: noun, draft: true }  # Aufenthaltsdauer
+      - { id: lx2993, pos: noun, draft: true }  # Aufenthaltsgenehmigung
+      - { id: lx2994, pos: noun, draft: true }  # Ausreise
+      - { id: lx2995, pos: noun, draft: true }  # Durchreise
+      - { id: lx2996, pos: noun, draft: true }  # Einreise
+      - { id: lx2997, pos: noun, draft: true }  # Gepäckaufgabe
+      - { id: lx2998, pos: noun, draft: true }  # Gepäckausgabe
+      - { id: lx2999, pos: noun, draft: true }  # Gepäckkontrolle
+      - { id: lx3000, pos: noun, draft: true }  # Grenzbeamte
+      - { id: lx3001, pos: noun, draft: true }  # Grenzkontrolle
+      - { id: lx3002, pos: noun, draft: true }  # Grenzübergang
+      - { id: lx3003, pos: noun, draft: true }  # Grenzübertritt
+      - { id: lx3004, pos: noun, draft: true }  # Halbpension
+      - { id: lx3005, pos: noun, draft: true }  # Passkontrolle
+      - { id: lx3006, pos: noun, draft: true }  # Reisedokument
+      - { id: lx3007, pos: noun, draft: true }  # Reisekrankenversicherung
+      - { id: lx3008, pos: noun, draft: true }  # Reiseveranstalter
+      - { id: lx3009, pos: noun, draft: true }  # Reiseverlauf
+      - { id: lx3010, pos: noun, draft: true }  # Schließfach
+      - { id: lx3011, pos: noun, draft: true }  # Selbstverpflegung
+      - { id: lx3012, pos: noun, draft: true }  # Sicherheitskontrolle
+      - { id: lx3013, pos: noun, draft: true }  # Transfer
+      - { id: lx3014, pos: noun, draft: true }  # Verpflegung
+      - { id: lx3015, pos: noun, draft: true }  # Vollpension
+      - { id: lx3016, pos: noun, draft: true }  # Wohnort
+      - { id: lx3017, pos: noun, draft: true }  # Wohnsitz
+      - { id: lx3018, pos: noun, draft: true }  # Zoll
+      - { id: lx3019, pos: noun, draft: true }  # Zustellbett
+      - { id: lx3020, pos: noun, draft: true }  # Zwischenaufenthalt
+      - { id: lx3021, pos: noun, draft: true }  # Zwischenlandung
+      - { id: lx3022, pos: noun, draft: true }  # Zwischenstopp
+      - { id: lx3023, pos: adj, draft: true }  # ausgebucht
+      - { id: lx3024, pos: adj, draft: true }  # gastfreundlich
+      - { id: lx3025, pos: adj, draft: true }  # luxuriös
+      - { id: lx3026, pos: adj, draft: true }  # preisgünstig
+      - { id: lx3027, pos: adj, draft: true }  # visumfrei
+      - { id: lx3028, pos: adj, draft: true }  # visumpflichtig
+  b2:
+    concepts:
+      - { id: lx4690, pos: verb, draft: true }  # abschieben
+      - { id: lx4691, pos: verb, draft: true }  # ansiedeln
+      - { id: lx4692, pos: verb, draft: true }  # auswandern
+      - { id: lx4693, pos: verb, draft: true }  # ausweisen
+      - { id: lx4694, pos: verb, draft: true }  # einbürgern
+      - { id: lx4695, pos: verb, draft: true }  # einwandern
+      - { id: lx4696, pos: verb, draft: true }  # evakuieren
+      - { id: lx4697, pos: verb, draft: true }  # migrieren
+      - { id: lx4698, pos: verb, draft: true }  # orientieren
+      - { id: lx4699, pos: verb, draft: true }  # sich zurechtfinden
+      - { id: lx4700, pos: verb, draft: true }  # umsiedeln
+      - { id: lx4701, pos: verb, draft: true }  # verständigen
+      - { id: lx4702, pos: verb, draft: true }  # zuwandern
+      - { id: lx4703, pos: noun, draft: true }  # Auswanderung
+      - { id: lx4704, pos: noun, draft: true }  # Bewegungsfreiheit
+      - { id: lx4705, pos: noun, draft: true }  # Einwanderung
+      - { id: lx4706, pos: noun, draft: true }  # Gastfreundschaft
+      - { id: lx4707, pos: noun, draft: true }  # Gastland
+      - { id: lx4708, pos: noun, draft: true }  # Grenzschließung
+      - { id: lx4709, pos: noun, draft: true }  # Heimat
+      - { id: lx4710, pos: noun, draft: true }  # Heimatland
+      - { id: lx4711, pos: noun, draft: true }  # Integration
+      - { id: lx4712, pos: noun, draft: true }  # Kulturerbe
+      - { id: lx4713, pos: noun, draft: true }  # Kulturschock
+      - { id: lx4714, pos: noun, draft: true }  # Massentourismus
+      - { id: lx4715, pos: noun, draft: true }  # Migration
+      - { id: lx4716, pos: noun, draft: true }  # Naturschutzgebiet
+      - { id: lx4717, pos: noun, draft: true }  # Perspektivwechsel
+      - { id: lx4718, pos: noun, draft: true }  # Reisebeschränkung
+      - { id: lx4719, pos: noun, draft: true }  # Reisefreiheit
+      - { id: lx4720, pos: noun, draft: true }  # Reisehinweis
+      - { id: lx4721, pos: noun, draft: true }  # Reisewarnung
+      - { id: lx4722, pos: noun, draft: true }  # Rettungseinsatz
+      - { id: lx4723, pos: noun, draft: true }  # Rückreise
+      - { id: lx4724, pos: noun, draft: true }  # Sicherheitslage
+      - { id: lx4725, pos: noun, draft: true }  # Souvenir
+      - { id: lx4726, pos: noun, draft: true }  # Tourismus
+      - { id: lx4727, pos: noun, draft: true }  # Weltkulturerbe
+      - { id: lx4728, pos: noun, draft: true }  # Weltoffenheit
+      - { id: lx4729, pos: adj, draft: true }  # fremdenfeindlich
+      - { id: lx4730, pos: adj, draft: true }  # grenzüberschreitend
+      - { id: lx4731, pos: adj, draft: true }  # heimatverbunden
+      - { id: lx4732, pos: adj, draft: true }  # interkulturell
+      - { id: lx4733, pos: adj, draft: true }  # ortsfremd
+      - { id: lx4734, pos: adj, draft: true }  # ortskundig
+      - { id: lx4735, pos: adj, draft: true }  # ressourcenschonend
+      - { id: lx4736, pos: adj, draft: true }  # weltoffen

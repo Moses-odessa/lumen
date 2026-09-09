@@ -1,0 +1,1206 @@
+# Немецкие лексемы созвездия «Работа и сотрудничество».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  work_noun:
+    form: Arbeit
+    article: die
+    gender: f
+    plural: Arbeiten
+    distractors:
+      far: [Aufgabe, Dienst]
+      near: [Arbeiter, Armut, Arznei]
+  job_noun:
+    form: Beruf
+    article: der
+    gender: m
+    plural: Berufe
+    distractors:
+      far: [Stelle, Karriere]
+      near: [Bezug, Betrug, Verruf]
+  boss_person:
+    form: Chef
+    article: der
+    gender: m
+    plural: Chefs
+    distractors:
+      far: [Mitarbeiter, Inhaber]
+      near: [Schaf, Scheck, Schiff]
+  colleague_person:
+    form: Kollege
+    article: der
+    gender: m
+    plural: Kollegen
+    distractors:
+      far: [Praktikant, Team]
+      near: [Kollektion, Kolonie, Kollaps]
+  office_place:
+    form: Büro
+    article: das
+    gender: n
+    plural: Büros
+    distractors:
+      far: [Werkstatt, Halle]
+      near: [Büste, Bürde, Burg]
+  company_noun:
+    form: Firma
+    article: die
+    gender: f
+    plural: Firmen
+    distractors:
+      far: [Büro, Abteilung]
+      near: [Firnis, Filiale, Firmung]
+  salary_noun:
+    form: Gehalt
+    article: das
+    gender: n
+    plural: Gehälter
+    distractors:
+      far: [Steuer, Bonus]
+      near: [Gestalt, Gewalt, Gefahr]
+  contract_noun:
+    form: Vertrag
+    article: der
+    gender: m
+    plural: Verträge
+    distractors:
+      far: [Kündigung, Zeugnis]
+      near: [Betrag, Antrag, Vortrag]
+  meeting_noun:
+    form: Besprechung
+    article: die
+    gender: f
+    plural: Besprechungen
+    distractors:
+      far: [Pause, Schulung]
+      near: [Absprache, Bestechung, Berechnung]
+  holiday_noun:
+    form: Urlaub
+    article: der
+    gender: m
+    plural: Urlaube
+    distractors:
+      far: [Dienstreise, Ruhetag]
+      near: [Urwald, Erlaubnis, Umlauf]
+  free_adj:
+    form: frei
+    note: прилагательное
+    distractors:
+      far: [besetzt, beschäftigt]
+      near: [drei, Brei, treu]
+  tired_adj:
+    form: müde
+    note: прилагательное
+    distractors:
+      far: [wach, fit]
+      near: [Mode, Mütze, Münze]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  application_noun:
+    form: Bewerbung
+    article: die
+    gender: f
+    plural: Bewerbungen
+    distractors:
+      far: [Zeugnis, Kündigung]
+      near: [Bewertung, Bewegung, Werbung]
+  cv_noun:
+    form: Lebenslauf
+    article: der
+    gender: m
+    plural: Lebensläufe
+    distractors:
+      far: [Anschreiben, Zeugnis]
+      near: [Lebenslage, Lebensraum, Dauerlauf]
+  interview_noun:
+    form: Vorstellungsgespräch
+    article: das
+    gender: n
+    plural: Vorstellungsgespräche
+    distractors:
+      far: [Probearbeit, Absage]
+      near: [Vorstellungskraft, Verkaufsgespräch, Vorstandssitzung]
+  employee_person:
+    form: Mitarbeiter
+    article: der
+    gender: m
+    plural: Mitarbeiter
+    distractors:
+      far: [Praktikant, Aushilfe]
+      near: [Mitbewerber, Mitfahrer, Bauarbeiter]
+  employer_person:
+    form: Arbeitgeber
+    article: der
+    gender: m
+    plural: Arbeitgeber
+    distractors:
+      far: [Kunde, Auftraggeber]
+      near: [Arbeitnehmer, Arbeitsamt, Ratgeber]
+  department_noun:
+    form: Abteilung
+    article: die
+    gender: f
+    plural: Abteilungen
+    distractors:
+      far: [Team, Zweigstelle]
+      near: [Anleitung, Ableitung, Abbildung]
+  project_noun:
+    form: Projekt
+    article: das
+    gender: n
+    plural: Projekte
+    distractors:
+      far: [Auftrag, Bericht]
+      near: [Prospekt, Objekt, Protokoll]
+  deadline_noun:
+    form: Frist
+    article: die
+    gender: f
+    plural: Fristen
+    distractors:
+      far: [Termin, Zeitplan]
+      near: [First, Frost, Fritte]
+  overtime_noun:
+    form: Überstunden
+    article: die
+    plural: Überstunden
+    note: только множественное
+    distractors:
+      far: [Schicht, Bereitschaft]
+      near: [Übernachtung, Überraschung, Überschrift]
+  break_noun:
+    form: Pause
+    article: die
+    gender: f
+    plural: Pausen
+    distractors:
+      far: [Feierabend, Urlaub]
+      near: [Maus, Brause, Klause]
+  task_noun:
+    form: Aufgabe
+    article: die
+    gender: f
+    plural: Aufgaben
+    distractors:
+      far: [Pflicht, Besprechung]
+      near: [Ausgabe, Abgabe, Aufgang]
+  experience_noun:
+    form: Erfahrung
+    article: die
+    gender: f
+    plural: Erfahrungen
+    distractors:
+      far: [Ausbildung, Kenntnis]
+      near: [Ernährung, Erklärung, Erfassung]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  employment_contract:
+    form: Arbeitsvertrag
+    article: der
+    gender: m
+    plural: Arbeitsverträge
+    distractors: { far: [Tarifvertrag, Zusatzvereinbarung], near: [Werkvertrag, Arbeitsauftrag, Arbeitsblatt] }
+  probation_noun:
+    form: Probezeit
+    article: die
+    gender: f
+    plural: Probezeiten
+    distractors: { far: [Einarbeitung, Befristung], near: [Probefahrt, Probelauf, Ruhezeit] }
+  dismissal_noun:
+    form: Kündigung
+    article: die
+    gender: f
+    plural: Kündigungen
+    distractors: { far: [Abmahnung, Aufhebung], near: [Ankündigung, Beendigung, Kündigungsfrist] }
+  reference_noun:
+    form: Zeugnis
+    article: das
+    gender: n
+    plural: Zeugnisse
+    distractors: { far: [Empfehlung, Nachweis], near: [Ereignis, Erzeugnis, Geheimnis] }
+  raise_noun:
+    form: Gehaltserhöhung
+    article: die
+    gender: f
+    plural: Gehaltserhöhungen
+    distractors: { far: [Bonus, Prämie], near: [Preiserhöhung, Gehaltsabrechnung, Gehaltsklasse] }
+  fulltime_noun:
+    form: Vollzeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Minijob, Nebentätigkeit], near: [Vollmacht, Vorzeit, Vollwert] }
+  parttime_noun:
+    form: Teilzeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Minijob, Schichtdienst], near: [Teilnahme, Teilhabe, Teilstück] }
+  shift_noun:
+    form: Schicht
+    article: die
+    gender: f
+    plural: Schichten
+    distractors: { far: [Dienstplan, Bereitschaft], near: [Sicht, Gicht, Schacht] }
+  homeoffice_noun:
+    form: Homeoffice
+    article: das
+    gender: n
+    plural: Homeoffices
+    distractors: { far: [Coworking, Präsenzarbeit], near: [Homepage, Hometrainer, Backoffice] }
+  conference_noun:
+    form: Konferenz
+    article: die
+    gender: f
+    plural: Konferenzen
+    distractors: { far: [Betriebsversammlung, Seminar], near: [Konkurrenz, Referenz, Konsequenz] }
+  colleague_female:
+    form: Kollegin
+    article: die
+    gender: f
+    plural: Kolleginnen
+    distractors: { far: [Vorgesetzte, Praktikantin], near: [Königin, Kollation, Kolumne] }
+  supervisor_person:
+    # Слабое склонение: с определённым артиклем «der Vorgesetzte».
+    form: Vorgesetzte
+    article: der
+    gender: m
+    plural: Vorgesetzte
+    distractors: { far: [Geschäftsführer, Kollege], near: [Vorgeschmack, Vorgeschichte, Vorgesang] }
+  internship_noun:
+    form: Praktikum
+    article: das
+    gender: n
+    plural: Praktika
+    distractors: { far: [Volontariat, Hospitanz], near: [Praktiker, Praxis, Praktikant] }
+  training_noun:
+    form: Ausbildung
+    article: die
+    gender: f
+    plural: Ausbildungen
+    distractors: { far: [Nachhilfe, Umschulung], near: [Ausbeutung, Einbildung, Ausbildungsplatz] }
+  furthertraining_noun:
+    form: Weiterbildung
+    article: die
+    gender: f
+    plural: Weiterbildungen
+    distractors: { far: [Umschulung, Schulung], near: [Weiterleitung, Weiterentwicklung, Weiterbeschäftigung] }
+  studies_noun:
+    form: Studium
+    article: das
+    gender: n
+    plural: Studien
+    distractors: { far: [Promotion, Lehrgang], near: [Stadium, Studio, Podium] }
+  union_noun:
+    form: Gewerkschaft
+    article: die
+    gender: f
+    plural: Gewerkschaften
+    distractors: { far: [Verband, Kammer], near: [Gemeinschaft, Gewerbeaufsicht, Belegschaft] }
+  workscouncil_noun:
+    form: Betriebsrat
+    article: der
+    gender: m
+    plural: Betriebsräte
+    distractors: { far: [Personalabteilung, Aufsichtsrat], near: [Betriebsart, Betriebsklima, Ortsbeirat] }
+  sicknote_noun:
+    form: Krankschreibung
+    article: die
+    gender: f
+    plural: Krankschreibungen
+    distractors: { far: [Lohnfortzahlung, Genesung], near: [Beschreibung, Krankenkasse, Verschreibung] }
+  workinghours_noun:
+    form: Arbeitszeit
+    article: die
+    gender: f
+    plural: Arbeitszeiten
+    distractors: { far: [Pausenzeit, Bereitschaft], near: [Arbeitsplatz, Arbeitsamt, Arbeitsweise] }
+  endofday_noun:
+    form: Feierabend
+    article: der
+    gender: m
+    plural: Feierabende
+    distractors: { far: [Nachtschicht, Mittagspause], near: [Heiligabend, Feierstunde, Federball] }
+  tax_noun:
+    form: Steuer
+    article: die
+    gender: f
+    plural: Steuern
+    distractors: { far: [Zuschlag, Beitrag], near: [Feuer, Scheuer, Steuerrad] }
+  socialcontribution_noun:
+    form: Sozialabgabe
+    article: die
+    gender: f
+    plural: Sozialabgaben
+    distractors: { far: [Lohnsteuer, Krankenkassenbeitrag], near: [Sozialamt, Sonderabgabe, Sozialarbeit] }
+  payslip_noun:
+    form: Lohnabrechnung
+    article: die
+    gender: f
+    plural: Lohnabrechnungen
+    distractors: { far: [Kontoauszug, Steuerbescheid], near: [Lohnsteuer, Abrechnung, Lohnfortzahlung] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  jobadvert_noun:
+    form: Stellenanzeige
+    article: die
+    gender: f
+    plural: Stellenanzeigen
+    distractors: { far: [Ausschreibung, Jobbörse], near: [Stellenangebot, Kleinanzeige, Stellenwert] }
+  coverletter_noun:
+    form: Anschreiben
+    article: das
+    gender: n
+    plural: Anschreiben
+    distractors: { far: [Lebenslauf, Motivationsschreiben], near: [Abschreiben, Anschrift, Anschauung] }
+  qualification_noun:
+    form: Qualifikation
+    article: die
+    gender: f
+    plural: Qualifikationen
+    distractors: { far: [Abschluss, Berufserfahrung], near: [Qualität, Klassifikation, Quantifizierung] }
+  competence_noun:
+    form: Kompetenz
+    article: die
+    gender: f
+    plural: Kompetenzen
+    distractors: { far: [Fähigkeit, Befugnis], near: [Konkurrenz, Konsequenz, Kondolenz] }
+  workreference_noun:
+    form: Arbeitszeugnis
+    article: das
+    gender: n
+    plural: Arbeitszeugnisse
+    distractors: { far: [Referenz, Empfehlungsschreiben], near: [Abschlusszeugnis, Arbeitszimmer, Arbeitsergebnis] }
+  fixedterm_noun:
+    form: Befristung
+    article: die
+    gender: f
+    plural: Befristungen
+    distractors: { far: [Probezeit, Saisonarbeit], near: [Bereifung, Befreiung, Befestigung] }
+  permanentcontract_noun:
+    form: Entfristung
+    article: die
+    gender: f
+    plural: Entfristungen
+    distractors: { far: [Festanstellung, Verlängerung], near: [Befristung, Entlastung, Entrüstung] }
+  warning_noun:
+    form: Abmahnung
+    article: die
+    gender: f
+    plural: Abmahnungen
+    distractors: { far: [Kündigung, Verwarnung], near: [Anmeldung, Abnahme, Abmagerung] }
+  terminationagreement_noun:
+    form: Aufhebungsvertrag
+    article: der
+    gender: m
+    plural: Aufhebungsverträge
+    distractors: { far: [Kündigung, Abfindung], near: [Aufhebungsklausel, Werkvertrag, Aufhebungsbeschluss] }
+  dismissalprotection_noun:
+    form: Kündigungsschutz
+    article: der
+    gender: m
+    distractors: { far: [Sozialauswahl, Mutterschutz], near: [Kündigungsfrist, Datenschutz, Kündigungsgrund] }
+  companyagreement_noun:
+    form: Betriebsvereinbarung
+    article: die
+    gender: f
+    plural: Betriebsvereinbarungen
+    distractors: { far: [Tarifvertrag, Hausordnung], near: [Betriebsversammlung, Zielvereinbarung, Betriebsverfassung] }
+  collectiveagreement_noun:
+    form: Tarifvertrag
+    article: der
+    gender: m
+    plural: Tarifverträge
+    distractors: { far: [Betriebsvereinbarung, Arbeitsordnung], near: [Tarifrunde, Kaufvertrag, Tarifzone] }
+  minimumwage_noun:
+    form: Mindestlohn
+    article: der
+    gender: m
+    plural: Mindestlöhne
+    distractors: { far: [Tariflohn, Grundgehalt], near: [Mindestalter, Stundenlohn, Mindestmaß] }
+  salarynegotiation_noun:
+    form: Gehaltsverhandlung
+    article: die
+    gender: f
+    plural: Gehaltsverhandlungen
+    distractors: { far: [Tarifrunde, Jahresgespräch], near: [Gehaltsvorstellung, Vertragsverhandlung, Gehaltsgruppe] }
+  bonuspayment_noun:
+    form: Sonderzahlung
+    article: die
+    gender: f
+    plural: Sonderzahlungen
+    distractors: { far: [Prämie, Weihnachtsgeld], near: [Sonderausgabe, Nachzahlung, Sonderregelung] }
+  holidayentitlement_noun:
+    form: Urlaubsanspruch
+    article: der
+    gender: m
+    plural: Urlaubsansprüche
+    distractors: { far: [Freistellung, Sonderurlaub], near: [Urlaubsgeld, Rechtsanspruch, Urlaubssperre] }
+  remainingleave_noun:
+    form: Resturlaub
+    article: der
+    gender: m
+    plural: Resturlaube
+    distractors: { far: [Überstundenausgleich, Sonderurlaub], near: [Restbetrag, Erholungsurlaub, Restposten] }
+  occupationalsafety_noun:
+    form: Arbeitsschutz
+    article: der
+    gender: m
+    distractors: { far: [Unfallverhütung, Gesundheitsvorsorge], near: [Arbeitsplatz, Datenschutz, Arbeitsschluss] }
+  induction_noun:
+    form: Einarbeitung
+    article: die
+    gender: f
+    plural: Einarbeitungen
+    distractors: { far: [Schulung, Probezeit], near: [Ausarbeitung, Einatmung, Einordnung] }
+  targetagreement_noun:
+    form: Zielvereinbarung
+    article: die
+    gender: f
+    plural: Zielvereinbarungen
+    distractors: { far: [Leistungsprämie, Jahresplanung], near: [Betriebsvereinbarung, Zielsetzung, Zielgruppe] }
+  performancereview_noun:
+    form: Leistungsbeurteilung
+    article: die
+    gender: f
+    plural: Leistungsbeurteilungen
+    distractors: { far: [Feedbackgespräch, Zeugnis], near: [Leistungssport, Verhaltensbeurteilung, Leistungsgrenze] }
+  personnelfile_noun:
+    form: Personalakte
+    article: die
+    gender: f
+    plural: Personalakten
+    distractors: { far: [Arbeitsvertrag, Zeugnismappe], near: [Personalrat, Prozessakte, Personalausweis] }
+  workingatmosphere_noun:
+    form: Betriebsklima
+    article: das
+    gender: n
+    plural: Betriebsklimata
+    distractors: { far: [Unternehmenskultur, Teamgeist], near: [Betriebsrat, Weltklima, Betriebsablauf] }
+  turnover_staff:
+    form: Fluktuation
+    article: die
+    gender: f
+    plural: Fluktuationen
+    distractors: { far: [Personalmangel, Abwanderung], near: [Fluktuationsrate, Situation, Flotation] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  labourlaw_noun:
+    form: Arbeitsrecht
+    article: das
+    gender: n
+    distractors: { far: [Sozialrecht, Tarifrecht], near: [Arbeitsschutz, Mietrecht, Arbeitsgericht] }
+  businesstransfer_noun:
+    form: Betriebsübergang
+    article: der
+    gender: m
+    plural: Betriebsübergänge
+    distractors: { far: [Fusion, Ausgliederung], near: [Betriebsübung, Bahnübergang, Betriebsurlaub] }
+  massredundancy_noun:
+    form: Massenentlassung
+    article: die
+    gender: f
+    plural: Massenentlassungen
+    distractors: { far: [Stellenabbau, Standortschließung], near: [Massenproduktion, Freistellung, Massenandrang] }
+  socialplan_noun:
+    form: Sozialplan
+    article: der
+    gender: m
+    plural: Sozialpläne
+    distractors: { far: [Abfindungsregelung, Transfergesellschaft], near: [Sozialauswahl, Stufenplan, Sozialamt] }
+  interestbalance_noun:
+    form: Interessenausgleich
+    article: der
+    gender: m
+    plural: Interessenausgleiche
+    distractors: { far: [Sozialplan, Betriebsänderung], near: [Interessenvertretung, Versorgungsausgleich, Interessenkonflikt] }
+  shorttimework_noun:
+    form: Kurzarbeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Freistellung, Betriebsferien], near: [Kurzarbeitergeld, Zeitarbeit, Kurzurlaub] }
+  insolvencypay_noun:
+    form: Insolvenzgeld
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Abfindung, Übergangsgeld], near: [Insolvenzverfahren, Krankengeld, Insolvenzmasse] }
+  bogusselfemployment_noun:
+    form: Scheinselbstständigkeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Freiberuflichkeit, Werkvertragsmodell], near: [Selbstständigkeit, Scheinschwangerschaft, Scheingeschäft] }
+  contractforwork_noun:
+    form: Werkvertrag
+    article: der
+    gender: m
+    plural: Werkverträge
+    distractors: { far: [Dienstvertrag, Honorarvertrag], near: [Werkstatt, Werksverkauf, Werksgelände] }
+  temporarywork_noun:
+    form: Zeitarbeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Saisonarbeit, Minijob], near: [Zeitarbeitsfirma, Kurzarbeit, Zeitaufwand] }
+  staffleasing_noun:
+    form: Arbeitnehmerüberlassung
+    article: die
+    gender: f
+    plural: Arbeitnehmerüberlassungen
+    distractors: { far: [Personalvermittlung, Outsourcing], near: [Arbeitnehmervertretung, Wohnungsüberlassung, Arbeitnehmeranteil] }
+  codetermination_noun:
+    form: Mitbestimmung
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Beteiligungsrecht, Anhörung], near: [Mitbestimmungsgesetz, Bestimmung, Mitversicherung] }
+  supervisoryboard_noun:
+    form: Aufsichtsrat
+    article: der
+    gender: m
+    plural: Aufsichtsräte
+    distractors: { far: [Vorstand, Beirat], near: [Aufsichtspflicht, Betriebsrat, Aufsichtsbehörde] }
+  tariffautonomy_noun:
+    form: Tarifautonomie
+    article: die
+    gender: f
+    distractors: { far: [Tarifbindung, Friedenspflicht], near: [Tarifvertrag, Selbstverwaltung, Tarifkonflikt] }
+  righttostrike_noun:
+    form: Streikrecht
+    article: das
+    gender: n
+    distractors: { far: [Arbeitskampf, Urabstimmung], near: [Streikgeld, Stimmrecht, Streikposten] }
+  lockout_noun:
+    form: Aussperrung
+    article: die
+    gender: f
+    plural: Aussperrungen
+    distractors: { far: [Streik, Betriebsstilllegung], near: [Aussperrungsrecht, Absperrung, Aussortierung] }
+  ancillarycosts_noun:
+    form: Lohnnebenkosten
+    article: die
+    plural: Lohnnebenkosten
+    note: только множественное
+    distractors: { far: [Bruttolohn, Arbeitgeberanteil], near: [Lohnkosten, Nebenkosten, Lohnfortzahlung] }
+  socialinsurance_noun:
+    form: Sozialversicherung
+    article: die
+    gender: f
+    plural: Sozialversicherungen
+    distractors: { far: [Privatversicherung, Zusatzversorgung], near: [Sozialabgabe, Sozialgesetzbuch, Sozialleistung] }
+  pensioninsurance_noun:
+    form: Rentenversicherung
+    article: die
+    gender: f
+    plural: Rentenversicherungen
+    distractors: { far: [Betriebsrente, Riesterrente], near: [Rentenanspruch, Krankenversicherung, Rentenbescheid] }
+  unemploymentinsurance_noun:
+    form: Arbeitslosenversicherung
+    article: die
+    gender: f
+    plural: Arbeitslosenversicherungen
+    distractors: { far: [Arbeitslosengeld, Bürgergeld], near: [Arbeitslosenquote, Unfallversicherung, Arbeitslosenzahl] }
+  careinsurance_noun:
+    form: Pflegeversicherung
+    article: die
+    gender: f
+    plural: Pflegeversicherungen
+    distractors: { far: [Pflegegrad, Pflegegeld], near: [Pflegeleistung, Lebensversicherung, Pflegedienst] }
+  employersliability_noun:
+    form: Berufsgenossenschaft
+    article: die
+    gender: f
+    plural: Berufsgenossenschaften
+    distractors: { far: [Unfallkasse, Aufsichtsdienst], near: [Berufsgruppe, Wohnungsgenossenschaft, Berufsgeheimnis] }
+  labourcourt_place:
+    form: Arbeitsgericht
+    article: das
+    gender: n
+    plural: Arbeitsgerichte
+    distractors: { far: [Sozialgericht, Schlichtungsstelle], near: [Arbeitsrecht, Amtsleiter, Arbeitsgemeinschaft] }
+  conciliationhearing_noun:
+    form: Güteverhandlung
+    article: die
+    gender: f
+    plural: Güteverhandlungen
+    distractors: { far: [Kammertermin, Vergleich], near: [Güteverfahren, Vertragsverhandlung, Güterverkehr] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0178:
+    form: arbeiten
+  lx0179:
+    form: Job
+    article: der
+    gender: m
+  lx0649:
+    form: aufhören
+  lx0650:
+    form: planen
+  lx0651:
+    form: verdienen
+  lx0652:
+    form: Arbeiter
+    article: der
+    gender: m
+  lx0653:
+    form: Arbeitnehmer
+    article: der
+    gender: m
+  lx0654:
+    form: Arbeitsstelle
+    article: die
+    gender: f
+  lx0655:
+    form: Ärztin
+    article: die
+    gender: f
+  lx0656:
+    form: Ingenieur
+    article: der
+    gender: m
+  lx0657:
+    form: Koch
+    article: der
+    gender: m
+  lx0658:
+    form: Mittagspause
+    article: die
+    gender: f
+  lx0659:
+    form: Team
+    article: das
+    gender: n
+  lx0660:
+    form: Verkäuferin
+    article: die
+    gender: f
+  lx0661:
+    form: beruflich
+  lx0662:
+    form: beschäftigt
+  lx1612:
+    form: anstellen
+  lx1613:
+    form: bedienen
+  lx1614:
+    form: beraten
+  # Употребление: sich mit etwas beschäftigen; jemanden beschäftigen
+  lx1615:
+    form: beschäftigen
+  # Употребление: sich um eine Stelle bewerben; ein Produkt bewerben
+  lx1616:
+    form: bewerben
+  lx1617:
+    form: delegieren
+  lx1618:
+    form: einstellen
+  lx1619:
+    form: entlassen
+  lx1620:
+    form: erledigen
+  lx1621:
+    form: herstellen
+  lx1622:
+    form: organisieren
+  lx1623:
+    form: präsentieren
+  lx1624:
+    form: produzieren
+  lx1625:
+    form: teilnehmen
+  lx1626:
+    form: vorbereiten
+  lx1627:
+    form: zusammenarbeiten
+  lx1628:
+    form: Abteilungsleiter
+    article: der
+    gender: m
+  lx1629:
+    form: Arbeitsplatz
+    article: der
+    gender: m
+  lx1630:
+    form: Assistent
+    article: der
+    gender: m
+  lx1631:
+    form: Auftrag
+    article: der
+    gender: m
+  # Субстантивированное прилагательное: der Auszubildende, ein Auszubildender, die Auszubildende.
+  lx1632:
+    form: Auszubildende
+    article: der
+    gender: m
+  lx1633:
+    form: Berufserfahrung
+    article: die
+    gender: f
+  lx1634:
+    form: Betrieb
+    article: der
+    gender: m
+  lx1635:
+    form: Bewerber
+    article: der
+    gender: m
+  lx1636:
+    form: Bewerbungsgespräch
+    article: das
+    gender: n
+  lx1637:
+    form: Dienst
+    article: der
+    gender: m
+  lx1638:
+    form: Fähigkeit
+    article: die
+    gender: f
+  lx1639:
+    form: Fortbildung
+    article: die
+    gender: f
+  lx1640:
+    form: Kenntnis
+    article: die
+    gender: f
+  lx1641:
+    form: Lohn
+    article: der
+    gender: m
+  lx1642:
+    form: Manager
+    article: der
+    gender: m
+  lx1643:
+    form: Meeting
+    article: das
+    gender: n
+  lx1644:
+    form: Personal
+    article: das
+    gender: n
+  lx1645:
+    form: Personalabteilung
+    article: die
+    gender: f
+  lx1646:
+    form: Praktikant
+    article: der
+    gender: m
+  lx1647:
+    form: Präsentation
+    article: die
+    gender: f
+  lx1648:
+    form: Protokoll
+    article: das
+    gender: n
+  lx1649:
+    form: Sekretariat
+    article: das
+    gender: n
+  lx1650:
+    form: Sitzung
+    article: die
+    gender: f
+  lx1651:
+    form: Stelle
+    article: die
+    gender: f
+  lx1652:
+    form: Zusammenarbeit
+    article: die
+    gender: f
+  lx1653:
+    form: angestellt
+  lx1654:
+    form: arbeitslos
+  lx1655:
+    form: berufstätig
+  lx1656:
+    form: erfahren
+  lx1657:
+    form: qualifiziert
+  lx1658:
+    form: selbstständig
+  lx1659:
+    form: teamfähig
+  lx1660:
+    form: unerfahren
+  lx3093:
+    form: anleiten
+  lx3094:
+    form: anlernen
+  lx3095:
+    form: anweisen
+  lx3096:
+    form: ausbilden
+  lx3097:
+    form: ausführen
+  lx3098:
+    form: beurteilen
+  lx3099:
+    form: bewerten
+  lx3100:
+    form: einarbeiten
+  lx3101:
+    form: einspringen
+  # Употребление: sich fortbilden
+  lx3102:
+    form: fortbilden
+  lx3103:
+    form: führen
+  lx3104:
+    form: koordinieren
+  lx3105:
+    form: leiten
+  lx3106:
+    form: loben
+  # Употребление: sich für eine Aufgabe qualifizieren; jemanden qualifizieren
+  lx3107:
+    form: qualifizieren
+  lx3108:
+    form: vertreten
+  # Употребление: sich weiterbilden
+  lx3109:
+    form: weiterbilden
+  lx3110:
+    form: Arbeitsablauf
+    article: der
+    gender: m
+  lx3111:
+    form: Arbeitsalltag
+    article: der
+    gender: m
+  lx3112:
+    form: Arbeitsamt
+    article: das
+    gender: n
+  lx3113:
+    form: Arbeitsaufwand
+    article: der
+    gender: m
+  lx3114:
+    form: Arbeitsbedingung
+    article: die
+    gender: f
+  lx3115:
+    form: Arbeitsbelastung
+    article: die
+    gender: f
+  lx3116:
+    form: Arbeitsklima
+    article: das
+    gender: n
+  lx3117:
+    form: Arbeitslosigkeit
+    article: die
+    gender: f
+  lx3118:
+    form: Arbeitssicherheit
+    article: die
+    gender: f
+  lx3119:
+    form: Arbeitsverhältnis
+    article: das
+    gender: n
+  lx3120:
+    form: Beförderung
+    article: die
+    gender: f
+  lx3121:
+    form: Berufsausbildung
+    article: die
+    gender: f
+  lx3122:
+    form: Bruttolohn
+    article: der
+    gender: m
+  lx3123:
+    form: Feedbackgespräch
+    article: das
+    gender: n
+  lx3124:
+    form: Ferienjob
+    article: der
+    gender: m
+  lx3125:
+    form: Jobcenter
+    article: das
+    gender: n
+  lx3126:
+    form: Krankenschein
+    article: der
+    gender: m
+  lx3127:
+    form: Krankheitsfall
+    article: der
+    gender: m
+  lx3128:
+    form: Kündigungsschreiben
+    article: das
+    gender: n
+  lx3129:
+    form: Lohnerhöhung
+    article: die
+    gender: f
+  lx3130:
+    form: Lohnfortzahlung
+    article: die
+    gender: f
+  lx3131:
+    form: Minijob
+    article: der
+    gender: m
+  lx3132:
+    form: Nebenjob
+    article: der
+    gender: m
+  lx3133:
+    form: Nettolohn
+    article: der
+    gender: m
+  lx3134:
+    form: Personalentwicklung
+    article: die
+    gender: f
+  lx3135:
+    form: Stellenausschreibung
+    article: die
+    gender: f
+  lx3136:
+    form: Stundenlohn
+    article: der
+    gender: m
+  lx3137:
+    form: Umschulung
+    article: die
+    gender: f
+  lx3138:
+    form: Unfallverhütung
+    article: die
+    gender: f
+  lx3139:
+    form: Verdienst
+    article: der
+    gender: m
+  lx3140:
+    form: belastbar
+  lx3141:
+    form: eigenverantwortlich
+  lx3142:
+    form: flexibel
+  lx3143:
+    form: gewissenhaft
+  lx3144:
+    form: leistungsbereit
+  lx3145:
+    form: leistungsfähig
+  lx3146:
+    form: sorgfältig
+  lx3147:
+    form: tariflich
+  lx3148:
+    form: verantwortungsbewusst
+  lx4776:
+    form: abwägen
+  lx4777:
+    form: auslagern
+  lx4778:
+    form: automatisieren
+  lx4779:
+    form: eingliedern
+  lx4780:
+    form: evaluieren
+  lx4781:
+    form: initiieren
+  lx4782:
+    form: outsourcen
+  lx4783:
+    form: priorisieren
+  lx4784:
+    form: rationalisieren
+  lx4785:
+    form: restrukturieren
+  lx4786:
+    form: 'sich spezialisieren'
+  lx4787:
+    form: strukturieren
+  lx4788:
+    form: umstrukturieren
+  lx4789:
+    form: verantworten
+  lx4790:
+    form: Arbeitsmarkt
+    article: der
+    gender: m
+  lx4791:
+    form: Arbeitsorganisation
+    article: die
+    gender: f
+  lx4792:
+    form: Arbeitszeitregelung
+    article: die
+    gender: f
+  lx4793:
+    form: Aufstieg
+    article: der
+    gender: m
+  lx4794:
+    form: Berufswechsel
+    article: der
+    gender: m
+  lx4795:
+    form: Burnout
+    article: das
+    gender: n
+  lx4796:
+    form: Coaching
+    article: das
+    gender: n
+  lx4797:
+    form: Coworking
+    article: das
+    gender: n
+  lx4798:
+    form: Fachkräftemangel
+    article: der
+    gender: m
+  lx4799:
+    form: Führung
+    article: die
+    gender: f
+  lx4800:
+    form: Führungskompetenz
+    article: die
+    gender: f
+  lx4801:
+    form: Führungskraft
+    article: die
+    gender: f
+  lx4802:
+    form: Gleitzeit
+    article: die
+    gender: f
+  lx4803:
+    form: Karriereweg
+    article: der
+    gender: m
+  lx4804:
+    form: Kernzeit
+    article: die
+    gender: f
+  lx4805:
+    form: Leiharbeit
+    article: die
+    gender: f
+  lx4806:
+    form: Leistungsdruck
+    article: der
+    gender: m
+  lx4807:
+    form: Mentoring
+    article: das
+    gender: n
+  lx4808:
+    form: Mobbing
+    article: das
+    gender: n
+  lx4809:
+    form: Nachtarbeit
+    article: die
+    gender: f
+  lx4810:
+    form: Onboarding
+    article: das
+    gender: n
+  lx4811:
+    form: Outsourcing
+    article: das
+    gender: n
+  lx4812:
+    form: Personalabbau
+    article: der
+    gender: m
+  lx4813:
+    form: Personalführung
+    article: die
+    gender: f
+  lx4814:
+    form: Personalmangel
+    article: der
+    gender: m
+  lx4815:
+    form: Quereinstieg
+    article: der
+    gender: m
+  lx4816:
+    form: Rufbereitschaft
+    article: die
+    gender: f
+  lx4817:
+    form: Schichtarbeit
+    article: die
+    gender: f
+  lx4818:
+    form: Selbstverwirklichung
+    article: die
+    gender: f
+  lx4819:
+    form: Stellenwechsel
+    article: der
+    gender: m
+  lx4820:
+    form: Teamwork
+    article: das
+    gender: n
+  lx4821:
+    form: Termindruck
+    article: der
+    gender: m
+  lx4822:
+    form: Unternehmensführung
+    article: die
+    gender: f
+  lx4823:
+    form: Unternehmenskultur
+    article: die
+    gender: f
+  lx4824:
+    form: Unternehmensstruktur
+    article: die
+    gender: f
+  lx4825:
+    form: Wiedereinstieg
+    article: der
+    gender: m
+  lx4826:
+    form: berufsbezogen
+  lx4827:
+    form: demotivierend
+  lx4828:
+    form: ergebnisorientiert
+  lx4829:
+    form: hierarchisch
+  lx4830:
+    form: kollegial
+  lx4831:
+    form: konkurrenzfähig
+  lx4832:
+    form: kooperativ
+  lx4833:
+    form: kundenorientiert
+  lx4834:
+    form: leistungsorientiert
+  lx4835:
+    form: lösungsorientiert
+  lx4836:
+    form: motivierend
+  lx4837:
+    form: zielorientiert

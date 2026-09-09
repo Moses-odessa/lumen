@@ -1,0 +1,649 @@
+# Немецкие лексемы созвездия «Свойства, оценка и сравнение».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0216:
+    form: falsch
+  lx0217:
+    form: groß
+  lx0218:
+    form: hässlich
+  lx0219:
+    form: heiß
+  lx0220:
+    form: klein
+  lx0221:
+    form: neu
+  lx0222:
+    form: richtig
+  lx0223:
+    form: schön
+  # Количественное значение; viele и сравнительное mehr не считаются новыми лексемами.
+  lx0224:
+    form: viel
+  # Сравнительное weniger изучается как форма, не отдельная лексема.
+  lx0225:
+    form: wenig
+  lx0226:
+    form: ganz
+  lx0794:
+    form: breit
+  lx0795:
+    form: dick
+  lx0796:
+    form: dumm
+  lx0797:
+    form: dünn
+  lx0798:
+    form: einfach
+  lx0799:
+    form: ernst
+  lx0800:
+    form: fremd
+  lx0801:
+    form: genau
+  lx0802:
+    form: geschlossen
+  lx0803:
+    form: hoch
+  lx0804:
+    form: hübsch
+  lx0805:
+    form: intelligent
+  lx0806:
+    form: klug
+  lx0807:
+    form: komisch
+  lx0808:
+    form: kurz
+  lx0809:
+    form: lang
+  lx0810:
+    form: lebendig
+  lx0811:
+    form: leer
+  lx0812:
+    form: lieb
+  lx0813:
+    form: nah
+  lx0814:
+    form: niedrig
+  lx0815:
+    form: prima
+  lx0816:
+    form: riesig
+  lx0817:
+    form: satt
+  lx0818:
+    form: schlimm
+  lx0819:
+    form: schmal
+  lx0820:
+    form: schrecklich
+  lx0821:
+    form: streng
+  lx0822:
+    form: super
+  lx0823:
+    form: toll
+  lx0824:
+    form: tot
+  lx0825:
+    form: verrückt
+  lx0826:
+    form: voll
+  lx0827:
+    form: wach
+  lx0828:
+    form: weit
+  lx0829:
+    form: wunderbar
+  lx0830:
+    form: besonders
+  lx0831:
+    form: fast
+  lx0832:
+    form: genug
+  lx0833:
+    form: ziemlich
+  lx2193:
+    form: ähneln
+  lx2194:
+    form: genügen
+  lx2195:
+    form: reichen
+  lx2196:
+    form: stinken
+  lx2197:
+    form: unterscheiden
+  lx2198:
+    form: wirken
+  lx2199:
+    form: Aussehen
+    article: das
+    gender: n
+  lx2200:
+    form: Breite
+    article: die
+    gender: f
+  lx2201:
+    form: Dicke
+    article: die
+    gender: f
+  lx2202:
+    form: Form
+    article: die
+    gender: f
+  lx2203:
+    form: Gewicht
+    article: das
+    gender: n
+  lx2204:
+    form: Höhe
+    article: die
+    gender: f
+  lx2205:
+    form: Länge
+    article: die
+    gender: f
+  lx2206:
+    form: Maß
+    article: das
+    gender: n
+  lx2207:
+    form: Muster
+    article: das
+    gender: n
+  lx2208:
+    form: Oberfläche
+    article: die
+    gender: f
+  lx2209:
+    form: Tiefe
+    article: die
+    gender: f
+  lx2210:
+    form: Typ
+    article: der
+    gender: m
+  lx2211:
+    form: Vergleich
+    article: der
+    gender: m
+  lx2212:
+    form: Zustand
+    article: der
+    gender: m
+  lx2213:
+    form: cool
+  lx2214:
+    form: dicht
+  lx2215:
+    form: doof
+  lx2216:
+    form: dreieckig
+  lx2217:
+    form: dringend
+  lx2218:
+    form: dünnflüssig
+  lx2219:
+    form: durchsichtig
+  lx2220:
+    form: eckig
+  lx2221:
+    form: einfarbig
+  lx2222:
+    form: einig
+  lx2223:
+    form: farbig
+  lx2224:
+    form: farblos
+  lx2225:
+    form: fest
+  lx2226:
+    form: flach
+  lx2227:
+    form: flüssig
+  lx2228:
+    form: glänzend
+  lx2229:
+    form: glatt
+  lx2230:
+    form: klebrig
+  lx2231:
+    form: locker
+  lx2232:
+    form: matt
+  lx2233:
+    form: menschlich
+  lx2234:
+    form: rau
+  lx2235:
+    form: rund
+  lx2236:
+    form: schlau
+  lx2237:
+    form: seicht
+  lx2238:
+    form: selbstverständlich
+  lx2239:
+    form: spitz
+  lx2240:
+    form: steil
+  lx2241:
+    form: stumpf
+  lx2242:
+    form: tief
+  lx2243:
+    form: undurchsichtig
+  lx2244:
+    form: unwahrscheinlich
+  lx2245:
+    form: winzig
+  lx2246:
+    form: zufällig
+  lx2247:
+    form: anders
+  lx2248:
+    form: äußerst
+  lx2249:
+    form: ebenso
+  lx2250:
+    form: genauso
+  # Наречие степени: recht gut, recht teuer. Отдельно от существительного das Recht.
+  lx2251:
+    form: recht
+  lx2252:
+    form: tatsächlich
+  lx2253:
+    form: total
+  lx2254:
+    form: ungefähr
+  lx2255:
+    form: unterschiedlich
+  lx2256:
+    form: völlig
+  lx2257:
+    form: wirklich
+  lx4000:
+    form: abgrenzen
+  lx4001:
+    form: bemessen
+  lx4002:
+    form: charakterisieren
+  lx4003:
+    form: einordnen
+  lx4004:
+    form: einstufen
+  lx4005:
+    form: kennzeichnen
+  lx4006:
+    form: Ähnlichkeit
+    article: die
+    gender: f
+  lx4007:
+    form: Besonderheit
+    article: die
+    gender: f
+  lx4008:
+    form: Brauchbarkeit
+    article: die
+    gender: f
+  lx4009:
+    form: Eigenschaft
+    article: die
+    gender: f
+  lx4010:
+    form: Gemeinsamkeit
+    article: die
+    gender: f
+  lx4011:
+    form: Gleichheit
+    article: die
+    gender: f
+  lx4012:
+    form: Merkmal
+    article: das
+    gender: n
+  lx4013:
+    form: Nützlichkeit
+    article: die
+    gender: f
+  lx4014:
+    form: Stellenwert
+    article: der
+    gender: m
+  lx4015:
+    form: Ungleichheit
+    article: die
+    gender: f
+  lx4016:
+    form: Verschiedenheit
+    article: die
+    gender: f
+  lx4017:
+    form: Wichtigkeit
+    article: die
+    gender: f
+  lx4018:
+    form: ähnlich
+  lx4019:
+    form: allgemein
+  lx4020:
+    form: andersartig
+  lx4021:
+    form: angenehm
+  lx4022:
+    form: ausreichend
+  lx4023:
+    form: bedeutend
+  lx4024:
+    form: fehlerfrei
+  lx4025:
+    form: fehlerhaft
+  lx4026:
+    form: geeignet
+  lx4027:
+    form: gelungen
+  lx4028:
+    form: gewöhnlich
+  lx4029:
+    form: gleichartig
+  lx4030:
+    form: ideal
+  lx4031:
+    form: individuell
+  lx4032:
+    form: maximal
+  lx4033:
+    form: minimal
+  lx4034:
+    form: misslungen
+  lx4035:
+    form: negativ
+  lx4036:
+    form: neutral
+  lx4037:
+    form: normal
+  lx4038:
+    form: optimal
+  lx4039:
+    form: passend
+  lx4040:
+    form: perfekt
+  lx4041:
+    form: positiv
+  lx4042:
+    form: speziell
+  lx4043:
+    form: typisch
+  lx4044:
+    form: üblich
+  lx4045:
+    form: unangenehm
+  lx4046:
+    form: unbedeutend
+  lx4047:
+    form: ungeeignet
+  lx4048:
+    form: ungewöhnlich
+  lx4049:
+    form: ungleich
+  lx4050:
+    form: unnormal
+  lx4051:
+    form: unpassend
+  lx4052:
+    form: untypisch
+  lx4053:
+    form: unüblich
+  lx4054:
+    form: unvergleichbar
+  lx4055:
+    form: unvollständig
+  lx4056:
+    form: unwesentlich
+  lx4057:
+    form: unzureichend
+  lx4058:
+    form: vergleichbar
+  lx4059:
+    form: verschieden
+  lx4060:
+    form: vollständig
+  lx4061:
+    form: wertlos
+  lx4062:
+    form: wertvoll
+  lx4063:
+    form: wesentlich
+  lx4064:
+    form: durchaus
+  lx4065:
+    form: einigermaßen
+  lx4066:
+    form: gewissermaßen
+  lx4067:
+    form: keineswegs
+  lx4068:
+    form: letztendlich
+  lx4069:
+    form: offenbar
+  lx4070:
+    form: sicherlich
+  lx5284:
+    form: Aspekt
+    article: der
+    gender: m
+  lx5285:
+    form: Ausmaß
+    article: das
+    gender: n
+  lx5286:
+    form: Aussagekraft
+    article: die
+    gender: f
+  lx5287:
+    form: Beschaffenheit
+    article: die
+    gender: f
+  lx5288:
+    form: Eindeutigkeit
+    article: die
+    gender: f
+  lx5289:
+    form: Einfachheit
+    article: die
+    gender: f
+  lx5290:
+    form: Erscheinungsbild
+    article: das
+    gender: n
+  lx5291:
+    form: Faktor
+    article: der
+    gender: m
+  lx5292:
+    form: Festigkeit
+    article: die
+    gender: f
+  lx5293:
+    form: Gesamtbild
+    article: das
+    gender: n
+  lx5294:
+    form: Instabilität
+    article: die
+    gender: f
+  lx5295:
+    form: Komplexität
+    article: die
+    gender: f
+  lx5296:
+    form: Konsistenz
+    article: die
+    gender: f
+  lx5297:
+    form: Potenzial
+    article: das
+    gender: n
+  lx5298:
+    form: Relevanz
+    article: die
+    gender: f
+  lx5299:
+    form: Sachverhalt
+    article: der
+    gender: m
+  lx5300:
+    form: Spektrum
+    article: das
+    gender: n
+  lx5301:
+    form: Stabilität
+    article: die
+    gender: f
+  lx5302:
+    form: Tragweite
+    article: die
+    gender: f
+  lx5303:
+    form: Umstand
+    article: der
+    gender: m
+  lx5304:
+    form: Vielseitigkeit
+    article: die
+    gender: f
+  lx5305:
+    form: Wesen
+    article: das
+    gender: n
+  lx5306:
+    form: Widerstandsfähigkeit
+    article: die
+    gender: f
+  lx5307:
+    form: Zerbrechlichkeit
+    article: die
+    gender: f
+  lx5308:
+    form: ambivalent
+  lx5309:
+    form: anfällig
+  lx5310:
+    form: ausschlaggebend
+  lx5311:
+    form: beachtlich
+  lx5312:
+    form: beständig
+  lx5313:
+    form: beträchtlich
+  lx5314:
+    form: charakteristisch
+  lx5315:
+    form: entscheidend
+  lx5316:
+    form: erheblich
+  lx5317:
+    form: essenziell
+  lx5318:
+    form: exemplarisch
+  lx5319:
+    form: fragil
+  lx5320:
+    form: fundamental
+  lx5321:
+    form: geringfügig
+  lx5322:
+    form: grundlegend
+  lx5323:
+    form: instabil
+  lx5324:
+    form: irrelevant
+  lx5325:
+    form: komplex
+  lx5326:
+    form: künstlich
+  lx5327:
+    form: lebensfern
+  lx5328:
+    form: lebensnah
+  lx5329:
+    form: maßgeblich
+  lx5330:
+    form: mehrdeutig
+  lx5331:
+    form: naturgetreu
+  lx5332:
+    form: natürlich
+  lx5333:
+    form: nebensächlich
+  lx5334:
+    form: realistisch
+  lx5335:
+    form: relevant
+  lx5336:
+    form: repräsentativ
+  lx5337:
+    form: stabil
+  lx5338:
+    form: stimmig
+  lx5339:
+    form: überschaubar
+  lx5340:
+    form: unbeständig
+  lx5341:
+    form: unempfindlich
+  lx5342:
+    form: unkompliziert
+  lx5343:
+    form: unplausibel
+  lx5344:
+    form: unrealistisch
+  lx5345:
+    form: unstimmig
+  lx5346:
+    form: unüberschaubar
+  lx5347:
+    form: vieldeutig
+  lx5348:
+    form: vielseitig
+  lx5349:
+    form: vorrangig
+  lx5350:
+    form: zerbrechlich
+  lx5351:
+    form: zweideutig
+  lx5352:
+    form: zweitrangig
+  lx5353:
+    form: absolut
+  lx5354:
+    form: ansatzweise
+  lx5355:
+    form: ausgesprochen
+  lx5356:
+    form: außerordentlich
+  lx5357:
+    form: grundsätzlich
+  lx5358:
+    form: prinzipiell
+  lx5359:
+    form: relativ
+  lx5360:
+    form: teilweise
+  lx5361:
+    form: überaus
+  lx5362:
+    form: ungemein
+  lx5363:
+    form: vergleichsweise
+  lx5364:
+    form: vorwiegend

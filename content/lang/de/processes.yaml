@@ -1,0 +1,507 @@
+# Немецкие лексемы созвездия «Процессы, изменения и методы».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0227:
+    form: bekommen
+  lx0834:
+    form: starten
+  lx0835:
+    form: Ergebnis
+    article: das
+    gender: n
+  lx0836:
+    form: Plan
+    article: der
+    gender: m
+  lx0837:
+    form: Schluss
+    article: der
+    gender: m
+  lx2258:
+    form: ändern
+  lx2259:
+    form: aufmachen
+  lx2260:
+    form: auseinanderbauen
+  lx2261:
+    form: bauen
+  lx2262:
+    form: klappen
+  lx2263:
+    form: ordnen
+  lx2264:
+    form: sortieren
+  lx2265:
+    form: verändern
+  lx2266:
+    form: verschlechtern
+  lx2267:
+    form: zumachen
+  lx2268:
+    form: zusammenbauen
+  lx2269:
+    form: Änderung
+    article: die
+    gender: f
+  lx2270:
+    form: Arbeitsteilung
+    article: die
+    gender: f
+  lx2271:
+    form: Erfolg
+    article: der
+    gender: m
+  lx2272:
+    form: Gebrauch
+    article: der
+    gender: m
+  lx2273:
+    form: Misserfolg
+    article: der
+    gender: m
+  lx2274:
+    form: Mittel
+    article: das
+    gender: n
+  lx2275:
+    form: Ordnung
+    article: die
+    gender: f
+  lx2276:
+    form: Organisation
+    article: die
+    gender: f
+  lx2277:
+    form: Planung
+    article: die
+    gender: f
+  lx2278:
+    form: Veränderung
+    article: die
+    gender: f
+  lx2279:
+    form: Verbesserung
+    article: die
+    gender: f
+  lx2280:
+    form: Verfahren
+    article: das
+    gender: n
+  lx2281:
+    form: Versuch
+    article: der
+    gender: m
+  lx2282:
+    form: Vorbereitung
+    article: die
+    gender: f
+  lx2283:
+    form: bereit
+  lx2284:
+    form: fertig
+  lx2285:
+    form: kompliziert
+  lx2286:
+    form: unfertig
+  lx4071:
+    form: anpassen
+  lx4072:
+    form: anwenden
+  lx4073:
+    form: berücksichtigen
+  lx4074:
+    form: betragen
+  lx4075:
+    form: betreiben
+  lx4076:
+    form: durchführen
+  lx4077:
+    form: einsetzen
+  lx4078:
+    form: entstehen
+  lx4079:
+    form: erfolgen
+  lx4080:
+    form: erleichtern
+  lx4081:
+    form: erproben
+  lx4082:
+    form: erscheinen
+  lx4083:
+    form: erschweren
+  lx4084:
+    form: erzeugen
+  lx4085:
+    form: fertigstellen
+  lx4086:
+    form: funktionieren
+  lx4087:
+    form: geschehen
+  lx4088:
+    form: modernisieren
+  lx4089:
+    form: realisieren
+  lx4090:
+    form: 'sich bewähren'
+  lx4091:
+    form: 'sich ereignen'
+  lx4092:
+    form: umsetzen
+  lx4093:
+    form: verarbeiten
+  lx4094:
+    form: vereinfachen
+  lx4095:
+    form: verlangsamen
+  lx4096:
+    form: verschwinden
+  lx4097:
+    form: verwenden
+  lx4098:
+    form: verwirklichen
+  lx4099:
+    form: vorkommen
+  lx4100:
+    form: weiterarbeiten
+  lx4101:
+    form: weiterentwickeln
+  lx4102:
+    form: Abstimmung
+    article: die
+    gender: f
+  lx4103:
+    form: Anpassung
+    article: die
+    gender: f
+  lx4104:
+    form: Arbeitsgang
+    article: der
+    gender: m
+  lx4105:
+    form: Arbeitsschritt
+    article: der
+    gender: m
+  lx4106:
+    form: Ausführung
+    article: die
+    gender: f
+  lx4107:
+    form: Beschleunigung
+    article: die
+    gender: f
+  lx4108:
+    form: Durchführung
+    article: die
+    gender: f
+  lx4109:
+    form: Endergebnis
+    article: das
+    gender: n
+  lx4110:
+    form: Entstehung
+    article: die
+    gender: f
+  lx4111:
+    form: Erneuerung
+    article: die
+    gender: f
+  lx4112:
+    form: Erscheinung
+    article: die
+    gender: f
+  lx4113:
+    form: Erschwerung
+    article: die
+    gender: f
+  lx4114:
+    form: Fortschritt
+    article: der
+    gender: m
+  lx4115:
+    form: Funktion
+    article: die
+    gender: f
+  lx4116:
+    form: Funktionsweise
+    article: die
+    gender: f
+  lx4117:
+    form: Hilfsmittel
+    article: das
+    gender: n
+  lx4118:
+    form: Kontrolle
+    article: die
+    gender: f
+  lx4119:
+    form: Konzept
+    article: das
+    gender: n
+  lx4120:
+    form: Korrektur
+    article: die
+    gender: f
+  lx4121:
+    form: Leistung
+    article: die
+    gender: f
+  lx4122:
+    form: Nutzung
+    article: die
+    gender: f
+  lx4123:
+    form: Rückschritt
+    article: der
+    gender: m
+  lx4124:
+    form: Rückstand
+    article: der
+    gender: m
+  lx4125:
+    form: Stillstand
+    article: der
+    gender: m
+  lx4126:
+    form: Überprüfung
+    article: die
+    gender: f
+  lx4127:
+    form: Umsetzung
+    article: die
+    gender: f
+  lx4128:
+    form: Vereinfachung
+    article: die
+    gender: f
+  lx4129:
+    form: Verwendung
+    article: die
+    gender: f
+  lx4130:
+    form: Vorgang
+    article: der
+    gender: m
+  lx4131:
+    form: Vorgehen
+    article: das
+    gender: n
+  lx4132:
+    form: Werkzeugset
+    article: das
+    gender: n
+  lx4133:
+    form: Zwischenergebnis
+    article: das
+    gender: n
+  lx4134:
+    form: erfolglos
+  lx4135:
+    form: erfolgreich
+  lx4136:
+    form: geplant
+  lx4137:
+    form: kontinuierlich
+  lx4138:
+    form: methodisch
+  lx4139:
+    form: planmäßig
+  lx4140:
+    form: plötzlich
+  lx4141:
+    form: systematisch
+  lx4142:
+    form: ungeplant
+  lx4143:
+    form: unsystematisch
+  lx4144:
+    form: schrittweise
+  lx5365:
+    form: abbrechen
+  lx5366:
+    form: abschaffen
+  lx5367:
+    form: abwickeln
+  lx5368:
+    form: anstoßen
+  lx5369:
+    form: auflösen
+  lx5370:
+    form: ausweiten
+  lx5371:
+    form: bedingen
+  lx5372:
+    form: beeinflussen
+  lx5373:
+    form: begrenzen
+  lx5374:
+    form: beschränken
+  lx5375:
+    form: bewirken
+  lx5376:
+    form: erfordern
+  lx5377:
+    form: erhöhen
+  lx5378:
+    form: ermöglichen
+  lx5379:
+    form: erweitern
+  lx5380:
+    form: etablieren
+  lx5381:
+    form: fortführen
+  lx5382:
+    form: gliedern
+  lx5383:
+    form: hemmen
+  lx5384:
+    form: hervorrufen
+  lx5385:
+    form: implementieren
+  lx5386:
+    form: reaktivieren
+  lx5387:
+    form: regeln
+  lx5388:
+    form: reorganisieren
+  lx5389:
+    form: standardisieren
+  lx5390:
+    form: steuern
+  lx5391:
+    form: transformieren
+  lx5392:
+    form: untergliedern
+  lx5393:
+    form: vereinheitlichen
+  lx5394:
+    form: verhindern
+  lx5395:
+    form: vermindern
+  lx5396:
+    form: verringern
+  lx5397:
+    form: verursachen
+  lx5398:
+    form: vollenden
+  lx5399:
+    form: vollziehen
+  lx5400:
+    form: vorantreiben
+  lx5401:
+    form: voraussetzen
+  lx5402:
+    form: wiederaufnehmen
+  lx5403:
+    form: Ansatz
+    article: der
+    gender: m
+  lx5404:
+    form: Auswertung
+    article: die
+    gender: f
+  lx5405:
+    form: Engpass
+    article: der
+    gender: m
+  lx5406:
+    form: Gliederung
+    article: die
+    gender: f
+  lx5407:
+    form: Handlungsbedarf
+    article: der
+    gender: m
+  lx5408:
+    form: Handlungsplan
+    article: der
+    gender: m
+  lx5409:
+    form: Hierarchie
+    article: die
+    gender: f
+  lx5410:
+    form: Lösungsansatz
+    article: der
+    gender: m
+  lx5411:
+    form: Maßnahme
+    article: die
+    gender: f
+  lx5412:
+    form: Mechanismus
+    article: der
+    gender: m
+  lx5413:
+    form: Methode
+    article: die
+    gender: f
+  lx5414:
+    form: Regelung
+    article: die
+    gender: f
+  lx5415:
+    form: Regulierung
+    article: die
+    gender: f
+  # Управление процессом или устройством; различать с политическим управлением.
+  lx5416:
+    form: Steuerung
+    article: die
+    gender: f
+  lx5417:
+    form: Strategie
+    article: die
+    gender: f
+  lx5418:
+    form: Struktur
+    article: die
+    gender: f
+  lx5419:
+    form: System
+    article: das
+    gender: n
+  lx5420:
+    form: Taktik
+    article: die
+    gender: f
+  lx5421:
+    form: Transformation
+    article: die
+    gender: f
+  lx5422:
+    form: Zusammenspiel
+    article: das
+    gender: n
+  lx5423:
+    form: effektiv
+  lx5424:
+    form: effizient
+  lx5425:
+    form: erfolgversprechend
+  lx5426:
+    form: ergebnisoffen
+  lx5427:
+    form: ineffektiv
+  lx5428:
+    form: ineffizient
+  lx5429:
+    form: zielführend
+  lx5430:
+    form: gegenseitig
+  lx5431:
+    form: inkonsequent
+  lx5432:
+    form: konsequent
+  lx5433:
+    form: mittelbar
+  lx5434:
+    form: sukzessive
+  lx5435:
+    form: wechselseitig

@@ -1,0 +1,245 @@
+# Созвездие «Учёба и развитие».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: learning
+tiers:
+  a0:
+    concepts:
+      - { id: lx0180, pos: verb, draft: true }  # lernen
+      - { id: lx0181, pos: noun, draft: true }  # Buch
+      - { id: lx0182, pos: noun, draft: true }  # Heft
+      - { id: lx0183, pos: noun, draft: true }  # Kurs
+      - { id: lx0184, pos: noun, draft: true }  # Lehrer
+      - { id: lx0185, pos: noun, draft: true }  # Papier
+      - { id: lx0186, pos: noun, draft: true }  # Stift
+  a1:
+    concepts:
+      - { id: lx0663, pos: verb, draft: true }  # rechnen
+      - { id: lx0664, pos: verb, draft: true }  # studieren
+      - { id: lx0665, pos: verb, draft: true }  # üben
+      - { id: lx0666, pos: noun, draft: true }  # Bleistift
+      - { id: lx0667, pos: noun, draft: true }  # Fehler
+      - { id: lx0668, pos: noun, draft: true }  # Hausaufgabe
+      - { id: lx0669, pos: noun, draft: true }  # Klasse
+      - { id: lx0670, pos: noun, draft: true }  # Kugelschreiber
+      - { id: lx0671, pos: noun, draft: true }  # Lehrerin
+      - { id: lx0672, pos: noun, draft: true }  # Lektion
+      - { id: lx0673, pos: noun, draft: true }  # Prüfung
+      - { id: lx0674, pos: noun, draft: true }  # Punkt
+      - { id: lx0675, pos: noun, draft: true }  # Radiergummi
+      - { id: lx0676, pos: noun, draft: true }  # Schüler
+      - { id: lx0677, pos: noun, draft: true }  # Schülerin
+      - { id: lx0678, pos: noun, draft: true }  # Student
+      - { id: lx0679, pos: noun, draft: true }  # Studentin
+      - { id: lx0680, pos: noun, draft: true }  # Tafel
+      - { id: lx0681, pos: noun, draft: true }  # Test
+      - { id: lx0682, pos: noun, draft: true }  # Übung
+      - { id: lx0683, pos: noun, draft: true }  # Universität
+      - { id: lx0684, pos: noun, draft: true }  # Unterricht
+      - { id: lx0685, pos: adj, draft: true }  # leicht
+      - { id: lx0686, pos: adj, draft: true }  # schwer
+  a2:
+    concepts:
+      - { id: lx1661, pos: verb, draft: true }  # abschreiben
+      - { id: lx1662, pos: verb, draft: true }  # ankreuzen
+      - { id: lx1663, pos: verb, draft: true }  # aufschreiben
+      - { id: lx1664, pos: verb, draft: true }  # beantworten
+      - { id: lx1665, pos: verb, draft: true }  # bestehen
+      - { id: lx1666, pos: verb, draft: true }  # durchfallen
+      - { id: lx1667, pos: verb, draft: true }  # ergänzen
+      - { id: lx1668, pos: verb, draft: true }  # korrigieren
+      - { id: lx1669, pos: verb, draft: true }  # lösen
+      - { id: lx1670, pos: verb, draft: true }  # markieren
+      - { id: lx1671, pos: verb, draft: true }  # nachschlagen
+      - { id: lx1672, pos: verb, draft: true }  # notieren
+      - { id: lx1673, pos: verb, draft: true }  # unterstreichen
+      - { id: lx1674, pos: verb, draft: true }  # verbessern
+      - { id: lx1675, pos: verb, draft: true }  # verbinden
+      - { id: lx1676, pos: verb, draft: true }  # zuordnen
+      - { id: lx1677, pos: noun, draft: true }  # Abitur
+      - { id: lx1678, pos: noun, draft: true }  # Absatz
+      - { id: lx1679, pos: noun, draft: true }  # Abschluss
+      - { id: lx1680, pos: noun, draft: true }  # Abschnitt
+      - { id: lx1681, pos: noun, draft: true }  # Arbeitsbuch
+      - { id: lx1682, pos: noun, draft: true }  # Aufsatz
+      - { id: lx1683, pos: noun, draft: true }  # Berufsschule
+      - { id: lx1684, pos: noun, draft: true }  # Bewertung
+      - { id: lx1685, pos: noun, draft: true }  # Diktat
+      - { id: lx1686, pos: noun, draft: true }  # Dozent
+      - { id: lx1687, pos: noun, draft: true }  # Fach
+      - { id: lx1688, pos: noun, draft: true }  # Fachhochschule
+      - { id: lx1689, pos: noun, draft: true }  # Gesamtschule
+      - { id: lx1690, pos: noun, draft: true }  # Grundschule
+      - { id: lx1691, pos: noun, draft: true }  # Gymnasium
+      - { id: lx1692, pos: noun, draft: true }  # Hauptschule
+      - { id: lx1693, pos: noun, draft: true }  # Hochschule
+      - { id: lx1694, pos: noun, draft: true }  # Klassenkamerad
+      - { id: lx1695, pos: noun, draft: true }  # Klassenraum
+      - { id: lx1696, pos: noun, draft: true }  # Komma
+      - { id: lx1697, pos: noun, draft: true }  # Kursleiter
+      - { id: lx1698, pos: noun, draft: true }  # Lehrbuch
+      - { id: lx1699, pos: noun, draft: true }  # Lehrplan
+      - { id: lx1700, pos: noun, draft: true }  # Lernziel
+      - { id: lx1701, pos: noun, draft: true }  # Lösung
+      - { id: lx1702, pos: noun, draft: true }  # Mitschüler
+      - { id: lx1703, pos: noun, draft: true }  # Nachhilfe
+      - { id: lx1704, pos: noun, draft: true }  # Note
+      - { id: lx1705, pos: noun, draft: true }  # Professor
+      - { id: lx1706, pos: noun, draft: true }  # Realschule
+      - { id: lx1707, pos: noun, draft: true }  # Rechtschreibung
+      - { id: lx1708, pos: noun, draft: true }  # Schulabschluss
+      - { id: lx1709, pos: noun, draft: true }  # Schulbildung
+      - { id: lx1710, pos: noun, draft: true }  # Schulfach
+      - { id: lx1711, pos: noun, draft: true }  # Schulhof
+      - { id: lx1712, pos: noun, draft: true }  # Schuljahr
+      - { id: lx1713, pos: noun, draft: true }  # Semester
+      - { id: lx1714, pos: noun, draft: true }  # Stundenplan
+      - { id: lx1715, pos: noun, draft: true }  # Teilnehmer
+      - { id: lx1716, pos: noun, draft: true }  # Vokabelheft
+      - { id: lx1717, pos: noun, draft: true }  # Volkshochschule
+      - { id: lx1718, pos: noun, draft: true }  # Vortrag
+      - { id: lx1719, pos: noun, draft: true }  # Zertifikat
+      - { id: lx1720, pos: adj, draft: true }  # akademisch
+      - { id: lx1721, pos: adj, draft: true }  # praktisch
+      - { id: lx1722, pos: adj, draft: true }  # schulisch
+      - { id: lx1723, pos: adj, draft: true }  # schwierig
+      - { id: lx1724, pos: adj, draft: true }  # theoretisch
+  b1:
+    concepts:
+      - { id: lx3149, pos: verb, draft: true }  # absolvieren
+      - { id: lx3150, pos: verb, draft: true }  # auffrischen
+      - { id: lx3151, pos: verb, draft: true }  # behalten
+      - { id: lx3152, pos: verb, draft: true }  # festigen
+      - { id: lx3153, pos: verb, draft: true }  # konzentrieren
+      - { id: lx3154, pos: verb, draft: true }  # mitdenken
+      - { id: lx3155, pos: verb, draft: true }  # mitschreiben
+      - { id: lx3156, pos: verb, draft: true }  # nacharbeiten
+      - { id: lx3157, pos: verb, draft: true }  # prüfen
+      - { id: lx3158, pos: verb, draft: true }  # referieren
+      - { id: lx3159, pos: verb, draft: true }  # sich einschreiben
+      - { id: lx3160, pos: verb, draft: true }  # sich immatrikulieren
+      - { id: lx3161, pos: verb, draft: true }  # testen
+      - { id: lx3162, pos: verb, draft: true }  # vertiefen
+      - { id: lx3163, pos: verb, draft: true }  # wiedererkennen
+      - { id: lx3164, pos: verb, draft: true }  # wiedergeben
+      - { id: lx3165, pos: noun, draft: true }  # Abschlussprüfung
+      - { id: lx3166, pos: noun, draft: true }  # Arbeitsgruppe
+      - { id: lx3167, pos: noun, draft: true }  # Aufmerksamkeit
+      - { id: lx3168, pos: noun, draft: true }  # Aufnahmeprüfung
+      - { id: lx3169, pos: noun, draft: true }  # Ausbildungsplatz
+      - { id: lx3170, pos: noun, draft: true }  # Auslandssemester
+      - { id: lx3171, pos: noun, draft: true }  # Austauschprogramm
+      - { id: lx3172, pos: noun, draft: true }  # Bachelor
+      - { id: lx3173, pos: noun, draft: true }  # Bildung
+      - { id: lx3174, pos: noun, draft: true }  # Bildungsabschluss
+      - { id: lx3175, pos: noun, draft: true }  # Bildungsweg
+      - { id: lx3176, pos: noun, draft: true }  # E-Learning
+      - { id: lx3177, pos: noun, draft: true }  # Einzelarbeit
+      - { id: lx3178, pos: noun, draft: true }  # Fachwissen
+      - { id: lx3179, pos: noun, draft: true }  # Fernstudium
+      - { id: lx3180, pos: noun, draft: true }  # Grundwissen
+      - { id: lx3181, pos: noun, draft: true }  # Gruppenarbeit
+      - { id: lx3182, pos: noun, draft: true }  # Hochschulreife
+      - { id: lx3183, pos: noun, draft: true }  # Konzentration
+      - { id: lx3184, pos: noun, draft: true }  # Lehrstoff
+      - { id: lx3185, pos: noun, draft: true }  # Lernaufwand
+      - { id: lx3186, pos: noun, draft: true }  # Lernerfolg
+      - { id: lx3187, pos: noun, draft: true }  # Lernfortschritt
+      - { id: lx3188, pos: noun, draft: true }  # Lerngruppe
+      - { id: lx3189, pos: noun, draft: true }  # Lernmethode
+      - { id: lx3190, pos: noun, draft: true }  # Lernpartner
+      - { id: lx3191, pos: noun, draft: true }  # Lernplan
+      - { id: lx3192, pos: noun, draft: true }  # Lernprozess
+      - { id: lx3193, pos: noun, draft: true }  # Lernstoff
+      - { id: lx3194, pos: noun, draft: true }  # Lernstrategie
+      - { id: lx3195, pos: noun, draft: true }  # Master
+      - { id: lx3196, pos: noun, draft: true }  # Nachprüfung
+      - { id: lx3197, pos: noun, draft: true }  # Partnerarbeit
+      - { id: lx3198, pos: noun, draft: true }  # Prüfungsangst
+      - { id: lx3199, pos: noun, draft: true }  # Schulpflicht
+      - { id: lx3200, pos: noun, draft: true }  # Selbstkontrolle
+      - { id: lx3201, pos: noun, draft: true }  # Selbstkorrektur
+      - { id: lx3202, pos: noun, draft: true }  # Selbststudium
+      - { id: lx3203, pos: noun, draft: true }  # Stipendium
+      - { id: lx3204, pos: noun, draft: true }  # Studienabschluss
+      - { id: lx3205, pos: noun, draft: true }  # Studienberatung
+      - { id: lx3206, pos: noun, draft: true }  # Studiengang
+      - { id: lx3207, pos: noun, draft: true }  # Studiengebühr
+      - { id: lx3208, pos: noun, draft: true }  # Studienplatz
+      - { id: lx3209, pos: noun, draft: true }  # Teilzeitstudium
+      - { id: lx3210, pos: noun, draft: true }  # Vollzeitstudium
+      - { id: lx3211, pos: noun, draft: true }  # Vorwissen
+      - { id: lx3212, pos: noun, draft: true }  # Wissenschaft
+      - { id: lx3213, pos: noun, draft: true }  # Zwischenprüfung
+      - { id: lx3214, pos: adj, draft: true }  # abgelenkt
+      - { id: lx3215, pos: adj, draft: true }  # anwendungsbezogen
+      - { id: lx3216, pos: adj, draft: true }  # aufmerksam
+      - { id: lx3217, pos: adj, draft: true }  # begabt
+      - { id: lx3218, pos: adj, draft: true }  # konzentriert
+      - { id: lx3219, pos: adj, draft: true }  # lernfähig
+      - { id: lx3220, pos: adj, draft: true }  # lernwillig
+      - { id: lx3221, pos: adj, draft: true }  # prüfungsrelevant
+      - { id: lx3222, pos: adj, draft: true }  # talentiert
+      - { id: lx3223, pos: adj, draft: true }  # verständig
+      - { id: lx3224, pos: adj, draft: true }  # wissbegierig
+  b2:
+    concepts:
+      - { id: lx4838, pos: verb, draft: true }  # abstrahieren
+      - { id: lx4839, pos: verb, draft: true }  # analysieren
+      - { id: lx4840, pos: verb, draft: true }  # erwerben
+      - { id: lx4841, pos: verb, draft: true }  # fordern
+      - { id: lx4842, pos: verb, draft: true }  # individualisieren
+      - { id: lx4843, pos: verb, draft: true }  # reflektieren
+      - { id: lx4844, pos: verb, draft: true }  # sich aneignen
+      - { id: lx4845, pos: verb, draft: true }  # transferieren
+      - { id: lx4846, pos: verb, draft: true }  # überfordern
+      - { id: lx4847, pos: verb, draft: true }  # unterfordern
+      - { id: lx4848, pos: verb, draft: true }  # validieren
+      - { id: lx4849, pos: verb, draft: true }  # zertifizieren
+      - { id: lx4850, pos: noun, draft: true }  # Allgemeinbildung
+      - { id: lx4851, pos: noun, draft: true }  # Bildungsangebot
+      - { id: lx4852, pos: noun, draft: true }  # Bildungsgerechtigkeit
+      - { id: lx4853, pos: noun, draft: true }  # Bildungspolitik
+      - { id: lx4854, pos: noun, draft: true }  # Bildungsreform
+      - { id: lx4855, pos: noun, draft: true }  # Bildungsstand
+      - { id: lx4856, pos: noun, draft: true }  # Bildungssystem
+      - { id: lx4857, pos: noun, draft: true }  # Bildungszugang
+      - { id: lx4858, pos: noun, draft: true }  # Chancengleichheit
+      - { id: lx4859, pos: noun, draft: true }  # Erwachsenenbildung
+      - { id: lx4860, pos: noun, draft: true }  # Förderbedarf
+      - { id: lx4861, pos: noun, draft: true }  # Förderunterricht
+      - { id: lx4862, pos: noun, draft: true }  # Inklusion
+      - { id: lx4863, pos: noun, draft: true }  # Lehrmaterial
+      - { id: lx4864, pos: noun, draft: true }  # Lernangebot
+      - { id: lx4865, pos: noun, draft: true }  # Lernbedarf
+      - { id: lx4866, pos: noun, draft: true }  # Lernmaterial
+      - { id: lx4867, pos: noun, draft: true }  # Lernumfeld
+      - { id: lx4868, pos: noun, draft: true }  # Lernverhalten
+      - { id: lx4869, pos: noun, draft: true }  # Medienbildung
+      - { id: lx4870, pos: noun, draft: true }  # Pädagogik
+      - { id: lx4871, pos: noun, draft: true }  # Schulsystem
+      - { id: lx4872, pos: noun, draft: true }  # Sozialkompetenz
+      - { id: lx4873, pos: noun, draft: true }  # Spracherwerb
+      - { id: lx4874, pos: noun, draft: true }  # Wissenserwerb
+      - { id: lx4875, pos: adj, draft: true }  # didaktisch
+      - { id: lx4876, pos: adj, draft: true }  # fächerübergreifend
+      - { id: lx4877, pos: adj, draft: true }  # handlungsorientiert
+      - { id: lx4878, pos: adj, draft: true }  # inklusiv
+      - { id: lx4879, pos: adj, draft: true }  # integrativ
+      - { id: lx4880, pos: adj, draft: true }  # interdisziplinär
+      - { id: lx4881, pos: adj, draft: true }  # kompetenzorientiert
+      - { id: lx4882, pos: adj, draft: true }  # lebenslang
+      - { id: lx4883, pos: adj, draft: true }  # lernförderlich
+      - { id: lx4884, pos: adj, draft: true }  # modular
+      - { id: lx4885, pos: adj, draft: true }  # pädagogisch
+      - { id: lx4886, pos: adj, draft: true }  # selbstgesteuert

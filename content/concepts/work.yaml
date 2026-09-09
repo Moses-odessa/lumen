@@ -25,6 +25,9 @@ tiers:
       - { id: holiday_noun, pos: noun, freq_rank: 2050 }
       - { id: free_adj, pos: adj, freq_rank: 620 }
       - { id: tired_adj, pos: adj, freq_rank: 2480 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0178, pos: verb, draft: true }  # arbeiten
+      - { id: lx0179, pos: noun, draft: true }  # Job
   a1:
     concepts:
       - { id: application_noun, pos: noun, freq_rank: 2930 }
@@ -39,6 +42,21 @@ tiers:
       - { id: break_noun, pos: noun, freq_rank: 2410 }
       - { id: task_noun, pos: noun, freq_rank: 1870 }
       - { id: experience_noun, pos: noun, freq_rank: 1540 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0649, pos: verb, draft: true }  # aufhören
+      - { id: lx0650, pos: verb, draft: true }  # planen
+      - { id: lx0651, pos: verb, draft: true }  # verdienen
+      - { id: lx0652, pos: noun, draft: true }  # Arbeiter
+      - { id: lx0653, pos: noun, draft: true }  # Arbeitnehmer
+      - { id: lx0654, pos: noun, draft: true }  # Arbeitsstelle
+      - { id: lx0655, pos: noun, draft: true }  # Ärztin
+      - { id: lx0656, pos: noun, draft: true }  # Ingenieur
+      - { id: lx0657, pos: noun, draft: true }  # Koch
+      - { id: lx0658, pos: noun, draft: true }  # Mittagspause
+      - { id: lx0659, pos: noun, draft: true }  # Team
+      - { id: lx0660, pos: noun, draft: true }  # Verkäuferin
+      - { id: lx0661, pos: adj, draft: true }  # beruflich
+      - { id: lx0662, pos: adj, draft: true }  # beschäftigt
   a2:
     concepts:
       - { id: employment_contract, pos: noun, freq_rank: 3140 }
@@ -65,6 +83,56 @@ tiers:
       - { id: tax_noun, pos: noun, freq_rank: 2160 }
       - { id: socialcontribution_noun, pos: noun, freq_rank: 5480 }
       - { id: payslip_noun, pos: noun, freq_rank: 5720 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1612, pos: verb, draft: true }  # anstellen
+      - { id: lx1613, pos: verb, draft: true }  # bedienen
+      - { id: lx1614, pos: verb, draft: true }  # beraten
+      - { id: lx1615, pos: verb, draft: true }  # beschäftigen
+      - { id: lx1616, pos: verb, draft: true }  # bewerben
+      - { id: lx1617, pos: verb, draft: true }  # delegieren
+      - { id: lx1618, pos: verb, draft: true }  # einstellen
+      - { id: lx1619, pos: verb, draft: true }  # entlassen
+      - { id: lx1620, pos: verb, draft: true }  # erledigen
+      - { id: lx1621, pos: verb, draft: true }  # herstellen
+      - { id: lx1622, pos: verb, draft: true }  # organisieren
+      - { id: lx1623, pos: verb, draft: true }  # präsentieren
+      - { id: lx1624, pos: verb, draft: true }  # produzieren
+      - { id: lx1625, pos: verb, draft: true }  # teilnehmen
+      - { id: lx1626, pos: verb, draft: true }  # vorbereiten
+      - { id: lx1627, pos: verb, draft: true }  # zusammenarbeiten
+      - { id: lx1628, pos: noun, draft: true }  # Abteilungsleiter
+      - { id: lx1629, pos: noun, draft: true }  # Arbeitsplatz
+      - { id: lx1630, pos: noun, draft: true }  # Assistent
+      - { id: lx1631, pos: noun, draft: true }  # Auftrag
+      - { id: lx1632, pos: noun, draft: true }  # Auszubildende
+      - { id: lx1633, pos: noun, draft: true }  # Berufserfahrung
+      - { id: lx1634, pos: noun, draft: true }  # Betrieb
+      - { id: lx1635, pos: noun, draft: true }  # Bewerber
+      - { id: lx1636, pos: noun, draft: true }  # Bewerbungsgespräch
+      - { id: lx1637, pos: noun, draft: true }  # Dienst
+      - { id: lx1638, pos: noun, draft: true }  # Fähigkeit
+      - { id: lx1639, pos: noun, draft: true }  # Fortbildung
+      - { id: lx1640, pos: noun, draft: true }  # Kenntnis
+      - { id: lx1641, pos: noun, draft: true }  # Lohn
+      - { id: lx1642, pos: noun, draft: true }  # Manager
+      - { id: lx1643, pos: noun, draft: true }  # Meeting
+      - { id: lx1644, pos: noun, draft: true }  # Personal
+      - { id: lx1645, pos: noun, draft: true }  # Personalabteilung
+      - { id: lx1646, pos: noun, draft: true }  # Praktikant
+      - { id: lx1647, pos: noun, draft: true }  # Präsentation
+      - { id: lx1648, pos: noun, draft: true }  # Protokoll
+      - { id: lx1649, pos: noun, draft: true }  # Sekretariat
+      - { id: lx1650, pos: noun, draft: true }  # Sitzung
+      - { id: lx1651, pos: noun, draft: true }  # Stelle
+      - { id: lx1652, pos: noun, draft: true }  # Zusammenarbeit
+      - { id: lx1653, pos: adj, draft: true }  # angestellt
+      - { id: lx1654, pos: adj, draft: true }  # arbeitslos
+      - { id: lx1655, pos: adj, draft: true }  # berufstätig
+      - { id: lx1656, pos: adj, draft: true }  # erfahren
+      - { id: lx1657, pos: adj, draft: true }  # qualifiziert
+      - { id: lx1658, pos: adj, draft: true }  # selbstständig
+      - { id: lx1659, pos: adj, draft: true }  # teamfähig
+      - { id: lx1660, pos: adj, draft: true }  # unerfahren
   b1:
     concepts:
       - { id: jobadvert_noun, pos: noun, freq_rank: 5240 }
@@ -91,6 +159,63 @@ tiers:
       - { id: personnelfile_noun, pos: noun, freq_rank: 6850 }
       - { id: workingatmosphere_noun, pos: noun, freq_rank: 5930 }
       - { id: turnover_staff, pos: noun, freq_rank: 6430 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx3093, pos: verb, draft: true }  # anleiten
+      - { id: lx3094, pos: verb, draft: true }  # anlernen
+      - { id: lx3095, pos: verb, draft: true }  # anweisen
+      - { id: lx3096, pos: verb, draft: true }  # ausbilden
+      - { id: lx3097, pos: verb, draft: true }  # ausführen
+      - { id: lx3098, pos: verb, draft: true }  # beurteilen
+      - { id: lx3099, pos: verb, draft: true }  # bewerten
+      - { id: lx3100, pos: verb, draft: true }  # einarbeiten
+      - { id: lx3101, pos: verb, draft: true }  # einspringen
+      - { id: lx3102, pos: verb, draft: true }  # fortbilden
+      - { id: lx3103, pos: verb, draft: true }  # führen
+      - { id: lx3104, pos: verb, draft: true }  # koordinieren
+      - { id: lx3105, pos: verb, draft: true }  # leiten
+      - { id: lx3106, pos: verb, draft: true }  # loben
+      - { id: lx3107, pos: verb, draft: true }  # qualifizieren
+      - { id: lx3108, pos: verb, draft: true }  # vertreten
+      - { id: lx3109, pos: verb, draft: true }  # weiterbilden
+      - { id: lx3110, pos: noun, draft: true }  # Arbeitsablauf
+      - { id: lx3111, pos: noun, draft: true }  # Arbeitsalltag
+      - { id: lx3112, pos: noun, draft: true }  # Arbeitsamt
+      - { id: lx3113, pos: noun, draft: true }  # Arbeitsaufwand
+      - { id: lx3114, pos: noun, draft: true }  # Arbeitsbedingung
+      - { id: lx3115, pos: noun, draft: true }  # Arbeitsbelastung
+      - { id: lx3116, pos: noun, draft: true }  # Arbeitsklima
+      - { id: lx3117, pos: noun, draft: true }  # Arbeitslosigkeit
+      - { id: lx3118, pos: noun, draft: true }  # Arbeitssicherheit
+      - { id: lx3119, pos: noun, draft: true }  # Arbeitsverhältnis
+      - { id: lx3120, pos: noun, draft: true }  # Beförderung
+      - { id: lx3121, pos: noun, draft: true }  # Berufsausbildung
+      - { id: lx3122, pos: noun, draft: true }  # Bruttolohn
+      - { id: lx3123, pos: noun, draft: true }  # Feedbackgespräch
+      - { id: lx3124, pos: noun, draft: true }  # Ferienjob
+      - { id: lx3125, pos: noun, draft: true }  # Jobcenter
+      - { id: lx3126, pos: noun, draft: true }  # Krankenschein
+      - { id: lx3127, pos: noun, draft: true }  # Krankheitsfall
+      - { id: lx3128, pos: noun, draft: true }  # Kündigungsschreiben
+      - { id: lx3129, pos: noun, draft: true }  # Lohnerhöhung
+      - { id: lx3130, pos: noun, draft: true }  # Lohnfortzahlung
+      - { id: lx3131, pos: noun, draft: true }  # Minijob
+      - { id: lx3132, pos: noun, draft: true }  # Nebenjob
+      - { id: lx3133, pos: noun, draft: true }  # Nettolohn
+      - { id: lx3134, pos: noun, draft: true }  # Personalentwicklung
+      - { id: lx3135, pos: noun, draft: true }  # Stellenausschreibung
+      - { id: lx3136, pos: noun, draft: true }  # Stundenlohn
+      - { id: lx3137, pos: noun, draft: true }  # Umschulung
+      - { id: lx3138, pos: noun, draft: true }  # Unfallverhütung
+      - { id: lx3139, pos: noun, draft: true }  # Verdienst
+      - { id: lx3140, pos: adj, draft: true }  # belastbar
+      - { id: lx3141, pos: adj, draft: true }  # eigenverantwortlich
+      - { id: lx3142, pos: adj, draft: true }  # flexibel
+      - { id: lx3143, pos: adj, draft: true }  # gewissenhaft
+      - { id: lx3144, pos: adj, draft: true }  # leistungsbereit
+      - { id: lx3145, pos: adj, draft: true }  # leistungsfähig
+      - { id: lx3146, pos: adj, draft: true }  # sorgfältig
+      - { id: lx3147, pos: adj, draft: true }  # tariflich
+      - { id: lx3148, pos: adj, draft: true }  # verantwortungsbewusst
   b2:
     concepts:
       - { id: labourlaw_noun, pos: noun, freq_rank: 5840 }
@@ -117,3 +242,66 @@ tiers:
       - { id: employersliability_noun, pos: noun, freq_rank: 7860 }
       - { id: labourcourt_place, pos: noun, freq_rank: 6540 }
       - { id: conciliationhearing_noun, pos: noun, freq_rank: 8230 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4776, pos: verb, draft: true }  # abwägen
+      - { id: lx4777, pos: verb, draft: true }  # auslagern
+      - { id: lx4778, pos: verb, draft: true }  # automatisieren
+      - { id: lx4779, pos: verb, draft: true }  # eingliedern
+      - { id: lx4780, pos: verb, draft: true }  # evaluieren
+      - { id: lx4781, pos: verb, draft: true }  # initiieren
+      - { id: lx4782, pos: verb, draft: true }  # outsourcen
+      - { id: lx4783, pos: verb, draft: true }  # priorisieren
+      - { id: lx4784, pos: verb, draft: true }  # rationalisieren
+      - { id: lx4785, pos: verb, draft: true }  # restrukturieren
+      - { id: lx4786, pos: verb, draft: true }  # sich spezialisieren
+      - { id: lx4787, pos: verb, draft: true }  # strukturieren
+      - { id: lx4788, pos: verb, draft: true }  # umstrukturieren
+      - { id: lx4789, pos: verb, draft: true }  # verantworten
+      - { id: lx4790, pos: noun, draft: true }  # Arbeitsmarkt
+      - { id: lx4791, pos: noun, draft: true }  # Arbeitsorganisation
+      - { id: lx4792, pos: noun, draft: true }  # Arbeitszeitregelung
+      - { id: lx4793, pos: noun, draft: true }  # Aufstieg
+      - { id: lx4794, pos: noun, draft: true }  # Berufswechsel
+      - { id: lx4795, pos: noun, draft: true }  # Burnout
+      - { id: lx4796, pos: noun, draft: true }  # Coaching
+      - { id: lx4797, pos: noun, draft: true }  # Coworking
+      - { id: lx4798, pos: noun, draft: true }  # Fachkräftemangel
+      - { id: lx4799, pos: noun, draft: true }  # Führung
+      - { id: lx4800, pos: noun, draft: true }  # Führungskompetenz
+      - { id: lx4801, pos: noun, draft: true }  # Führungskraft
+      - { id: lx4802, pos: noun, draft: true }  # Gleitzeit
+      - { id: lx4803, pos: noun, draft: true }  # Karriereweg
+      - { id: lx4804, pos: noun, draft: true }  # Kernzeit
+      - { id: lx4805, pos: noun, draft: true }  # Leiharbeit
+      - { id: lx4806, pos: noun, draft: true }  # Leistungsdruck
+      - { id: lx4807, pos: noun, draft: true }  # Mentoring
+      - { id: lx4808, pos: noun, draft: true }  # Mobbing
+      - { id: lx4809, pos: noun, draft: true }  # Nachtarbeit
+      - { id: lx4810, pos: noun, draft: true }  # Onboarding
+      - { id: lx4811, pos: noun, draft: true }  # Outsourcing
+      - { id: lx4812, pos: noun, draft: true }  # Personalabbau
+      - { id: lx4813, pos: noun, draft: true }  # Personalführung
+      - { id: lx4814, pos: noun, draft: true }  # Personalmangel
+      - { id: lx4815, pos: noun, draft: true }  # Quereinstieg
+      - { id: lx4816, pos: noun, draft: true }  # Rufbereitschaft
+      - { id: lx4817, pos: noun, draft: true }  # Schichtarbeit
+      - { id: lx4818, pos: noun, draft: true }  # Selbstverwirklichung
+      - { id: lx4819, pos: noun, draft: true }  # Stellenwechsel
+      - { id: lx4820, pos: noun, draft: true }  # Teamwork
+      - { id: lx4821, pos: noun, draft: true }  # Termindruck
+      - { id: lx4822, pos: noun, draft: true }  # Unternehmensführung
+      - { id: lx4823, pos: noun, draft: true }  # Unternehmenskultur
+      - { id: lx4824, pos: noun, draft: true }  # Unternehmensstruktur
+      - { id: lx4825, pos: noun, draft: true }  # Wiedereinstieg
+      - { id: lx4826, pos: adj, draft: true }  # berufsbezogen
+      - { id: lx4827, pos: adj, draft: true }  # demotivierend
+      - { id: lx4828, pos: adj, draft: true }  # ergebnisorientiert
+      - { id: lx4829, pos: adj, draft: true }  # hierarchisch
+      - { id: lx4830, pos: adj, draft: true }  # kollegial
+      - { id: lx4831, pos: adj, draft: true }  # konkurrenzfähig
+      - { id: lx4832, pos: adj, draft: true }  # kooperativ
+      - { id: lx4833, pos: adj, draft: true }  # kundenorientiert
+      - { id: lx4834, pos: adj, draft: true }  # leistungsorientiert
+      - { id: lx4835, pos: adj, draft: true }  # lösungsorientiert
+      - { id: lx4836, pos: adj, draft: true }  # motivierend
+      - { id: lx4837, pos: adj, draft: true }  # zielorientiert

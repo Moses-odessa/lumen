@@ -32,17 +32,41 @@ Future<void> main(List<String> args) async {
     return;
   }
 
+  // Черновые концепты в базу не попадают вовсе.
+  //
+  // Пометка `draft` обещает «в игру не идёт», и до сих пор это обещание
+  // держал только валидатор: сборка отгружала черновик наравне с вычитанным.
+  // Пока черновиков было ноль, разницы не было; импорт словника кладёт их
+  // тысячами на ярусы, часть которых уже запущена, — и первый же прогон
+  // отправил бы игроку невычитанные слова под видом вычитанных.
+  final drafted = {
+    for (final c in sources.concepts.values)
+      if (c.draft) c.id,
+  };
+  final shipped = sources.concepts.values.where((c) => !drafted.contains(c.id));
+
+  final shippedNames =
+      shipped.map((c) => c.constellation).toSet();
   stdout.writeln(
-    '  созвездий: ${sources.constellations.length}, '
-    'концептов: ${sources.concepts.length}, '
+    '  созвездий: ${shippedNames.length} из ${sources.constellations.length}, '
+    'концептов: ${shipped.length}, '
     'фраз: ${sources.phrases.length}',
   );
+  if (drafted.isNotEmpty) {
+    stdout.writeln(
+      '  черновых пропущено: ${drafted.length} концептов, '
+      '${sources.constellations.length - shippedNames.length} созвездий '
+      'целиком (написаны, но не вычитаны — в базу не идут)',
+    );
+  }
   for (final l in sources.languages.values) {
     // Покрытие печатается всегда: язык, который покрывает половину, должен
     // быть виден при сборке, а не обнаружиться в игре пропущенными словами.
+    final covered =
+        l.lexemes.keys.where((id) => !drafted.contains(id)).length;
     stdout.writeln(
       '  ${l.code}: ${l.role}/${l.status}, '
-      'лексем ${l.lexemes.length}/${sources.concepts.length}, '
+      'лексем $covered/${shipped.length}, '
       'переводов фраз ${l.phraseTranslations.length}/${sources.phrases.length}',
     );
   }
@@ -69,14 +93,14 @@ Future<void> main(List<String> args) async {
     // файл. Режим журнала менять не стали — он выбран ради того, чтобы рядом
     // с воспроизводимым ассетом не оставалось `-wal`.
     db.execute('BEGIN');
-    _insertConcepts(db, sources);
-    _insertLanguages(db, sources);
-    _insertLexemes(db, sources);
-    _insertPhrases(db, sources, lang);
-    _insertPhraseTranslations(db, sources);
-    _insertDistractors(db, sources, lang);
-    _insertCalibration(db, sources, lang);
-    _insertMeta(db, sources, lang, sources.hash);
+    _insertConcepts(db, sources, drafted);
+    _insertLanguages(db, sources, drafted);
+    _insertLexemes(db, sources, drafted);
+    final shippedPhrases = _insertPhrases(db, sources, lang, drafted);
+    _insertPhraseTranslations(db, sources, shippedPhrases);
+    _insertDistractors(db, sources, lang, drafted);
+    _insertCalibration(db, sources, lang, drafted);
+    _insertMeta(db, sources, lang, sources.hash, drafted);
     db.execute('COMMIT');
 
     // Drift сверяет `user_version` со своим `schemaVersion`: без этого он
@@ -92,13 +116,18 @@ Future<void> main(List<String> args) async {
   stdout.writeln('  → $outPath ($sizeKb КБ)');
 }
 
-void _insertConcepts(Database db, ContentSources sources) {
+void _insertConcepts(
+  Database db,
+  ContentSources sources,
+  Set<String> drafted,
+) {
   final stmt = db.prepare(
     'INSERT INTO concepts (id, tier, constellation, pos, freq_rank) '
     'VALUES (?, ?, ?, ?, ?)',
   );
   try {
     for (final c in sources.concepts.values) {
+      if (drafted.contains(c.id)) continue;
       stmt.execute([c.id, c.tier, c.constellation, c.pos, c.freqRank]);
     }
   } finally {
@@ -106,7 +135,11 @@ void _insertConcepts(Database db, ContentSources sources) {
   }
 }
 
-void _insertLexemes(Database db, ContentSources sources) {
+void _insertLexemes(
+  Database db,
+  ContentSources sources,
+  Set<String> drafted,
+) {
   final stmt = db.prepare(
     'INSERT INTO lexemes '
     '(concept_id, lang, form, article, gender, plural, note) '
@@ -116,6 +149,7 @@ void _insertLexemes(Database db, ContentSources sources) {
     for (final entry in sources.lexemes.entries) {
       final lexLang = entry.key;
       for (final lex in entry.value.values) {
+        if (drafted.contains(lex.conceptId)) continue;
         stmt.execute([
           lex.conceptId,
           lexLang,
@@ -132,7 +166,11 @@ void _insertLexemes(Database db, ContentSources sources) {
   }
 }
 
-void _insertLanguages(Database db, ContentSources sources) {
+void _insertLanguages(
+  Database db,
+  ContentSources sources,
+  Set<String> drafted,
+) {
   final stmt = db.prepare(
     'INSERT INTO languages (code, role, status, name, concepts, phrases) '
     'VALUES (?, ?, ?, ?, ?, ?)',
@@ -144,7 +182,10 @@ void _insertLanguages(Database db, ContentSources sources) {
         l.role,
         l.status,
         l.name,
-        l.lexemes.length,
+        // Считаются отгруженные, а не написанные: это число приложение
+        // показывает как покрытие языка, и черновик в нём был бы обещанием
+        // слов, которых в базе нет.
+        l.lexemes.keys.where((id) => !drafted.contains(id)).length,
         l.phraseTranslations.length,
       ]);
     }
@@ -153,7 +194,16 @@ void _insertLanguages(Database db, ContentSources sources) {
   }
 }
 
-void _insertPhrases(Database db, ContentSources sources, String lang) {
+/// Возвращает идентификаторы отгруженных фраз — переводам нужен именно этот
+/// список, а не полный: перевод фразы, которой в базе нет, оставил бы висячую
+/// ссылку.
+Set<String> _insertPhrases(
+  Database db,
+  ContentSources sources,
+  String lang,
+  Set<String> drafted,
+) {
+  final shipped = <String>{};
   final phraseStmt = db.prepare(
     'INSERT INTO phrases '
     '(id, lang, tier, constellation, template, register) '
@@ -171,6 +221,11 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
   );
   try {
     for (final p in sources.phrases) {
+      // Фраза с черновым словом уезжает целиком. Оставить её значило бы
+      // показать невычитанное слово в пропуске — то есть ровно то, от чего
+      // пометка защищает, только менее заметно.
+      if (p.conceptIds.any(drafted.contains)) continue;
+      shipped.add(p.id);
       phraseStmt.execute([
         p.id,
         lang,
@@ -195,6 +250,7 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
     optionStmt.close();
     linkStmt.close();
   }
+  return shipped;
 }
 
 /// Переводы фраз: они приходят из языковых файлов, а не из файла фраз.
@@ -202,8 +258,11 @@ void _insertPhrases(Database db, ContentSources sources, String lang) {
 /// Фраза — предложение на языке изучения, её перевод — вклад родного языка.
 /// Держать их вместе значило бы, что добавление родного языка правит файл
 /// чужого.
-void _insertPhraseTranslations(Database db, ContentSources sources) {
-  final known = {for (final p in sources.phrases) p.id};
+void _insertPhraseTranslations(
+  Database db,
+  ContentSources sources,
+  Set<String> known,
+) {
   final stmt = db.prepare(
     'INSERT OR IGNORE INTO phrase_translations (phrase_id, lang, text) '
     'VALUES (?, ?, ?)',
@@ -223,7 +282,12 @@ void _insertPhraseTranslations(Database db, ContentSources sources) {
   }
 }
 
-void _insertDistractors(Database db, ContentSources sources, String lang) {
+void _insertDistractors(
+  Database db,
+  ContentSources sources,
+  String lang,
+  Set<String> drafted,
+) {
   final stmt = db.prepare(
     'INSERT OR IGNORE INTO distractors (concept_id, lang, kind, form) '
     'VALUES (?, ?, ?, ?)',
@@ -232,6 +296,7 @@ void _insertDistractors(Database db, ContentSources sources, String lang) {
     for (final entry in sources.lexemes.entries) {
       final lexLang = entry.key;
       for (final lex in entry.value.values) {
+        if (drafted.contains(lex.conceptId)) continue;
         for (final form in lex.farDistractors) {
           stmt.execute([lex.conceptId, lexLang, 'far', form]);
         }
@@ -245,7 +310,12 @@ void _insertDistractors(Database db, ContentSources sources, String lang) {
   }
 }
 
-void _insertCalibration(Database db, ContentSources sources, String lang) {
+void _insertCalibration(
+  Database db,
+  ContentSources sources,
+  String lang,
+  Set<String> drafted,
+) {
   final items = sources.calibration[lang];
   if (items == null) return;
 
@@ -255,6 +325,8 @@ void _insertCalibration(Database db, ContentSources sources, String lang) {
   );
   try {
     for (final item in items) {
+      final conceptId = item.conceptId;
+      if (conceptId != null && drafted.contains(conceptId)) continue;
       stmt.execute([
         item.id,
         item.tier,
@@ -273,6 +345,7 @@ void _insertMeta(
   ContentSources sources,
   String lang,
   String sourceHash,
+  Set<String> drafted,
 ) {
   // Метки времени в метаданных сознательно нет: она сделала бы каждую
   // пересборку новым файлом и сломала бы правило «сборка воспроизводима».
@@ -280,9 +353,18 @@ void _insertMeta(
   final meta = <String, String>{
     'lang': lang,
     'schema_version': '$contentSchemaVersion',
-    'concepts': '${sources.concepts.length}',
-    'phrases': '${sources.phrases.length}',
-    'constellations': sources.constellations.join(','),
+    // Отгруженные, а не написанные: метаданные описывают эту базу, а не
+    // каталог исходников. Сколько написано, знает валидатор.
+    'concepts': '${sources.concepts.length - drafted.length}',
+    'phrases': '${sources.phrases.where((p) => !p.conceptIds.any(drafted.contains)).length}',
+    'drafted_concepts': '${drafted.length}',
+    // Только созвездия, у которых в базе есть хоть одна звезда. Целиком
+    // черновая тема в метаданных выглядела бы готовой, а приложение берёт
+    // список созвездий из таблицы `concepts` и её не увидит.
+    'constellations': sources.constellations
+        .where((name) => sources.concepts.values
+            .any((c) => c.constellation == name && !drafted.contains(c.id)))
+        .join(','),
     // Языки перечислены и в таблице `languages`, но в метаданных они нужны
     // затем же, зачем `launched_tiers`: по собранному ассету должно быть
     // видно, что в нём лежит, без обхода таблиц.

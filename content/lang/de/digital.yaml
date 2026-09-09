@@ -1,0 +1,772 @@
+# Немецкие лексемы созвездия «Цифровая жизнь и технологии».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0187:
+    form: App
+    article: die
+    gender: f
+  lx0188:
+    form: Computer
+    article: der
+    gender: m
+  lx0189:
+    form: E-Mail
+    article: die
+    gender: f
+  lx0190:
+    form: Foto
+    article: das
+    gender: n
+  lx0191:
+    form: Handy
+    article: das
+    gender: n
+  lx0192:
+    form: Internet
+    article: das
+    gender: n
+  lx0687:
+    form: klicken
+  lx0688:
+    form: schicken
+  lx0689:
+    form: senden
+  lx0690:
+    form: speichern
+  lx0691:
+    form: Akku
+    article: der
+    gender: m
+  lx0692:
+    form: Bildschirm
+    article: der
+    gender: m
+  lx0693:
+    form: Datei
+    article: die
+    gender: f
+  lx0694:
+    form: Drucker
+    article: der
+    gender: m
+  lx0695:
+    form: Kamera
+    article: die
+    gender: f
+  # Здесь der Laptop; das Laptop также нормативно.
+  lx0696:
+    form: Laptop
+    article: der
+    gender: m
+  lx0697:
+    form: Link
+    article: der
+    gender: m
+  lx0698:
+    form: Maus
+    article: die
+    gender: f
+  lx0699:
+    form: Passwort
+    article: das
+    gender: n
+  lx0700:
+    form: Smartphone
+    article: das
+    gender: n
+  lx0701:
+    form: Tablet
+    article: das
+    gender: n
+  lx0702:
+    form: Tastatur
+    article: die
+    gender: f
+  lx0703:
+    form: Telefon
+    article: das
+    gender: n
+  lx0704:
+    form: Webseite
+    article: die
+    gender: f
+  lx0705:
+    form: WLAN
+    article: das
+    gender: n
+  lx0706:
+    form: digital
+  lx0707:
+    form: offline
+  lx0708:
+    form: online
+  lx1725:
+    form: aktualisieren
+  lx1726:
+    form: anklicken
+  lx1727:
+    form: antippen
+  lx1728:
+    form: ausloggen
+  lx1729:
+    form: ausschneiden
+  lx1730:
+    form: deinstallieren
+  lx1731:
+    form: drucken
+  lx1732:
+    form: einfügen
+  lx1733:
+    form: einloggen
+  lx1734:
+    form: herunterladen
+  lx1735:
+    form: hochladen
+  lx1736:
+    form: installieren
+  lx1737:
+    form: kopieren
+  lx1738:
+    form: löschen
+  lx1739:
+    form: registrieren
+  lx1740:
+    form: scannen
+  lx1741:
+    form: scrollen
+  lx1742:
+    form: teilen
+  lx1743:
+    form: tippen
+  lx1744:
+    form: weiterleiten
+  lx1745:
+    form: Anhang
+    article: der
+    gender: m
+  lx1746:
+    form: Anwendung
+    article: die
+    gender: f
+  lx1747:
+    form: Benutzer
+    article: der
+    gender: m
+  lx1748:
+    form: Benutzerkonto
+    article: das
+    gender: n
+  lx1749:
+    form: Benutzername
+    article: der
+    gender: m
+  lx1750:
+    form: Browser
+    article: der
+    gender: m
+  lx1751:
+    form: Code
+    article: der
+    gender: m
+  # Употребляется во множественном числе в цифровом значении; не смешивать со значением календарных дат.
+  lx1752:
+    form: Daten
+    article: die
+    note: только множественное
+  lx1753:
+    form: Dokument
+    article: das
+    gender: n
+  lx1754:
+    form: Download
+    article: der
+    gender: m
+  lx1755:
+    form: E-Mail-Adresse
+    article: die
+    gender: f
+  lx1756:
+    form: Einstellung
+    article: die
+    gender: f
+  lx1757:
+    form: Gerät
+    article: das
+    gender: n
+  lx1758:
+    form: Hardware
+    article: die
+    gender: f
+  lx1759:
+    form: Internetseite
+    article: die
+    gender: f
+  lx1760:
+    form: Internetverbindung
+    article: die
+    gender: f
+  lx1761:
+    form: Kabel
+    article: das
+    gender: n
+  lx1762:
+    form: Kopfhörer
+    article: der
+    gender: m
+  lx1763:
+    form: Lautsprecher
+    article: der
+    gender: m
+  lx1764:
+    form: Leerzeichen
+    article: das
+    gender: n
+  lx1765:
+    form: Netzwerk
+    article: das
+    gender: n
+  lx1766:
+    form: Nutzer
+    article: der
+    gender: m
+  lx1767:
+    form: Ordner
+    article: der
+    gender: m
+  lx1768:
+    form: Profil
+    article: das
+    gender: n
+  lx1769:
+    form: Programm
+    article: das
+    gender: n
+  lx1770:
+    form: QR-Code
+    article: der
+    gender: m
+  lx1771:
+    form: Registrierung
+    article: die
+    gender: f
+  lx1772:
+    form: Software
+    article: die
+    gender: f
+  lx1773:
+    form: Speicher
+    article: der
+    gender: m
+  lx1774:
+    form: Speicherplatz
+    article: der
+    gender: m
+  lx1775:
+    form: Sprachnachricht
+    article: die
+    gender: f
+  lx1776:
+    form: Startseite
+    article: die
+    gender: f
+  lx1777:
+    form: Stecker
+    article: der
+    gender: m
+  lx1778:
+    form: Suchmaschine
+    article: die
+    gender: f
+  lx1779:
+    form: Technik
+    article: die
+    gender: f
+  lx1780:
+    form: Telefonnummer
+    article: die
+    gender: f
+  lx1781:
+    form: Update
+    article: das
+    gender: n
+  lx1782:
+    form: Upload
+    article: der
+    gender: m
+  lx1783:
+    form: Video
+    article: das
+    gender: n
+  lx1784:
+    form: Videokonferenz
+    article: die
+    gender: f
+  lx1785:
+    form: Videonachricht
+    article: die
+    gender: f
+  lx1786:
+    form: drahtlos
+  lx1787:
+    form: gesperrt
+  lx1788:
+    form: kabellos
+  lx1789:
+    form: verfügbar
+  lx3225:
+    form: abonnieren
+  lx3226:
+    form: blockieren
+  lx3227:
+    form: entfolgen
+  lx3228:
+    form: entschlüsseln
+  lx3229:
+    form: entsperren
+  lx3230:
+    form: formatieren
+  lx3231:
+    form: freigeben
+  lx3232:
+    form: kommentieren
+  lx3233:
+    form: liken
+  lx3234:
+    form: posten
+  lx3235:
+    form: programmieren
+  lx3236:
+    form: sichern
+  lx3237:
+    form: sperren
+  lx3238:
+    form: stummschalten
+  lx3239:
+    form: synchronisieren
+  lx3240:
+    form: verlinken
+  lx3241:
+    form: verschlüsseln
+  lx3242:
+    form: wiederherstellen
+  lx3243:
+    form: Antivirenprogramm
+    article: das
+    gender: n
+  lx3244:
+    form: Auswahlmenü
+    article: das
+    gender: n
+  lx3245:
+    form: Backup
+    article: das
+    gender: n
+  lx3246:
+    form: Bedienung
+    article: die
+    gender: f
+  lx3247:
+    form: Benachrichtigung
+    article: die
+    gender: f
+  lx3248:
+    form: Benutzeroberfläche
+    article: die
+    gender: f
+  lx3249:
+    form: Berechtigung
+    article: die
+    gender: f
+  lx3250:
+    form: Betriebssystem
+    article: das
+    gender: n
+  lx3251:
+    form: Bildschirmfreigabe
+    article: die
+    gender: f
+  lx3252:
+    form: Cloud
+    article: die
+    gender: f
+  lx3253:
+    form: Dateiformat
+    article: das
+    gender: n
+  lx3254:
+    form: Datenmissbrauch
+    article: der
+    gender: m
+  lx3255:
+    form: Datensatz
+    article: der
+    gender: m
+  lx3256:
+    form: Datensicherung
+    article: die
+    gender: f
+  lx3257:
+    form: Datenverbrauch
+    article: der
+    gender: m
+  lx3258:
+    form: Datenverkehr
+    article: der
+    gender: m
+  lx3259:
+    form: Datenverlust
+    article: der
+    gender: m
+  lx3260:
+    form: Dropdown-Menü
+    article: das
+    gender: n
+  lx3261:
+    form: Eingabefeld
+    article: das
+    gender: n
+  lx3262:
+    form: Feed
+    article: der
+    gender: m
+  lx3263:
+    form: Filter
+    article: der
+    gender: m
+  lx3264:
+    form: Firewall
+    article: die
+    gender: f
+  lx3265:
+    form: Freigabe
+    article: die
+    gender: f
+  lx3266:
+    form: Hacker
+    article: der
+    gender: m
+  lx3267:
+    form: Kommentar
+    article: der
+    gender: m
+  lx3268:
+    form: Kontrollkästchen
+    article: das
+    gender: n
+  lx3269:
+    form: Plattform
+    article: die
+    gender: f
+  lx3270:
+    form: Schadsoftware
+    article: die
+    gender: f
+  lx3271:
+    form: Schnittstelle
+    article: die
+    gender: f
+  lx3272:
+    form: Screenshot
+    article: der
+    gender: m
+  lx3273:
+    form: Sicherheitsupdate
+    article: das
+    gender: n
+  lx3274:
+    form: Sicherungskopie
+    article: die
+    gender: f
+  lx3275:
+    form: Spam
+    article: der
+    gender: m
+  lx3276:
+    form: Spamfilter
+    article: der
+    gender: m
+  lx3277:
+    form: Suchanfrage
+    article: die
+    gender: f
+  lx3278:
+    form: Suchbegriff
+    article: der
+    gender: m
+  lx3279:
+    form: Suchfeld
+    article: das
+    gender: n
+  lx3280:
+    form: Suchverlauf
+    article: der
+    gender: m
+  lx3281:
+    form: Textfeld
+    article: das
+    gender: n
+  lx3282:
+    form: Trojaner
+    article: der
+    gender: m
+  lx3283:
+    form: Verschlüsselung
+    article: die
+    gender: f
+  # В цифровом контексте часто der Virus; das Virus также употребляется. Не использовать родовой вариант как ложный ответ.
+  lx3284:
+    form: Virus
+    article: der
+    gender: m
+  lx3285:
+    form: Werbung
+    article: die
+    gender: f
+  lx3286:
+    form: Zugriff
+    article: der
+    gender: m
+  lx3287:
+    form: Zugriffsberechtigung
+    article: die
+    gender: f
+  lx3288:
+    form: Zugriffsschutz
+    article: der
+    gender: m
+  lx3289:
+    form: automatisch
+  lx3290:
+    form: benutzerfreundlich
+  lx3291:
+    form: inkompatibel
+  lx3292:
+    form: intuitiv
+  lx3293:
+    form: kompatibel
+  lx3294:
+    form: manuell
+  lx3295:
+    form: passwortgeschützt
+  lx3296:
+    form: übersichtlich
+  lx3297:
+    form: unübersichtlich
+  lx3298:
+    form: unverschlüsselt
+  lx3299:
+    form: verschlüsselt
+  lx4887:
+    form: absichern
+  lx4888:
+    form: anonymisieren
+  lx4889:
+    form: auswerten
+  # Подтверждать подлинность/личность. Сочетаемость зависит от того, кто проверяет и кто подтверждает личность.
+  lx4890:
+    form: authentifizieren
+  lx4891:
+    form: digitalisieren
+  lx4892:
+    form: generieren
+  # B2: в цифровой теме о модели, генерирующей неподтверждённые сведения; медицинское употребление не считать тем же учебным контекстом.
+  lx4893:
+    form: halluzinieren
+  lx4894:
+    form: identifizieren
+  lx4895:
+    form: manipulieren
+  lx4896:
+    form: nachverfolgen
+  lx4897:
+    form: protokollieren
+  lx4898:
+    form: verifizieren
+  lx4899:
+    form: Algorithmus
+    article: der
+    gender: m
+  lx4900:
+    form: Authentifizierung
+    article: die
+    gender: f
+  lx4901:
+    form: Automatisierung
+    article: die
+    gender: f
+  lx4902:
+    form: Chatbot
+    article: der
+    gender: m
+  lx4903:
+    form: Cyberangriff
+    article: der
+    gender: m
+  lx4904:
+    form: Cybersicherheit
+    article: die
+    gender: f
+  lx4905:
+    form: Datenanalyse
+    article: die
+    gender: f
+  lx4906:
+    form: Datenleck
+    article: das
+    gender: n
+  lx4907:
+    form: Datensicherheit
+    article: die
+    gender: f
+  lx4908:
+    form: Datensparsamkeit
+    article: die
+    gender: f
+  lx4909:
+    form: Datenverarbeitung
+    article: die
+    gender: f
+  lx4910:
+    form: Datenzugang
+    article: der
+    gender: m
+  lx4911:
+    form: Deepfake
+    article: der
+    gender: m
+  lx4912:
+    form: Desinformation
+    article: die
+    gender: f
+  lx4913:
+    form: Digitalisierung
+    article: die
+    gender: f
+  lx4914:
+    form: Echokammer
+    article: die
+    gender: f
+  lx4915:
+    form: Einmalpasswort
+    article: das
+    gender: n
+  lx4916:
+    form: Empfehlungssystem
+    article: das
+    gender: n
+  lx4917:
+    form: Faktencheck
+    article: der
+    gender: m
+  lx4918:
+    form: Fehlinformation
+    article: die
+    gender: f
+  lx4919:
+    form: Filterblase
+    article: die
+    gender: f
+  lx4920:
+    form: Geschäftsmodell
+    article: das
+    gender: n
+  lx4921:
+    form: Gesichtserkennung
+    article: die
+    gender: f
+  lx4922:
+    form: Identitätsdiebstahl
+    article: der
+    gender: m
+  lx4923:
+    form: Informationssicherheit
+    article: die
+    gender: f
+  lx4924:
+    form: KI-System
+    article: das
+    gender: n
+  lx4925:
+    form: Nutzerverhalten
+    article: das
+    gender: n
+  lx4926:
+    form: Phishing-Angriff
+    article: der
+    gender: m
+  lx4927:
+    form: Privatsphäre
+    article: die
+    gender: f
+  # Запрос к модели ИИ; первое знакомство возможно раньше B2 без обязательного освоения технических деталей.
+  lx4928:
+    form: Prompt
+    article: der
+    gender: m
+  lx4929:
+    form: Rechenzentrum
+    article: das
+    gender: n
+  lx4930:
+    form: Sicherheitsrisiko
+    article: das
+    gender: n
+  lx4931:
+    form: Sprachassistent
+    article: der
+    gender: m
+  lx4932:
+    form: Spracherkennung
+    article: die
+    gender: f
+  lx4933:
+    form: Sprachmodell
+    article: das
+    gender: n
+  lx4934:
+    form: Texterkennung
+    article: die
+    gender: f
+  lx4935:
+    form: Urheberrechtsverletzung
+    article: die
+    gender: f
+  lx4936:
+    form: Zugriffsrecht
+    article: das
+    gender: n
+  lx4937:
+    form: Zwei-Faktor-Authentisierung
+    article: die
+    gender: f
+  lx4938:
+    form: algorithmisch
+  lx4939:
+    form: datenbasiert
+  lx4940:
+    form: datengetrieben
+  lx4941:
+    form: datenschutzkonform
+  lx4942:
+    form: datensparsam
+  lx4943:
+    form: erklärbar
+  lx4944:
+    form: intransparent
+  lx4945:
+    form: proprietär
+  lx4946:
+    form: quelloffen
+  lx4947:
+    form: transparent
+  lx4948:
+    form: urheberrechtlich
+  lx4949:
+    form: vertrauenswürdig

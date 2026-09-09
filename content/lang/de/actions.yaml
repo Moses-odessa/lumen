@@ -1,0 +1,776 @@
+# Немецкие лексемы созвездия «Движение и базовые действия».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0108:
+    form: bleiben
+  lx0109:
+    form: brauchen
+  lx0110:
+    form: bringen
+  lx0111:
+    form: dürfen
+  lx0112:
+    form: fahren
+  lx0113:
+    form: finden
+  lx0114:
+    form: geben
+  lx0115:
+    form: gehen
+  lx0116:
+    form: haben
+  lx0117:
+    form: holen
+  lx0118:
+    form: kommen
+  lx0119:
+    form: können
+  lx0120:
+    form: lassen
+  lx0121:
+    form: laufen
+  lx0122:
+    form: liegen
+  lx0123:
+    form: machen
+  lx0124:
+    form: müssen
+  lx0125:
+    form: nehmen
+  lx0126:
+    form: sehen
+  # Глагол-связка и вспомогательный глагол. Притяжательное sein изучать отдельно как грамматическое употребление, без дополнительной строки в этом словнике.
+  lx0127:
+    form: sein
+  lx0128:
+    form: sitzen
+  lx0129:
+    form: sollen
+  lx0130:
+    form: stehen
+  lx0131:
+    form: suchen
+  lx0132:
+    form: tun
+  lx0133:
+    form: werden
+  lx0134:
+    form: wollen
+  lx0135:
+    form: da
+  lx0136:
+    form: dort
+  lx0137:
+    form: hier
+  lx0138:
+    form: hinten
+  lx0139:
+    form: links
+  lx0140:
+    form: oben
+  lx0141:
+    form: unten
+  lx0142:
+    form: vorne
+  # Наречие: прочь, отсутствует; отдельно от существительного der Weg.
+  lx0143:
+    form: weg
+  lx0435:
+    form: benötigen
+  lx0436:
+    form: benutzen
+  lx0437:
+    form: bezahlen
+  lx0438:
+    form: drücken
+  lx0439:
+    form: fallen
+  lx0440:
+    form: gehören
+  lx0441:
+    form: legen
+  lx0442:
+    form: öffnen
+  lx0443:
+    form: putzen
+  lx0444:
+    form: schließen
+  lx0445:
+    form: setzen
+  lx0446:
+    form: steigen
+  lx0447:
+    form: stellen
+  lx0448:
+    form: stoppen
+  lx0449:
+    form: tragen
+  lx0450:
+    form: waschen
+  lx0451:
+    form: zeigen
+  lx0452:
+    form: ziehen
+  lx0453:
+    form: Ding
+    article: das
+    gender: n
+  lx0454:
+    form: Nähe
+    article: die
+    gender: f
+  lx0455:
+    form: Norden
+    article: der
+    gender: m
+  lx0456:
+    form: Ort
+    article: der
+    gender: m
+  lx0457:
+    form: Osten
+    article: der
+    gender: m
+  lx0458:
+    form: Raum
+    article: der
+    gender: m
+  lx0459:
+    form: Sache
+    article: die
+    gender: f
+  lx0460:
+    form: Schritt
+    article: der
+    gender: m
+  lx0461:
+    form: Seite
+    article: die
+    gender: f
+  lx0462:
+    form: Süden
+    article: der
+    gender: m
+  # Первое значение: der Teil = часть; das Teil = отдельная вещь вводить с контекстом.
+  lx0463:
+    form: Teil
+    article: der
+    gender: m
+  lx0464:
+    form: Westen
+    article: der
+    gender: m
+  lx0465:
+    form: Ziel
+    article: das
+    gender: n
+  lx0466:
+    form: dahin
+  lx0467:
+    form: her
+  lx0468:
+    form: heraus
+  lx0469:
+    form: hierhin
+  lx0470:
+    form: hin
+  lx0471:
+    form: hinauf
+  lx0472:
+    form: hinein
+  lx0473:
+    form: hinüber
+  lx0474:
+    form: hinunter
+  lx0475:
+    form: irgendwo
+  lx0476:
+    form: nirgendwo
+  lx0477:
+    form: raus
+  lx0478:
+    form: rein
+  lx0479:
+    form: überall
+  lx0480:
+    form: weiter
+  lx0481:
+    form: zurück
+  lx1079:
+    form: abholen
+  lx1080:
+    form: ablegen
+  lx1081:
+    form: anfassen
+  lx1082:
+    form: aufbauen
+  lx1083:
+    form: aufheben
+  lx1084:
+    form: aufstellen
+  lx1085:
+    form: berühren
+  lx1086:
+    form: besitzen
+  lx1087:
+    form: beugen
+  lx1088:
+    form: bewahren
+  lx1089:
+    form: bewegen
+  lx1090:
+    form: biegen
+  lx1091:
+    form: bieten
+  lx1092:
+    form: blasen
+  lx1093:
+    form: brennen
+  lx1094:
+    form: drehen
+  lx1095:
+    form: enthalten
+  lx1096:
+    form: fangen
+  lx1097:
+    form: festhalten
+  lx1098:
+    form: gleiten
+  lx1099:
+    form: greifen
+  lx1100:
+    form: heben
+  lx1101:
+    form: hinlegen
+  lx1102:
+    form: hinsetzen
+  lx1103:
+    form: hinstellen
+  lx1104:
+    form: klettern
+  lx1105:
+    form: klopfen
+  lx1106:
+    form: kriechen
+  lx1107:
+    form: kriegen
+  lx1108:
+    form: loslassen
+  lx1109:
+    form: mitbringen
+  lx1110:
+    form: mitkommen
+  lx1111:
+    form: mitnehmen
+  lx1112:
+    form: pusten
+  lx1113:
+    form: rennen
+  lx1114:
+    form: rollen
+  lx1115:
+    form: rutschen
+  lx1116:
+    form: schieben
+  lx1117:
+    form: schütteln
+  lx1118:
+    form: senken
+  lx1119:
+    form: springen
+  lx1120:
+    form: strecken
+  lx1121:
+    form: treten
+  lx1122:
+    form: umdrehen
+  lx1123:
+    form: wecken
+  lx1124:
+    form: wegbringen
+  lx1125:
+    form: weggehen
+  lx1126:
+    form: wegnehmen
+  lx1127:
+    form: wenden
+  lx1128:
+    form: werfen
+  lx1129:
+    form: winken
+  lx1130:
+    form: zurückgehen
+  lx1131:
+    form: zurückkommen
+  lx1132:
+    form: Ausgangspunkt
+    article: der
+    gender: m
+  lx1133:
+    form: Bereich
+    article: der
+    gender: m
+  lx1134:
+    form: Bewegung
+    article: die
+    gender: f
+  lx1135:
+    form: Blick
+    article: der
+    gender: m
+  lx1136:
+    form: Entfernung
+    article: die
+    gender: f
+  lx1137:
+    form: Fläche
+    article: die
+    gender: f
+  lx1138:
+    form: Gebiet
+    article: das
+    gender: n
+  lx1139:
+    form: Grenze
+    article: die
+    gender: f
+  lx1140:
+    form: Lage
+    article: die
+    gender: f
+  lx1141:
+    form: Mitte
+    article: die
+    gender: f
+  lx1142:
+    form: Position
+    article: die
+    gender: f
+  lx1143:
+    form: Stand
+    article: der
+    gender: m
+  lx1144:
+    form: Strecke
+    article: die
+    gender: f
+  lx1145:
+    form: Stück
+    article: das
+    gender: n
+  lx1146:
+    form: Umgebung
+    article: die
+    gender: f
+  lx1147:
+    form: Zugang
+    article: der
+    gender: m
+  lx1148:
+    form: eng
+  lx1149:
+    form: fern
+  lx1150:
+    form: gerade
+  lx1151:
+    form: schief
+  lx1152:
+    form: außen
+  lx1153:
+    form: dahinter
+  lx1154:
+    form: daneben
+  lx1155:
+    form: darüber
+  lx1156:
+    form: darunter
+  lx1157:
+    form: davor
+  lx1158:
+    form: dazwischen
+  lx1159:
+    form: dorthin
+  lx1160:
+    form: draußen
+  lx1161:
+    form: drinnen
+  lx1162:
+    form: drüben
+  lx1163:
+    form: gegenüber
+  lx1164:
+    form: geradeaus
+  lx1165:
+    form: hierher
+  lx1166:
+    form: innen
+  lx1167:
+    form: nebenan
+  lx1168:
+    form: rückwärts
+  lx1169:
+    form: seitwärts
+  lx1170:
+    form: vorwärts
+  lx2571:
+    form: absenken
+  lx2572:
+    form: abspringen
+  lx2573:
+    form: absteigen
+  lx2574:
+    form: abwerfen
+  lx2575:
+    form: aufbrechen
+  lx2576:
+    form: auffangen
+  lx2577:
+    form: aufhalten
+  lx2578:
+    form: aufrichten
+  lx2579:
+    form: aufsteigen
+  lx2580:
+    form: aufwerfen
+  lx2581:
+    form: ausweichen
+  lx2582:
+    form: betreten
+  lx2583:
+    form: durchqueren
+  lx2584:
+    form: entfernen
+  lx2585:
+    form: folgen
+  lx2586:
+    form: hinfallen
+  # Употребление: sich einem Ort nähern
+  lx2587:
+    form: nähern
+  lx2588:
+    form: niederlegen
+  lx2589:
+    form: passieren
+  lx2590:
+    form: pendeln
+  lx2591:
+    form: reißen
+  lx2592:
+    form: schleifen
+  lx2593:
+    form: schleppen
+  lx2594:
+    form: schwingen
+  lx2595:
+    form: stoßen
+  lx2596:
+    form: umfallen
+  lx2597:
+    form: umkehren
+  lx2598:
+    form: umlegen
+  lx2599:
+    form: umstellen
+  lx2600:
+    form: verfolgen
+  lx2601:
+    form: verlassen
+  lx2602:
+    form: zurückkehren
+  lx2603:
+    form: zusammenstoßen
+  lx2604:
+    form: Abstieg
+    article: der
+    gender: m
+  lx2605:
+    form: Annäherung
+    article: die
+    gender: f
+  lx2606:
+    form: Anstieg
+    article: der
+    gender: m
+  lx2607:
+    form: Ausdehnung
+    article: die
+    gender: f
+  lx2608:
+    form: Berührung
+    article: die
+    gender: f
+  lx2609:
+    form: Drehung
+    article: die
+    gender: f
+  lx2610:
+    form: Durchbruch
+    article: der
+    gender: m
+  lx2611:
+    form: Durchgang
+    article: der
+    gender: m
+  lx2612:
+    form: Fortbewegung
+    article: die
+    gender: f
+  lx2613:
+    form: Gelände
+    article: das
+    gender: n
+  lx2614:
+    form: Gleichgewicht
+    article: das
+    gender: n
+  lx2615:
+    form: Haltung
+    article: die
+    gender: f
+  lx2616:
+    form: Heimweg
+    article: der
+    gender: m
+  lx2617:
+    form: Hindernis
+    article: das
+    gender: n
+  lx2618:
+    form: Orientierung
+    article: die
+    gender: f
+  lx2619:
+    form: Rückweg
+    article: der
+    gender: m
+  lx2620:
+    form: Standort
+    article: der
+    gender: m
+  lx2621:
+    form: Standpunkt
+    article: der
+    gender: m
+  lx2622:
+    form: Übergang
+    article: der
+    gender: m
+  lx2623:
+    form: Umweg
+    article: der
+    gender: m
+  lx2624:
+    form: Verlagerung
+    article: die
+    gender: f
+  lx2625:
+    form: Verlauf
+    article: der
+    gender: m
+  lx2626:
+    form: Wendung
+    article: die
+    gender: f
+  lx2627:
+    form: abwärts
+  lx2628:
+    form: aufwärts
+  lx2629:
+    form: bergab
+  lx2630:
+    form: bergauf
+  lx2631:
+    form: längs
+  lx2632:
+    form: mittendrin
+  lx2633:
+    form: oberhalb
+  lx2634:
+    form: quer
+  lx2635:
+    form: ringsum
+  lx2636:
+    form: rundherum
+  lx2637:
+    form: unterhalb
+  lx4393:
+    form: abdrängen
+  lx4394:
+    form: ausbreiten
+  lx4395:
+    form: ausdehnen
+  lx4396:
+    form: ausfahren
+  lx4397:
+    form: ausstrecken
+  lx4398:
+    form: befördern
+  lx4399:
+    form: durchdringen
+  lx4400:
+    form: durchfahren
+  lx4401:
+    form: eindringen
+  lx4402:
+    form: einfahren
+  lx4403:
+    form: entfalten
+  lx4404:
+    form: entkommen
+  lx4405:
+    form: entwischen
+  lx4406:
+    form: fortschreiten
+  lx4407:
+    form: 'sich niederlassen'
+  lx4408:
+    form: transportieren
+  lx4409:
+    form: überführen
+  lx4410:
+    form: umfahren
+  lx4411:
+    form: umgeben
+  lx4412:
+    form: umkreisen
+  lx4413:
+    form: umleiten
+  lx4414:
+    form: umschließen
+  lx4415:
+    form: verlagern
+  lx4416:
+    form: versetzen
+  lx4417:
+    form: vorankommen
+  lx4418:
+    form: vordringen
+  lx4419:
+    form: zurücklegen
+  lx4420:
+    form: zurücktreten
+  lx4421:
+    form: zurückweichen
+  lx4422:
+    form: zusammenrücken
+  lx4423:
+    form: zusammenziehen
+  lx4424:
+    form: Abgrenzung
+    article: die
+    gender: f
+  lx4425:
+    form: Anordnung
+    article: die
+    gender: f
+  lx4426:
+    form: Ausrichtung
+    article: die
+    gender: f
+  lx4427:
+    form: Durchmesser
+    article: der
+    gender: m
+  lx4428:
+    form: Mittelpunkt
+    article: der
+    gender: m
+  lx4429:
+    form: Neigung
+    article: die
+    gender: f
+  lx4430:
+    form: Radius
+    article: der
+    gender: m
+  lx4431:
+    form: Rückgrat
+    article: das
+    gender: n
+  lx4432:
+    form: Rückkehr
+    article: die
+    gender: f
+  lx4433:
+    form: Schwerpunkt
+    article: der
+    gender: m
+  lx4434:
+    form: Spannungsfeld
+    article: das
+    gender: n
+  lx4435:
+    form: Spielraum
+    article: der
+    gender: m
+  lx4436:
+    form: Überschneidung
+    article: die
+    gender: f
+  lx4437:
+    form: Umfeld
+    article: das
+    gender: n
+  lx4438:
+    form: Umriss
+    article: der
+    gender: m
+  lx4439:
+    form: Ursprung
+    article: der
+    gender: m
+  lx4440:
+    form: Verschiebung
+    article: die
+    gender: f
+  lx4441:
+    form: Verteilung
+    article: die
+    gender: f
+  lx4442:
+    form: Wendepunkt
+    article: der
+    gender: m
+  lx4443:
+    form: fließend
+  lx4444:
+    form: geradlinig
+  lx4445:
+    form: kreisförmig
+  lx4446:
+    form: ortsunabhängig
+  lx4447:
+    form: parallel
+  lx4448:
+    form: räumlich
+  lx4449:
+    form: schräg
+  lx4450:
+    form: schwungvoll
+  lx4451:
+    form: senkrecht
+  lx4452:
+    form: unbeweglich
+  lx4453:
+    form: waagerecht
+  lx4454:
+    form: andernorts
+  lx4455:
+    form: beiderseits
+  lx4456:
+    form: diesseits
+  lx4457:
+    form: entlang
+  lx4458:
+    form: hindurch
+  lx4459:
+    form: jenseits
+  lx4460:
+    form: rundum

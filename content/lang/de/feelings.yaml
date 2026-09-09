@@ -1,0 +1,621 @@
+# Немецкие лексемы созвездия «Чувства и характер».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0084:
+    form: lachen
+  lx0085:
+    form: mögen
+  lx0086:
+    form: weinen
+  lx0087:
+    form: Angst
+    article: die
+    gender: f
+  lx0088:
+    form: Freude
+    article: die
+    gender: f
+  lx0089:
+    form: froh
+  lx0090:
+    form: glücklich
+  # Степени сравнения: besser/am besten; не отдельные записи.
+  lx0091:
+    form: gut
+  lx0092:
+    form: schlecht
+  lx0093:
+    form: traurig
+  # Употребление: sich über etwas ärgern; jemanden ärgern
+  lx0344:
+    form: ärgern
+  # Употребление: sich über etwas freuen; etwas freut jemanden
+  lx0345:
+    form: freuen
+  # Употребление: sich müde fühlen; etwas fühlen
+  lx0346:
+    form: fühlen
+  lx0347:
+    form: hassen
+  lx0348:
+    form: hoffen
+  lx0349:
+    form: 'sich interessieren'
+  lx0350:
+    form: wünschen
+  lx0351:
+    form: Gefühl
+    article: das
+    gender: n
+  lx0352:
+    form: Glück
+    article: das
+    gender: n
+  lx0353:
+    form: Liebe
+    article: die
+    gender: f
+  lx0354:
+    form: Lust
+    article: die
+    gender: f
+  lx0355:
+    form: Ruhe
+    article: die
+    gender: f
+  lx0356:
+    form: Spaß
+    article: der
+    gender: m
+  lx0357:
+    form: Wunsch
+    article: der
+    gender: m
+  lx0358:
+    form: böse
+  lx0359:
+    form: freundlich
+  lx0360:
+    form: lustig
+  lx0361:
+    form: nervös
+  lx0362:
+    form: nett
+  lx0363:
+    form: ruhig
+  lx0364:
+    form: unfreundlich
+  lx0365:
+    form: zufrieden
+  lx0972:
+    form: aufregen
+  lx0973:
+    form: beruhigen
+  lx0974:
+    form: erschrecken
+  lx0975:
+    form: fürchten
+  lx0976:
+    form: gefallen
+  lx0977:
+    form: leiden
+  lx0978:
+    form: nerven
+  lx0979:
+    form: 'sich langweilen'
+  lx0980:
+    form: 'sich schämen'
+  lx0981:
+    form: staunen
+  lx0982:
+    form: stören
+  lx0983:
+    form: träumen
+  lx0984:
+    form: trösten
+  lx0985:
+    form: vertragen
+  lx0986:
+    form: zweifeln
+  lx0987:
+    form: Ärger
+    article: der
+    gender: m
+  lx0988:
+    form: Enttäuschung
+    article: die
+    gender: f
+  lx0989:
+    form: Geduld
+    article: die
+    gender: f
+  lx0990:
+    form: Hoffnung
+    article: die
+    gender: f
+  lx0991:
+    form: Interesse
+    article: das
+    gender: n
+  lx0992:
+    form: Langeweile
+    article: die
+    gender: f
+  lx0993:
+    form: Mitleid
+    article: das
+    gender: n
+  lx0994:
+    form: Mut
+    article: der
+    gender: m
+  lx0995:
+    form: Schreck
+    article: der
+    gender: m
+  lx0996:
+    form: Sehnsucht
+    article: die
+    gender: f
+  lx0997:
+    form: Sorge
+    article: die
+    gender: f
+  lx0998:
+    form: Stimmung
+    article: die
+    gender: f
+  lx0999:
+    form: Stress
+    article: der
+    gender: m
+  lx1000:
+    form: Überraschung
+    article: die
+    gender: f
+  lx1001:
+    form: Wut
+    article: die
+    gender: f
+  lx1002:
+    form: aufgeregt
+  lx1003:
+    form: ehrlich
+  lx1004:
+    form: einsam
+  lx1005:
+    form: enttäuscht
+  lx1006:
+    form: faul
+  lx1007:
+    form: fleißig
+  lx1008:
+    form: geduldig
+  lx1009:
+    form: gelangweilt
+  lx1010:
+    form: gespannt
+  lx1011:
+    form: hilfsbereit
+  lx1012:
+    form: mutig
+  lx1013:
+    form: schüchtern
+  lx1014:
+    form: stolz
+  lx1015:
+    form: unehrlich
+  lx1016:
+    form: ungeduldig
+  lx1017:
+    form: verliebt
+  lx1018:
+    form: vorsichtig
+  lx1019:
+    form: wütend
+  lx2437:
+    form: aufmuntern
+  lx2438:
+    form: bedauern
+  lx2439:
+    form: begeistern
+  lx2440:
+    form: belasten
+  lx2441:
+    form: beleidigen
+  lx2442:
+    form: bereuen
+  lx2443:
+    form: beunruhigen
+  lx2444:
+    form: bewundern
+  lx2445:
+    form: demütigen
+  lx2446:
+    form: entlasten
+  lx2447:
+    form: enttäuschen
+  lx2448:
+    form: ermutigen
+  lx2449:
+    form: genießen
+  lx2450:
+    form: motivieren
+  lx2451:
+    form: schätzen
+  lx2452:
+    form: 'sich überwinden'
+  lx2453:
+    form: verunsichern
+  lx2454:
+    form: Begeisterung
+    article: die
+    gender: f
+  lx2455:
+    form: Ehrlichkeit
+    article: die
+    gender: f
+  lx2456:
+    form: Eifersucht
+    article: die
+    gender: f
+  lx2457:
+    form: Einsamkeit
+    article: die
+    gender: f
+  lx2458:
+    form: Empfindlichkeit
+    article: die
+    gender: f
+  lx2459:
+    form: Erleichterung
+    article: die
+    gender: f
+  lx2460:
+    form: Fernweh
+    article: das
+    gender: n
+  lx2461:
+    form: Frust
+    article: der
+    gender: m
+  lx2462:
+    form: Gelassenheit
+    article: die
+    gender: f
+  lx2463:
+    form: Hass
+    article: der
+    gender: m
+  lx2464:
+    form: Heimweh
+    article: das
+    gender: n
+  lx2465:
+    form: Humor
+    article: der
+    gender: m
+  # Различать с Eifersucht в контексте, не объявлять их взаимозаменяемыми во всех заданиях.
+  lx2466:
+    form: Neid
+    article: der
+    gender: m
+  lx2467:
+    form: Neugier
+    article: die
+    gender: f
+  lx2468:
+    form: Respekt
+    article: der
+    gender: m
+  lx2469:
+    form: Rücksicht
+    article: die
+    gender: f
+  lx2470:
+    form: Rücksichtnahme
+    article: die
+    gender: f
+  lx2471:
+    form: Selbstbewusstsein
+    article: das
+    gender: n
+  lx2472:
+    form: Selbstsicherheit
+    article: die
+    gender: f
+  lx2473:
+    form: Selbstvertrauen
+    article: das
+    gender: n
+  lx2474:
+    form: Trost
+    article: der
+    gender: m
+  lx2475:
+    form: Unsicherheit
+    article: die
+    gender: f
+  lx2476:
+    form: Unzufriedenheit
+    article: die
+    gender: f
+  lx2477:
+    form: Verzweiflung
+    article: die
+    gender: f
+  lx2478:
+    form: Wohlbefinden
+    article: das
+    gender: n
+  lx2479:
+    form: Zufriedenheit
+    article: die
+    gender: f
+  lx2480:
+    form: Zuverlässigkeit
+    article: die
+    gender: f
+  lx2481:
+    form: begeistert
+  lx2482:
+    form: eifersüchtig
+  lx2483:
+    form: empfindlich
+  lx2484:
+    form: empfindsam
+  lx2485:
+    form: erleichtert
+  lx2486:
+    form: geizig
+  lx2487:
+    form: gelassen
+  lx2488:
+    form: großzügig
+  lx2489:
+    form: intolerant
+  lx2490:
+    form: neidisch
+  lx2491:
+    form: neugierig
+  lx2492:
+    form: optimistisch
+  lx2493:
+    form: pessimistisch
+  lx2494:
+    form: rücksichtslos
+  lx2495:
+    form: rücksichtsvoll
+  lx2496:
+    form: selbstbewusst
+  lx2497:
+    form: sensibel
+  lx2498:
+    form: tolerant
+  lx2499:
+    form: unzuverlässig
+  lx2500:
+    form: verwirrt
+  lx2501:
+    form: zuverlässig
+  lx4265:
+    form: aufwühlen
+  lx4266:
+    form: ausgleichen
+  lx4267:
+    form: ausleben
+  lx4268:
+    form: beherrschen
+  lx4269:
+    form: beschwichtigen
+  lx4270:
+    form: ertragen
+  lx4271:
+    form: kränken
+  lx4272:
+    form: mitfühlen
+  lx4273:
+    form: nachempfinden
+  lx4274:
+    form: nachtragen
+  lx4275:
+    form: 'sich einfühlen'
+  lx4276:
+    form: überwältigen
+  lx4277:
+    form: verabscheuen
+  lx4278:
+    form: verachten
+  lx4279:
+    form: verbittern
+  lx4280:
+    form: verdrängen
+  lx4281:
+    form: verkraften
+  lx4282:
+    form: verspotten
+  lx4283:
+    form: zurückhalten
+  lx4284:
+    form: Antrieb
+    article: der
+    gender: m
+  lx4285:
+    form: Arroganz
+    article: die
+    gender: f
+  lx4286:
+    form: Aufrichtigkeit
+    article: die
+    gender: f
+  lx4287:
+    form: Begeisterungsfähigkeit
+    article: die
+    gender: f
+  lx4288:
+    form: Belastbarkeit
+    article: die
+    gender: f
+  lx4289:
+    form: Bescheidenheit
+    article: die
+    gender: f
+  lx4290:
+    form: Bitterkeit
+    article: die
+    gender: f
+  lx4291:
+    form: Dankbarkeit
+    article: die
+    gender: f
+  lx4292:
+    form: Demütigung
+    article: die
+    gender: f
+  lx4293:
+    form: Ehrgeiz
+    article: der
+    gender: m
+  lx4294:
+    form: Einfühlungsvermögen
+    article: das
+    gender: n
+  lx4295:
+    form: Eitelkeit
+    article: die
+    gender: f
+  lx4296:
+    form: Empathie
+    article: die
+    gender: f
+  lx4297:
+    form: Entmutigung
+    article: die
+    gender: f
+  lx4298:
+    form: Entschlossenheit
+    article: die
+    gender: f
+  lx4299:
+    form: Frustration
+    article: die
+    gender: f
+  lx4300:
+    form: Geborgenheit
+    article: die
+    gender: f
+  lx4301:
+    form: Gleichgültigkeit
+    article: die
+    gender: f
+  lx4302:
+    form: Kränkung
+    article: die
+    gender: f
+  lx4303:
+    form: Mitgefühl
+    article: das
+    gender: n
+  lx4304:
+    form: Reizbarkeit
+    article: die
+    gender: f
+  lx4305:
+    form: Selbstachtung
+    article: die
+    gender: f
+  lx4306:
+    form: Selbstkritik
+    article: die
+    gender: f
+  lx4307:
+    form: Selbstüberschätzung
+    article: die
+    gender: f
+  lx4308:
+    form: Selbstwertgefühl
+    article: das
+    gender: n
+  lx4309:
+    form: Temperament
+    article: das
+    gender: n
+  lx4310:
+    form: Überforderung
+    article: die
+    gender: f
+  lx4311:
+    form: Unbehagen
+    article: das
+    gender: n
+  lx4312:
+    form: Unterforderung
+    article: die
+    gender: f
+  lx4313:
+    form: Verletzlichkeit
+    article: die
+    gender: f
+  lx4314:
+    form: anspruchsvoll
+  lx4315:
+    form: arrogant
+  lx4316:
+    form: aufgeschlossen
+  lx4317:
+    form: aufrichtig
+  lx4318:
+    form: ausgeglichen
+  lx4319:
+    form: berechnend
+  lx4320:
+    form: bescheiden
+  lx4321:
+    form: besonnen
+  lx4322:
+    form: eigensinnig
+  lx4323:
+    form: einfühlsam
+  lx4324:
+    form: empathisch
+  lx4325:
+    form: extrovertiert
+  lx4326:
+    form: feinfühlig
+  lx4327:
+    form: gleichgültig
+  lx4328:
+    form: impulsiv
+  lx4329:
+    form: introvertiert
+  lx4330:
+    form: nachsichtig
+  lx4331:
+    form: nachtragend
+  lx4332:
+    form: reizbar
+  lx4333:
+    form: selbstkritisch
+  lx4334:
+    form: überfordert
+  lx4335:
+    form: überheblich
+  lx4336:
+    form: unausgeglichen
+  lx4337:
+    form: unterfordert
+  lx4338:
+    form: unvoreingenommen
+  lx4339:
+    form: verletzend
+  lx4340:
+    form: verletzlich
+  lx4341:
+    form: voreingenommen

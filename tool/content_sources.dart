@@ -43,6 +43,7 @@ class ConceptSource {
     required this.constellation,
     required this.pos,
     this.freqRank,
+    this.draft = false,
   });
 
   final String id;
@@ -50,6 +51,17 @@ class ConceptSource {
   final String constellation;
   final String pos;
   final int? freqRank;
+
+  /// Концепт написан, но не вычитан: в игру не идёт.
+  ///
+  /// Нужно потому, что запуск объявляется **ярусом**, а импортированный
+  /// словник кладёт новые слова на ярусы, часть которых уже запущена. Без
+  /// пометки на самом концепте у импорта остаётся два выхода, и оба плохие:
+  /// снять A0 с запуска (то есть отобрать у игрока прочитанное) или отгрузить
+  /// невычитанное под видом вычитанного.
+  ///
+  /// Пометка снимается вычиткой, а не правкой ради зелёного валидатора.
+  final bool draft;
 
   /// Служебное слово: круг из него не собрать.
   ///
@@ -211,13 +223,79 @@ class CalibrationItemSource {
 /// игроку не прочитанными никем. Правило было записано, но не проверялось —
 /// то есть не работало.
 class TierReview {
-  const TierReview({required this.by, this.constellations = const {}});
+  const TierReview({
+    required this.by,
+    this.constellations = const {},
+    this.passes = const [],
+  });
 
   /// Кто читал. Строка человеческая: важно не имя, а то, чем читали.
   final String by;
 
   /// Какие созвездия прочитаны. Сверяется с составом яруса.
   final Set<String> constellations;
+
+  /// Проходы вычитки: чем читали, когда и что именно было прочитано.
+  final List<ReviewPass> passes;
+
+  /// Сколько разных моделей читали ярус **целиком**.
+  ///
+  /// Разных, а не проходов: два прогона одной моделью — это один взгляд,
+  /// повторённый дважды, и от согласованной ошибки он не страхует. И только
+  /// полные: два частичных прохода не складываются в один полный, даже если
+  /// вместе покрывают весь текст, — покрытие не то же самое, что прочтение
+  /// в одном контексте.
+  int get distinctModels =>
+      {for (final p in passes.where((p) => p.isFull)) p.model}.length;
+}
+
+/// Один проход вычитки.
+///
+/// [contentHash] — отпечаток содержимого яруса на момент проверки. Он и есть
+/// смысл этой записи: проверка описывает конкретный текст, и если текст
+/// изменили, проверка устарела. Без отпечатка это невидимо — запись
+/// выглядит рабочей.
+///
+/// В этом проекте на такое уже наступали: аудит был снят с ревизии
+/// `88acb03`, применялся к HEAD, и половина находок оказалась давно
+/// исправленной. Разбирать пришлось руками, написав для этого отдельный
+/// классификатор.
+class ReviewPass {
+  const ReviewPass({
+    required this.model,
+    required this.at,
+    required this.contentHash,
+    this.scope = 'full',
+    this.findings = 0,
+    this.note = '',
+  });
+
+  /// Чем читали: имя модели или человека.
+  final String model;
+
+  /// Когда. Строкой, как записано: сравнивать даты машинно незачем, а
+  /// читающему важно видеть, насколько запись свежая.
+  final String at;
+
+  /// Отпечаток содержимого яруса на момент прохода.
+  final String contentHash;
+
+  /// Что именно прочитано: `full` — ярус целиком, иначе часть (`phrases`,
+  /// `forms`, `distractors`…).
+  ///
+  /// Поле появилось потому, что без него частичный проход неотличим от
+  /// полного, и два частичных закрывали бы требование «две модели прочитали
+  /// ярус», ничего такого не сделав. Записывать частичные проходы всё равно
+  /// стоит: они говорят, что с ярусом делали. К порогу идут только полные.
+  final String scope;
+
+  bool get isFull => scope == 'full';
+
+  /// Сколько находок дал проход. Ноль — законный результат, но говорящий:
+  /// проход, не нашедший ничего, либо подтверждает ярус, либо не читал его.
+  final int findings;
+
+  final String note;
 }
 
 /// Какие ярусы языка запущены, а какие только написаны.
@@ -268,10 +346,33 @@ class LaunchPolicy {
           );
         }
         final covered = body['constellations'];
+        final passNode = body['passes'];
+        final passes = <ReviewPass>[];
+        if (passNode is YamlList) {
+          for (final raw in passNode) {
+            if (raw is! YamlMap) {
+              throw ContentSourceException(
+                'launch.yaml, $lang/${entry.key}: проход вычитки записан не '
+                'картой. Нужны model, at и content_hash — без отпечатка '
+                'проверка не привязана к тексту, который проверяли.',
+              );
+            }
+            passes.add(ReviewPass(
+              model: '${raw['model'] ?? ''}',
+              at: '${raw['at'] ?? ''}',
+              contentHash: '${raw['content_hash'] ?? ''}',
+              scope: '${raw['scope'] ?? 'full'}',
+              findings: raw['findings'] is int ? raw['findings'] as int : 0,
+              note: '${raw['note'] ?? ''}',
+            ));
+          }
+        }
+
         reviews['${entry.key}'] = TierReview(
           by: '${body['by'] ?? ''}',
           constellations:
               covered is YamlList ? {for (final e in covered) '$e'} : const {},
+          passes: passes,
         );
       }
     }
@@ -326,12 +427,69 @@ class ContentSources {
   Map<String, Map<String, LexemeSource>> get lexemes =>
       {for (final l in languages.values) l.code: l.lexemes};
 
-  /// Концепты, годные для круга с вариантами: без служебных слов.
+  /// Концепты, годные для круга с вариантами: без служебных слов и без
+  /// черновых.
   Iterable<ConceptSource> get playableConcepts =>
-      concepts.values.where((c) => !c.isFunctionWord);
+      concepts.values.where((c) => !c.isFunctionWord && !c.draft);
+
+  /// Черновые концепты яруса: написаны, но не вычитаны.
+  int draftedOn(String tier) =>
+      concepts.values.where((c) => c.tier == tier && c.draft).length;
 
   /// Сколько концептов покрывает язык. Считается, а не объявляется.
   int coverageOf(String lang) => languages[lang]?.lexemes.length ?? 0;
+
+  /// Отпечаток содержимого яруса на языке изучения.
+  ///
+  /// Считается по тому, что вычитывающий видит: формы, множественные числа,
+  /// пометки, дистракторы, шаблоны фраз и их ответы. Порядок нормализован
+  /// сортировкой — переставленные строки YAML не должны означать «текст
+  /// изменился».
+  ///
+  /// Не по хешу файлов: файл содержит все ярусы, и правка B2 объявляла бы
+  /// устаревшей вычитку A0.
+  ///
+  /// Черновые концепты в отпечаток **не входят**, и это не оптимизация.
+  /// Отпечаток говорит «прочитанный текст не менялся»; черновой концепт в
+  /// прочитанный текст не входит по определению. Считай его — и добавление
+  /// невычитанного слова объявляло бы устаревшей вычитку вычитанного, то есть
+  /// механизм мешал бы ровно тому, для чего сделан.
+  String tierHash(String tier) {
+    final parts = <String>[];
+
+    for (final concept in concepts.values) {
+      if (concept.tier != tier || concept.draft) continue;
+      final lex = languages[targetLang]?.lexemes[concept.id];
+      if (lex == null) continue;
+      parts.add([
+        concept.id,
+        concept.pos,
+        lex.form,
+        lex.article ?? '',
+        lex.gender ?? '',
+        lex.plural ?? '',
+        lex.note ?? '',
+        (lex.farDistractors.toList()..sort()).join('|'),
+        (lex.nearDistractors.toList()..sort()).join('|'),
+      ].join(''));
+    }
+
+    for (final phrase in phrases) {
+      if (phrase.tier != tier) continue;
+      parts.add([
+        phrase.id,
+        phrase.template,
+        phrase.answers.join('|'),
+        phrase.register ?? '',
+      ].join(''));
+    }
+
+    parts.sort();
+    return sha256
+        .convert(utf8.encode(parts.join('')))
+        .toString()
+        .substring(0, 12);
+  }
 
   static ContentSources load(
     Directory root, {
@@ -547,6 +705,7 @@ class ContentSources {
         constellation: constellation,
         pos: (raw['pos'] as String?) ?? 'noun',
         freqRank: raw['freq_rank'] as int?,
+        draft: raw['draft'] == true,
       );
     }
     throw ContentSourceException(

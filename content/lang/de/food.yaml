@@ -1,0 +1,1373 @@
+# Немецкие лексемы созвездия «Еда и приготовление».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  bread_food:
+    form: Brot
+    article: das
+    gender: n
+    plural: Brote
+    distractors:
+      far: [Butter, Käse]
+      near: [Brut, Brett, Boot]
+  water_drink:
+    form: Wasser
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Saft, Tee]
+      near: [Messer, Wachs, Masse]
+  milk_drink:
+    form: Milch
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors:
+      far: [Sahne, Joghurt]
+      near: [Molch, Milbe, Mulch]
+  coffee_drink:
+    form: Kaffee
+    article: der
+    gender: m
+    plural: Kaffees
+    distractors:
+      far: [Tee, Kakao]
+      near: [Karaffe, Kanapee, Käfer]
+  apple_food:
+    form: Apfel
+    article: der
+    gender: m
+    plural: Äpfel
+    distractors:
+      far: [Birne, Traube]
+      near: [Ampel, Apparat, Affe]
+  meat_food:
+    form: Fleisch
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Wurst, Schinken]
+      near: [Fleiß, Fleck, Flasche]
+  fish_food:
+    form: Fisch
+    article: der
+    gender: m
+    plural: Fische
+    distractors:
+      far: [Krabbe, Muschel]
+      near: [Fischer, Fistel, Wisch]
+  soup_food:
+    form: Suppe
+    article: die
+    gender: f
+    plural: Suppen
+    distractors:
+      far: [Salat, Soße]
+      near: [Puppe, Sippe, Suche]
+  salt_food:
+    form: Salz
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Pfeffer, Essig]
+      near: [Satz, Salbe, Schmalz]
+  sugar_food:
+    form: Zucker
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors:
+      far: [Honig, Sirup]
+      near: [Zocker, Zunder, Zacken]
+  hunger_noun:
+    form: Hunger
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors:
+      far: [Durst, Appetit]
+      near: [Finger, Hummer, Anger]
+  restaurant_place:
+    form: Restaurant
+    article: das
+    gender: n
+    plural: Restaurants
+    distractors:
+      far: [Kantine, Imbiss]
+      near: [Resultat, Reserve, Rest]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  breakfast_meal:
+    form: Frühstück
+    article: das
+    gender: n
+    plural: Frühstücke
+    distractors:
+      far: [Brunch, Imbiss]
+      near: [Frühling, Frühschicht, Frucht]
+  lunch_meal:
+    form: Mittagessen
+    article: das
+    gender: n
+    plural: Mittagessen
+    distractors:
+      far: [Brunch, Snack]
+      near: [Mittagspause, Mittelweg, Mitleid]
+  dinner_meal:
+    form: Abendessen
+    article: das
+    gender: n
+    plural: Abendessen
+    distractors:
+      far: [Imbiss, Buffet]
+      near: [Abendrot, Abendkleid, Abenteuer]
+  plate_object:
+    form: Teller
+    article: der
+    gender: m
+    plural: Teller
+    distractors:
+      far: [Schüssel, Tablett]
+      near: [Keller, Heller, Teiler]
+  glass_object:
+    form: Glas
+    article: das
+    gender: n
+    plural: Gläser
+    distractors:
+      far: [Tasse, Kanne]
+      near: [Gras, Glanz, Glatze]
+  fork_object:
+    form: Gabel
+    article: die
+    gender: f
+    plural: Gabeln
+    distractors:
+      far: [Zange, Schneebesen]
+      near: [Kabel, Nabel, Giebel]
+  knife_object:
+    form: Messer
+    article: das
+    gender: n
+    plural: Messer
+    distractors:
+      far: [Schere, Klinge]
+      near: [Kessel, Meister, Metzger]
+  spoon_object:
+    form: Löffel
+    article: der
+    gender: m
+    plural: Löffel
+    distractors:
+      far: [Kelle, Schaufel]
+      near: [Koffer, Löwe, Lüfter]
+  cheese_food:
+    form: Käse
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors:
+      far: [Quark, Joghurt]
+      near: [Kiste, Kerze, Käfig]
+  butter_food:
+    form: Butter
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors:
+      far: [Margarine, Schmalz]
+      near: [Futter, Kutter, Bütte]
+  egg_food:
+    form: Ei
+    article: das
+    gender: n
+    plural: Eier
+    distractors:
+      far: [Speck, Toast]
+      near: [Eis, Eid, Ehe]
+  vegetable_food:
+    form: Gemüse
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Obst, Salat]
+      near: [Gemüt, Gemüsebeet, Gehäuse]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  fruit_food:
+    form: Obst
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Konfitüre, Nuss], near: [Ost, Obhut, Obstler] }
+  potato_food:
+    form: Kartoffel
+    article: die
+    gender: f
+    plural: Kartoffeln
+    distractors: { far: [Klöße, Püree], near: [Kartei, Karton, Kartell] }
+  rice_food:
+    form: Reis
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Grieß, Hirse], near: [Preis, Kreis, Fleiß] }
+  pasta_food:
+    form: Nudeln
+    article: die
+    plural: Nudeln
+    note: только множественное
+    distractors: { far: [Klöße, Couscous], near: [Nadeln, Rudeln, Buddeln] }
+  chicken_food:
+    form: Hähnchen
+    article: das
+    gender: n
+    plural: Hähnchen
+    distractors: { far: [Pute, Ente], near: [Händchen, Kännchen, Fähnchen] }
+  beef_food:
+    form: Rindfleisch
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Kalb, Lamm], near: [Rindvieh, Hackfleisch, Rindsleder] }
+  pork_food:
+    form: Schweinefleisch
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Speck, Schinken], near: [Schweinebraten, Schweinerei, Scheinwerfer] }
+  sausage_food:
+    form: Wurst
+    article: die
+    gender: f
+    plural: Würste
+    distractors: { far: [Schinken, Aufschnitt], near: [Durst, Wurf, Wulst] }
+  sauce_food:
+    form: Soße
+    article: die
+    gender: f
+    plural: Soßen
+    distractors: { far: [Dip, Brühe], near: [Rose, Dose, Größe] }
+  pepper_food:
+    form: Pfeffer
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Paprika, Chili], near: [Pfarrer, Kläffer, Pfeifer] }
+  oil_food:
+    form: Öl
+    article: das
+    gender: n
+    plural: Öle
+    distractors: { far: [Essig, Fett], near: [Aal, Öse, Elle] }
+  flour_food:
+    form: Mehl
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Stärke, Backpulver], near: [Mahl, Kehle, Fell] }
+  cake_food:
+    form: Kuchen
+    article: der
+    gender: m
+    plural: Kuchen
+    distractors: { far: [Brötchen, Keks], near: [Buchen, Rauchen, Kuchenblech] }
+  chocolate_food:
+    form: Schokolade
+    article: die
+    gender: f
+    plural: Schokoladen
+    distractors: { far: [Bonbon, Praline], near: [Marmelade, Scholle, Schokoriegel] }
+  icecream_food:
+    form: Speiseeis
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Sorbet, Pudding], near: [Speisesaal, Eisbein, Speisekammer] }
+  juice_drink:
+    form: Saft
+    article: der
+    gender: m
+    plural: Säfte
+    distractors: { far: [Limonade, Sirup], near: [Kraft, Haft, Schaft] }
+  tea_drink:
+    form: Tee
+    article: der
+    gender: m
+    plural: Tees
+    distractors: { far: [Kakao, Punsch], near: [See, Teer, Reh] }
+  beer_drink:
+    form: Bier
+    article: das
+    gender: n
+    plural: Biere
+    distractors: { far: [Sekt, Schnaps], near: [Tier, Stier, Biber] }
+  wine_drink:
+    form: Wein
+    article: der
+    gender: m
+    plural: Weine
+    distractors: { far: [Wodka, Likör], near: [Bein, Stein, Wien] }
+  menu_object:
+    form: Speisekarte
+    article: die
+    gender: f
+    plural: Speisekarten
+    distractors: { far: [Tagesangebot, Aushang], near: [Landkarte, Speiseröhre, Spielkarte] }
+  waiter_person:
+    form: Kellner
+    article: der
+    gender: m
+    plural: Kellner
+    distractors: { far: [Koch, Wirt], near: [Kelle, Kellerei, Keller] }
+  bill_noun:
+    form: Rechnung
+    article: die
+    gender: f
+    plural: Rechnungen
+    distractors: { far: [Beleg, Zahlung], near: [Zeichnung, Rechenschaft, Rechtsprechung] }
+  order_noun:
+    form: Bestellung
+    article: die
+    gender: f
+    plural: Bestellungen
+    distractors: { far: [Reservierung, Anfrage], near: [Besetzung, Bestätigung, Vorstellung] }
+  tip_noun:
+    form: Trinkgeld
+    article: das
+    gender: n
+    plural: Trinkgelder
+    distractors: { far: [Servicegebühr, Pfand], near: [Trinkglas, Trinkspruch, Spielgeld] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  ingredient_noun:
+    form: Zutat
+    article: die
+    gender: f
+    plural: Zutaten
+    distractors: { far: [Menge, Kochbuch], near: [Zufall, Zunahme, Zutritt] }
+  recipe_noun:
+    form: Kochrezept
+    article: das
+    gender: n
+    plural: Kochrezepte
+    distractors: { far: [Anleitung, Kochbuch], near: [Kochtopf, Konzept, Kochkurs] }
+  pan_object:
+    form: Pfanne
+    article: die
+    gender: f
+    plural: Pfannen
+    distractors: { far: [Blech, Kessel], near: [Panne, Wanne, Fahne] }
+  pot_object:
+    form: Topf
+    article: der
+    gender: m
+    plural: Töpfe
+    distractors: { far: [Kessel, Schüssel], near: [Kopf, Zopf, Tropf] }
+  starter_food:
+    form: Vorspeise
+    article: die
+    gender: f
+    plural: Vorspeisen
+    distractors: { far: [Snack, Suppeneinlage], near: [Nachspeise, Vorschrift, Vorsprache] }
+  maincourse_food:
+    form: Hauptgericht
+    article: das
+    gender: n
+    plural: Hauptgerichte
+    distractors: { far: [Menü, Tagesgericht], near: [Hauptgebäude, Amtsgericht, Hauptgewinn] }
+  dessert_food:
+    form: Nachtisch
+    article: der
+    gender: m
+    plural: Nachtische
+    distractors: { far: [Gebäck, Obstteller], near: [Nachttisch, Nachtschicht, Nachricht] }
+  portion_noun:
+    form: Portion
+    article: die
+    gender: f
+    plural: Portionen
+    distractors: { far: [Menge, Sättigung], near: [Position, Aktion, Portier] }
+  sidedish_food:
+    form: Beilage
+    article: die
+    gender: f
+    plural: Beilagen
+    distractors: { far: [Salat, Dip], near: [Anlage, Beilegung, Beihilfe] }
+  spice_food:
+    form: Gewürz
+    article: das
+    gender: n
+    plural: Gewürze
+    distractors: { far: [Kraut, Aroma], near: [Gewicht, Gewinn, Gewirr] }
+  garlic_food:
+    form: Knoblauch
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Ingwer, Petersilie], near: [Knopfloch, Knochenbau, Blaulicht] }
+  onion_food:
+    form: Zwiebel
+    article: die
+    gender: f
+    plural: Zwiebeln
+    distractors: { far: [Lauch, Knolle], near: [Zwilling, Zwiebelturm, Ziegel] }
+  mushroom_food:
+    form: Pilz
+    article: der
+    gender: m
+    plural: Pilze
+    distractors: { far: [Kraut, Wurzel], near: [Filz, Pelz, Pils] }
+  bean_food:
+    form: Bohne
+    article: die
+    gender: f
+    plural: Bohnen
+    distractors: { far: [Erbse, Kichererbse], near: [Bühne, Bohrer, Sahne] }
+  lentil_food:
+    form: Linse
+    article: die
+    gender: f
+    plural: Linsen
+    distractors: { far: [Graupe, Hirse], near: [Binse, Lupe, Liste] }
+  wholegrain_food:
+    form: Vollkorn
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Weißmehl, Kleie], near: [Vollmond, Vollmacht, Einhorn] }
+  groceries_noun:
+    form: Nahrungsmittel
+    article: das
+    gender: n
+    plural: Nahrungsmittel
+    distractors: { far: [Getränke, Haushaltswaren], near: [Nahrungskette, Heilmittel, Nährstoff] }
+  shelflife_noun:
+    form: Haltbarkeit
+    article: die
+    gender: f
+    distractors: { far: [Frische, Lagerung], near: [Haltung, Machbarkeit, Haltbarmachung] }
+  preparation_noun:
+    form: Zubereitung
+    article: die
+    gender: f
+    plural: Zubereitungen
+    distractors: { far: [Garzeit, Anrichten], near: [Zuteilung, Vorbereitung, Zubereitungsart] }
+  taste_noun:
+    form: Geschmack
+    article: der
+    gender: m
+    plural: Geschmäcker
+    distractors: { far: [Geruch, Aroma], near: [Geschmeide, Gemach, Geschirr] }
+  nutrition_noun:
+    form: Ernährung
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Diät, Kost], near: [Erfahrung, Erwärmung, Ernennung] }
+  cookingtime_noun:
+    form: Garzeit
+    article: die
+    gender: f
+    plural: Garzeiten
+    distractors: { far: [Ruhezeit, Backzeit], near: [Bauzeit, Fahrzeit, Gartenteich] }
+  freshness_noun:
+    form: Frische
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Qualität, Reife], near: [Kirsche, Frisur, Fritten] }
+  coldchain_noun:
+    form: Kühlkette
+    article: die
+    gender: f
+    plural: Kühlketten
+    distractors: { far: [Lagerung, Transportweg], near: [Kühlbox, Halskette, Kühltruhe] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  nutritionalvalue_noun:
+    form: Nährwert
+    article: der
+    gender: m
+    plural: Nährwerte
+    distractors: { far: [Brennwert, Zutatenliste], near: [Mehrwert, Nährboden, Nahverkehr] }
+  calorie_noun:
+    form: Kalorie
+    article: die
+    gender: f
+    plural: Kalorien
+    distractors: { far: [Brennwert, Fettgehalt], near: [Kategorie, Galerie, Kalkulation] }
+  protein_noun:
+    form: Eiweiß
+    article: das
+    gender: n
+    plural: Eiweiße
+    distractors: { far: [Fett, Stärke], near: [Eisbein, Eigenheit, Beweis] }
+  carbohydrate_noun:
+    form: Kohlenhydrat
+    article: das
+    gender: n
+    plural: Kohlenhydrate
+    distractors: { far: [Fett, Eiweißgehalt], near: [Kohlensäure, Kandidat, Kohlenstoff] }
+  fibre_noun:
+    form: Ballaststoff
+    article: der
+    gender: m
+    plural: Ballaststoffe
+    distractors: { far: [Zucker, Stärke], near: [Ballastwasser, Farbstoff, Ballsaal] }
+  preservative_noun:
+    form: Konservierungsstoff
+    article: der
+    gender: m
+    plural: Konservierungsstoffe
+    distractors: { far: [Farbstoff, Aroma], near: [Konservatorium, Klebstoff, Konservendose] }
+  additive_noun:
+    form: Zusatzstoff
+    article: der
+    gender: m
+    plural: Zusatzstoffe
+    distractors: { far: [Zutatenliste, Verpackung], near: [Zusatzbeitrag, Kunststoff, Ersatzstoff] }
+  labelling_noun:
+    form: Kennzeichnung
+    article: die
+    gender: f
+    plural: Kennzeichnungen
+    distractors: { far: [Etikett, Beipackzettel], near: [Zeichnung, Bezeichnung, Kennziffer] }
+  intolerance_noun:
+    form: Unverträglichkeit
+    article: die
+    gender: f
+    plural: Unverträglichkeiten
+    distractors: { far: [Allergie, Beschwerde], near: [Unverbindlichkeit, Verträglichkeit, Unzuverlässigkeit] }
+  allergen_noun:
+    form: Allergen
+    article: das
+    gender: n
+    plural: Allergene
+    distractors: { far: [Reizstoff, Auslöser], near: [Allergie, Antigen, Halogen] }
+  lactose_noun:
+    form: Laktose
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Fruktose, Gluten], near: [Narkose, Diagnose, Lakritze] }
+  gluten_noun:
+    form: Gluten
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Laktose, Histamin], near: [Glut, Glasur, Klausel] }
+  organicproduct_noun:
+    form: Bioprodukt
+    article: das
+    gender: n
+    plural: Bioprodukte
+    distractors: { far: [Regionalware, Handelsmarke], near: [Bioladen, Nebenprodukt, Biotop] }
+  countryoforigin_noun:
+    form: Herkunftsland
+    article: das
+    gender: n
+    plural: Herkunftsländer
+    distractors: { far: [Anbaugebiet, Erzeugerbetrieb], near: [Herkunftsnachweis, Heimatland, Herrschaftsgebiet] }
+  bestbefore_noun:
+    form: Mindesthaltbarkeitsdatum
+    article: das
+    gender: n
+    plural: Mindesthaltbarkeitsdaten
+    distractors: { far: [Verbrauchsdatum, Chargennummer], near: [Haltbarkeitsdauer, Geburtsdatum, Haltbarmachung] }
+  supplychain_noun:
+    form: Lieferkette
+    article: die
+    gender: f
+    plural: Lieferketten
+    distractors: { far: [Vertriebsweg, Logistik], near: [Lieferschein, Halskette, Lieferwagen] }
+  producer_person:
+    form: Erzeuger
+    article: der
+    gender: m
+    plural: Erzeuger
+    distractors: { far: [Händler, Verarbeiter], near: [Erzeugnis, Betrüger, Erzieher] }
+  wholesale_noun:
+    form: Großhandel
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Einzelhandel, Direktvertrieb], near: [Großhändler, Menschenhandel, Großstadt] }
+  retail_noun:
+    form: Einzelhandel
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Großhandel, Versandhandel], near: [Einzelhändler, Einzelfall, Fernhandel] }
+  consumerprotection_noun:
+    form: Verbraucherschutz
+    article: der
+    gender: m
+    distractors: { far: [Produkthaftung, Marktaufsicht], near: [Verbraucherzentrale, Datenschutz, Verbrauchermarkt] }
+  foodlaw_noun:
+    form: Lebensmittelrecht
+    article: das
+    gender: n
+    distractors: { far: [Hygieneverordnung, Marktordnung], near: [Lebensmittelmarkt, Mietrecht, Lebensmittelpunkt] }
+  hygienerule_noun:
+    form: Hygienevorschrift
+    article: die
+    gender: f
+    plural: Hygienevorschriften
+    distractors: { far: [Reinigungsplan, Kontrolle], near: [Hygieneplan, Bauvorschrift, Hygienemangel] }
+  sustainability_noun:
+    form: Nachhaltigkeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Umweltschutz, Klimabilanz], near: [Nachhilfe, Haltbarkeit, Nachlässigkeit] }
+  regionality_noun:
+    form: Regionalität
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Saisonalität, Herkunft], near: [Rationalität, Regionalbahn, Legalität] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  # Глагол: есть, принимать пищу; отдельно от существительного das Essen.
+  lx0151:
+    form: essen
+  lx0152:
+    form: kochen
+  lx0153:
+    form: trinken
+  lx0154:
+    form: Banane
+    article: die
+    gender: f
+  lx0155:
+    form: Durst
+    article: der
+    gender: m
+  # Существительное: еда; отдельно от глагола essen.
+  lx0156:
+    form: Essen
+    article: das
+    gender: n
+  lx0157:
+    form: lecker
+  lx0509:
+    form: backen
+  lx0510:
+    form: bestellen
+  lx0511:
+    form: braten
+  lx0512:
+    form: frühstücken
+  lx0513:
+    form: kosten
+  lx0514:
+    form: schmecken
+  lx0515:
+    form: schneiden
+  lx0516:
+    form: Brötchen
+    article: das
+    gender: n
+  lx0517:
+    form: 'Café'
+    article: das
+    gender: n
+  lx0518:
+    form: Flasche
+    article: die
+    gender: f
+  lx0519:
+    form: Gurke
+    article: die
+    gender: f
+  # В выбранном варианте der Joghurt; в DACH встречаются другие нормативные родовые варианты.
+  lx0520:
+    form: Joghurt
+    article: der
+    gender: m
+  lx0521:
+    form: Karotte
+    article: die
+    gender: f
+  lx0522:
+    form: Menü
+    article: das
+    gender: n
+  lx0523:
+    form: Müsli
+    article: das
+    gender: n
+  lx0524:
+    form: Nudel
+    article: die
+    gender: f
+  lx0525:
+    form: Orange
+    article: die
+    gender: f
+  lx0526:
+    form: Pizza
+    article: die
+    gender: f
+  lx0527:
+    form: Salat
+    article: der
+    gender: m
+  lx0528:
+    form: Tasse
+    article: die
+    gender: f
+  lx0529:
+    form: Tomate
+    article: die
+    gender: f
+  lx0530:
+    form: Zitrone
+    article: die
+    gender: f
+  lx0531:
+    form: durstig
+  lx0532:
+    form: frisch
+  lx0533:
+    form: hungrig
+  lx0534:
+    form: salzig
+  lx0535:
+    form: sauer
+  lx0536:
+    form: scharf
+  lx0537:
+    form: süß
+  lx1245:
+    form: abmessen
+  lx1246:
+    form: abräumen
+  lx1247:
+    form: abspülen
+  lx1248:
+    form: aufwärmen
+  lx1249:
+    form: dünsten
+  lx1250:
+    form: erhitzen
+  lx1251:
+    form: füllen
+  lx1252:
+    form: grillen
+  lx1253:
+    form: kauen
+  lx1254:
+    form: mischen
+  lx1255:
+    form: pfeffern
+  lx1256:
+    form: probieren
+  lx1257:
+    form: rösten
+  lx1258:
+    form: rühren
+  lx1259:
+    form: salzen
+  lx1260:
+    form: schälen
+  lx1261:
+    form: schlucken
+  lx1262:
+    form: servieren
+  lx1263:
+    form: wiegen
+  lx1264:
+    form: würzen
+  lx1265:
+    form: Ananas
+    article: die
+    gender: f
+  lx1266:
+    form: Aprikose
+    article: die
+    gender: f
+  lx1267:
+    form: Aubergine
+    article: die
+    gender: f
+  lx1268:
+    form: Besteck
+    article: das
+    gender: n
+  lx1269:
+    form: Birne
+    article: die
+    gender: f
+  lx1270:
+    form: Blumenkohl
+    article: der
+    gender: m
+  lx1271:
+    form: Brokkoli
+    article: der
+    gender: m
+  lx1272:
+    form: Dessert
+    article: das
+    gender: n
+  # Мороженое и лёд вводить в разных темах, без удвоения записи.
+  lx1273:
+    form: Eis
+    article: das
+    gender: n
+  lx1274:
+    form: Erbse
+    article: die
+    gender: f
+  lx1275:
+    form: Erdbeere
+    article: die
+    gender: f
+  lx1276:
+    form: Essig
+    article: der
+    gender: m
+  lx1277:
+    form: Gebäck
+    article: das
+    gender: n
+  lx1278:
+    form: Geflügel
+    article: das
+    gender: n
+  lx1279:
+    form: Getränk
+    article: das
+    gender: n
+  lx1280:
+    form: Himbeere
+    article: die
+    gender: f
+  lx1281:
+    form: Honig
+    article: der
+    gender: m
+  lx1282:
+    form: Kirsche
+    article: die
+    gender: f
+  lx1283:
+    form: Kohl
+    article: der
+    gender: m
+  lx1284:
+    form: Kürbis
+    article: der
+    gender: m
+  lx1285:
+    form: Lachs
+    article: der
+    gender: m
+  lx1286:
+    form: Lammfleisch
+    article: das
+    gender: n
+  lx1287:
+    form: Leitungswasser
+    article: das
+    gender: n
+  lx1288:
+    form: Mais
+    article: der
+    gender: m
+  lx1289:
+    form: Marmelade
+    article: die
+    gender: f
+  lx1290:
+    form: Melone
+    article: die
+    gender: f
+  lx1291:
+    form: Mineralwasser
+    article: das
+    gender: n
+  lx1292:
+    form: Nachspeise
+    article: die
+    gender: f
+  lx1293:
+    form: Paprika
+    article: die
+    gender: f
+  lx1294:
+    form: Pfirsich
+    article: der
+    gender: m
+  lx1295:
+    form: Pflaume
+    article: die
+    gender: f
+  lx1296:
+    form: Quark
+    article: der
+    gender: m
+  lx1297:
+    form: Sahne
+    article: die
+    gender: f
+  lx1298:
+    form: Schinken
+    article: der
+    gender: m
+  lx1299:
+    form: Schneidebrett
+    article: das
+    gender: n
+  lx1300:
+    form: Schüssel
+    article: die
+    gender: f
+  lx1301:
+    form: Senf
+    article: der
+    gender: m
+  lx1302:
+    form: Serviette
+    article: die
+    gender: f
+  lx1303:
+    form: Speck
+    article: der
+    gender: m
+  lx1304:
+    form: Spinat
+    article: der
+    gender: m
+  lx1305:
+    form: Teig
+    article: der
+    gender: m
+  lx1306:
+    form: Thunfisch
+    article: der
+    gender: m
+  lx1307:
+    form: Toast
+    article: das
+    gender: n
+  lx1308:
+    form: Traube
+    article: die
+    gender: f
+  lx1309:
+    form: Vollkornbrot
+    article: das
+    gender: n
+  lx1310:
+    form: Weißbrot
+    article: das
+    gender: n
+  lx1311:
+    form: Zucchini
+    article: die
+    gender: f
+  lx1312:
+    form: bitter
+  lx1313:
+    form: fettarm
+  lx1314:
+    form: fettig
+  lx1315:
+    form: roh
+  lx1316:
+    form: ungesüßt
+  lx1317:
+    form: vegan
+  lx1318:
+    form: vegetarisch
+  lx2706:
+    form: abgießen
+  lx2707:
+    form: abschmecken
+  lx2708:
+    form: aufbacken
+  lx2709:
+    form: aufkochen
+  lx2710:
+    form: auspressen
+  lx2711:
+    form: einkochen
+  lx2712:
+    form: ernähren
+  lx2713:
+    form: fasten
+  lx2714:
+    form: frittieren
+  lx2715:
+    form: hacken
+  lx2716:
+    form: kneten
+  lx2717:
+    form: marinieren
+  lx2718:
+    form: panieren
+  lx2719:
+    form: pressen
+  lx2720:
+    form: pürieren
+  lx2721:
+    form: raspeln
+  lx2722:
+    form: reiben
+  lx2723:
+    form: sättigen
+  lx2724:
+    form: überbacken
+  lx2725:
+    form: verdauen
+  lx2726:
+    form: verfeinern
+  lx2727:
+    form: verzehren
+  lx2728:
+    form: zubereiten
+  lx2729:
+    form: Appetit
+    article: der
+    gender: m
+  lx2730:
+    form: Basilikum
+    article: der
+    gender: m
+  lx2731:
+    form: Diät
+    article: die
+    gender: f
+  lx2732:
+    form: Dill
+    article: der
+    gender: m
+  lx2733:
+    form: Fertiggericht
+    article: das
+    gender: n
+  lx2734:
+    form: Fertigkost
+    article: die
+    gender: f
+  lx2735:
+    form: Fett
+    article: das
+    gender: n
+  lx2736:
+    form: Gerste
+    article: die
+    gender: f
+  lx2737:
+    form: Grundnahrungsmittel
+    article: das
+    gender: n
+  lx2738:
+    form: Hafer
+    article: der
+    gender: m
+  lx2739:
+    form: Haselnuss
+    article: die
+    gender: f
+  lx2740:
+    form: Hülsenfrucht
+    article: die
+    gender: f
+  lx2741:
+    form: Ingwer
+    article: der
+    gender: m
+  lx2742:
+    form: Koriander
+    article: der
+    gender: m
+  lx2743:
+    form: Kost
+    article: die
+    gender: f
+  lx2744:
+    form: Kraut
+    article: das
+    gender: n
+  lx2745:
+    form: Kümmel
+    article: der
+    gender: m
+  lx2746:
+    form: Lagerung
+    article: die
+    gender: f
+  lx2747:
+    form: Lebensmittel
+    article: das
+    gender: n
+  lx2748:
+    form: Lebensmittelallergie
+    article: die
+    gender: f
+  lx2749:
+    form: Lebensmittelvergiftung
+    article: die
+    gender: f
+  lx2750:
+    form: Mahlzeit
+    article: die
+    gender: f
+  lx2751:
+    form: Mandel
+    article: die
+    gender: f
+  lx2752:
+    form: Minze
+    article: die
+    gender: f
+  lx2753:
+    form: Nährstoff
+    article: der
+    gender: m
+  lx2754:
+    form: Nuss
+    article: die
+    gender: f
+  lx2755:
+    form: Petersilie
+    article: die
+    gender: f
+  lx2756:
+    form: Protein
+    article: das
+    gender: n
+  lx2757:
+    form: Roggen
+    article: der
+    gender: m
+  lx2758:
+    form: Rohkost
+    article: die
+    gender: f
+  lx2759:
+    form: Rosmarin
+    article: der
+    gender: m
+  lx2760:
+    form: Schnittlauch
+    article: der
+    gender: m
+  lx2761:
+    form: Süßstoff
+    article: der
+    gender: m
+  lx2762:
+    form: Thymian
+    article: der
+    gender: m
+  lx2763:
+    form: Tiefkühlgericht
+    article: das
+    gender: n
+  lx2764:
+    form: Tiefkühlkost
+    article: die
+    gender: f
+  lx2765:
+    form: Vitamin
+    article: das
+    gender: n
+  lx2766:
+    form: Walnuss
+    article: die
+    gender: f
+  lx2767:
+    form: Weizen
+    article: der
+    gender: m
+  lx2768:
+    form: Zimt
+    article: der
+    gender: m
+  lx2769:
+    form: aromatisch
+  lx2770:
+    form: ausgewogen
+  lx2771:
+    form: bekömmlich
+  lx2772:
+    form: biologisch
+  lx2773:
+    form: glutenfrei
+  lx2774:
+    form: kalorienarm
+  lx2775:
+    form: knusprig
+  lx2776:
+    form: laktosefrei
+  lx2777:
+    form: nahrhaft
+  lx2778:
+    form: regional
+  lx2779:
+    form: reif
+  lx2780:
+    form: saftig
+  lx2781:
+    form: saisonal
+  lx2782:
+    form: sättigend
+  lx2783:
+    form: unreif
+  lx2784:
+    form: verdorben
+  lx2785:
+    form: würzig
+  lx4513:
+    form: abschöpfen
+  lx4514:
+    form: anbraten
+  lx4515:
+    form: ausrollen
+  lx4516:
+    form: blanchieren
+  lx4517:
+    form: einfetten
+  lx4518:
+    form: entkernen
+  lx4519:
+    form: fermentieren
+  lx4520:
+    form: garen
+  lx4521:
+    form: gären
+  lx4522:
+    form: konservieren
+  lx4523:
+    form: nachwürzen
+  lx4524:
+    form: portionieren
+  lx4525:
+    form: schmoren
+  lx4526:
+    form: verwerten
+  lx4527:
+    form: Anbau
+    article: der
+    gender: m
+  lx4528:
+    form: Bio-Siegel
+    article: das
+    gender: n
+  lx4529:
+    form: Energiegehalt
+    article: der
+    gender: m
+  lx4530:
+    form: Ernährungsgewohnheit
+    article: die
+    gender: f
+  lx4531:
+    form: Ernährungsumstellung
+    article: die
+    gender: f
+  lx4532:
+    form: Ernährungsweise
+    article: die
+    gender: f
+  lx4533:
+    form: Fleischkonsum
+    article: der
+    gender: m
+  lx4534:
+    form: Gütesiegel
+    article: das
+    gender: n
+  lx4535:
+    form: Herkunftsangabe
+    article: die
+    gender: f
+  lx4536:
+    form: Kalorienbedarf
+    article: der
+    gender: m
+  lx4537:
+    form: Lebensmittelindustrie
+    article: die
+    gender: f
+  lx4538:
+    form: Lebensmittelkennzeichnung
+    article: die
+    gender: f
+  lx4539:
+    form: Lebensmittelsicherheit
+    article: die
+    gender: f
+  lx4540:
+    form: Lebensmittelverschwendung
+    article: die
+    gender: f
+  lx4541:
+    form: Mangelernährung
+    article: die
+    gender: f
+  lx4542:
+    form: Massentierhaltung
+    article: die
+    gender: f
+  lx4543:
+    form: Mineralstoff
+    article: der
+    gender: m
+  lx4544:
+    form: Portionsgröße
+    article: die
+    gender: f
+  lx4545:
+    form: Stoffwechsel
+    article: der
+    gender: m
+  lx4546:
+    form: Tierhaltung
+    article: die
+    gender: f
+  lx4547:
+    form: Zutatenliste
+    article: die
+    gender: f
+  lx4548:
+    form: ballaststoffreich
+  lx4549:
+    form: fettreich
+  lx4550:
+    form: gentechnisch
+  lx4551:
+    form: handwerklich
+  lx4552:
+    form: industriell
+  lx4553:
+    form: nährstoffreich
+  lx4554:
+    form: naturbelassen
+  lx4555:
+    form: pflanzlich
+  lx4556:
+    form: proteinreich
+  lx4557:
+    form: rückverfolgbar
+  lx4558:
+    form: tierisch
+  lx4559:
+    form: unverderblich
+  lx4560:
+    form: verderblich
+  lx4561:
+    form: vollwertig
+  lx4562:
+    form: zuckerhaltig

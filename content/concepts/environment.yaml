@@ -1,0 +1,206 @@
+# Созвездие «Экология, энергия и ресурсы».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: environment
+tiers:
+  a1:
+    concepts:
+      - { id: lx0762, pos: verb, draft: true }  # sammeln
+      - { id: lx0763, pos: verb, draft: true }  # schützen
+      - { id: lx0764, pos: verb, draft: true }  # sparen
+      - { id: lx0765, pos: verb, draft: true }  # trennen
+      - { id: lx0766, pos: noun, draft: true }  # Energie
+      - { id: lx0767, pos: noun, draft: true }  # Natur
+      - { id: lx0768, pos: noun, draft: true }  # Umwelt
+  a2:
+    concepts:
+      - { id: lx2018, pos: verb, draft: true }  # abschalten
+      - { id: lx2019, pos: verb, draft: true }  # entsorgen
+      - { id: lx2020, pos: verb, draft: true }  # recyceln
+      - { id: lx2021, pos: verb, draft: true }  # verbrauchen
+      - { id: lx2022, pos: verb, draft: true }  # verschmutzen
+      - { id: lx2023, pos: verb, draft: true }  # wegwerfen
+      - { id: lx2024, pos: verb, draft: true }  # wiederverwenden
+      - { id: lx2025, pos: noun, draft: true }  # Abfall
+      - { id: lx2026, pos: noun, draft: true }  # Abfallbehälter
+      - { id: lx2027, pos: noun, draft: true }  # Abfalleimer
+      - { id: lx2028, pos: noun, draft: true }  # Abholung
+      - { id: lx2029, pos: noun, draft: true }  # Altglas
+      - { id: lx2030, pos: noun, draft: true }  # Altpapier
+      - { id: lx2031, pos: noun, draft: true }  # Biomüll
+      - { id: lx2032, pos: noun, draft: true }  # Biotonne
+      - { id: lx2033, pos: noun, draft: true }  # Erdöl
+      - { id: lx2034, pos: noun, draft: true }  # Gas
+      - { id: lx2035, pos: noun, draft: true }  # Lärm
+      - { id: lx2036, pos: noun, draft: true }  # Luftverschmutzung
+      - { id: lx2037, pos: noun, draft: true }  # Müllabfuhr
+      - { id: lx2038, pos: noun, draft: true }  # Papiermüll
+      - { id: lx2039, pos: noun, draft: true }  # Papiertonne
+      - { id: lx2040, pos: noun, draft: true }  # Papiertüte
+      - { id: lx2041, pos: noun, draft: true }  # Pfand
+      - { id: lx2042, pos: noun, draft: true }  # Pfandgeld
+      - { id: lx2043, pos: noun, draft: true }  # Pfandglas
+      - { id: lx2044, pos: noun, draft: true }  # Plastik
+      - { id: lx2045, pos: noun, draft: true }  # Plastikflasche
+      - { id: lx2046, pos: noun, draft: true }  # Plastikmüll
+      - { id: lx2047, pos: noun, draft: true }  # Plastiktüte
+      - { id: lx2048, pos: noun, draft: true }  # Rauch
+      - { id: lx2049, pos: noun, draft: true }  # Restmüll
+      - { id: lx2050, pos: noun, draft: true }  # Schmutz
+      - { id: lx2051, pos: noun, draft: true }  # Sperrmüll
+      - { id: lx2052, pos: noun, draft: true }  # Umweltverschmutzung
+      - { id: lx2053, pos: noun, draft: true }  # Wasserverschmutzung
+      - { id: lx2054, pos: adj, draft: true }  # nützlich
+      - { id: lx2055, pos: adj, draft: true }  # schädlich
+      - { id: lx2056, pos: adj, draft: true }  # sparsam
+      - { id: lx2057, pos: adj, draft: true }  # umweltfreundlich
+      - { id: lx2058, pos: adj, draft: true }  # umweltschädlich
+      - { id: lx2059, pos: adj, draft: true }  # verschwenderisch
+  b1:
+    concepts:
+      - { id: lx3618, pos: verb, draft: true }  # abfüllen
+      - { id: lx3619, pos: verb, draft: true }  # auffüllen
+      - { id: lx3620, pos: verb, draft: true }  # ausleihen
+      - { id: lx3621, pos: verb, draft: true }  # ausstoßen
+      - { id: lx3622, pos: verb, draft: true }  # beeinträchtigen
+      - { id: lx3623, pos: verb, draft: true }  # einsparen
+      - { id: lx3624, pos: verb, draft: true }  # emittieren
+      - { id: lx3625, pos: verb, draft: true }  # erhalten
+      - { id: lx3626, pos: verb, draft: true }  # erneuern
+      - { id: lx3627, pos: verb, draft: true }  # fördern
+      - { id: lx3628, pos: verb, draft: true }  # gefährden
+      - { id: lx3629, pos: verb, draft: true }  # nachfüllen
+      - { id: lx3630, pos: verb, draft: true }  # nutzen
+      - { id: lx3631, pos: verb, draft: true }  # reduzieren
+      - { id: lx3632, pos: verb, draft: true }  # steigern
+      - { id: lx3633, pos: verb, draft: true }  # tauschen
+      - { id: lx3634, pos: verb, draft: true }  # umwandeln
+      - { id: lx3635, pos: verb, draft: true }  # vermeiden
+      - { id: lx3636, pos: verb, draft: true }  # verschwenden
+      - { id: lx3637, pos: verb, draft: true }  # weitergeben
+      - { id: lx3638, pos: verb, draft: true }  # zurückbringen
+      - { id: lx3639, pos: noun, draft: true }  # Abfallvermeidung
+      - { id: lx3640, pos: noun, draft: true }  # Abgas
+      - { id: lx3641, pos: noun, draft: true }  # Abgasemission
+      - { id: lx3642, pos: noun, draft: true }  # Abwärme
+      - { id: lx3643, pos: noun, draft: true }  # Atomenergie
+      - { id: lx3644, pos: noun, draft: true }  # Atomkraftwerk
+      - { id: lx3645, pos: noun, draft: true }  # Ausstoß
+      - { id: lx3646, pos: noun, draft: true }  # Baustoff
+      - { id: lx3647, pos: noun, draft: true }  # Brennstoff
+      - { id: lx3648, pos: noun, draft: true }  # CO2-Ausstoß
+      - { id: lx3649, pos: noun, draft: true }  # Dämmstoff
+      - { id: lx3650, pos: noun, draft: true }  # Einweg
+      - { id: lx3651, pos: noun, draft: true }  # Emission
+      - { id: lx3652, pos: noun, draft: true }  # Energieverbrauch
+      - { id: lx3653, pos: noun, draft: true }  # Erderwärmung
+      - { id: lx3654, pos: noun, draft: true }  # Erdgas
+      - { id: lx3655, pos: noun, draft: true }  # Fernwärme
+      - { id: lx3656, pos: noun, draft: true }  # Giftstoff
+      - { id: lx3657, pos: noun, draft: true }  # Kernenergie
+      - { id: lx3658, pos: noun, draft: true }  # Kläranlage
+      - { id: lx3659, pos: noun, draft: true }  # Klimaschutz
+      - { id: lx3660, pos: noun, draft: true }  # Klimawandel
+      - { id: lx3661, pos: noun, draft: true }  # Kohle
+      - { id: lx3662, pos: noun, draft: true }  # Kohlekraftwerk
+      - { id: lx3663, pos: noun, draft: true }  # Kohlenstoff
+      - { id: lx3664, pos: noun, draft: true }  # Kraftstoff
+      - { id: lx3665, pos: noun, draft: true }  # Kraftwerk
+      - { id: lx3666, pos: noun, draft: true }  # Kunststoff
+      - { id: lx3667, pos: noun, draft: true }  # Luftqualität
+      - { id: lx3668, pos: noun, draft: true }  # Mehrweg
+      - { id: lx3669, pos: noun, draft: true }  # Mehrwegsystem
+      - { id: lx3670, pos: noun, draft: true }  # Müllvermeidung
+      - { id: lx3671, pos: noun, draft: true }  # Pfandsystem
+      - { id: lx3672, pos: noun, draft: true }  # Photovoltaik
+      - { id: lx3673, pos: noun, draft: true }  # Recycling
+      - { id: lx3674, pos: noun, draft: true }  # Recyclinganlage
+      - { id: lx3675, pos: noun, draft: true }  # Ressourcenverbrauch
+      - { id: lx3676, pos: noun, draft: true }  # Rohstoff
+      - { id: lx3677, pos: noun, draft: true }  # Sauerstoff
+      - { id: lx3678, pos: noun, draft: true }  # Schadstoff
+      - { id: lx3679, pos: noun, draft: true }  # Schadstoffausstoß
+      - { id: lx3680, pos: noun, draft: true }  # Smog
+      - { id: lx3681, pos: noun, draft: true }  # Solaranlage
+      - { id: lx3682, pos: noun, draft: true }  # Solarenergie
+      - { id: lx3683, pos: noun, draft: true }  # Solarmodul
+      - { id: lx3684, pos: noun, draft: true }  # Solarpanel
+      - { id: lx3685, pos: noun, draft: true }  # Sonnenenergie
+      - { id: lx3686, pos: noun, draft: true }  # Stickstoff
+      - { id: lx3687, pos: noun, draft: true }  # Strahlung
+      - { id: lx3688, pos: noun, draft: true }  # Stromverbrauch
+      - { id: lx3689, pos: noun, draft: true }  # Treibhauseffekt
+      - { id: lx3690, pos: noun, draft: true }  # Treibhausgas
+      - { id: lx3691, pos: noun, draft: true }  # Treibhausgasausstoß
+      - { id: lx3692, pos: noun, draft: true }  # Umweltbelastung
+      - { id: lx3693, pos: noun, draft: true }  # Umweltschutz
+      - { id: lx3694, pos: noun, draft: true }  # Upcycling
+      - { id: lx3695, pos: noun, draft: true }  # Wasserkraft
+      - { id: lx3696, pos: noun, draft: true }  # Wasserqualität
+      - { id: lx3697, pos: noun, draft: true }  # Wasserstoff
+      - { id: lx3698, pos: noun, draft: true }  # Wasserverbrauch
+      - { id: lx3699, pos: noun, draft: true }  # Wiederverwendung
+      - { id: lx3700, pos: noun, draft: true }  # Wiederverwertung
+      - { id: lx3701, pos: noun, draft: true }  # Windenergie
+      - { id: lx3702, pos: noun, draft: true }  # Windkraft
+      - { id: lx3703, pos: noun, draft: true }  # Windkraftanlage
+      - { id: lx3704, pos: noun, draft: true }  # Windrad
+      - { id: lx3705, pos: adj, draft: true }  # abbaubar
+      - { id: lx3706, pos: adj, draft: true }  # begrenzt
+      - { id: lx3707, pos: adj, draft: true }  # emissionsarm
+      - { id: lx3708, pos: adj, draft: true }  # endlich
+      - { id: lx3709, pos: adj, draft: true }  # energieeffizient
+      - { id: lx3710, pos: adj, draft: true }  # erneuerbar
+      - { id: lx3711, pos: adj, draft: true }  # klimafreundlich
+      - { id: lx3712, pos: adj, draft: true }  # klimaschädlich
+      - { id: lx3713, pos: adj, draft: true }  # schadstoffarm
+      - { id: lx3714, pos: adj, draft: true }  # unbegrenzt
+      - { id: lx3715, pos: adj, draft: true }  # wiederverwendbar
+      - { id: lx3716, pos: adj, draft: true }  # wiederverwertbar
+  b2:
+    concepts:
+      - { id: lx5064, pos: verb, draft: true }  # aufforsten
+      - { id: lx5065, pos: verb, draft: true }  # beziffern
+      - { id: lx5066, pos: verb, draft: true }  # eingrenzen
+      - { id: lx5067, pos: verb, draft: true }  # einschränken
+      - { id: lx5068, pos: verb, draft: true }  # regulieren
+      - { id: lx5069, pos: verb, draft: true }  # sanktionieren
+      - { id: lx5070, pos: verb, draft: true }  # subventionieren
+      - { id: lx5071, pos: noun, draft: true }  # CO2-Fußabdruck
+      - { id: lx5072, pos: noun, draft: true }  # Emissionshandel
+      - { id: lx5073, pos: noun, draft: true }  # Energiebedarf
+      - { id: lx5074, pos: noun, draft: true }  # Energieversorgung
+      - { id: lx5075, pos: noun, draft: true }  # Energiewende
+      - { id: lx5076, pos: noun, draft: true }  # Klimaanpassung
+      - { id: lx5077, pos: noun, draft: true }  # Klimabilanz
+      - { id: lx5078, pos: noun, draft: true }  # Klimagerechtigkeit
+      - { id: lx5079, pos: noun, draft: true }  # Klimaneutralität
+      - { id: lx5080, pos: noun, draft: true }  # Klimaziel
+      - { id: lx5081, pos: noun, draft: true }  # Ökobilanz
+      - { id: lx5082, pos: noun, draft: true }  # Renaturierung
+      - { id: lx5083, pos: noun, draft: true }  # Stromnetz
+      - { id: lx5084, pos: noun, draft: true }  # Strompreis
+      - { id: lx5085, pos: noun, draft: true }  # Stromversorgung
+      - { id: lx5086, pos: noun, draft: true }  # Umweltbewusstsein
+      - { id: lx5087, pos: noun, draft: true }  # Umweltverhalten
+      - { id: lx5088, pos: noun, draft: true }  # Umweltverträglichkeit
+      - { id: lx5089, pos: noun, draft: true }  # Versorgungssicherheit
+      - { id: lx5090, pos: noun, draft: true }  # Wärmewende
+      - { id: lx5091, pos: adj, draft: true }  # fossil
+      - { id: lx5092, pos: adj, draft: true }  # irreversibel
+      - { id: lx5093, pos: adj, draft: true }  # klimaneutral
+      - { id: lx5094, pos: adj, draft: true }  # kohlenstoffarm
+      - { id: lx5095, pos: adj, draft: true }  # reversibel
+      - { id: lx5096, pos: adj, draft: true }  # tragfähig
+      - { id: lx5097, pos: adj, draft: true }  # umweltverträglich
+      - { id: lx5098, pos: adj, draft: true }  # zukunftsfähig

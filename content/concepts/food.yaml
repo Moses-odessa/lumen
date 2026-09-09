@@ -25,6 +25,14 @@ tiers:
       - { id: sugar_food, pos: noun, freq_rank: 3380 }
       - { id: hunger_noun, pos: noun, freq_rank: 2640 }
       - { id: restaurant_place, pos: noun, freq_rank: 1930 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0151, pos: verb, draft: true }  # essen
+      - { id: lx0152, pos: verb, draft: true }  # kochen
+      - { id: lx0153, pos: verb, draft: true }  # trinken
+      - { id: lx0154, pos: noun, draft: true }  # Banane
+      - { id: lx0155, pos: noun, draft: true }  # Durst
+      - { id: lx0156, pos: noun, draft: true }  # Essen
+      - { id: lx0157, pos: adj, draft: true }  # lecker
   a1:
     concepts:
       - { id: breakfast_meal, pos: noun, freq_rank: 3120 }
@@ -39,6 +47,36 @@ tiers:
       - { id: butter_food, pos: noun, freq_rank: 4090 }
       - { id: egg_food, pos: noun, freq_rank: 3640 }
       - { id: vegetable_food, pos: noun, freq_rank: 3790 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0509, pos: verb, draft: true }  # backen
+      - { id: lx0510, pos: verb, draft: true }  # bestellen
+      - { id: lx0511, pos: verb, draft: true }  # braten
+      - { id: lx0512, pos: verb, draft: true }  # frühstücken
+      - { id: lx0513, pos: verb, draft: true }  # kosten
+      - { id: lx0514, pos: verb, draft: true }  # schmecken
+      - { id: lx0515, pos: verb, draft: true }  # schneiden
+      - { id: lx0516, pos: noun, draft: true }  # Brötchen
+      - { id: lx0517, pos: noun, draft: true }  # Café
+      - { id: lx0518, pos: noun, draft: true }  # Flasche
+      - { id: lx0519, pos: noun, draft: true }  # Gurke
+      - { id: lx0520, pos: noun, draft: true }  # Joghurt
+      - { id: lx0521, pos: noun, draft: true }  # Karotte
+      - { id: lx0522, pos: noun, draft: true }  # Menü
+      - { id: lx0523, pos: noun, draft: true }  # Müsli
+      - { id: lx0524, pos: noun, draft: true }  # Nudel
+      - { id: lx0525, pos: noun, draft: true }  # Orange
+      - { id: lx0526, pos: noun, draft: true }  # Pizza
+      - { id: lx0527, pos: noun, draft: true }  # Salat
+      - { id: lx0528, pos: noun, draft: true }  # Tasse
+      - { id: lx0529, pos: noun, draft: true }  # Tomate
+      - { id: lx0530, pos: noun, draft: true }  # Zitrone
+      - { id: lx0531, pos: adj, draft: true }  # durstig
+      - { id: lx0532, pos: adj, draft: true }  # frisch
+      - { id: lx0533, pos: adj, draft: true }  # hungrig
+      - { id: lx0534, pos: adj, draft: true }  # salzig
+      - { id: lx0535, pos: adj, draft: true }  # sauer
+      - { id: lx0536, pos: adj, draft: true }  # scharf
+      - { id: lx0537, pos: adj, draft: true }  # süß
   a2:
     concepts:
       - { id: fruit_food, pos: noun, freq_rank: 3410 }
@@ -65,6 +103,81 @@ tiers:
       - { id: bill_noun, pos: noun, freq_rank: 3290 }
       - { id: order_noun, pos: noun, freq_rank: 3750 }
       - { id: tip_noun, pos: noun, freq_rank: 5390 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1245, pos: verb, draft: true }  # abmessen
+      - { id: lx1246, pos: verb, draft: true }  # abräumen
+      - { id: lx1247, pos: verb, draft: true }  # abspülen
+      - { id: lx1248, pos: verb, draft: true }  # aufwärmen
+      - { id: lx1249, pos: verb, draft: true }  # dünsten
+      - { id: lx1250, pos: verb, draft: true }  # erhitzen
+      - { id: lx1251, pos: verb, draft: true }  # füllen
+      - { id: lx1252, pos: verb, draft: true }  # grillen
+      - { id: lx1253, pos: verb, draft: true }  # kauen
+      - { id: lx1254, pos: verb, draft: true }  # mischen
+      - { id: lx1255, pos: verb, draft: true }  # pfeffern
+      - { id: lx1256, pos: verb, draft: true }  # probieren
+      - { id: lx1257, pos: verb, draft: true }  # rösten
+      - { id: lx1258, pos: verb, draft: true }  # rühren
+      - { id: lx1259, pos: verb, draft: true }  # salzen
+      - { id: lx1260, pos: verb, draft: true }  # schälen
+      - { id: lx1261, pos: verb, draft: true }  # schlucken
+      - { id: lx1262, pos: verb, draft: true }  # servieren
+      - { id: lx1263, pos: verb, draft: true }  # wiegen
+      - { id: lx1264, pos: verb, draft: true }  # würzen
+      - { id: lx1265, pos: noun, draft: true }  # Ananas
+      - { id: lx1266, pos: noun, draft: true }  # Aprikose
+      - { id: lx1267, pos: noun, draft: true }  # Aubergine
+      - { id: lx1268, pos: noun, draft: true }  # Besteck
+      - { id: lx1269, pos: noun, draft: true }  # Birne
+      - { id: lx1270, pos: noun, draft: true }  # Blumenkohl
+      - { id: lx1271, pos: noun, draft: true }  # Brokkoli
+      - { id: lx1272, pos: noun, draft: true }  # Dessert
+      - { id: lx1273, pos: noun, draft: true }  # Eis
+      - { id: lx1274, pos: noun, draft: true }  # Erbse
+      - { id: lx1275, pos: noun, draft: true }  # Erdbeere
+      - { id: lx1276, pos: noun, draft: true }  # Essig
+      - { id: lx1277, pos: noun, draft: true }  # Gebäck
+      - { id: lx1278, pos: noun, draft: true }  # Geflügel
+      - { id: lx1279, pos: noun, draft: true }  # Getränk
+      - { id: lx1280, pos: noun, draft: true }  # Himbeere
+      - { id: lx1281, pos: noun, draft: true }  # Honig
+      - { id: lx1282, pos: noun, draft: true }  # Kirsche
+      - { id: lx1283, pos: noun, draft: true }  # Kohl
+      - { id: lx1284, pos: noun, draft: true }  # Kürbis
+      - { id: lx1285, pos: noun, draft: true }  # Lachs
+      - { id: lx1286, pos: noun, draft: true }  # Lammfleisch
+      - { id: lx1287, pos: noun, draft: true }  # Leitungswasser
+      - { id: lx1288, pos: noun, draft: true }  # Mais
+      - { id: lx1289, pos: noun, draft: true }  # Marmelade
+      - { id: lx1290, pos: noun, draft: true }  # Melone
+      - { id: lx1291, pos: noun, draft: true }  # Mineralwasser
+      - { id: lx1292, pos: noun, draft: true }  # Nachspeise
+      - { id: lx1293, pos: noun, draft: true }  # Paprika
+      - { id: lx1294, pos: noun, draft: true }  # Pfirsich
+      - { id: lx1295, pos: noun, draft: true }  # Pflaume
+      - { id: lx1296, pos: noun, draft: true }  # Quark
+      - { id: lx1297, pos: noun, draft: true }  # Sahne
+      - { id: lx1298, pos: noun, draft: true }  # Schinken
+      - { id: lx1299, pos: noun, draft: true }  # Schneidebrett
+      - { id: lx1300, pos: noun, draft: true }  # Schüssel
+      - { id: lx1301, pos: noun, draft: true }  # Senf
+      - { id: lx1302, pos: noun, draft: true }  # Serviette
+      - { id: lx1303, pos: noun, draft: true }  # Speck
+      - { id: lx1304, pos: noun, draft: true }  # Spinat
+      - { id: lx1305, pos: noun, draft: true }  # Teig
+      - { id: lx1306, pos: noun, draft: true }  # Thunfisch
+      - { id: lx1307, pos: noun, draft: true }  # Toast
+      - { id: lx1308, pos: noun, draft: true }  # Traube
+      - { id: lx1309, pos: noun, draft: true }  # Vollkornbrot
+      - { id: lx1310, pos: noun, draft: true }  # Weißbrot
+      - { id: lx1311, pos: noun, draft: true }  # Zucchini
+      - { id: lx1312, pos: adj, draft: true }  # bitter
+      - { id: lx1313, pos: adj, draft: true }  # fettarm
+      - { id: lx1314, pos: adj, draft: true }  # fettig
+      - { id: lx1315, pos: adj, draft: true }  # roh
+      - { id: lx1316, pos: adj, draft: true }  # ungesüßt
+      - { id: lx1317, pos: adj, draft: true }  # vegan
+      - { id: lx1318, pos: adj, draft: true }  # vegetarisch
   b1:
     concepts:
       - { id: ingredient_noun, pos: noun, freq_rank: 5240 }
@@ -91,6 +204,87 @@ tiers:
       - { id: cookingtime_noun, pos: noun, freq_rank: 6890 }
       - { id: freshness_noun, pos: noun, freq_rank: 6030 }
       - { id: coldchain_noun, pos: noun, freq_rank: 7420 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2706, pos: verb, draft: true }  # abgießen
+      - { id: lx2707, pos: verb, draft: true }  # abschmecken
+      - { id: lx2708, pos: verb, draft: true }  # aufbacken
+      - { id: lx2709, pos: verb, draft: true }  # aufkochen
+      - { id: lx2710, pos: verb, draft: true }  # auspressen
+      - { id: lx2711, pos: verb, draft: true }  # einkochen
+      - { id: lx2712, pos: verb, draft: true }  # ernähren
+      - { id: lx2713, pos: verb, draft: true }  # fasten
+      - { id: lx2714, pos: verb, draft: true }  # frittieren
+      - { id: lx2715, pos: verb, draft: true }  # hacken
+      - { id: lx2716, pos: verb, draft: true }  # kneten
+      - { id: lx2717, pos: verb, draft: true }  # marinieren
+      - { id: lx2718, pos: verb, draft: true }  # panieren
+      - { id: lx2719, pos: verb, draft: true }  # pressen
+      - { id: lx2720, pos: verb, draft: true }  # pürieren
+      - { id: lx2721, pos: verb, draft: true }  # raspeln
+      - { id: lx2722, pos: verb, draft: true }  # reiben
+      - { id: lx2723, pos: verb, draft: true }  # sättigen
+      - { id: lx2724, pos: verb, draft: true }  # überbacken
+      - { id: lx2725, pos: verb, draft: true }  # verdauen
+      - { id: lx2726, pos: verb, draft: true }  # verfeinern
+      - { id: lx2727, pos: verb, draft: true }  # verzehren
+      - { id: lx2728, pos: verb, draft: true }  # zubereiten
+      - { id: lx2729, pos: noun, draft: true }  # Appetit
+      - { id: lx2730, pos: noun, draft: true }  # Basilikum
+      - { id: lx2731, pos: noun, draft: true }  # Diät
+      - { id: lx2732, pos: noun, draft: true }  # Dill
+      - { id: lx2733, pos: noun, draft: true }  # Fertiggericht
+      - { id: lx2734, pos: noun, draft: true }  # Fertigkost
+      - { id: lx2735, pos: noun, draft: true }  # Fett
+      - { id: lx2736, pos: noun, draft: true }  # Gerste
+      - { id: lx2737, pos: noun, draft: true }  # Grundnahrungsmittel
+      - { id: lx2738, pos: noun, draft: true }  # Hafer
+      - { id: lx2739, pos: noun, draft: true }  # Haselnuss
+      - { id: lx2740, pos: noun, draft: true }  # Hülsenfrucht
+      - { id: lx2741, pos: noun, draft: true }  # Ingwer
+      - { id: lx2742, pos: noun, draft: true }  # Koriander
+      - { id: lx2743, pos: noun, draft: true }  # Kost
+      - { id: lx2744, pos: noun, draft: true }  # Kraut
+      - { id: lx2745, pos: noun, draft: true }  # Kümmel
+      - { id: lx2746, pos: noun, draft: true }  # Lagerung
+      - { id: lx2747, pos: noun, draft: true }  # Lebensmittel
+      - { id: lx2748, pos: noun, draft: true }  # Lebensmittelallergie
+      - { id: lx2749, pos: noun, draft: true }  # Lebensmittelvergiftung
+      - { id: lx2750, pos: noun, draft: true }  # Mahlzeit
+      - { id: lx2751, pos: noun, draft: true }  # Mandel
+      - { id: lx2752, pos: noun, draft: true }  # Minze
+      - { id: lx2753, pos: noun, draft: true }  # Nährstoff
+      - { id: lx2754, pos: noun, draft: true }  # Nuss
+      - { id: lx2755, pos: noun, draft: true }  # Petersilie
+      - { id: lx2756, pos: noun, draft: true }  # Protein
+      - { id: lx2757, pos: noun, draft: true }  # Roggen
+      - { id: lx2758, pos: noun, draft: true }  # Rohkost
+      - { id: lx2759, pos: noun, draft: true }  # Rosmarin
+      - { id: lx2760, pos: noun, draft: true }  # Schnittlauch
+      - { id: lx2761, pos: noun, draft: true }  # Süßstoff
+      - { id: lx2762, pos: noun, draft: true }  # Thymian
+      - { id: lx2763, pos: noun, draft: true }  # Tiefkühlgericht
+      - { id: lx2764, pos: noun, draft: true }  # Tiefkühlkost
+      - { id: lx2765, pos: noun, draft: true }  # Vitamin
+      - { id: lx2766, pos: noun, draft: true }  # Walnuss
+      - { id: lx2767, pos: noun, draft: true }  # Weizen
+      - { id: lx2768, pos: noun, draft: true }  # Zimt
+      - { id: lx2769, pos: adj, draft: true }  # aromatisch
+      - { id: lx2770, pos: adj, draft: true }  # ausgewogen
+      - { id: lx2771, pos: adj, draft: true }  # bekömmlich
+      - { id: lx2772, pos: adj, draft: true }  # biologisch
+      - { id: lx2773, pos: adj, draft: true }  # glutenfrei
+      - { id: lx2774, pos: adj, draft: true }  # kalorienarm
+      - { id: lx2775, pos: adj, draft: true }  # knusprig
+      - { id: lx2776, pos: adj, draft: true }  # laktosefrei
+      - { id: lx2777, pos: adj, draft: true }  # nahrhaft
+      - { id: lx2778, pos: adj, draft: true }  # regional
+      - { id: lx2779, pos: adj, draft: true }  # reif
+      - { id: lx2780, pos: adj, draft: true }  # saftig
+      - { id: lx2781, pos: adj, draft: true }  # saisonal
+      - { id: lx2782, pos: adj, draft: true }  # sättigend
+      - { id: lx2783, pos: adj, draft: true }  # unreif
+      - { id: lx2784, pos: adj, draft: true }  # verdorben
+      - { id: lx2785, pos: adj, draft: true }  # würzig
   b2:
     concepts:
       - { id: nutritionalvalue_noun, pos: noun, freq_rank: 6840 }
@@ -117,3 +311,54 @@ tiers:
       - { id: hygienerule_noun, pos: noun, freq_rank: 7190 }
       - { id: sustainability_noun, pos: noun, freq_rank: 5360 }
       - { id: regionality_noun, pos: noun, freq_rank: 7620 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4513, pos: verb, draft: true }  # abschöpfen
+      - { id: lx4514, pos: verb, draft: true }  # anbraten
+      - { id: lx4515, pos: verb, draft: true }  # ausrollen
+      - { id: lx4516, pos: verb, draft: true }  # blanchieren
+      - { id: lx4517, pos: verb, draft: true }  # einfetten
+      - { id: lx4518, pos: verb, draft: true }  # entkernen
+      - { id: lx4519, pos: verb, draft: true }  # fermentieren
+      - { id: lx4520, pos: verb, draft: true }  # garen
+      - { id: lx4521, pos: verb, draft: true }  # gären
+      - { id: lx4522, pos: verb, draft: true }  # konservieren
+      - { id: lx4523, pos: verb, draft: true }  # nachwürzen
+      - { id: lx4524, pos: verb, draft: true }  # portionieren
+      - { id: lx4525, pos: verb, draft: true }  # schmoren
+      - { id: lx4526, pos: verb, draft: true }  # verwerten
+      - { id: lx4527, pos: noun, draft: true }  # Anbau
+      - { id: lx4528, pos: noun, draft: true }  # Bio-Siegel
+      - { id: lx4529, pos: noun, draft: true }  # Energiegehalt
+      - { id: lx4530, pos: noun, draft: true }  # Ernährungsgewohnheit
+      - { id: lx4531, pos: noun, draft: true }  # Ernährungsumstellung
+      - { id: lx4532, pos: noun, draft: true }  # Ernährungsweise
+      - { id: lx4533, pos: noun, draft: true }  # Fleischkonsum
+      - { id: lx4534, pos: noun, draft: true }  # Gütesiegel
+      - { id: lx4535, pos: noun, draft: true }  # Herkunftsangabe
+      - { id: lx4536, pos: noun, draft: true }  # Kalorienbedarf
+      - { id: lx4537, pos: noun, draft: true }  # Lebensmittelindustrie
+      - { id: lx4538, pos: noun, draft: true }  # Lebensmittelkennzeichnung
+      - { id: lx4539, pos: noun, draft: true }  # Lebensmittelsicherheit
+      - { id: lx4540, pos: noun, draft: true }  # Lebensmittelverschwendung
+      - { id: lx4541, pos: noun, draft: true }  # Mangelernährung
+      - { id: lx4542, pos: noun, draft: true }  # Massentierhaltung
+      - { id: lx4543, pos: noun, draft: true }  # Mineralstoff
+      - { id: lx4544, pos: noun, draft: true }  # Portionsgröße
+      - { id: lx4545, pos: noun, draft: true }  # Stoffwechsel
+      - { id: lx4546, pos: noun, draft: true }  # Tierhaltung
+      - { id: lx4547, pos: noun, draft: true }  # Zutatenliste
+      - { id: lx4548, pos: adj, draft: true }  # ballaststoffreich
+      - { id: lx4549, pos: adj, draft: true }  # fettreich
+      - { id: lx4550, pos: adj, draft: true }  # gentechnisch
+      - { id: lx4551, pos: adj, draft: true }  # handwerklich
+      - { id: lx4552, pos: adj, draft: true }  # industriell
+      - { id: lx4553, pos: adj, draft: true }  # nährstoffreich
+      - { id: lx4554, pos: adj, draft: true }  # naturbelassen
+      - { id: lx4555, pos: adj, draft: true }  # pflanzlich
+      - { id: lx4556, pos: adj, draft: true }  # proteinreich
+      - { id: lx4557, pos: adj, draft: true }  # rückverfolgbar
+      - { id: lx4558, pos: adj, draft: true }  # tierisch
+      - { id: lx4559, pos: adj, draft: true }  # unverderblich
+      - { id: lx4560, pos: adj, draft: true }  # verderblich
+      - { id: lx4561, pos: adj, draft: true }  # vollwertig
+      - { id: lx4562, pos: adj, draft: true }  # zuckerhaltig

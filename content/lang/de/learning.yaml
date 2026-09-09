@@ -1,0 +1,737 @@
+# Немецкие лексемы созвездия «Учёба и развитие».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0180:
+    form: lernen
+  lx0181:
+    form: Buch
+    article: das
+    gender: n
+  lx0182:
+    form: Heft
+    article: das
+    gender: n
+  lx0183:
+    form: Kurs
+    article: der
+    gender: m
+  lx0184:
+    form: Lehrer
+    article: der
+    gender: m
+  lx0185:
+    form: Papier
+    article: das
+    gender: n
+  lx0186:
+    form: Stift
+    article: der
+    gender: m
+  lx0663:
+    form: rechnen
+  lx0664:
+    form: studieren
+  lx0665:
+    form: üben
+  lx0666:
+    form: Bleistift
+    article: der
+    gender: m
+  lx0667:
+    form: Fehler
+    article: der
+    gender: m
+  lx0668:
+    form: Hausaufgabe
+    article: die
+    gender: f
+  lx0669:
+    form: Klasse
+    article: die
+    gender: f
+  lx0670:
+    form: Kugelschreiber
+    article: der
+    gender: m
+  lx0671:
+    form: Lehrerin
+    article: die
+    gender: f
+  lx0672:
+    form: Lektion
+    article: die
+    gender: f
+  lx0673:
+    form: Prüfung
+    article: die
+    gender: f
+  # Первое значение: точка; очко в игре и пункт повестки расширяют ту же запись.
+  lx0674:
+    form: Punkt
+    article: der
+    gender: m
+  lx0675:
+    form: Radiergummi
+    article: der
+    gender: m
+  lx0676:
+    form: Schüler
+    article: der
+    gender: m
+  lx0677:
+    form: Schülerin
+    article: die
+    gender: f
+  lx0678:
+    form: Student
+    article: der
+    gender: m
+  lx0679:
+    form: Studentin
+    article: die
+    gender: f
+  lx0680:
+    form: Tafel
+    article: die
+    gender: f
+  lx0681:
+    form: Test
+    article: der
+    gender: m
+  lx0682:
+    form: Übung
+    article: die
+    gender: f
+  lx0683:
+    form: Universität
+    article: die
+    gender: f
+  lx0684:
+    form: Unterricht
+    article: der
+    gender: m
+  lx0685:
+    form: leicht
+  lx0686:
+    form: schwer
+  lx1661:
+    form: abschreiben
+  lx1662:
+    form: ankreuzen
+  lx1663:
+    form: aufschreiben
+  lx1664:
+    form: beantworten
+  lx1665:
+    form: bestehen
+  lx1666:
+    form: durchfallen
+  lx1667:
+    form: ergänzen
+  lx1668:
+    form: korrigieren
+  lx1669:
+    form: lösen
+  lx1670:
+    form: markieren
+  lx1671:
+    form: nachschlagen
+  lx1672:
+    form: notieren
+  lx1673:
+    form: unterstreichen
+  lx1674:
+    form: verbessern
+  lx1675:
+    form: verbinden
+  lx1676:
+    form: zuordnen
+  lx1677:
+    form: Abitur
+    article: das
+    gender: n
+  # Первое значение: абзац; продажи/сбыт и каблук раскрывать позднее, без новой строки.
+  lx1678:
+    form: Absatz
+    article: der
+    gender: m
+  lx1679:
+    form: Abschluss
+    article: der
+    gender: m
+  lx1680:
+    form: Abschnitt
+    article: der
+    gender: m
+  lx1681:
+    form: Arbeitsbuch
+    article: das
+    gender: n
+  lx1682:
+    form: Aufsatz
+    article: der
+    gender: m
+  lx1683:
+    form: Berufsschule
+    article: die
+    gender: f
+  lx1684:
+    form: Bewertung
+    article: die
+    gender: f
+  lx1685:
+    form: Diktat
+    article: das
+    gender: n
+  lx1686:
+    form: Dozent
+    article: der
+    gender: m
+  lx1687:
+    form: Fach
+    article: das
+    gender: n
+  lx1688:
+    form: Fachhochschule
+    article: die
+    gender: f
+  lx1689:
+    form: Gesamtschule
+    article: die
+    gender: f
+  lx1690:
+    form: Grundschule
+    article: die
+    gender: f
+  lx1691:
+    form: Gymnasium
+    article: das
+    gender: n
+  lx1692:
+    form: Hauptschule
+    article: die
+    gender: f
+  lx1693:
+    form: Hochschule
+    article: die
+    gender: f
+  lx1694:
+    form: Klassenkamerad
+    article: der
+    gender: m
+  lx1695:
+    form: Klassenraum
+    article: der
+    gender: m
+  lx1696:
+    form: Komma
+    article: das
+    gender: n
+  lx1697:
+    form: Kursleiter
+    article: der
+    gender: m
+  lx1698:
+    form: Lehrbuch
+    article: das
+    gender: n
+  lx1699:
+    form: Lehrplan
+    article: der
+    gender: m
+  lx1700:
+    form: Lernziel
+    article: das
+    gender: n
+  lx1701:
+    form: Lösung
+    article: die
+    gender: f
+  lx1702:
+    form: Mitschüler
+    article: der
+    gender: m
+  lx1703:
+    form: Nachhilfe
+    article: die
+    gender: f
+  lx1704:
+    form: Note
+    article: die
+    gender: f
+  lx1705:
+    form: Professor
+    article: der
+    gender: m
+  lx1706:
+    form: Realschule
+    article: die
+    gender: f
+  lx1707:
+    form: Rechtschreibung
+    article: die
+    gender: f
+  lx1708:
+    form: Schulabschluss
+    article: der
+    gender: m
+  lx1709:
+    form: Schulbildung
+    article: die
+    gender: f
+  lx1710:
+    form: Schulfach
+    article: das
+    gender: n
+  lx1711:
+    form: Schulhof
+    article: der
+    gender: m
+  lx1712:
+    form: Schuljahr
+    article: das
+    gender: n
+  lx1713:
+    form: Semester
+    article: das
+    gender: n
+  lx1714:
+    form: Stundenplan
+    article: der
+    gender: m
+  lx1715:
+    form: Teilnehmer
+    article: der
+    gender: m
+  lx1716:
+    form: Vokabelheft
+    article: das
+    gender: n
+  lx1717:
+    form: Volkshochschule
+    article: die
+    gender: f
+  lx1718:
+    form: Vortrag
+    article: der
+    gender: m
+  lx1719:
+    form: Zertifikat
+    article: das
+    gender: n
+  lx1720:
+    form: akademisch
+  lx1721:
+    form: praktisch
+  lx1722:
+    form: schulisch
+  lx1723:
+    form: schwierig
+  lx1724:
+    form: theoretisch
+  lx3149:
+    form: absolvieren
+  lx3150:
+    form: auffrischen
+  lx3151:
+    form: behalten
+  lx3152:
+    form: festigen
+  # Употребление: sich auf eine Aufgabe konzentrieren; etwas konzentrieren
+  lx3153:
+    form: konzentrieren
+  lx3154:
+    form: mitdenken
+  lx3155:
+    form: mitschreiben
+  lx3156:
+    form: nacharbeiten
+  lx3157:
+    form: prüfen
+  lx3158:
+    form: referieren
+  lx3159:
+    form: 'sich einschreiben'
+  lx3160:
+    form: 'sich immatrikulieren'
+  lx3161:
+    form: testen
+  lx3162:
+    form: vertiefen
+  lx3163:
+    form: wiedererkennen
+  lx3164:
+    form: wiedergeben
+  lx3165:
+    form: Abschlussprüfung
+    article: die
+    gender: f
+  lx3166:
+    form: Arbeitsgruppe
+    article: die
+    gender: f
+  lx3167:
+    form: Aufmerksamkeit
+    article: die
+    gender: f
+  lx3168:
+    form: Aufnahmeprüfung
+    article: die
+    gender: f
+  lx3169:
+    form: Ausbildungsplatz
+    article: der
+    gender: m
+  lx3170:
+    form: Auslandssemester
+    article: das
+    gender: n
+  lx3171:
+    form: Austauschprogramm
+    article: das
+    gender: n
+  lx3172:
+    form: Bachelor
+    article: der
+    gender: m
+  lx3173:
+    form: Bildung
+    article: die
+    gender: f
+  lx3174:
+    form: Bildungsabschluss
+    article: der
+    gender: m
+  lx3175:
+    form: Bildungsweg
+    article: der
+    gender: m
+  lx3176:
+    form: E-Learning
+    article: das
+    gender: n
+  lx3177:
+    form: Einzelarbeit
+    article: die
+    gender: f
+  lx3178:
+    form: Fachwissen
+    article: das
+    gender: n
+  lx3179:
+    form: Fernstudium
+    article: das
+    gender: n
+  lx3180:
+    form: Grundwissen
+    article: das
+    gender: n
+  lx3181:
+    form: Gruppenarbeit
+    article: die
+    gender: f
+  lx3182:
+    form: Hochschulreife
+    article: die
+    gender: f
+  lx3183:
+    form: Konzentration
+    article: die
+    gender: f
+  lx3184:
+    form: Lehrstoff
+    article: der
+    gender: m
+  lx3185:
+    form: Lernaufwand
+    article: der
+    gender: m
+  lx3186:
+    form: Lernerfolg
+    article: der
+    gender: m
+  lx3187:
+    form: Lernfortschritt
+    article: der
+    gender: m
+  lx3188:
+    form: Lerngruppe
+    article: die
+    gender: f
+  lx3189:
+    form: Lernmethode
+    article: die
+    gender: f
+  lx3190:
+    form: Lernpartner
+    article: der
+    gender: m
+  lx3191:
+    form: Lernplan
+    article: der
+    gender: m
+  lx3192:
+    form: Lernprozess
+    article: der
+    gender: m
+  lx3193:
+    form: Lernstoff
+    article: der
+    gender: m
+  lx3194:
+    form: Lernstrategie
+    article: die
+    gender: f
+  lx3195:
+    form: Master
+    article: der
+    gender: m
+  lx3196:
+    form: Nachprüfung
+    article: die
+    gender: f
+  lx3197:
+    form: Partnerarbeit
+    article: die
+    gender: f
+  lx3198:
+    form: Prüfungsangst
+    article: die
+    gender: f
+  lx3199:
+    form: Schulpflicht
+    article: die
+    gender: f
+  lx3200:
+    form: Selbstkontrolle
+    article: die
+    gender: f
+  lx3201:
+    form: Selbstkorrektur
+    article: die
+    gender: f
+  lx3202:
+    form: Selbststudium
+    article: das
+    gender: n
+  lx3203:
+    form: Stipendium
+    article: das
+    gender: n
+  lx3204:
+    form: Studienabschluss
+    article: der
+    gender: m
+  lx3205:
+    form: Studienberatung
+    article: die
+    gender: f
+  lx3206:
+    form: Studiengang
+    article: der
+    gender: m
+  lx3207:
+    form: Studiengebühr
+    article: die
+    gender: f
+  lx3208:
+    form: Studienplatz
+    article: der
+    gender: m
+  lx3209:
+    form: Teilzeitstudium
+    article: das
+    gender: n
+  lx3210:
+    form: Vollzeitstudium
+    article: das
+    gender: n
+  lx3211:
+    form: Vorwissen
+    article: das
+    gender: n
+  lx3212:
+    form: Wissenschaft
+    article: die
+    gender: f
+  lx3213:
+    form: Zwischenprüfung
+    article: die
+    gender: f
+  lx3214:
+    form: abgelenkt
+  lx3215:
+    form: anwendungsbezogen
+  lx3216:
+    form: aufmerksam
+  lx3217:
+    form: begabt
+  lx3218:
+    form: konzentriert
+  lx3219:
+    form: lernfähig
+  lx3220:
+    form: lernwillig
+  lx3221:
+    form: prüfungsrelevant
+  lx3222:
+    form: talentiert
+  lx3223:
+    form: verständig
+  lx3224:
+    form: wissbegierig
+  lx4838:
+    form: abstrahieren
+  lx4839:
+    form: analysieren
+  lx4840:
+    form: erwerben
+  lx4841:
+    form: fordern
+  lx4842:
+    form: individualisieren
+  lx4843:
+    form: reflektieren
+  lx4844:
+    form: 'sich aneignen'
+  lx4845:
+    form: transferieren
+  lx4846:
+    form: überfordern
+  lx4847:
+    form: unterfordern
+  lx4848:
+    form: validieren
+  lx4849:
+    form: zertifizieren
+  lx4850:
+    form: Allgemeinbildung
+    article: die
+    gender: f
+  lx4851:
+    form: Bildungsangebot
+    article: das
+    gender: n
+  lx4852:
+    form: Bildungsgerechtigkeit
+    article: die
+    gender: f
+  lx4853:
+    form: Bildungspolitik
+    article: die
+    gender: f
+  lx4854:
+    form: Bildungsreform
+    article: die
+    gender: f
+  lx4855:
+    form: Bildungsstand
+    article: der
+    gender: m
+  lx4856:
+    form: Bildungssystem
+    article: das
+    gender: n
+  lx4857:
+    form: Bildungszugang
+    article: der
+    gender: m
+  lx4858:
+    form: Chancengleichheit
+    article: die
+    gender: f
+  lx4859:
+    form: Erwachsenenbildung
+    article: die
+    gender: f
+  lx4860:
+    form: Förderbedarf
+    article: der
+    gender: m
+  lx4861:
+    form: Förderunterricht
+    article: der
+    gender: m
+  lx4862:
+    form: Inklusion
+    article: die
+    gender: f
+  lx4863:
+    form: Lehrmaterial
+    article: das
+    gender: n
+  lx4864:
+    form: Lernangebot
+    article: das
+    gender: n
+  lx4865:
+    form: Lernbedarf
+    article: der
+    gender: m
+  lx4866:
+    form: Lernmaterial
+    article: das
+    gender: n
+  lx4867:
+    form: Lernumfeld
+    article: das
+    gender: n
+  lx4868:
+    form: Lernverhalten
+    article: das
+    gender: n
+  lx4869:
+    form: Medienbildung
+    article: die
+    gender: f
+  lx4870:
+    form: Pädagogik
+    article: die
+    gender: f
+  lx4871:
+    form: Schulsystem
+    article: das
+    gender: n
+  lx4872:
+    form: Sozialkompetenz
+    article: die
+    gender: f
+  lx4873:
+    form: Spracherwerb
+    article: der
+    gender: m
+  lx4874:
+    form: Wissenserwerb
+    article: der
+    gender: m
+  lx4875:
+    form: didaktisch
+  lx4876:
+    form: fächerübergreifend
+  lx4877:
+    form: handlungsorientiert
+  lx4878:
+    form: inklusiv
+  lx4879:
+    form: integrativ
+  lx4880:
+    form: interdisziplinär
+  lx4881:
+    form: kompetenzorientiert
+  lx4882:
+    form: lebenslang
+  lx4883:
+    form: lernförderlich
+  lx4884:
+    form: modular
+  lx4885:
+    form: pädagogisch
+  lx4886:
+    form: selbstgesteuert

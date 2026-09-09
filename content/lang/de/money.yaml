@@ -1,0 +1,585 @@
+# Немецкие лексемы созвездия «Деньги, экономика и потребление».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0212:
+    form: Cent
+    article: der
+    gender: m
+  lx0769:
+    form: Geldschein
+    article: der
+    gender: m
+  lx0770:
+    form: Konto
+    article: das
+    gender: n
+  lx0771:
+    form: Münze
+    article: die
+    gender: f
+  # Прилагательное: бедный. Не та же лексема, что der Arm = рука.
+  lx0772:
+    form: arm
+  lx0773:
+    form: reich
+  lx2060:
+    form: abbuchen
+  lx2061:
+    form: abheben
+  lx2062:
+    form: auszahlen
+  lx2063:
+    form: einzahlen
+  lx2064:
+    form: finanzieren
+  lx2065:
+    form: schulden
+  lx2066:
+    form: überweisen
+  lx2067:
+    form: verleihen
+  lx2068:
+    form: zurückzahlen
+  lx2069:
+    form: zusammenrechnen
+  lx2070:
+    form: Abbuchung
+    article: die
+    gender: f
+  lx2071:
+    form: Absender
+    article: der
+    gender: m
+  lx2072:
+    form: Ausgabe
+    article: die
+    gender: f
+  lx2073:
+    form: Auszahlung
+    article: die
+    gender: f
+  lx2074:
+    form: Bankberater
+    article: der
+    gender: m
+  lx2075:
+    form: Bankkarte
+    article: die
+    gender: f
+  lx2076:
+    form: Betrag
+    article: der
+    gender: m
+  lx2077:
+    form: Budget
+    article: das
+    gender: n
+  lx2078:
+    form: Einkommen
+    article: das
+    gender: n
+  lx2079:
+    form: Einnahme
+    article: die
+    gender: f
+  lx2080:
+    form: Einzahlung
+    article: die
+    gender: f
+  lx2081:
+    form: Empfänger
+    article: der
+    gender: m
+  lx2082:
+    form: Ersparnis
+    article: die
+    gender: f
+  lx2083:
+    form: Gesamtbetrag
+    article: der
+    gender: m
+  lx2084:
+    form: Gewinn
+    article: der
+    gender: m
+  lx2085:
+    form: Girokarte
+    article: die
+    gender: f
+  lx2086:
+    form: Girokonto
+    article: das
+    gender: n
+  lx2087:
+    form: Kontoinhaber
+    article: der
+    gender: m
+  lx2088:
+    form: Kontostand
+    article: der
+    gender: m
+  lx2089:
+    form: Kredit
+    article: der
+    gender: m
+  lx2090:
+    form: Onlinebanking
+    article: das
+    gender: n
+  lx2091:
+    form: Rate
+    article: die
+    gender: f
+  lx2092:
+    form: Sparkonto
+    article: das
+    gender: n
+  lx2093:
+    form: Taschengeld
+    article: das
+    gender: n
+  lx2094:
+    form: Verlust
+    article: der
+    gender: m
+  lx2095:
+    form: Zahlung
+    article: die
+    gender: f
+  lx2096:
+    form: Zins
+    article: der
+    gender: m
+  lx2097:
+    form: bar
+  lx2098:
+    form: bargeldlos
+  lx2099:
+    form: finanziell
+  lx2100:
+    form: kostenpflichtig
+  lx3717:
+    form: abrechnen
+  lx3718:
+    form: abzahlen
+  lx3719:
+    form: anbieten
+  lx3720:
+    form: anmahnen
+  lx3721:
+    form: beschaffen
+  lx3722:
+    form: besteuern
+  lx3723:
+    form: einführen
+  lx3724:
+    form: erben
+  lx3725:
+    form: exportieren
+  lx3726:
+    form: importieren
+  lx3727:
+    form: investieren
+  lx3728:
+    form: konsumieren
+  lx3729:
+    form: mahnen
+  lx3730:
+    form: spenden
+  lx3731:
+    form: tilgen
+  lx3732:
+    form: vererben
+  lx3733:
+    form: verrechnen
+  lx3734:
+    form: versichern
+  lx3735:
+    form: vertreiben
+  lx3736:
+    form: Altersvorsorge
+    article: die
+    gender: f
+  lx3737:
+    form: Anbieter
+    article: der
+    gender: m
+  lx3738:
+    form: Anlagegut
+    article: das
+    gender: n
+  lx3739:
+    form: Aufwand
+    article: der
+    gender: m
+  lx3740:
+    form: Bankverbindung
+    article: die
+    gender: f
+  lx3741:
+    form: Betriebsmittel
+    article: das
+    gender: n
+  lx3742:
+    form: Darlehen
+    article: das
+    gender: n
+  lx3743:
+    form: Dauerauftrag
+    article: der
+    gender: m
+  lx3744:
+    form: Dispokredit
+    article: der
+    gender: m
+  lx3745:
+    form: Ertrag
+    article: der
+    gender: m
+  lx3746:
+    form: Export
+    article: der
+    gender: m
+  lx3747:
+    form: Exporteur
+    article: der
+    gender: m
+  lx3748:
+    form: Festgeld
+    article: das
+    gender: n
+  lx3749:
+    form: Guthaben
+    article: das
+    gender: n
+  lx3750:
+    form: Haftpflichtversicherung
+    article: die
+    gender: f
+  lx3751:
+    form: Handel
+    article: der
+    gender: m
+  lx3752:
+    form: Herstellung
+    article: die
+    gender: f
+  lx3753:
+    form: IBAN
+    article: die
+    gender: f
+  lx3754:
+    form: Import
+    article: der
+    gender: m
+  lx3755:
+    form: Importeur
+    article: der
+    gender: m
+  lx3756:
+    form: Industrie
+    article: die
+    gender: f
+  lx3757:
+    form: Kapital
+    article: das
+    gender: n
+  lx3758:
+    form: Kaufpreis
+    article: der
+    gender: m
+  lx3759:
+    form: Konsumgut
+    article: das
+    gender: n
+  lx3760:
+    form: Kontoauszug
+    article: der
+    gender: m
+  lx3761:
+    form: Kontonummer
+    article: die
+    gender: f
+  lx3762:
+    form: Kreditantrag
+    article: der
+    gender: m
+  lx3763:
+    form: Kreditvertrag
+    article: der
+    gender: m
+  lx3764:
+    form: Landwirtschaft
+    article: die
+    gender: f
+  lx3765:
+    form: Lebensversicherung
+    article: die
+    gender: f
+  lx3766:
+    form: Logistik
+    article: die
+    gender: f
+  lx3767:
+    form: Nachfrage
+    article: die
+    gender: f
+  lx3768:
+    form: Nachfrager
+    article: der
+    gender: m
+  lx3769:
+    form: Pension
+    article: die
+    gender: f
+  lx3770:
+    form: Preissteigerung
+    article: die
+    gender: f
+  lx3771:
+    form: Produktion
+    article: die
+    gender: f
+  lx3772:
+    form: Ratenkredit
+    article: der
+    gender: m
+  lx3773:
+    form: Rückzahlung
+    article: die
+    gender: f
+  lx3774:
+    form: Sparvertrag
+    article: der
+    gender: m
+  lx3775:
+    form: Tagesgeld
+    article: das
+    gender: n
+  lx3776:
+    form: Überschuldung
+    article: die
+    gender: f
+  lx3777:
+    form: Überweisungsträger
+    article: der
+    gender: m
+  lx3778:
+    form: Umsatz
+    article: der
+    gender: m
+  lx3779:
+    form: Unfallversicherung
+    article: die
+    gender: f
+  lx3780:
+    form: Unternehmen
+    article: das
+    gender: n
+  lx3781:
+    form: Unternehmer
+    article: der
+    gender: m
+  lx3782:
+    form: Verkaufspreis
+    article: der
+    gender: m
+  lx3783:
+    form: Vermögen
+    article: das
+    gender: n
+  lx3784:
+    form: Verschuldung
+    article: die
+    gender: f
+  lx3785:
+    form: Zahlungserinnerung
+    article: die
+    gender: f
+  lx3786:
+    form: Zahlungsfrist
+    article: die
+    gender: f
+  lx3787:
+    form: abgesichert
+  lx3788:
+    form: gebührenfrei
+  lx3789:
+    form: gebührenpflichtig
+  lx3790:
+    form: schuldenfrei
+  lx3791:
+    form: steuerfrei
+  lx3792:
+    form: steuerpflichtig
+  lx3793:
+    form: unversichert
+  lx3794:
+    form: verschuldet
+  lx3795:
+    form: versichert
+  lx3796:
+    form: zahlungsfähig
+  lx3797:
+    form: zahlungsunfähig
+  lx5099:
+    form: erwirtschaften
+  lx5100:
+    form: erzielen
+  lx5101:
+    form: haushalten
+  lx5102:
+    form: prognostizieren
+  lx5103:
+    form: spekulieren
+  lx5104:
+    form: verbuchen
+  lx5105:
+    form: verzinsen
+  lx5106:
+    form: wirtschaften
+  lx5107:
+    form: Aktie
+    article: die
+    gender: f
+  lx5108:
+    form: Aktienkurs
+    article: der
+    gender: m
+  lx5109:
+    form: Aktienmarkt
+    article: der
+    gender: m
+  lx5110:
+    form: Anleihe
+    article: die
+    gender: f
+  lx5111:
+    form: Betriebswirtschaft
+    article: die
+    gender: f
+  lx5112:
+    form: Bruttoinlandsprodukt
+    article: das
+    gender: n
+  lx5113:
+    form: Deflation
+    article: die
+    gender: f
+  lx5114:
+    form: Dividende
+    article: die
+    gender: f
+  lx5115:
+    form: Finanzmarkt
+    article: der
+    gender: m
+  lx5116:
+    form: Geldanlage
+    article: die
+    gender: f
+  lx5117:
+    form: Geldpolitik
+    article: die
+    gender: f
+  lx5118:
+    form: Inflation
+    article: die
+    gender: f
+  lx5119:
+    form: Konjunktur
+    article: die
+    gender: f
+  lx5120:
+    form: Lebensstandard
+    article: der
+    gender: m
+  lx5121:
+    form: Leitzins
+    article: der
+    gender: m
+  lx5122:
+    form: Marktwirtschaft
+    article: die
+    gender: f
+  lx5123:
+    form: Portfolio
+    article: das
+    gender: n
+  lx5124:
+    form: Rendite
+    article: die
+    gender: f
+  lx5125:
+    form: Rezession
+    article: die
+    gender: f
+  lx5126:
+    form: Risiko
+    article: das
+    gender: n
+  lx5127:
+    form: Volkswirtschaft
+    article: die
+    gender: f
+  lx5128:
+    form: Währung
+    article: die
+    gender: f
+  lx5129:
+    form: Wechselkurs
+    article: der
+    gender: m
+  lx5130:
+    form: Weltwirtschaft
+    article: die
+    gender: f
+  lx5131:
+    form: Wertpapier
+    article: das
+    gender: n
+  lx5132:
+    form: Wertverlust
+    article: der
+    gender: m
+  lx5133:
+    form: Wirtschaft
+    article: die
+    gender: f
+  lx5134:
+    form: Wirtschaftssystem
+    article: das
+    gender: n
+  lx5135:
+    form: Wirtschaftswachstum
+    article: das
+    gender: n
+  lx5136:
+    form: Wohlstand
+    article: der
+    gender: m
+  lx5137:
+    form: inflationsbedingt
+  lx5138:
+    form: kreditwürdig
+  lx5139:
+    form: lukrativ
+  lx5140:
+    form: rentabel
+  lx5141:
+    form: risikoarm
+  lx5142:
+    form: risikoreich
+  lx5143:
+    form: unrentabel
+  lx5144:
+    form: unwirtschaftlich
+  lx5145:
+    form: wirtschaftlich

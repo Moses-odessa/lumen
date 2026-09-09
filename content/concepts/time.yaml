@@ -25,6 +25,21 @@ tiers:
       - { id: clock_object, pos: noun, freq_rank: 1080 }
       - { id: today_adv, pos: adv, freq_rank: 410 }
       - { id: yesterday_adv, pos: adv, freq_rank: 1160 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0094, pos: noun, draft: true }  # Zeit
+      - { id: lx0095, pos: number, draft: true }  # acht
+      - { id: lx0096, pos: number, draft: true }  # drei
+      - { id: lx0097, pos: number, draft: true }  # eins
+      - { id: lx0098, pos: number, draft: true }  # elf
+      - { id: lx0099, pos: number, draft: true }  # fünf
+      - { id: lx0100, pos: number, draft: true }  # neun
+      - { id: lx0101, pos: number, draft: true }  # null
+      - { id: lx0102, pos: number, draft: true }  # sechs
+      - { id: lx0103, pos: number, draft: true }  # sieben
+      - { id: lx0104, pos: number, draft: true }  # vier
+      - { id: lx0105, pos: number, draft: true }  # zehn
+      - { id: lx0106, pos: number, draft: true }  # zwei
+      - { id: lx0107, pos: number, draft: true }  # zwölf
   a1:
     concepts:
       - { id: weekend_time, pos: noun, freq_rank: 1980 }
@@ -39,6 +54,76 @@ tiers:
       - { id: early_adv, pos: adv, freq_rank: 1240 }
       - { id: now_adv, pos: adv, freq_rank: 220 }
       - { id: soon_adv, pos: adv, freq_rank: 1370 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0366, pos: verb, draft: true }  # anfangen
+      - { id: lx0367, pos: verb, draft: true }  # beginnen
+      - { id: lx0368, pos: verb, draft: true }  # dauern
+      - { id: lx0369, pos: verb, draft: true }  # enden
+      - { id: lx0370, pos: verb, draft: true }  # warten
+      - { id: lx0371, pos: verb, draft: true }  # zählen
+      - { id: lx0372, pos: noun, draft: true }  # April
+      - { id: lx0373, pos: noun, draft: true }  # August
+      - { id: lx0374, pos: noun, draft: true }  # Dezember
+      - { id: lx0375, pos: noun, draft: true }  # Februar
+      - { id: lx0376, pos: noun, draft: true }  # Grad
+      - { id: lx0377, pos: noun, draft: true }  # Gramm
+      - { id: lx0378, pos: noun, draft: true }  # Hälfte
+      - { id: lx0379, pos: noun, draft: true }  # Januar
+      - { id: lx0380, pos: noun, draft: true }  # Juli
+      - { id: lx0381, pos: noun, draft: true }  # Juni
+      - { id: lx0382, pos: noun, draft: true }  # Kilogramm
+      - { id: lx0383, pos: noun, draft: true }  # Liter
+      - { id: lx0384, pos: noun, draft: true }  # Mai
+      - { id: lx0385, pos: noun, draft: true }  # Mal
+      - { id: lx0386, pos: noun, draft: true }  # März
+      - { id: lx0387, pos: noun, draft: true }  # Meter
+      - { id: lx0388, pos: noun, draft: true }  # Nachmittag
+      - { id: lx0389, pos: noun, draft: true }  # November
+      - { id: lx0390, pos: noun, draft: true }  # Nummer
+      - { id: lx0391, pos: noun, draft: true }  # Oktober
+      - { id: lx0392, pos: noun, draft: true }  # Reihe
+      - { id: lx0393, pos: noun, draft: true }  # Sekunde
+      - { id: lx0394, pos: noun, draft: true }  # September
+      - { id: lx0395, pos: noun, draft: true }  # Vormittag
+      - { id: lx0396, pos: noun, draft: true }  # Zahl
+      - { id: lx0397, pos: noun, draft: true }  # Zentimeter
+      - { id: lx0398, pos: adj, draft: true }  # halb
+      - { id: lx0399, pos: adj, draft: true }  # pünktlich
+      - { id: lx0400, pos: adv, draft: true }  # abends
+      - { id: lx0401, pos: adv, draft: true }  # bereits
+      - { id: lx0402, pos: adv, draft: true }  # danach
+      - { id: lx0403, pos: adv, draft: true }  # dann
+      - { id: lx0404, pos: adv, draft: true }  # diesmal
+      - { id: lx0405, pos: adv, draft: true }  # gleich
+      - { id: lx0406, pos: adv, draft: true }  # jährlich
+      - { id: lx0407, pos: adv, draft: true }  # mittags
+      - { id: lx0408, pos: adv, draft: true }  # monatlich
+      - { id: lx0409, pos: adv, draft: true }  # morgens
+      - { id: lx0410, pos: adv, draft: true }  # nachmittags
+      - { id: lx0411, pos: adv, draft: true }  # nachts
+      - { id: lx0412, pos: adv, draft: true }  # sofort
+      - { id: lx0413, pos: adv, draft: true }  # täglich
+      - { id: lx0414, pos: adv, draft: true }  # übermorgen
+      - { id: lx0415, pos: adv, draft: true }  # vorgestern
+      - { id: lx0416, pos: adv, draft: true }  # wöchentlich
+      - { id: lx0417, pos: adv, draft: true }  # zuerst
+      - { id: lx0418, pos: number, draft: true }  # achtzehn
+      - { id: lx0419, pos: number, draft: true }  # achtzig
+      - { id: lx0420, pos: number, draft: true }  # dreißig
+      - { id: lx0421, pos: number, draft: true }  # dreizehn
+      - { id: lx0422, pos: number, draft: true }  # fünfzehn
+      - { id: lx0423, pos: number, draft: true }  # fünfzig
+      - { id: lx0424, pos: number, draft: true }  # hundert
+      - { id: lx0425, pos: number, draft: true }  # neunzehn
+      - { id: lx0426, pos: number, draft: true }  # neunzig
+      - { id: lx0427, pos: number, draft: true }  # sechzehn
+      - { id: lx0428, pos: number, draft: true }  # sechzig
+      - { id: lx0429, pos: number, draft: true }  # siebzehn
+      - { id: lx0430, pos: number, draft: true }  # siebzig
+      - { id: lx0431, pos: number, draft: true }  # tausend
+      - { id: lx0432, pos: number, draft: true }  # vierzehn
+      - { id: lx0433, pos: number, draft: true }  # vierzig
+      - { id: lx0434, pos: number, draft: true }  # zwanzig
   a2:
     concepts:
       - { id: monday_time, pos: noun, freq_rank: 1840 }
@@ -65,6 +150,66 @@ tiers:
       - { id: century_noun, pos: noun, freq_rank: 2350 }
       - { id: clocktime_noun, pos: noun, freq_rank: 3480 }
       - { id: alarm_object, pos: noun, freq_rank: 4120 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1020, pos: verb, draft: true }  # absagen
+      - { id: lx1021, pos: verb, draft: true }  # aufschieben
+      - { id: lx1022, pos: verb, draft: true }  # nachholen
+      - { id: lx1023, pos: verb, draft: true }  # sich verspäten
+      - { id: lx1024, pos: verb, draft: true }  # verbringen
+      - { id: lx1025, pos: verb, draft: true }  # vereinbaren
+      - { id: lx1026, pos: verb, draft: true }  # vergehen
+      - { id: lx1027, pos: verb, draft: true }  # verschieben
+      - { id: lx1028, pos: noun, draft: true }  # Alltag
+      - { id: lx1029, pos: noun, draft: true }  # Anzahl
+      - { id: lx1030, pos: noun, draft: true }  # Beginn
+      - { id: lx1031, pos: noun, draft: true }  # Bruchteil
+      - { id: lx1032, pos: noun, draft: true }  # Drittel
+      - { id: lx1033, pos: noun, draft: true }  # Durchschnitt
+      - { id: lx1034, pos: noun, draft: true }  # Dutzend
+      - { id: lx1035, pos: noun, draft: true }  # Einheit
+      - { id: lx1036, pos: noun, draft: true }  # Mehrheit
+      - { id: lx1037, pos: noun, draft: true }  # Menge
+      - { id: lx1038, pos: noun, draft: true }  # Milliarde
+      - { id: lx1039, pos: noun, draft: true }  # Millimeter
+      - { id: lx1040, pos: noun, draft: true }  # Million
+      - { id: lx1041, pos: noun, draft: true }  # Minderheit
+      - { id: lx1042, pos: noun, draft: true }  # Moment
+      - { id: lx1043, pos: noun, draft: true }  # Pfund
+      - { id: lx1044, pos: noun, draft: true }  # Prozent
+      - { id: lx1045, pos: noun, draft: true }  # Summe
+      - { id: lx1046, pos: noun, draft: true }  # Viertel
+      - { id: lx1047, pos: adj, draft: true }  # bisherig
+      - { id: lx1048, pos: adj, draft: true }  # endgültig
+      - { id: lx1049, pos: adj, draft: true }  # gleichzeitig
+      - { id: lx1050, pos: adj, draft: true }  # vergangen
+      - { id: lx1051, pos: adj, draft: true }  # vorläufig
+      - { id: lx1052, pos: adj, draft: true }  # zeitig
+      - { id: lx1053, pos: adj, draft: true }  # zukünftig
+      - { id: lx1054, pos: adv, draft: true }  # bisher
+      - { id: lx1055, pos: adv, draft: true }  # damals
+      - { id: lx1056, pos: adv, draft: true }  # demnächst
+      - { id: lx1057, pos: adv, draft: true }  # eben
+      - { id: lx1058, pos: adv, draft: true }  # einmal
+      - { id: lx1059, pos: adv, draft: true }  # insgesamt
+      - { id: lx1060, pos: adv, draft: true }  # inzwischen
+      - { id: lx1061, pos: adv, draft: true }  # irgendwann
+      - { id: lx1062, pos: adv, draft: true }  # jederzeit
+      - { id: lx1063, pos: adv, draft: true }  # jeweils
+      - { id: lx1064, pos: adv, draft: true }  # kürzlich
+      - { id: lx1065, pos: adv, draft: true }  # mehrmals
+      - { id: lx1066, pos: adv, draft: true }  # meistens
+      - { id: lx1067, pos: adv, draft: true }  # mittlerweile
+      - { id: lx1068, pos: adv, draft: true }  # neulich
+      - { id: lx1069, pos: adv, draft: true }  # niemals
+      - { id: lx1070, pos: adv, draft: true }  # rechtzeitig
+      - { id: lx1071, pos: adv, draft: true }  # regelmäßig
+      - { id: lx1072, pos: adv, draft: true }  # selten
+      - { id: lx1073, pos: adv, draft: true }  # ständig
+      - { id: lx1074, pos: adv, draft: true }  # stets
+      - { id: lx1075, pos: adv, draft: true }  # vorhin
+      - { id: lx1076, pos: adv, draft: true }  # weiterhin
+      - { id: lx1077, pos: adv, draft: true }  # zuletzt
+      - { id: lx1078, pos: adv, draft: true }  # zweimal
   b1:
     concepts:
       - { id: period_noun, pos: noun, freq_rank: 3960 }
@@ -91,6 +236,76 @@ tiers:
       - { id: timepressure_noun, pos: noun, freq_rank: 5490 }
       - { id: opportunity_noun, pos: noun, freq_rank: 3720 }
       - { id: eternity_noun, pos: noun, freq_rank: 5310 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2502, pos: verb, draft: true }  # ausrechnen
+      - { id: lx2503, pos: verb, draft: true }  # berechnen
+      - { id: lx2504, pos: verb, draft: true }  # dritteln
+      - { id: lx2505, pos: verb, draft: true }  # fortsetzen
+      - { id: lx2506, pos: verb, draft: true }  # halbieren
+      - { id: lx2507, pos: verb, draft: true }  # überschreiten
+      - { id: lx2508, pos: verb, draft: true }  # unterschreiten
+      - { id: lx2509, pos: verb, draft: true }  # verdoppeln
+      - { id: lx2510, pos: verb, draft: true }  # verkürzen
+      - { id: lx2511, pos: verb, draft: true }  # verlängern
+      - { id: lx2512, pos: verb, draft: true }  # vervielfachen
+      - { id: lx2513, pos: verb, draft: true }  # verzögern
+      - { id: lx2514, pos: noun, draft: true }  # Abstand
+      - { id: lx2515, pos: noun, draft: true }  # Anteil
+      - { id: lx2516, pos: noun, draft: true }  # Bedarf
+      - { id: lx2517, pos: noun, draft: true }  # Begrenzung
+      - { id: lx2518, pos: noun, draft: true }  # Grenzwert
+      - { id: lx2519, pos: noun, draft: true }  # Größenangabe
+      - { id: lx2520, pos: noun, draft: true }  # Größenordnung
+      - { id: lx2521, pos: noun, draft: true }  # Jahreswechsel
+      - { id: lx2522, pos: noun, draft: true }  # Jahrzehnt
+      - { id: lx2523, pos: noun, draft: true }  # Maximum
+      - { id: lx2524, pos: noun, draft: true }  # Minimum
+      - { id: lx2525, pos: noun, draft: true }  # Mittelmaß
+      - { id: lx2526, pos: noun, draft: true }  # Öffnungszeit
+      - { id: lx2527, pos: noun, draft: true }  # Rest
+      - { id: lx2528, pos: noun, draft: true }  # Rhythmus
+      - { id: lx2529, pos: noun, draft: true }  # Schätzung
+      - { id: lx2530, pos: noun, draft: true }  # Tagesablauf
+      - { id: lx2531, pos: noun, draft: true }  # Tempo
+      - { id: lx2532, pos: noun, draft: true }  # Übergangszeit
+      - { id: lx2533, pos: noun, draft: true }  # Überschuss
+      - { id: lx2534, pos: noun, draft: true }  # Umfang
+      - { id: lx2535, pos: noun, draft: true }  # Verlängerung
+      - { id: lx2536, pos: noun, draft: true }  # Wert
+      - { id: lx2537, pos: noun, draft: true }  # Wiederholung
+      - { id: lx2538, pos: noun, draft: true }  # Zeitalter
+      - { id: lx2539, pos: noun, draft: true }  # Zeitspanne
+      - { id: lx2540, pos: noun, draft: true }  # Zeitverschiebung
+      - { id: lx2541, pos: noun, draft: true }  # Zwischenraum
+      - { id: lx2542, pos: adj, draft: true }  # fristgerecht
+      - { id: lx2543, pos: adj, draft: true }  # ganztägig
+      - { id: lx2544, pos: adj, draft: true }  # halbtägig
+      - { id: lx2545, pos: adj, draft: true }  # kurzfristig
+      - { id: lx2546, pos: adj, draft: true }  # langfristig
+      - { id: lx2547, pos: adj, draft: true }  # mehrtägig
+      - { id: lx2548, pos: adj, draft: true }  # mittelfristig
+      - { id: lx2549, pos: adj, draft: true }  # termingerecht
+      - { id: lx2550, pos: adj, draft: true }  # zeitlich
+      - { id: lx2551, pos: adv, draft: true }  # allmählich
+      - { id: lx2552, pos: adv, draft: true }  # anschließend
+      - { id: lx2553, pos: adv, draft: true }  # beinahe
+      - { id: lx2554, pos: adv, draft: true }  # bislang
+      - { id: lx2555, pos: adv, draft: true }  # circa
+      - { id: lx2556, pos: adv, draft: true }  # dauerhaft
+      - { id: lx2557, pos: adv, draft: true }  # etwa
+      - { id: lx2558, pos: adv, draft: true }  # gelegentlich
+      - { id: lx2559, pos: adv, draft: true }  # höchstens
+      - { id: lx2560, pos: adv, draft: true }  # kaum
+      - { id: lx2561, pos: adv, draft: true }  # letztlich
+      - { id: lx2562, pos: adv, draft: true }  # mindestens
+      - { id: lx2563, pos: adv, draft: true }  # rückwirkend
+      - { id: lx2564, pos: adv, draft: true }  # schließlich
+      - { id: lx2565, pos: adv, draft: true }  # unverzüglich
+      - { id: lx2566, pos: adv, draft: true }  # vorerst
+      - { id: lx2567, pos: adv, draft: true }  # vorübergehend
+      - { id: lx2568, pos: adv, draft: true }  # zeitweise
+      - { id: lx2569, pos: adv, draft: true }  # zunächst
+      - { id: lx2570, pos: adv, draft: true }  # zwischenzeitlich
   b2:
     concepts:
       - { id: timemanagement_noun, pos: noun, freq_rank: 6180 }
@@ -117,3 +332,55 @@ tiers:
       - { id: interval_noun, pos: noun, freq_rank: 5380 }
       - { id: rotation_noun, pos: noun, freq_rank: 7360 }
       - { id: cycle_noun, pos: noun, freq_rank: 5210 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4342, pos: verb, draft: true }  # einhalten
+      - { id: lx4343, pos: verb, draft: true }  # einplanen
+      - { id: lx4344, pos: verb, draft: true }  # einteilen
+      - { id: lx4345, pos: verb, draft: true }  # hinauszögern
+      - { id: lx4346, pos: verb, draft: true }  # hochrechnen
+      - { id: lx4347, pos: verb, draft: true }  # kalkulieren
+      - { id: lx4348, pos: verb, draft: true }  # quantifizieren
+      - { id: lx4349, pos: verb, draft: true }  # takten
+      - { id: lx4350, pos: verb, draft: true }  # terminieren
+      - { id: lx4351, pos: verb, draft: true }  # überbrücken
+      - { id: lx4352, pos: verb, draft: true }  # vorziehen
+      - { id: lx4353, pos: noun, draft: true }  # Abweichung
+      - { id: lx4354, pos: noun, draft: true }  # Ausblick
+      - { id: lx4355, pos: noun, draft: true }  # Bandbreite
+      - { id: lx4356, pos: noun, draft: true }  # Beständigkeit
+      - { id: lx4357, pos: noun, draft: true }  # Kontinuität
+      - { id: lx4358, pos: noun, draft: true }  # Priorität
+      - { id: lx4359, pos: noun, draft: true }  # Richtwert
+      - { id: lx4360, pos: noun, draft: true }  # Rückblick
+      - { id: lx4361, pos: noun, draft: true }  # Schwankung
+      - { id: lx4362, pos: noun, draft: true }  # Spannweite
+      - { id: lx4363, pos: noun, draft: true }  # Vergänglichkeit
+      - { id: lx4364, pos: noun, draft: true }  # Zeitaufwand
+      - { id: lx4365, pos: noun, draft: true }  # Zeitfenster
+      - { id: lx4366, pos: noun, draft: true }  # Zeitmangel
+      - { id: lx4367, pos: noun, draft: true }  # Zeitpuffer
+      - { id: lx4368, pos: noun, draft: true }  # Zeitrahmen
+      - { id: lx4369, pos: adj, draft: true }  # bevorstehend
+      - { id: lx4370, pos: adj, draft: true }  # fortlaufend
+      - { id: lx4371, pos: adj, draft: true }  # kurzlebig
+      - { id: lx4372, pos: adj, draft: true }  # stetig
+      - { id: lx4373, pos: adj, draft: true }  # überfällig
+      - { id: lx4374, pos: adj, draft: true }  # unmittelbar
+      - { id: lx4375, pos: adj, draft: true }  # wiederkehrend
+      - { id: lx4376, pos: adj, draft: true }  # zeitaufwendig
+      - { id: lx4377, pos: adj, draft: true }  # zeitgemäß
+      - { id: lx4378, pos: adj, draft: true }  # zeitlos
+      - { id: lx4379, pos: adj, draft: true }  # zeitnah
+      - { id: lx4380, pos: adj, draft: true }  # zeitversetzt
+      - { id: lx4381, pos: adv, draft: true }  # annähernd
+      - { id: lx4382, pos: adv, draft: true }  # ehemals
+      - { id: lx4383, pos: adv, draft: true }  # einst
+      - { id: lx4384, pos: adv, draft: true }  # fortan
+      - { id: lx4385, pos: adv, draft: true }  # gegenwärtig
+      - { id: lx4386, pos: adv, draft: true }  # größtenteils
+      - { id: lx4387, pos: adv, draft: true }  # nahezu
+      - { id: lx4388, pos: adv, draft: true }  # schlagartig
+      - { id: lx4389, pos: adv, draft: true }  # seither
+      - { id: lx4390, pos: adv, draft: true }  # überwiegend
+      - { id: lx4391, pos: adv, draft: true }  # verhältnismäßig
+      - { id: lx4392, pos: adv, draft: true }  # zeitgleich

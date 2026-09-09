@@ -1,0 +1,1173 @@
+# Немецкие лексемы созвездия «Транспорт и мобильность».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  train_transport:
+    form: Zug
+    article: der
+    gender: m
+    plural: Züge
+    distractors:
+      far: [Gleis, Waggon]
+      near: [Zeug, Zaun, Bug]
+  bus_transport:
+    form: Bus
+    article: der
+    gender: m
+    plural: Busse
+    distractors:
+      far: [Tram, Taxi]
+      near: [Busch, Buch, Fluss]
+  car_transport:
+    form: Auto
+    article: das
+    gender: n
+    plural: Autos
+    distractors:
+      far: [Motorrad, Roller]
+      near: [Autor, Aula, Auge]
+  ticket_transport:
+    form: Fahrkarte
+    article: die
+    gender: f
+    plural: Fahrkarten
+    distractors:
+      far: [Ausweis, Gepäck]
+      near: [Farbkarte, Fahrplan, Fahrbahn]
+  station_place:
+    form: Bahnhof
+    article: der
+    gender: m
+    plural: Bahnhöfe
+    distractors:
+      far: [Flughafen, Hafen]
+      near: [Bahnsteig, Bauernhof, Banknote]
+  street_place:
+    form: Straße
+    article: die
+    gender: f
+    plural: Straßen
+    distractors:
+      far: [Kreuzung, Platz]
+      near: [Strafe, Strauß, Strähne]
+  bicycle_transport:
+    form: Fahrrad
+    article: das
+    gender: n
+    plural: Fahrräder
+    distractors:
+      far: [Roller, Anhänger]
+      near: [Vorrat, Fahrstuhl, Fahrgast]
+  airplane_transport:
+    form: Flugzeug
+    article: das
+    gender: n
+    plural: Flugzeuge
+    distractors:
+      far: [Hubschrauber, Rakete]
+      near: [Feuerzeug, Werkzeug, Flugblatt]
+  way_noun:
+    form: Weg
+    article: der
+    gender: m
+    plural: Wege
+    distractors:
+      far: [Ziel, Verkehr]
+      near: [Steg, Beleg, Weh]
+  driver_person:
+    form: Fahrer
+    article: der
+    gender: m
+    plural: Fahrer
+    distractors:
+      far: [Schaffner, Pilot]
+      near: [Fährte, Falter, Farbe]
+  stop_place:
+    form: Haltestelle
+    article: die
+    gender: f
+    plural: Haltestellen
+    distractors:
+      far: [Bahnsteig, Wartehalle]
+      near: [Baustelle, Halterung, Haltestange]
+  late_adj:
+    form: spät
+    note: прилагательное
+    distractors:
+      far: [pünktlich, früh]
+      near: [Spaten, Speer, Saat]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  platform_place:
+    form: Bahnsteig
+    article: der
+    gender: m
+    plural: Bahnsteige
+    distractors:
+      far: [Gleis, Halle]
+      near: [Anstieg, Bahnstrecke, Bahnübergang]
+  delay_noun:
+    form: Verspätung
+    article: die
+    gender: f
+    plural: Verspätungen
+    distractors:
+      far: [Ausfall, Umleitung]
+      near: [Verspannung, Verpflegung, Verspottung]
+  connection_noun:
+    form: Anschluss
+    article: der
+    gender: m
+    plural: Anschlüsse
+    distractors:
+      far: [Umstieg, Fahrt]
+      near: [Abschluss, Entschluss, Anschlag]
+  timetable_object:
+    form: Fahrplan
+    article: der
+    gender: m
+    plural: Fahrpläne
+    distractors:
+      far: [Anzeige, Aushang]
+      near: [Bauplan, Fahrbahn, Fahrgestell]
+  luggage_noun:
+    form: Gepäck
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Koffer, Tasche]
+      near: [Gebäck, Gepäckwagen, Geräusch]
+  taxi_transport:
+    form: Taxi
+    article: das
+    gender: n
+    plural: Taxis
+    distractors:
+      far: [Mietwagen, Shuttle]
+      near: [Tacho, Text, Achse]
+  tram_transport:
+    form: Straßenbahn
+    article: die
+    gender: f
+    plural: Straßenbahnen
+    distractors:
+      far: [Obus, Fähre]
+      near: [Straßenbau, Seilbahn, Straßenfest]
+  metro_transport:
+    form: U-Bahn
+    article: die
+    gender: f
+    plural: U-Bahnen
+    distractors:
+      far: [Vorortzug, Fähre]
+      near: [S-Bahn, Umbau, Autobahn]
+  seat_object:
+    form: Sitzplatz
+    article: der
+    gender: m
+    plural: Sitzplätze
+    distractors:
+      far: [Abteil, Reihe]
+      near: [Sitzung, Spitzname, Stehplatz]
+  journey_noun:
+    form: Reise
+    article: die
+    gender: f
+    plural: Reisen
+    distractors:
+      far: [Reiseziel, Unterkunft]
+      near: [Reihe, Riese, Preise]
+  arrival_noun:
+    form: Ankunft
+    article: die
+    gender: f
+    plural: Ankünfte
+    distractors:
+      far: [Abflug, Zwischenstopp]
+      near: [Auskunft, Zukunft, Anhang]
+  departure_noun:
+    form: Abfahrt
+    article: die
+    gender: f
+    plural: Abfahrten
+    distractors:
+      far: [Wartesaal, Zwischenstopp]
+      near: [Abfall, Anfahrt, Abkehr]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  motorway_place:
+    form: Autobahn
+    article: die
+    gender: f
+    plural: Autobahnen
+    distractors: { far: [Landstraße, Schnellstraße], near: [Autobus, Eisenbahn, Autohaus] }
+  petrol_station:
+    form: Tankstelle
+    article: die
+    gender: f
+    plural: Tankstellen
+    distractors: { far: [Raststätte, Autohof], near: [Tankwagen, Tankstutzen, Dienststelle] }
+  petrol_noun:
+    form: Benzin
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Diesel, Gas], near: [Benzol, Bengel, Benzinkanister] }
+  licence_noun:
+    form: Führerschein
+    article: der
+    gender: m
+    plural: Führerscheine
+    distractors: { far: [Ausweis, Pass], near: [Führerhaus, Fahrschein, Führungszeugnis] }
+  accident_noun:
+    form: Unfall
+    article: der
+    gender: m
+    plural: Unfälle
+    distractors: { far: [Panne, Schaden], near: [Anfall, Zufall, Notfall] }
+  jam_noun:
+    form: Stau
+    article: der
+    gender: m
+    plural: Staus
+    distractors: { far: [Sperrung, Ausfahrt], near: [Staub, Stab, Sau] }
+  diversion_noun:
+    form: Umleitung
+    article: die
+    gender: f
+    plural: Umleitungen
+    distractors: { far: [Sperrung, Beschilderung], near: [Umkleidung, Ummeldung, Umstellung] }
+  roadworks_noun:
+    form: Straßenbaustelle
+    article: die
+    gender: f
+    plural: Straßenbaustellen
+    distractors: { far: [Absperrung, Bauzaun], near: [Bauweise, Bauhaus, Bauplatz] }
+  parking_place:
+    form: Parkplatz
+    article: der
+    gender: m
+    plural: Parkplätze
+    distractors: { far: [Garage, Innenhof], near: [Marktplatz, Parkuhr, Parkbank] }
+  garage_place:
+    form: Parkhaus
+    article: das
+    gender: n
+    plural: Parkhäuser
+    distractors: { far: [Tiefgarage, Hinterhof], near: [Parkbank, Packhaus, Backhaus] }
+  kilometre_noun:
+    form: Kilometer
+    article: der
+    gender: m
+    plural: Kilometer
+    distractors: { far: [Meile, Strecke], near: [Kilogramm, Kilowatt, Zentimeter] }
+  speed_noun:
+    form: Geschwindigkeit
+    article: die
+    gender: f
+    plural: Geschwindigkeiten
+    distractors: { far: [Entfernung, Beschleunigung], near: [Geschicklichkeit, Beschwerlichkeit, Gewissheit] }
+  tyre_object:
+    form: Reifen
+    article: der
+    gender: m
+    plural: Reifen
+    distractors: { far: [Felge, Bremse], near: [Reifung, Greifen, Pfeifen] }
+  engine_object:
+    form: Motor
+    article: der
+    gender: m
+    plural: Motoren
+    distractors: { far: [Getriebe, Batterie], near: [Notar, Mentor, Monitor] }
+  workshop_place:
+    form: Werkstatt
+    article: die
+    gender: f
+    plural: Werkstätten
+    distractors: { far: [Reparaturdienst, Betrieb], near: [Werkzeug, Hauptstadt, Werkbank] }
+  insurance_noun:
+    form: Versicherung
+    article: die
+    gender: f
+    plural: Versicherungen
+    distractors: { far: [Police, Beitrag], near: [Versorgung, Versetzung, Versiegelung] }
+  seatbelt_object:
+    form: Sicherheitsgurt
+    article: der
+    gender: m
+    plural: Sicherheitsgurte
+    distractors: { far: [Airbag, Kindersitz], near: [Sicherheitsglas, Sicherheitsnadel, Hosengurt] }
+  vehicle_papers:
+    form: Fahrzeugschein
+    article: der
+    gender: m
+    plural: Fahrzeugscheine
+    distractors: { far: [Zulassung, Plakette], near: [Fahrzeugbrief, Fahrschein, Feuerschein] }
+  ferry_transport:
+    form: Fähre
+    article: die
+    gender: f
+    plural: Fähren
+    distractors: { far: [Boot, Schiff], near: [Ähre, Fährte, Föhre] }
+  harbour_place:
+    form: Hafen
+    article: der
+    gender: m
+    plural: Häfen
+    distractors: { far: [Kai, Werft], near: [Haken, Hafer, Ofen] }
+  airport_place:
+    form: Flughafen
+    article: der
+    gender: m
+    plural: Flughäfen
+    distractors: { far: [Terminal, Rollfeld], near: [Flugsteig, Flugbahn, Fluchtweg] }
+  takeoff_noun:
+    form: Abflug
+    article: der
+    gender: m
+    plural: Abflüge
+    distractors: { far: [Landung, Gate], near: [Anflug, Abfluss, Abzug] }
+  landing_noun:
+    form: Landung
+    article: die
+    gender: f
+    plural: Landungen
+    distractors: { far: [Anflug, Rollfeld], near: [Ladung, Lagerung, Wandlung] }
+  carpool_noun:
+    form: Mitfahrgelegenheit
+    article: die
+    gender: f
+    plural: Mitfahrgelegenheiten
+    distractors: { far: [Sammeltaxi, Shuttle], near: [Mitfahrzentrale, Gelegenheit, Mitfahrer] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  transportmeans_noun:
+    form: Verkehrsmittel
+    article: das
+    gender: n
+    plural: Verkehrsmittel
+    distractors: { far: [Fahrzeug, Beförderung], near: [Verkehrsschild, Hilfsmittel, Verkehrsader] }
+  localtransport_noun:
+    form: Nahverkehr
+    article: der
+    gender: m
+    distractors: { far: [Fernverkehr, Güterverkehr], near: [Nahaufnahme, Straßenverkehr, Nachverkauf] }
+  longdistance_noun:
+    form: Fernverkehr
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Regionalverkehr, Pendelverkehr], near: [Fernsehen, Fernglas, Fernweh] }
+  surcharge_noun:
+    form: Zuschlag
+    article: der
+    gender: m
+    plural: Zuschläge
+    distractors: { far: [Rabatt, Grundpreis], near: [Anschlag, Abschlag, Zuschlagsatz] }
+  reduction_noun:
+    form: Ermäßigung
+    article: die
+    gender: f
+    plural: Ermäßigungen
+    distractors: { far: [Zuschlag, Aufpreis], near: [Ermahnung, Ermittlung, Ermächtigung] }
+  monthlyticket_noun:
+    form: Monatskarte
+    article: die
+    gender: f
+    plural: Monatskarten
+    distractors: { far: [Tagesticket, Jahresabo], near: [Monatsende, Landkarte, Monatslohn] }
+  validation_noun:
+    form: Entwertung
+    article: die
+    gender: f
+    plural: Entwertungen
+    distractors: { far: [Kontrolle, Ausgabe], near: [Erwartung, Entwicklung, Entlastung] }
+  passenger_person:
+    form: Fahrgast
+    article: der
+    gender: m
+    plural: Fahrgäste
+    distractors: { far: [Anwohner, Lokführer], near: [Fahrrad, Stammgast, Fahrbahn] }
+  conductor_person:
+    form: Schaffner
+    article: der
+    gender: m
+    plural: Schaffner
+    distractors: { far: [Lokführer, Aufsicht], near: [Schaffung, Schafhirte, Schachbrett] }
+  levelcrossing_place:
+    form: Bahnübergang
+    article: der
+    gender: m
+    plural: Bahnübergänge
+    distractors: { far: [Unterführung, Tunnel], near: [Bahnhofsvorplatz, Übergangsfrist, Bahnhofsuhr] }
+  rightofway_noun:
+    form: Vorfahrt
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Wartepflicht, Halteverbot], near: [Vorfahren, Abfahrt, Vorsicht] }
+  overtakingban_noun:
+    form: Überholverbot
+    article: das
+    gender: n
+    plural: Überholverbote
+    distractors: { far: [Halteverbot, Tempolimit], near: [Überholspur, Rauchverbot, Überlaufventil] }
+  speedlimit_noun:
+    form: Tempolimit
+    article: das
+    gender: n
+    plural: Tempolimits
+    distractors: { far: [Richtgeschwindigkeit, Mindestgeschwindigkeit], near: [Tempomat, Zeitlimit, Temperament] }
+  fine_noun:
+    form: Bußgeld
+    article: das
+    gender: n
+    plural: Bußgelder
+    distractors: { far: [Verwarnung, Strafanzeige], near: [Bußgeldbescheid, Bargeld, Bundesland] }
+  drivingban_noun:
+    form: Fahrverbot
+    article: das
+    gender: n
+    plural: Fahrverbote
+    distractors: { far: [Führerscheinentzug, Punktekonto], near: [Fahrverhalten, Rauchverbot, Fahrbetrieb] }
+  numberplate_object:
+    form: Kennzeichen
+    article: das
+    gender: n
+    plural: Kennzeichen
+    distractors: { far: [Plakette, Aufkleber], near: [Kennwort, Wahrzeichen, Kennziffer] }
+  registration_noun:
+    form: Zulassung
+    article: die
+    gender: f
+    plural: Zulassungen
+    distractors: { far: [Stilllegung, Ummeldung], near: [Zusage, Belastung, Zulage] }
+  inspection_noun:
+    form: Hauptuntersuchung
+    article: die
+    gender: f
+    plural: Hauptuntersuchungen
+    distractors: { far: [Inspektion, Abgastest], near: [Hauptversammlung, Nachuntersuchung, Hauptverkehr] }
+  emissionstandard_noun:
+    form: Abgasnorm
+    article: die
+    gender: f
+    plural: Abgasnormen
+    distractors: { far: [Grenzwert, Plakette], near: [Abgaswert, Rechtsnorm, Industrienorm] }
+  chargingpoint_place:
+    form: Ladesäule
+    article: die
+    gender: f
+    plural: Ladesäulen
+    distractors: { far: [Zapfsäule, Steckdose], near: [Ladefläche, Litfaßsäule, Ladenkette] }
+  range_noun:
+    form: Reichweite
+    article: die
+    gender: f
+    plural: Reichweiten
+    distractors: { far: [Verbrauch, Tankinhalt], near: [Reichtum, Weitsicht, Schrittweite] }
+  consumption_noun:
+    form: Verbrauch
+    article: der
+    gender: m
+    plural: Verbräuche
+    distractors: { far: [Leistung, Ausstoß], near: [Verbrauchsanzeige, Missbrauch, Verkauf] }
+  maintenance_noun:
+    form: Wartung
+    article: die
+    gender: f
+    plural: Wartungen
+    distractors: { far: [Reparatur, Pflege], near: [Warnung, Wertung, Wandlung] }
+  breakdownservice_noun:
+    form: Pannendienst
+    article: der
+    gender: m
+    plural: Pannendienste
+    distractors: { far: [Abschleppwagen, Notruf], near: [Pantoffel, Wachdienst, Pfannenwender] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  transportinfra_noun:
+    form: Verkehrsinfrastruktur
+    article: die
+    gender: f
+    plural: Verkehrsinfrastrukturen
+    distractors: { far: [Straßennetz, Verkehrswesen], near: [Verkehrsinformation, Dateninfrastruktur, Verkehrsführung] }
+  routenetwork_noun:
+    form: Streckennetz
+    article: das
+    gender: n
+    plural: Streckennetze
+    distractors: { far: [Umsteigepunkt, Fahrplan], near: [Streckenführung, Stromnetz, Streckenabschnitt] }
+  clockfacetimetable_noun:
+    form: Taktfahrplan
+    article: der
+    gender: m
+    plural: Taktfahrpläne
+    distractors: { far: [Bedarfsverkehr, Linienbetrieb], near: [Taktverkehr, Nahverkehr, Taktgeber] }
+  capacitybottleneck_noun:
+    form: Kapazitätsengpass
+    article: der
+    gender: m
+    plural: Kapazitätsengpässe
+    distractors: { far: [Überlastung, Stauursache], near: [Kapazitätsgrenze, Lieferengpass, Kapazitätsausbau] }
+  emissionlimit_noun:
+    form: Emissionsgrenzwert
+    article: der
+    gender: m
+    plural: Emissionsgrenzwerte
+    distractors: { far: [Abgasnorm, Messverfahren], near: [Emissionshandel, Richtwert, Immissionsschutz] }
+  lowemissionzone_noun:
+    form: Umweltzone
+    article: die
+    gender: f
+    plural: Umweltzonen
+    distractors: { far: [Sperrbezirk, Anwohnerparken], near: [Umweltplakette, Sperrzone, Umweltschutz] }
+  particulate_noun:
+    form: Feinstaub
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Stickoxid, Ruß], near: [Feinstaubalarm, Hausstaub, Feingefühl] }
+  noiseprotection_noun:
+    form: Lärmschutz
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Schallwand, Nachtflugverbot], near: [Lärmschutzwand, Wärmeschutz, Lärmbelästigung] }
+  mobilityshift_noun:
+    form: Verkehrswende
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Klimapolitik, Mobilitätskonzept], near: [Verkehrswesen, Energiewende, Verkehrswert] }
+  electromobility_noun:
+    form: Elektromobilität
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Wasserstoffantrieb, Hybridtechnik], near: [Elektrotechnik, Immobilität, Elektroinstallation] }
+  charginginfra_noun:
+    form: Ladeinfrastruktur
+    article: die
+    gender: f
+    plural: Ladeinfrastrukturen
+    distractors: { far: [Stromnetz, Tankstellennetz], near: [Ladestation, Dateninfrastruktur, Ladefläche] }
+  subsidy_noun:
+    form: Subvention
+    article: die
+    gender: f
+    plural: Subventionen
+    distractors: { far: [Steuervorteil, Darlehen], near: [Konvention, Prävention, Subversion] }
+  trackprice_noun:
+    form: Trassenpreis
+    article: der
+    gender: m
+    plural: Trassenpreise
+    distractors: { far: [Nutzungsentgelt, Maut], near: [Trassenführung, Grundpreis, Trassenverlauf] }
+  operatormodel_noun:
+    form: Betreibermodell
+    article: das
+    gender: n
+    plural: Betreibermodelle
+    distractors: { far: [Konzession, Ausschreibung], near: [Betriebsmodell, Vertriebsmodell, Betreibergesellschaft] }
+  liabilityexclusion_noun:
+    form: Haftungsausschluss
+    article: der
+    gender: m
+    plural: Haftungsausschlüsse
+    distractors: { far: [Deckungszusage, Kulanzregel], near: [Haftungsgrenze, Ausschlussfrist, Haftungsfrage] }
+  claimssettlement_noun:
+    form: Schadensregulierung
+    article: die
+    gender: f
+    plural: Schadensregulierungen
+    distractors: { far: [Gutachten, Kostenübernahme], near: [Schadensmeldung, Preisregulierung, Schadensersatz] }
+  comprehensivecover_noun:
+    form: Kaskoversicherung
+    article: die
+    gender: f
+    plural: Kaskoversicherungen
+    distractors: { far: [Haftpflicht, Insassenschutz], near: [Kaskoschaden, Rentenversicherung, Krankenversicherung] }
+  excess_noun:
+    form: Selbstbeteiligung
+    article: die
+    gender: f
+    plural: Selbstbeteiligungen
+    distractors: { far: [Deckungssumme, Prämie], near: [Selbstbedienung, Gewinnbeteiligung, Selbstverpflichtung] }
+  roadsafety_noun:
+    form: Verkehrssicherheit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Unfallverhütung, Schutzausrüstung], near: [Verkehrsberuhigung, Rechtssicherheit, Verkehrsschild] }
+  accidentstatistics_noun:
+    form: Unfallstatistik
+    article: die
+    gender: f
+    plural: Unfallstatistiken
+    distractors: { far: [Unfallbericht, Erhebung], near: [Unfallstelle, Amtssprache, Unfallflucht] }
+  freighttransport_noun:
+    form: Güterverkehr
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Personenverkehr, Schwertransport], near: [Güterbahnhof, Nahverkehr, Güterwagen] }
+  logisticschain_noun:
+    form: Logistikkette
+    article: die
+    gender: f
+    plural: Logistikketten
+    distractors: { far: [Vertriebsnetz, Umschlagplatz], near: [Logistikzentrum, Halskette, Logistikbranche] }
+  customsclearance_noun:
+    form: Zollabfertigung
+    article: die
+    gender: f
+    plural: Zollabfertigungen
+    distractors: { far: [Einfuhrumsatzsteuer, Warenkontrolle], near: [Zollerklärung, Gepäckabfertigung, Zollamt] }
+  logbook_object:
+    form: Fahrtenbuch
+    article: das
+    gender: n
+    plural: Fahrtenbücher
+    distractors: { far: [Reisekostenabrechnung, Tachoscheibe], near: [Fahrtenschreiber, Wörterbuch, Fahrtkosten] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0177:
+    form: halten
+  lx0636:
+    form: anhalten
+  lx0637:
+    form: aussteigen
+  lx0638:
+    form: einsteigen
+  lx0639:
+    form: umsteigen
+  lx0640:
+    form: Bahn
+    article: die
+    gender: f
+  lx0641:
+    form: Fahrt
+    article: die
+    gender: f
+  lx0642:
+    form: Flug
+    article: der
+    gender: m
+  lx0643:
+    form: Gleis
+    article: das
+    gender: n
+  lx0644:
+    form: Motorrad
+    article: das
+    gender: n
+  lx0645:
+    form: Schiff
+    article: das
+    gender: n
+  lx0646:
+    form: Station
+    article: die
+    gender: f
+  lx0647:
+    form: Verkehr
+    article: der
+    gender: m
+  lx0648:
+    form: schnell
+  lx1563:
+    form: anschnallen
+  lx1564:
+    form: beschleunigen
+  lx1565:
+    form: bremsen
+  lx1566:
+    form: erreichen
+  lx1567:
+    form: hupen
+  lx1568:
+    form: leihen
+  lx1569:
+    form: lenken
+  lx1570:
+    form: mitfahren
+  lx1571:
+    form: parken
+  lx1572:
+    form: tanken
+  lx1573:
+    form: überholen
+  lx1574:
+    form: verpassen
+  lx1575:
+    form: Autofahrer
+    article: der
+    gender: m
+  lx1576:
+    form: Baustelle
+    article: die
+    gender: f
+  lx1577:
+    form: Beifahrer
+    article: der
+    gender: m
+  lx1578:
+    form: Bremse
+    article: die
+    gender: f
+  lx1579:
+    form: Diesel
+    article: der
+    gender: m
+  lx1580:
+    form: E-Bike
+    article: das
+    gender: n
+  lx1581:
+    form: Fahrbahn
+    article: die
+    gender: f
+  lx1582:
+    form: Fahrkartenautomat
+    article: der
+    gender: m
+  lx1583:
+    form: Fahrschein
+    article: der
+    gender: m
+  lx1584:
+    form: Fahrspur
+    article: die
+    gender: f
+  lx1585:
+    form: Fahrzeug
+    article: das
+    gender: n
+  lx1586:
+    form: Gurt
+    article: der
+    gender: m
+  lx1587:
+    form: Helm
+    article: der
+    gender: m
+  lx1588:
+    form: Hupe
+    article: die
+    gender: f
+  lx1589:
+    form: Kupplung
+    article: die
+    gender: f
+  lx1590:
+    form: Kurve
+    article: die
+    gender: f
+  lx1591:
+    form: Ladegerät
+    article: das
+    gender: n
+  lx1592:
+    form: Landstraße
+    article: die
+    gender: f
+  lx1593:
+    form: Lastwagen
+    article: der
+    gender: m
+  lx1594:
+    form: Lenker
+    article: der
+    gender: m
+  lx1595:
+    form: Lenkung
+    article: die
+    gender: f
+  lx1596:
+    form: Linie
+    article: die
+    gender: f
+  lx1597:
+    form: Navigationsgerät
+    article: das
+    gender: n
+  lx1598:
+    form: Panne
+    article: die
+    gender: f
+  lx1599:
+    form: Rad
+    article: das
+    gender: n
+  lx1600:
+    form: Radfahrer
+    article: der
+    gender: m
+  lx1601:
+    form: Roller
+    article: der
+    gender: m
+  lx1602:
+    form: S-Bahn
+    article: die
+    gender: f
+  lx1603:
+    form: Sitz
+    article: der
+    gender: m
+  lx1604:
+    form: Tank
+    article: der
+    gender: m
+  lx1605:
+    form: Verbindung
+    article: die
+    gender: f
+  lx1606:
+    form: Verkehrsschild
+    article: das
+    gender: n
+  lx1607:
+    form: Wagen
+    article: der
+    gender: m
+  lx1608:
+    form: elektrisch
+  lx1609:
+    form: mobil
+  lx1610:
+    form: verkehrsreich
+  lx1611:
+    form: vollbesetzt
+  lx3029:
+    form: abschleppen
+  lx3030:
+    form: abstempeln
+  lx3031:
+    form: anlegen
+  lx3032:
+    form: auffahren
+  lx3033:
+    form: ausbremsen
+  lx3034:
+    form: beladen
+  lx3035:
+    form: entladen
+  lx3036:
+    form: entwerten
+  lx3037:
+    form: landen
+  lx3038:
+    form: losfahren
+  lx3039:
+    form: nachlösen
+  lx3040:
+    form: rangieren
+  lx3041:
+    form: umladen
+  lx3042:
+    form: vorbeifahren
+  lx3043:
+    form: weiterfahren
+  lx3044:
+    form: weiterreisen
+  lx3045:
+    form: zurücksetzen
+  lx3046:
+    form: Abo
+    article: das
+    gender: n
+  lx3047:
+    form: Abonnement
+    article: das
+    gender: n
+  lx3048:
+    form: Abzweigung
+    article: die
+    gender: f
+  lx3049:
+    form: Ampelanlage
+    article: die
+    gender: f
+  lx3050:
+    form: Auffahrt
+    article: die
+    gender: f
+  lx3051:
+    form: Ausfahrt
+    article: die
+    gender: f
+  lx3052:
+    form: Ausstieg
+    article: der
+    gender: m
+  lx3053:
+    form: Bahnverkehr
+    article: der
+    gender: m
+  lx3054:
+    form: Bremsweg
+    article: der
+    gender: m
+  lx3055:
+    form: Einbahnstraße
+    article: die
+    gender: f
+  lx3056:
+    form: Einfahrt
+    article: die
+    gender: f
+  lx3057:
+    form: Einstieg
+    article: der
+    gender: m
+  lx3058:
+    form: Fahrstil
+    article: der
+    gender: m
+  lx3059:
+    form: Fahrstreifen
+    article: der
+    gender: m
+  lx3060:
+    form: Fahrtrichtung
+    article: die
+    gender: f
+  lx3061:
+    form: Fußweg
+    article: der
+    gender: m
+  lx3062:
+    form: Gegenfahrbahn
+    article: die
+    gender: f
+  lx3063:
+    form: Halteverbot
+    article: das
+    gender: n
+  lx3064:
+    form: Höchstgeschwindigkeit
+    article: die
+    gender: f
+  lx3065:
+    form: Kreisverkehr
+    article: der
+    gender: m
+  lx3066:
+    form: Luftverkehr
+    article: der
+    gender: m
+  lx3067:
+    form: Parkverbot
+    article: das
+    gender: n
+  lx3068:
+    form: Radstreifen
+    article: der
+    gender: m
+  lx3069:
+    form: Regionalverkehr
+    article: der
+    gender: m
+  lx3070:
+    form: Sackgasse
+    article: die
+    gender: f
+  lx3071:
+    form: Schienenersatzverkehr
+    article: der
+    gender: m
+  lx3072:
+    form: Schienenverkehr
+    article: der
+    gender: m
+  lx3073:
+    form: Schranke
+    article: die
+    gender: f
+  lx3074:
+    form: Seitenstreifen
+    article: der
+    gender: m
+  lx3075:
+    form: Sicherheitsabstand
+    article: der
+    gender: m
+  lx3076:
+    form: Sitzplatzreservierung
+    article: die
+    gender: f
+  lx3077:
+    form: Spur
+    article: die
+    gender: f
+  lx3078:
+    form: Straßenverkehr
+    article: der
+    gender: m
+  lx3079:
+    form: Tageskarte
+    article: die
+    gender: f
+  lx3080:
+    form: Überführung
+    article: die
+    gender: f
+  lx3081:
+    form: Umgehungsstraße
+    article: die
+    gender: f
+  lx3082:
+    form: Unterführung
+    article: die
+    gender: f
+  lx3083:
+    form: Zeitkarte
+    article: die
+    gender: f
+  lx3084:
+    form: fahrbereit
+  lx3085:
+    form: fahrlässig
+  lx3086:
+    form: fahrtüchtig
+  lx3087:
+    form: fahruntüchtig
+  lx3088:
+    form: reserviert
+  lx3089:
+    form: überladen
+  lx3090:
+    form: verkehrssicher
+  lx3091:
+    form: verkehrstauglich
+  lx3092:
+    form: verspätet
+  lx4737:
+    form: auslasten
+  lx4738:
+    form: drosseln
+  lx4739:
+    form: elektrifizieren
+  lx4740:
+    form: entschleunigen
+  lx4741:
+    form: kollidieren
+  lx4742:
+    form: nachrüsten
+  lx4743:
+    form: optimieren
+  lx4744:
+    form: umrüsten
+  lx4745:
+    form: vernetzen
+  lx4746:
+    form: verunglücken
+  lx4747:
+    form: Auslastung
+    article: die
+    gender: f
+  lx4748:
+    form: Berufsverkehr
+    article: der
+    gender: m
+  lx4749:
+    form: Bikesharing
+    article: das
+    gender: n
+  lx4750:
+    form: Carsharing
+    article: das
+    gender: n
+  lx4751:
+    form: Durchgangsverkehr
+    article: der
+    gender: m
+  lx4752:
+    form: Elektroauto
+    article: das
+    gender: n
+  lx4753:
+    form: Fahrgastrechte
+    article: die
+    note: только множественное
+  lx4754:
+    form: Fahrgemeinschaft
+    article: die
+    gender: f
+  lx4755:
+    form: Hybridfahrzeug
+    article: das
+    gender: n
+  lx4756:
+    form: Individualverkehr
+    article: der
+    gender: m
+  lx4757:
+    form: Ladestation
+    article: die
+    gender: f
+  lx4758:
+    form: Lastenrad
+    article: das
+    gender: n
+  lx4759:
+    form: Leihfahrrad
+    article: das
+    gender: n
+  lx4760:
+    form: Lieferverkehr
+    article: der
+    gender: m
+  lx4761:
+    form: Linienverkehr
+    article: der
+    gender: m
+  lx4762:
+    form: Mitfahrzentrale
+    article: die
+    gender: f
+  lx4763:
+    form: Mobilität
+    article: die
+    gender: f
+  lx4764:
+    form: Pendler
+    article: der
+    gender: m
+  lx4765:
+    form: Unfallursache
+    article: die
+    gender: f
+  lx4766:
+    form: Verkehrsbelastung
+    article: die
+    gender: f
+  lx4767:
+    form: Verkehrsfluss
+    article: der
+    gender: m
+  lx4768:
+    form: Verkehrsplanung
+    article: die
+    gender: f
+  lx4769:
+    form: Verkehrsverbund
+    article: der
+    gender: m
+  lx4770:
+    form: barrierearm
+  lx4771:
+    form: emissionsfrei
+  lx4772:
+    form: multimodal
+  lx4773:
+    form: streckenabhängig
+  lx4774:
+    form: verkehrsbedingt
+  lx4775:
+    form: vorausschauend

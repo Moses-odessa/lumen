@@ -25,6 +25,8 @@ tiers:
       - { id: centre_place, pos: noun, freq_rank: 1610 }
       - { id: map_object, pos: noun, freq_rank: 3940 }
       - { id: right_adv, pos: adv, freq_rank: 990 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0171, pos: noun, draft: true }  # Supermarkt
   a1:
     concepts:
       - { id: crossing_place, pos: noun, freq_rank: 3720 }
@@ -39,6 +41,21 @@ tiers:
       - { id: townhall_place, pos: noun, freq_rank: 3390 }
       - { id: entrance_place, pos: noun, freq_rank: 2610 }
       - { id: exit_place, pos: noun, freq_rank: 2480 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0601, pos: verb, draft: true }  # abbiegen
+      - { id: lx0602, pos: verb, draft: true }  # mieten
+      - { id: lx0603, pos: verb, draft: true }  # überqueren
+      - { id: lx0604, pos: verb, draft: true }  # umziehen
+      - { id: lx0605, pos: noun, draft: true }  # Aufzug
+      - { id: lx0606, pos: noun, draft: true }  # Briefkasten
+      - { id: lx0607, pos: noun, draft: true }  # Dorf
+      - { id: lx0608, pos: noun, draft: true }  # Geldautomat
+      - { id: lx0609, pos: noun, draft: true }  # Hausnummer
+      - { id: lx0610, pos: noun, draft: true }  # Mieter
+      - { id: lx0611, pos: noun, draft: true }  # Postleitzahl
+      - { id: lx0612, pos: noun, draft: true }  # Stock
+      - { id: lx0613, pos: noun, draft: true }  # Stockwerk
+      - { id: lx0614, pos: adj, draft: true }  # zentral
   a2:
     concepts:
       - { id: suburb_place, pos: noun, freq_rank: 3480 }
@@ -65,6 +82,57 @@ tiers:
       - { id: firebrigade_noun, pos: noun, freq_rank: 3610 }
       - { id: emergency_call, pos: noun, freq_rank: 4180 }
       - { id: sight_noun, pos: noun, freq_rank: 4740 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1452, pos: verb, draft: true }  # abgeben
+      - { id: lx1453, pos: verb, draft: true }  # abmelden
+      - { id: lx1454, pos: verb, draft: true }  # anmelden
+      - { id: lx1455, pos: verb, draft: true }  # ausfüllen
+      - { id: lx1456, pos: verb, draft: true }  # beantragen
+      - { id: lx1457, pos: verb, draft: true }  # besichtigen
+      - { id: lx1458, pos: verb, draft: true }  # einziehen
+      - { id: lx1459, pos: verb, draft: true }  # klingeln
+      - { id: lx1460, pos: verb, draft: true }  # kündigen
+      - { id: lx1461, pos: verb, draft: true }  # nachsenden
+      - { id: lx1462, pos: verb, draft: true }  # renovieren
+      - { id: lx1463, pos: verb, draft: true }  # unterschreiben
+      - { id: lx1464, pos: verb, draft: true }  # vorlegen
+      - { id: lx1465, pos: noun, draft: true }  # Abmeldung
+      - { id: lx1466, pos: noun, draft: true }  # Altstadt
+      - { id: lx1467, pos: noun, draft: true }  # Amt
+      - { id: lx1468, pos: noun, draft: true }  # Ausweisdokument
+      - { id: lx1469, pos: noun, draft: true }  # Bäcker
+      - { id: lx1470, pos: noun, draft: true }  # Brunnen
+      - { id: lx1471, pos: noun, draft: true }  # Bürgersteig
+      - { id: lx1472, pos: noun, draft: true }  # Bushaltestelle
+      - { id: lx1473, pos: noun, draft: true }  # Einkaufszentrum
+      - { id: lx1474, pos: noun, draft: true }  # Friseur
+      - { id: lx1475, pos: noun, draft: true }  # Fundbüro
+      - { id: lx1476, pos: noun, draft: true }  # Gebäude
+      - { id: lx1477, pos: noun, draft: true }  # Hochhaus
+      - { id: lx1478, pos: noun, draft: true }  # Industriegebiet
+      - { id: lx1479, pos: noun, draft: true }  # Innenstadt
+      - { id: lx1480, pos: noun, draft: true }  # Kaltmiete
+      - { id: lx1481, pos: noun, draft: true }  # Kanal
+      - { id: lx1482, pos: noun, draft: true }  # Metzger
+      - { id: lx1483, pos: noun, draft: true }  # Postamt
+      - { id: lx1484, pos: noun, draft: true }  # Rand
+      - { id: lx1485, pos: noun, draft: true }  # Stadtrand
+      - { id: lx1486, pos: noun, draft: true }  # Stadtverwaltung
+      - { id: lx1487, pos: noun, draft: true }  # Straßenlaterne
+      - { id: lx1488, pos: noun, draft: true }  # Turm
+      - { id: lx1489, pos: noun, draft: true }  # Unterschrift
+      - { id: lx1490, pos: noun, draft: true }  # Warmmiete
+      - { id: lx1491, pos: noun, draft: true }  # Wohngebiet
+      - { id: lx1492, pos: noun, draft: true }  # Wohnungsanzeige
+      - { id: lx1493, pos: adj, draft: true }  # bezahlbar
+      - { id: lx1494, pos: adj, draft: true }  # ländlich
+      - { id: lx1495, pos: adj, draft: true }  # möbliert
+      - { id: lx1496, pos: adj, draft: true }  # öffentlich
+      - { id: lx1497, pos: adj, draft: true }  # privat
+      - { id: lx1498, pos: adj, draft: true }  # städtisch
+      - { id: lx1499, pos: adj, draft: true }  # unmöbliert
+      - { id: lx1500, pos: adj, draft: true }  # verkehrsarm
+      - { id: lx1501, pos: adj, draft: true }  # verkehrsgünstig
   b1:
     concepts:
       - { id: municipality_place, pos: noun, freq_rank: 3840 }
@@ -91,6 +159,65 @@ tiers:
       - { id: trafficcalming_noun, pos: noun, freq_rank: 7020 }
       - { id: redevelopmentarea_place, pos: noun, freq_rank: 7390 }
       - { id: jurisdiction_noun, pos: noun, freq_rank: 5150 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2920, pos: verb, draft: true }  # bearbeiten
+      - { id: lx2921, pos: verb, draft: true }  # beglaubigen
+      - { id: lx2922, pos: verb, draft: true }  # belegen
+      - { id: lx2923, pos: verb, draft: true }  # bescheinigen
+      - { id: lx2924, pos: verb, draft: true }  # bewohnen
+      - { id: lx2925, pos: verb, draft: true }  # einreichen
+      - { id: lx2926, pos: verb, draft: true }  # erteilen
+      - { id: lx2927, pos: verb, draft: true }  # genehmigen
+      - { id: lx2928, pos: verb, draft: true }  # klären
+      - { id: lx2929, pos: verb, draft: true }  # nachreichen
+      - { id: lx2930, pos: verb, draft: true }  # ummelden
+      - { id: lx2931, pos: verb, draft: true }  # vorweisen
+      - { id: lx2932, pos: verb, draft: true }  # vorzeigen
+      - { id: lx2933, pos: verb, draft: true }  # zustellen
+      - { id: lx2934, pos: noun, draft: true }  # Bearbeitung
+      - { id: lx2935, pos: noun, draft: true }  # Bearbeitungszeit
+      - { id: lx2936, pos: noun, draft: true }  # Behörde
+      - { id: lx2937, pos: noun, draft: true }  # Beratung
+      - { id: lx2938, pos: noun, draft: true }  # Bürgerbüro
+      - { id: lx2939, pos: noun, draft: true }  # Bürgerzentrum
+      - { id: lx2940, pos: noun, draft: true }  # Dienstleistung
+      - { id: lx2941, pos: noun, draft: true }  # Eigentum
+      - { id: lx2942, pos: noun, draft: true }  # Eigentümer
+      - { id: lx2943, pos: noun, draft: true }  # Finanzamt
+      - { id: lx2944, pos: noun, draft: true }  # Gesundheitsamt
+      - { id: lx2945, pos: noun, draft: true }  # Hausverwalter
+      - { id: lx2946, pos: noun, draft: true }  # Makler
+      - { id: lx2947, pos: noun, draft: true }  # Mieterschutz
+      - { id: lx2948, pos: noun, draft: true }  # Mietpreis
+      - { id: lx2949, pos: noun, draft: true }  # Mietverhältnis
+      - { id: lx2950, pos: noun, draft: true }  # Nachweis
+      - { id: lx2951, pos: noun, draft: true }  # Personalausweis
+      - { id: lx2952, pos: noun, draft: true }  # Reisepass
+      - { id: lx2953, pos: noun, draft: true }  # Sachbearbeiter
+      - { id: lx2954, pos: noun, draft: true }  # Servicezentrum
+      - { id: lx2955, pos: noun, draft: true }  # Sozialamt
+      - { id: lx2956, pos: noun, draft: true }  # Sprechzeit
+      - { id: lx2957, pos: noun, draft: true }  # Studentenwohnheim
+      - { id: lx2958, pos: noun, draft: true }  # Terminservice
+      - { id: lx2959, pos: noun, draft: true }  # Übergabe
+      - { id: lx2960, pos: noun, draft: true }  # Ummeldung
+      - { id: lx2961, pos: noun, draft: true }  # Warteschlange
+      - { id: lx2962, pos: noun, draft: true }  # Wohnheim
+      - { id: lx2963, pos: noun, draft: true }  # Wohnraum
+      - { id: lx2964, pos: noun, draft: true }  # Wohnungsmangel
+      - { id: lx2965, pos: noun, draft: true }  # Wohnungsmarkt
+      - { id: lx2966, pos: noun, draft: true }  # Wohnungsübergabe
+      - { id: lx2967, pos: adj, draft: true }  # amtlich
+      - { id: lx2968, pos: adj, draft: true }  # befristet
+      - { id: lx2969, pos: adj, draft: true }  # erforderlich
+      - { id: lx2970, pos: adj, draft: true }  # gültig
+      - { id: lx2971, pos: adj, draft: true }  # sanierungsbedürftig
+      - { id: lx2972, pos: adj, draft: true }  # unbefristet
+      - { id: lx2973, pos: adj, draft: true }  # ungültig
+      - { id: lx2974, pos: adj, draft: true }  # unverbindlich
+      - { id: lx2975, pos: adj, draft: true }  # unzuständig
+      - { id: lx2976, pos: adj, draft: true }  # verbindlich
+      - { id: lx2977, pos: adj, draft: true }  # zuständig
   b2:
     concepts:
       - { id: localpolitics_noun, pos: noun, freq_rank: 6340 }
@@ -117,3 +244,40 @@ tiers:
       - { id: disasterresponse_noun, pos: noun, freq_rank: 6580 }
       - { id: townplanning_noun, pos: noun, freq_rank: 5940 }
       - { id: heritageconservation_noun, pos: noun, freq_rank: 7370 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4654, pos: verb, draft: true }  # anfechten
+      - { id: lx4655, pos: verb, draft: true }  # auferlegen
+      - { id: lx4656, pos: verb, draft: true }  # bebauen
+      - { id: lx4657, pos: verb, draft: true }  # begrünen
+      - { id: lx4658, pos: verb, draft: true }  # bewilligen
+      - { id: lx4659, pos: verb, draft: true }  # entsiegeln
+      - { id: lx4660, pos: verb, draft: true }  # erschließen
+      - { id: lx4661, pos: verb, draft: true }  # sanieren
+      - { id: lx4662, pos: verb, draft: true }  # untersagen
+      - { id: lx4663, pos: verb, draft: true }  # verdichten
+      - { id: lx4664, pos: verb, draft: true }  # versiegeln
+      - { id: lx4665, pos: verb, draft: true }  # zulassen
+      - { id: lx4666, pos: verb, draft: true }  # zuweisen
+      - { id: lx4667, pos: noun, draft: true }  # Aufwertung
+      - { id: lx4668, pos: noun, draft: true }  # Ballungsraum
+      - { id: lx4669, pos: noun, draft: true }  # Bauvorhaben
+      - { id: lx4670, pos: noun, draft: true }  # Gemeinderat
+      - { id: lx4671, pos: noun, draft: true }  # Leerstand
+      - { id: lx4672, pos: noun, draft: true }  # Obdachlosigkeit
+      - { id: lx4673, pos: noun, draft: true }  # Quartier
+      - { id: lx4674, pos: noun, draft: true }  # Referendum
+      - { id: lx4675, pos: noun, draft: true }  # Stadtbild
+      - { id: lx4676, pos: noun, draft: true }  # Stadtkern
+      - { id: lx4677, pos: noun, draft: true }  # Stadtviertel
+      - { id: lx4678, pos: noun, draft: true }  # Verdrängung
+      - { id: lx4679, pos: noun, draft: true }  # Verkehrsanbindung
+      - { id: lx4680, pos: noun, draft: true }  # Verordnung
+      - { id: lx4681, pos: noun, draft: true }  # Versiegelung
+      - { id: lx4682, pos: noun, draft: true }  # Wohnungsbau
+      - { id: lx4683, pos: noun, draft: true }  # Wohnungslosigkeit
+      - { id: lx4684, pos: adj, draft: true }  # bürgernah
+      - { id: lx4685, pos: adj, draft: true }  # dezentral
+      - { id: lx4686, pos: adj, draft: true }  # flächendeckend
+      - { id: lx4687, pos: adj, draft: true }  # gemeinnützig
+      - { id: lx4688, pos: adj, draft: true }  # kommunal
+      - { id: lx4689, pos: adj, draft: true }  # sozialverträglich

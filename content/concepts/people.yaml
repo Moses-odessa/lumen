@@ -1,0 +1,308 @@
+# Созвездие «Люди, семья и отношения».
+#
+# Созвездие переименовано при импорте словника: тема называется так, как её
+# называет словник. Иначе матчнутый концепт принадлежал бы двум созвездиям
+# сразу и «тема» в проекте значила бы две разные вещи. Идентификаторы
+# концептов и фраз при этом сохранили старый префикс (family_…) — они ключи,
+# по которым у игрока лежит память о слове, и переименование стёрло бы
+# прогресс всем, кто уже играл.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: people
+tiers:
+  a0:
+    concepts:
+      - { id: mother_person, pos: noun, freq_rank: 390 }
+      - { id: father_person, pos: noun, freq_rank: 420 }
+      - { id: child_person, pos: noun, freq_rank: 310 }
+      - { id: son_person, pos: noun, freq_rank: 880 }
+      - { id: daughter_person, pos: noun, freq_rank: 940 }
+      - { id: sister_person, pos: noun, freq_rank: 1270 }
+      - { id: friend_person, pos: noun, freq_rank: 460 }
+      - { id: name_noun, pos: noun, freq_rank: 350 }
+      - { id: family_noun, pos: noun, freq_rank: 680 }
+      - { id: man_person, pos: noun, freq_rank: 240 }
+      - { id: woman_person, pos: noun, freq_rank: 260 }
+      - { id: old_adj, pos: adj, freq_rank: 590 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0073, pos: verb, draft: true }  # leben
+      - { id: lx0074, pos: verb, draft: true }  # lieben
+      - { id: lx0075, pos: verb, draft: true }  # wohnen
+      - { id: lx0076, pos: noun, draft: true }  # Baby
+      - { id: lx0077, pos: noun, draft: true }  # Freundin
+      - { id: lx0078, pos: noun, draft: true }  # Junge
+      - { id: lx0079, pos: noun, draft: true }  # Mädchen
+      - { id: lx0080, pos: noun, draft: true }  # Mensch
+      - { id: lx0081, pos: noun, draft: true }  # Partner
+      - { id: lx0082, pos: noun, draft: true }  # Person
+      - { id: lx0083, pos: adj, draft: true }  # verheiratet
+  a1:
+    concepts:
+      - { id: brother_person, pos: noun, freq_rank: 1190 }
+      - { id: grandmother_person, pos: noun, freq_rank: 2140 }
+      - { id: grandfather_person, pos: noun, freq_rank: 2280 }
+      - { id: husband_person, pos: noun, freq_rank: 1630 }
+      - { id: wife_person, pos: noun, freq_rank: 1580 }
+      - { id: aunt_person, pos: noun, freq_rank: 2960 }
+      - { id: uncle_person, pos: noun, freq_rank: 2870 }
+      - { id: cousin_person, pos: noun, freq_rank: 3540 }
+      - { id: grandchild_person, pos: noun, freq_rank: 3120 }
+      - { id: birthday_noun, pos: noun, freq_rank: 2410 }
+      - { id: wedding_noun, pos: noun, freq_rank: 2730 }
+      - { id: young_adj, pos: adj, freq_rank: 640 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0311, pos: verb, draft: true }  # besuchen
+      - { id: lx0312, pos: verb, draft: true }  # heiraten
+      - { id: lx0313, pos: verb, draft: true }  # kennen
+      - { id: lx0314, pos: verb, draft: true }  # kennenlernen
+      - { id: lx0315, pos: verb, draft: true }  # lächeln
+      - { id: lx0316, pos: verb, draft: true }  # schenken
+      - { id: lx0317, pos: verb, draft: true }  # treffen
+      - { id: lx0318, pos: verb, draft: true }  # verabreden
+      - { id: lx0319, pos: verb, draft: true }  # vorstellen
+      - { id: lx0320, pos: verb, draft: true }  # zusammenleben
+      - { id: lx0321, pos: noun, draft: true }  # Alter
+      - { id: lx0322, pos: noun, draft: true }  # Bekannte
+      - { id: lx0323, pos: noun, draft: true }  # Beziehung
+      - { id: lx0324, pos: noun, draft: true }  # Cousine
+      - { id: lx0325, pos: noun, draft: true }  # Eltern
+      - { id: lx0326, pos: noun, draft: true }  # Erwachsene
+      - { id: lx0327, pos: noun, draft: true }  # Gast
+      - { id: lx0328, pos: noun, draft: true }  # Geburtsdatum
+      - { id: lx0329, pos: noun, draft: true }  # Großeltern
+      - { id: lx0330, pos: noun, draft: true }  # Großmutter
+      - { id: lx0331, pos: noun, draft: true }  # Großvater
+      - { id: lx0332, pos: noun, draft: true }  # Leute
+      - { id: lx0333, pos: noun, draft: true }  # Nachbarschaft
+      - { id: lx0334, pos: noun, draft: true }  # Paar
+      - { id: lx0335, pos: adj, draft: true }  # allein
+      - { id: lx0336, pos: adj, draft: true }  # gemeinsam
+      - { id: lx0337, pos: adj, draft: true }  # geschieden
+      - { id: lx0338, pos: adj, draft: true }  # ledig
+      - { id: lx0339, pos: adj, draft: true }  # männlich
+      - { id: lx0340, pos: adj, draft: true }  # persönlich
+      - { id: lx0341, pos: adj, draft: true }  # verwitwet
+      - { id: lx0342, pos: adj, draft: true }  # weiblich
+      - { id: lx0343, pos: adv, draft: true }  # zusammen
+  a2:
+    concepts:
+      - { id: relatives_noun, pos: noun, freq_rank: 2870 }
+      - { id: brotherinlaw_person, pos: noun, freq_rank: 4310 }
+      - { id: sisterinlaw_person, pos: noun, freq_rank: 4620 }
+      - { id: niece_person, pos: noun, freq_rank: 4180 }
+      - { id: nephew_person, pos: noun, freq_rank: 4050 }
+      - { id: motherinlaw_person, pos: noun, freq_rank: 3940 }
+      - { id: fatherinlaw_person, pos: noun, freq_rank: 4270 }
+      - { id: stepfather_person, pos: noun, freq_rank: 5130 }
+      - { id: twin_person, pos: noun, freq_rank: 4460 }
+      - { id: siblings_noun, pos: noun, freq_rank: 3280 }
+      - { id: engagement_noun, pos: noun, freq_rank: 4390 }
+      - { id: divorce_noun, pos: noun, freq_rank: 3510 }
+      - { id: marriage_noun, pos: noun, freq_rank: 2640 }
+      - { id: upbringing_noun, pos: noun, freq_rank: 3760 }
+      - { id: childhood_noun, pos: noun, freq_rank: 3120 }
+      - { id: youth_noun, pos: noun, freq_rank: 2490 }
+      - { id: pension_noun, pos: noun, freq_rank: 3070 }
+      - { id: surname_noun, pos: noun, freq_rank: 3830 }
+      - { id: firstname_noun, pos: noun, freq_rank: 3690 }
+      - { id: birthplace_noun, pos: noun, freq_rank: 4740 }
+      - { id: citizenship_noun, pos: noun, freq_rank: 4180 }
+      - { id: maritalstatus_noun, pos: noun, freq_rank: 5290 }
+      - { id: household_noun, pos: noun, freq_rank: 3360 }
+      - { id: kindergarten_place, pos: noun, freq_rank: 3950 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0933, pos: verb, draft: true }  # aufpassen
+      - { id: lx0934, pos: verb, draft: true }  # aufwachsen
+      - { id: lx0935, pos: verb, draft: true }  # begleiten
+      - { id: lx0936, pos: verb, draft: true }  # betreuen
+      - { id: lx0937, pos: verb, draft: true }  # erziehen
+      - { id: lx0938, pos: verb, draft: true }  # gratulieren
+      - { id: lx0939, pos: verb, draft: true }  # küssen
+      - { id: lx0940, pos: verb, draft: true }  # streiten
+      - { id: lx0941, pos: verb, draft: true }  # umarmen
+      - { id: lx0942, pos: verb, draft: true }  # unterstützen
+      - { id: lx0943, pos: verb, draft: true }  # vermissen
+      - { id: lx0944, pos: verb, draft: true }  # versöhnen
+      - { id: lx0945, pos: verb, draft: true }  # versorgen
+      - { id: lx0946, pos: noun, draft: true }  # Besucher
+      - { id: lx0947, pos: noun, draft: true }  # Ehepaar
+      - { id: lx0948, pos: noun, draft: true }  # Einzelkind
+      - { id: lx0949, pos: noun, draft: true }  # Enkelin
+      - { id: lx0950, pos: noun, draft: true }  # Enkelkind
+      - { id: lx0951, pos: noun, draft: true }  # Familienmitglied
+      - { id: lx0952, pos: noun, draft: true }  # Freundschaft
+      - { id: lx0953, pos: noun, draft: true }  # Gastgeber
+      - { id: lx0954, pos: noun, draft: true }  # Geburt
+      - { id: lx0955, pos: noun, draft: true }  # Kontakt
+      - { id: lx0956, pos: noun, draft: true }  # Lebensgeschichte
+      - { id: lx0957, pos: noun, draft: true }  # Mitbewohner
+      - { id: lx0958, pos: noun, draft: true }  # Mitglied
+      - { id: lx0959, pos: noun, draft: true }  # Nachbarin
+      - { id: lx0960, pos: noun, draft: true }  # Partnerin
+      - { id: lx0961, pos: noun, draft: true }  # Partnerschaft
+      - { id: lx0962, pos: noun, draft: true }  # Stiefmutter
+      - { id: lx0963, pos: noun, draft: true }  # Tod
+      - { id: lx0964, pos: noun, draft: true }  # Trennung
+      - { id: lx0965, pos: noun, draft: true }  # Verwandte
+      - { id: lx0966, pos: noun, draft: true }  # Verwandtschaft
+      - { id: lx0967, pos: adj, draft: true }  # erwachsen
+      - { id: lx0968, pos: adj, draft: true }  # getrennt
+      - { id: lx0969, pos: adj, draft: true }  # minderjährig
+      - { id: lx0970, pos: adj, draft: true }  # sozial
+      - { id: lx0971, pos: adj, draft: true }  # verwandt
+  b1:
+    concepts:
+      - { id: guardian_person, pos: noun, freq_rank: 5470 }
+      - { id: custody_noun, pos: noun, freq_rank: 5180 }
+      - { id: maintenance_payment, pos: noun, freq_rank: 4920 }
+      - { id: childbenefit_noun, pos: noun, freq_rank: 5340 }
+      - { id: parentalallowance_noun, pos: noun, freq_rank: 6210 }
+      - { id: parentalleave_noun, pos: noun, freq_rank: 5760 }
+      - { id: childcare_noun, pos: noun, freq_rank: 4630 }
+      - { id: childminder_person, pos: noun, freq_rank: 6480 }
+      - { id: adoption_noun, pos: noun, freq_rank: 5090 }
+      - { id: fosterfamily_noun, pos: noun, freq_rank: 6370 }
+      - { id: godparenthood_noun, pos: noun, freq_rank: 6940 }
+      - { id: inheritance_noun, pos: noun, freq_rank: 4280 }
+      - { id: will_noun, pos: noun, freq_rank: 4510 }
+      - { id: estate_noun, pos: noun, freq_rank: 5620 }
+      - { id: powerofattorney_noun, pos: noun, freq_rank: 5830 }
+      - { id: healthproxy_noun, pos: noun, freq_rank: 7150 }
+      - { id: registryoffice_place, pos: noun, freq_rank: 5960 }
+      - { id: marriageceremony_noun, pos: noun, freq_rank: 6040 }
+      - { id: birthcertificate_noun, pos: noun, freq_rank: 5710 }
+      - { id: deathcertificate_noun, pos: noun, freq_rank: 6530 }
+      - { id: familybook_object, pos: noun, freq_rank: 7290 }
+      - { id: kinshipdegree_noun, pos: noun, freq_rank: 7480 }
+      - { id: generation_noun, pos: noun, freq_rank: 3840 }
+      - { id: cohabitation_noun, pos: noun, freq_rank: 6180 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2387, pos: verb, draft: true }  # adoptieren
+      - { id: lx2388, pos: verb, draft: true }  # anvertrauen
+      - { id: lx2389, pos: verb, draft: true }  # aufteilen
+      - { id: lx2390, pos: verb, draft: true }  # aufziehen
+      - { id: lx2391, pos: verb, draft: true }  # begegnen
+      - { id: lx2392, pos: verb, draft: true }  # beistehen
+      - { id: lx2393, pos: verb, draft: true }  # großziehen
+      - { id: lx2394, pos: verb, draft: true }  # respektieren
+      - { id: lx2395, pos: verb, draft: true }  # sich kümmern
+      - { id: lx2396, pos: verb, draft: true }  # sich verlieben
+      - { id: lx2397, pos: verb, draft: true }  # sich verloben
+      - { id: lx2398, pos: verb, draft: true }  # vergeben
+      - { id: lx2399, pos: verb, draft: true }  # verzeihen
+      - { id: lx2400, pos: verb, draft: true }  # verzichten
+      - { id: lx2401, pos: noun, draft: true }  # Abstammung
+      - { id: lx2402, pos: noun, draft: true }  # Angehörige
+      - { id: lx2403, pos: noun, draft: true }  # Bekanntenkreis
+      - { id: lx2404, pos: noun, draft: true }  # Distanz
+      - { id: lx2405, pos: noun, draft: true }  # Familienleben
+      - { id: lx2406, pos: noun, draft: true }  # Freundeskreis
+      - { id: lx2407, pos: noun, draft: true }  # Generationenkonflikt
+      - { id: lx2408, pos: noun, draft: true }  # Herkunft
+      - { id: lx2409, pos: noun, draft: true }  # Identität
+      - { id: lx2410, pos: noun, draft: true }  # Lebenspartner
+      - { id: lx2411, pos: noun, draft: true }  # Lebensphase
+      - { id: lx2412, pos: noun, draft: true }  # Lebensplanung
+      - { id: lx2413, pos: noun, draft: true }  # Miteinander
+      - { id: lx2414, pos: noun, draft: true }  # Nachwuchs
+      - { id: lx2415, pos: noun, draft: true }  # Pflege
+      - { id: lx2416, pos: noun, draft: true }  # Schwangerschaft
+      - { id: lx2417, pos: noun, draft: true }  # Umgang
+      - { id: lx2418, pos: noun, draft: true }  # Unterstützung
+      - { id: lx2419, pos: noun, draft: true }  # Verbundenheit
+      - { id: lx2420, pos: noun, draft: true }  # Verhalten
+      - { id: lx2421, pos: noun, draft: true }  # Verhältnis
+      - { id: lx2422, pos: noun, draft: true }  # Vertrauen
+      - { id: lx2423, pos: noun, draft: true }  # Vorbild
+      - { id: lx2424, pos: noun, draft: true }  # Wiedersehen
+      - { id: lx2425, pos: noun, draft: true }  # Zugehörigkeit
+      - { id: lx2426, pos: noun, draft: true }  # Zuneigung
+      - { id: lx2427, pos: noun, draft: true }  # Zusammenhalt
+      - { id: lx2428, pos: adj, draft: true }  # alleinerziehend
+      - { id: lx2429, pos: adj, draft: true }  # familiär
+      - { id: lx2430, pos: adj, draft: true }  # fürsorglich
+      - { id: lx2431, pos: adj, draft: true }  # gesellig
+      - { id: lx2432, pos: adj, draft: true }  # gleichberechtigt
+      - { id: lx2433, pos: adj, draft: true }  # kinderlos
+      - { id: lx2434, pos: adj, draft: true }  # schwanger
+      - { id: lx2435, pos: adj, draft: true }  # solidarisch
+      - { id: lx2436, pos: adj, draft: true }  # vertraut
+  b2:
+    concepts:
+      - { id: prenup_noun, pos: noun, freq_rank: 7140 }
+      - { id: separationofproperty_noun, pos: noun, freq_rank: 8020 }
+      - { id: communityofaccrued_noun, pos: noun, freq_rank: 8340 }
+      - { id: pensionequalisation_noun, pos: noun, freq_rank: 8160 }
+      - { id: maintenanceobligation_noun, pos: noun, freq_rank: 7280 }
+      - { id: maintenancetitle_noun, pos: noun, freq_rank: 8410 }
+      - { id: custodydispute_noun, pos: noun, freq_rank: 7630 }
+      - { id: accessright_noun, pos: noun, freq_rank: 7050 }
+      - { id: childwelfare_noun, pos: noun, freq_rank: 6820 }
+      - { id: youthoffice_place, pos: noun, freq_rank: 6240 }
+      - { id: familycourt_place, pos: noun, freq_rank: 6570 }
+      - { id: succession_noun, pos: noun, freq_rank: 7190 }
+      - { id: compulsoryshare_noun, pos: noun, freq_rank: 7460 }
+      - { id: inheritancetax_noun, pos: noun, freq_rank: 6910 }
+      - { id: bequest_noun, pos: noun, freq_rank: 7350 }
+      - { id: estateadministration_noun, pos: noun, freq_rank: 8080 }
+      - { id: guardianshiplaw_noun, pos: noun, freq_rank: 7720 }
+      - { id: livingwill_noun, pos: noun, freq_rank: 6480 }
+      - { id: generationalcontract_noun, pos: noun, freq_rank: 7840 }
+      - { id: pensionclaim_noun, pos: noun, freq_rank: 6360 }
+      - { id: survivorspension_noun, pos: noun, freq_rank: 7510 }
+      - { id: familyreunion_noun, pos: noun, freq_rank: 6740 }
+      - { id: residencepermit_noun, pos: noun, freq_rank: 5920 }
+      - { id: naturalisation_noun, pos: noun, freq_rank: 6580 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4221, pos: verb, draft: true }  # ausgrenzen
+      - { id: lx4222, pos: verb, draft: true }  # benachteiligen
+      - { id: lx4223, pos: verb, draft: true }  # bevormunden
+      - { id: lx4224, pos: verb, draft: true }  # bevorzugen
+      - { id: lx4225, pos: verb, draft: true }  # entfremden
+      - { id: lx4226, pos: verb, draft: true }  # integrieren
+      - { id: lx4227, pos: verb, draft: true }  # sich auseinanderleben
+      - { id: lx4228, pos: verb, draft: true }  # unterhalten
+      - { id: lx4229, pos: verb, draft: true }  # wertschätzen
+      - { id: lx4230, pos: verb, draft: true }  # zurückstellen
+      - { id: lx4231, pos: noun, draft: true }  # Anerkennung
+      - { id: lx4232, pos: noun, draft: true }  # Anteilnahme
+      - { id: lx4233, pos: noun, draft: true }  # Ausgrenzung
+      - { id: lx4234, pos: noun, draft: true }  # Bevormundung
+      - { id: lx4235, pos: noun, draft: true }  # Bezugsperson
+      - { id: lx4236, pos: noun, draft: true }  # Bindung
+      - { id: lx4237, pos: noun, draft: true }  # Eigenständigkeit
+      - { id: lx4238, pos: noun, draft: true }  # Eingliederung
+      - { id: lx4239, pos: noun, draft: true }  # Elternschaft
+      - { id: lx4240, pos: noun, draft: true }  # Erziehungsstil
+      - { id: lx4241, pos: noun, draft: true }  # Familiengründung
+      - { id: lx4242, pos: noun, draft: true }  # Fürsorge
+      - { id: lx4243, pos: noun, draft: true }  # Großfamilie
+      - { id: lx4244, pos: noun, draft: true }  # Interessenkonflikt
+      - { id: lx4245, pos: noun, draft: true }  # Kernfamilie
+      - { id: lx4246, pos: noun, draft: true }  # Lebensentwurf
+      - { id: lx4247, pos: noun, draft: true }  # Lebensgefährte
+      - { id: lx4248, pos: noun, draft: true }  # Patchworkfamilie
+      - { id: lx4249, pos: noun, draft: true }  # Rollenverteilung
+      - { id: lx4250, pos: noun, draft: true }  # Rollenwechsel
+      - { id: lx4251, pos: noun, draft: true }  # Selbstständigkeit
+      - { id: lx4252, pos: noun, draft: true }  # Umgangston
+      - { id: lx4253, pos: noun, draft: true }  # Vereinbarkeit
+      - { id: lx4254, pos: noun, draft: true }  # Wertschätzung
+      - { id: lx4255, pos: noun, draft: true }  # Zugehörigkeitsgefühl
+      - { id: lx4256, pos: adj, draft: true }  # fürsorgebedürftig
+      - { id: lx4257, pos: adj, draft: true }  # generationsübergreifend
+      - { id: lx4258, pos: adj, draft: true }  # konfliktfähig
+      - { id: lx4259, pos: adj, draft: true }  # partnerschaftlich
+      - { id: lx4260, pos: adj, draft: true }  # pflegebedürftig
+      - { id: lx4261, pos: adj, draft: true }  # schutzbedürftig
+      - { id: lx4262, pos: adj, draft: true }  # selbstbestimmt
+      - { id: lx4263, pos: adj, draft: true }  # vertraulich
+      - { id: lx4264, pos: adj, draft: true }  # zwischenmenschlich

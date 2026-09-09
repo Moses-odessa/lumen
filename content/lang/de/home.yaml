@@ -1,0 +1,1341 @@
+# Немецкие лексемы созвездия «Дом и повседневный быт».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  house_place:
+    form: Haus
+    article: das
+    gender: n
+    plural: Häuser
+    distractors:
+      far: [Wohnung, Garten]
+      near: [Maus, Hals, Hase]
+  door_object:
+    form: Tür
+    article: die
+    gender: f
+    plural: Türen
+    distractors:
+      far: [Wand, Treppe]
+      near: [Turm, Tier, Tor]
+  window_object:
+    form: Fenster
+    article: das
+    gender: n
+    plural: Fenster
+    distractors:
+      far: [Balkon, Vorhang]
+      near: [Fenchel, Fechter, Fänger]
+  table_object:
+    form: Tisch
+    article: der
+    gender: m
+    plural: Tische
+    distractors:
+      far: [Schrank, Regal]
+      near: [Tasche, Tusche, Teich]
+  chair_object:
+    form: Stuhl
+    article: der
+    gender: m
+    plural: Stühle
+    distractors:
+      far: [Schrank, Bank]
+      near: [Stahl, Stall, Strudel]
+  bed_object:
+    form: Bett
+    article: das
+    gender: n
+    plural: Betten
+    distractors:
+      far: [Decke, Kissen]
+      near: [Brett, Blatt, Bad]
+  kitchen_room:
+    form: Küche
+    article: die
+    gender: f
+    plural: Küchen
+    distractors:
+      far: [Bad, Flur]
+      near: [Kuchen, Kirche, Küken]
+  room_place:
+    form: Zimmer
+    article: das
+    gender: n
+    plural: Zimmer
+    distractors:
+      far: [Wohnung, Keller]
+      near: [Zimt, Kummer, nimmer]
+  key_object:
+    form: Schlüssel
+    article: der
+    gender: m
+    plural: Schlüssel
+    distractors:
+      far: [Schloss, Klingel]
+      near: [Schüssel, Schlüpfer, Schlucht]
+  rent_noun:
+    form: Miete
+    article: die
+    gender: f
+    plural: Mieten
+    distractors:
+      far: [Kaution, Nebenkosten]
+      near: [Mitte, Miene, Mühe]
+  neighbour_person:
+    form: Nachbar
+    article: der
+    gender: m
+    plural: Nachbarn
+    distractors:
+      far: [Vermieter, Hausmeister]
+      near: [Nachbild, Nachfrage, Nachname]
+  light_object:
+    form: Licht
+    article: das
+    gender: n
+    plural: Lichter
+    distractors:
+      far: [Lampe, Kerze]
+      near: [Schicht, Gicht, Pflicht]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  flat_place:
+    form: Wohnung
+    article: die
+    gender: f
+    plural: Wohnungen
+    distractors:
+      far: [Haus, Villa]
+      near: [Wohnwagen, Warnung, Wendung]
+  floor_object:
+    form: Boden
+    article: der
+    gender: m
+    plural: Böden
+    distractors:
+      far: [Decke, Teppich]
+      near: [Bogen, Boot, Bote]
+  wall_object:
+    form: Wand
+    article: die
+    gender: f
+    plural: Wände
+    distractors:
+      far: [Zaun, Säule]
+      near: [Band, Hand, Rand]
+  roof_object:
+    form: Dach
+    article: das
+    gender: n
+    plural: Dächer
+    distractors:
+      far: [Balkon, Schornstein]
+      near: [Fach, Bach, Dachs]
+  garden_place:
+    form: Garten
+    article: der
+    gender: m
+    plural: Gärten
+    distractors:
+      far: [Hof, Terrasse]
+      near: [Karten, Warten, Garde]
+  cellar_place:
+    form: Keller
+    article: der
+    gender: m
+    plural: Keller
+    distractors:
+      far: [Dachboden, Abstellraum]
+      near: [Teller, Heller, Kelle]
+  stairs_object:
+    form: Treppe
+    article: die
+    gender: f
+    plural: Treppen
+    distractors:
+      far: [Aufzug, Rampe]
+      near: [Krepp, Krippe, Truppe]
+  bathroom_room:
+    form: Badezimmer
+    article: das
+    gender: n
+    plural: Badezimmer
+    distractors:
+      far: [Toilette, Flur]
+      near: [Badewanne, Kinderzimmer, Badeanzug]
+  shower_object:
+    form: Dusche
+    article: die
+    gender: f
+    plural: Duschen
+    distractors:
+      far: [Wanne, Waschbecken]
+      near: [Tusche, Buche, Dusel]
+  wardrobe_object:
+    form: Schrank
+    article: der
+    gender: m
+    plural: Schränke
+    distractors:
+      far: [Kommode, Truhe]
+      near: [Schranke, Strang, Schwank]
+  lamp_object:
+    form: Lampe
+    article: die
+    gender: f
+    plural: Lampen
+    distractors:
+      far: [Kerze, Leuchter]
+      near: [Rampe, Klampe, Lanze]
+  heating_object:
+    form: Heizung
+    article: die
+    gender: f
+    plural: Heizungen
+    distractors:
+      far: [Klimaanlage, Ofen]
+      near: [Heilung, Reizung, Zeitung]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  landlord_person:
+    form: Vermieter
+    article: der
+    gender: m
+    plural: Vermieter
+    distractors: { far: [Makler, Eigentümer], near: [Vermittler, Verwalter, Vermerk] }
+  lease_noun:
+    form: Mietvertrag
+    article: der
+    gender: m
+    plural: Mietverträge
+    distractors: { far: [Kündigung, Übergabe], near: [Kaufvertrag, Mietwagen, Mietrecht] }
+  deposit_noun:
+    form: Kaution
+    article: die
+    gender: f
+    plural: Kautionen
+    distractors: { far: [Provision, Ablöse], near: [Aktion, Auktion, Portion] }
+  utilities_noun:
+    form: Nebenkosten
+    article: die
+    plural: Nebenkosten
+    note: только множественное
+    distractors: { far: [Kaltmiete, Warmmiete], near: [Nebensache, Reisekosten, Nebenraum] }
+  caretaker_person:
+    form: Hausmeister
+    article: der
+    gender: m
+    plural: Hausmeister
+    distractors: { far: [Handwerker, Verwalter], near: [Hausmeisterei, Bürgermeister, Hausmädchen] }
+  houserules_noun:
+    form: Hausordnung
+    article: die
+    gender: f
+    plural: Hausordnungen
+    distractors: { far: [Mietrecht, Satzung], near: [Hausnummer, Anordnung, Haushaltung] }
+  balcony_place:
+    form: Balkon
+    article: der
+    gender: m
+    plural: Balkone
+    distractors: { far: [Loggia, Wintergarten], near: [Ballon, Baldachin, Balken] }
+  terrace_place:
+    form: Terrasse
+    article: die
+    gender: f
+    plural: Terrassen
+    distractors: { far: [Veranda, Innenhof], near: [Karosse, Terrine, Presse] }
+  furniture_noun:
+    form: Möbel
+    article: die
+    plural: Möbel
+    note: только множественное
+    distractors: { far: [Tapete, Hausrat], near: [Nebel, Möwe, Mörtel] }
+  sofa_object:
+    form: Sofa
+    article: das
+    gender: n
+    plural: Sofas
+    distractors: { far: [Sessel, Bank], near: [Sole, Soda, Sofakissen] }
+  carpet_object:
+    form: Teppich
+    article: der
+    gender: m
+    plural: Teppiche
+    distractors: { far: [Fliese, Matte], near: [Teppichboden, Tempel, Teich] }
+  curtain_object:
+    form: Vorhang
+    article: der
+    gender: m
+    plural: Vorhänge
+    distractors: { far: [Jalousie, Rollo], near: [Vorgang, Anhang, Vorhaben] }
+  mirror_object:
+    form: Spiegel
+    article: der
+    gender: m
+    plural: Spiegel
+    distractors: { far: [Bild, Rahmen], near: [Spiegelei, Siegel, Ziegel] }
+  shelf_object:
+    form: Regal
+    article: das
+    gender: n
+    plural: Regale
+    distractors: { far: [Vitrine, Truhe], near: [Regel, Riegel, Regatta] }
+  washing_machine:
+    form: Waschmaschine
+    article: die
+    gender: f
+    plural: Waschmaschinen
+    distractors: { far: [Trockner, Spülmaschine], near: [Waschbecken, Nähmaschine, Waschküche] }
+  fridge_object:
+    form: Kühlschrank
+    article: der
+    gender: m
+    plural: Kühlschränke
+    distractors: { far: [Gefriertruhe, Speisekammer], near: [Kühlbox, Kleiderschrank, Kühlturm] }
+  stove_object:
+    form: Herd
+    article: der
+    gender: m
+    plural: Herde
+    distractors: { far: [Grill, Mikrowelle], near: [Hemd, Pferd, Heft] }
+  oven_object:
+    form: Backofen
+    article: der
+    gender: m
+    plural: Backöfen
+    distractors: { far: [Dampfgarer, Toaster], near: [Backblech, Backstube, Backstein] }
+  socket_object:
+    form: Steckdose
+    article: die
+    gender: f
+    plural: Steckdosen
+    distractors: { far: [Schalter, Kabel], near: [Steckbrief, Blechdose, Stecknadel] }
+  electricity_noun:
+    form: Strom
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Gas, Heizöl], near: [Sturm, Stroh, Strang] }
+  tap_object:
+    form: Wasserhahn
+    article: der
+    gender: m
+    plural: Wasserhähne
+    distractors: { far: [Abfluss, Siphon], near: [Wasserrohr, Wetterhahn, Wasserhose] }
+  rubbish_noun:
+    form: Müll
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Kompost, Schrott], near: [Mühle, "Null", Müsli] }
+  bin_object:
+    form: Mülltonne
+    article: die
+    gender: f
+    plural: Mülltonnen
+    distractors: { far: [Container, Eimer], near: [Mülltrennung, Regentonne, Mülltüte] }
+  move_noun:
+    form: Umzug
+    article: der
+    gender: m
+    plural: Umzüge
+    distractors: { far: [Renovierung, Besichtigung], near: [Anzug, Auszug, Bezug] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  tenancylaw_noun:
+    form: Mietrecht
+    article: das
+    gender: n
+    plural: Mietrechte
+    distractors: { far: [Wohnrecht, Baurecht], near: [Mietvertrag, Bergrecht, Mitspracherecht] }
+  noticeperiod_noun:
+    form: Kündigungsfrist
+    article: die
+    gender: f
+    plural: Kündigungsfristen
+    distractors: { far: [Sperrfrist, Räumungsfrist], near: [Kündigungsschutz, Bewerbungsfrist, Kündigungsgrund] }
+  sublet_noun:
+    form: Untermiete
+    article: die
+    gender: f
+    plural: Untermieten
+    distractors: { far: [Staffelmiete, Kaltmiete], near: [Untermieter, Unterlage, Unterschrift] }
+  rentincrease_noun:
+    form: Mieterhöhung
+    article: die
+    gender: f
+    plural: Mieterhöhungen
+    distractors: { far: [Mietminderung, Indexmiete], near: [Preiserhöhung, Mietkaution, Mieterverein] }
+  utilitiesbill_noun:
+    form: Nebenkostenabrechnung
+    article: die
+    gender: f
+    plural: Nebenkostenabrechnungen
+    distractors: { far: [Jahresrechnung, Zahlungsplan], near: [Nebenkostenvorschuss, Lohnabrechnung, Nebenberuf] }
+  livingspace_noun:
+    form: Wohnfläche
+    article: die
+    gender: f
+    plural: Wohnflächen
+    distractors: { far: [Grundstück, Nutzfläche], near: [Wohnlage, Wasserfläche, Wohnküche] }
+  floorplan_object:
+    form: Grundriss
+    article: der
+    gender: m
+    plural: Grundrisse
+    distractors: { far: [Bauzeichnung, Lageplan], near: [Grundstück, Abriss, Grundsatz] }
+  groundfloor_place:
+    form: Erdgeschoss
+    article: das
+    gender: n
+    plural: Erdgeschosse
+    distractors: { far: [Obergeschoss, Souterrain], near: [Erdgas, Zwischengeschoss, Erdbeben] }
+  atticfloor_place:
+    form: Dachgeschoss
+    article: das
+    gender: n
+    plural: Dachgeschosse
+    distractors: { far: [Untergeschoss, Treppenhaus], near: [Dachfenster, Erdgeschoss, Dachrinne] }
+  renovation_noun:
+    form: Renovierung
+    article: die
+    gender: f
+    plural: Renovierungen
+    distractors: { far: [Umbau, Ausbau], near: [Reservierung, Renaturierung, Rasierung] }
+  refurbishment_noun:
+    form: Sanierung
+    article: die
+    gender: f
+    plural: Sanierungen
+    distractors: { far: [Umbau, Instandsetzung], near: [Sortierung, Rasierung, Sanierungsplan] }
+  mould_noun:
+    form: Schimmel
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Rost, Nässe], near: [Schimmer, Himmel, Schemel] }
+  damp_noun:
+    form: Feuchtigkeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Zugluft, Kondenswasser], near: [Fruchtbarkeit, Feuchtgebiet, Flüchtigkeit] }
+  tradesman_person:
+    form: Handwerker
+    article: der
+    gender: m
+    plural: Handwerker
+    distractors: { far: [Architekt, Bauleiter], near: [Handtuch, Handschuh, Handelsware] }
+  repair_noun:
+    form: Reparatur
+    article: die
+    gender: f
+    plural: Reparaturen
+    distractors: { far: [Wartung, Austausch], near: [Rasur, Reparaturkosten, Präparat] }
+  defect_noun:
+    form: Mangel
+    article: der
+    gender: m
+    plural: Mängel
+    distractors: { far: [Schaden, Verschleiß], near: [Mandel, Mantel, Wandel] }
+  residentregistration_noun:
+    form: Anmeldung
+    article: die
+    gender: f
+    plural: Anmeldungen
+    distractors: { far: [Abmeldung, Ummeldung], near: [Anleitung, Anwendung, Anzahlung] }
+  registrationcertificate_noun:
+    form: Meldebescheinigung
+    article: die
+    gender: f
+    plural: Meldebescheinigungen
+    distractors: { far: [Ausweis, Wohnungsgeberbestätigung], near: [Meldebehörde, Arbeitsbescheinigung, Meldepflicht] }
+  contentsinsurance_noun:
+    form: Hausratversicherung
+    article: die
+    gender: f
+    plural: Hausratversicherungen
+    distractors: { far: [Haftpflicht, Gebäudeversicherung], near: [Haushaltshilfe, Rentenversicherung, Hausordnung] }
+  smokedetector_object:
+    form: Rauchmelder
+    article: der
+    gender: m
+    plural: Rauchmelder
+    distractors: { far: [Feuerlöscher, Sirene], near: [Rauchverbot, Bewegungsmelder, Rauchfang] }
+  energycertificate_noun:
+    form: Energieausweis
+    article: der
+    gender: m
+    plural: Energieausweise
+    distractors: { far: [Wartungsvertrag, Gutachten], near: [Energiekosten, Personalausweis, Energiebedarf] }
+  heatingcosts_noun:
+    form: Heizkosten
+    article: die
+    plural: Heizkosten
+    note: только множественное
+    distractors: { far: [Stromkosten, Wasserkosten], near: [Heizkörper, Reisekosten, Heizperiode] }
+  watermeter_object:
+    form: Wasserzähler
+    article: der
+    gender: m
+    plural: Wasserzähler
+    distractors: { far: [Stromzähler, Ableseprotokoll], near: [Wasserhahn, Wasserwaage, Wasserschaden] }
+  wastesorting_noun:
+    form: Mülltrennung
+    article: die
+    gender: f
+    plural: Mülltrennungen
+    distractors: { far: [Entsorgung, Recycling], near: [Mülltonne, Auftrennung, Müllabfuhr] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  rentindex_noun:
+    form: Mietspiegel
+    article: der
+    gender: m
+    plural: Mietspiegel
+    distractors: { far: [Vergleichsmiete, Marktbericht], near: [Mietvertrag, Rückspiegel, Mietschuld] }
+  modernisationlevy_noun:
+    form: Modernisierungsumlage
+    article: die
+    gender: f
+    plural: Modernisierungsumlagen
+    distractors: { far: [Instandsetzung, Sanierungskosten], near: [Modernisierungskosten, Betriebskostenumlage, Modernisierungsstau] }
+  maintenancereserve_noun:
+    form: Instandhaltungsrücklage
+    article: die
+    gender: f
+    plural: Instandhaltungsrücklagen
+    distractors: { far: [Sonderumlage, Hausgeld], near: [Instandhaltungskosten, Gewinnrücklage, Instandsetzung] }
+  condominium_noun:
+    form: Wohnungseigentum
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Mietwohnung, Erbbaurecht], near: [Wohnungsbau, Grundeigentum, Wohnungsamt] }
+  ownersassociation_noun:
+    form: Eigentümergemeinschaft
+    article: die
+    gender: f
+    plural: Eigentümergemeinschaften
+    distractors: { far: [Hausverwaltung, Mieterverein], near: [Eigentümerversammlung, Erbengemeinschaft, Eigentumswohnung] }
+  landregister_noun:
+    form: Grundbuch
+    article: das
+    gender: n
+    plural: Grundbücher
+    distractors: { far: [Kataster, Notarvertrag], near: [Grundbuchamt, Sparbuch, Grundstück] }
+  transfertax_noun:
+    form: Grunderwerbsteuer
+    article: die
+    gender: f
+    plural: Grunderwerbsteuern
+    distractors: { far: [Notarkosten, Maklergebühr], near: [Grundsteuer, Gewerbesteuer, Grunderwerb] }
+  mortgage_noun:
+    form: Hypothek
+    article: die
+    gender: f
+    plural: Hypotheken
+    distractors: { far: [Grundschuld, Bauspardarlehen], near: [Apotheke, Bibliothek, Hypothese] }
+  repayment_noun:
+    form: Tilgung
+    article: die
+    gender: f
+    plural: Tilgungen
+    distractors: { far: [Zinszahlung, Restschuld], near: [Tilgungsplan, Billigung, Teilung] }
+  fixedinterest_noun:
+    form: Zinsbindung
+    article: die
+    gender: f
+    plural: Zinsbindungen
+    distractors: { far: [Effektivzins, Anschlussfinanzierung], near: [Zinssatz, Preisbindung, Zinseszins] }
+  lendingvalue_noun:
+    form: Beleihungswert
+    article: der
+    gender: m
+    plural: Beleihungswerte
+    distractors: { far: [Verkehrswert, Kaufpreis], near: [Beleihungsgrenze, Beteiligungswert, Beleihungsobjekt] }
+  leasehold_noun:
+    form: Erbbaurecht
+    article: das
+    gender: n
+    plural: Erbbaurechte
+    distractors: { far: [Wohnrecht, Nießbrauch], near: [Erbbauzins, Baurecht, Erbrecht] }
+  evictionclaim_noun:
+    form: Räumungsklage
+    article: die
+    gender: f
+    plural: Räumungsklagen
+    distractors: { far: [Kündigung, Zwangsvollstreckung], near: [Räumungsfrist, Sammelklage, Räumungsverkauf] }
+  rentreduction_noun:
+    form: Mietminderung
+    article: die
+    gender: f
+    plural: Mietminderungen
+    distractors: { far: [Schadensersatz, Kündigungsrecht], near: [Mieterhöhung, Preisminderung, Mietkaution] }
+  defectnotice_noun:
+    form: Mängelanzeige
+    article: die
+    gender: f
+    plural: Mängelanzeigen
+    distractors: { far: [Schadensmeldung, Beschwerde], near: [Mängelexemplar, Kleinanzeige, Mängelhaftung] }
+  marketvalue_noun:
+    form: Verkehrswert
+    article: der
+    gender: m
+    plural: Verkehrswerte
+    distractors: { far: [Kaufpreis, Bodenrichtwert], near: [Verkehrszeichen, Mehrwert, Verkehrslage] }
+  buildingapplication_noun:
+    form: Bauantrag
+    article: der
+    gender: m
+    plural: Bauanträge
+    distractors: { far: [Baugenehmigung, Bauvoranfrage], near: [Bauamt, Auftrag, Bauabnahme] }
+  developmentplan_noun:
+    form: Bebauungsplan
+    article: der
+    gender: m
+    plural: Bebauungspläne
+    distractors: { far: [Baugenehmigung, Nutzungsart], near: [Bebauungsdichte, Bauplan, Beratungsstelle] }
+  heritageprotection_noun:
+    form: Denkmalschutz
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Bestandsschutz, Ensembleschutz], near: [Denkmalpflege, Brandschutz, Denkmalamt] }
+  insulation_noun:
+    form: Wärmedämmung
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Fassadenanstrich, Fensteraustausch], near: [Wärmepumpe, Schalldämmung, Wärmebrücke] }
+  efficiencyclass_noun:
+    form: Energieeffizienzklasse
+    article: die
+    gender: f
+    plural: Energieeffizienzklassen
+    distractors: { far: [Verbrauchskennwert, Primärenergiebedarf], near: [Energieeffizienz, Schadstoffklasse, Energieausweis] }
+  advancepayment_noun:
+    form: Nebenkostenvorauszahlung
+    article: die
+    gender: f
+    plural: Nebenkostenvorauszahlungen
+    distractors: { far: [Nachzahlung, Pauschale], near: [Nebenkostenabrechnung, Mietvorauszahlung, Nebenkostenpauschale] }
+  depositaccount_noun:
+    form: Kautionskonto
+    article: das
+    gender: n
+    plural: Kautionskonten
+    distractors: { far: [Treuhandkonto, Sparbuch], near: [Kautionsbürgschaft, Girokonto, Kautionshöhe] }
+  handoverprotocol_noun:
+    form: Übergabeprotokoll
+    article: das
+    gender: n
+    plural: Übergabeprotokolle
+    distractors: { far: [Wohnungsbesichtigung, Schlüsselübergabe], near: [Übergabetermin, Sitzungsprotokoll, Übergabestelle] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0144:
+    form: aufstehen
+  lx0145:
+    form: duschen
+  lx0146:
+    form: schlafen
+  lx0147:
+    form: Bad
+    article: das
+    gender: n
+  lx0148:
+    form: Toilette
+    article: die
+    gender: f
+  lx0149:
+    form: sauber
+  lx0150:
+    form: schmutzig
+  lx0482:
+    form: abwaschen
+  lx0483:
+    form: aufräumen
+  lx0484:
+    form: aufwachen
+  lx0485:
+    form: einschlafen
+  lx0486:
+    form: reinigen
+  lx0487:
+    form: spülen
+  lx0488:
+    form: trocknen
+  lx0489:
+    form: Badewanne
+    article: die
+    gender: f
+  lx0490:
+    form: Decke
+    article: die
+    gender: f
+  lx0491:
+    form: Eimer
+    article: der
+    gender: m
+  lx0492:
+    form: Flur
+    article: der
+    gender: m
+  lx0493:
+    form: Geschirr
+    article: das
+    gender: n
+  lx0494:
+    form: Handtuch
+    article: das
+    gender: n
+  lx0495:
+    form: Kinderzimmer
+    article: das
+    gender: n
+  lx0496:
+    form: Kissen
+    article: das
+    gender: n
+  lx0497:
+    form: Klingel
+    article: die
+    gender: f
+  lx0498:
+    form: Ofen
+    article: der
+    gender: m
+  lx0499:
+    form: Schlafzimmer
+    article: das
+    gender: n
+  lx0500:
+    form: Spülmaschine
+    article: die
+    gender: f
+  lx0501:
+    form: Waschbecken
+    article: das
+    gender: n
+  lx0502:
+    form: Wohnzimmer
+    article: das
+    gender: n
+  lx0503:
+    form: dunkel
+  lx0504:
+    form: gemütlich
+  lx0505:
+    form: hell
+  lx0506:
+    form: ungemütlich
+  lx0507:
+    form: daheim
+  lx0508:
+    form: zuhause
+  lx1171:
+    form: abhängen
+  lx1172:
+    form: abschließen
+  lx1173:
+    form: anmachen
+  lx1174:
+    form: aufhängen
+  lx1175:
+    form: aufschließen
+  lx1176:
+    form: auftauen
+  lx1177:
+    form: ausleeren
+  lx1178:
+    form: ausmachen
+  lx1179:
+    form: ausräumen
+  lx1180:
+    form: ausschalten
+  lx1181:
+    form: bügeln
+  lx1182:
+    form: einfrieren
+  lx1183:
+    form: einräumen
+  lx1184:
+    form: einschalten
+  lx1185:
+    form: falten
+  lx1186:
+    form: fegen
+  lx1187:
+    form: heizen
+  lx1188:
+    form: läuten
+  lx1189:
+    form: lüften
+  lx1190:
+    form: reparieren
+  lx1191:
+    form: staubsaugen
+  lx1192:
+    form: wischen
+  lx1193:
+    form: zusammenlegen
+  lx1194:
+    form: Abfluss
+    article: der
+    gender: m
+  lx1195:
+    form: Arbeitsplatte
+    article: die
+    gender: f
+  lx1196:
+    form: Besen
+    article: der
+    gender: m
+  lx1197:
+    form: Bettlaken
+    article: das
+    gender: n
+  lx1198:
+    form: Bettwäsche
+    article: die
+    gender: f
+  lx1199:
+    form: Bügelbrett
+    article: das
+    gender: n
+  lx1200:
+    form: Bügeleisen
+    article: das
+    gender: n
+  lx1201:
+    form: Einkaufsliste
+    article: die
+    gender: f
+  lx1202:
+    form: Fensterbank
+    article: die
+    gender: f
+  lx1203:
+    form: Fernbedienung
+    article: die
+    gender: f
+  lx1204:
+    form: Fußmatte
+    article: die
+    gender: f
+  lx1205:
+    form: Gardine
+    article: die
+    gender: f
+  lx1206:
+    form: Gefrierschrank
+    article: der
+    gender: m
+  lx1207:
+    form: Glühbirne
+    article: die
+    gender: f
+  lx1208:
+    form: Haushaltsgerät
+    article: das
+    gender: n
+  lx1209:
+    form: Hocker
+    article: der
+    gender: m
+  lx1210:
+    form: Kleiderschrank
+    article: der
+    gender: m
+  lx1211:
+    form: Kommode
+    article: die
+    gender: f
+  lx1212:
+    form: Lappen
+    article: der
+    gender: m
+  lx1213:
+    form: Matratze
+    article: die
+    gender: f
+  lx1214:
+    form: Möbelstück
+    article: das
+    gender: n
+  lx1215:
+    form: Mülleimer
+    article: der
+    gender: m
+  lx1216:
+    form: Nachttisch
+    article: der
+    gender: m
+  # Замок двери и замок-здание различать контекстом; артикль одинаков.
+  lx1217:
+    form: Schloss
+    article: das
+    gender: n
+  lx1218:
+    form: Schreibtisch
+    article: der
+    gender: m
+  lx1219:
+    form: Schublade
+    article: die
+    gender: f
+  lx1220:
+    form: Schwamm
+    article: der
+    gender: m
+  lx1221:
+    form: Seife
+    article: die
+    gender: f
+  lx1222:
+    form: Sessel
+    article: der
+    gender: m
+  lx1223:
+    form: Spülmittel
+    article: das
+    gender: n
+  lx1224:
+    form: Staub
+    article: der
+    gender: m
+  lx1225:
+    form: Staubsauger
+    article: der
+    gender: m
+  lx1226:
+    form: Stufe
+    article: die
+    gender: f
+  lx1227:
+    form: Tischdecke
+    article: die
+    gender: f
+  lx1228:
+    form: Wäsche
+    article: die
+    gender: f
+  lx1229:
+    form: Wäscheständer
+    article: der
+    gender: m
+  lx1230:
+    form: Waschmittel
+    article: das
+    gender: n
+  lx1231:
+    form: Werkzeug
+    article: das
+    gender: n
+  lx1232:
+    form: Zahnbürste
+    article: die
+    gender: f
+  lx1233:
+    form: Zahnpasta
+    article: die
+    gender: f
+  lx1234:
+    form: bequem
+  lx1235:
+    form: geräumig
+  lx1236:
+    form: hart
+  lx1237:
+    form: kaputt
+  lx1238:
+    form: nass
+  lx1239:
+    form: ordentlich
+  lx1240:
+    form: staubig
+  lx1241:
+    form: trocken
+  lx1242:
+    form: unbequem
+  lx1243:
+    form: unordentlich
+  lx1244:
+    form: weich
+  lx2638:
+    form: abbauen
+  lx2639:
+    form: abstauben
+  lx2640:
+    form: anschrauben
+  lx2641:
+    form: aufbewahren
+  lx2642:
+    form: auftanken
+  lx2643:
+    form: ausbauen
+  lx2644:
+    form: ausbessern
+  lx2645:
+    form: ausmisten
+  lx2646:
+    form: auswechseln
+  lx2647:
+    form: befestigen
+  lx2648:
+    form: bohren
+  lx2649:
+    form: einbauen
+  lx2650:
+    form: entkalken
+  lx2651:
+    form: ersetzen
+  lx2652:
+    form: lagern
+  lx2653:
+    form: montieren
+  lx2654:
+    form: nageln
+  lx2655:
+    form: polieren
+  lx2656:
+    form: säubern
+  lx2657:
+    form: schrubben
+  lx2658:
+    form: stapeln
+  lx2659:
+    form: streichen
+  lx2660:
+    form: tapezieren
+  lx2661:
+    form: Aufgabenverteilung
+    article: die
+    gender: f
+  lx2662:
+    form: Bedienungsanleitung
+    article: die
+    gender: f
+  lx2663:
+    form: Beleuchtung
+    article: die
+    gender: f
+  lx2664:
+    form: Boiler
+    article: der
+    gender: m
+  lx2665:
+    form: Dämmung
+    article: die
+    gender: f
+  lx2666:
+    form: Desinfektionsmittel
+    article: das
+    gender: n
+  lx2667:
+    form: Dunstabzug
+    article: der
+    gender: m
+  lx2668:
+    form: Durchlauferhitzer
+    article: der
+    gender: m
+  lx2669:
+    form: Einfamilienhaus
+    article: das
+    gender: n
+  lx2670:
+    form: Entsorgung
+    article: die
+    gender: f
+  lx2671:
+    form: Feuerlöscher
+    article: der
+    gender: m
+  lx2672:
+    form: Fleck
+    article: der
+    gender: m
+  lx2673:
+    form: Gebrauchsanweisung
+    article: die
+    gender: f
+  lx2674:
+    form: Hausarbeit
+    article: die
+    gender: f
+  lx2675:
+    form: Hausputz
+    article: der
+    gender: m
+  lx2676:
+    form: Isolierung
+    article: die
+    gender: f
+  lx2677:
+    form: Kalk
+    article: der
+    gender: m
+  lx2678:
+    form: Kurzschluss
+    article: der
+    gender: m
+  lx2679:
+    form: Lüftung
+    article: die
+    gender: f
+  lx2680:
+    form: Mehrfamilienhaus
+    article: das
+    gender: n
+  lx2681:
+    form: Mixer
+    article: der
+    gender: m
+  lx2682:
+    form: Putzplan
+    article: der
+    gender: m
+  lx2683:
+    form: Reihenhaus
+    article: das
+    gender: n
+  lx2684:
+    form: Reinigung
+    article: die
+    gender: f
+  lx2685:
+    form: Reinigungsmittel
+    article: das
+    gender: n
+  lx2686:
+    form: Rost
+    article: der
+    gender: m
+  lx2687:
+    form: Sauberkeit
+    article: die
+    gender: f
+  lx2688:
+    form: Sicherungskasten
+    article: der
+    gender: m
+  lx2689:
+    form: Sonnenschutz
+    article: der
+    gender: m
+  lx2690:
+    form: Stromausfall
+    article: der
+    gender: m
+  lx2691:
+    form: Toaster
+    article: der
+    gender: m
+  lx2692:
+    form: Unordnung
+    article: die
+    gender: f
+  lx2693:
+    form: Verlängerungskabel
+    article: das
+    gender: n
+  lx2694:
+    form: Wasserkocher
+    article: der
+    gender: m
+  lx2695:
+    form: Wasserschaden
+    article: der
+    gender: m
+  lx2696:
+    form: Zeitschaltuhr
+    article: die
+    gender: f
+  lx2697:
+    form: energiesparend
+  lx2698:
+    form: hygienisch
+  lx2699:
+    form: langlebig
+  lx2700:
+    form: pflegeleicht
+  lx2701:
+    form: platzsparend
+  lx2702:
+    form: rutschfest
+  lx2703:
+    form: stromsparend
+  lx2704:
+    form: wasserdicht
+  lx2705:
+    form: wasserfest
+  lx4461:
+    form: abdichten
+  lx4462:
+    form: abdunkeln
+  lx4463:
+    form: anschließen
+  lx4464:
+    form: ausstatten
+  lx4465:
+    form: belüften
+  lx4466:
+    form: dämmen
+  lx4467:
+    form: entriegeln
+  lx4468:
+    form: freiräumen
+  lx4469:
+    form: isolieren
+  lx4470:
+    form: umgestalten
+  lx4471:
+    form: verdunkeln
+  lx4472:
+    form: verriegeln
+  lx4473:
+    form: verstellen
+  lx4474:
+    form: verstopfen
+  lx4475:
+    form: Abnutzung
+    article: die
+    gender: f
+  lx4476:
+    form: Abwasser
+    article: das
+    gender: n
+  lx4477:
+    form: Altbau
+    article: der
+    gender: m
+  lx4478:
+    form: Aufbewahrung
+    article: die
+    gender: f
+  lx4479:
+    form: Ausbau
+    article: der
+    gender: m
+  lx4480:
+    form: Barrierefreiheit
+    article: die
+    gender: f
+  lx4481:
+    form: Brandschutz
+    article: der
+    gender: m
+  lx4482:
+    form: Durchzug
+    article: der
+    gender: m
+  lx4483:
+    form: Fußbodenheizung
+    article: die
+    gender: f
+  lx4484:
+    form: Innenausstattung
+    article: die
+    gender: f
+  lx4485:
+    form: Instandhaltung
+    article: die
+    gender: f
+  lx4486:
+    form: Instandsetzung
+    article: die
+    gender: f
+  lx4487:
+    form: Laminat
+    article: das
+    gender: n
+  lx4488:
+    form: Luftfeuchtigkeit
+    article: die
+    gender: f
+  lx4489:
+    form: Modernisierung
+    article: die
+    gender: f
+  lx4490:
+    form: Neubau
+    article: der
+    gender: m
+  lx4491:
+    form: Nutzfläche
+    article: die
+    gender: f
+  lx4492:
+    form: Parkett
+    article: das
+    gender: n
+  lx4493:
+    form: Raumluft
+    article: die
+    gender: f
+  lx4494:
+    form: Raumtemperatur
+    article: die
+    gender: f
+  lx4495:
+    form: Schallschutz
+    article: der
+    gender: m
+  lx4496:
+    form: Schimmelbildung
+    article: die
+    gender: f
+  lx4497:
+    form: Stauraum
+    article: der
+    gender: m
+  lx4498:
+    form: Umbau
+    article: der
+    gender: m
+  lx4499:
+    form: Wärmepumpe
+    article: die
+    gender: f
+  lx4500:
+    form: Wärmeverlust
+    article: der
+    gender: m
+  lx4501:
+    form: Wohnkomfort
+    article: der
+    gender: m
+  lx4502:
+    form: Wohnqualität
+    article: die
+    gender: f
+  lx4503:
+    form: Zählerstand
+    article: der
+    gender: m
+  lx4504:
+    form: Zentralheizung
+    article: die
+    gender: f
+  lx4505:
+    form: altersgerecht
+  lx4506:
+    form: barrierefrei
+  lx4507:
+    form: bewohnbar
+  lx4508:
+    form: bezugsfertig
+  lx4509:
+    form: kindersicher
+  lx4510:
+    form: renovierungsbedürftig
+  lx4511:
+    form: reparaturbedürftig
+  lx4512:
+    form: unbewohnbar

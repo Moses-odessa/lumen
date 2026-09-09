@@ -1,0 +1,906 @@
+# Немецкие лексемы созвездия «Природа, погода и живой мир».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0204:
+    form: Baum
+    article: der
+    gender: m
+  lx0205:
+    form: Hund
+    article: der
+    gender: m
+  lx0206:
+    form: Regen
+    article: der
+    gender: m
+  lx0207:
+    form: Sonne
+    article: die
+    gender: f
+  lx0208:
+    form: Tier
+    article: das
+    gender: n
+  lx0209:
+    form: Wetter
+    article: das
+    gender: n
+  lx0210:
+    form: kalt
+  lx0211:
+    form: warm
+  lx0742:
+    form: regnen
+  lx0743:
+    form: schneien
+  lx0744:
+    form: wachsen
+  lx0745:
+    form: Blatt
+    article: das
+    gender: n
+  lx0746:
+    form: Blume
+    article: die
+    gender: f
+  lx0747:
+    form: Erde
+    article: die
+    gender: f
+  lx0748:
+    form: Gras
+    article: das
+    gender: n
+  lx0749:
+    form: Himmel
+    article: der
+    gender: m
+  lx0750:
+    form: Katze
+    article: die
+    gender: f
+  lx0751:
+    form: Luft
+    article: die
+    gender: f
+  lx0752:
+    form: Meer
+    article: das
+    gender: n
+  lx0753:
+    form: Pflanze
+    article: die
+    gender: f
+  lx0754:
+    form: Schnee
+    article: der
+    gender: m
+  lx0755:
+    form: Vogel
+    article: der
+    gender: m
+  lx0756:
+    form: Wald
+    article: der
+    gender: m
+  lx0757:
+    form: Wind
+    article: der
+    gender: m
+  lx0758:
+    form: Wolke
+    article: die
+    gender: f
+  lx0759:
+    form: bewölkt
+  lx0760:
+    form: kühl
+  lx0761:
+    form: windig
+  lx1923:
+    form: beobachten
+  lx1924:
+    form: blühen
+  lx1925:
+    form: duften
+  lx1926:
+    form: ernten
+  lx1927:
+    form: frieren
+  lx1928:
+    form: füttern
+  lx1929:
+    form: gießen
+  lx1930:
+    form: pflanzen
+  lx1931:
+    form: pflegen
+  lx1932:
+    form: riechen
+  lx1933:
+    form: säen
+  lx1934:
+    form: scheinen
+  lx1935:
+    form: tauen
+  lx1936:
+    form: Affe
+    article: der
+    gender: m
+  lx1937:
+    form: Bach
+    article: der
+    gender: m
+  lx1938:
+    form: Bär
+    article: der
+    gender: m
+  lx1939:
+    form: Biene
+    article: die
+    gender: f
+  lx1940:
+    form: Blitz
+    article: der
+    gender: m
+  lx1941:
+    form: Blüte
+    article: die
+    gender: f
+  lx1942:
+    form: Delfin
+    article: der
+    gender: m
+  lx1943:
+    form: Donner
+    article: der
+    gender: m
+  lx1944:
+    form: Ebene
+    article: die
+    gender: f
+  lx1945:
+    form: Eiche
+    article: die
+    gender: f
+  lx1946:
+    form: Eichhörnchen
+    article: das
+    gender: n
+  lx1947:
+    form: Elefant
+    article: der
+    gender: m
+  lx1948:
+    form: Ente
+    article: die
+    gender: f
+  lx1949:
+    form: Feld
+    article: das
+    gender: n
+  lx1950:
+    form: Felsen
+    article: der
+    gender: m
+  lx1951:
+    form: Fliege
+    article: die
+    gender: f
+  lx1952:
+    form: Frost
+    article: der
+    gender: m
+  lx1953:
+    form: Fuchs
+    article: der
+    gender: m
+  lx1954:
+    form: Gans
+    article: die
+    gender: f
+  lx1955:
+    form: Gebirge
+    article: das
+    gender: n
+  lx1956:
+    form: Getreide
+    article: das
+    gender: n
+  lx1957:
+    form: Gewitter
+    article: das
+    gender: n
+  lx1958:
+    form: Hagel
+    article: der
+    gender: m
+  lx1959:
+    form: Hai
+    article: der
+    gender: m
+  lx1960:
+    form: Hase
+    article: der
+    gender: m
+  lx1961:
+    form: Heide
+    article: die
+    gender: f
+  lx1962:
+    form: Hirsch
+    article: der
+    gender: m
+  lx1963:
+    form: Hitze
+    article: die
+    gender: f
+  lx1964:
+    form: Höhle
+    article: die
+    gender: f
+  lx1965:
+    form: Holz
+    article: das
+    gender: n
+  lx1966:
+    form: Hügel
+    article: der
+    gender: m
+  lx1967:
+    form: Huhn
+    article: das
+    gender: n
+  lx1968:
+    form: Igel
+    article: der
+    gender: m
+  lx1969:
+    form: Insekt
+    article: das
+    gender: n
+  lx1970:
+    form: Kälte
+    article: die
+    gender: f
+  lx1971:
+    form: Kaninchen
+    article: das
+    gender: n
+  lx1972:
+    form: Klima
+    article: das
+    gender: n
+  lx1973:
+    form: Kuh
+    article: die
+    gender: f
+  lx1974:
+    form: Laub
+    article: das
+    gender: n
+  lx1975:
+    form: Löwe
+    article: der
+    gender: m
+  lx1976:
+    form: Moos
+    article: das
+    gender: n
+  lx1977:
+    form: Mücke
+    article: die
+    gender: f
+  lx1978:
+    form: Nebel
+    article: der
+    gender: m
+  lx1979:
+    form: Pferd
+    article: das
+    gender: n
+  lx1980:
+    form: Quelle
+    article: die
+    gender: f
+  lx1981:
+    form: Ratte
+    article: die
+    gender: f
+  lx1982:
+    form: Regenbogen
+    article: der
+    gender: m
+  lx1983:
+    form: Reh
+    article: das
+    gender: n
+  lx1984:
+    form: Rose
+    article: die
+    gender: f
+  lx1985:
+    form: Sand
+    article: der
+    gender: m
+  lx1986:
+    form: Schaf
+    article: das
+    gender: n
+  # Первое значение: змея; очередь добавлять в теме услуг без отдельной строки.
+  lx1987:
+    form: Schlange
+    article: die
+    gender: f
+  lx1988:
+    form: Schnecke
+    article: die
+    gender: f
+  lx1989:
+    form: Schwein
+    article: das
+    gender: n
+  lx1990:
+    form: Sonnenaufgang
+    article: der
+    gender: m
+  lx1991:
+    form: Sonnenuntergang
+    article: der
+    gender: m
+  lx1992:
+    form: Spinne
+    article: die
+    gender: f
+  lx1993:
+    form: Stein
+    article: der
+    gender: m
+  lx1994:
+    form: Stier
+    article: der
+    gender: m
+  lx1995:
+    form: Sturm
+    article: der
+    gender: m
+  lx1996:
+    form: Tal
+    article: das
+    gender: n
+  lx1997:
+    form: Tanne
+    article: die
+    gender: f
+  lx1998:
+    form: Teich
+    article: der
+    gender: m
+  lx1999:
+    form: Tiger
+    article: der
+    gender: m
+  lx2000:
+    form: Tulpe
+    article: die
+    gender: f
+  lx2001:
+    form: Unwetter
+    article: das
+    gender: n
+  lx2002:
+    form: Waldweg
+    article: der
+    gender: m
+  lx2003:
+    form: Wärme
+    article: die
+    gender: f
+  lx2004:
+    form: Weide
+    article: die
+    gender: f
+  lx2005:
+    form: Wespe
+    article: die
+    gender: f
+  lx2006:
+    form: Wettervorhersage
+    article: die
+    gender: f
+  lx2007:
+    form: Wiese
+    article: die
+    gender: f
+  lx2008:
+    form: Wolf
+    article: der
+    gender: m
+  lx2009:
+    form: Wurzel
+    article: die
+    gender: f
+  lx2010:
+    form: Ziege
+    article: die
+    gender: f
+  lx2011:
+    form: feucht
+  lx2012:
+    form: frostig
+  lx2013:
+    form: mild
+  lx2014:
+    form: neblig
+  lx2015:
+    form: regnerisch
+  lx2016:
+    form: stürmisch
+  lx2017:
+    form: wechselhaft
+  lx3508:
+    form: bellen
+  lx3509:
+    form: brummen
+  lx3510:
+    form: brüten
+  lx3511:
+    form: fressen
+  lx3512:
+    form: gedeihen
+  lx3513:
+    form: grasen
+  lx3514:
+    form: jagen
+  lx3515:
+    form: keimen
+  lx3516:
+    form: knistern
+  lx3517:
+    form: miauen
+  lx3518:
+    form: nisten
+  lx3519:
+    form: plätschern
+  lx3520:
+    form: rascheln
+  lx3521:
+    form: rauschen
+  lx3522:
+    form: schlüpfen
+  lx3523:
+    form: sprießen
+  lx3524:
+    form: summen
+  lx3525:
+    form: überwintern
+  lx3526:
+    form: verdorren
+  lx3527:
+    form: verrotten
+  lx3528:
+    form: vertrocknen
+  lx3529:
+    form: verwelken
+  lx3530:
+    form: verwesen
+  lx3531:
+    form: weiden
+  lx3532:
+    form: welken
+  lx3533:
+    form: züchten
+  lx3534:
+    form: zwitschern
+  lx3535:
+    form: Artenschutz
+    article: der
+    gender: m
+  lx3536:
+    form: Artenvielfalt
+    article: die
+    gender: f
+  lx3537:
+    form: Ast
+    article: der
+    gender: m
+  lx3538:
+    form: Beere
+    article: die
+    gender: f
+  lx3539:
+    form: Beet
+    article: das
+    gender: n
+  lx3540:
+    form: Biotop
+    article: das
+    gender: n
+  lx3541:
+    form: Birke
+    article: die
+    gender: f
+  lx3542:
+    form: Blütezeit
+    article: die
+    gender: f
+  lx3543:
+    form: Buche
+    article: die
+    gender: f
+  lx3544:
+    form: Busch
+    article: der
+    gender: m
+  lx3545:
+    form: Dickicht
+    article: das
+    gender: n
+  lx3546:
+    form: Dürre
+    article: die
+    gender: f
+  lx3547:
+    form: Ebbe
+    article: die
+    gender: f
+  lx3548:
+    form: Entwicklung
+    article: die
+    gender: f
+  lx3549:
+    form: Erdbeben
+    article: das
+    gender: n
+  lx3550:
+    form: Erdrutsch
+    article: der
+    gender: m
+  lx3551:
+    form: Erntezeit
+    article: die
+    gender: f
+  lx3552:
+    form: Farn
+    article: der
+    gender: m
+  lx3553:
+    form: Fell
+    article: das
+    gender: n
+  lx3554:
+    form: Feuchtgebiet
+    article: das
+    gender: n
+  lx3555:
+    form: Fichte
+    article: die
+    gender: f
+  lx3556:
+    form: Flut
+    article: die
+    gender: f
+  lx3557:
+    form: Fortpflanzung
+    article: die
+    gender: f
+  lx3558:
+    form: Frucht
+    article: die
+    gender: f
+  lx3559:
+    form: Gebüsch
+    article: das
+    gender: n
+  lx3560:
+    form: Gefieder
+    article: das
+    gender: n
+  lx3561:
+    form: Gestein
+    article: das
+    gender: n
+  lx3562:
+    form: Gletscher
+    article: der
+    gender: m
+  lx3563:
+    form: Hecke
+    article: die
+    gender: f
+  lx3564:
+    form: Hochwasser
+    article: das
+    gender: n
+  # Здесь die Kiefer = сосна; der Kiefer = челюсть не выделен отдельно.
+  lx3565:
+    form: Kiefer
+    article: die
+    gender: f
+  lx3566:
+    form: Klee
+    article: der
+    gender: m
+  lx3567:
+    form: Knospe
+    article: die
+    gender: f
+  lx3568:
+    form: Kontinent
+    article: der
+    gender: m
+  lx3569:
+    form: Korallenriff
+    article: das
+    gender: n
+  lx3570:
+    form: Korn
+    article: das
+    gender: n
+  lx3571:
+    form: Krater
+    article: der
+    gender: m
+  lx3572:
+    form: Lawine
+    article: die
+    gender: f
+  lx3573:
+    form: Lebensraum
+    article: der
+    gender: m
+  lx3574:
+    form: Lebenszyklus
+    article: der
+    gender: m
+  lx3575:
+    form: Linde
+    article: die
+    gender: f
+  lx3576:
+    form: Löwenzahn
+    article: der
+    gender: m
+  lx3577:
+    form: Moor
+    article: das
+    gender: n
+  lx3578:
+    form: Nadel
+    article: die
+    gender: f
+  lx3579:
+    form: Naturgewalt
+    article: die
+    gender: f
+  lx3580:
+    form: Naturkatastrophe
+    article: die
+    gender: f
+  lx3581:
+    form: Naturschutz
+    article: der
+    gender: m
+  lx3582:
+    form: Nest
+    article: das
+    gender: n
+  lx3583:
+    form: Ökosystem
+    article: das
+    gender: n
+  lx3584:
+    form: Ozean
+    article: der
+    gender: m
+  lx3585:
+    form: Palme
+    article: die
+    gender: f
+  lx3586:
+    form: Pflanzenart
+    article: die
+    gender: f
+  lx3587:
+    form: Riff
+    article: das
+    gender: n
+  lx3588:
+    form: Rinde
+    article: die
+    gender: f
+  lx3589:
+    form: Saatgut
+    article: das
+    gender: n
+  lx3590:
+    form: Samen
+    article: der
+    gender: m
+  lx3591:
+    form: Schilf
+    article: das
+    gender: n
+  lx3592:
+    form: Stamm
+    article: der
+    gender: m
+  lx3593:
+    form: Stängel
+    article: der
+    gender: m
+  lx3594:
+    form: Strauch
+    article: der
+    gender: m
+  lx3595:
+    form: Strömung
+    article: die
+    gender: f
+  lx3596:
+    form: Tierart
+    article: die
+    gender: f
+  lx3597:
+    form: Trieb
+    article: der
+    gender: m
+  lx3598:
+    form: Trockenheit
+    article: die
+    gender: f
+  lx3599:
+    form: Überschwemmung
+    article: die
+    gender: f
+  lx3600:
+    form: Unterholz
+    article: das
+    gender: n
+  lx3601:
+    form: Vegetation
+    article: die
+    gender: f
+  lx3602:
+    form: Vielfalt
+    article: die
+    gender: f
+  lx3603:
+    form: Vulkan
+    article: der
+    gender: m
+  lx3604:
+    form: Waldbrand
+    article: der
+    gender: m
+  lx3605:
+    form: Wasserfall
+    article: der
+    gender: m
+  lx3606:
+    form: Zweig
+    article: der
+    gender: m
+  lx3607:
+    form: ausgestorben
+  lx3608:
+    form: bedroht
+  lx3609:
+    form: einheimisch
+  lx3610:
+    form: essbar
+  lx3611:
+    form: geschützt
+  lx3612:
+    form: giftig
+  lx3613:
+    form: heimisch
+  lx3614:
+    form: ungenießbar
+  lx3615:
+    form: ungiftig
+  lx3616:
+    form: wild
+  lx3617:
+    form: zahm
+  lx5031:
+    form: aussterben
+  lx5032:
+    form: bedrohen
+  lx5033:
+    form: befruchten
+  lx5034:
+    form: bestäuben
+  lx5035:
+    form: fortpflanzen
+  lx5036:
+    form: nachwachsen
+  lx5037:
+    form: renaturieren
+  lx5038:
+    form: 'sich häuten'
+  lx5039:
+    form: 'sich verpuppen'
+  lx5040:
+    form: tarnen
+  lx5041:
+    form: vermehren
+  lx5042:
+    form: Artensterben
+    article: das
+    gender: n
+  lx5043:
+    form: Befruchtung
+    article: die
+    gender: f
+  lx5044:
+    form: Bestäubung
+    article: die
+    gender: f
+  lx5045:
+    form: Biodiversität
+    article: die
+    gender: f
+  lx5046:
+    form: Erosion
+    article: die
+    gender: f
+  lx5047:
+    form: Evolution
+    article: die
+    gender: f
+  lx5048:
+    form: Nahrungskette
+    article: die
+    gender: f
+  lx5049:
+    form: Naturphänomen
+    article: das
+    gender: n
+  lx5050:
+    form: Photosynthese
+    article: die
+    gender: f
+  lx5051:
+    form: Population
+    article: die
+    gender: f
+  lx5052:
+    form: Schutzgebiet
+    article: das
+    gender: n
+  lx5053:
+    form: Ungleichgewicht
+    article: das
+    gender: n
+  lx5054:
+    form: Untergrund
+    article: der
+    gender: m
+  lx5055:
+    form: Wasserkreislauf
+    article: der
+    gender: m
+  lx5056:
+    form: anpassungsfähig
+  lx5057:
+    form: artenarm
+  lx5058:
+    form: artenreich
+  lx5059:
+    form: genetisch
+  lx5060:
+    form: invasiv
+  lx5061:
+    form: ökologisch
+  lx5062:
+    form: unberührt
+  lx5063:
+    form: widerstandsfähig

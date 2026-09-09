@@ -1,0 +1,254 @@
+# Созвездие «Общество, права и участие».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: society
+tiers:
+  a0:
+    concepts:
+      - { id: lx0213, pos: noun, draft: true }  # Land
+  a1:
+    concepts:
+      - { id: lx0774, pos: verb, draft: true }  # erlauben
+      - { id: lx0775, pos: verb, draft: true }  # verbieten
+      - { id: lx0776, pos: noun, draft: true }  # Ausweis
+      - { id: lx0777, pos: noun, draft: true }  # Bürger
+      - { id: lx0778, pos: noun, draft: true }  # Gesetz
+      - { id: lx0779, pos: noun, draft: true }  # Polizist
+      - { id: lx0780, pos: noun, draft: true }  # Recht
+      - { id: lx0781, pos: noun, draft: true }  # Regel
+      - { id: lx0782, pos: noun, draft: true }  # Welt
+      - { id: lx0783, pos: adj, draft: true }  # erlaubt
+      - { id: lx0784, pos: adj, draft: true }  # verboten
+  a2:
+    concepts:
+      - { id: lx2101, pos: verb, draft: true }  # abstimmen
+      - { id: lx2102, pos: verb, draft: true }  # anzeigen
+      - { id: lx2103, pos: verb, draft: true }  # bestrafen
+      - { id: lx2104, pos: verb, draft: true }  # entscheiden
+      - { id: lx2105, pos: verb, draft: true }  # fliehen
+      - { id: lx2106, pos: verb, draft: true }  # kontrollieren
+      - { id: lx2107, pos: verb, draft: true }  # melden
+      - { id: lx2108, pos: verb, draft: true }  # retten
+      - { id: lx2109, pos: verb, draft: true }  # stehlen
+      - { id: lx2110, pos: verb, draft: true }  # wählen
+      - { id: lx2111, pos: noun, draft: true }  # Anwalt
+      - { id: lx2112, pos: noun, draft: true }  # Anzeige
+      - { id: lx2113, pos: noun, draft: true }  # Anzeigeerstattung
+      - { id: lx2114, pos: noun, draft: true }  # Ausländer
+      - { id: lx2115, pos: noun, draft: true }  # Beamte
+      - { id: lx2116, pos: noun, draft: true }  # Demokratie
+      - { id: lx2117, pos: noun, draft: true }  # Dieb
+      - { id: lx2118, pos: noun, draft: true }  # Diebstahl
+      - { id: lx2119, pos: noun, draft: true }  # Erlaubnis
+      - { id: lx2120, pos: noun, draft: true }  # Freiheit
+      - { id: lx2121, pos: noun, draft: true }  # Gefahr
+      - { id: lx2122, pos: noun, draft: true }  # Gefängnis
+      - { id: lx2123, pos: noun, draft: true }  # Gemeinschaft
+      - { id: lx2124, pos: noun, draft: true }  # Gericht
+      - { id: lx2125, pos: noun, draft: true }  # Gesellschaft
+      - { id: lx2126, pos: noun, draft: true }  # Minister
+      - { id: lx2127, pos: noun, draft: true }  # Opfer
+      - { id: lx2128, pos: noun, draft: true }  # Parlament
+      - { id: lx2129, pos: noun, draft: true }  # Partei
+      - { id: lx2130, pos: noun, draft: true }  # Pflicht
+      - { id: lx2131, pos: noun, draft: true }  # Politiker
+      - { id: lx2132, pos: noun, draft: true }  # Präsident
+      - { id: lx2133, pos: noun, draft: true }  # Regierung
+      - { id: lx2134, pos: noun, draft: true }  # Richter
+      - { id: lx2135, pos: noun, draft: true }  # Sicherheit
+      - { id: lx2136, pos: noun, draft: true }  # Staat
+      - { id: lx2137, pos: noun, draft: true }  # Strafe
+      - { id: lx2138, pos: noun, draft: true }  # Straftat
+      - { id: lx2139, pos: noun, draft: true }  # Täter
+      - { id: lx2140, pos: noun, draft: true }  # Verantwortung
+      - { id: lx2141, pos: noun, draft: true }  # Verbot
+      - { id: lx2142, pos: noun, draft: true }  # Wahl
+      - { id: lx2143, pos: noun, draft: true }  # Zeuge
+      - { id: lx2144, pos: adj, draft: true }  # friedlich
+      - { id: lx2145, pos: adj, draft: true }  # gewalttätig
+      - { id: lx2146, pos: adj, draft: true }  # illegal
+      - { id: lx2147, pos: adj, draft: true }  # legal
+      - { id: lx2148, pos: adj, draft: true }  # politisch
+  b1:
+    concepts:
+      - { id: lx3798, pos: verb, draft: true }  # angreifen
+      - { id: lx3799, pos: verb, draft: true }  # beschließen
+      - { id: lx3800, pos: verb, draft: true }  # beschuldigen
+      - { id: lx3801, pos: verb, draft: true }  # beteiligen
+      - { id: lx3802, pos: verb, draft: true }  # beweisen
+      - { id: lx3803, pos: verb, draft: true }  # demonstrieren
+      - { id: lx3804, pos: verb, draft: true }  # durchsetzen
+      - { id: lx3805, pos: verb, draft: true }  # engagieren
+      - { id: lx3806, pos: verb, draft: true }  # entschädigen
+      - { id: lx3807, pos: verb, draft: true }  # ermitteln
+      - { id: lx3808, pos: verb, draft: true }  # festnehmen
+      - { id: lx3809, pos: verb, draft: true }  # freisprechen
+      - { id: lx3810, pos: verb, draft: true }  # gelten
+      - { id: lx3811, pos: verb, draft: true }  # gestehen
+      - { id: lx3812, pos: verb, draft: true }  # kandidieren
+      - { id: lx3813, pos: verb, draft: true }  # mitbestimmen
+      - { id: lx3814, pos: verb, draft: true }  # mitentscheiden
+      - { id: lx3815, pos: verb, draft: true }  # mitwirken
+      - { id: lx3816, pos: verb, draft: true }  # protestieren
+      - { id: lx3817, pos: verb, draft: true }  # regieren
+      - { id: lx3818, pos: verb, draft: true }  # töten
+      - { id: lx3819, pos: verb, draft: true }  # überwachen
+      - { id: lx3820, pos: verb, draft: true }  # verdächtigen
+      - { id: lx3821, pos: verb, draft: true }  # verhaften
+      - { id: lx3822, pos: verb, draft: true }  # verteidigen
+      - { id: lx3823, pos: verb, draft: true }  # verurteilen
+      - { id: lx3824, pos: noun, draft: true }  # Abgeordnete
+      - { id: lx3825, pos: noun, draft: true }  # Alibi
+      - { id: lx3826, pos: noun, draft: true }  # Angriff
+      - { id: lx3827, pos: noun, draft: true }  # Armee
+      - { id: lx3828, pos: noun, draft: true }  # Betrug
+      - { id: lx3829, pos: noun, draft: true }  # Bevölkerung
+      - { id: lx3830, pos: noun, draft: true }  # Beweis
+      - { id: lx3831, pos: noun, draft: true }  # Bund
+      - { id: lx3832, pos: noun, draft: true }  # Bundeskanzler
+      - { id: lx3833, pos: noun, draft: true }  # Bundesland
+      - { id: lx3834, pos: noun, draft: true }  # Bundespräsident
+      - { id: lx3835, pos: noun, draft: true }  # Bundesrat
+      - { id: lx3836, pos: noun, draft: true }  # Bundesrepublik
+      - { id: lx3837, pos: noun, draft: true }  # Bundestag
+      - { id: lx3838, pos: noun, draft: true }  # Bürgerbeteiligung
+      - { id: lx3839, pos: noun, draft: true }  # Bürgerinitiative
+      - { id: lx3840, pos: noun, draft: true }  # Bürgerrecht
+      - { id: lx3841, pos: noun, draft: true }  # Delikt
+      - { id: lx3842, pos: noun, draft: true }  # Demonstration
+      - { id: lx3843, pos: noun, draft: true }  # Diktatur
+      - { id: lx3844, pos: noun, draft: true }  # Ehrenamt
+      - { id: lx3845, pos: noun, draft: true }  # Einbruch
+      - { id: lx3846, pos: noun, draft: true }  # Freispruch
+      - { id: lx3847, pos: noun, draft: true }  # Frieden
+      - { id: lx3848, pos: noun, draft: true }  # Gemeinwohl
+      - { id: lx3849, pos: noun, draft: true }  # Gerechtigkeit
+      - { id: lx3850, pos: noun, draft: true }  # Gesetzgebung
+      - { id: lx3851, pos: noun, draft: true }  # Geständnis
+      - { id: lx3852, pos: noun, draft: true }  # Gewalt
+      - { id: lx3853, pos: noun, draft: true }  # Gewaltenteilung
+      - { id: lx3854, pos: noun, draft: true }  # Gleichberechtigung
+      - { id: lx3855, pos: noun, draft: true }  # Gleichstellung
+      - { id: lx3856, pos: noun, draft: true }  # Grundgesetz
+      - { id: lx3857, pos: noun, draft: true }  # Grundrecht
+      - { id: lx3858, pos: noun, draft: true }  # Intoleranz
+      - { id: lx3859, pos: noun, draft: true }  # Kampf
+      - { id: lx3860, pos: noun, draft: true }  # Kandidat
+      - { id: lx3861, pos: noun, draft: true }  # Koalition
+      - { id: lx3862, pos: noun, draft: true }  # Konflikt
+      - { id: lx3863, pos: noun, draft: true }  # Krieg
+      - { id: lx3864, pos: noun, draft: true }  # Kriminalität
+      - { id: lx3865, pos: noun, draft: true }  # Landtag
+      - { id: lx3866, pos: noun, draft: true }  # Macht
+      - { id: lx3867, pos: noun, draft: true }  # Mehrheitsentscheid
+      - { id: lx3868, pos: noun, draft: true }  # Menschenrecht
+      - { id: lx3869, pos: noun, draft: true }  # Monarchie
+      - { id: lx3870, pos: noun, draft: true }  # Opposition
+      - { id: lx3871, pos: noun, draft: true }  # Petition
+      - { id: lx3872, pos: noun, draft: true }  # Protest
+      - { id: lx3873, pos: noun, draft: true }  # Prozess
+      - { id: lx3874, pos: noun, draft: true }  # Raub
+      - { id: lx3875, pos: noun, draft: true }  # Rechtsprechung
+      - { id: lx3876, pos: noun, draft: true }  # Rechtsstaat
+      - { id: lx3877, pos: noun, draft: true }  # Republik
+      - { id: lx3878, pos: noun, draft: true }  # Schuldspruch
+      - { id: lx3879, pos: noun, draft: true }  # Solidarität
+      - { id: lx3880, pos: noun, draft: true }  # Sozialstaat
+      - { id: lx3881, pos: noun, draft: true }  # Stimmrecht
+      - { id: lx3882, pos: noun, draft: true }  # Toleranz
+      - { id: lx3883, pos: noun, draft: true }  # Überfall
+      - { id: lx3884, pos: noun, draft: true }  # Ungerechtigkeit
+      - { id: lx3885, pos: noun, draft: true }  # Unrecht
+      - { id: lx3886, pos: noun, draft: true }  # Urteil
+      - { id: lx3887, pos: noun, draft: true }  # Verbrechen
+      - { id: lx3888, pos: noun, draft: true }  # Verdacht
+      - { id: lx3889, pos: noun, draft: true }  # Vereinbarung
+      - { id: lx3890, pos: noun, draft: true }  # Verfassung
+      - { id: lx3891, pos: noun, draft: true }  # Versammlung
+      - { id: lx3892, pos: noun, draft: true }  # Versöhnung
+      - { id: lx3893, pos: noun, draft: true }  # Volk
+      - { id: lx3894, pos: noun, draft: true }  # Völkerrecht
+      - { id: lx3895, pos: noun, draft: true }  # Wähler
+      - { id: lx3896, pos: noun, draft: true }  # Wahlkampf
+      - { id: lx3897, pos: noun, draft: true }  # Wahlrecht
+      - { id: lx3898, pos: noun, draft: true }  # Zivilcourage
+      - { id: lx3899, pos: adj, draft: true }  # demokratisch
+      - { id: lx3900, pos: adj, draft: true }  # ehrenamtlich
+      - { id: lx3901, pos: adj, draft: true }  # freiheitlich
+      - { id: lx3902, pos: adj, draft: true }  # freiwillig
+      - { id: lx3903, pos: adj, draft: true }  # mehrheitlich
+      - { id: lx3904, pos: adj, draft: true }  # rechtsstaatlich
+      - { id: lx3905, pos: adj, draft: true }  # sozialstaatlich
+      - { id: lx3906, pos: adj, draft: true }  # undemokratisch
+      - { id: lx3907, pos: adj, draft: true }  # verantwortlich
+  b2:
+    concepts:
+      - { id: lx5146, pos: verb, draft: true }  # diskriminieren
+      - { id: lx5147, pos: verb, draft: true }  # inkludieren
+      - { id: lx5148, pos: verb, draft: true }  # legitimieren
+      - { id: lx5149, pos: verb, draft: true }  # partizipieren
+      - { id: lx5150, pos: verb, draft: true }  # polarisieren
+      - { id: lx5151, pos: verb, draft: true }  # radikalisieren
+      - { id: lx5152, pos: verb, draft: true }  # repräsentieren
+      - { id: lx5153, pos: verb, draft: true }  # sich emanzipieren
+      - { id: lx5154, pos: verb, draft: true }  # sich solidarisieren
+      - { id: lx5155, pos: verb, draft: true }  # unterdrücken
+      - { id: lx5156, pos: noun, draft: true }  # Aktivismus
+      - { id: lx5157, pos: noun, draft: true }  # Amtsmissbrauch
+      - { id: lx5158, pos: noun, draft: true }  # Asylrecht
+      - { id: lx5159, pos: noun, draft: true }  # Aufenthaltsrecht
+      - { id: lx5160, pos: noun, draft: true }  # Autonomie
+      - { id: lx5161, pos: noun, draft: true }  # Benachteiligung
+      - { id: lx5162, pos: noun, draft: true }  # Diskriminierung
+      - { id: lx5163, pos: noun, draft: true }  # Extremismus
+      - { id: lx5164, pos: noun, draft: true }  # Feminismus
+      - { id: lx5165, pos: noun, draft: true }  # Föderalismus
+      - { id: lx5166, pos: noun, draft: true }  # Jugendschutz
+      - { id: lx5167, pos: noun, draft: true }  # Kapitalismus
+      - { id: lx5168, pos: noun, draft: true }  # Kinderschutz
+      - { id: lx5169, pos: noun, draft: true }  # Kommunismus
+      - { id: lx5170, pos: noun, draft: true }  # Konservatismus
+      - { id: lx5171, pos: noun, draft: true }  # Legitimation
+      - { id: lx5172, pos: noun, draft: true }  # Liberalismus
+      - { id: lx5173, pos: noun, draft: true }  # Machtmissbrauch
+      - { id: lx5174, pos: noun, draft: true }  # Misstrauen
+      - { id: lx5175, pos: noun, draft: true }  # Mitspracherecht
+      - { id: lx5176, pos: noun, draft: true }  # Nachvollziehbarkeit
+      - { id: lx5177, pos: noun, draft: true }  # Nationalismus
+      - { id: lx5178, pos: noun, draft: true }  # Patriotismus
+      - { id: lx5179, pos: noun, draft: true }  # Pluralismus
+      - { id: lx5180, pos: noun, draft: true }  # Populismus
+      - { id: lx5181, pos: noun, draft: true }  # Rassismus
+      - { id: lx5182, pos: noun, draft: true }  # Rechtsanspruch
+      - { id: lx5183, pos: noun, draft: true }  # Rechtsschutz
+      - { id: lx5184, pos: noun, draft: true }  # Rechtssicherheit
+      - { id: lx5185, pos: noun, draft: true }  # Repräsentation
+      - { id: lx5186, pos: noun, draft: true }  # Selbstbestimmung
+      - { id: lx5187, pos: noun, draft: true }  # Selbstverwaltung
+      - { id: lx5188, pos: noun, draft: true }  # Souveränität
+      - { id: lx5189, pos: noun, draft: true }  # Sozialismus
+      - { id: lx5190, pos: noun, draft: true }  # Teilhabe
+      - { id: lx5191, pos: noun, draft: true }  # Unschuldsvermutung
+      - { id: lx5192, pos: adj, draft: true }  # diskriminierend
+      - { id: lx5193, pos: adj, draft: true }  # diskriminierungsfrei
+      - { id: lx5194, pos: adj, draft: true }  # divers
+      - { id: lx5195, pos: adj, draft: true }  # extremistisch
+      - { id: lx5196, pos: adj, draft: true }  # konservativ
+      - { id: lx5197, pos: adj, draft: true }  # liberal
+      - { id: lx5198, pos: adj, draft: true }  # nationalistisch
+      - { id: lx5199, pos: adj, draft: true }  # pluralistisch
+      - { id: lx5200, pos: adj, draft: true }  # populistisch
+      - { id: lx5201, pos: adj, draft: true }  # progressiv
+      - { id: lx5202, pos: adj, draft: true }  # rassistisch
+      - { id: lx5203, pos: adj, draft: true }  # reformbedürftig
+      - { id: lx5204, pos: adj, draft: true }  # vielfältig

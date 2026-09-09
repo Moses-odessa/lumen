@@ -1,0 +1,1319 @@
+# Немецкие лексемы созвездия «Время, числа и количество».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  day_time:
+    form: Tag
+    article: der
+    gender: m
+    plural: Tage
+    distractors:
+      far: [Datum, Termin]
+      near: [Tal, Tat, Takt]
+  night_time:
+    form: Nacht
+    article: die
+    gender: f
+    plural: Nächte
+    distractors:
+      far: [Dämmerung, Mitternacht]
+      near: [Macht, Naht, Nacken]
+  hour_time:
+    form: Stunde
+    article: die
+    gender: f
+    plural: Stunden
+    distractors:
+      far: [Moment, Weile]
+      near: [Stube, Sünde, Runde]
+  minute_time:
+    form: Minute
+    article: die
+    gender: f
+    plural: Minuten
+    distractors:
+      far: [Sekunde, Augenblick]
+      near: [Minze, Mimose, Mixtur]
+  week_time:
+    form: Woche
+    article: die
+    gender: f
+    plural: Wochen
+    distractors:
+      far: [Wochenende, Feiertag]
+      near: [Wolke, Wache, Woge]
+  month_time:
+    form: Monat
+    article: der
+    gender: m
+    plural: Monate
+    distractors:
+      far: [Quartal, Saison]
+      near: [Mond, Monarch, Format]
+  year_time:
+    form: Jahr
+    article: das
+    gender: n
+    plural: Jahre
+    distractors:
+      far: [Jahrzehnt, Zeitraum]
+      near: [Haar, Paar, Jahrmarkt]
+  morning_time:
+    form: Morgen
+    article: der
+    gender: m
+    plural: Morgen
+    distractors:
+      far: [Mittag, Nachmittag]
+      near: [Sorgen, Orgel, Bogen]
+  evening_time:
+    form: Abend
+    article: der
+    gender: m
+    plural: Abende
+    distractors:
+      far: [Nachmittag, Mitternacht]
+      near: [Advent, Abgabe, Anbau]
+  clock_object:
+    form: Uhr
+    article: die
+    gender: f
+    plural: Uhren
+    distractors:
+      far: [Kalender, Termin]
+      near: [Ohr, Tour, Spur]
+  today_adv:
+    form: heute
+    note: наречие
+    distractors:
+      far: [morgen, immer]
+      near: [Leute, Beute, Häute]
+  yesterday_adv:
+    form: gestern
+    note: наречие
+    distractors:
+      far: [damals, neulich]
+      near: [Geste, Gerste, Western]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  weekend_time:
+    form: Wochenende
+    article: das
+    gender: n
+    plural: Wochenenden
+    distractors:
+      far: [Feiertag, Ferien]
+      near: [Wochentag, Wochenbett, Lebensende]
+  date_noun:
+    form: Datum
+    article: das
+    gender: n
+    plural: Daten
+    distractors:
+      far: [Uhrzeit, Frist]
+      near: [Datei, Dattel, Dativ]
+  calendar_object:
+    form: Kalender
+    article: der
+    gender: m
+    plural: Kalender
+    distractors:
+      far: [Terminplaner, Uhr]
+      near: [Kaliber, Kanzler, Geländer]
+  noon_time:
+    form: Mittag
+    article: der
+    gender: m
+    plural: Mittage
+    distractors:
+      far: [Vormittag, Nachmittag]
+      near: [Mitte, Montag, Mitleid]
+  tomorrow_adv:
+    form: morgen
+    note: наречие
+    distractors:
+      far: [heute, gestern]
+      near: [Sorgen, Orgel, Bogen]
+  always_adv:
+    form: immer
+    note: наречие
+    distractors:
+      far: [nie, selten]
+      near: [Zimmer, Imker, Kummer]
+  never_adv:
+    form: nie
+    note: наречие
+    distractors:
+      far: [immer, oft]
+      near: [nieder, Niete, Knie]
+  often_adv:
+    form: oft
+    note: наречие
+    distractors:
+      far: [selten, nie]
+      near: [Ofen, offen, Loft]
+  sometimes_adv:
+    form: manchmal
+    note: наречие
+    distractors:
+      far: [immer, ständig]
+      near: [mancher, Mahlzeit, Marschall]
+  early_adv:
+    form: früh
+    note: наречие
+    distractors:
+      far: [spät, pünktlich]
+      near: [Frühling, Brühe, Frucht]
+  now_adv:
+    form: jetzt
+    note: наречие
+    distractors:
+      far: [später, damals]
+      near: [Netz, letzt, Hetze]
+  soon_adv:
+    form: bald
+    note: наречие
+    distractors:
+      far: [später, sofort]
+      near: [Wald, Bad, kalt]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  monday_time:
+    form: Montag
+    article: der
+    gender: m
+    plural: Montage
+    distractors: { far: [Wochenanfang, Werktag], near: [Mondlicht, Montur, Mondschein] }
+  tuesday_time:
+    form: Dienstag
+    article: der
+    gender: m
+    plural: Dienstage
+    distractors: { far: [Wochentag, Alltag], near: [Dienst, Dienstweg, Dienstreise] }
+  wednesday_time:
+    form: Mittwoch
+    article: der
+    gender: m
+    plural: Mittwoche
+    distractors: { far: [Wochenmitte, Arbeitstag], near: [Mitwirkung, Mittwochabend, Mittelweg] }
+  thursday_time:
+    form: Donnerstag
+    article: der
+    gender: m
+    plural: Donnerstage
+    distractors: { far: [Wochenschluss, Markttag], near: [Donner, Donnerwetter, Donnerschlag] }
+  friday_time:
+    form: Freitag
+    article: der
+    gender: m
+    plural: Freitage
+    distractors: { far: [Wochenausklang, Zahltag], near: [Freizeit, Freibad, Freitreppe] }
+  saturday_time:
+    form: Samstag
+    article: der
+    gender: m
+    plural: Samstage
+    distractors: { far: [Ruhetag, Einkaufstag], near: [Samt, Sammler, Sanftmut] }
+  sunday_time:
+    form: Sonntag
+    article: der
+    gender: m
+    plural: Sonntage
+    distractors: { far: [Feiertag, Besuchstag], near: [Sonne, Sonnenschein, Sonderzug] }
+  season_time:
+    form: Jahreszeit
+    article: die
+    gender: f
+    plural: Jahreszeiten
+    distractors: { far: [Klima, Witterung], near: [Jahreswende, Arbeitszeit, Jahresende] }
+  spring_time:
+    form: Frühling
+    article: der
+    gender: m
+    plural: Frühlinge
+    distractors: { far: [Vorfrühling, Tauwetter], near: [Füllung, Frühstart, Häuptling] }
+  summer_time:
+    form: Sommer
+    article: der
+    gender: m
+    plural: Sommer
+    distractors: { far: [Hochsaison, Ferienzeit], near: [Sommerzeit, Kummer, Hammer] }
+  autumn_time:
+    form: Herbst
+    article: der
+    gender: m
+    plural: Herbste
+    distractors: { far: [Spätjahr, Erntezeit], near: [Krebs, Herberge, Erbse] }
+  winter_time:
+    form: Winter
+    article: der
+    gender: m
+    plural: Winter
+    distractors: { far: [Frostzeit, Kältewelle], near: [Winzer, Wintersport, Sinter] }
+  vacation_time:
+    form: Ferien
+    article: die
+    plural: Ferien
+    note: только множественное
+    distractors: { far: [Auszeit, schulfrei], near: [Serien, Fasern, Ferne] }
+  appointment_meeting:
+    form: Verabredung
+    article: die
+    gender: f
+    plural: Verabredungen
+    distractors: { far: [Treffen, Zusammenkunft], near: [Verabschiedung, Verwendung, Verwertung] }
+  duration_noun:
+    form: Dauer
+    article: die
+    gender: f
+    distractors: { far: [Zeitraum, Spanne], near: [Bauer, Mauer, Trauer] }
+  beginning_noun:
+    form: Anfang
+    article: der
+    gender: m
+    plural: Anfänge
+    distractors: { far: [Ablauf, Vorbereitung], near: [Empfang, Umfang, Anhang] }
+  ending_noun:
+    form: Ende
+    article: das
+    gender: n
+    plural: Enden
+    distractors: { far: [Verlauf, Fortsetzung], near: [Wende, Bande, Ente] }
+  future_noun:
+    form: Zukunft
+    article: die
+    gender: f
+    distractors: { far: [Aussicht, Perspektive], near: [Auskunft, Unterkunft, Zunft] }
+  past_noun:
+    form: Vergangenheit
+    article: die
+    gender: f
+    distractors: { far: [Geschichte, Rückblick], near: [Vergänglichkeit, Verlegenheit, Gefangenschaft] }
+  present_noun:
+    form: Gegenwart
+    article: die
+    gender: f
+    distractors: { far: [Ewigkeit, Aktualität], near: [Gegenwind, Gegenwehr, Warteschlange] }
+  moment_noun:
+    form: Augenblick
+    article: der
+    gender: m
+    plural: Augenblicke
+    distractors: { far: [Weile, Zeitpunkt], near: [Augenlicht, Augenbraue, Anblick] }
+  century_noun:
+    form: Jahrhundert
+    article: das
+    gender: n
+    plural: Jahrhunderte
+    distractors: { far: [Jahrzehnt, Zeitalter], near: [Jahrtausend, Jahrgang, Hundertschaft] }
+  clocktime_noun:
+    form: Uhrzeit
+    article: die
+    gender: f
+    plural: Uhrzeiten
+    distractors: { far: [Zeitzone, Zeitangabe], near: [Uhrwerk, Urzeit, Arbeitszeit] }
+  alarm_object:
+    form: Wecker
+    article: der
+    gender: m
+    plural: Wecker
+    distractors: { far: [Timer, Sanduhr], near: [Wecken, Bäcker, Wecke] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  period_noun:
+    form: Zeitraum
+    article: der
+    gender: m
+    plural: Zeiträume
+    distractors: { far: [Zeitpunkt, Abschnitt], near: [Zeitraffer, Weltraum, Zeitrahmen] }
+  pointintime_noun:
+    form: Zeitpunkt
+    article: der
+    gender: m
+    plural: Zeitpunkte
+    distractors: { far: [Zeitraum, Frist], near: [Zeitgeist, Standpunkt, Gesichtspunkt] }
+  cutoffdate_noun:
+    form: Stichtag
+    article: der
+    gender: m
+    plural: Stichtage
+    distractors: { far: [Fälligkeit, Abgabetermin], near: [Stichwort, Stichprobe, Stiefvater] }
+  delay_general:
+    form: Verzögerung
+    article: die
+    gender: f
+    plural: Verzögerungen
+    distractors: { far: [Ausfall, Unterbrechung], near: [Verzerrung, Verzweigung, Verzückung] }
+  postponement_noun:
+    form: Aufschub
+    article: der
+    gender: m
+    plural: Aufschübe
+    distractors: { far: [Absage, Verlängerung], near: [Aufschwung, Anschub, Aufschlag] }
+  schedule_noun:
+    form: Zeitplan
+    article: der
+    gender: m
+    plural: Zeitpläne
+    distractors: { far: [Protokoll, Tagesordnung], near: [Bauplan, Zeitpunkt, Zeitlupe] }
+  sequenceflow_noun:
+    form: Ablauf
+    article: der
+    gender: m
+    plural: Abläufe
+    distractors: { far: [Ergebnis, Zwischenstand], near: [Anlauf, Ablage, Auslauf] }
+  order_sequence:
+    form: Reihenfolge
+    article: die
+    gender: f
+    plural: Reihenfolgen
+    distractors: { far: [Rangordnung, Gliederung], near: [Reihenhaus, Rechtsfolge, Reihenschaltung] }
+  simultaneity_noun:
+    form: Gleichzeitigkeit
+    article: die
+    gender: f
+    plural: Gleichzeitigkeiten
+    distractors: { far: [Parallelität, Überschneidung], near: [Gleichgültigkeit, Rechtzeitigkeit, Gleichberechtigung] }
+  regularity_noun:
+    form: Regelmäßigkeit
+    article: die
+    gender: f
+    plural: Regelmäßigkeiten
+    distractors: { far: [Häufigkeit, Takt], near: [Rechtmäßigkeit, Regelwidrigkeit, Reglementierung] }
+  frequency_general:
+    form: Häufigkeit
+    article: die
+    gender: f
+    plural: Häufigkeiten
+    distractors: { far: [Anzahl, Wiederholung], near: [Haltbarkeit, Läufigkeit, Hässlichkeit] }
+  timezone_noun:
+    form: Zeitzone
+    article: die
+    gender: f
+    plural: Zeitzonen
+    distractors: { far: [Ortszeit, Weltzeit], near: [Zeitlupe, Sperrzone, Zeitkonto] }
+  summertime_noun:
+    form: Sommerzeit
+    article: die
+    gender: f
+    plural: Sommerzeiten
+    distractors: { far: [Normalzeit, Ortszeit], near: [Sommerferien, Winterzeit, Sommersprosse] }
+  wintertime_noun:
+    form: Winterzeit
+    article: die
+    gender: f
+    plural: Winterzeiten
+    distractors: { far: [Zeitumstellung, Weltzeit], near: [Winterreifen, Sommerzeit, Winterschlaf] }
+  leapyear_noun:
+    form: Schaltjahr
+    article: das
+    gender: n
+    plural: Schaltjahre
+    distractors: { far: [Kalenderjahr, Wirtschaftsjahr], near: [Schaltplan, Halbjahr, Schaltfläche] }
+  anniversary_noun:
+    form: Jahrestag
+    article: der
+    gender: m
+    plural: Jahrestage
+    distractors: { far: [Gedenktag, Kalenderblatt], near: [Jahresende, Werktag, Jahresbericht] }
+  timewaste_noun:
+    form: Zeitverschwendung
+    article: die
+    gender: f
+    plural: Zeitverschwendungen
+    distractors: { far: [Leerlauf, Untätigkeit], near: [Zeitverlust, Geldverschwendung, Zeitverschiebung] }
+  punctuality_noun:
+    form: Pünktlichkeit
+    article: die
+    gender: f
+    distractors: { far: [Zuverlässigkeit, Disziplin], near: [Peinlichkeit, Öffentlichkeit, Ordentlichkeit] }
+  diary_object:
+    form: Terminkalender
+    article: der
+    gender: m
+    plural: Terminkalender
+    distractors: { far: [Notizbuch, Tagesplan], near: [Terminvergabe, Wandkalender, Terminüberschneidung] }
+  leadtime_noun:
+    form: Vorlaufzeit
+    article: die
+    gender: f
+    plural: Vorlaufzeiten
+    distractors: { far: [Bearbeitungszeit, Lieferfrist], near: [Vorleistung, Nachlaufzeit, Vorkaufsrecht] }
+  graceperiod_noun:
+    form: Nachfrist
+    article: die
+    gender: f
+    plural: Nachfristen
+    distractors: { far: [Kulanzfrist, Verlängerung], near: [Nachfrage, Notfrist, Nachforschung] }
+  timepressure_noun:
+    form: Zeitdruck
+    article: der
+    gender: m
+    distractors: { far: [Stress, Hektik], near: [Zeitraum, Blutdruck, Zeitzeuge] }
+  opportunity_noun:
+    form: Gelegenheit
+    article: die
+    gender: f
+    plural: Gelegenheiten
+    distractors: { far: [Hindernis, Anlass], near: [Gelassenheit, Gemeinheit, Gelegenheitsarbeit] }
+  eternity_noun:
+    form: Ewigkeit
+    article: die
+    gender: f
+    plural: Ewigkeiten
+    distractors: { far: [Unendlichkeit, Dauer], near: [Einigkeit, Ewigkeitswert, Wichtigkeit] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  timemanagement_noun:
+    form: Zeitmanagement
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Selbstorganisation, Arbeitsplanung], near: [Zeiterfassung, Krisenmanagement, Zeitgefühl] }
+  prioritisation_noun:
+    form: Priorisierung
+    article: die
+    gender: f
+    plural: Priorisierungen
+    distractors: { far: [Gewichtung, Auswahl], near: [Privatisierung, Polarisierung, Priorität] }
+  milestone_noun:
+    form: Meilenstein
+    article: der
+    gender: m
+    plural: Meilensteine
+    distractors: { far: [Etappenziel, Abnahmepunkt], near: [meilenweit, Grenzstein, Meisterstück] }
+  projectphase_noun:
+    form: Projektphase
+    article: die
+    gender: f
+    plural: Projektphasen
+    distractors: { far: [Arbeitspaket, Teilprojekt], near: [Projektplan, Testphase, Projektleitung] }
+  timeseries_noun:
+    form: Zeitreihe
+    article: die
+    gender: f
+    plural: Zeitreihen
+    distractors: { far: [Messreihe, Verlaufskurve], near: [Zeitraum, Warteschlange, Zeitrechnung] }
+  periodicity_noun:
+    form: Periodizität
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Wiederkehr, Rhythmus], near: [Peripherie, Elektrizität, Produktivität] }
+  synchronisation_noun:
+    form: Synchronisierung
+    article: die
+    gender: f
+    plural: Synchronisierungen
+    distractors: { far: [Abstimmung, Gleichlauf], near: [Synchronsprecher, Sanierung, Symbolisierung] }
+  limitationdeadline_noun:
+    form: Verjährungsfrist
+    article: die
+    gender: f
+    plural: Verjährungsfristen
+    distractors: { far: [Einspruchsfrist, Klagefrist], near: [Verjährungsbeginn, Kündigungsfrist, Verjährungshemmung] }
+  transitionperiod_noun:
+    form: Übergangsfrist
+    article: die
+    gender: f
+    plural: Übergangsfristen
+    distractors: { far: [Schonfrist, Einführungsphase], near: [Übergangsregelung, Bewerbungsfrist, Übergangszeit] }
+  qualifyingperiod_noun:
+    form: Karenzzeit
+    article: die
+    gender: f
+    plural: Karenzzeiten
+    distractors: { far: [Beitragszeit, Leistungsbeginn], near: [Karenztag, Kernzeit, Karenzentschädigung] }
+  paybackperiod_noun:
+    form: Amortisationszeit
+    article: die
+    gender: f
+    plural: Amortisationszeiten
+    distractors: { far: [Kapitalrückfluss, Nutzungsdauer], near: [Amortisationsrechnung, Arbeitszeit, Amortisationsgrad] }
+  halflife_noun:
+    form: Halbwertszeit
+    article: die
+    gender: f
+    plural: Halbwertszeiten
+    distractors: { far: [Zerfallsrate, Lebensdauer], near: [Halbzeit, Wartezeit, Halbwertsdicke] }
+  chronology_noun:
+    form: Chronologie
+    article: die
+    gender: f
+    plural: Chronologien
+    distractors: { far: [Zeitzeuge, Geschichtsbuch], near: [Chronik, Technologie, Chronometer] }
+  epoch_noun:
+    form: Epoche
+    article: die
+    gender: f
+    plural: Epochen
+    distractors: { far: [Zeitabschnitt, Periode], near: [Epos, Woche, Epidemie] }
+  era_noun:
+    form: Ära
+    article: die
+    gender: f
+    plural: Ären
+    distractors: { far: [Jahrhundertwende, Herrschaftszeit], near: [Ähre, Aura, Arie] }
+  zeitgeist_noun:
+    form: Zeitgeist
+    article: der
+    gender: m
+    distractors: { far: [Stimmungslage, Modeerscheinung], near: [Zeitgenosse, Zeitgewinn, Zeitgefühl] }
+  prehistory_noun:
+    form: Vorgeschichte
+    article: die
+    gender: f
+    plural: Vorgeschichten
+    distractors: { far: [Hintergrund, Anlass], near: [Vorgeschmack, Weltgeschichte, Vorgehensweise] }
+  aftereffect_noun:
+    form: Nachwirkung
+    article: die
+    gender: f
+    plural: Nachwirkungen
+    distractors: { far: [Folgeschaden, Spätfolge], near: [Nachwirkungsfrist, Auswirkung, Nachbereitung] }
+  retroactivity_noun:
+    form: Rückwirkung
+    article: die
+    gender: f
+    plural: Rückwirkungen
+    distractors: { far: [Geltungsbeginn, Übergangsregel], near: [Rückwirkungsverbot, Nachwirkung, Rückmeldung] }
+  clocking_noun:
+    form: Taktung
+    article: die
+    gender: f
+    plural: Taktungen
+    distractors: { far: [Frequenzvorgabe, Zeitraster], near: [Taktgeber, Achtung, Taktik] }
+  frequency_technical:
+    form: Frequenz
+    article: die
+    gender: f
+    plural: Frequenzen
+    distractors: { far: [Schwingung, Wiederholrate], near: [Konsequenz, Konkurrenz, Referenz] }
+  interval_noun:
+    form: Intervall
+    article: das
+    gender: n
+    plural: Intervalle
+    distractors: { far: [Pause, Zeitfenster], near: [Interview, Intervention, Insektenbefall] }
+  rotation_noun:
+    form: Turnus
+    article: der
+    gender: m
+    plural: Turnusse
+    distractors: { far: [Wechselrhythmus, Reihenfolge], near: [Terminus, Tarnung, Turnier] }
+  cycle_noun:
+    form: Zyklus
+    article: der
+    gender: m
+    plural: Zyklen
+    distractors: { far: [Stillstand, Zwischenschritt], near: [Zylinder, Zirkus, Zyniker] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0094:
+    form: Zeit
+    article: die
+    gender: f
+  lx0095:
+    form: acht
+  lx0096:
+    form: drei
+  lx0097:
+    form: eins
+  lx0098:
+    form: elf
+  lx0099:
+    form: fünf
+  lx0100:
+    form: neun
+  lx0101:
+    form: 'null'
+  lx0102:
+    form: sechs
+  lx0103:
+    form: sieben
+  lx0104:
+    form: vier
+  lx0105:
+    form: zehn
+  lx0106:
+    form: zwei
+  lx0107:
+    form: zwölf
+  lx0366:
+    form: anfangen
+  lx0367:
+    form: beginnen
+  lx0368:
+    form: dauern
+  lx0369:
+    form: enden
+  lx0370:
+    form: warten
+  lx0371:
+    form: zählen
+  lx0372:
+    form: April
+    article: der
+    gender: m
+  lx0373:
+    form: August
+    article: der
+    gender: m
+  lx0374:
+    form: Dezember
+    article: der
+    gender: m
+  lx0375:
+    form: Februar
+    article: der
+    gender: m
+  lx0376:
+    form: Grad
+    article: der
+    gender: m
+  lx0377:
+    form: Gramm
+    article: das
+    gender: n
+  lx0378:
+    form: Hälfte
+    article: die
+    gender: f
+  lx0379:
+    form: Januar
+    article: der
+    gender: m
+  lx0380:
+    form: Juli
+    article: der
+    gender: m
+  lx0381:
+    form: Juni
+    article: der
+    gender: m
+  lx0382:
+    form: Kilogramm
+    article: das
+    gender: n
+  # Здесь der Liter; das Liter также встречается нормативно.
+  lx0383:
+    form: Liter
+    article: der
+    gender: m
+  lx0384:
+    form: Mai
+    article: der
+    gender: m
+  lx0385:
+    form: Mal
+    article: das
+    gender: n
+  lx0386:
+    form: März
+    article: der
+    gender: m
+  # Здесь der Meter; das Meter также встречается нормативно.
+  lx0387:
+    form: Meter
+    article: der
+    gender: m
+  lx0388:
+    form: Nachmittag
+    article: der
+    gender: m
+  lx0389:
+    form: November
+    article: der
+    gender: m
+  lx0390:
+    form: Nummer
+    article: die
+    gender: f
+  lx0391:
+    form: Oktober
+    article: der
+    gender: m
+  lx0392:
+    form: Reihe
+    article: die
+    gender: f
+  lx0393:
+    form: Sekunde
+    article: die
+    gender: f
+  lx0394:
+    form: September
+    article: der
+    gender: m
+  lx0395:
+    form: Vormittag
+    article: der
+    gender: m
+  lx0396:
+    form: Zahl
+    article: die
+    gender: f
+  lx0397:
+    form: Zentimeter
+    article: der
+    gender: m
+  lx0398:
+    form: halb
+  lx0399:
+    form: pünktlich
+  lx0400:
+    form: abends
+  lx0401:
+    form: bereits
+  lx0402:
+    form: danach
+  lx0403:
+    form: dann
+  lx0404:
+    form: diesmal
+  lx0405:
+    form: gleich
+  lx0406:
+    form: jährlich
+  lx0407:
+    form: mittags
+  lx0408:
+    form: monatlich
+  lx0409:
+    form: morgens
+  lx0410:
+    form: nachmittags
+  lx0411:
+    form: nachts
+  lx0412:
+    form: sofort
+  lx0413:
+    form: täglich
+  lx0414:
+    form: übermorgen
+  lx0415:
+    form: vorgestern
+  lx0416:
+    form: wöchentlich
+  lx0417:
+    form: zuerst
+  lx0418:
+    form: achtzehn
+  lx0419:
+    form: achtzig
+  lx0420:
+    form: dreißig
+  lx0421:
+    form: dreizehn
+  lx0422:
+    form: fünfzehn
+  lx0423:
+    form: fünfzig
+  lx0424:
+    form: hundert
+  lx0425:
+    form: neunzehn
+  lx0426:
+    form: neunzig
+  lx0427:
+    form: sechzehn
+  lx0428:
+    form: sechzig
+  lx0429:
+    form: siebzehn
+  lx0430:
+    form: siebzig
+  lx0431:
+    form: tausend
+  lx0432:
+    form: vierzehn
+  lx0433:
+    form: vierzig
+  lx0434:
+    form: zwanzig
+  lx1020:
+    form: absagen
+  lx1021:
+    form: aufschieben
+  lx1022:
+    form: nachholen
+  lx1023:
+    form: 'sich verspäten'
+  lx1024:
+    form: verbringen
+  lx1025:
+    form: vereinbaren
+  lx1026:
+    form: vergehen
+  lx1027:
+    form: verschieben
+  lx1028:
+    form: Alltag
+    article: der
+    gender: m
+  lx1029:
+    form: Anzahl
+    article: die
+    gender: f
+  lx1030:
+    form: Beginn
+    article: der
+    gender: m
+  lx1031:
+    form: Bruchteil
+    article: der
+    gender: m
+  lx1032:
+    form: Drittel
+    article: das
+    gender: n
+  lx1033:
+    form: Durchschnitt
+    article: der
+    gender: m
+  lx1034:
+    form: Dutzend
+    article: das
+    gender: n
+  lx1035:
+    form: Einheit
+    article: die
+    gender: f
+  lx1036:
+    form: Mehrheit
+    article: die
+    gender: f
+  lx1037:
+    form: Menge
+    article: die
+    gender: f
+  lx1038:
+    form: Milliarde
+    article: die
+    gender: f
+  lx1039:
+    form: Millimeter
+    article: der
+    gender: m
+  lx1040:
+    form: Million
+    article: die
+    gender: f
+  lx1041:
+    form: Minderheit
+    article: die
+    gender: f
+  lx1042:
+    form: Moment
+    article: der
+    gender: m
+  lx1043:
+    form: Pfund
+    article: das
+    gender: n
+  lx1044:
+    form: Prozent
+    article: das
+    gender: n
+  lx1045:
+    form: Summe
+    article: die
+    gender: f
+  lx1046:
+    form: Viertel
+    article: das
+    gender: n
+  lx1047:
+    form: bisherig
+  lx1048:
+    form: endgültig
+  lx1049:
+    form: gleichzeitig
+  lx1050:
+    form: vergangen
+  lx1051:
+    form: vorläufig
+  lx1052:
+    form: zeitig
+  lx1053:
+    form: zukünftig
+  lx1054:
+    form: bisher
+  lx1055:
+    form: damals
+  lx1056:
+    form: demnächst
+  lx1057:
+    form: eben
+  lx1058:
+    form: einmal
+  lx1059:
+    form: insgesamt
+  lx1060:
+    form: inzwischen
+  lx1061:
+    form: irgendwann
+  lx1062:
+    form: jederzeit
+  lx1063:
+    form: jeweils
+  lx1064:
+    form: kürzlich
+  lx1065:
+    form: mehrmals
+  lx1066:
+    form: meistens
+  lx1067:
+    form: mittlerweile
+  lx1068:
+    form: neulich
+  lx1069:
+    form: niemals
+  lx1070:
+    form: rechtzeitig
+  lx1071:
+    form: regelmäßig
+  lx1072:
+    form: selten
+  lx1073:
+    form: ständig
+  lx1074:
+    form: stets
+  lx1075:
+    form: vorhin
+  lx1076:
+    form: weiterhin
+  lx1077:
+    form: zuletzt
+  lx1078:
+    form: zweimal
+  lx2502:
+    form: ausrechnen
+  lx2503:
+    form: berechnen
+  lx2504:
+    form: dritteln
+  lx2505:
+    form: fortsetzen
+  lx2506:
+    form: halbieren
+  lx2507:
+    form: überschreiten
+  lx2508:
+    form: unterschreiten
+  lx2509:
+    form: verdoppeln
+  lx2510:
+    form: verkürzen
+  lx2511:
+    form: verlängern
+  lx2512:
+    form: vervielfachen
+  lx2513:
+    form: verzögern
+  lx2514:
+    form: Abstand
+    article: der
+    gender: m
+  lx2515:
+    form: Anteil
+    article: der
+    gender: m
+  lx2516:
+    form: Bedarf
+    article: der
+    gender: m
+  lx2517:
+    form: Begrenzung
+    article: die
+    gender: f
+  lx2518:
+    form: Grenzwert
+    article: der
+    gender: m
+  lx2519:
+    form: Größenangabe
+    article: die
+    gender: f
+  lx2520:
+    form: Größenordnung
+    article: die
+    gender: f
+  lx2521:
+    form: Jahreswechsel
+    article: der
+    gender: m
+  lx2522:
+    form: Jahrzehnt
+    article: das
+    gender: n
+  lx2523:
+    form: Maximum
+    article: das
+    gender: n
+  lx2524:
+    form: Minimum
+    article: das
+    gender: n
+  lx2525:
+    form: Mittelmaß
+    article: das
+    gender: n
+  lx2526:
+    form: Öffnungszeit
+    article: die
+    gender: f
+  lx2527:
+    form: Rest
+    article: der
+    gender: m
+  lx2528:
+    form: Rhythmus
+    article: der
+    gender: m
+  lx2529:
+    form: Schätzung
+    article: die
+    gender: f
+  lx2530:
+    form: Tagesablauf
+    article: der
+    gender: m
+  lx2531:
+    form: Tempo
+    article: das
+    gender: n
+  lx2532:
+    form: Übergangszeit
+    article: die
+    gender: f
+  lx2533:
+    form: Überschuss
+    article: der
+    gender: m
+  lx2534:
+    form: Umfang
+    article: der
+    gender: m
+  lx2535:
+    form: Verlängerung
+    article: die
+    gender: f
+  lx2536:
+    form: Wert
+    article: der
+    gender: m
+  lx2537:
+    form: Wiederholung
+    article: die
+    gender: f
+  lx2538:
+    form: Zeitalter
+    article: das
+    gender: n
+  lx2539:
+    form: Zeitspanne
+    article: die
+    gender: f
+  lx2540:
+    form: Zeitverschiebung
+    article: die
+    gender: f
+  lx2541:
+    form: Zwischenraum
+    article: der
+    gender: m
+  lx2542:
+    form: fristgerecht
+  lx2543:
+    form: ganztägig
+  lx2544:
+    form: halbtägig
+  lx2545:
+    form: kurzfristig
+  lx2546:
+    form: langfristig
+  lx2547:
+    form: mehrtägig
+  lx2548:
+    form: mittelfristig
+  lx2549:
+    form: termingerecht
+  lx2550:
+    form: zeitlich
+  lx2551:
+    form: allmählich
+  lx2552:
+    form: anschließend
+  lx2553:
+    form: beinahe
+  lx2554:
+    form: bislang
+  lx2555:
+    form: circa
+  lx2556:
+    form: dauerhaft
+  lx2557:
+    form: etwa
+  lx2558:
+    form: gelegentlich
+  lx2559:
+    form: höchstens
+  lx2560:
+    form: kaum
+  lx2561:
+    form: letztlich
+  lx2562:
+    form: mindestens
+  lx2563:
+    form: rückwirkend
+  lx2564:
+    form: schließlich
+  lx2565:
+    form: unverzüglich
+  lx2566:
+    form: vorerst
+  lx2567:
+    form: vorübergehend
+  lx2568:
+    form: zeitweise
+  lx2569:
+    form: zunächst
+  lx2570:
+    form: zwischenzeitlich
+  lx4342:
+    form: einhalten
+  lx4343:
+    form: einplanen
+  lx4344:
+    form: einteilen
+  lx4345:
+    form: hinauszögern
+  lx4346:
+    form: hochrechnen
+  lx4347:
+    form: kalkulieren
+  lx4348:
+    form: quantifizieren
+  lx4349:
+    form: takten
+  lx4350:
+    form: terminieren
+  lx4351:
+    form: überbrücken
+  lx4352:
+    form: vorziehen
+  lx4353:
+    form: Abweichung
+    article: die
+    gender: f
+  lx4354:
+    form: Ausblick
+    article: der
+    gender: m
+  lx4355:
+    form: Bandbreite
+    article: die
+    gender: f
+  lx4356:
+    form: Beständigkeit
+    article: die
+    gender: f
+  lx4357:
+    form: Kontinuität
+    article: die
+    gender: f
+  lx4358:
+    form: Priorität
+    article: die
+    gender: f
+  lx4359:
+    form: Richtwert
+    article: der
+    gender: m
+  lx4360:
+    form: Rückblick
+    article: der
+    gender: m
+  lx4361:
+    form: Schwankung
+    article: die
+    gender: f
+  lx4362:
+    form: Spannweite
+    article: die
+    gender: f
+  lx4363:
+    form: Vergänglichkeit
+    article: die
+    gender: f
+  lx4364:
+    form: Zeitaufwand
+    article: der
+    gender: m
+  lx4365:
+    form: Zeitfenster
+    article: das
+    gender: n
+  lx4366:
+    form: Zeitmangel
+    article: der
+    gender: m
+  lx4367:
+    form: Zeitpuffer
+    article: der
+    gender: m
+  lx4368:
+    form: Zeitrahmen
+    article: der
+    gender: m
+  lx4369:
+    form: bevorstehend
+  lx4370:
+    form: fortlaufend
+  lx4371:
+    form: kurzlebig
+  lx4372:
+    form: stetig
+  lx4373:
+    form: überfällig
+  lx4374:
+    form: unmittelbar
+  lx4375:
+    form: wiederkehrend
+  lx4376:
+    form: zeitaufwendig
+  lx4377:
+    form: zeitgemäß
+  lx4378:
+    form: zeitlos
+  lx4379:
+    form: zeitnah
+  lx4380:
+    form: zeitversetzt
+  lx4381:
+    form: annähernd
+  lx4382:
+    form: ehemals
+  lx4383:
+    form: einst
+  lx4384:
+    form: fortan
+  lx4385:
+    form: gegenwärtig
+  lx4386:
+    form: größtenteils
+  lx4387:
+    form: nahezu
+  lx4388:
+    form: schlagartig
+  lx4389:
+    form: seither
+  lx4390:
+    form: überwiegend
+  lx4391:
+    form: verhältnismäßig
+  lx4392:
+    form: zeitgleich

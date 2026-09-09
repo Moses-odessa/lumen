@@ -1,0 +1,1182 @@
+# Немецкие лексемы созвездия «Люди, семья и отношения».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  mother_person:
+    form: Mutter
+    article: die
+    gender: f
+    plural: Mütter
+    distractors:
+      far: [Oma, Tante]
+      near: [Butter, Futter, Muster]
+  father_person:
+    form: Vater
+    article: der
+    gender: m
+    plural: Väter
+    distractors:
+      far: [Opa, Onkel]
+      near: [Kater, Vetter, Watte]
+  child_person:
+    form: Kind
+    article: das
+    gender: n
+    plural: Kinder
+    distractors:
+      far: [Erwachsener, Jugendlicher]
+      near: [Rind, Wind, Kinn]
+  son_person:
+    form: Sohn
+    article: der
+    gender: m
+    plural: Söhne
+    distractors:
+      far: [Neffe, Enkel]
+      near: [Ton, Lohn, Bohne]
+  daughter_person:
+    form: Tochter
+    article: die
+    gender: f
+    plural: Töchter
+    distractors:
+      far: [Nichte, Enkelin]
+      near: [Trichter, Wächter, Töpfer]
+  sister_person:
+    form: Schwester
+    article: die
+    gender: f
+    plural: Schwestern
+    distractors:
+      far: [Bruder, Cousine]
+      near: [Geschwister, Schwelle, Schuster]
+  friend_person:
+    form: Freund
+    article: der
+    gender: m
+    plural: Freunde
+    distractors:
+      far: [Bekannter, Gast]
+      near: [Freude, Feind, Fund]
+  name_noun:
+    form: Name
+    article: der
+    gender: m
+    plural: Namen
+    distractors:
+      far: [Adresse, Alter]
+      near: [Nase, Nabe, Rahmen]
+  family_noun:
+    form: Familie
+    article: die
+    gender: f
+    plural: Familien
+    distractors:
+      far: [Verwandte, Haushalt]
+      near: [Vanille, Kamille, Fabrik]
+  man_person:
+    form: Mann
+    article: der
+    gender: m
+    plural: Männer
+    distractors:
+      far: [Junge, Bruder]
+      near: [Bann, Wanne, Mannschaft]
+  woman_person:
+    form: Frau
+    article: die
+    gender: f
+    plural: Frauen
+    distractors:
+      far: [Mädchen, Tochter]
+      near: [Grau, Braut, Frost]
+  old_adj:
+    form: alt
+    note: прилагательное
+    distractors:
+      far: [jung, neu]
+      near: [Halt, Wald, Anwalt]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  brother_person:
+    form: Bruder
+    article: der
+    gender: m
+    plural: Brüder
+    distractors:
+      far: [Schwager, Vetter]
+      near: [Bruch, Ruder, Brauerei]
+  grandmother_person:
+    form: Oma
+    article: die
+    gender: f
+    plural: Omas
+    distractors:
+      far: [Urgroßmutter, Patin]
+      near: [Oper, Ohr, Koma]
+  grandfather_person:
+    form: Opa
+    article: der
+    gender: m
+    plural: Opas
+    distractors:
+      far: [Urgroßvater, Pate]
+      near: [Oper, Opal, Oase]
+  husband_person:
+    form: Ehemann
+    article: der
+    gender: m
+    plural: Ehemänner
+    distractors:
+      far: [Partner, Verlobter]
+      near: [Ehering, Hauptmann, Ehefrau]
+  wife_person:
+    form: Ehefrau
+    article: die
+    gender: f
+    plural: Ehefrauen
+    distractors:
+      far: [Partnerin, Verlobte]
+      near: [Ehering, Hausfrau, Ehepaar]
+  aunt_person:
+    form: Tante
+    article: die
+    gender: f
+    plural: Tanten
+    distractors:
+      far: [Schwägerin, Patin]
+      near: [Kante, Tanne, Bande]
+  uncle_person:
+    form: Onkel
+    article: der
+    gender: m
+    plural: Onkel
+    distractors:
+      far: [Schwiegervater, Pate]
+      near: [Enkel, Winkel, Dunkel]
+  cousin_person:
+    form: Cousin
+    article: der
+    gender: m
+    plural: Cousins
+    distractors:
+      far: [Neffe, Verwandter]
+      near: [Cousine, Kamin, Rosine]
+  grandchild_person:
+    form: Enkel
+    article: der
+    gender: m
+    plural: Enkel
+    distractors:
+      far: [Patenkind, Nachkomme]
+      near: [Onkel, Winkel, Ekel]
+  birthday_noun:
+    form: Geburtstag
+    article: der
+    gender: m
+    plural: Geburtstage
+    distractors:
+      far: [Jubiläum, Feiertag]
+      near: [Geburtsort, Geburtsjahr, Gebetstag]
+  wedding_noun:
+    form: Hochzeit
+    article: die
+    gender: f
+    plural: Hochzeiten
+    distractors:
+      far: [Verlobung, Taufe]
+      near: [Hochsaison, Hochhaus, Hoheit]
+  young_adj:
+    form: jung
+    note: прилагательное
+    distractors:
+      far: [alt, erwachsen]
+      near: [Junge, Zunge, Sprung]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  relatives_noun:
+    # Только множественное, и склонение слабое: «die Verwandten».
+    form: Verwandten
+    article: die
+    plural: Verwandten
+    note: только множественное
+    distractors: { far: [Bekannte, Nachbarn], near: [Verwandlung, Verbannte, Gewandte] }
+  brotherinlaw_person:
+    form: Schwager
+    article: der
+    gender: m
+    plural: Schwäger
+    distractors: { far: [Cousin, Neffe], near: [Schlager, Schwabe, Schwaden] }
+  sisterinlaw_person:
+    form: Schwägerin
+    article: die
+    gender: f
+    plural: Schwägerinnen
+    distractors: { far: [Cousine, Nichte], near: [Schlägerin, Schwätzerin, Schwägerschaft] }
+  niece_person:
+    form: Nichte
+    article: die
+    gender: f
+    plural: Nichten
+    distractors: { far: [Enkelin, Patenkind], near: [Schicht, Sicht, Nische] }
+  nephew_person:
+    form: Neffe
+    article: der
+    gender: m
+    plural: Neffen
+    distractors: { far: [Patenkind, Pflegesohn], near: [Affe, Nelke, Treffer] }
+  motherinlaw_person:
+    form: Schwiegermutter
+    article: die
+    gender: f
+    plural: Schwiegermütter
+    distractors: { far: [Stiefmutter, Patin], near: [Schwiegertochter, Schwiegersohn, Ziehmutter] }
+  fatherinlaw_person:
+    form: Schwiegervater
+    article: der
+    gender: m
+    plural: Schwiegerväter
+    distractors: { far: [Pate, Ziehvater], near: [Schwiegersohn, Großvater, Landesvater] }
+  stepfather_person:
+    form: Stiefvater
+    article: der
+    gender: m
+    plural: Stiefväter
+    distractors: { far: [Pate, Vormund], near: [Stiefsohn, Stiefel, Tiefe] }
+  twin_person:
+    form: Zwilling
+    article: der
+    gender: m
+    plural: Zwillinge
+    distractors: { far: [Drilling, Geschwisterkind], near: [Zwiebel, Schilling, Zwirn] }
+  siblings_noun:
+    form: Geschwister
+    article: die
+    plural: Geschwister
+    note: только множественное
+    distractors: { far: [Cousin, Schwiegereltern], near: [Gespenster, Geschworene, Geschwader] }
+  engagement_noun:
+    form: Verlobung
+    article: die
+    gender: f
+    plural: Verlobungen
+    distractors: { far: [Trauung, Antrag], near: [Verlockung, Vertonung, Erlösung] }
+  divorce_noun:
+    form: Scheidung
+    article: die
+    gender: f
+    plural: Scheidungen
+    distractors: { far: [Trennung, Annullierung], near: [Schädigung, Schleifung, Scheidewand] }
+  marriage_noun:
+    form: Ehe
+    article: die
+    gender: f
+    plural: Ehen
+    distractors: { far: [Partnerschaft, Lebensgemeinschaft], near: [Reh, Ehre, Nähe] }
+  upbringing_noun:
+    form: Erziehung
+    article: die
+    gender: f
+    plural: Erziehungen
+    distractors: { far: [Bildung, Betreuung], near: [Erzählung, Beziehung, Erzeugung] }
+  childhood_noun:
+    form: Kindheit
+    article: die
+    gender: f
+    plural: Kindheiten
+    distractors: { far: [Lebensabschnitt, Frühzeit], near: [Krankheit, Kindergeld, Klarheit] }
+  youth_noun:
+    form: Jugend
+    article: die
+    gender: f
+    plural: Jugenden
+    distractors: { far: [Erwachsenenalter, Reifezeit], near: [Tugend, Jugendamt, Legende] }
+  pension_noun:
+    form: Rente
+    article: die
+    gender: f
+    plural: Renten
+    distractors: { far: [Sozialhilfe, Ruhestand], near: [Ernte, Rinde, Rampe] }
+  surname_noun:
+    form: Nachname
+    article: der
+    gender: m
+    plural: Nachnamen
+    distractors: { far: [Künstlername, Anrede], near: [Nachnahme, Nachricht, Nachlass] }
+  firstname_noun:
+    form: Vorname
+    article: der
+    gender: m
+    plural: Vornamen
+    distractors: { far: [Spitzname, Titel], near: [Vorgang, Vornahme, Vorrat] }
+  birthplace_noun:
+    form: Geburtsort
+    article: der
+    gender: m
+    plural: Geburtsorte
+    distractors: { far: [Wohnort, Heimat], near: [Geburtsjahr, Geburtshaus, Kurort] }
+  citizenship_noun:
+    form: Staatsangehörigkeit
+    article: die
+    gender: f
+    plural: Staatsangehörigkeiten
+    distractors: { far: [Aufenthaltstitel, Herkunft], near: [Zugehörigkeit, Staatsanwaltschaft, Staatskasse] }
+  maritalstatus_noun:
+    form: Familienstand
+    article: der
+    gender: m
+    plural: Familienstände
+    distractors: { far: [Wohnsitz, Steuerklasse], near: [Familienname, Ruhestand, Familienrat] }
+  household_noun:
+    form: Haushalt
+    article: der
+    gender: m
+    plural: Haushalte
+    distractors: { far: [Wohngemeinschaft, Anwesen], near: [Aufenthalt, Inhalt, Haushaltsplan] }
+  kindergarten_place:
+    form: Kindergarten
+    article: der
+    gender: m
+    plural: Kindergärten
+    distractors: { far: [Krippe, Hort], near: [Kindergeld, Ziergarten, Kinderwagen] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  guardian_person:
+    form: Vormund
+    article: der
+    gender: m
+    plural: Vormünder
+    distractors: { far: [Betreuer, Pate], near: [Vorbild, Vormittag, Vorwand] }
+  custody_noun:
+    form: Sorgerecht
+    article: das
+    gender: n
+    plural: Sorgerechte
+    distractors: { far: [Umgangsrecht, Aufenthaltsrecht], near: [Sorgfalt, Wohnrecht, Sorgenkind] }
+  maintenance_payment:
+    form: Unterhalt
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Kindergeld, Beihilfe], near: [Unterhaltung, Aufenthalt, Unterlage] }
+  childbenefit_noun:
+    form: Kindergeld
+    article: das
+    gender: n
+    distractors: { far: [Elterngeld, Wohngeld], near: [Kindergarten, Bargeld, Kinderzimmer] }
+  parentalallowance_noun:
+    form: Elterngeld
+    article: das
+    gender: n
+    distractors: { far: [Kindergeld, Mutterschaftsgeld], near: [Elternzeit, Bargeld, Elternabend] }
+  parentalleave_noun:
+    form: Elternzeit
+    article: die
+    gender: f
+    plural: Elternzeiten
+    distractors: { far: [Mutterschutz, Sonderurlaub], near: [Elterngeld, Freizeit, Elternhaus] }
+  childcare_noun:
+    form: Betreuung
+    article: die
+    gender: f
+    plural: Betreuungen
+    distractors: { far: [Erziehung, Aufsicht], near: [Bestrafung, Beratung, Bewertung] }
+  childminder_person:
+    form: Tagesmutter
+    article: die
+    gender: f
+    plural: Tagesmütter
+    distractors: { far: [Erzieherin, Hebamme], near: [Tagesordnung, Stiefmutter, Tagesmarsch] }
+  adoption_noun:
+    form: Adoption
+    article: die
+    gender: f
+    plural: Adoptionen
+    distractors: { far: [Vormundschaft, Pflegschaft], near: [Adaption, Aktion, Option] }
+  fosterfamily_noun:
+    form: Pflegefamilie
+    article: die
+    gender: f
+    plural: Pflegefamilien
+    distractors: { far: [Heim, Wohngruppe], near: [Pflegeeltern, Großfamilie, Pflegeheim] }
+  godparenthood_noun:
+    form: Patenschaft
+    article: die
+    gender: f
+    plural: Patenschaften
+    distractors: { far: [Vormundschaft, Mitgliedschaft], near: [Partnerschaft, Patentschrift, Pachtland] }
+  inheritance_noun:
+    form: Erbe
+    article: das
+    gender: n
+    distractors: { far: [Schenkung, Vermögen], near: [Erde, Herde, Erbse] }
+  will_noun:
+    form: Testament
+    article: das
+    gender: n
+    plural: Testamente
+    distractors: { far: [Erbvertrag, Vermächtnis], near: [Temperament, Testat, Instrument] }
+  estate_noun:
+    form: Nachlass
+    article: der
+    gender: m
+    plural: Nachlässe
+    distractors: { far: [Erbschein, Grabpflege], near: [Nachlassgericht, Ablass, Nachlässigkeit] }
+  powerofattorney_noun:
+    form: Vollmacht
+    article: die
+    gender: f
+    plural: Vollmachten
+    distractors: { far: [Zustimmung, Auftrag], near: [Vollkorn, Ohnmacht, Vollmond] }
+  healthproxy_noun:
+    form: Vorsorgevollmacht
+    article: die
+    gender: f
+    plural: Vorsorgevollmachten
+    distractors: { far: [Patientenverfügung, Betreuungsverfügung], near: [Vorsorgeuntersuchung, Generalvollmacht, Vorsorgekasse] }
+  registryoffice_place:
+    form: Standesamt
+    article: das
+    gender: n
+    plural: Standesämter
+    distractors: { far: [Kirche, Notariat], near: [Standesbeamter, Ordnungsamt, Standesdünkel] }
+  marriageceremony_noun:
+    form: Eheschließung
+    article: die
+    gender: f
+    plural: Eheschließungen
+    distractors: { far: [Ehevertrag, Verlobung], near: [Ehescheidung, Erschließung, Ehefähigkeit] }
+  birthcertificate_noun:
+    form: Geburtsurkunde
+    article: die
+    gender: f
+    plural: Geburtsurkunden
+    distractors: { far: [Personalausweis, Taufschein], near: [Geburtsdatum, Heiratsurkunde, Geburtshilfe] }
+  deathcertificate_noun:
+    form: Sterbeurkunde
+    article: die
+    gender: f
+    plural: Sterbeurkunden
+    distractors: { far: [Bestattung, Erbschein], near: [Geburtsurkunde, Sterbefall, Sterbebegleitung] }
+  familybook_object:
+    form: Stammbuch
+    article: das
+    gender: n
+    plural: Stammbücher
+    distractors: { far: [Familienregister, Ahnentafel], near: [Stammbaum, Sparbuch, Stammtisch] }
+  kinshipdegree_noun:
+    form: Verwandtschaftsgrad
+    article: der
+    gender: m
+    plural: Verwandtschaftsgrade
+    distractors: { far: [Stammbaum, Abstammung], near: [Verwandtschaftsverhältnis, Bekanntheitsgrad, Wirkungsgrad] }
+  generation_noun:
+    form: Generation
+    article: die
+    gender: f
+    plural: Generationen
+    distractors: { far: [Jahrgang, Altersgruppe], near: [Generalprobe, Deklaration, Generator] }
+  cohabitation_noun:
+    form: Zusammenleben
+    article: das
+    gender: n
+    distractors: { far: [Partnerschaft, Wohngemeinschaft], near: [Zusammenhalt, Zusammenbruch, Zusammenspiel] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  prenup_noun:
+    form: Ehevertrag
+    article: der
+    gender: m
+    plural: Eheverträge
+    distractors: { far: [Scheidungsfolgenvereinbarung, Testament], near: [Ehepartner, Mietvertrag, Ehestand] }
+  separationofproperty_noun:
+    form: Gütertrennung
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Gütergemeinschaft, Vermögensaufteilung], near: [Güterstand, Mülltrennung, Güterverkehr] }
+  communityofaccrued_noun:
+    form: Zugewinngemeinschaft
+    article: die
+    gender: f
+    plural: Zugewinngemeinschaften
+    distractors: { far: [Gütergemeinschaft, Errungenschaftsbeteiligung], near: [Zugewinnausgleich, Erbengemeinschaft, Zugewinnverzicht] }
+  pensionequalisation_noun:
+    form: Versorgungsausgleich
+    article: der
+    gender: m
+    plural: Versorgungsausgleiche
+    distractors: { far: [Rentensplitting, Unterhaltsregelung], near: [Versorgungswerk, Zugewinnausgleich, Versorgungslage] }
+  maintenanceobligation_noun:
+    form: Unterhaltspflicht
+    article: die
+    gender: f
+    plural: Unterhaltspflichten
+    distractors: { far: [Beistandspflicht, Auskunftspflicht], near: [Unterhaltszahlung, Meldepflicht, Unterhaltsvorschuss] }
+  maintenancetitle_noun:
+    form: Unterhaltstitel
+    article: der
+    gender: m
+    plural: Unterhaltstitel
+    distractors: { far: [Vollstreckungsbescheid, Jugendamtsurkunde], near: [Unterhaltspflicht, Aufenthaltstitel, Unterhaltsbedarf] }
+  custodydispute_noun:
+    form: Sorgerechtsstreit
+    article: der
+    gender: m
+    plural: Sorgerechtsstreite
+    distractors: { far: [Umgangsverfahren, Mediation], near: [Sorgerechtsentzug, Rechtsstreit, Sorgerechtsantrag] }
+  accessright_noun:
+    form: Umgangsrecht
+    article: das
+    gender: n
+    plural: Umgangsrechte
+    distractors: { far: [Aufenthaltsbestimmung, Auskunftsrecht], near: [Umgangspflicht, Wohnrecht, Umgangsform] }
+  childwelfare_noun:
+    form: Kindeswohl
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors: { far: [Umgangsregelung, Schutzauftrag], near: [Kindeswille, Gemeinwohl, Kindergeld] }
+  youthoffice_place:
+    form: Jugendamt
+    article: das
+    gender: n
+    plural: Jugendämter
+    distractors: { far: [Familienberatung, Sozialdienst], near: [Jugendhilfe, Finanzamt, Jugendherberge] }
+  familycourt_place:
+    form: Familiengericht
+    article: das
+    gender: n
+    plural: Familiengerichte
+    distractors: { far: [Amtsgericht, Schiedsstelle], near: [Familienrecht, Arbeitsgericht, Familienname] }
+  succession_noun:
+    form: Erbfolge
+    article: die
+    gender: f
+    plural: Erbfolgen
+    distractors: { far: [Testament, Erbvertrag], near: [Erbschaft, Rechtsfolge, Erbteilung] }
+  compulsoryshare_noun:
+    form: Pflichtteil
+    article: der
+    gender: m
+    plural: Pflichtteile
+    distractors: { far: [Erbquote, Vermächtnis], near: [Pflichtversicherung, Bauteil, Pflichtgefühl] }
+  inheritancetax_noun:
+    form: Erbschaftsteuer
+    article: die
+    gender: f
+    plural: Erbschaftsteuern
+    distractors: { far: [Schenkungsteuer, Freibetrag], near: [Erbschein, Grundsteuer, Erbschaftssache] }
+  bequest_noun:
+    form: Vermächtnis
+    article: das
+    gender: n
+    plural: Vermächtnisse
+    distractors: { far: [Erbteil, Schenkung], near: [Verhältnis, Verzeichnis, Gedächtnis] }
+  estateadministration_noun:
+    form: Nachlassverwaltung
+    article: die
+    gender: f
+    plural: Nachlassverwaltungen
+    distractors: { far: [Testamentsvollstreckung, Erbauseinandersetzung], near: [Nachlassgericht, Hausverwaltung, Nachlassinsolvenz] }
+  guardianshiplaw_noun:
+    form: Betreuungsrecht
+    article: das
+    gender: n
+    plural: Betreuungsrechte
+    distractors: { far: [Vormundschaft, Unterbringungsrecht], near: [Betreuungsverfügung, Sorgerecht, Betreuungsgeld] }
+  livingwill_noun:
+    form: Patientenverfügung
+    article: die
+    gender: f
+    plural: Patientenverfügungen
+    distractors: { far: [Vorsorgevollmacht, Organspendeausweis], near: [Patientenakte, Verfügungsgewalt, Patientenrecht] }
+  generationalcontract_noun:
+    form: Generationenvertrag
+    article: der
+    gender: m
+    plural: Generationenverträge
+    distractors: { far: [Umlageverfahren, Rentenreform], near: [Generationenkonflikt, Mietvertrag, Generationswechsel] }
+  pensionclaim_noun:
+    form: Rentenanspruch
+    article: der
+    gender: m
+    plural: Rentenansprüche
+    distractors: { far: [Rentenpunkt, Altersgrenze], near: [Rentenbeginn, Rechtsanspruch, Rentenversicherung] }
+  survivorspension_noun:
+    form: Hinterbliebenenrente
+    article: die
+    gender: f
+    plural: Hinterbliebenenrenten
+    distractors: { far: [Waisengeld, Sterbegeld], near: [Hinterlassenschaft, Altersrente, Hinterbliebenenversorgung] }
+  familyreunion_noun:
+    form: Familiennachzug
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Visumverfahren, Aufenthaltserlaubnis], near: [Familienname, Rückzug, Familienfeier] }
+  residencepermit_noun:
+    form: Aufenthaltstitel
+    article: der
+    gender: m
+    plural: Aufenthaltstitel
+    distractors: { far: [Duldung, Meldebestätigung], near: [Aufenthaltsdauer, Unterhaltstitel, Aufenthaltsort] }
+  naturalisation_noun:
+    form: Einbürgerung
+    article: die
+    gender: f
+    plural: Einbürgerungen
+    distractors: { far: [Staatsangehörigkeitsrecht, Niederlassungserlaubnis], near: [Einbürgerungstest, Einlagerung, Einbürgerungsurkunde] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0073:
+    form: leben
+  lx0074:
+    form: lieben
+  lx0075:
+    form: wohnen
+  lx0076:
+    form: Baby
+    article: das
+    gender: n
+  lx0077:
+    form: Freundin
+    article: die
+    gender: f
+  lx0078:
+    form: Junge
+    article: der
+    gender: m
+  lx0079:
+    form: Mädchen
+    article: das
+    gender: n
+  lx0080:
+    form: Mensch
+    article: der
+    gender: m
+  lx0081:
+    form: Partner
+    article: der
+    gender: m
+  lx0082:
+    form: Person
+    article: die
+    gender: f
+  lx0083:
+    form: verheiratet
+  lx0311:
+    form: besuchen
+  lx0312:
+    form: heiraten
+  lx0313:
+    form: kennen
+  # Слитный вариант выбран единообразно; kennen lernen также допустимо.
+  lx0314:
+    form: kennenlernen
+  lx0315:
+    form: lächeln
+  lx0316:
+    form: schenken
+  lx0317:
+    form: treffen
+  # Употребление: sich mit jemandem verabreden; einen Termin verabreden
+  lx0318:
+    form: verabreden
+  # Употребление: sich vorstellen; jemanden vorstellen; sich etwas vorstellen
+  lx0319:
+    form: vorstellen
+  lx0320:
+    form: zusammenleben
+  lx0321:
+    form: Alter
+    article: das
+    gender: n
+  # Субстантивированное прилагательное: der Bekannte, ein Bekannter, die Bekannte.
+  lx0322:
+    form: Bekannte
+    article: der
+    gender: m
+  lx0323:
+    form: Beziehung
+    article: die
+    gender: f
+  lx0324:
+    form: Cousine
+    article: die
+    gender: f
+  lx0325:
+    form: Eltern
+    article: die
+    note: только множественное
+  # Субстантивированное прилагательное: der Erwachsene, ein Erwachsener, die Erwachsene.
+  lx0326:
+    form: Erwachsene
+    article: der
+    gender: m
+  lx0327:
+    form: Gast
+    article: der
+    gender: m
+  lx0328:
+    form: Geburtsdatum
+    article: das
+    gender: n
+  lx0329:
+    form: Großeltern
+    article: die
+    note: только множественное
+  lx0330:
+    form: Großmutter
+    article: die
+    gender: f
+  lx0331:
+    form: Großvater
+    article: der
+    gender: m
+  lx0332:
+    form: Leute
+    article: die
+    note: только множественное
+  lx0333:
+    form: Nachbarschaft
+    article: die
+    gender: f
+  lx0334:
+    form: Paar
+    article: das
+    gender: n
+  lx0335:
+    form: allein
+  lx0336:
+    form: gemeinsam
+  lx0337:
+    form: geschieden
+  lx0338:
+    form: ledig
+  lx0339:
+    form: männlich
+  lx0340:
+    form: persönlich
+  lx0341:
+    form: verwitwet
+  lx0342:
+    form: weiblich
+  lx0343:
+    form: zusammen
+  lx0933:
+    form: aufpassen
+  lx0934:
+    form: aufwachsen
+  lx0935:
+    form: begleiten
+  lx0936:
+    form: betreuen
+  lx0937:
+    form: erziehen
+  lx0938:
+    form: gratulieren
+  lx0939:
+    form: küssen
+  lx0940:
+    form: streiten
+  lx0941:
+    form: umarmen
+  lx0942:
+    form: unterstützen
+  lx0943:
+    form: vermissen
+  lx0944:
+    form: versöhnen
+  lx0945:
+    form: versorgen
+  lx0946:
+    form: Besucher
+    article: der
+    gender: m
+  lx0947:
+    form: Ehepaar
+    article: das
+    gender: n
+  lx0948:
+    form: Einzelkind
+    article: das
+    gender: n
+  lx0949:
+    form: Enkelin
+    article: die
+    gender: f
+  lx0950:
+    form: Enkelkind
+    article: das
+    gender: n
+  lx0951:
+    form: Familienmitglied
+    article: das
+    gender: n
+  lx0952:
+    form: Freundschaft
+    article: die
+    gender: f
+  lx0953:
+    form: Gastgeber
+    article: der
+    gender: m
+  lx0954:
+    form: Geburt
+    article: die
+    gender: f
+  lx0955:
+    form: Kontakt
+    article: der
+    gender: m
+  lx0956:
+    form: Lebensgeschichte
+    article: die
+    gender: f
+  lx0957:
+    form: Mitbewohner
+    article: der
+    gender: m
+  lx0958:
+    form: Mitglied
+    article: das
+    gender: n
+  lx0959:
+    form: Nachbarin
+    article: die
+    gender: f
+  lx0960:
+    form: Partnerin
+    article: die
+    gender: f
+  lx0961:
+    form: Partnerschaft
+    article: die
+    gender: f
+  lx0962:
+    form: Stiefmutter
+    article: die
+    gender: f
+  lx0963:
+    form: Tod
+    article: der
+    gender: m
+  lx0964:
+    form: Trennung
+    article: die
+    gender: f
+  # Субстантивированное прилагательное: der Verwandte, ein Verwandter, die Verwandte.
+  lx0965:
+    form: Verwandte
+    article: der
+    gender: m
+  lx0966:
+    form: Verwandtschaft
+    article: die
+    gender: f
+  lx0967:
+    form: erwachsen
+  lx0968:
+    form: getrennt
+  lx0969:
+    form: minderjährig
+  lx0970:
+    form: sozial
+  lx0971:
+    form: verwandt
+  lx2387:
+    form: adoptieren
+  lx2388:
+    form: anvertrauen
+  lx2389:
+    form: aufteilen
+  lx2390:
+    form: aufziehen
+  lx2391:
+    form: begegnen
+  lx2392:
+    form: beistehen
+  lx2393:
+    form: großziehen
+  lx2394:
+    form: respektieren
+  lx2395:
+    form: 'sich kümmern'
+  lx2396:
+    form: 'sich verlieben'
+  lx2397:
+    form: 'sich verloben'
+  lx2398:
+    form: vergeben
+  lx2399:
+    form: verzeihen
+  lx2400:
+    form: verzichten
+  lx2401:
+    form: Abstammung
+    article: die
+    gender: f
+  # Субстантивированное прилагательное: der Angehörige, ein Angehöriger, die Angehörige.
+  lx2402:
+    form: Angehörige
+    article: der
+    gender: m
+  lx2403:
+    form: Bekanntenkreis
+    article: der
+    gender: m
+  lx2404:
+    form: Distanz
+    article: die
+    gender: f
+  lx2405:
+    form: Familienleben
+    article: das
+    gender: n
+  lx2406:
+    form: Freundeskreis
+    article: der
+    gender: m
+  lx2407:
+    form: Generationenkonflikt
+    article: der
+    gender: m
+  lx2408:
+    form: Herkunft
+    article: die
+    gender: f
+  lx2409:
+    form: Identität
+    article: die
+    gender: f
+  lx2410:
+    form: Lebenspartner
+    article: der
+    gender: m
+  lx2411:
+    form: Lebensphase
+    article: die
+    gender: f
+  lx2412:
+    form: Lebensplanung
+    article: die
+    gender: f
+  lx2413:
+    form: Miteinander
+    article: das
+    gender: n
+  lx2414:
+    form: Nachwuchs
+    article: der
+    gender: m
+  lx2415:
+    form: Pflege
+    article: die
+    gender: f
+  lx2416:
+    form: Schwangerschaft
+    article: die
+    gender: f
+  lx2417:
+    form: Umgang
+    article: der
+    gender: m
+  lx2418:
+    form: Unterstützung
+    article: die
+    gender: f
+  lx2419:
+    form: Verbundenheit
+    article: die
+    gender: f
+  lx2420:
+    form: Verhalten
+    article: das
+    gender: n
+  lx2421:
+    form: Verhältnis
+    article: das
+    gender: n
+  lx2422:
+    form: Vertrauen
+    article: das
+    gender: n
+  lx2423:
+    form: Vorbild
+    article: das
+    gender: n
+  lx2424:
+    form: Wiedersehen
+    article: das
+    gender: n
+  lx2425:
+    form: Zugehörigkeit
+    article: die
+    gender: f
+  lx2426:
+    form: Zuneigung
+    article: die
+    gender: f
+  lx2427:
+    form: Zusammenhalt
+    article: der
+    gender: m
+  lx2428:
+    form: alleinerziehend
+  lx2429:
+    form: familiär
+  lx2430:
+    form: fürsorglich
+  lx2431:
+    form: gesellig
+  lx2432:
+    form: gleichberechtigt
+  lx2433:
+    form: kinderlos
+  lx2434:
+    form: schwanger
+  lx2435:
+    form: solidarisch
+  lx2436:
+    form: vertraut
+  lx4221:
+    form: ausgrenzen
+  lx4222:
+    form: benachteiligen
+  lx4223:
+    form: bevormunden
+  lx4224:
+    form: bevorzugen
+  lx4225:
+    form: entfremden
+  lx4226:
+    form: integrieren
+  lx4227:
+    form: 'sich auseinanderleben'
+  lx4228:
+    form: unterhalten
+  lx4229:
+    form: wertschätzen
+  lx4230:
+    form: zurückstellen
+  lx4231:
+    form: Anerkennung
+    article: die
+    gender: f
+  lx4232:
+    form: Anteilnahme
+    article: die
+    gender: f
+  lx4233:
+    form: Ausgrenzung
+    article: die
+    gender: f
+  lx4234:
+    form: Bevormundung
+    article: die
+    gender: f
+  lx4235:
+    form: Bezugsperson
+    article: die
+    gender: f
+  lx4236:
+    form: Bindung
+    article: die
+    gender: f
+  lx4237:
+    form: Eigenständigkeit
+    article: die
+    gender: f
+  lx4238:
+    form: Eingliederung
+    article: die
+    gender: f
+  lx4239:
+    form: Elternschaft
+    article: die
+    gender: f
+  lx4240:
+    form: Erziehungsstil
+    article: der
+    gender: m
+  lx4241:
+    form: Familiengründung
+    article: die
+    gender: f
+  lx4242:
+    form: Fürsorge
+    article: die
+    gender: f
+  lx4243:
+    form: Großfamilie
+    article: die
+    gender: f
+  lx4244:
+    form: Interessenkonflikt
+    article: der
+    gender: m
+  lx4245:
+    form: Kernfamilie
+    article: die
+    gender: f
+  lx4246:
+    form: Lebensentwurf
+    article: der
+    gender: m
+  lx4247:
+    form: Lebensgefährte
+    article: der
+    gender: m
+  lx4248:
+    form: Patchworkfamilie
+    article: die
+    gender: f
+  lx4249:
+    form: Rollenverteilung
+    article: die
+    gender: f
+  lx4250:
+    form: Rollenwechsel
+    article: der
+    gender: m
+  lx4251:
+    form: Selbstständigkeit
+    article: die
+    gender: f
+  lx4252:
+    form: Umgangston
+    article: der
+    gender: m
+  lx4253:
+    form: Vereinbarkeit
+    article: die
+    gender: f
+  lx4254:
+    form: Wertschätzung
+    article: die
+    gender: f
+  lx4255:
+    form: Zugehörigkeitsgefühl
+    article: das
+    gender: n
+  lx4256:
+    form: fürsorgebedürftig
+  lx4257:
+    form: generationsübergreifend
+  lx4258:
+    form: konfliktfähig
+  lx4259:
+    form: partnerschaftlich
+  lx4260:
+    form: pflegebedürftig
+  lx4261:
+    form: schutzbedürftig
+  lx4262:
+    form: selbstbestimmt
+  lx4263:
+    form: vertraulich
+  lx4264:
+    form: zwischenmenschlich

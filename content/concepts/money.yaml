@@ -1,0 +1,200 @@
+# Созвездие «Деньги, экономика и потребление».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: money
+tiers:
+  a0:
+    concepts:
+      - { id: lx0212, pos: noun, draft: true }  # Cent
+  a1:
+    concepts:
+      - { id: lx0769, pos: noun, draft: true }  # Geldschein
+      - { id: lx0770, pos: noun, draft: true }  # Konto
+      - { id: lx0771, pos: noun, draft: true }  # Münze
+      - { id: lx0772, pos: adj, draft: true }  # arm
+      - { id: lx0773, pos: adj, draft: true }  # reich
+  a2:
+    concepts:
+      - { id: lx2060, pos: verb, draft: true }  # abbuchen
+      - { id: lx2061, pos: verb, draft: true }  # abheben
+      - { id: lx2062, pos: verb, draft: true }  # auszahlen
+      - { id: lx2063, pos: verb, draft: true }  # einzahlen
+      - { id: lx2064, pos: verb, draft: true }  # finanzieren
+      - { id: lx2065, pos: verb, draft: true }  # schulden
+      - { id: lx2066, pos: verb, draft: true }  # überweisen
+      - { id: lx2067, pos: verb, draft: true }  # verleihen
+      - { id: lx2068, pos: verb, draft: true }  # zurückzahlen
+      - { id: lx2069, pos: verb, draft: true }  # zusammenrechnen
+      - { id: lx2070, pos: noun, draft: true }  # Abbuchung
+      - { id: lx2071, pos: noun, draft: true }  # Absender
+      - { id: lx2072, pos: noun, draft: true }  # Ausgabe
+      - { id: lx2073, pos: noun, draft: true }  # Auszahlung
+      - { id: lx2074, pos: noun, draft: true }  # Bankberater
+      - { id: lx2075, pos: noun, draft: true }  # Bankkarte
+      - { id: lx2076, pos: noun, draft: true }  # Betrag
+      - { id: lx2077, pos: noun, draft: true }  # Budget
+      - { id: lx2078, pos: noun, draft: true }  # Einkommen
+      - { id: lx2079, pos: noun, draft: true }  # Einnahme
+      - { id: lx2080, pos: noun, draft: true }  # Einzahlung
+      - { id: lx2081, pos: noun, draft: true }  # Empfänger
+      - { id: lx2082, pos: noun, draft: true }  # Ersparnis
+      - { id: lx2083, pos: noun, draft: true }  # Gesamtbetrag
+      - { id: lx2084, pos: noun, draft: true }  # Gewinn
+      - { id: lx2085, pos: noun, draft: true }  # Girokarte
+      - { id: lx2086, pos: noun, draft: true }  # Girokonto
+      - { id: lx2087, pos: noun, draft: true }  # Kontoinhaber
+      - { id: lx2088, pos: noun, draft: true }  # Kontostand
+      - { id: lx2089, pos: noun, draft: true }  # Kredit
+      - { id: lx2090, pos: noun, draft: true }  # Onlinebanking
+      - { id: lx2091, pos: noun, draft: true }  # Rate
+      - { id: lx2092, pos: noun, draft: true }  # Sparkonto
+      - { id: lx2093, pos: noun, draft: true }  # Taschengeld
+      - { id: lx2094, pos: noun, draft: true }  # Verlust
+      - { id: lx2095, pos: noun, draft: true }  # Zahlung
+      - { id: lx2096, pos: noun, draft: true }  # Zins
+      - { id: lx2097, pos: adj, draft: true }  # bar
+      - { id: lx2098, pos: adj, draft: true }  # bargeldlos
+      - { id: lx2099, pos: adj, draft: true }  # finanziell
+      - { id: lx2100, pos: adj, draft: true }  # kostenpflichtig
+  b1:
+    concepts:
+      - { id: lx3717, pos: verb, draft: true }  # abrechnen
+      - { id: lx3718, pos: verb, draft: true }  # abzahlen
+      - { id: lx3719, pos: verb, draft: true }  # anbieten
+      - { id: lx3720, pos: verb, draft: true }  # anmahnen
+      - { id: lx3721, pos: verb, draft: true }  # beschaffen
+      - { id: lx3722, pos: verb, draft: true }  # besteuern
+      - { id: lx3723, pos: verb, draft: true }  # einführen
+      - { id: lx3724, pos: verb, draft: true }  # erben
+      - { id: lx3725, pos: verb, draft: true }  # exportieren
+      - { id: lx3726, pos: verb, draft: true }  # importieren
+      - { id: lx3727, pos: verb, draft: true }  # investieren
+      - { id: lx3728, pos: verb, draft: true }  # konsumieren
+      - { id: lx3729, pos: verb, draft: true }  # mahnen
+      - { id: lx3730, pos: verb, draft: true }  # spenden
+      - { id: lx3731, pos: verb, draft: true }  # tilgen
+      - { id: lx3732, pos: verb, draft: true }  # vererben
+      - { id: lx3733, pos: verb, draft: true }  # verrechnen
+      - { id: lx3734, pos: verb, draft: true }  # versichern
+      - { id: lx3735, pos: verb, draft: true }  # vertreiben
+      - { id: lx3736, pos: noun, draft: true }  # Altersvorsorge
+      - { id: lx3737, pos: noun, draft: true }  # Anbieter
+      - { id: lx3738, pos: noun, draft: true }  # Anlagegut
+      - { id: lx3739, pos: noun, draft: true }  # Aufwand
+      - { id: lx3740, pos: noun, draft: true }  # Bankverbindung
+      - { id: lx3741, pos: noun, draft: true }  # Betriebsmittel
+      - { id: lx3742, pos: noun, draft: true }  # Darlehen
+      - { id: lx3743, pos: noun, draft: true }  # Dauerauftrag
+      - { id: lx3744, pos: noun, draft: true }  # Dispokredit
+      - { id: lx3745, pos: noun, draft: true }  # Ertrag
+      - { id: lx3746, pos: noun, draft: true }  # Export
+      - { id: lx3747, pos: noun, draft: true }  # Exporteur
+      - { id: lx3748, pos: noun, draft: true }  # Festgeld
+      - { id: lx3749, pos: noun, draft: true }  # Guthaben
+      - { id: lx3750, pos: noun, draft: true }  # Haftpflichtversicherung
+      - { id: lx3751, pos: noun, draft: true }  # Handel
+      - { id: lx3752, pos: noun, draft: true }  # Herstellung
+      - { id: lx3753, pos: noun, draft: true }  # IBAN
+      - { id: lx3754, pos: noun, draft: true }  # Import
+      - { id: lx3755, pos: noun, draft: true }  # Importeur
+      - { id: lx3756, pos: noun, draft: true }  # Industrie
+      - { id: lx3757, pos: noun, draft: true }  # Kapital
+      - { id: lx3758, pos: noun, draft: true }  # Kaufpreis
+      - { id: lx3759, pos: noun, draft: true }  # Konsumgut
+      - { id: lx3760, pos: noun, draft: true }  # Kontoauszug
+      - { id: lx3761, pos: noun, draft: true }  # Kontonummer
+      - { id: lx3762, pos: noun, draft: true }  # Kreditantrag
+      - { id: lx3763, pos: noun, draft: true }  # Kreditvertrag
+      - { id: lx3764, pos: noun, draft: true }  # Landwirtschaft
+      - { id: lx3765, pos: noun, draft: true }  # Lebensversicherung
+      - { id: lx3766, pos: noun, draft: true }  # Logistik
+      - { id: lx3767, pos: noun, draft: true }  # Nachfrage
+      - { id: lx3768, pos: noun, draft: true }  # Nachfrager
+      - { id: lx3769, pos: noun, draft: true }  # Pension
+      - { id: lx3770, pos: noun, draft: true }  # Preissteigerung
+      - { id: lx3771, pos: noun, draft: true }  # Produktion
+      - { id: lx3772, pos: noun, draft: true }  # Ratenkredit
+      - { id: lx3773, pos: noun, draft: true }  # Rückzahlung
+      - { id: lx3774, pos: noun, draft: true }  # Sparvertrag
+      - { id: lx3775, pos: noun, draft: true }  # Tagesgeld
+      - { id: lx3776, pos: noun, draft: true }  # Überschuldung
+      - { id: lx3777, pos: noun, draft: true }  # Überweisungsträger
+      - { id: lx3778, pos: noun, draft: true }  # Umsatz
+      - { id: lx3779, pos: noun, draft: true }  # Unfallversicherung
+      - { id: lx3780, pos: noun, draft: true }  # Unternehmen
+      - { id: lx3781, pos: noun, draft: true }  # Unternehmer
+      - { id: lx3782, pos: noun, draft: true }  # Verkaufspreis
+      - { id: lx3783, pos: noun, draft: true }  # Vermögen
+      - { id: lx3784, pos: noun, draft: true }  # Verschuldung
+      - { id: lx3785, pos: noun, draft: true }  # Zahlungserinnerung
+      - { id: lx3786, pos: noun, draft: true }  # Zahlungsfrist
+      - { id: lx3787, pos: adj, draft: true }  # abgesichert
+      - { id: lx3788, pos: adj, draft: true }  # gebührenfrei
+      - { id: lx3789, pos: adj, draft: true }  # gebührenpflichtig
+      - { id: lx3790, pos: adj, draft: true }  # schuldenfrei
+      - { id: lx3791, pos: adj, draft: true }  # steuerfrei
+      - { id: lx3792, pos: adj, draft: true }  # steuerpflichtig
+      - { id: lx3793, pos: adj, draft: true }  # unversichert
+      - { id: lx3794, pos: adj, draft: true }  # verschuldet
+      - { id: lx3795, pos: adj, draft: true }  # versichert
+      - { id: lx3796, pos: adj, draft: true }  # zahlungsfähig
+      - { id: lx3797, pos: adj, draft: true }  # zahlungsunfähig
+  b2:
+    concepts:
+      - { id: lx5099, pos: verb, draft: true }  # erwirtschaften
+      - { id: lx5100, pos: verb, draft: true }  # erzielen
+      - { id: lx5101, pos: verb, draft: true }  # haushalten
+      - { id: lx5102, pos: verb, draft: true }  # prognostizieren
+      - { id: lx5103, pos: verb, draft: true }  # spekulieren
+      - { id: lx5104, pos: verb, draft: true }  # verbuchen
+      - { id: lx5105, pos: verb, draft: true }  # verzinsen
+      - { id: lx5106, pos: verb, draft: true }  # wirtschaften
+      - { id: lx5107, pos: noun, draft: true }  # Aktie
+      - { id: lx5108, pos: noun, draft: true }  # Aktienkurs
+      - { id: lx5109, pos: noun, draft: true }  # Aktienmarkt
+      - { id: lx5110, pos: noun, draft: true }  # Anleihe
+      - { id: lx5111, pos: noun, draft: true }  # Betriebswirtschaft
+      - { id: lx5112, pos: noun, draft: true }  # Bruttoinlandsprodukt
+      - { id: lx5113, pos: noun, draft: true }  # Deflation
+      - { id: lx5114, pos: noun, draft: true }  # Dividende
+      - { id: lx5115, pos: noun, draft: true }  # Finanzmarkt
+      - { id: lx5116, pos: noun, draft: true }  # Geldanlage
+      - { id: lx5117, pos: noun, draft: true }  # Geldpolitik
+      - { id: lx5118, pos: noun, draft: true }  # Inflation
+      - { id: lx5119, pos: noun, draft: true }  # Konjunktur
+      - { id: lx5120, pos: noun, draft: true }  # Lebensstandard
+      - { id: lx5121, pos: noun, draft: true }  # Leitzins
+      - { id: lx5122, pos: noun, draft: true }  # Marktwirtschaft
+      - { id: lx5123, pos: noun, draft: true }  # Portfolio
+      - { id: lx5124, pos: noun, draft: true }  # Rendite
+      - { id: lx5125, pos: noun, draft: true }  # Rezession
+      - { id: lx5126, pos: noun, draft: true }  # Risiko
+      - { id: lx5127, pos: noun, draft: true }  # Volkswirtschaft
+      - { id: lx5128, pos: noun, draft: true }  # Währung
+      - { id: lx5129, pos: noun, draft: true }  # Wechselkurs
+      - { id: lx5130, pos: noun, draft: true }  # Weltwirtschaft
+      - { id: lx5131, pos: noun, draft: true }  # Wertpapier
+      - { id: lx5132, pos: noun, draft: true }  # Wertverlust
+      - { id: lx5133, pos: noun, draft: true }  # Wirtschaft
+      - { id: lx5134, pos: noun, draft: true }  # Wirtschaftssystem
+      - { id: lx5135, pos: noun, draft: true }  # Wirtschaftswachstum
+      - { id: lx5136, pos: noun, draft: true }  # Wohlstand
+      - { id: lx5137, pos: adj, draft: true }  # inflationsbedingt
+      - { id: lx5138, pos: adj, draft: true }  # kreditwürdig
+      - { id: lx5139, pos: adj, draft: true }  # lukrativ
+      - { id: lx5140, pos: adj, draft: true }  # rentabel
+      - { id: lx5141, pos: adj, draft: true }  # risikoarm
+      - { id: lx5142, pos: adj, draft: true }  # risikoreich
+      - { id: lx5143, pos: adj, draft: true }  # unrentabel
+      - { id: lx5144, pos: adj, draft: true }  # unwirtschaftlich
+      - { id: lx5145, pos: adj, draft: true }  # wirtschaftlich

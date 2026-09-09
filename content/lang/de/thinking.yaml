@@ -1,0 +1,701 @@
+# Немецкие лексемы созвездия «Мышление, решения и аргументация».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0214:
+    form: denken
+  lx0215:
+    form: wissen
+  lx0785:
+    form: glauben
+  lx0786:
+    form: vergessen
+  lx0787:
+    form: Grund
+    article: der
+    gender: m
+  lx0788:
+    form: Idee
+    article: die
+    gender: f
+  lx0789:
+    form: Meinung
+    article: die
+    gender: f
+  lx0790:
+    form: Problem
+    article: das
+    gender: n
+  lx0791:
+    form: Situation
+    article: die
+    gender: f
+  lx0792:
+    form: unwichtig
+  lx0793:
+    form: wichtig
+  lx2149:
+    form: begründen
+  # Употребление: sich an etwas erinnern; jemanden an etwas erinnern
+  lx2150:
+    form: erinnern
+  lx2151:
+    form: erkennen
+  lx2152:
+    form: gelingen
+  lx2153:
+    form: merken
+  lx2154:
+    form: misslingen
+  lx2155:
+    form: nachdenken
+  lx2156:
+    form: schaffen
+  lx2157:
+    form: scheitern
+  # Употребление: sich etwas überlegen; überlegen, ob etwas möglich ist
+  lx2158:
+    form: überlegen
+  lx2159:
+    form: versuchen
+  lx2160:
+    form: Absicht
+    article: die
+    gender: f
+  lx2161:
+    form: Ahnung
+    article: die
+    gender: f
+  lx2162:
+    form: Art
+    article: die
+    gender: f
+  lx2163:
+    form: Ausnahme
+    article: die
+    gender: f
+  lx2164:
+    form: Begriff
+    article: der
+    gender: m
+  lx2165:
+    form: Begründung
+    article: die
+    gender: f
+  lx2166:
+    form: Entscheidung
+    article: die
+    gender: f
+  lx2167:
+    form: Erinnerung
+    article: die
+    gender: f
+  lx2168:
+    form: Fall
+    article: der
+    gender: m
+  lx2169:
+    form: Gedanke
+    article: der
+    gender: m
+  lx2170:
+    form: Möglichkeit
+    article: die
+    gender: f
+  lx2171:
+    form: Nachteil
+    article: der
+    gender: m
+  lx2172:
+    form: Suche
+    article: die
+    gender: f
+  lx2173:
+    form: Tatsache
+    article: die
+    gender: f
+  lx2174:
+    form: Unterschied
+    article: der
+    gender: m
+  lx2175:
+    form: Ursache
+    article: die
+    gender: f
+  lx2176:
+    form: Vermutung
+    article: die
+    gender: f
+  lx2177:
+    form: Vorschlag
+    article: der
+    gender: m
+  lx2178:
+    form: Vorteil
+    article: der
+    gender: m
+  lx2179:
+    form: Weise
+    article: die
+    gender: f
+  lx2180:
+    form: Zeichen
+    article: das
+    gender: n
+  lx2181:
+    form: Zweifel
+    article: der
+    gender: m
+  lx2182:
+    form: klar
+  lx2183:
+    form: möglich
+  lx2184:
+    form: nötig
+  lx2185:
+    form: notwendig
+  lx2186:
+    form: sicher
+  lx2187:
+    form: unklar
+  lx2188:
+    form: unmöglich
+  lx2189:
+    form: unnötig
+  lx2190:
+    form: unsicher
+  lx2191:
+    form: unvernünftig
+  lx2192:
+    form: vernünftig
+  lx3908:
+    form: abschätzen
+  lx3909:
+    form: ahnen
+  lx3910:
+    form: anerkennen
+  lx3911:
+    form: annehmen
+  lx3912:
+    form: aufklären
+  lx3913:
+    form: beachten
+  lx3914:
+    form: befürchten
+  lx3915:
+    form: begreifen
+  lx3916:
+    form: bemerken
+  lx3917:
+    form: betreffen
+  # Употребление: sich auf etwas beziehen; Waren beziehen
+  lx3918:
+    form: beziehen
+  lx3919:
+    form: bezweifeln
+  lx3920:
+    form: durchschauen
+  lx3921:
+    form: einschätzen
+  lx3922:
+    form: einsehen
+  lx3923:
+    form: entwickeln
+  lx3924:
+    form: erfassen
+  lx3925:
+    form: erfinden
+  lx3926:
+    form: erforschen
+  lx3927:
+    form: erwarten
+  lx3928:
+    form: irren
+  lx3929:
+    form: nachvollziehen
+  lx3930:
+    form: 'sich bemühen'
+  lx3931:
+    form: spüren
+  lx3932:
+    form: täuschen
+  lx3933:
+    form: vermuten
+  lx3934:
+    form: verwechseln
+  lx3935:
+    form: wahrnehmen
+  lx3936:
+    form: widerlegen
+  lx3937:
+    form: Abwägung
+    article: die
+    gender: f
+  lx3938:
+    form: Alternative
+    article: die
+    gender: f
+  lx3939:
+    form: Anlass
+    article: der
+    gender: m
+  lx3940:
+    form: Anliegen
+    article: das
+    gender: n
+  lx3941:
+    form: Annahme
+    article: die
+    gender: f
+  lx3942:
+    form: Auswirkung
+    article: die
+    gender: f
+  lx3943:
+    form: Bedingung
+    article: die
+    gender: f
+  lx3944:
+    form: Bedürfnis
+    article: das
+    gender: n
+  lx3945:
+    form: Befürchtung
+    article: die
+    gender: f
+  lx3946:
+    form: Beobachtung
+    article: die
+    gender: f
+  lx3947:
+    form: Bewusstheit
+    article: die
+    gender: f
+  lx3948:
+    form: Bewusstsein
+    article: das
+    gender: n
+  lx3949:
+    form: Blickwinkel
+    article: der
+    gender: m
+  lx3950:
+    form: Denkvermögen
+    article: das
+    gender: n
+  lx3951:
+    form: Eindruck
+    article: der
+    gender: m
+  lx3952:
+    form: Einfluss
+    article: der
+    gender: m
+  lx3953:
+    form: Einschränkung
+    article: die
+    gender: f
+  lx3954:
+    form: Einsicht
+    article: die
+    gender: f
+  lx3955:
+    form: Element
+    article: das
+    gender: n
+  lx3956:
+    form: Erkenntnis
+    article: die
+    gender: f
+  lx3957:
+    form: Erwartung
+    article: die
+    gender: f
+  lx3958:
+    form: Fantasie
+    article: die
+    gender: f
+  lx3959:
+    form: Gedächtnis
+    article: das
+    gender: n
+  lx3960:
+    form: Gegenargument
+    article: das
+    gender: n
+  lx3961:
+    form: Gesichtspunkt
+    article: der
+    gender: m
+  lx3962:
+    form: Glaube
+    article: der
+    gender: m
+  lx3963:
+    form: Herausforderung
+    article: die
+    gender: f
+  lx3964:
+    form: Hintergrund
+    article: der
+    gender: m
+  lx3965:
+    form: Intuition
+    article: die
+    gender: f
+  lx3966:
+    form: Konsequenz
+    article: die
+    gender: f
+  lx3967:
+    form: Kreativität
+    article: die
+    gender: f
+  lx3968:
+    form: Rahmen
+    article: der
+    gender: m
+  lx3969:
+    form: Schaden
+    article: der
+    gender: m
+  lx3970:
+    form: Schlussfolgerung
+    article: die
+    gender: f
+  lx3971:
+    form: Sinn
+    article: der
+    gender: m
+  lx3972:
+    form: Überlegung
+    article: die
+    gender: f
+  lx3973:
+    form: Überzeugung
+    article: die
+    gender: f
+  lx3974:
+    form: Unsinn
+    article: der
+    gender: m
+  lx3975:
+    form: Unterbewusstsein
+    article: das
+    gender: n
+  lx3976:
+    form: Urteilsvermögen
+    article: das
+    gender: n
+  lx3977:
+    form: Verständnis
+    article: das
+    gender: n
+  lx3978:
+    form: Voraussetzung
+    article: die
+    gender: f
+  lx3979:
+    form: Vorhaben
+    article: das
+    gender: n
+  lx3980:
+    form: Vorstellung
+    article: die
+    gender: f
+  lx3981:
+    form: Vorstellungskraft
+    article: die
+    gender: f
+  lx3982:
+    form: Vorurteil
+    article: das
+    gender: n
+  lx3983:
+    form: Wahrnehmung
+    article: die
+    gender: f
+  lx3984:
+    form: Wille
+    article: der
+    gender: m
+  lx3985:
+    form: Zusammenhang
+    article: der
+    gender: m
+  lx3986:
+    form: Zweck
+    article: der
+    gender: m
+  lx3987:
+    form: fraglich
+  lx3988:
+    form: fragwürdig
+  lx3989:
+    form: glaubhaft
+  lx3990:
+    form: logisch
+  lx3991:
+    form: nachvollziehbar
+  lx3992:
+    form: nutzlos
+  lx3993:
+    form: plausibel
+  lx3994:
+    form: sinnlos
+  lx3995:
+    form: sinnvoll
+  lx3996:
+    form: überzeugend
+  lx3997:
+    form: unlogisch
+  lx3998:
+    form: zwecklos
+  lx3999:
+    form: zweckmäßig
+  lx5205:
+    form: ableiten
+  lx5206:
+    form: erörtern
+  lx5207:
+    form: folgern
+  lx5208:
+    form: gewichten
+  lx5209:
+    form: kategorisieren
+  lx5210:
+    form: konkretisieren
+  lx5211:
+    form: systematisieren
+  lx5212:
+    form: vergegenwärtigen
+  lx5213:
+    form: verinnerlichen
+  lx5214:
+    form: verknüpfen
+  lx5215:
+    form: Ambivalenz
+    article: die
+    gender: f
+  lx5216:
+    form: Analyse
+    article: die
+    gender: f
+  lx5217:
+    form: Anhaltspunkt
+    article: der
+    gender: m
+  lx5218:
+    form: Antithese
+    article: die
+    gender: f
+  lx5219:
+    form: Argumentation
+    article: die
+    gender: f
+  lx5220:
+    form: Auseinandersetzung
+    article: die
+    gender: f
+  lx5221:
+    form: Denkansatz
+    article: der
+    gender: m
+  lx5222:
+    form: Denkfehler
+    article: der
+    gender: m
+  lx5223:
+    form: Denkmuster
+    article: das
+    gender: n
+  lx5224:
+    form: Erörterung
+    article: die
+    gender: f
+  lx5225:
+    form: Evidenz
+    article: die
+    gender: f
+  lx5226:
+    form: Gedankengang
+    article: der
+    gender: m
+  lx5227:
+    form: Gegensatz
+    article: der
+    gender: m
+  lx5228:
+    form: Gewissheit
+    article: die
+    gender: f
+  lx5229:
+    form: Hypothese
+    article: die
+    gender: f
+  lx5230:
+    form: Indiz
+    article: das
+    gender: n
+  lx5231:
+    form: Irrtum
+    article: der
+    gender: m
+  lx5232:
+    form: Kausalität
+    article: die
+    gender: f
+  lx5233:
+    form: Kompromiss
+    article: der
+    gender: m
+  lx5234:
+    form: Konsens
+    article: der
+    gender: m
+  lx5235:
+    form: Korrelation
+    article: die
+    gender: f
+  lx5236:
+    form: Kriterium
+    article: das
+    gender: n
+  lx5237:
+    form: Maßstab
+    article: der
+    gender: m
+  lx5238:
+    form: Menschenbild
+    article: das
+    gender: n
+  lx5239:
+    form: Motiv
+    article: das
+    gender: n
+  lx5240:
+    form: Objektivität
+    article: die
+    gender: f
+  lx5241:
+    form: Plausibilität
+    article: die
+    gender: f
+  lx5242:
+    form: Rückschluss
+    article: der
+    gender: m
+  lx5243:
+    form: Selbstbild
+    article: das
+    gender: n
+  lx5244:
+    form: Subjektivität
+    article: die
+    gender: f
+  lx5245:
+    form: Synthese
+    article: die
+    gender: f
+  lx5246:
+    form: Theorie
+    article: die
+    gender: f
+  lx5247:
+    form: These
+    article: die
+    gender: f
+  lx5248:
+    form: Trugschluss
+    article: der
+    gender: m
+  lx5249:
+    form: Überzeugungskraft
+    article: die
+    gender: f
+  lx5250:
+    form: Ungewissheit
+    article: die
+    gender: f
+  lx5251:
+    form: Unklarheit
+    article: die
+    gender: f
+  lx5252:
+    form: Wahrscheinlichkeit
+    article: die
+    gender: f
+  lx5253:
+    form: Weltbild
+    article: das
+    gender: n
+  lx5254:
+    form: Wertung
+    article: die
+    gender: f
+  lx5255:
+    form: Wertvorstellung
+    article: die
+    gender: f
+  lx5256:
+    form: begründet
+  lx5257:
+    form: empirisch
+  lx5258:
+    form: fundiert
+  lx5259:
+    form: haltlos
+  lx5260:
+    form: hypothetisch
+  lx5261:
+    form: irrational
+  lx5262:
+    form: kausal
+  lx5263:
+    form: oberflächlich
+  lx5264:
+    form: rational
+  lx5265:
+    form: reflektiert
+  lx5266:
+    form: stichhaltig
+  lx5267:
+    form: tiefgründig
+  lx5268:
+    form: unbegründet
+  lx5269:
+    form: unreflektiert
+  lx5270:
+    form: voreilig
+  lx5271:
+    form: widersprüchlich
+  lx5272:
+    form: widerspruchsfrei
+  lx5273:
+    form: angeblich
+  lx5274:
+    form: gegebenenfalls
+  lx5275:
+    form: möglicherweise
+  lx5276:
+    form: mutmaßlich
+  lx5277:
+    form: offenkundig
+  lx5278:
+    form: offensichtlich
+  lx5279:
+    form: vermeintlich
+  lx5280:
+    form: vermutlich
+  lx5281:
+    form: voraussichtlich
+  lx5282:
+    form: wahrscheinlich
+  lx5283:
+    form: zweifellos

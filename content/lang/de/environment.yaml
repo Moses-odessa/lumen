@@ -1,0 +1,612 @@
+# Немецкие лексемы созвездия «Экология, энергия и ресурсы».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0762:
+    form: sammeln
+  lx0763:
+    form: schützen
+  lx0764:
+    form: sparen
+  lx0765:
+    form: trennen
+  lx0766:
+    form: Energie
+    article: die
+    gender: f
+  lx0767:
+    form: Natur
+    article: die
+    gender: f
+  lx0768:
+    form: Umwelt
+    article: die
+    gender: f
+  lx2018:
+    form: abschalten
+  lx2019:
+    form: entsorgen
+  lx2020:
+    form: recyceln
+  lx2021:
+    form: verbrauchen
+  lx2022:
+    form: verschmutzen
+  lx2023:
+    form: wegwerfen
+  lx2024:
+    form: wiederverwenden
+  lx2025:
+    form: Abfall
+    article: der
+    gender: m
+  lx2026:
+    form: Abfallbehälter
+    article: der
+    gender: m
+  lx2027:
+    form: Abfalleimer
+    article: der
+    gender: m
+  lx2028:
+    form: Abholung
+    article: die
+    gender: f
+  lx2029:
+    form: Altglas
+    article: das
+    gender: n
+  lx2030:
+    form: Altpapier
+    article: das
+    gender: n
+  lx2031:
+    form: Biomüll
+    article: der
+    gender: m
+  lx2032:
+    form: Biotonne
+    article: die
+    gender: f
+  lx2033:
+    form: Erdöl
+    article: das
+    gender: n
+  lx2034:
+    form: Gas
+    article: das
+    gender: n
+  lx2035:
+    form: Lärm
+    article: der
+    gender: m
+  lx2036:
+    form: Luftverschmutzung
+    article: die
+    gender: f
+  lx2037:
+    form: Müllabfuhr
+    article: die
+    gender: f
+  lx2038:
+    form: Papiermüll
+    article: der
+    gender: m
+  lx2039:
+    form: Papiertonne
+    article: die
+    gender: f
+  lx2040:
+    form: Papiertüte
+    article: die
+    gender: f
+  lx2041:
+    form: Pfand
+    article: das
+    gender: n
+  lx2042:
+    form: Pfandgeld
+    article: das
+    gender: n
+  lx2043:
+    form: Pfandglas
+    article: das
+    gender: n
+  lx2044:
+    form: Plastik
+    article: das
+    gender: n
+  lx2045:
+    form: Plastikflasche
+    article: die
+    gender: f
+  lx2046:
+    form: Plastikmüll
+    article: der
+    gender: m
+  lx2047:
+    form: Plastiktüte
+    article: die
+    gender: f
+  lx2048:
+    form: Rauch
+    article: der
+    gender: m
+  lx2049:
+    form: Restmüll
+    article: der
+    gender: m
+  lx2050:
+    form: Schmutz
+    article: der
+    gender: m
+  lx2051:
+    form: Sperrmüll
+    article: der
+    gender: m
+  lx2052:
+    form: Umweltverschmutzung
+    article: die
+    gender: f
+  lx2053:
+    form: Wasserverschmutzung
+    article: die
+    gender: f
+  lx2054:
+    form: nützlich
+  lx2055:
+    form: schädlich
+  lx2056:
+    form: sparsam
+  lx2057:
+    form: umweltfreundlich
+  lx2058:
+    form: umweltschädlich
+  lx2059:
+    form: verschwenderisch
+  lx3618:
+    form: abfüllen
+  lx3619:
+    form: auffüllen
+  lx3620:
+    form: ausleihen
+  lx3621:
+    form: ausstoßen
+  lx3622:
+    form: beeinträchtigen
+  lx3623:
+    form: einsparen
+  lx3624:
+    form: emittieren
+  lx3625:
+    form: erhalten
+  lx3626:
+    form: erneuern
+  lx3627:
+    form: fördern
+  lx3628:
+    form: gefährden
+  lx3629:
+    form: nachfüllen
+  lx3630:
+    form: nutzen
+  lx3631:
+    form: reduzieren
+  lx3632:
+    form: steigern
+  lx3633:
+    form: tauschen
+  lx3634:
+    form: umwandeln
+  lx3635:
+    form: vermeiden
+  lx3636:
+    form: verschwenden
+  lx3637:
+    form: weitergeben
+  lx3638:
+    form: zurückbringen
+  lx3639:
+    form: Abfallvermeidung
+    article: die
+    gender: f
+  lx3640:
+    form: Abgas
+    article: das
+    gender: n
+  lx3641:
+    form: Abgasemission
+    article: die
+    gender: f
+  lx3642:
+    form: Abwärme
+    article: die
+    gender: f
+  lx3643:
+    form: Atomenergie
+    article: die
+    gender: f
+  lx3644:
+    form: Atomkraftwerk
+    article: das
+    gender: n
+  lx3645:
+    form: Ausstoß
+    article: der
+    gender: m
+  lx3646:
+    form: Baustoff
+    article: der
+    gender: m
+  lx3647:
+    form: Brennstoff
+    article: der
+    gender: m
+  lx3648:
+    form: 'CO2-Ausstoß'
+    article: der
+    gender: m
+  lx3649:
+    form: Dämmstoff
+    article: der
+    gender: m
+  lx3650:
+    form: Einweg
+    article: das
+    gender: n
+  lx3651:
+    form: Emission
+    article: die
+    gender: f
+  lx3652:
+    form: Energieverbrauch
+    article: der
+    gender: m
+  lx3653:
+    form: Erderwärmung
+    article: die
+    gender: f
+  lx3654:
+    form: Erdgas
+    article: das
+    gender: n
+  lx3655:
+    form: Fernwärme
+    article: die
+    gender: f
+  lx3656:
+    form: Giftstoff
+    article: der
+    gender: m
+  lx3657:
+    form: Kernenergie
+    article: die
+    gender: f
+  lx3658:
+    form: Kläranlage
+    article: die
+    gender: f
+  lx3659:
+    form: Klimaschutz
+    article: der
+    gender: m
+  lx3660:
+    form: Klimawandel
+    article: der
+    gender: m
+  lx3661:
+    form: Kohle
+    article: die
+    gender: f
+  lx3662:
+    form: Kohlekraftwerk
+    article: das
+    gender: n
+  lx3663:
+    form: Kohlenstoff
+    article: der
+    gender: m
+  lx3664:
+    form: Kraftstoff
+    article: der
+    gender: m
+  lx3665:
+    form: Kraftwerk
+    article: das
+    gender: n
+  lx3666:
+    form: Kunststoff
+    article: der
+    gender: m
+  lx3667:
+    form: Luftqualität
+    article: die
+    gender: f
+  lx3668:
+    form: Mehrweg
+    article: das
+    gender: n
+  lx3669:
+    form: Mehrwegsystem
+    article: das
+    gender: n
+  lx3670:
+    form: Müllvermeidung
+    article: die
+    gender: f
+  lx3671:
+    form: Pfandsystem
+    article: das
+    gender: n
+  lx3672:
+    form: Photovoltaik
+    article: die
+    gender: f
+  lx3673:
+    form: Recycling
+    article: das
+    gender: n
+  lx3674:
+    form: Recyclinganlage
+    article: die
+    gender: f
+  lx3675:
+    form: Ressourcenverbrauch
+    article: der
+    gender: m
+  lx3676:
+    form: Rohstoff
+    article: der
+    gender: m
+  lx3677:
+    form: Sauerstoff
+    article: der
+    gender: m
+  lx3678:
+    form: Schadstoff
+    article: der
+    gender: m
+  lx3679:
+    form: Schadstoffausstoß
+    article: der
+    gender: m
+  lx3680:
+    form: Smog
+    article: der
+    gender: m
+  lx3681:
+    form: Solaranlage
+    article: die
+    gender: f
+  lx3682:
+    form: Solarenergie
+    article: die
+    gender: f
+  lx3683:
+    form: Solarmodul
+    article: das
+    gender: n
+  lx3684:
+    form: Solarpanel
+    article: das
+    gender: n
+  lx3685:
+    form: Sonnenenergie
+    article: die
+    gender: f
+  lx3686:
+    form: Stickstoff
+    article: der
+    gender: m
+  lx3687:
+    form: Strahlung
+    article: die
+    gender: f
+  lx3688:
+    form: Stromverbrauch
+    article: der
+    gender: m
+  lx3689:
+    form: Treibhauseffekt
+    article: der
+    gender: m
+  lx3690:
+    form: Treibhausgas
+    article: das
+    gender: n
+  lx3691:
+    form: Treibhausgasausstoß
+    article: der
+    gender: m
+  lx3692:
+    form: Umweltbelastung
+    article: die
+    gender: f
+  lx3693:
+    form: Umweltschutz
+    article: der
+    gender: m
+  lx3694:
+    form: Upcycling
+    article: das
+    gender: n
+  lx3695:
+    form: Wasserkraft
+    article: die
+    gender: f
+  lx3696:
+    form: Wasserqualität
+    article: die
+    gender: f
+  lx3697:
+    form: Wasserstoff
+    article: der
+    gender: m
+  lx3698:
+    form: Wasserverbrauch
+    article: der
+    gender: m
+  lx3699:
+    form: Wiederverwendung
+    article: die
+    gender: f
+  lx3700:
+    form: Wiederverwertung
+    article: die
+    gender: f
+  lx3701:
+    form: Windenergie
+    article: die
+    gender: f
+  lx3702:
+    form: Windkraft
+    article: die
+    gender: f
+  lx3703:
+    form: Windkraftanlage
+    article: die
+    gender: f
+  lx3704:
+    form: Windrad
+    article: das
+    gender: n
+  lx3705:
+    form: abbaubar
+  lx3706:
+    form: begrenzt
+  lx3707:
+    form: emissionsarm
+  lx3708:
+    form: endlich
+  lx3709:
+    form: energieeffizient
+  lx3710:
+    form: erneuerbar
+  lx3711:
+    form: klimafreundlich
+  lx3712:
+    form: klimaschädlich
+  lx3713:
+    form: schadstoffarm
+  lx3714:
+    form: unbegrenzt
+  lx3715:
+    form: wiederverwendbar
+  lx3716:
+    form: wiederverwertbar
+  lx5064:
+    form: aufforsten
+  lx5065:
+    form: beziffern
+  lx5066:
+    form: eingrenzen
+  lx5067:
+    form: einschränken
+  lx5068:
+    form: regulieren
+  lx5069:
+    form: sanktionieren
+  lx5070:
+    form: subventionieren
+  lx5071:
+    form: 'CO2-Fußabdruck'
+    article: der
+    gender: m
+  lx5072:
+    form: Emissionshandel
+    article: der
+    gender: m
+  lx5073:
+    form: Energiebedarf
+    article: der
+    gender: m
+  lx5074:
+    form: Energieversorgung
+    article: die
+    gender: f
+  lx5075:
+    form: Energiewende
+    article: die
+    gender: f
+  lx5076:
+    form: Klimaanpassung
+    article: die
+    gender: f
+  lx5077:
+    form: Klimabilanz
+    article: die
+    gender: f
+  lx5078:
+    form: Klimagerechtigkeit
+    article: die
+    gender: f
+  lx5079:
+    form: Klimaneutralität
+    article: die
+    gender: f
+  lx5080:
+    form: Klimaziel
+    article: das
+    gender: n
+  lx5081:
+    form: Ökobilanz
+    article: die
+    gender: f
+  lx5082:
+    form: Renaturierung
+    article: die
+    gender: f
+  lx5083:
+    form: Stromnetz
+    article: das
+    gender: n
+  lx5084:
+    form: Strompreis
+    article: der
+    gender: m
+  lx5085:
+    form: Stromversorgung
+    article: die
+    gender: f
+  lx5086:
+    form: Umweltbewusstsein
+    article: das
+    gender: n
+  lx5087:
+    form: Umweltverhalten
+    article: das
+    gender: n
+  lx5088:
+    form: Umweltverträglichkeit
+    article: die
+    gender: f
+  lx5089:
+    form: Versorgungssicherheit
+    article: die
+    gender: f
+  lx5090:
+    form: Wärmewende
+    article: die
+    gender: f
+  lx5091:
+    form: fossil
+  lx5092:
+    form: irreversibel
+  lx5093:
+    form: klimaneutral
+  lx5094:
+    form: kohlenstoffarm
+  lx5095:
+    form: reversibel
+  lx5096:
+    form: tragfähig
+  lx5097:
+    form: umweltverträglich
+  lx5098:
+    form: zukunftsfähig

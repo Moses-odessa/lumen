@@ -1,0 +1,356 @@
+# Созвездие «Покупки, одежда и вещи».
+#
+# Созвездие переименовано при импорте словника: тема называется так, как её
+# называет словник. Иначе матчнутый концепт принадлежал бы двум созвездиям
+# сразу и «тема» в проекте значила бы две разные вещи. Идентификаторы
+# концептов и фраз при этом сохранили старый префикс (shop_…) — они ключи,
+# по которым у игрока лежит память о слове, и переименование стёрло бы
+# прогресс всем, кто уже играл.
+#
+# Написан только ярус A0: 12 звёзд. Остальные ярусы появятся, когда A0
+# нескольких созвездий будет вычитан — сначала вширь, потом вглубь
+# (docs/CONTENT_PIPELINE.md).
+#
+# TODO(data): вычитка носителем не проводилась, ярус запущен на тех же
+# основаниях, что A0 «Врача», — см. content/launch.yaml.
+#
+# Источники: Goethe A1 Wortliste, частотные списки по субтитрам для
+# freq_rank.
+constellation: shopping
+tiers:
+  a0:
+    concepts:
+      - { id: shop_place, pos: noun, freq_rank: 1290 }
+      - { id: money_noun, pos: noun, freq_rank: 560 }
+      - { id: price_noun, pos: noun, freq_rank: 1470 }
+      - { id: card_object, pos: noun, freq_rank: 1810 }
+      - { id: checkout_place, pos: noun, freq_rank: 2960 }
+      - { id: bag_object, pos: noun, freq_rank: 3340 }
+      - { id: purchase_noun, pos: noun, freq_rank: 2720 }
+      - { id: receipt_noun, pos: noun, freq_rank: 4080 }
+      - { id: customer_person, pos: noun, freq_rank: 1750 }
+      - { id: cheap_adj, pos: adj, freq_rank: 2610 }
+      - { id: expensive_adj, pos: adj, freq_rank: 1520 }
+      - { id: open_adj, pos: adj, freq_rank: 1130 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0158, pos: verb, draft: true }  # kaufen
+      - { id: lx0159, pos: verb, draft: true }  # zahlen
+      - { id: lx0160, pos: noun, draft: true }  # Euro
+      - { id: lx0161, pos: noun, draft: true }  # Geschäft
+      - { id: lx0162, pos: noun, draft: true }  # Hose
+      - { id: lx0163, pos: noun, draft: true }  # Jacke
+      - { id: lx0164, pos: noun, draft: true }  # Schuh
+      - { id: lx0165, pos: noun, draft: true }  # T-Shirt
+      - { id: lx0166, pos: noun, draft: true }  # Tasche
+  a1:
+    concepts:
+      - { id: cash_noun, pos: noun, freq_rank: 3410 }
+      - { id: change_noun, pos: noun, freq_rank: 4260 }
+      - { id: discount_noun, pos: noun, freq_rank: 3880 }
+      - { id: size_noun, pos: noun, freq_rank: 2540 }
+      - { id: basket_object, pos: noun, freq_rank: 4930 }
+      - { id: fitting_room, pos: noun, freq_rank: 5410 }
+      - { id: offer_noun, pos: noun, freq_rank: 2190 }
+      - { id: quality_noun, pos: noun, freq_rank: 2360 }
+      - { id: product_noun, pos: noun, freq_rank: 1980 }
+      - { id: brand_noun, pos: noun, freq_rank: 2870 }
+      - { id: delivery_noun, pos: noun, freq_rank: 3130 }
+      - { id: exchange_noun, pos: noun, freq_rank: 4640 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0538, pos: verb, draft: true }  # anprobieren
+      - { id: lx0539, pos: verb, draft: true }  # anziehen
+      - { id: lx0540, pos: verb, draft: true }  # ausziehen
+      - { id: lx0541, pos: verb, draft: true }  # einkaufen
+      - { id: lx0542, pos: verb, draft: true }  # passen
+      - { id: lx0543, pos: verb, draft: true }  # verkaufen
+      - { id: lx0544, pos: verb, draft: true }  # wechseln
+      - { id: lx0545, pos: noun, draft: true }  # Bäckerei
+      - { id: lx0546, pos: noun, draft: true }  # Bluse
+      - { id: lx0547, pos: noun, draft: true }  # Brille
+      - { id: lx0548, pos: noun, draft: true }  # Einkaufswagen
+      - { id: lx0549, pos: noun, draft: true }  # Farbe
+      - { id: lx0550, pos: noun, draft: true }  # Gürtel
+      - { id: lx0551, pos: noun, draft: true }  # Hemd
+      - { id: lx0552, pos: noun, draft: true }  # Hut
+      - { id: lx0553, pos: noun, draft: true }  # Kleid
+      - { id: lx0554, pos: noun, draft: true }  # Kleidung
+      - { id: lx0555, pos: noun, draft: true }  # Mantel
+      - { id: lx0556, pos: noun, draft: true }  # Metzgerei
+      - { id: lx0557, pos: noun, draft: true }  # Mütze
+      - { id: lx0558, pos: noun, draft: true }  # Pullover
+      - { id: lx0559, pos: noun, draft: true }  # Rock
+      - { id: lx0560, pos: noun, draft: true }  # Schal
+      - { id: lx0561, pos: noun, draft: true }  # Socke
+      - { id: lx0562, pos: adj, draft: true }  # blau
+      - { id: lx0563, pos: adj, draft: true }  # braun
+      - { id: lx0564, pos: adj, draft: true }  # bunt
+      - { id: lx0565, pos: adj, draft: true }  # gelb
+      - { id: lx0566, pos: adj, draft: true }  # grau
+      - { id: lx0567, pos: adj, draft: true }  # grün
+      - { id: lx0568, pos: adj, draft: true }  # lila
+      - { id: lx0569, pos: adj, draft: true }  # rosa
+      - { id: lx0570, pos: adj, draft: true }  # rot
+      - { id: lx0571, pos: adj, draft: true }  # schwarz
+      - { id: lx0572, pos: adj, draft: true }  # weiß
+  a2:
+    concepts:
+      - { id: seller_person, pos: noun, freq_rank: 2940 }
+      - { id: receipt_slip, pos: noun, freq_rank: 5180 }
+      - { id: creditcard_object, pos: noun, freq_rank: 3420 }
+      - { id: transfer_noun, pos: noun, freq_rank: 3760 }
+      - { id: voucher_noun, pos: noun, freq_rank: 4530 }
+      - { id: special_offer, pos: noun, freq_rank: 4120 }
+      - { id: clearance_noun, pos: noun, freq_rank: 5340 }
+      - { id: warehouse_place, pos: noun, freq_rank: 3280 }
+      - { id: assortment_noun, pos: noun, freq_rank: 4870 }
+      - { id: warranty_noun, pos: noun, freq_rank: 3610 }
+      - { id: complaint_noun, pos: noun, freq_rank: 4290 }
+      - { id: return_noun, pos: noun, freq_rank: 3950 }
+      - { id: shipping_noun, pos: noun, freq_rank: 3140 }
+      - { id: packaging_noun, pos: noun, freq_rank: 3830 }
+      - { id: label_object, pos: noun, freq_rank: 4680 }
+      - { id: pricetag_object, pos: noun, freq_rank: 5470 }
+      - { id: vat_noun, pos: noun, freq_rank: 4410 }
+      - { id: instalment_noun, pos: noun, freq_rank: 5620 }
+      - { id: downpayment_noun, pos: noun, freq_rank: 5810 }
+      - { id: ordernumber_noun, pos: noun, freq_rank: 6040 }
+      - { id: cart_object, pos: noun, freq_rank: 4760 }
+      - { id: support_noun, pos: noun, freq_rank: 3520 }
+      - { id: openinghours_noun, pos: noun, freq_rank: 4930 }
+      - { id: publicholiday_noun, pos: noun, freq_rank: 3670 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1319, pos: verb, draft: true }  # abbestellen
+      - { id: lx1320, pos: verb, draft: true }  # ausgeben
+      - { id: lx1321, pos: verb, draft: true }  # auspacken
+      - { id: lx1322, pos: verb, draft: true }  # aussuchen
+      - { id: lx1323, pos: verb, draft: true }  # auswählen
+      - { id: lx1324, pos: verb, draft: true }  # einpacken
+      - { id: lx1325, pos: verb, draft: true }  # liefern
+      - { id: lx1326, pos: verb, draft: true }  # nachbestellen
+      - { id: lx1327, pos: verb, draft: true }  # reklamieren
+      - { id: lx1328, pos: verb, draft: true }  # umtauschen
+      - { id: lx1329, pos: verb, draft: true }  # vergleichen
+      - { id: lx1330, pos: verb, draft: true }  # verpacken
+      - { id: lx1331, pos: verb, draft: true }  # verschenken
+      - { id: lx1332, pos: verb, draft: true }  # zurückgeben
+      - { id: lx1333, pos: noun, draft: true }  # Anprobe
+      - { id: lx1334, pos: noun, draft: true }  # Armband
+      - { id: lx1335, pos: noun, draft: true }  # Armbanduhr
+      - { id: lx1336, pos: noun, draft: true }  # Ärmel
+      - { id: lx1337, pos: noun, draft: true }  # Auswahl
+      - { id: lx1338, pos: noun, draft: true }  # Badeanzug
+      - { id: lx1339, pos: noun, draft: true }  # Baumwolle
+      - { id: lx1340, pos: noun, draft: true }  # Beleg
+      - { id: lx1341, pos: noun, draft: true }  # Bezahlung
+      - { id: lx1342, pos: noun, draft: true }  # Geschenk
+      - { id: lx1343, pos: noun, draft: true }  # Geschenkpapier
+      - { id: lx1344, pos: noun, draft: true }  # Halskette
+      - { id: lx1345, pos: noun, draft: true }  # Handschuh
+      - { id: lx1346, pos: noun, draft: true }  # Hausschuh
+      - { id: lx1347, pos: noun, draft: true }  # Jeans
+      - { id: lx1348, pos: noun, draft: true }  # Kassenzettel
+      - { id: lx1349, pos: noun, draft: true }  # Kassierer
+      - { id: lx1350, pos: noun, draft: true }  # Katalog
+      - { id: lx1351, pos: noun, draft: true }  # Käufer
+      - { id: lx1352, pos: noun, draft: true }  # Knopf
+      - { id: lx1353, pos: noun, draft: true }  # Kragen
+      - { id: lx1354, pos: noun, draft: true }  # Krawatte
+      - { id: lx1355, pos: noun, draft: true }  # Leder
+      - { id: lx1356, pos: noun, draft: true }  # Lederjacke
+      - { id: lx1357, pos: noun, draft: true }  # Material
+      - { id: lx1358, pos: noun, draft: true }  # Portemonnaie
+      - { id: lx1359, pos: noun, draft: true }  # Preiserhöhung
+      - { id: lx1360, pos: noun, draft: true }  # Preisliste
+      - { id: lx1361, pos: noun, draft: true }  # Preissenkung
+      - { id: lx1362, pos: noun, draft: true }  # Reißverschluss
+      - { id: lx1363, pos: noun, draft: true }  # Ring
+      - { id: lx1364, pos: noun, draft: true }  # Rucksack
+      - { id: lx1365, pos: noun, draft: true }  # Sandale
+      - { id: lx1366, pos: noun, draft: true }  # Schmuck
+      - { id: lx1367, pos: noun, draft: true }  # Seide
+      - { id: lx1368, pos: noun, draft: true }  # Sohle
+      - { id: lx1369, pos: noun, draft: true }  # Stiefel
+      - { id: lx1370, pos: noun, draft: true }  # Stoff
+      - { id: lx1371, pos: noun, draft: true }  # Umkleide
+      - { id: lx1372, pos: noun, draft: true }  # Unterhose
+      - { id: lx1373, pos: noun, draft: true }  # Unterwäsche
+      - { id: lx1374, pos: noun, draft: true }  # Verbraucher
+      - { id: lx1375, pos: noun, draft: true }  # Ware
+      - { id: lx1376, pos: noun, draft: true }  # Wolle
+      - { id: lx1377, pos: adj, draft: true }  # altmodisch
+      - { id: lx1378, pos: adj, draft: true }  # gebraucht
+      - { id: lx1379, pos: adj, draft: true }  # gepunktet
+      - { id: lx1380, pos: adj, draft: true }  # gestreift
+      - { id: lx1381, pos: adj, draft: true }  # golden
+      - { id: lx1382, pos: adj, draft: true }  # günstig
+      - { id: lx1383, pos: adj, draft: true }  # kariert
+      - { id: lx1384, pos: adj, draft: true }  # kostenlos
+      - { id: lx1385, pos: adj, draft: true }  # modisch
+      - { id: lx1386, pos: adj, draft: true }  # preiswert
+      - { id: lx1387, pos: adj, draft: true }  # reduziert
+      - { id: lx1388, pos: adj, draft: true }  # silbern
+      - { id: lx1389, pos: adj, draft: true }  # violett
+      - { id: lx1390, pos: adv, draft: true }  # gratis
+  b1:
+    concepts:
+      - { id: withdrawalright_noun, pos: noun, freq_rank: 6240 }
+      - { id: withdrawalperiod_noun, pos: noun, freq_rank: 6870 }
+      - { id: purchasecontract_noun, pos: noun, freq_rank: 5310 }
+      - { id: statutorywarranty_noun, pos: noun, freq_rank: 5940 }
+      - { id: rectification_noun, pos: noun, freq_rank: 6620 }
+      - { id: pricereduction_noun, pos: noun, freq_rank: 6180 }
+      - { id: deliverytime_noun, pos: noun, freq_rank: 4870 }
+      - { id: cashondelivery_noun, pos: noun, freq_rank: 6790 }
+      - { id: tracking_noun, pos: noun, freq_rank: 5730 }
+      - { id: clearanceitem_noun, pos: noun, freq_rank: 7140 }
+      - { id: remainder_noun, pos: noun, freq_rank: 6980 }
+      - { id: financing_noun, pos: noun, freq_rank: 5060 }
+      - { id: creditrating_noun, pos: noun, freq_rank: 6430 }
+      - { id: directdebit_noun, pos: noun, freq_rank: 5820 }
+      - { id: chargeback_noun, pos: noun, freq_rank: 7360 }
+      - { id: paymentterm_noun, pos: noun, freq_rank: 6270 }
+      - { id: reminder_noun, pos: noun, freq_rank: 5490 }
+      - { id: debtcollection_noun, pos: noun, freq_rank: 6710 }
+      - { id: billingaddress_noun, pos: noun, freq_rank: 6040 }
+      - { id: deliveryaddress_noun, pos: noun, freq_rank: 5960 }
+      - { id: middleman_person, pos: noun, freq_rank: 6580 }
+      - { id: pricecomparison_noun, pos: noun, freq_rank: 5670 }
+      - { id: review_noun, pos: noun, freq_rank: 4930 }
+      - { id: loyaltypoints_noun, pos: noun, freq_rank: 6850 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2786, pos: verb, draft: true }  # abnutzen
+      - { id: lx2787, pos: verb, draft: true }  # aufbrauchen
+      - { id: lx2788, pos: verb, draft: true }  # aushandeln
+      - { id: lx2789, pos: verb, draft: true }  # austauschen
+      - { id: lx2790, pos: verb, draft: true }  # beanstanden
+      - { id: lx2791, pos: verb, draft: true }  # begutachten
+      - { id: lx2792, pos: verb, draft: true }  # entgegennehmen
+      - { id: lx2793, pos: verb, draft: true }  # erstatten
+      - { id: lx2794, pos: verb, draft: true }  # feilschen
+      - { id: lx2795, pos: verb, draft: true }  # handeln
+      - { id: lx2796, pos: verb, draft: true }  # nachbessern
+      - { id: lx2797, pos: verb, draft: true }  # nachliefern
+      - { id: lx2798, pos: verb, draft: true }  # quittieren
+      - { id: lx2799, pos: verb, draft: true }  # überprüfen
+      - { id: lx2800, pos: verb, draft: true }  # widerrufen
+      - { id: lx2801, pos: verb, draft: true }  # zurückerstatten
+      - { id: lx2802, pos: verb, draft: true }  # zurücksenden
+      - { id: lx2803, pos: noun, draft: true }  # Artikelnummer
+      - { id: lx2804, pos: noun, draft: true }  # Aufpreis
+      - { id: lx2805, pos: noun, draft: true }  # Beschwerde
+      - { id: lx2806, pos: noun, draft: true }  # Bestand
+      - { id: lx2807, pos: noun, draft: true }  # Boutique
+      - { id: lx2808, pos: noun, draft: true }  # Defekt
+      - { id: lx2809, pos: noun, draft: true }  # Drogerie
+      - { id: lx2810, pos: noun, draft: true }  # Ersatz
+      - { id: lx2811, pos: noun, draft: true }  # Fachhandel
+      - { id: lx2812, pos: noun, draft: true }  # Filiale
+      - { id: lx2813, pos: noun, draft: true }  # Gesamtpreis
+      - { id: lx2814, pos: noun, draft: true }  # Kaufbeleg
+      - { id: lx2815, pos: noun, draft: true }  # Kaufberatung
+      - { id: lx2816, pos: noun, draft: true }  # Kaufentscheidung
+      - { id: lx2817, pos: noun, draft: true }  # Kaufverhalten
+      - { id: lx2818, pos: noun, draft: true }  # Konsumverhalten
+      - { id: lx2819, pos: noun, draft: true }  # Kundenkarte
+      - { id: lx2820, pos: noun, draft: true }  # Kundenkonto
+      - { id: lx2821, pos: noun, draft: true }  # Kundenservice
+      - { id: lx2822, pos: noun, draft: true }  # Ladenkette
+      - { id: lx2823, pos: noun, draft: true }  # Lagerbestand
+      - { id: lx2824, pos: noun, draft: true }  # Lieferant
+      - { id: lx2825, pos: noun, draft: true }  # Lieferdienst
+      - { id: lx2826, pos: noun, draft: true }  # Liefertermin
+      - { id: lx2827, pos: noun, draft: true }  # Markenname
+      - { id: lx2828, pos: noun, draft: true }  # Outlet
+      - { id: lx2829, pos: noun, draft: true }  # Produktbeschreibung
+      - { id: lx2830, pos: noun, draft: true }  # Qualitätsmerkmal
+      - { id: lx2831, pos: noun, draft: true }  # Quantität
+      - { id: lx2832, pos: noun, draft: true }  # Rückerstattung
+      - { id: lx2833, pos: noun, draft: true }  # Rückgaberecht
+      - { id: lx2834, pos: noun, draft: true }  # Rücksendeetikett
+      - { id: lx2835, pos: noun, draft: true }  # Rücksendung
+      - { id: lx2836, pos: noun, draft: true }  # Vergleichsportal
+      - { id: lx2837, pos: noun, draft: true }  # Versandhandel
+      - { id: lx2838, pos: noun, draft: true }  # Versandkosten
+      - { id: lx2839, pos: adj, draft: true }  # angemessen
+      - { id: lx2840, pos: adj, draft: true }  # ausverkauft
+      - { id: lx2841, pos: adj, draft: true }  # beschädigt
+      - { id: lx2842, pos: adj, draft: true }  # fair
+      - { id: lx2843, pos: adj, draft: true }  # haltbar
+      - { id: lx2844, pos: adj, draft: true }  # hochwertig
+      - { id: lx2845, pos: adj, draft: true }  # lieferbar
+      - { id: lx2846, pos: adj, draft: true }  # mangelhaft
+      - { id: lx2847, pos: adj, draft: true }  # minderwertig
+      - { id: lx2848, pos: adj, draft: true }  # nachhaltig
+      - { id: lx2849, pos: adj, draft: true }  # robust
+      - { id: lx2850, pos: adj, draft: true }  # überteuert
+      - { id: lx2851, pos: adj, draft: true }  # unbeschädigt
+      - { id: lx2852, pos: adj, draft: true }  # unpraktisch
+      - { id: lx2853, pos: adj, draft: true }  # vorrätig
+  b2:
+    concepts:
+      - { id: termsandconditions_noun, pos: noun, freq_rank: 6280 }
+      - { id: contractclause_noun, pos: noun, freq_rank: 6940 }
+      - { id: liabilitylimit_noun, pos: noun, freq_rank: 7160 }
+      - { id: limitationperiod_noun, pos: noun, freq_rank: 6620 }
+      - { id: burdenofproof_noun, pos: noun, freq_rank: 7080 }
+      - { id: materialdefect_noun, pos: noun, freq_rank: 7340 }
+      - { id: legaldefect_noun, pos: noun, freq_rank: 7910 }
+      - { id: subsequentperformance_noun, pos: noun, freq_rank: 8040 }
+      - { id: withdrawal_contract, pos: noun, freq_rank: 6470 }
+      - { id: damages_noun, pos: noun, freq_rank: 5830 }
+      - { id: consumercentre_noun, pos: noun, freq_rank: 7260 }
+      - { id: competitionlaw_noun, pos: noun, freq_rank: 7530 }
+      - { id: pricefixing_noun, pos: noun, freq_rank: 7690 }
+      - { id: cartelauthority_noun, pos: noun, freq_rank: 7420 }
+      - { id: marketshare_noun, pos: noun, freq_rank: 6180 }
+      - { id: supplyshortage_noun, pos: noun, freq_rank: 6740 }
+      - { id: procurement_noun, pos: noun, freq_rank: 6350 }
+      - { id: costing_noun, pos: noun, freq_rank: 6510 }
+      - { id: margin_noun, pos: noun, freq_rank: 5960 }
+      - { id: returnonsales_noun, pos: noun, freq_rank: 7870 }
+      - { id: stocktaking_noun, pos: noun, freq_rank: 6830 }
+      - { id: merchandisesystem_noun, pos: noun, freq_rank: 8120 }
+      - { id: paymentdefault_noun, pos: noun, freq_rank: 6960 }
+      - { id: creditcheck_noun, pos: noun, freq_rank: 7280 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4563, pos: verb, draft: true }  # abwerten
+      - { id: lx4564, pos: verb, draft: true }  # aufwerten
+      - { id: lx4565, pos: verb, draft: true }  # aussortieren
+      - { id: lx4566, pos: verb, draft: true }  # boykottieren
+      - { id: lx4567, pos: verb, draft: true }  # einfordern
+      - { id: lx4568, pos: verb, draft: true }  # nachprüfen
+      - { id: lx4569, pos: verb, draft: true }  # nachweisen
+      - { id: lx4570, pos: verb, draft: true }  # vermarkten
+      - { id: lx4571, pos: verb, draft: true }  # vermieten
+      - { id: lx4572, pos: verb, draft: true }  # weiterverkaufen
+      - { id: lx4573, pos: verb, draft: true }  # zurückfordern
+      - { id: lx4574, pos: verb, draft: true }  # zurücknehmen
+      - { id: lx4575, pos: noun, draft: true }  # Ersatzteil
+      - { id: lx4576, pos: noun, draft: true }  # Fälschung
+      - { id: lx4577, pos: noun, draft: true }  # Fehlkauf
+      - { id: lx4578, pos: noun, draft: true }  # Impulskauf
+      - { id: lx4579, pos: noun, draft: true }  # Kaufanreiz
+      - { id: lx4580, pos: noun, draft: true }  # Kaufkraft
+      - { id: lx4581, pos: noun, draft: true }  # Knappheit
+      - { id: lx4582, pos: noun, draft: true }  # Konsum
+      - { id: lx4583, pos: noun, draft: true }  # Konsument
+      - { id: lx4584, pos: noun, draft: true }  # Konsumkritik
+      - { id: lx4585, pos: noun, draft: true }  # Kreislaufwirtschaft
+      - { id: lx4586, pos: noun, draft: true }  # Preis-Leistungs-Verhältnis
+      - { id: lx4587, pos: noun, draft: true }  # Preisdruck
+      - { id: lx4588, pos: noun, draft: true }  # Preisgestaltung
+      - { id: lx4589, pos: noun, draft: true }  # Reparierbarkeit
+      - { id: lx4590, pos: noun, draft: true }  # Täuschung
+      - { id: lx4591, pos: noun, draft: true }  # Transparenz
+      - { id: lx4592, pos: noun, draft: true }  # Überproduktion
+      - { id: lx4593, pos: noun, draft: true }  # Verfügbarkeit
+      - { id: lx4594, pos: noun, draft: true }  # Wegwerfgesellschaft
+      - { id: lx4595, pos: noun, draft: true }  # Wettbewerber
+      - { id: lx4596, pos: noun, draft: true }  # Wiederverwendbarkeit
+      - { id: lx4597, pos: adj, draft: true }  # bedarfsgerecht
+      - { id: lx4598, pos: adj, draft: true }  # gleichwertig
+      - { id: lx4599, pos: adj, draft: true }  # irreführend
+      - { id: lx4600, pos: adj, draft: true }  # preisbewusst
+      - { id: lx4601, pos: adj, draft: true }  # reparierbar
+      - { id: lx4602, pos: adj, draft: true }  # umweltbewusst
+      - { id: lx4603, pos: adj, draft: true }  # verbraucherfreundlich

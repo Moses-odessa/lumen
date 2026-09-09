@@ -17,10 +17,12 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 
 import 'content_schema.dart';
+import 'compound.dart';
 import 'content_sources.dart';
 import 'morphology.dart';
 import 'phonetics.dart';
 import 'translation_lock.dart';
+import 'word_lists.dart';
 
 Future<void> main(List<String> args) async {
   final requested = _argValue(args, '--lang');
@@ -81,6 +83,8 @@ bool _validate(Directory root, String lang) {
   }
 
   _checkLaunchPolicy(sources, report);
+  _checkDraftedConcepts(sources, report);
+  _checkWordExistence(sources, lang, report);
   _checkLanguages(sources, report);
   _checkLexemeCoverage(sources, report);
   _checkPhraseTranslations(sources, report);
@@ -103,6 +107,125 @@ bool _validate(Directory root, String lang) {
 
   report.print(lang);
   return report.errors.isEmpty;
+}
+
+/// Черновые концепты: сколько их и где.
+///
+/// Печатается всегда, потому что это главное число про готовность контента, и
+/// оно не должно требовать запроса. Черновой концепт лежит в базе, но в игру
+/// не идёт — и разница между «916 концептов» и «916 концептов, из них 52
+/// вычитано» слишком велика, чтобы её приходилось вычислять.
+void _checkDraftedConcepts(ContentSources sources, _Report report) {
+  final total = sources.concepts.length;
+  final drafted = sources.concepts.values.where((c) => c.draft).length;
+  if (drafted == 0) return;
+
+  report.note(
+    'концептов $total, из них черновых $drafted '
+    '(${(100 * drafted / total).round()} %) — в игру не идут',
+  );
+
+  for (final tier in tiers) {
+    final onTier = sources.draftedOn(tier);
+    if (onTier == 0) continue;
+    if (!sources.launch.isLaunched(tier)) continue;
+    // Черновое на запущенном ярусе — законно и ожидаемо: словник кладёт
+    // слова на ярусы независимо от того, что уже запущено. Но видеть это
+    // нужно: именно здесь измеряется, сколько осталось вычитать.
+    report.note('ярус $tier запущен, и на нём $onTier черновых концептов');
+  }
+}
+
+/// Существование форм: положительный список и отрицательный.
+///
+/// **Ни одна форма из отрицательного списка не проходит.** Это единственная
+/// часть проверки, которая работает без словаря языка: доказать
+/// существование она не может, но делает невозможным возврат — найденная
+/// однажды выдумка не вернётся в контент никогда.
+///
+/// Положительный список включает вторую половину проверки: каждая форма
+/// обязана либо лежать в нём, либо раскладываться на его слова. Файла в
+/// проекте пока нет, и проверка честно об этом сообщает, а не молчит.
+///
+/// Почему не сгенерировать словарь моделью: список лемм, произведённый тем
+/// же способом, что произвёл контент, содержит те же выдумки — и проверка
+/// начнёт **подтверждать** несуществующие слова. Это хуже отсутствия
+/// проверки: открытый вопрос превращается в закрытый и неверный.
+void _checkWordExistence(
+  ContentSources sources,
+  String lang,
+  _Report report,
+) {
+  final root = '${Directory.current.path}/content';
+  final banned = readNonWordReasons(
+    File('${wordListDirectory(root).path}/$lang-nonwords.txt'),
+  );
+  final dictionary = readDictionary(root, lang);
+
+  final byConcept = sources.lexemes[lang];
+  if (byConcept == null) return;
+
+  // Все формы языка, которые игрок может увидеть: леммы, множественные
+  // числа, дистракторы и ответы фраз.
+  final forms = <String, String>{};
+  void note(String form, String where) {
+    if (form.trim().isEmpty) return;
+    forms.putIfAbsent(form, () => where);
+  }
+
+  for (final lex in byConcept.values) {
+    note(lex.form, lex.conceptId);
+    if (lex.plural != null) note(lex.plural!, '${lex.conceptId} (мн. ч.)');
+    for (final d in lex.farDistractors) {
+      note(d, '${lex.conceptId} (far)');
+    }
+    for (final d in lex.nearDistractors) {
+      note(d, '${lex.conceptId} (near)');
+    }
+  }
+  for (final phrase in sources.phrases) {
+    for (final answer in phrase.answers) {
+      note(answer, phrase.id);
+    }
+  }
+
+  // ── отрицательный список: работает всегда ───────────────────────────────
+  for (final entry in forms.entries) {
+    final reason = banned[entry.key.toLowerCase()];
+    if (reason == null) continue;
+    report.error(
+      '${entry.value}: форма "${entry.key}" в отрицательном списке — '
+      '${reason.isEmpty ? "установлено, что её не существует" : reason}',
+    );
+  }
+
+  // ── положительный список: работает, когда он есть ───────────────────────
+  if (dictionary.isEmpty) {
+    report.pending(
+      'словаря $lang нет (content/dictionaries/$lang.txt) — существование '
+      '${forms.length} форм не проверено. Отрицательный список работает: '
+      '${banned.length} запрещённых форм.',
+    );
+    return;
+  }
+
+  final unknown = <String>[];
+  for (final entry in forms.entries) {
+    if (splitsIntoKnown(entry.key, dictionary)) continue;
+    unknown.add('${entry.key} (${entry.value})');
+  }
+  if (unknown.isEmpty) {
+    report.note('все ${forms.length} форм $lang есть в словаре или '
+        'раскладываются на его слова');
+    return;
+  }
+
+  // Незнакомая форма — вопрос человеку, а не приговор: словарь не содержит
+  // всех составных слов немецкого, и разбор их не всегда находит.
+  report.review(
+    'формы $lang не найдены в словаре (${unknown.length} из '
+    '${forms.length}): ${_head(unknown, 10)}',
+  );
 }
 
 /// Языки объявили о себе непротиворечиво, и играть вообще есть чем.
@@ -203,12 +326,12 @@ void _checkLexemeCoverage(ContentSources sources, _Report report) {
 
     // У запущенного языка изучения спрос по ярусам: черновой ярус не обязан
     // быть полным, а запущенный обязан.
-    final blocking = language.isTarget
-        ? missing
-            .where((id) =>
-                sources.launch.isLaunched(sources.concepts[id]!.tier))
-            .toList()
-        : missing;
+    final blocking = missing
+        .where((id) => !sources.concepts[id]!.draft)
+        .where((id) =>
+            !language.isTarget ||
+            sources.launch.isLaunched(sources.concepts[id]!.tier))
+        .toList();
 
     if (blocking.isEmpty) {
       report.pending(
@@ -352,6 +475,7 @@ void _checkFunctionWords(ContentSources sources, _Report report) {
   if (unreachable.isEmpty) return;
 
   final blocking = unreachable
+      .where((id) => !sources.concepts[id]!.draft)
       .where((id) => sources.launch.isLaunched(sources.concepts[id]!.tier))
       .toList();
   if (blocking.isNotEmpty) {
@@ -404,7 +528,11 @@ void _checkDistractors(ContentSources sources, String lang, _Report report) {
     if (concept != null && concept.isFunctionWord) continue;
 
     final tier = concept?.tier;
-    final launched = tier != null && sources.launch.isLaunched(tier);
+    // Черновой концепт в игру не идёт, и требовать от него полноты незачем —
+    // даже если ярус, на который он лёг, запущен.
+    final launched = tier != null &&
+        sources.launch.isLaunched(tier) &&
+        !(concept?.draft ?? false);
 
     final short = lex.farDistractors.length < minFarDistractors ||
         lex.nearDistractors.length < minNearDistractors;
@@ -499,7 +627,19 @@ void _checkConstellationSizes(ContentSources sources, _Report report) {
       byTier[c.tier] = (byTier[c.tier] ?? 0) + 1;
     }
     if (byTier.isEmpty) {
-      report.error('созвездие $name: ни одного играбельного концепта');
+      // Тема, написанная целиком в черновике, — законное промежуточное
+      // состояние: ровно его и означает `draft`. Ошибкой это было бы, если
+      // бы файл темы был пуст, — тогда её действительно нет.
+      final written =
+          sources.concepts.values.where((c) => c.constellation == name).length;
+      if (written == 0) {
+        report.error('созвездие $name: файл темы есть, а концептов в нём нет');
+      } else {
+        report.pending(
+          'созвездие $name: все $written концептов черновые — тема написана, '
+          'но не вычитана',
+        );
+      }
       continue;
     }
 
@@ -550,11 +690,21 @@ void _checkConstellationSizes(ContentSources sources, _Report report) {
 
 /// Нет дублей форм внутри одного созвездия и яруса — иначе в круге появятся
 /// два одинаковых варианта.
+///
+/// Регистр не различается, и это не небрежность. Соседи по созвездию и ярусу
+/// — резервный источник вариантов круга, а «essen» и «Essen» звучат
+/// одинаково: в механике «прослушай и выбери» такой круг не проходится
+/// честно, сколько бы заглавных букв в нём ни было.
+///
+/// У черновых слов это замечание, а не ошибка: пара «глагол и
+/// существительное от него» — обычное немецкое явление, и решать, какое из
+/// двух слов остаётся звездой, должна вычитка. В отгруженном контенте — уже
+/// ошибка: там решение принято.
 void _checkDuplicateForms(ContentSources sources, String lang, _Report report) {
   final byConcept = sources.lexemes[lang];
   if (byConcept == null) return;
 
-  final seen = <String, String>{};
+  final seen = <String, ConceptSource>{};
   for (final concept in sources.concepts.values) {
     final lex = byConcept[concept.id];
     if (lex == null) continue;
@@ -562,12 +712,16 @@ void _checkDuplicateForms(ContentSources sources, String lang, _Report report) {
         '${lex.form.toLowerCase()}';
     final previous = seen[key];
     if (previous != null) {
-      report.error(
-        'форма "${lex.form}" повторяется в ${concept.constellation}/'
-        '${concept.tier}: $previous и ${concept.id}',
-      );
+      final message = 'форма "${lex.form}" повторяется в '
+          '${concept.constellation}/${concept.tier}: '
+          '${previous.id} и ${concept.id}';
+      if (previous.draft || concept.draft) {
+        report.review('$message (черновик — решает вычитка)');
+      } else {
+        report.error(message);
+      }
     }
-    seen[key] = concept.id;
+    seen[key] = concept;
   }
 }
 
@@ -1058,7 +1212,14 @@ void _checkLaunchPolicy(ContentSources sources, _Report report) {
       report.error('в launch.yaml неизвестный ярус "$tier"');
       continue;
     }
-    final onTier = sources.concepts.values.where((c) => c.tier == tier);
+    // Черновые концепты в состав яруса не входят.
+    //
+    // Ярус запущен — значит, прочитан. Импортированное и невычитанное слово
+    // в игру не идёт (сборка его не отгружает), поэтому требовать вычитки от
+    // него нельзя: иначе импорт словника снимал бы с запуска уже прочитанный
+    // A0 за то, что рядом с ним положили черновик.
+    final onTier =
+        sources.concepts.values.where((c) => c.tier == tier && !c.draft);
     if (onTier.isEmpty) {
       report.error('ярус $tier запущен, но контента на нём нет');
       continue;
@@ -1092,6 +1253,67 @@ void _checkLaunchPolicy(ContentSources sources, _Report report) {
         'которых на ярусе нет',
       );
     }
+
+    _checkReviewPasses(sources, tier, review, report);
+  }
+}
+
+/// Проходы вычитки: сколько их, чем читали и тот ли текст читали.
+///
+/// Правило записано в PLAN.md, «Вычитка»: не меньше двух проходов **разными**
+/// моделями, и запись несёт отпечаток содержимого яруса. Второе важнее
+/// первого. Отсутствующую проверку видно — её нет; устаревшая выглядит
+/// рабочей, и отличить её от свежей без отпечатка нечем.
+///
+/// Ограничение названо там же и здесь не забыто: две модели обучены на
+/// пересекающихся данных и ошибаются согласованно. От этого страхует не
+/// второй проход, а словарь языка, которого у проекта пока нет.
+void _checkReviewPasses(
+  ContentSources sources,
+  String tier,
+  TierReview review,
+  _Report report,
+) {
+  const requiredModels = 2;
+  final actual = sources.tierHash(tier);
+
+  if (review.passes.isEmpty) {
+    // Ярусы, вычитанные до появления этого правила, записей о проходах не
+    // имеют. Требовать их задним числом значило бы снять с запуска то, что
+    // прочитано, — поэтому это отложенное, а не ошибка.
+    report.pending(
+      'ярус $tier запущен без записей о проходах вычитки — добавить passes '
+      'с model, at и content_hash: $actual',
+    );
+    return;
+  }
+
+  if (review.distinctModels < requiredModels) {
+    report.error(
+      'ярус $tier: проходов вычитки ${review.passes.length}, но разных '
+      'моделей ${review.distinctModels} — нужно $requiredModels. Два прогона '
+      'одной моделью это один взгляд, повторённый дважды.',
+    );
+  }
+
+  final stale = review.passes
+      .where((p) => p.contentHash.isNotEmpty && p.contentHash != actual)
+      .toList();
+  if (stale.isNotEmpty) {
+    report.error(
+      'ярус $tier: ${stale.length} из ${review.passes.length} проходов '
+      'описывают другой текст (в записи '
+      '${stale.map((p) => p.contentHash).join(", ")}, сейчас $actual) — '
+      'ярус правили после вычитки',
+    );
+  }
+
+  final noHash = review.passes.where((p) => p.contentHash.isEmpty).length;
+  if (noHash > 0) {
+    report.error(
+      'ярус $tier: у $noHash проходов нет content_hash — такая запись не '
+      'привязана к тексту и не отличима от устаревшей',
+    );
   }
 }
 

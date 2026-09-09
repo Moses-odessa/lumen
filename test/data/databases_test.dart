@@ -283,7 +283,7 @@ void main() {
 
       var previous = 0;
       for (final tier in Tier.values) {
-        final count = (await db.conceptsFor('doctor', tier)).length;
+        final count = (await db.conceptsFor('health', tier)).length;
         expect(count, greaterThanOrEqualTo(previous),
             reason: 'ярус ${tier.label}: созвездие сжалось');
         expect(Progression.appears(count), isTrue,
@@ -294,6 +294,39 @@ void main() {
 
       // Файл действительно лёг в support-директорию.
       expect(File('${support.path}/content/de.db').existsSync(), isTrue);
+    });
+
+    test('черновых концептов в отгруженной базе нет', () async {
+      // Пометка `draft: true` обещает «в игру не идёт», и до импорта словника
+      // это обещание держал один валидатор: сборка отгружала черновик
+      // наравне с вычитанным. Пока черновиков было ноль, проверить это было
+      // нечем — и незаметно, что проверять нечего.
+      //
+      // Тест смотрит в исходники и в базу: id, помеченный черновым, не должен
+      // существовать в отгруженном ассете ни как концепт, ни как лексема.
+      final drafted = <String>{};
+      for (final file in Directory('content/concepts')
+          .listSync()
+          .whereType<File>()
+          .where((f) => f.path.endsWith('.yaml'))) {
+        for (final line in file.readAsLinesSync()) {
+          if (!line.contains('draft: true')) continue;
+          final match = RegExp(r'id:\s*([A-Za-z0-9_]+)').firstMatch(line);
+          if (match != null) drafted.add(match.group(1)!);
+        }
+      }
+
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      final meta = await db.loadMeta();
+      expect(meta['drafted_concepts'], '${drafted.length}',
+          reason: 'сборка не заметила часть черновиков');
+
+      for (final id in drafted) {
+        expect(await db.lexeme(id, 'de'), isNull,
+            reason: 'черновой концепт $id уехал в базу');
+      }
     });
 
     test('лексемы и дистракторы читаются на всех языках проекта', () async {

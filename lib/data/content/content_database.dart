@@ -14,6 +14,15 @@ class Concepts extends Table {
   TextColumn get tier => text()();
   TextColumn get constellation => text()();
   TextColumn get pos => text()();
+
+  /// Частотный ранг: чем меньше, тем раньше слово вводится.
+  ///
+  /// Может отсутствовать, и это не пробел в данных: редакторский словник на
+  /// 6000 лемм частотности не несёт, а выдумать её значило бы записать
+  /// вымысел в поле, которое читается как измерение. Поэтому все запросы
+  /// сортируют «сначала с рангом, потом без»: NULL в SQLite сортируется
+  /// первым, и без этого правила слово без частотности вводилось бы раньше
+  /// самого частотного.
   IntColumn get freqRank => integer().nullable()();
 
   @override
@@ -262,7 +271,10 @@ class ContentDatabase extends _$ContentDatabase {
         .toList();
     return (select(concepts)
           ..where((t) => t.constellation.equals(constellation) & t.tier.isIn(tiers))
-          ..orderBy([(t) => OrderingTerm(expression: t.freqRank)]))
+          ..orderBy([
+            (t) => OrderingTerm(expression: t.freqRank.isNull()),
+            (t) => OrderingTerm(expression: t.freqRank),
+          ]))
         .get();
   }
 
@@ -331,7 +343,10 @@ class ContentDatabase extends _$ContentDatabase {
         .toList();
     return (select(concepts)
           ..where((t) => t.tier.isIn(tiers))
-          ..orderBy([(t) => OrderingTerm(expression: t.freqRank)]))
+          ..orderBy([
+            (t) => OrderingTerm(expression: t.freqRank.isNull()),
+            (t) => OrderingTerm(expression: t.freqRank),
+          ]))
         .get();
   }
 
@@ -489,7 +504,10 @@ class ContentDatabase extends _$ContentDatabase {
           native.lang.equals(nativeLang)),
     ])
       ..where(concepts.tier.isIn(codes))
-      ..orderBy([OrderingTerm(expression: concepts.freqRank)]);
+      ..orderBy([
+        OrderingTerm(expression: concepts.freqRank.isNull()),
+        OrderingTerm(expression: concepts.freqRank),
+      ]);
 
     final rows = await query.get();
     return rows.map((r) => r.readTable(concepts)).toList();

@@ -25,6 +25,14 @@ tiers:
       - { id: rent_noun, pos: noun, freq_rank: 3410 }
       - { id: neighbour_person, pos: noun, freq_rank: 2540 }
       - { id: light_object, pos: noun, freq_rank: 970 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0144, pos: verb, draft: true }  # aufstehen
+      - { id: lx0145, pos: verb, draft: true }  # duschen
+      - { id: lx0146, pos: verb, draft: true }  # schlafen
+      - { id: lx0147, pos: noun, draft: true }  # Bad
+      - { id: lx0148, pos: noun, draft: true }  # Toilette
+      - { id: lx0149, pos: adj, draft: true }  # sauber
+      - { id: lx0150, pos: adj, draft: true }  # schmutzig
   a1:
     concepts:
       - { id: flat_place, pos: noun, freq_rank: 1740 }
@@ -39,6 +47,34 @@ tiers:
       - { id: wardrobe_object, pos: noun, freq_rank: 3120 }
       - { id: lamp_object, pos: noun, freq_rank: 3050 }
       - { id: heating_object, pos: noun, freq_rank: 3670 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0482, pos: verb, draft: true }  # abwaschen
+      - { id: lx0483, pos: verb, draft: true }  # aufräumen
+      - { id: lx0484, pos: verb, draft: true }  # aufwachen
+      - { id: lx0485, pos: verb, draft: true }  # einschlafen
+      - { id: lx0486, pos: verb, draft: true }  # reinigen
+      - { id: lx0487, pos: verb, draft: true }  # spülen
+      - { id: lx0488, pos: verb, draft: true }  # trocknen
+      - { id: lx0489, pos: noun, draft: true }  # Badewanne
+      - { id: lx0490, pos: noun, draft: true }  # Decke
+      - { id: lx0491, pos: noun, draft: true }  # Eimer
+      - { id: lx0492, pos: noun, draft: true }  # Flur
+      - { id: lx0493, pos: noun, draft: true }  # Geschirr
+      - { id: lx0494, pos: noun, draft: true }  # Handtuch
+      - { id: lx0495, pos: noun, draft: true }  # Kinderzimmer
+      - { id: lx0496, pos: noun, draft: true }  # Kissen
+      - { id: lx0497, pos: noun, draft: true }  # Klingel
+      - { id: lx0498, pos: noun, draft: true }  # Ofen
+      - { id: lx0499, pos: noun, draft: true }  # Schlafzimmer
+      - { id: lx0500, pos: noun, draft: true }  # Spülmaschine
+      - { id: lx0501, pos: noun, draft: true }  # Waschbecken
+      - { id: lx0502, pos: noun, draft: true }  # Wohnzimmer
+      - { id: lx0503, pos: adj, draft: true }  # dunkel
+      - { id: lx0504, pos: adj, draft: true }  # gemütlich
+      - { id: lx0505, pos: adj, draft: true }  # hell
+      - { id: lx0506, pos: adj, draft: true }  # ungemütlich
+      - { id: lx0507, pos: adv, draft: true }  # daheim
+      - { id: lx0508, pos: adv, draft: true }  # zuhause
   a2:
     concepts:
       - { id: landlord_person, pos: noun, freq_rank: 3610 }
@@ -65,6 +101,81 @@ tiers:
       - { id: rubbish_noun, pos: noun, freq_rank: 3480 }
       - { id: bin_object, pos: noun, freq_rank: 5410 }
       - { id: move_noun, pos: noun, freq_rank: 3990 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1171, pos: verb, draft: true }  # abhängen
+      - { id: lx1172, pos: verb, draft: true }  # abschließen
+      - { id: lx1173, pos: verb, draft: true }  # anmachen
+      - { id: lx1174, pos: verb, draft: true }  # aufhängen
+      - { id: lx1175, pos: verb, draft: true }  # aufschließen
+      - { id: lx1176, pos: verb, draft: true }  # auftauen
+      - { id: lx1177, pos: verb, draft: true }  # ausleeren
+      - { id: lx1178, pos: verb, draft: true }  # ausmachen
+      - { id: lx1179, pos: verb, draft: true }  # ausräumen
+      - { id: lx1180, pos: verb, draft: true }  # ausschalten
+      - { id: lx1181, pos: verb, draft: true }  # bügeln
+      - { id: lx1182, pos: verb, draft: true }  # einfrieren
+      - { id: lx1183, pos: verb, draft: true }  # einräumen
+      - { id: lx1184, pos: verb, draft: true }  # einschalten
+      - { id: lx1185, pos: verb, draft: true }  # falten
+      - { id: lx1186, pos: verb, draft: true }  # fegen
+      - { id: lx1187, pos: verb, draft: true }  # heizen
+      - { id: lx1188, pos: verb, draft: true }  # läuten
+      - { id: lx1189, pos: verb, draft: true }  # lüften
+      - { id: lx1190, pos: verb, draft: true }  # reparieren
+      - { id: lx1191, pos: verb, draft: true }  # staubsaugen
+      - { id: lx1192, pos: verb, draft: true }  # wischen
+      - { id: lx1193, pos: verb, draft: true }  # zusammenlegen
+      - { id: lx1194, pos: noun, draft: true }  # Abfluss
+      - { id: lx1195, pos: noun, draft: true }  # Arbeitsplatte
+      - { id: lx1196, pos: noun, draft: true }  # Besen
+      - { id: lx1197, pos: noun, draft: true }  # Bettlaken
+      - { id: lx1198, pos: noun, draft: true }  # Bettwäsche
+      - { id: lx1199, pos: noun, draft: true }  # Bügelbrett
+      - { id: lx1200, pos: noun, draft: true }  # Bügeleisen
+      - { id: lx1201, pos: noun, draft: true }  # Einkaufsliste
+      - { id: lx1202, pos: noun, draft: true }  # Fensterbank
+      - { id: lx1203, pos: noun, draft: true }  # Fernbedienung
+      - { id: lx1204, pos: noun, draft: true }  # Fußmatte
+      - { id: lx1205, pos: noun, draft: true }  # Gardine
+      - { id: lx1206, pos: noun, draft: true }  # Gefrierschrank
+      - { id: lx1207, pos: noun, draft: true }  # Glühbirne
+      - { id: lx1208, pos: noun, draft: true }  # Haushaltsgerät
+      - { id: lx1209, pos: noun, draft: true }  # Hocker
+      - { id: lx1210, pos: noun, draft: true }  # Kleiderschrank
+      - { id: lx1211, pos: noun, draft: true }  # Kommode
+      - { id: lx1212, pos: noun, draft: true }  # Lappen
+      - { id: lx1213, pos: noun, draft: true }  # Matratze
+      - { id: lx1214, pos: noun, draft: true }  # Möbelstück
+      - { id: lx1215, pos: noun, draft: true }  # Mülleimer
+      - { id: lx1216, pos: noun, draft: true }  # Nachttisch
+      - { id: lx1217, pos: noun, draft: true }  # Schloss
+      - { id: lx1218, pos: noun, draft: true }  # Schreibtisch
+      - { id: lx1219, pos: noun, draft: true }  # Schublade
+      - { id: lx1220, pos: noun, draft: true }  # Schwamm
+      - { id: lx1221, pos: noun, draft: true }  # Seife
+      - { id: lx1222, pos: noun, draft: true }  # Sessel
+      - { id: lx1223, pos: noun, draft: true }  # Spülmittel
+      - { id: lx1224, pos: noun, draft: true }  # Staub
+      - { id: lx1225, pos: noun, draft: true }  # Staubsauger
+      - { id: lx1226, pos: noun, draft: true }  # Stufe
+      - { id: lx1227, pos: noun, draft: true }  # Tischdecke
+      - { id: lx1228, pos: noun, draft: true }  # Wäsche
+      - { id: lx1229, pos: noun, draft: true }  # Wäscheständer
+      - { id: lx1230, pos: noun, draft: true }  # Waschmittel
+      - { id: lx1231, pos: noun, draft: true }  # Werkzeug
+      - { id: lx1232, pos: noun, draft: true }  # Zahnbürste
+      - { id: lx1233, pos: noun, draft: true }  # Zahnpasta
+      - { id: lx1234, pos: adj, draft: true }  # bequem
+      - { id: lx1235, pos: adj, draft: true }  # geräumig
+      - { id: lx1236, pos: adj, draft: true }  # hart
+      - { id: lx1237, pos: adj, draft: true }  # kaputt
+      - { id: lx1238, pos: adj, draft: true }  # nass
+      - { id: lx1239, pos: adj, draft: true }  # ordentlich
+      - { id: lx1240, pos: adj, draft: true }  # staubig
+      - { id: lx1241, pos: adj, draft: true }  # trocken
+      - { id: lx1242, pos: adj, draft: true }  # unbequem
+      - { id: lx1243, pos: adj, draft: true }  # unordentlich
+      - { id: lx1244, pos: adj, draft: true }  # weich
   b1:
     concepts:
       - { id: tenancylaw_noun, pos: noun, freq_rank: 5840 }
@@ -91,6 +202,75 @@ tiers:
       - { id: heatingcosts_noun, pos: noun, freq_rank: 5760 }
       - { id: watermeter_object, pos: noun, freq_rank: 6940 }
       - { id: wastesorting_noun, pos: noun, freq_rank: 6520 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2638, pos: verb, draft: true }  # abbauen
+      - { id: lx2639, pos: verb, draft: true }  # abstauben
+      - { id: lx2640, pos: verb, draft: true }  # anschrauben
+      - { id: lx2641, pos: verb, draft: true }  # aufbewahren
+      - { id: lx2642, pos: verb, draft: true }  # auftanken
+      - { id: lx2643, pos: verb, draft: true }  # ausbauen
+      - { id: lx2644, pos: verb, draft: true }  # ausbessern
+      - { id: lx2645, pos: verb, draft: true }  # ausmisten
+      - { id: lx2646, pos: verb, draft: true }  # auswechseln
+      - { id: lx2647, pos: verb, draft: true }  # befestigen
+      - { id: lx2648, pos: verb, draft: true }  # bohren
+      - { id: lx2649, pos: verb, draft: true }  # einbauen
+      - { id: lx2650, pos: verb, draft: true }  # entkalken
+      - { id: lx2651, pos: verb, draft: true }  # ersetzen
+      - { id: lx2652, pos: verb, draft: true }  # lagern
+      - { id: lx2653, pos: verb, draft: true }  # montieren
+      - { id: lx2654, pos: verb, draft: true }  # nageln
+      - { id: lx2655, pos: verb, draft: true }  # polieren
+      - { id: lx2656, pos: verb, draft: true }  # säubern
+      - { id: lx2657, pos: verb, draft: true }  # schrubben
+      - { id: lx2658, pos: verb, draft: true }  # stapeln
+      - { id: lx2659, pos: verb, draft: true }  # streichen
+      - { id: lx2660, pos: verb, draft: true }  # tapezieren
+      - { id: lx2661, pos: noun, draft: true }  # Aufgabenverteilung
+      - { id: lx2662, pos: noun, draft: true }  # Bedienungsanleitung
+      - { id: lx2663, pos: noun, draft: true }  # Beleuchtung
+      - { id: lx2664, pos: noun, draft: true }  # Boiler
+      - { id: lx2665, pos: noun, draft: true }  # Dämmung
+      - { id: lx2666, pos: noun, draft: true }  # Desinfektionsmittel
+      - { id: lx2667, pos: noun, draft: true }  # Dunstabzug
+      - { id: lx2668, pos: noun, draft: true }  # Durchlauferhitzer
+      - { id: lx2669, pos: noun, draft: true }  # Einfamilienhaus
+      - { id: lx2670, pos: noun, draft: true }  # Entsorgung
+      - { id: lx2671, pos: noun, draft: true }  # Feuerlöscher
+      - { id: lx2672, pos: noun, draft: true }  # Fleck
+      - { id: lx2673, pos: noun, draft: true }  # Gebrauchsanweisung
+      - { id: lx2674, pos: noun, draft: true }  # Hausarbeit
+      - { id: lx2675, pos: noun, draft: true }  # Hausputz
+      - { id: lx2676, pos: noun, draft: true }  # Isolierung
+      - { id: lx2677, pos: noun, draft: true }  # Kalk
+      - { id: lx2678, pos: noun, draft: true }  # Kurzschluss
+      - { id: lx2679, pos: noun, draft: true }  # Lüftung
+      - { id: lx2680, pos: noun, draft: true }  # Mehrfamilienhaus
+      - { id: lx2681, pos: noun, draft: true }  # Mixer
+      - { id: lx2682, pos: noun, draft: true }  # Putzplan
+      - { id: lx2683, pos: noun, draft: true }  # Reihenhaus
+      - { id: lx2684, pos: noun, draft: true }  # Reinigung
+      - { id: lx2685, pos: noun, draft: true }  # Reinigungsmittel
+      - { id: lx2686, pos: noun, draft: true }  # Rost
+      - { id: lx2687, pos: noun, draft: true }  # Sauberkeit
+      - { id: lx2688, pos: noun, draft: true }  # Sicherungskasten
+      - { id: lx2689, pos: noun, draft: true }  # Sonnenschutz
+      - { id: lx2690, pos: noun, draft: true }  # Stromausfall
+      - { id: lx2691, pos: noun, draft: true }  # Toaster
+      - { id: lx2692, pos: noun, draft: true }  # Unordnung
+      - { id: lx2693, pos: noun, draft: true }  # Verlängerungskabel
+      - { id: lx2694, pos: noun, draft: true }  # Wasserkocher
+      - { id: lx2695, pos: noun, draft: true }  # Wasserschaden
+      - { id: lx2696, pos: noun, draft: true }  # Zeitschaltuhr
+      - { id: lx2697, pos: adj, draft: true }  # energiesparend
+      - { id: lx2698, pos: adj, draft: true }  # hygienisch
+      - { id: lx2699, pos: adj, draft: true }  # langlebig
+      - { id: lx2700, pos: adj, draft: true }  # pflegeleicht
+      - { id: lx2701, pos: adj, draft: true }  # platzsparend
+      - { id: lx2702, pos: adj, draft: true }  # rutschfest
+      - { id: lx2703, pos: adj, draft: true }  # stromsparend
+      - { id: lx2704, pos: adj, draft: true }  # wasserdicht
+      - { id: lx2705, pos: adj, draft: true }  # wasserfest
   b2:
     concepts:
       - { id: rentindex_noun, pos: noun, freq_rank: 7240 }
@@ -117,3 +297,56 @@ tiers:
       - { id: advancepayment_noun, pos: noun, freq_rank: 7260 }
       - { id: depositaccount_noun, pos: noun, freq_rank: 7810 }
       - { id: handoverprotocol_noun, pos: noun, freq_rank: 7350 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4461, pos: verb, draft: true }  # abdichten
+      - { id: lx4462, pos: verb, draft: true }  # abdunkeln
+      - { id: lx4463, pos: verb, draft: true }  # anschließen
+      - { id: lx4464, pos: verb, draft: true }  # ausstatten
+      - { id: lx4465, pos: verb, draft: true }  # belüften
+      - { id: lx4466, pos: verb, draft: true }  # dämmen
+      - { id: lx4467, pos: verb, draft: true }  # entriegeln
+      - { id: lx4468, pos: verb, draft: true }  # freiräumen
+      - { id: lx4469, pos: verb, draft: true }  # isolieren
+      - { id: lx4470, pos: verb, draft: true }  # umgestalten
+      - { id: lx4471, pos: verb, draft: true }  # verdunkeln
+      - { id: lx4472, pos: verb, draft: true }  # verriegeln
+      - { id: lx4473, pos: verb, draft: true }  # verstellen
+      - { id: lx4474, pos: verb, draft: true }  # verstopfen
+      - { id: lx4475, pos: noun, draft: true }  # Abnutzung
+      - { id: lx4476, pos: noun, draft: true }  # Abwasser
+      - { id: lx4477, pos: noun, draft: true }  # Altbau
+      - { id: lx4478, pos: noun, draft: true }  # Aufbewahrung
+      - { id: lx4479, pos: noun, draft: true }  # Ausbau
+      - { id: lx4480, pos: noun, draft: true }  # Barrierefreiheit
+      - { id: lx4481, pos: noun, draft: true }  # Brandschutz
+      - { id: lx4482, pos: noun, draft: true }  # Durchzug
+      - { id: lx4483, pos: noun, draft: true }  # Fußbodenheizung
+      - { id: lx4484, pos: noun, draft: true }  # Innenausstattung
+      - { id: lx4485, pos: noun, draft: true }  # Instandhaltung
+      - { id: lx4486, pos: noun, draft: true }  # Instandsetzung
+      - { id: lx4487, pos: noun, draft: true }  # Laminat
+      - { id: lx4488, pos: noun, draft: true }  # Luftfeuchtigkeit
+      - { id: lx4489, pos: noun, draft: true }  # Modernisierung
+      - { id: lx4490, pos: noun, draft: true }  # Neubau
+      - { id: lx4491, pos: noun, draft: true }  # Nutzfläche
+      - { id: lx4492, pos: noun, draft: true }  # Parkett
+      - { id: lx4493, pos: noun, draft: true }  # Raumluft
+      - { id: lx4494, pos: noun, draft: true }  # Raumtemperatur
+      - { id: lx4495, pos: noun, draft: true }  # Schallschutz
+      - { id: lx4496, pos: noun, draft: true }  # Schimmelbildung
+      - { id: lx4497, pos: noun, draft: true }  # Stauraum
+      - { id: lx4498, pos: noun, draft: true }  # Umbau
+      - { id: lx4499, pos: noun, draft: true }  # Wärmepumpe
+      - { id: lx4500, pos: noun, draft: true }  # Wärmeverlust
+      - { id: lx4501, pos: noun, draft: true }  # Wohnkomfort
+      - { id: lx4502, pos: noun, draft: true }  # Wohnqualität
+      - { id: lx4503, pos: noun, draft: true }  # Zählerstand
+      - { id: lx4504, pos: noun, draft: true }  # Zentralheizung
+      - { id: lx4505, pos: adj, draft: true }  # altersgerecht
+      - { id: lx4506, pos: adj, draft: true }  # barrierefrei
+      - { id: lx4507, pos: adj, draft: true }  # bewohnbar
+      - { id: lx4508, pos: adj, draft: true }  # bezugsfertig
+      - { id: lx4509, pos: adj, draft: true }  # kindersicher
+      - { id: lx4510, pos: adj, draft: true }  # renovierungsbedürftig
+      - { id: lx4511, pos: adj, draft: true }  # reparaturbedürftig
+      - { id: lx4512, pos: adj, draft: true }  # unbewohnbar

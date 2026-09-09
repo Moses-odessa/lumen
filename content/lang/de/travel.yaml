@@ -1,0 +1,613 @@
+# Немецкие лексемы созвездия «Путешествия и гостеприимство».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0172:
+    form: fliegen
+  lx0173:
+    form: reisen
+  lx0174:
+    form: Koffer
+    article: der
+    gender: m
+  lx0175:
+    form: Pass
+    article: der
+    gender: m
+  lx0176:
+    form: Ticket
+    article: das
+    gender: n
+  lx0615:
+    form: abfahren
+  lx0616:
+    form: ankommen
+  lx0617:
+    form: buchen
+  lx0618:
+    form: reservieren
+  lx0619:
+    form: übernachten
+  lx0620:
+    form: wandern
+  lx0621:
+    form: Ausflug
+    article: der
+    gender: m
+  lx0622:
+    form: Berg
+    article: der
+    gender: m
+  lx0623:
+    form: Buchung
+    article: die
+    gender: f
+  lx0624:
+    form: Doppelzimmer
+    article: das
+    gender: n
+  lx0625:
+    form: Einzelzimmer
+    article: das
+    gender: n
+  lx0626:
+    form: Jugendherberge
+    article: die
+    gender: f
+  lx0627:
+    form: Reservierung
+    article: die
+    gender: f
+  lx0628:
+    form: Rezeption
+    article: die
+    gender: f
+  # Здесь der See = озеро; die See = море не является отдельной записью.
+  lx0629:
+    form: See
+    article: der
+    gender: m
+  lx0630:
+    form: Strand
+    article: der
+    gender: m
+  lx0631:
+    form: Tourist
+    article: der
+    gender: m
+  lx0632:
+    form: Übernachtung
+    article: die
+    gender: f
+  lx0633:
+    form: Unterkunft
+    article: die
+    gender: f
+  lx0634:
+    form: besetzt
+  lx0635:
+    form: sonnig
+  lx1502:
+    form: abreisen
+  lx1503:
+    form: auschecken
+  lx1504:
+    form: ausreisen
+  lx1505:
+    form: einchecken
+  lx1506:
+    form: einreisen
+  lx1507:
+    form: entdecken
+  lx1508:
+    form: erleben
+  lx1509:
+    form: packen
+  lx1510:
+    form: stornieren
+  lx1511:
+    form: umbuchen
+  lx1512:
+    form: verreisen
+  lx1513:
+    form: Aufenthalt
+    article: der
+    gender: m
+  lx1514:
+    form: Ausland
+    article: das
+    gender: n
+  lx1515:
+    form: Aussicht
+    article: die
+    gender: f
+  lx1516:
+    form: Badeurlaub
+    article: der
+    gender: m
+  lx1517:
+    form: Besichtigung
+    article: die
+    gender: f
+  lx1518:
+    form: Bucht
+    article: die
+    gender: f
+  lx1519:
+    form: Camping
+    article: das
+    gender: n
+  lx1520:
+    form: Campingplatz
+    article: der
+    gender: m
+  lx1521:
+    form: Dienstreise
+    article: die
+    gender: f
+  lx1522:
+    form: Ferienhaus
+    article: das
+    gender: n
+  lx1523:
+    form: Ferienwohnung
+    article: die
+    gender: f
+  lx1524:
+    form: Gästehaus
+    article: das
+    gender: n
+  lx1525:
+    form: Geschäftsreise
+    article: die
+    gender: f
+  lx1526:
+    form: Halbinsel
+    article: die
+    gender: f
+  lx1527:
+    form: Handgepäck
+    article: das
+    gender: n
+  lx1528:
+    form: Hostel
+    article: das
+    gender: n
+  lx1529:
+    form: Inland
+    article: das
+    gender: n
+  lx1530:
+    form: Insel
+    article: die
+    gender: f
+  lx1531:
+    form: Klassenfahrt
+    article: die
+    gender: f
+  lx1532:
+    form: Küste
+    article: die
+    gender: f
+  lx1533:
+    form: Landkarte
+    article: die
+    gender: f
+  lx1534:
+    form: Landschaft
+    article: die
+    gender: f
+  lx1535:
+    form: Motel
+    article: das
+    gender: n
+  lx1536:
+    form: Pauschalreise
+    article: die
+    gender: f
+  lx1537:
+    form: Reiseadapter
+    article: der
+    gender: m
+  lx1538:
+    form: Reisebüro
+    article: das
+    gender: n
+  lx1539:
+    form: Reiseführer
+    article: der
+    gender: m
+  lx1540:
+    form: Reiseleiter
+    article: der
+    gender: m
+  lx1541:
+    form: Reiseplan
+    article: der
+    gender: m
+  lx1542:
+    form: Reiseroute
+    article: die
+    gender: f
+  lx1543:
+    form: Reiseziel
+    article: das
+    gender: n
+  lx1544:
+    form: Rundgang
+    article: der
+    gender: m
+  lx1545:
+    form: Rundreise
+    article: die
+    gender: f
+  lx1546:
+    form: Schlafsack
+    article: der
+    gender: m
+  lx1547:
+    form: Städtereise
+    article: die
+    gender: f
+  lx1548:
+    form: Stadtführer
+    article: der
+    gender: m
+  lx1549:
+    form: Stadtführung
+    article: die
+    gender: f
+  lx1550:
+    form: Visum
+    article: das
+    gender: n
+  lx1551:
+    form: Wanderkarte
+    article: die
+    gender: f
+  lx1552:
+    form: Zelt
+    article: das
+    gender: n
+  lx1553:
+    form: Zeltplatz
+    article: der
+    gender: m
+  lx1554:
+    form: abgelegen
+  lx1555:
+    form: abwechslungsreich
+  lx1556:
+    form: ausländisch
+  lx1557:
+    form: erholsam
+  lx1558:
+    form: inländisch
+  lx1559:
+    form: international
+  lx1560:
+    form: sehenswert
+  lx1561:
+    form: touristisch
+  lx1562:
+    form: überfüllt
+  lx2978:
+    form: abfertigen
+  lx2979:
+    form: anreisen
+  lx2980:
+    form: beherbergen
+  lx2981:
+    form: bereisen
+  lx2982:
+    form: besteigen
+  lx2983:
+    form: durchreisen
+  lx2984:
+    form: durchwandern
+  lx2985:
+    form: empfangen
+  lx2986:
+    form: erkunden
+  lx2987:
+    form: gastieren
+  lx2988:
+    form: unterbringen
+  lx2989:
+    form: verweilen
+  lx2990:
+    form: zurückreisen
+  lx2991:
+    form: Anschlussflug
+    article: der
+    gender: m
+  lx2992:
+    form: Aufenthaltsdauer
+    article: die
+    gender: f
+  lx2993:
+    form: Aufenthaltsgenehmigung
+    article: die
+    gender: f
+  lx2994:
+    form: Ausreise
+    article: die
+    gender: f
+  lx2995:
+    form: Durchreise
+    article: die
+    gender: f
+  lx2996:
+    form: Einreise
+    article: die
+    gender: f
+  lx2997:
+    form: Gepäckaufgabe
+    article: die
+    gender: f
+  lx2998:
+    form: Gepäckausgabe
+    article: die
+    gender: f
+  lx2999:
+    form: Gepäckkontrolle
+    article: die
+    gender: f
+  # Форма с определённым артиклем: der Grenzbeamte, ein Grenzbeamter.
+  lx3000:
+    form: Grenzbeamte
+    article: der
+    gender: m
+  lx3001:
+    form: Grenzkontrolle
+    article: die
+    gender: f
+  lx3002:
+    form: Grenzübergang
+    article: der
+    gender: m
+  lx3003:
+    form: Grenzübertritt
+    article: der
+    gender: m
+  lx3004:
+    form: Halbpension
+    article: die
+    gender: f
+  lx3005:
+    form: Passkontrolle
+    article: die
+    gender: f
+  lx3006:
+    form: Reisedokument
+    article: das
+    gender: n
+  lx3007:
+    form: Reisekrankenversicherung
+    article: die
+    gender: f
+  lx3008:
+    form: Reiseveranstalter
+    article: der
+    gender: m
+  lx3009:
+    form: Reiseverlauf
+    article: der
+    gender: m
+  lx3010:
+    form: Schließfach
+    article: das
+    gender: n
+  lx3011:
+    form: Selbstverpflegung
+    article: die
+    gender: f
+  lx3012:
+    form: Sicherheitskontrolle
+    article: die
+    gender: f
+  lx3013:
+    form: Transfer
+    article: der
+    gender: m
+  lx3014:
+    form: Verpflegung
+    article: die
+    gender: f
+  lx3015:
+    form: Vollpension
+    article: die
+    gender: f
+  lx3016:
+    form: Wohnort
+    article: der
+    gender: m
+  lx3017:
+    form: Wohnsitz
+    article: der
+    gender: m
+  lx3018:
+    form: Zoll
+    article: der
+    gender: m
+  lx3019:
+    form: Zustellbett
+    article: das
+    gender: n
+  lx3020:
+    form: Zwischenaufenthalt
+    article: der
+    gender: m
+  lx3021:
+    form: Zwischenlandung
+    article: die
+    gender: f
+  lx3022:
+    form: Zwischenstopp
+    article: der
+    gender: m
+  lx3023:
+    form: ausgebucht
+  lx3024:
+    form: gastfreundlich
+  lx3025:
+    form: luxuriös
+  lx3026:
+    form: preisgünstig
+  lx3027:
+    form: visumfrei
+  lx3028:
+    form: visumpflichtig
+  lx4690:
+    form: abschieben
+  lx4691:
+    form: ansiedeln
+  lx4692:
+    form: auswandern
+  lx4693:
+    form: ausweisen
+  lx4694:
+    form: einbürgern
+  lx4695:
+    form: einwandern
+  lx4696:
+    form: evakuieren
+  lx4697:
+    form: migrieren
+  # Употребление: sich in einer Stadt orientieren
+  lx4698:
+    form: orientieren
+  lx4699:
+    form: 'sich zurechtfinden'
+  lx4700:
+    form: umsiedeln
+  lx4701:
+    form: verständigen
+  lx4702:
+    form: zuwandern
+  lx4703:
+    form: Auswanderung
+    article: die
+    gender: f
+  lx4704:
+    form: Bewegungsfreiheit
+    article: die
+    gender: f
+  lx4705:
+    form: Einwanderung
+    article: die
+    gender: f
+  lx4706:
+    form: Gastfreundschaft
+    article: die
+    gender: f
+  lx4707:
+    form: Gastland
+    article: das
+    gender: n
+  lx4708:
+    form: Grenzschließung
+    article: die
+    gender: f
+  lx4709:
+    form: Heimat
+    article: die
+    gender: f
+  lx4710:
+    form: Heimatland
+    article: das
+    gender: n
+  lx4711:
+    form: Integration
+    article: die
+    gender: f
+  lx4712:
+    form: Kulturerbe
+    article: das
+    gender: n
+  lx4713:
+    form: Kulturschock
+    article: der
+    gender: m
+  lx4714:
+    form: Massentourismus
+    article: der
+    gender: m
+  lx4715:
+    form: Migration
+    article: die
+    gender: f
+  lx4716:
+    form: Naturschutzgebiet
+    article: das
+    gender: n
+  lx4717:
+    form: Perspektivwechsel
+    article: der
+    gender: m
+  lx4718:
+    form: Reisebeschränkung
+    article: die
+    gender: f
+  lx4719:
+    form: Reisefreiheit
+    article: die
+    gender: f
+  lx4720:
+    form: Reisehinweis
+    article: der
+    gender: m
+  lx4721:
+    form: Reisewarnung
+    article: die
+    gender: f
+  lx4722:
+    form: Rettungseinsatz
+    article: der
+    gender: m
+  lx4723:
+    form: Rückreise
+    article: die
+    gender: f
+  lx4724:
+    form: Sicherheitslage
+    article: die
+    gender: f
+  lx4725:
+    form: Souvenir
+    article: das
+    gender: n
+  lx4726:
+    form: Tourismus
+    article: der
+    gender: m
+  lx4727:
+    form: Weltkulturerbe
+    article: das
+    gender: n
+  lx4728:
+    form: Weltoffenheit
+    article: die
+    gender: f
+  lx4729:
+    form: fremdenfeindlich
+  lx4730:
+    form: grenzüberschreitend
+  lx4731:
+    form: heimatverbunden
+  lx4732:
+    form: interkulturell
+  lx4733:
+    form: ortsfremd
+  lx4734:
+    form: ortskundig
+  lx4735:
+    form: ressourcenschonend
+  lx4736:
+    form: weltoffen

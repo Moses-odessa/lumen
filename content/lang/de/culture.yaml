@@ -1,0 +1,802 @@
+# Немецкие лексемы созвездия «Культура, медиа и творчество».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0201:
+    form: Bild
+    article: das
+    gender: n
+  lx0202:
+    form: Film
+    article: der
+    gender: m
+  lx0203:
+    form: Musik
+    article: die
+    gender: f
+  lx0726:
+    form: filmen
+  lx0727:
+    form: Fernseher
+    article: der
+    gender: m
+  lx0728:
+    form: Geschichte
+    article: die
+    gender: f
+  lx0729:
+    form: Gitarre
+    article: die
+    gender: f
+  lx0730:
+    form: Klavier
+    article: das
+    gender: n
+  lx0731:
+    form: Kunst
+    article: die
+    gender: f
+  lx0732:
+    form: Künstler
+    article: der
+    gender: m
+  lx0733:
+    form: Lied
+    article: das
+    gender: n
+  lx0734:
+    form: Musiker
+    article: der
+    gender: m
+  lx0735:
+    form: Radio
+    article: das
+    gender: n
+  lx0736:
+    form: Roman
+    article: der
+    gender: m
+  lx0737:
+    form: Sänger
+    article: der
+    gender: m
+  lx0738:
+    form: Schauspieler
+    article: der
+    gender: m
+  lx0739:
+    form: Zeitschrift
+    article: die
+    gender: f
+  lx0740:
+    form: Zeitung
+    article: die
+    gender: f
+  lx0741:
+    form: spannend
+  lx1859:
+    form: abspielen
+  lx1860:
+    form: aufführen
+  lx1861:
+    form: aufnehmen
+  lx1862:
+    form: auftreten
+  lx1863:
+    form: ausprobieren
+  lx1864:
+    form: ausstellen
+  lx1865:
+    form: kritisieren
+  lx1866:
+    form: veröffentlichen
+  lx1867:
+    form: vorspielen
+  lx1868:
+    form: vortragen
+  lx1869:
+    form: zuschauen
+  lx1870:
+    form: Artikel
+    article: der
+    gender: m
+  lx1871:
+    form: Ausstellung
+    article: die
+    gender: f
+  lx1872:
+    form: Autor
+    article: der
+    gender: m
+  lx1873:
+    form: Bericht
+    article: der
+    gender: m
+  lx1874:
+    form: Buchhandlung
+    article: die
+    gender: f
+  lx1875:
+    form: Bühne
+    article: die
+    gender: f
+  lx1876:
+    form: Charakter
+    article: der
+    gender: m
+  lx1877:
+    form: Dokumentation
+    article: die
+    gender: f
+  lx1878:
+    form: E-Book
+    article: das
+    gender: n
+  lx1879:
+    form: Eintritt
+    article: der
+    gender: m
+  lx1880:
+    form: Eintrittsgebühr
+    article: die
+    gender: f
+  lx1881:
+    form: Eintrittskarte
+    article: die
+    gender: f
+  lx1882:
+    form: Folge
+    article: die
+    gender: f
+  lx1883:
+    form: Fotograf
+    article: der
+    gender: m
+  lx1884:
+    form: Gedicht
+    article: das
+    gender: n
+  lx1885:
+    form: Handlung
+    article: die
+    gender: f
+  lx1886:
+    form: Held
+    article: der
+    gender: m
+  lx1887:
+    form: Hörbuch
+    article: das
+    gender: n
+  lx1888:
+    form: Inhalt
+    article: der
+    gender: m
+  lx1889:
+    form: Instrument
+    article: das
+    gender: n
+  lx1890:
+    form: Komödie
+    article: die
+    gender: f
+  lx1891:
+    form: Kunstwerk
+    article: das
+    gender: n
+  lx1892:
+    form: Leser
+    article: der
+    gender: m
+  lx1893:
+    form: Lesung
+    article: die
+    gender: f
+  lx1894:
+    form: Maler
+    article: der
+    gender: m
+  lx1895:
+    form: Märchen
+    article: das
+    gender: n
+  lx1896:
+    form: Musikstück
+    article: das
+    gender: n
+  lx1897:
+    form: Nachrichtensendung
+    article: die
+    gender: f
+  lx1898:
+    form: Orchester
+    article: das
+    gender: n
+  lx1899:
+    form: Publikum
+    article: das
+    gender: n
+  lx1900:
+    form: Regisseur
+    article: der
+    gender: m
+  lx1901:
+    form: Reportage
+    article: die
+    gender: f
+  lx1902:
+    form: Rolle
+    article: die
+    gender: f
+  lx1903:
+    form: Schlagzeug
+    article: das
+    gender: n
+  lx1904:
+    form: Schriftsteller
+    article: der
+    gender: m
+  lx1905:
+    form: Sender
+    article: der
+    gender: m
+  lx1906:
+    form: Sendung
+    article: die
+    gender: f
+  lx1907:
+    form: Serie
+    article: die
+    gender: f
+  lx1908:
+    form: Szene
+    article: die
+    gender: f
+  lx1909:
+    form: Theaterstück
+    article: das
+    gender: n
+  lx1910:
+    form: Titel
+    article: der
+    gender: m
+  lx1911:
+    form: Tragödie
+    article: die
+    gender: f
+  lx1912:
+    form: Zuhörer
+    article: der
+    gender: m
+  lx1913:
+    form: Zuschauer
+    article: der
+    gender: m
+  lx1914:
+    form: bekannt
+  lx1915:
+    form: beliebt
+  lx1916:
+    form: berühmt
+  lx1917:
+    form: kreativ
+  lx1918:
+    form: künstlerisch
+  lx1919:
+    form: musikalisch
+  lx1920:
+    form: populär
+  lx1921:
+    form: unbekannt
+  lx1922:
+    form: unbeliebt
+  lx3397:
+    form: darstellen
+  lx3398:
+    form: dirigieren
+  lx3399:
+    form: entwerfen
+  lx3400:
+    form: gestalten
+  lx3401:
+    form: illustrieren
+  lx3402:
+    form: improvisieren
+  lx3403:
+    form: inszenieren
+  lx3404:
+    form: interviewen
+  lx3405:
+    form: komponieren
+  lx3406:
+    form: moderieren
+  lx3407:
+    form: nachahmen
+  lx3408:
+    form: nachspielen
+  lx3409:
+    form: nachzeichnen
+  lx3410:
+    form: porträtieren
+  lx3411:
+    form: proben
+  lx3412:
+    form: recherchieren
+  lx3413:
+    form: reimen
+  lx3414:
+    form: restaurieren
+  lx3415:
+    form: schildern
+  lx3416:
+    form: skizzieren
+  lx3417:
+    form: übertragen
+  lx3418:
+    form: verbreiten
+  lx3419:
+    form: verfilmen
+  lx3420:
+    form: vertonen
+  lx3421:
+    form: zitieren
+  lx3422:
+    form: Akkord
+    article: der
+    gender: m
+  lx3423:
+    form: Aquarell
+    article: das
+    gender: n
+  lx3424:
+    form: Architektur
+    article: die
+    gender: f
+  lx3425:
+    form: Aufführung
+    article: die
+    gender: f
+  lx3426:
+    form: Ballett
+    article: das
+    gender: n
+  lx3427:
+    form: Berichterstattung
+    article: die
+    gender: f
+  lx3428:
+    form: Bildunterschrift
+    article: die
+    gender: f
+  lx3429:
+    form: Chor
+    article: der
+    gender: m
+  lx3430:
+    form: Comic
+    article: der
+    gender: m
+  lx3431:
+    form: Copyright
+    article: das
+    gender: n
+  lx3432:
+    form: Darsteller
+    article: der
+    gender: m
+  lx3433:
+    form: Dirigent
+    article: der
+    gender: m
+  lx3434:
+    form: Disharmonie
+    article: die
+    gender: f
+  lx3435:
+    form: Drama
+    article: das
+    gender: n
+  lx3436:
+    form: Dramaturgie
+    article: die
+    gender: f
+  lx3437:
+    form: Drehbuch
+    article: das
+    gender: n
+  lx3438:
+    form: Empfehlung
+    article: die
+    gender: f
+  lx3439:
+    form: Fotografie
+    article: die
+    gender: f
+  lx3440:
+    form: Gemälde
+    article: das
+    gender: n
+  lx3441:
+    form: Genre
+    article: das
+    gender: n
+  lx3442:
+    form: Gestaltung
+    article: die
+    gender: f
+  lx3443:
+    form: Harmonie
+    article: die
+    gender: f
+  lx3444:
+    form: Herausgeber
+    article: der
+    gender: m
+  lx3445:
+    form: Illustration
+    article: die
+    gender: f
+  lx3446:
+    form: Impressum
+    article: das
+    gender: n
+  lx3447:
+    form: Inhaltsverzeichnis
+    article: das
+    gender: n
+  lx3448:
+    form: Inszenierung
+    article: die
+    gender: f
+  lx3449:
+    form: Interpretation
+    article: die
+    gender: f
+  lx3450:
+    form: Interview
+    article: das
+    gender: n
+  lx3451:
+    form: Journalist
+    article: der
+    gender: m
+  lx3452:
+    form: Kabarett
+    article: das
+    gender: n
+  lx3453:
+    form: Kapitel
+    article: das
+    gender: n
+  lx3454:
+    form: Klang
+    article: der
+    gender: m
+  lx3455:
+    form: Kommentator
+    article: der
+    gender: m
+  lx3456:
+    form: Komponist
+    article: der
+    gender: m
+  lx3457:
+    form: Kritik
+    article: die
+    gender: f
+  lx3458:
+    form: Kulisse
+    article: die
+    gender: f
+  lx3459:
+    form: Lautstärke
+    article: die
+    gender: f
+  lx3460:
+    form: Manuskript
+    article: das
+    gender: n
+  lx3461:
+    form: Meinungsumfrage
+    article: die
+    gender: f
+  lx3462:
+    form: Meldung
+    article: die
+    gender: f
+  lx3463:
+    form: Melodie
+    article: die
+    gender: f
+  lx3464:
+    form: Moderator
+    article: der
+    gender: m
+  lx3465:
+    form: Monolog
+    article: der
+    gender: m
+  lx3466:
+    form: Mosaik
+    article: das
+    gender: n
+  lx3467:
+    form: Musical
+    article: das
+    gender: n
+  lx3468:
+    form: Nachwort
+    article: das
+    gender: n
+  lx3469:
+    form: Porträt
+    article: das
+    gender: n
+  lx3470:
+    form: Premiere
+    article: die
+    gender: f
+  lx3471:
+    form: Presse
+    article: die
+    gender: f
+  lx3472:
+    form: Probe
+    article: die
+    gender: f
+  lx3473:
+    form: Recherche
+    article: die
+    gender: f
+  lx3474:
+    form: Redakteur
+    article: der
+    gender: m
+  lx3475:
+    form: Redaktion
+    article: die
+    gender: f
+  lx3476:
+    form: Regie
+    article: die
+    gender: f
+  lx3477:
+    form: Reim
+    article: der
+    gender: m
+  lx3478:
+    form: Reporter
+    article: der
+    gender: m
+  lx3479:
+    form: Requisite
+    article: die
+    gender: f
+  lx3480:
+    form: Rezension
+    article: die
+    gender: f
+  lx3481:
+    form: Schlagzeile
+    article: die
+    gender: f
+  lx3482:
+    form: Skulptur
+    article: die
+    gender: f
+  lx3483:
+    form: Stil
+    article: der
+    gender: m
+  lx3484:
+    form: Stilbruch
+    article: der
+    gender: m
+  lx3485:
+    form: Takt
+    article: der
+    gender: m
+  lx3486:
+    form: Ton
+    article: der
+    gender: m
+  lx3487:
+    form: Überschrift
+    article: die
+    gender: f
+  lx3488:
+    form: Übersetzer
+    article: der
+    gender: m
+  lx3489:
+    form: Umfrage
+    article: die
+    gender: f
+  lx3490:
+    form: Urheberrecht
+    article: das
+    gender: n
+  lx3491:
+    form: Verfasser
+    article: der
+    gender: m
+  lx3492:
+    form: Verlag
+    article: der
+    gender: m
+  lx3493:
+    form: Vers
+    article: der
+    gender: m
+  lx3494:
+    form: Vorwort
+    article: das
+    gender: n
+  lx3495:
+    form: Werbeanzeige
+    article: die
+    gender: f
+  lx3496:
+    form: aktuell
+  lx3497:
+    form: aufschlussreich
+  lx3498:
+    form: beeindruckend
+  lx3499:
+    form: berührend
+  lx3500:
+    form: bewegend
+  lx3501:
+    form: glaubwürdig
+  lx3502:
+    form: informativ
+  lx3503:
+    form: objektiv
+  lx3504:
+    form: subjektiv
+  lx3505:
+    form: tagesaktuell
+  lx3506:
+    form: unglaubwürdig
+  lx3507:
+    form: unterhaltsam
+  lx4984:
+    form: aufdecken
+  lx4985:
+    form: aufgreifen
+  lx4986:
+    form: beleuchten
+  lx4987:
+    form: dementieren
+  lx4988:
+    form: deuten
+  lx4989:
+    form: enthüllen
+  lx4990:
+    form: interpretieren
+  lx4991:
+    form: revidieren
+  lx4992:
+    form: thematisieren
+  lx4993:
+    form: untermauern
+  lx4994:
+    form: verfälschen
+  lx4995:
+    form: verschweigen
+  lx4996:
+    form: verzerren
+  lx4997:
+    form: zensieren
+  lx4998:
+    form: Ausgewogenheit
+    article: die
+    gender: f
+  lx4999:
+    form: Darstellung
+    article: die
+    gender: f
+  lx5000:
+    form: Einseitigkeit
+    article: die
+    gender: f
+  lx5001:
+    form: Falschmeldung
+    article: die
+    gender: f
+  lx5002:
+    form: Glaubwürdigkeit
+    article: die
+    gender: f
+  lx5003:
+    form: Journalismus
+    article: der
+    gender: m
+  lx5004:
+    form: Kulturgut
+    article: das
+    gender: n
+  lx5005:
+    form: Manipulation
+    article: die
+    gender: f
+  lx5006:
+    form: Massenmedium
+    article: das
+    gender: n
+  lx5007:
+    form: Medienkompetenz
+    article: die
+    gender: f
+  lx5008:
+    form: Medienkonsum
+    article: der
+    gender: m
+  lx5009:
+    form: Medienwandel
+    article: der
+    gender: m
+  lx5010:
+    form: Meinungsbildung
+    article: die
+    gender: f
+  lx5011:
+    form: Meinungsfreiheit
+    article: die
+    gender: f
+  lx5012:
+    form: Pressefreiheit
+    article: die
+    gender: f
+  lx5013:
+    form: Propaganda
+    article: die
+    gender: f
+  lx5014:
+    form: Quellenkritik
+    article: die
+    gender: f
+  lx5015:
+    form: Quellenlage
+    article: die
+    gender: f
+  lx5016:
+    form: Verzerrung
+    article: die
+    gender: f
+  lx5017:
+    form: Zensur
+    article: die
+    gender: f
+  lx5018:
+    form: authentisch
+  lx5019:
+    form: einseitig
+  lx5020:
+    form: journalistisch
+  lx5021:
+    form: kulturell
+  lx5022:
+    form: kulturübergreifend
+  lx5023:
+    form: literarisch
+  lx5024:
+    form: metaphorisch
+  lx5025:
+    form: redaktionell
+  lx5026:
+    form: symbolisch
+  lx5027:
+    form: tendenziös
+  lx5028:
+    form: unabhängig
+  lx5029:
+    form: verfälscht
+  lx5030:
+    form: vielschichtig

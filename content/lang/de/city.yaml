@@ -1,0 +1,1133 @@
+# Немецкие лексемы созвездия «Город, жильё и услуги».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  city_place:
+    form: Stadt
+    article: die
+    gender: f
+    plural: Städte
+    distractors:
+      far: [Dorf, Land]
+      near: [Staat, Start, Statue]
+  square_place:
+    form: Platz
+    article: der
+    gender: m
+    plural: Plätze
+    distractors:
+      far: [Gasse, Ufer]
+      near: [Latz, Platte, Klatsch]
+  park_place:
+    form: Park
+    article: der
+    gender: m
+    plural: Parks
+    distractors:
+      far: [Garten, Wald]
+      near: [Parkett, Sarg, Barke]
+  bank_place:
+    form: Bank
+    article: die
+    gender: f
+    plural: Banken
+    distractors:
+      far: [Rathaus, Automat]
+      near: [Dank, Bande, Rang]
+  church_place:
+    form: Kirche
+    article: die
+    gender: f
+    plural: Kirchen
+    distractors:
+      far: [Friedhof, Kloster]
+      near: [Kirsche, Kerze, Kürbis]
+  market_place:
+    form: Markt
+    article: der
+    gender: m
+    plural: Märkte
+    distractors:
+      far: [Laden, Halle]
+      near: [Marke, Makler, Mandat]
+  museum_place:
+    form: Museum
+    article: das
+    gender: n
+    plural: Museen
+    distractors:
+      far: [Galerie, Theater]
+      near: [Mausoleum, Medium, Muskel]
+  post_place:
+    form: Post
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors:
+      far: [Amt, Rathaus]
+      near: [Rost, Posten, Pfosten]
+  hotel_place:
+    form: Hotel
+    article: das
+    gender: n
+    plural: Hotels
+    distractors:
+      far: [Kino, Bahnhof]
+      near: [Motel, Hobel, Kotelett]
+  centre_place:
+    form: Zentrum
+    article: das
+    gender: n
+    plural: Zentren
+    distractors:
+      far: [Rand, Viertel]
+      near: [Zentner, Zensur, Ventil]
+  map_object:
+    form: Stadtplan
+    article: der
+    gender: m
+    plural: Stadtpläne
+    distractors:
+      far: [Wegweiser, Schild]
+      near: [Bauplan, Zeitplan, Stadtrand]
+  right_adv:
+    form: rechts
+    note: наречие
+    distractors:
+      far: [links, geradeaus]
+      near: [Recht, echt, sechs]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  crossing_place:
+    form: Kreuzung
+    article: die
+    gender: f
+    plural: Kreuzungen
+    distractors:
+      far: [Abzweigung, Kreisverkehr]
+      near: [Kreuzfahrt, Kürzung, Kränkung]
+  traffic_light:
+    form: Ampel
+    article: die
+    gender: f
+    plural: Ampeln
+    distractors:
+      far: [Schild, Zebrastreifen]
+      near: [Apfel, Amsel, Angel]
+  pedestrian_person:
+    form: Fußgänger
+    article: der
+    gender: m
+    plural: Fußgänger
+    distractors:
+      far: [Radfahrer, Anwohner]
+      near: [Fußball, Fußboden, Vorgänger]
+  bridge_place:
+    form: Brücke
+    article: die
+    gender: f
+    plural: Brücken
+    distractors:
+      far: [Tunnel, Ufer]
+      near: [Brühe, Bruch, Lücke]
+  river_place:
+    form: Fluss
+    article: der
+    gender: m
+    plural: Flüsse
+    distractors:
+      far: [See, Kanal]
+      near: [Fluch, Schluss, Fuß]
+  corner_place:
+    form: Ecke
+    article: die
+    gender: f
+    plural: Ecken
+    distractors:
+      far: [Seite, Rand]
+      near: [Decke, Hecke, Recke]
+  direction_noun:
+    form: Richtung
+    article: die
+    gender: f
+    plural: Richtungen
+    distractors:
+      far: [Strecke, Route]
+      near: [Rechnung, Rüstung, Dichtung]
+  address_noun:
+    form: Adresse
+    article: die
+    gender: f
+    plural: Adressen
+    distractors:
+      far: [Postleitzahl, Telefonnummer]
+      near: [Presse, Adressat, Attrappe]
+  district_place:
+    form: Stadtteil
+    article: der
+    gender: m
+    plural: Stadtteile
+    distractors:
+      far: [Vorort, Siedlung]
+      near: [Stadtrand, Bauteil, Stadtplan]
+  townhall_place:
+    form: Rathaus
+    article: das
+    gender: n
+    plural: Rathäuser
+    distractors:
+      far: [Amt, Behörde]
+      near: [Ratschlag, Rathausplatz, Rasthaus]
+  entrance_place:
+    form: Eingang
+    article: der
+    gender: m
+    plural: Eingänge
+    distractors:
+      far: [Treppe, Schranke]
+      near: [Ausgang, Einkauf, Empfang]
+  exit_place:
+    form: Ausgang
+    article: der
+    gender: m
+    plural: Ausgänge
+    distractors:
+      far: [Sackgasse, Bordstein]
+      near: [Eingang, Ausgabe, Aufschlag]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  suburb_place:
+    form: Vorort
+    article: der
+    gender: m
+    plural: Vororte
+    distractors: { far: [Innenstadt, Umland], near: [Vorwort, Standort, Vorhof] }
+  settlement_place:
+    form: Siedlung
+    article: die
+    gender: f
+    plural: Siedlungen
+    distractors: { far: [Wohnviertel, Kolonie], near: [Sitzung, Bildung, Meldung] }
+  pavement_place:
+    form: Gehweg
+    article: der
+    gender: m
+    plural: Gehwege
+    distractors: { far: [Fahrbahn, Bordstein], near: [Hohlweg, Gehhilfe, Feldweg] }
+  cyclepath_place:
+    form: Radweg
+    article: der
+    gender: m
+    plural: Radwege
+    distractors: { far: [Bordstein, Fußweg], near: [Radrennen, Waldweg, Ratschlag] }
+  crosswalk_place:
+    form: Zebrastreifen
+    article: der
+    gender: m
+    plural: Zebrastreifen
+    distractors: { far: [Unterführung, Haltelinie], near: [Randstreifen, Mittelstreifen, Lichtstreifen] }
+  streetlamp_object:
+    form: Laterne
+    article: die
+    gender: f
+    plural: Laternen
+    distractors: { far: [Scheinwerfer, Ampel], near: [Kaserne, Zisterne, Taverne] }
+  monument_place:
+    form: Denkmal
+    article: das
+    gender: n
+    plural: Denkmäler
+    distractors: { far: [Fassade, Turm], near: [Denkzettel, Merkmal, Muttermal] }
+  fountain_place:
+    form: Springbrunnen
+    article: der
+    gender: m
+    plural: Springbrunnen
+    distractors: { far: [Teich, Statue], near: [Brummen, Brennen, Bronze] }
+  cemetery_place:
+    form: Friedhof
+    article: der
+    gender: m
+    plural: Friedhöfe
+    distractors: { far: [Kapelle, Grabstätte], near: [Friedensvertrag, Viehhof, Freihof] }
+  library_place:
+    form: Bibliothek
+    article: die
+    gender: f
+    plural: Bibliotheken
+    distractors: { far: [Archiv, Lesesaal], near: [Diskothek, Apotheke, Bibliografie] }
+  school_place:
+    form: Schule
+    article: die
+    gender: f
+    plural: Schulen
+    distractors: { far: [Klassenzimmer, Hochschule], near: [Schale, Schuld, Spule] }
+  cinema_place:
+    form: Kino
+    article: das
+    gender: n
+    plural: Kinos
+    distractors: { far: [Oper, Varieté], near: [Kimono, Kilo, Kiosk] }
+  theatre_place:
+    form: Theater
+    article: das
+    gender: n
+    plural: Theater
+    distractors: { far: [Oper, Kabarett], near: [Thema, Krater, Berater] }
+  stadium_place:
+    form: Stadion
+    article: das
+    gender: n
+    plural: Stadien
+    distractors: { far: [Arena, Sportplatz], near: [Station, Stadium, Radio] }
+  pool_place:
+    form: Schwimmbad
+    article: das
+    gender: n
+    plural: Schwimmbäder
+    distractors: { far: [See, Therme], near: [Schwimmweste, Schlammbad, Sonnenbad] }
+  playground_place:
+    form: Spielplatz
+    article: der
+    gender: m
+    plural: Spielplätze
+    distractors: { far: [Sandkasten, Grünanlage], near: [Spielraum, Spielzeug, Stellplatz] }
+  pedestrian_zone:
+    form: Fußgängerzone
+    article: die
+    gender: f
+    plural: Fußgängerzonen
+    distractors: { far: [Innenstadt, Einkaufsmeile], near: [Fußgängerbrücke, Sperrzone, Grünzone] }
+  resident_person:
+    form: Einwohner
+    article: der
+    gender: m
+    plural: Einwohner
+    distractors: { far: [Besucher, Gast], near: [Einwohnerzahl, Einwanderer, Einweihung] }
+  administration_noun:
+    form: Verwaltung
+    article: die
+    gender: f
+    plural: Verwaltungen
+    distractors: { far: [Behörde, Amt], near: [Veranstaltung, Verwahrung, Gestaltung] }
+  citizenoffice_place:
+    form: Bürgeramt
+    article: das
+    gender: n
+    plural: Bürgerämter
+    distractors: { far: [Finanzamt, Ordnungsamt], near: [Bürgersteig, Bürgerkrieg, Bürgermeister] }
+  police_noun:
+    form: Polizei
+    article: die
+    gender: f
+    distractors: { far: [Ordnungsdienst, Wachdienst], near: [Politik, Poliklinik, Politesse] }
+  firebrigade_noun:
+    form: Feuerwehr
+    article: die
+    gender: f
+    plural: Feuerwehren
+    distractors: { far: [Rettungsdienst, Notarzt], near: [Feuerzeug, Gegenwehr, Feuermelder] }
+  emergency_call:
+    form: Notrufnummer
+    article: die
+    gender: f
+    plural: Notrufnummern
+    distractors: { far: [Hotline, Servicenummer], near: [Notausgang, Rufnummer, Notdienst] }
+  sight_noun:
+    form: Sehenswürdigkeit
+    article: die
+    gender: f
+    plural: Sehenswürdigkeiten
+    distractors: { far: [Stadtführung, Eintrittskarte], near: [Sehenswertes, Merkwürdigkeit, Sehschwäche] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  municipality_place:
+    form: Gemeinde
+    article: die
+    gender: f
+    plural: Gemeinden
+    distractors: { far: [Kreisstadt, Nachbarort], near: [Gemeinheit, Gemeinschaft, Gemälde] }
+  county_place:
+    form: Landkreis
+    article: der
+    gender: m
+    plural: Landkreise
+    distractors: { far: [Bundesland, Regierungsbezirk], near: [Landweg, Stadtkreis, Landgericht] }
+  borough_place:
+    form: Bezirk
+    article: der
+    gender: m
+    plural: Bezirke
+    distractors: { far: [Viertel, Ortsteil], near: [Bezug, Bezirksamt, Besitz] }
+  mayor_person:
+    form: Bürgermeister
+    article: der
+    gender: m
+    plural: Bürgermeister
+    distractors: { far: [Landrat, Stadtdirektor], near: [Bürgersteig, Hausmeister, Bürgerbüro] }
+  citycouncil_noun:
+    form: Stadtrat
+    article: der
+    gender: m
+    plural: Stadträte
+    distractors: { far: [Gemeinderat, Kreistag], near: [Stadtteil, Betriebsrat, Stadtplan] }
+  constituency_place:
+    form: Wahlkreis
+    article: der
+    gender: m
+    plural: Wahlkreise
+    distractors: { far: [Stimmbezirk, Wahllokal], near: [Wahlrecht, Landkreis, Wahlkampf] }
+  registrationoffice_place:
+    form: Einwohnermeldeamt
+    article: das
+    gender: n
+    plural: Einwohnermeldeämter
+    distractors: { far: [Bürgerbüro, Standesamt], near: [Einwohnerzahl, Gesundheitsamt, Einwohnerschaft] }
+  publicorder_office:
+    form: Ordnungsamt
+    article: das
+    gender: n
+    plural: Ordnungsämter
+    distractors: { far: [Polizeirevier, Bauamt], near: [Ordnungsdienst, Finanzamt, Ordnungszahl] }
+  buildingauthority_place:
+    form: Bauamt
+    article: das
+    gender: n
+    plural: Bauämter
+    distractors: { far: [Ordnungsamt, Katasteramt], near: [Bauantrag, Hauptamt, Baumarkt] }
+  permit_noun:
+    form: Genehmigung
+    article: die
+    gender: f
+    plural: Genehmigungen
+    distractors: { far: [Auflage, Untersagung], near: [Beruhigung, Genesung, Begünstigung] }
+  application_form:
+    form: Antrag
+    article: der
+    gender: m
+    plural: Anträge
+    distractors: { far: [Bescheinigung, Anfrage], near: [Auftrag, Vertrag, Anschlag] }
+  form_object:
+    form: Formular
+    article: das
+    gender: n
+    plural: Formulare
+    distractors: { far: [Stempel, Merkblatt], near: [Formalität, Mobiliar, Formulierung] }
+  fee_noun:
+    form: Gebühr
+    article: die
+    gender: f
+    plural: Gebühren
+    distractors: { far: [Beitrag, Abgabe], near: [Geburt, Gebäude, Gebüsch] }
+  notice_decision:
+    form: Bescheid
+    article: der
+    gender: m
+    plural: Bescheide
+    distractors: { far: [Mitteilung, Verfügung], near: [Bescheidenheit, Beschwerde, Beistand] }
+  civicobjection_noun:
+    form: Einspruch
+    article: der
+    gender: m
+    plural: Einsprüche
+    distractors: { far: [Beschwerde, Klage], near: [Anspruch, Einbruchschutz, Einbruch] }
+  publicsurgery_noun:
+    form: Bürgersprechstunde
+    article: die
+    gender: f
+    plural: Bürgersprechstunden
+    distractors: { far: [Ratssitzung, Anhörung], near: [Bürgerversammlung, Arztsprechstunde, Bürgersteig] }
+  publicsphere_noun:
+    form: Öffentlichkeit
+    article: die
+    gender: f
+    plural: Öffentlichkeiten
+    distractors: { far: [Presse, Bürgerinitiative], near: [Öffnungszeit, Pünktlichkeit, Örtlichkeit] }
+  infrastructure_noun:
+    form: Infrastruktur
+    article: die
+    gender: f
+    plural: Infrastrukturen
+    distractors: { far: [Versorgung, Netzausbau], near: [Informatik, Bausubstanz, Inflation] }
+  urbandevelopment_noun:
+    form: Stadtentwicklung
+    article: die
+    gender: f
+    plural: Stadtentwicklungen
+    distractors: { far: [Bauleitplanung, Wachstum], near: [Stadtverwaltung, Weiterentwicklung, Stadtrundfahrt] }
+  greenspace_place:
+    form: Grünfläche
+    article: die
+    gender: f
+    plural: Grünflächen
+    distractors: { far: [Park, Brachland], near: [Grünstreifen, Wohnfläche, Grundfläche] }
+  localsupply_noun:
+    form: Nahversorgung
+    article: die
+    gender: f
+    plural: Nahversorgungen
+    distractors: { far: [Einzelhandel, Wochenmarkt], near: [Nahverkehr, Vollversorgung, Nachbarschaft] }
+  trafficcalming_noun:
+    form: Verkehrsberuhigung
+    article: die
+    gender: f
+    plural: Verkehrsberuhigungen
+    distractors: { far: [Tempo-30-Zone, Sperrung], near: [Verkehrsführung, Beruhigungsmittel, Verkehrsbelastung] }
+  redevelopmentarea_place:
+    form: Sanierungsgebiet
+    article: das
+    gender: n
+    plural: Sanierungsgebiete
+    distractors: { far: [Neubaugebiet, Altstadt], near: [Sanierungsplan, Naturschutzgebiet, Sanierungsbedarf] }
+  jurisdiction_noun:
+    form: Zuständigkeit
+    article: die
+    gender: f
+    plural: Zuständigkeiten
+    distractors: { far: [Befugnis, Verantwortung], near: [Beständigkeit, Zulässigkeit, Zufriedenheit] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  localpolitics_noun:
+    form: Kommunalpolitik
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Landespolitik, Stadtverwaltung], near: [Kommunalwahl, Sozialpolitik, Kommunalverband] }
+  budgetplan_noun:
+    form: Haushaltsplan
+    article: der
+    gender: m
+    plural: Haushaltspläne
+    distractors: { far: [Etatentwurf, Finanzbericht], near: [Haushaltssperre, Bebauungsplan, Haushaltsjahr] }
+  taxrevenue_noun:
+    form: Steueraufkommen
+    article: das
+    gender: n
+    plural: Steueraufkommen
+    distractors: { far: [Einnahmenseite, Finanzausgleich], near: [Steuerberater, Verkehrsaufkommen, Steuerbescheid] }
+  tradetax_noun:
+    form: Gewerbesteuer
+    article: die
+    gender: f
+    plural: Gewerbesteuern
+    distractors: { far: [Grundsteuer, Einkommensteuer], near: [Gewerbeamt, Grunderwerbsteuer, Gewerbeschein] }
+  levy_noun:
+    form: Umlage
+    article: die
+    gender: f
+    plural: Umlagen
+    distractors: { far: [Beitrag, Sonderabgabe], near: [Anlage, Auflage, Umfrage] }
+  specialpurposeassoc_noun:
+    form: Zweckverband
+    article: der
+    gender: m
+    plural: Zweckverbände
+    distractors: { far: [Kommunalunternehmen, Eigenbetrieb], near: [Zweckbindung, Sportverband, Zweckbau] }
+  publicservices_noun:
+    form: Daseinsvorsorge
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Verwaltungsaufgabe, Infrastrukturleistung], near: [Daseinsberechtigung, Altersvorsorge, Gesundheitsvorsorge] }
+  landuseplan_noun:
+    form: Flächennutzungsplan
+    article: der
+    gender: m
+    plural: Flächennutzungspläne
+    distractors: { far: [Bebauungsplan, Regionalplan], near: [Flächenverbrauch, Bewirtschaftungsplan, Flächennutzung] }
+  urbanplanninglaw_noun:
+    form: Bauleitplanung
+    article: die
+    gender: f
+    plural: Bauleitplanungen
+    distractors: { far: [Baurecht, Raumordnung], near: [Bauleitung, Personalplanung, Baubetreuung] }
+  sitedevelopment_noun:
+    form: Erschließung
+    article: die
+    gender: f
+    plural: Erschließungen
+    distractors: { far: [Grundstücksteilung, Anschlusskosten], near: [Erschließungsbeitrag, Entschließung, Eheschließung] }
+  expropriation_noun:
+    form: Enteignung
+    article: die
+    gender: f
+    plural: Enteignungen
+    distractors: { far: [Umlegung, Vorkaufsrecht], near: [Enteignungsverfahren, Aneignung, Entlastung] }
+  publicbenefit_noun:
+    form: Gemeinnützigkeit
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Steuerbefreiung, Ehrenamt], near: [Gemeinheit, Gemeinsamkeit, Gemeindeamt] }
+  citizenspetition_noun:
+    form: Bürgerbegehren
+    article: das
+    gender: n
+    plural: Bürgerbegehren
+    distractors: { far: [Petition, Unterschriftenaktion], near: [Bürgerentscheid, Volksbegehren, Bürgerbeteiligung] }
+  referendum_noun:
+    form: Bürgerentscheid
+    article: der
+    gender: m
+    plural: Bürgerentscheide
+    distractors: { far: [Volksabstimmung, Ratsbeschluss], near: [Bürgerbegehren, Vorentscheid, Bürgerversammlung] }
+  councildecision_noun:
+    form: Ratsbeschluss
+    article: der
+    gender: m
+    plural: Ratsbeschlüsse
+    distractors: { far: [Verwaltungsvorlage, Sitzungsprotokoll], near: [Ratssitzung, Vorstandsbeschluss, Ratsmitglied] }
+  officialgazette_noun:
+    form: Amtsblatt
+    article: das
+    gender: n
+    plural: Amtsblätter
+    distractors: { far: [Bekanntmachung, Gemeindebrief], near: [Amtsstube, Kleeblatt, Amtsträger] }
+  administrativeact_noun:
+    form: Verwaltungsakt
+    article: der
+    gender: m
+    plural: Verwaltungsakte
+    distractors: { far: [Rechtsverordnung, Realakt], near: [Verwaltungsrecht, Verwaltungsgebühr, Verwaltungsaufwand] }
+  legalremedy_noun:
+    form: Rechtsbehelf
+    article: der
+    gender: m
+    plural: Rechtsbehelfe
+    distractors: { far: [Widerspruchsverfahren, Klageweg], near: [Rechtsbehelfsbelehrung, Rechtsanwalt, Rechtsbeistand] }
+  administrativecourt_place:
+    form: Verwaltungsgericht
+    article: das
+    gender: n
+    plural: Verwaltungsgerichte
+    distractors: { far: [Oberlandesgericht, Sozialgericht], near: [Verwaltungsrecht, Amtsgericht, Verwaltungsbezirk] }
+  minoroffence_noun:
+    form: Ordnungswidrigkeit
+    article: die
+    gender: f
+    plural: Ordnungswidrigkeiten
+    distractors: { far: [Straftat, Verwarnung], near: [Ordnungsgeld, Rechtswidrigkeit, Ordnungsdienst] }
+  hazardprevention_noun:
+    form: Gefahrenabwehr
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Prävention, Ordnungsrecht], near: [Gefahrenquelle, Notwehr, Gefahrenstelle] }
+  disasterresponse_noun:
+    form: Katastrophenschutz
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Zivilschutz, Rettungsdienst], near: [Katastrophenfall, Brandschutz, Katastrophenalarm] }
+  townplanning_noun:
+    form: Stadtplanung
+    article: die
+    gender: f
+    plural: Stadtplanungen
+    distractors: { far: [Raumordnung, Quartiersentwicklung], near: [Stadtverwaltung, Personalplanung, Stadtrundgang] }
+  heritageconservation_noun:
+    form: Denkmalpflege
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Bauforschung, Restaurierung], near: [Denkmalschutz, Krankenpflege, Denkmalliste] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0171:
+    form: Supermarkt
+    article: der
+    gender: m
+  lx0601:
+    form: abbiegen
+  lx0602:
+    form: mieten
+  lx0603:
+    form: überqueren
+  lx0604:
+    form: umziehen
+  lx0605:
+    form: Aufzug
+    article: der
+    gender: m
+  lx0606:
+    form: Briefkasten
+    article: der
+    gender: m
+  lx0607:
+    form: Dorf
+    article: das
+    gender: n
+  lx0608:
+    form: Geldautomat
+    article: der
+    gender: m
+  lx0609:
+    form: Hausnummer
+    article: die
+    gender: f
+  lx0610:
+    form: Mieter
+    article: der
+    gender: m
+  lx0611:
+    form: Postleitzahl
+    article: die
+    gender: f
+  lx0612:
+    form: Stock
+    article: der
+    gender: m
+  lx0613:
+    form: Stockwerk
+    article: das
+    gender: n
+  lx0614:
+    form: zentral
+  lx1452:
+    form: abgeben
+  # Употребление: sich abmelden; ein Fahrzeug abmelden
+  lx1453:
+    form: abmelden
+  # Употребление: sich zu einem Kurs anmelden; ein Gerät anmelden
+  lx1454:
+    form: anmelden
+  lx1455:
+    form: ausfüllen
+  lx1456:
+    form: beantragen
+  lx1457:
+    form: besichtigen
+  lx1458:
+    form: einziehen
+  lx1459:
+    form: klingeln
+  lx1460:
+    form: kündigen
+  lx1461:
+    form: nachsenden
+  lx1462:
+    form: renovieren
+  lx1463:
+    form: unterschreiben
+  lx1464:
+    form: vorlegen
+  lx1465:
+    form: Abmeldung
+    article: die
+    gender: f
+  lx1466:
+    form: Altstadt
+    article: die
+    gender: f
+  lx1467:
+    form: Amt
+    article: das
+    gender: n
+  lx1468:
+    form: Ausweisdokument
+    article: das
+    gender: n
+  lx1469:
+    form: Bäcker
+    article: der
+    gender: m
+  lx1470:
+    form: Brunnen
+    article: der
+    gender: m
+  lx1471:
+    form: Bürgersteig
+    article: der
+    gender: m
+  lx1472:
+    form: Bushaltestelle
+    article: die
+    gender: f
+  lx1473:
+    form: Einkaufszentrum
+    article: das
+    gender: n
+  lx1474:
+    form: Friseur
+    article: der
+    gender: m
+  lx1475:
+    form: Fundbüro
+    article: das
+    gender: n
+  lx1476:
+    form: Gebäude
+    article: das
+    gender: n
+  lx1477:
+    form: Hochhaus
+    article: das
+    gender: n
+  lx1478:
+    form: Industriegebiet
+    article: das
+    gender: n
+  lx1479:
+    form: Innenstadt
+    article: die
+    gender: f
+  lx1480:
+    form: Kaltmiete
+    article: die
+    gender: f
+  lx1481:
+    form: Kanal
+    article: der
+    gender: m
+  lx1482:
+    form: Metzger
+    article: der
+    gender: m
+  lx1483:
+    form: Postamt
+    article: das
+    gender: n
+  lx1484:
+    form: Rand
+    article: der
+    gender: m
+  lx1485:
+    form: Stadtrand
+    article: der
+    gender: m
+  lx1486:
+    form: Stadtverwaltung
+    article: die
+    gender: f
+  lx1487:
+    form: Straßenlaterne
+    article: die
+    gender: f
+  lx1488:
+    form: Turm
+    article: der
+    gender: m
+  lx1489:
+    form: Unterschrift
+    article: die
+    gender: f
+  lx1490:
+    form: Warmmiete
+    article: die
+    gender: f
+  lx1491:
+    form: Wohngebiet
+    article: das
+    gender: n
+  lx1492:
+    form: Wohnungsanzeige
+    article: die
+    gender: f
+  lx1493:
+    form: bezahlbar
+  lx1494:
+    form: ländlich
+  lx1495:
+    form: möbliert
+  lx1496:
+    form: öffentlich
+  lx1497:
+    form: privat
+  lx1498:
+    form: städtisch
+  lx1499:
+    form: unmöbliert
+  lx1500:
+    form: verkehrsarm
+  lx1501:
+    form: verkehrsgünstig
+  lx2920:
+    form: bearbeiten
+  lx2921:
+    form: beglaubigen
+  lx2922:
+    form: belegen
+  lx2923:
+    form: bescheinigen
+  lx2924:
+    form: bewohnen
+  lx2925:
+    form: einreichen
+  lx2926:
+    form: erteilen
+  lx2927:
+    form: genehmigen
+  lx2928:
+    form: klären
+  lx2929:
+    form: nachreichen
+  lx2930:
+    form: ummelden
+  lx2931:
+    form: vorweisen
+  lx2932:
+    form: vorzeigen
+  lx2933:
+    form: zustellen
+  lx2934:
+    form: Bearbeitung
+    article: die
+    gender: f
+  lx2935:
+    form: Bearbeitungszeit
+    article: die
+    gender: f
+  lx2936:
+    form: Behörde
+    article: die
+    gender: f
+  lx2937:
+    form: Beratung
+    article: die
+    gender: f
+  lx2938:
+    form: Bürgerbüro
+    article: das
+    gender: n
+  lx2939:
+    form: Bürgerzentrum
+    article: das
+    gender: n
+  lx2940:
+    form: Dienstleistung
+    article: die
+    gender: f
+  lx2941:
+    form: Eigentum
+    article: das
+    gender: n
+  lx2942:
+    form: Eigentümer
+    article: der
+    gender: m
+  lx2943:
+    form: Finanzamt
+    article: das
+    gender: n
+  lx2944:
+    form: Gesundheitsamt
+    article: das
+    gender: n
+  lx2945:
+    form: Hausverwalter
+    article: der
+    gender: m
+  lx2946:
+    form: Makler
+    article: der
+    gender: m
+  lx2947:
+    form: Mieterschutz
+    article: der
+    gender: m
+  lx2948:
+    form: Mietpreis
+    article: der
+    gender: m
+  lx2949:
+    form: Mietverhältnis
+    article: das
+    gender: n
+  lx2950:
+    form: Nachweis
+    article: der
+    gender: m
+  lx2951:
+    form: Personalausweis
+    article: der
+    gender: m
+  lx2952:
+    form: Reisepass
+    article: der
+    gender: m
+  lx2953:
+    form: Sachbearbeiter
+    article: der
+    gender: m
+  lx2954:
+    form: Servicezentrum
+    article: das
+    gender: n
+  lx2955:
+    form: Sozialamt
+    article: das
+    gender: n
+  lx2956:
+    form: Sprechzeit
+    article: die
+    gender: f
+  lx2957:
+    form: Studentenwohnheim
+    article: das
+    gender: n
+  lx2958:
+    form: Terminservice
+    article: der
+    gender: m
+  lx2959:
+    form: Übergabe
+    article: die
+    gender: f
+  lx2960:
+    form: Ummeldung
+    article: die
+    gender: f
+  lx2961:
+    form: Warteschlange
+    article: die
+    gender: f
+  lx2962:
+    form: Wohnheim
+    article: das
+    gender: n
+  lx2963:
+    form: Wohnraum
+    article: der
+    gender: m
+  lx2964:
+    form: Wohnungsmangel
+    article: der
+    gender: m
+  lx2965:
+    form: Wohnungsmarkt
+    article: der
+    gender: m
+  lx2966:
+    form: Wohnungsübergabe
+    article: die
+    gender: f
+  lx2967:
+    form: amtlich
+  lx2968:
+    form: befristet
+  lx2969:
+    form: erforderlich
+  lx2970:
+    form: gültig
+  lx2971:
+    form: sanierungsbedürftig
+  lx2972:
+    form: unbefristet
+  lx2973:
+    form: ungültig
+  lx2974:
+    form: unverbindlich
+  lx2975:
+    form: unzuständig
+  lx2976:
+    form: verbindlich
+  lx2977:
+    form: zuständig
+  lx4654:
+    form: anfechten
+  lx4655:
+    form: auferlegen
+  lx4656:
+    form: bebauen
+  lx4657:
+    form: begrünen
+  lx4658:
+    form: bewilligen
+  lx4659:
+    form: entsiegeln
+  lx4660:
+    form: erschließen
+  lx4661:
+    form: sanieren
+  lx4662:
+    form: untersagen
+  lx4663:
+    form: verdichten
+  lx4664:
+    form: versiegeln
+  lx4665:
+    form: zulassen
+  lx4666:
+    form: zuweisen
+  lx4667:
+    form: Aufwertung
+    article: die
+    gender: f
+  lx4668:
+    form: Ballungsraum
+    article: der
+    gender: m
+  lx4669:
+    form: Bauvorhaben
+    article: das
+    gender: n
+  lx4670:
+    form: Gemeinderat
+    article: der
+    gender: m
+  lx4671:
+    form: Leerstand
+    article: der
+    gender: m
+  lx4672:
+    form: Obdachlosigkeit
+    article: die
+    gender: f
+  lx4673:
+    form: Quartier
+    article: das
+    gender: n
+  lx4674:
+    form: Referendum
+    article: das
+    gender: n
+  lx4675:
+    form: Stadtbild
+    article: das
+    gender: n
+  lx4676:
+    form: Stadtkern
+    article: der
+    gender: m
+  lx4677:
+    form: Stadtviertel
+    article: das
+    gender: n
+  lx4678:
+    form: Verdrängung
+    article: die
+    gender: f
+  lx4679:
+    form: Verkehrsanbindung
+    article: die
+    gender: f
+  lx4680:
+    form: Verordnung
+    article: die
+    gender: f
+  lx4681:
+    form: Versiegelung
+    article: die
+    gender: f
+  lx4682:
+    form: Wohnungsbau
+    article: der
+    gender: m
+  lx4683:
+    form: Wohnungslosigkeit
+    article: die
+    gender: f
+  lx4684:
+    form: bürgernah
+  lx4685:
+    form: dezentral
+  lx4686:
+    form: flächendeckend
+  lx4687:
+    form: gemeinnützig
+  lx4688:
+    form: kommunal
+  lx4689:
+    form: sozialverträglich

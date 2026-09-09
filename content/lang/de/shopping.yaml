@@ -1,0 +1,1334 @@
+# Немецкие лексемы созвездия «Покупки, одежда и вещи».
+#
+# Дистракторы: far — та же тема, другое значение; near — созвучные и
+# однокоренные (docs/CONTENT_PIPELINE.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml. Здесь только
+# слова: 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя
+# ни читать, ни править по частям.
+lang: de
+lexemes:
+  # ── A0 ────────────────────────────────────────────────────────────────
+  shop_place:
+    form: Laden
+    article: der
+    gender: m
+    plural: Läden
+    distractors:
+      far: [Markt, Kiosk]
+      near: [Faden, Waden, Boden]
+  money_noun:
+    form: Geld
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Münze, Schein]
+      near: [Feld, Held, Gold]
+  price_noun:
+    form: Preis
+    article: der
+    gender: m
+    plural: Preise
+    distractors:
+      far: [Rabatt, Angebot]
+      near: [Kreis, Reis, Fleiß]
+  card_object:
+    form: Karte
+    article: die
+    gender: f
+    plural: Karten
+    distractors:
+      far: [Bargeld, Konto]
+      near: [Kette, Kiste, Warte]
+  checkout_place:
+    form: Kasse
+    article: die
+    gender: f
+    plural: Kassen
+    distractors:
+      far: [Regal, Eingang]
+      near: [Klasse, Tasse, Masse]
+  bag_object:
+    form: Tüte
+    article: die
+    gender: f
+    plural: Tüten
+    distractors:
+      far: [Korb, Karton]
+      near: [Güte, Hüte, Tücke]
+  purchase_noun:
+    form: Einkauf
+    article: der
+    gender: m
+    plural: Einkäufe
+    distractors:
+      far: [Bestellung, Lieferung]
+      near: [Verkauf, Auslauf, Einlauf]
+  receipt_noun:
+    form: Quittung
+    article: die
+    gender: f
+    plural: Quittungen
+    distractors:
+      far: [Rechnung, Garantie]
+      near: [Quetschung, Sitzung, Rüstung]
+  customer_person:
+    form: Kunde
+    article: der
+    gender: m
+    plural: Kunden
+    distractors:
+      far: [Verkäufer, Besitzer]
+      near: [Wunde, Runde, Kunst]
+  cheap_adj:
+    form: billig
+    note: прилагательное
+    distractors:
+      far: [kostenlos, gebraucht]
+      near: [willig, bissig, hitzig]
+  expensive_adj:
+    form: teuer
+    note: прилагательное
+    distractors:
+      far: [wertvoll, knapp]
+      near: [Feuer, Steuer, treuer]
+  open_adj:
+    form: offen
+    note: прилагательное
+    distractors:
+      far: [geschlossen, besetzt]
+      near: [Ofen, hoffen, Koffer]
+  # ── A1 ────────────────────────────────────────────────────────────────
+  cash_noun:
+    form: Bargeld
+    article: das
+    gender: n
+    note: неисчисляемое
+    distractors:
+      far: [Kreditkarte, Überweisung]
+      near: [bargeldlos, Barhocker, Barometer]
+  change_noun:
+    form: Wechselgeld
+    article: das
+    gender: n
+    distractors:
+      far: [Trinkgeld, Pfand]
+      near: [Wechselkurs, Wechselstube, Wechsel]
+  discount_noun:
+    form: Rabatt
+    article: der
+    gender: m
+    plural: Rabatte
+    distractors:
+      far: [Gutschein, Aktion]
+      near: [Rabe, Rakete, Ratte]
+  size_noun:
+    form: Größe
+    article: die
+    gender: f
+    plural: Größen
+    distractors:
+      far: [Farbe, Form]
+      near: [Grüße, Grotte, Gräte]
+  basket_object:
+    form: Einkaufskorb
+    article: der
+    gender: m
+    plural: Einkaufskörbe
+    distractors:
+      far: [Wagen, Tasche]
+      near: [Einkaufswagen, Einkaufsliste, Papierkorb]
+  fitting_room:
+    form: Umkleidekabine
+    article: die
+    gender: f
+    plural: Umkleidekabinen
+    distractors:
+      far: [Kasse, Lager]
+      near: [Gardine, Telefonkabine, Umleitung]
+  offer_noun:
+    form: Angebot
+    article: das
+    gender: n
+    plural: Angebote
+    distractors:
+      far: [Nachfrage, Auswahl]
+      near: [Aufgebot, Angeber, Anhebung]
+  quality_noun:
+    form: Qualität
+    article: die
+    gender: f
+    plural: Qualitäten
+    distractors:
+      far: [Herstellerangabe, Garantie]
+      near: [Quantität, Qualifikation, Realität]
+  product_noun:
+    form: Produkt
+    article: das
+    gender: n
+    plural: Produkte
+    distractors:
+      far: [Verpackung, Sortiment]
+      near: [Produzent, Produktion, Protokoll]
+  brand_noun:
+    form: Marke
+    article: die
+    gender: f
+    plural: Marken
+    distractors:
+      far: [Hersteller, Modell]
+      near: [Markt, Mark, Harke]
+  delivery_noun:
+    form: Lieferung
+    article: die
+    gender: f
+    plural: Lieferungen
+    distractors:
+      far: [Abholung, Rücksendung]
+      near: [Lieferant, Liegewiese, Läuterung]
+  exchange_noun:
+    form: Umtausch
+    article: der
+    gender: m
+    plural: Umtäusche
+    distractors:
+      far: [Rückgabe, Reklamation]
+      near: [Umzug, Umbau, Umsatz]
+  # ── A2 ────────────────────────────────────────────────────────────────
+  seller_person:
+    form: Verkäufer
+    article: der
+    gender: m
+    plural: Verkäufer
+    distractors: { far: [Filialleiter, Berater], near: [Verkauf, Verleiher, Verkehr] }
+  receipt_slip:
+    form: Kassenbon
+    article: der
+    gender: m
+    plural: Kassenbons
+    distractors: { far: [Rechnung, Garantieschein], near: [Kassensturz, Bonbon, Kassenbuch] }
+  creditcard_object:
+    form: Kreditkarte
+    article: die
+    gender: f
+    plural: Kreditkarten
+    distractors: { far: [Bargeld, Lastschrift], near: [Kreditrahmen, Kundenkarte, Kreidetafel] }
+  transfer_noun:
+    form: Banküberweisung
+    article: die
+    gender: f
+    plural: Banküberweisungen
+    distractors: { far: [Lastschrift, Barzahlung], near: [Überweisungsträger, Bankverbindung, Bankauskunft] }
+  voucher_noun:
+    form: Gutschein
+    article: der
+    gender: m
+    plural: Gutscheine
+    distractors: { far: [Rabattcode, Bonus], near: [Gutachten, Sonnenschein, Gutshof] }
+  special_offer:
+    form: Sonderangebot
+    article: das
+    gender: n
+    plural: Sonderangebote
+    distractors: { far: [Dauertiefpreis, Aktion], near: [Sonderpreis, Sondermüll, Standardangebot] }
+  clearance_noun:
+    form: Ausverkauf
+    article: der
+    gender: m
+    plural: Ausverkäufe
+    distractors: { far: [Räumung, Neueröffnung], near: [Vorverkauf, Auslauf, Ausverkaufspreis] }
+  warehouse_place:
+    form: Lager
+    article: das
+    gender: n
+    plural: Lager
+    distractors: { far: [Filiale, Depot], near: [Bagger, Laster, Lagune] }
+  assortment_noun:
+    form: Sortiment
+    article: das
+    gender: n
+    plural: Sortimente
+    distractors: { far: [Lieferschein, Preisliste], near: [Sortierung, Instrument, Sediment] }
+  warranty_noun:
+    form: Garantie
+    article: die
+    gender: f
+    plural: Garantien
+    distractors: { far: [Gewährleistung, Kulanz], near: [Galanterie, Gardine, Fantasie] }
+  complaint_noun:
+    form: Reklamation
+    article: die
+    gender: f
+    plural: Reklamationen
+    distractors: { far: [Rücksendung, Widerspruch], near: [Reklame, Deklaration, Rekonstruktion] }
+  return_noun:
+    form: Rückgabe
+    article: die
+    gender: f
+    plural: Rückgaben
+    distractors: { far: [Umtausch, Widerruf], near: [Rückgang, Ausgabe, Rückfahrt] }
+  shipping_noun:
+    form: Versand
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Abholung, Zustellung], near: [Verstand, Bestand, Versatz] }
+  packaging_noun:
+    form: Verpackung
+    article: die
+    gender: f
+    plural: Verpackungen
+    distractors: { far: [Karton, Folie], near: [Verpflegung, Bepackung, Verzweigung] }
+  label_object:
+    form: Etikett
+    article: das
+    gender: n
+    plural: Etiketten
+    distractors: { far: [Aufkleber, Anhänger], near: [Etappe, Skelett, Etage] }
+  pricetag_object:
+    form: Preisschild
+    article: das
+    gender: n
+    plural: Preisschilder
+    distractors: { far: [Aushang, Anzeigetafel], near: [Ortsschild, Preisliste, Bildschirm] }
+  vat_noun:
+    form: Mehrwertsteuer
+    article: die
+    gender: f
+    plural: Mehrwertsteuern
+    distractors: { far: [Einkommensteuer, Zoll], near: [Mehrwert, Grundsteuer, Mehrkosten] }
+  instalment_noun:
+    form: Ratenzahlung
+    article: die
+    gender: f
+    plural: Ratenzahlungen
+    distractors: { far: [Sofortzahlung, Kredit], near: [Barzahlung, Rationierung, Ratlosigkeit] }
+  downpayment_noun:
+    form: Anzahlung
+    article: die
+    gender: f
+    plural: Anzahlungen
+    distractors: { far: [Restzahlung, Sicherheit], near: [Auszahlung, Einzahlung, Anmeldung] }
+  ordernumber_noun:
+    form: Bestellnummer
+    article: die
+    gender: f
+    plural: Bestellnummern
+    distractors: { far: [Kundennummer, Rechnungsnummer], near: [Bestellschein, Telefonnummer, Bestelldatum] }
+  cart_object:
+    form: Warenkorb
+    article: der
+    gender: m
+    plural: Warenkörbe
+    distractors: { far: [Merkzettel, Wunschliste], near: [Papierkorb, Warenlager, Wäschekorb] }
+  support_noun:
+    form: Kundendienst
+    article: der
+    gender: m
+    plural: Kundendienste
+    distractors: { far: [Hotline, Servicestelle], near: [Kundenkarte, Wachdienst, Kundenkreis] }
+  openinghours_noun:
+    form: Öffnungszeiten
+    article: die
+    plural: Öffnungszeiten
+    note: только множественное
+    distractors: { far: [Betriebsferien, Mittagspause], near: [Öffnungsklausel, Übungszeiten, Ordnungsamt] }
+  publicholiday_noun:
+    form: Feiertag
+    article: der
+    gender: m
+    plural: Feiertage
+    distractors: { far: [Brückentag, Gedenktag], near: [Freitag, Feierabend, Ehrentag] }
+  # ── B1 ────────────────────────────────────────────────────────────────
+  withdrawalright_noun:
+    form: Widerrufsrecht
+    article: das
+    gender: n
+    plural: Widerrufsrechte
+    distractors: { far: [Rückgaberecht, Umtauschrecht], near: [Widerspruchsrecht, Wahlrecht, Widerrufsbelehrung] }
+  withdrawalperiod_noun:
+    form: Widerrufsfrist
+    article: die
+    gender: f
+    plural: Widerrufsfristen
+    distractors: { far: [Rückgabefrist, Garantiezeit], near: [Widerspruchsfrist, Wartefrist, Widerrufserklärung] }
+  purchasecontract_noun:
+    form: Kaufvertrag
+    article: der
+    gender: m
+    plural: Kaufverträge
+    distractors: { far: [Bestellbestätigung, Angebot], near: [Kaufpreis, Mietvertrag, Kaufkraft] }
+  statutorywarranty_noun:
+    form: Gewährleistung
+    article: die
+    gender: f
+    plural: Gewährleistungen
+    distractors: { far: [Garantie, Kulanz], near: [Gewährung, Dienstleistung, Gewährsmann] }
+  rectification_noun:
+    form: Nachbesserung
+    article: die
+    gender: f
+    plural: Nachbesserungen
+    distractors: { far: [Ersatzlieferung, Rücktritt], near: [Nachbestellung, Verbesserung, Nachbereitung] }
+  pricereduction_noun:
+    form: Minderung
+    article: die
+    gender: f
+    plural: Minderungen
+    distractors: { far: [Erstattung, Gutschrift], near: [Änderung, Linderung, Mündung] }
+  deliverytime_noun:
+    form: Lieferzeit
+    article: die
+    gender: f
+    plural: Lieferzeiten
+    distractors: { far: [Bearbeitungsdauer, Versandart], near: [Lieferschein, Lebenszeit, Liegezeit] }
+  cashondelivery_noun:
+    form: Nachnahme
+    article: die
+    gender: f
+    plural: Nachnahmen
+    distractors: { far: [Vorkasse, Rechnungskauf], near: [Nachname, Abnahme, Nachfrage] }
+  tracking_noun:
+    form: Sendungsverfolgung
+    article: die
+    gender: f
+    plural: Sendungsverfolgungen
+    distractors: { far: [Zustellnachweis, Statusmeldung], near: [Sendungsnummer, Strafverfolgung, Sendungsverlust] }
+  clearanceitem_noun:
+    form: Sonderposten
+    article: der
+    gender: m
+    plural: Sonderposten
+    distractors: { far: [Neuware, Auslaufmodell], near: [Sonderpreis, Vorposten, Sonderfall] }
+  remainder_noun:
+    form: Restposten
+    article: der
+    gender: m
+    plural: Restposten
+    distractors: { far: [Lagerware, Musterstück], near: [Restbetrag, Vorposten, Restaurant] }
+  financing_noun:
+    form: Finanzierung
+    article: die
+    gender: f
+    plural: Finanzierungen
+    distractors: { far: [Barzahlung, Leasing], near: [Finanzamt, Sanierung, Fixierung] }
+  creditrating_noun:
+    form: Bonität
+    article: die
+    gender: f
+    plural: Bonitäten
+    distractors: { far: [Kreditrahmen, Schufa], near: [Rarität, Bonus, Banalität] }
+  directdebit_noun:
+    form: Lastschrift
+    article: die
+    gender: f
+    plural: Lastschriften
+    distractors: { far: [Überweisung, Dauerauftrag], near: [Lastwagen, Handschrift, Lasterhaftigkeit] }
+  chargeback_noun:
+    form: Rücklastschrift
+    article: die
+    gender: f
+    plural: Rücklastschriften
+    distractors: { far: [Stornierung, Gutschrift], near: [Rückzahlung, Lastschrift, Rücksprache] }
+  paymentterm_noun:
+    form: Zahlungsziel
+    article: das
+    gender: n
+    plural: Zahlungsziele
+    distractors: { far: [Fälligkeit, Skonto], near: [Zahlungsweise, Wahllokal, Zahlungsverzug] }
+  reminder_noun:
+    form: Mahnung
+    article: die
+    gender: f
+    plural: Mahnungen
+    distractors: { far: [Rechnung, Kontoauszug], near: [Mahlzeit, Wohnung, Ahnung] }
+  debtcollection_noun:
+    form: Inkasso
+    article: das
+    gender: n
+    plural: Inkassos
+    distractors: { far: [Mahnverfahren, Pfändung], near: [Inkassobüro, Fiasko, Inland] }
+  billingaddress_noun:
+    form: Rechnungsadresse
+    article: die
+    gender: f
+    plural: Rechnungsadressen
+    distractors: { far: [Kundennummer, Steuernummer], near: [Lieferadresse, Rechnungsnummer, Rechenschaft] }
+  deliveryaddress_noun:
+    form: Lieferadresse
+    article: die
+    gender: f
+    plural: Lieferadressen
+    distractors: { far: [Packstation, Abholort], near: [Rechnungsadresse, Lieferschein, Lieferant] }
+  middleman_person:
+    form: Zwischenhändler
+    article: der
+    gender: m
+    plural: Zwischenhändler
+    distractors: { far: [Hersteller, Großhändler], near: [Zwischenlager, Einzelhändler, Zwischenfall] }
+  pricecomparison_noun:
+    form: Preisvergleich
+    article: der
+    gender: m
+    plural: Preisvergleiche
+    distractors: { far: [Testbericht, Marktübersicht], near: [Preisverfall, Ausgleich, Preisverleihung] }
+  review_noun:
+    form: Kundenbewertung
+    article: die
+    gender: f
+    plural: Kundenbewertungen
+    distractors: { far: [Testurteil, Empfehlung], near: [Kundenbetreuung, Leistungsbewertung, Kundenbindung] }
+  loyaltypoints_noun:
+    form: Treuepunkte
+    article: die
+    plural: Treuepunkte
+    note: только множественное
+    distractors: { far: [Rabattmarke, Bonusmeilen], near: [Treuerabatt, Streupunkte, Treuhänder] }
+  # ── B2 ────────────────────────────────────────────────────────────────
+  termsandconditions_noun:
+    form: Geschäftsbedingungen
+    article: die
+    plural: Geschäftsbedingungen
+    note: только множественное
+    distractors: { far: [Vertragstext, Widerrufsbelehrung], near: [Geschäftsführung, Lieferbedingungen, Geschäftsordnung] }
+  contractclause_noun:
+    form: Vertragsklausel
+    article: die
+    gender: f
+    plural: Vertragsklauseln
+    distractors: { far: [Zusatzvereinbarung, Nebenabrede], near: [Vertragsstrafe, Schutzklausel, Vertragslaufzeit] }
+  liabilitylimit_noun:
+    form: Haftungsbeschränkung
+    article: die
+    gender: f
+    plural: Haftungsbeschränkungen
+    distractors: { far: [Freizeichnung, Deckungssumme], near: [Haftpflicht, Zugangsbeschränkung, Haftungsfall] }
+  limitationperiod_noun:
+    form: Verjährung
+    article: die
+    gender: f
+    plural: Verjährungen
+    distractors: { far: [Ausschlussfrist, Gewährleistungsdauer], near: [Verjährungsfrist, Vergärung, Verzögerung] }
+  burdenofproof_noun:
+    form: Beweislast
+    article: die
+    gender: f
+    plural: Beweislasten
+    distractors: { far: [Nachweispflicht, Vermutung], near: [Beweismittel, Steuerlast, Beweisantrag] }
+  materialdefect_noun:
+    form: Sachmangel
+    article: der
+    gender: m
+    plural: Sachmängel
+    distractors: { far: [Transportschaden, Verschleiß], near: [Sachschaden, Rechtsmangel, Sachbearbeiter] }
+  legaldefect_noun:
+    form: Rechtsmangel
+    article: der
+    gender: m
+    plural: Rechtsmängel
+    distractors: { far: [Eigentumsvorbehalt, Pfandrecht], near: [Rechtsanspruch, Sachmangel, Rechtsmittel] }
+  subsequentperformance_noun:
+    form: Nacherfüllung
+    article: die
+    gender: f
+    plural: Nacherfüllungen
+    distractors: { far: [Preisnachlass, Rückabwicklung], near: [Nachverhandlung, Vertragserfüllung, Nachforderung] }
+  withdrawal_contract:
+    form: Rücktritt
+    article: der
+    gender: m
+    plural: Rücktritte
+    distractors: { far: [Anfechtung, Kündigung], near: [Rückschritt, Rücktrittsrecht, Eintritt] }
+  damages_noun:
+    form: Schadensersatz
+    article: der
+    gender: m
+    note: неисчисляемое
+    distractors: { far: [Schmerzensgeld, Entschädigung], near: [Schadensersatzklage, Ersatzteil, Schadensfall] }
+  consumercentre_noun:
+    form: Verbraucherzentrale
+    article: die
+    gender: f
+    plural: Verbraucherzentralen
+    distractors: { far: [Schlichtungsstelle, Ombudsmann], near: [Verbraucherschutz, Einkaufszentrum, Verbraucherpreis] }
+  competitionlaw_noun:
+    form: Wettbewerbsrecht
+    article: das
+    gender: n
+    distractors: { far: [Markenrecht, Vergaberecht], near: [Wettbewerbsverbot, Arbeitsrecht, Wettbewerbsvorteil] }
+  pricefixing_noun:
+    form: Preisbindung
+    article: die
+    gender: f
+    plural: Preisbindungen
+    distractors: { far: [Preisabsprache, Rabattverbot], near: [Preisbildung, Zinsbindung, Preisverfall] }
+  cartelauthority_noun:
+    form: Kartellamt
+    article: das
+    gender: n
+    plural: Kartellämter
+    distractors: { far: [Aufsichtsbehörde, Wettbewerbshüter], near: [Kartellrecht, Finanzamt, Kartellbildung] }
+  marketshare_noun:
+    form: Marktanteil
+    article: der
+    gender: m
+    plural: Marktanteile
+    distractors: { far: [Umsatzvolumen, Absatzmenge], near: [Marktanalyse, Gewinnanteil, Marktaustritt] }
+  supplyshortage_noun:
+    form: Lieferengpass
+    article: der
+    gender: m
+    plural: Lieferengpässe
+    distractors: { far: [Produktionsstopp, Rohstoffmangel], near: [Lieferverzug, Kapazitätsengpass, Lieferumfang] }
+  procurement_noun:
+    form: Beschaffung
+    article: die
+    gender: f
+    plural: Beschaffungen
+    distractors: { far: [Lagerhaltung, Ausschreibung], near: [Beschaffenheit, Verschaffung, Beschattung] }
+  costing_noun:
+    form: Kalkulation
+    article: die
+    gender: f
+    plural: Kalkulationen
+    distractors: { far: [Angebotspreis, Deckungsbeitrag], near: [Kalkulationsfehler, Spekulation, Kapitulation] }
+  margin_noun:
+    form: Marge
+    article: die
+    gender: f
+    plural: Margen
+    distractors: { far: [Aufschlag, Rohertrag], near: [Marke, Garage, Marder] }
+  returnonsales_noun:
+    form: Umsatzrendite
+    article: die
+    gender: f
+    plural: Umsatzrenditen
+    distractors: { far: [Gewinnspanne, Eigenkapitalquote], near: [Umsatzsteuer, Kapitalrendite, Umsatzeinbruch] }
+  stocktaking_noun:
+    form: Inventur
+    article: die
+    gender: f
+    plural: Inventuren
+    distractors: { far: [Wareneingang, Jahresabschluss], near: [Inventar, Investitur, Innentür] }
+  merchandisesystem_noun:
+    form: Warenwirtschaft
+    article: die
+    gender: f
+    note: неисчисляемое
+    distractors: { far: [Lagerverwaltung, Bestellsystem], near: [Warenwirtschaftssystem, Landwirtschaft, Warenannahme] }
+  paymentdefault_noun:
+    form: Zahlungsverzug
+    article: der
+    gender: m
+    plural: Zahlungsverzüge
+    distractors: { far: [Zahlungsausfall, Mahnverfahren], near: [Zahlungsziel, Lieferverzug, Zahlungsweise] }
+  creditcheck_noun:
+    form: Bonitätsprüfung
+    article: die
+    gender: f
+    plural: Bonitätsprüfungen
+    distractors: { far: [Schufa-Auskunft, Kreditlimit], near: [Bonitätsauskunft, Qualitätsprüfung, Bonitätsrisiko] }
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0158:
+    form: kaufen
+  lx0159:
+    form: zahlen
+  lx0160:
+    form: Euro
+    article: der
+    gender: m
+  lx0161:
+    form: Geschäft
+    article: das
+    gender: n
+  lx0162:
+    form: Hose
+    article: die
+    gender: f
+  lx0163:
+    form: Jacke
+    article: die
+    gender: f
+  lx0164:
+    form: Schuh
+    article: der
+    gender: m
+  lx0165:
+    form: T-Shirt
+    article: das
+    gender: n
+  lx0166:
+    form: Tasche
+    article: die
+    gender: f
+  lx0538:
+    form: anprobieren
+  lx0539:
+    form: anziehen
+  lx0540:
+    form: ausziehen
+  lx0541:
+    form: einkaufen
+  lx0542:
+    form: passen
+  lx0543:
+    form: verkaufen
+  lx0544:
+    form: wechseln
+  lx0545:
+    form: Bäckerei
+    article: die
+    gender: f
+  lx0546:
+    form: Bluse
+    article: die
+    gender: f
+  lx0547:
+    form: Brille
+    article: die
+    gender: f
+  lx0548:
+    form: Einkaufswagen
+    article: der
+    gender: m
+  lx0549:
+    form: Farbe
+    article: die
+    gender: f
+  lx0550:
+    form: Gürtel
+    article: der
+    gender: m
+  lx0551:
+    form: Hemd
+    article: das
+    gender: n
+  lx0552:
+    form: Hut
+    article: der
+    gender: m
+  lx0553:
+    form: Kleid
+    article: das
+    gender: n
+  lx0554:
+    form: Kleidung
+    article: die
+    gender: f
+  lx0555:
+    form: Mantel
+    article: der
+    gender: m
+  lx0556:
+    form: Metzgerei
+    article: die
+    gender: f
+  lx0557:
+    form: Mütze
+    article: die
+    gender: f
+  lx0558:
+    form: Pullover
+    article: der
+    gender: m
+  lx0559:
+    form: Rock
+    article: der
+    gender: m
+  lx0560:
+    form: Schal
+    article: der
+    gender: m
+  lx0561:
+    form: Socke
+    article: die
+    gender: f
+  lx0562:
+    form: blau
+  lx0563:
+    form: braun
+  lx0564:
+    form: bunt
+  lx0565:
+    form: gelb
+  lx0566:
+    form: grau
+  lx0567:
+    form: grün
+  lx0568:
+    form: lila
+  lx0569:
+    form: rosa
+  lx0570:
+    form: rot
+  lx0571:
+    form: schwarz
+  lx0572:
+    form: weiß
+  lx1319:
+    form: abbestellen
+  lx1320:
+    form: ausgeben
+  lx1321:
+    form: auspacken
+  lx1322:
+    form: aussuchen
+  lx1323:
+    form: auswählen
+  lx1324:
+    form: einpacken
+  lx1325:
+    form: liefern
+  lx1326:
+    form: nachbestellen
+  lx1327:
+    form: reklamieren
+  lx1328:
+    form: umtauschen
+  lx1329:
+    form: vergleichen
+  lx1330:
+    form: verpacken
+  lx1331:
+    form: verschenken
+  lx1332:
+    form: zurückgeben
+  lx1333:
+    form: Anprobe
+    article: die
+    gender: f
+  lx1334:
+    form: Armband
+    article: das
+    gender: n
+  lx1335:
+    form: Armbanduhr
+    article: die
+    gender: f
+  lx1336:
+    form: Ärmel
+    article: der
+    gender: m
+  lx1337:
+    form: Auswahl
+    article: die
+    gender: f
+  lx1338:
+    form: Badeanzug
+    article: der
+    gender: m
+  lx1339:
+    form: Baumwolle
+    article: die
+    gender: f
+  lx1340:
+    form: Beleg
+    article: der
+    gender: m
+  lx1341:
+    form: Bezahlung
+    article: die
+    gender: f
+  lx1342:
+    form: Geschenk
+    article: das
+    gender: n
+  lx1343:
+    form: Geschenkpapier
+    article: das
+    gender: n
+  lx1344:
+    form: Halskette
+    article: die
+    gender: f
+  lx1345:
+    form: Handschuh
+    article: der
+    gender: m
+  lx1346:
+    form: Hausschuh
+    article: der
+    gender: m
+  lx1347:
+    form: Jeans
+    article: die
+    gender: f
+  lx1348:
+    form: Kassenzettel
+    article: der
+    gender: m
+  lx1349:
+    form: Kassierer
+    article: der
+    gender: m
+  lx1350:
+    form: Katalog
+    article: der
+    gender: m
+  lx1351:
+    form: Käufer
+    article: der
+    gender: m
+  lx1352:
+    form: Knopf
+    article: der
+    gender: m
+  lx1353:
+    form: Kragen
+    article: der
+    gender: m
+  lx1354:
+    form: Krawatte
+    article: die
+    gender: f
+  lx1355:
+    form: Leder
+    article: das
+    gender: n
+  lx1356:
+    form: Lederjacke
+    article: die
+    gender: f
+  lx1357:
+    form: Material
+    article: das
+    gender: n
+  lx1358:
+    form: Portemonnaie
+    article: das
+    gender: n
+  lx1359:
+    form: Preiserhöhung
+    article: die
+    gender: f
+  lx1360:
+    form: Preisliste
+    article: die
+    gender: f
+  lx1361:
+    form: Preissenkung
+    article: die
+    gender: f
+  lx1362:
+    form: Reißverschluss
+    article: der
+    gender: m
+  lx1363:
+    form: Ring
+    article: der
+    gender: m
+  lx1364:
+    form: Rucksack
+    article: der
+    gender: m
+  lx1365:
+    form: Sandale
+    article: die
+    gender: f
+  lx1366:
+    form: Schmuck
+    article: der
+    gender: m
+  lx1367:
+    form: Seide
+    article: die
+    gender: f
+  lx1368:
+    form: Sohle
+    article: die
+    gender: f
+  lx1369:
+    form: Stiefel
+    article: der
+    gender: m
+  lx1370:
+    form: Stoff
+    article: der
+    gender: m
+  lx1371:
+    form: Umkleide
+    article: die
+    gender: f
+  lx1372:
+    form: Unterhose
+    article: die
+    gender: f
+  lx1373:
+    form: Unterwäsche
+    article: die
+    gender: f
+  lx1374:
+    form: Verbraucher
+    article: der
+    gender: m
+  lx1375:
+    form: Ware
+    article: die
+    gender: f
+  lx1376:
+    form: Wolle
+    article: die
+    gender: f
+  lx1377:
+    form: altmodisch
+  lx1378:
+    form: gebraucht
+  lx1379:
+    form: gepunktet
+  lx1380:
+    form: gestreift
+  lx1381:
+    form: golden
+  lx1382:
+    form: günstig
+  lx1383:
+    form: kariert
+  lx1384:
+    form: kostenlos
+  lx1385:
+    form: modisch
+  lx1386:
+    form: preiswert
+  lx1387:
+    form: reduziert
+  lx1388:
+    form: silbern
+  lx1389:
+    form: violett
+  lx1390:
+    form: gratis
+  lx2786:
+    form: abnutzen
+  lx2787:
+    form: aufbrauchen
+  lx2788:
+    form: aushandeln
+  lx2789:
+    form: austauschen
+  lx2790:
+    form: beanstanden
+  lx2791:
+    form: begutachten
+  lx2792:
+    form: entgegennehmen
+  lx2793:
+    form: erstatten
+  lx2794:
+    form: feilschen
+  lx2795:
+    form: handeln
+  lx2796:
+    form: nachbessern
+  lx2797:
+    form: nachliefern
+  lx2798:
+    form: quittieren
+  lx2799:
+    form: überprüfen
+  lx2800:
+    form: widerrufen
+  lx2801:
+    form: zurückerstatten
+  lx2802:
+    form: zurücksenden
+  lx2803:
+    form: Artikelnummer
+    article: die
+    gender: f
+  lx2804:
+    form: Aufpreis
+    article: der
+    gender: m
+  lx2805:
+    form: Beschwerde
+    article: die
+    gender: f
+  lx2806:
+    form: Bestand
+    article: der
+    gender: m
+  lx2807:
+    form: Boutique
+    article: die
+    gender: f
+  lx2808:
+    form: Defekt
+    article: der
+    gender: m
+  lx2809:
+    form: Drogerie
+    article: die
+    gender: f
+  lx2810:
+    form: Ersatz
+    article: der
+    gender: m
+  lx2811:
+    form: Fachhandel
+    article: der
+    gender: m
+  lx2812:
+    form: Filiale
+    article: die
+    gender: f
+  lx2813:
+    form: Gesamtpreis
+    article: der
+    gender: m
+  lx2814:
+    form: Kaufbeleg
+    article: der
+    gender: m
+  lx2815:
+    form: Kaufberatung
+    article: die
+    gender: f
+  lx2816:
+    form: Kaufentscheidung
+    article: die
+    gender: f
+  lx2817:
+    form: Kaufverhalten
+    article: das
+    gender: n
+  lx2818:
+    form: Konsumverhalten
+    article: das
+    gender: n
+  lx2819:
+    form: Kundenkarte
+    article: die
+    gender: f
+  lx2820:
+    form: Kundenkonto
+    article: das
+    gender: n
+  lx2821:
+    form: Kundenservice
+    article: der
+    gender: m
+  lx2822:
+    form: Ladenkette
+    article: die
+    gender: f
+  lx2823:
+    form: Lagerbestand
+    article: der
+    gender: m
+  lx2824:
+    form: Lieferant
+    article: der
+    gender: m
+  lx2825:
+    form: Lieferdienst
+    article: der
+    gender: m
+  lx2826:
+    form: Liefertermin
+    article: der
+    gender: m
+  lx2827:
+    form: Markenname
+    article: der
+    gender: m
+  lx2828:
+    form: Outlet
+    article: das
+    gender: n
+  lx2829:
+    form: Produktbeschreibung
+    article: die
+    gender: f
+  lx2830:
+    form: Qualitätsmerkmal
+    article: das
+    gender: n
+  lx2831:
+    form: Quantität
+    article: die
+    gender: f
+  lx2832:
+    form: Rückerstattung
+    article: die
+    gender: f
+  lx2833:
+    form: Rückgaberecht
+    article: das
+    gender: n
+  lx2834:
+    form: Rücksendeetikett
+    article: das
+    gender: n
+  lx2835:
+    form: Rücksendung
+    article: die
+    gender: f
+  lx2836:
+    form: Vergleichsportal
+    article: das
+    gender: n
+  lx2837:
+    form: Versandhandel
+    article: der
+    gender: m
+  lx2838:
+    form: Versandkosten
+    article: die
+    note: только множественное
+  lx2839:
+    form: angemessen
+  lx2840:
+    form: ausverkauft
+  lx2841:
+    form: beschädigt
+  lx2842:
+    form: fair
+  lx2843:
+    form: haltbar
+  lx2844:
+    form: hochwertig
+  lx2845:
+    form: lieferbar
+  lx2846:
+    form: mangelhaft
+  lx2847:
+    form: minderwertig
+  lx2848:
+    form: nachhaltig
+  lx2849:
+    form: robust
+  lx2850:
+    form: überteuert
+  lx2851:
+    form: unbeschädigt
+  lx2852:
+    form: unpraktisch
+  lx2853:
+    form: vorrätig
+  lx4563:
+    form: abwerten
+  lx4564:
+    form: aufwerten
+  lx4565:
+    form: aussortieren
+  lx4566:
+    form: boykottieren
+  lx4567:
+    form: einfordern
+  lx4568:
+    form: nachprüfen
+  lx4569:
+    form: nachweisen
+  lx4570:
+    form: vermarkten
+  lx4571:
+    form: vermieten
+  lx4572:
+    form: weiterverkaufen
+  lx4573:
+    form: zurückfordern
+  lx4574:
+    form: zurücknehmen
+  lx4575:
+    form: Ersatzteil
+    article: das
+    gender: n
+  lx4576:
+    form: Fälschung
+    article: die
+    gender: f
+  lx4577:
+    form: Fehlkauf
+    article: der
+    gender: m
+  lx4578:
+    form: Impulskauf
+    article: der
+    gender: m
+  lx4579:
+    form: Kaufanreiz
+    article: der
+    gender: m
+  lx4580:
+    form: Kaufkraft
+    article: die
+    gender: f
+  lx4581:
+    form: Knappheit
+    article: die
+    gender: f
+  lx4582:
+    form: Konsum
+    article: der
+    gender: m
+  lx4583:
+    form: Konsument
+    article: der
+    gender: m
+  lx4584:
+    form: Konsumkritik
+    article: die
+    gender: f
+  lx4585:
+    form: Kreislaufwirtschaft
+    article: die
+    gender: f
+  lx4586:
+    form: Preis-Leistungs-Verhältnis
+    article: das
+    gender: n
+  lx4587:
+    form: Preisdruck
+    article: der
+    gender: m
+  lx4588:
+    form: Preisgestaltung
+    article: die
+    gender: f
+  lx4589:
+    form: Reparierbarkeit
+    article: die
+    gender: f
+  lx4590:
+    form: Täuschung
+    article: die
+    gender: f
+  lx4591:
+    form: Transparenz
+    article: die
+    gender: f
+  lx4592:
+    form: Überproduktion
+    article: die
+    gender: f
+  lx4593:
+    form: Verfügbarkeit
+    article: die
+    gender: f
+  lx4594:
+    form: Wegwerfgesellschaft
+    article: die
+    gender: f
+  lx4595:
+    form: Wettbewerber
+    article: der
+    gender: m
+  lx4596:
+    form: Wiederverwendbarkeit
+    article: die
+    gender: f
+  lx4597:
+    form: bedarfsgerecht
+  lx4598:
+    form: gleichwertig
+  lx4599:
+    form: irreführend
+  lx4600:
+    form: preisbewusst
+  lx4601:
+    form: reparierbar
+  lx4602:
+    form: umweltbewusst
+  lx4603:
+    form: verbraucherfreundlich

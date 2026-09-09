@@ -25,6 +25,8 @@ tiers:
       - { id: driver_person, pos: noun, freq_rank: 2650 }
       - { id: stop_place, pos: noun, freq_rank: 3720 }
       - { id: late_adj, pos: adj, freq_rank: 1490 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0177, pos: verb, draft: true }  # halten
   a1:
     concepts:
       - { id: platform_place, pos: noun, freq_rank: 4380 }
@@ -39,6 +41,20 @@ tiers:
       - { id: journey_noun, pos: noun, freq_rank: 1840 }
       - { id: arrival_noun, pos: noun, freq_rank: 3360 }
       - { id: departure_noun, pos: noun, freq_rank: 3490 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0636, pos: verb, draft: true }  # anhalten
+      - { id: lx0637, pos: verb, draft: true }  # aussteigen
+      - { id: lx0638, pos: verb, draft: true }  # einsteigen
+      - { id: lx0639, pos: verb, draft: true }  # umsteigen
+      - { id: lx0640, pos: noun, draft: true }  # Bahn
+      - { id: lx0641, pos: noun, draft: true }  # Fahrt
+      - { id: lx0642, pos: noun, draft: true }  # Flug
+      - { id: lx0643, pos: noun, draft: true }  # Gleis
+      - { id: lx0644, pos: noun, draft: true }  # Motorrad
+      - { id: lx0645, pos: noun, draft: true }  # Schiff
+      - { id: lx0646, pos: noun, draft: true }  # Station
+      - { id: lx0647, pos: noun, draft: true }  # Verkehr
+      - { id: lx0648, pos: adj, draft: true }  # schnell
   a2:
     concepts:
       - { id: motorway_place, pos: noun, freq_rank: 3280 }
@@ -65,6 +81,56 @@ tiers:
       - { id: takeoff_noun, pos: noun, freq_rank: 4360 }
       - { id: landing_noun, pos: noun, freq_rank: 4180 }
       - { id: carpool_noun, pos: noun, freq_rank: 6120 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1563, pos: verb, draft: true }  # anschnallen
+      - { id: lx1564, pos: verb, draft: true }  # beschleunigen
+      - { id: lx1565, pos: verb, draft: true }  # bremsen
+      - { id: lx1566, pos: verb, draft: true }  # erreichen
+      - { id: lx1567, pos: verb, draft: true }  # hupen
+      - { id: lx1568, pos: verb, draft: true }  # leihen
+      - { id: lx1569, pos: verb, draft: true }  # lenken
+      - { id: lx1570, pos: verb, draft: true }  # mitfahren
+      - { id: lx1571, pos: verb, draft: true }  # parken
+      - { id: lx1572, pos: verb, draft: true }  # tanken
+      - { id: lx1573, pos: verb, draft: true }  # überholen
+      - { id: lx1574, pos: verb, draft: true }  # verpassen
+      - { id: lx1575, pos: noun, draft: true }  # Autofahrer
+      - { id: lx1576, pos: noun, draft: true }  # Baustelle
+      - { id: lx1577, pos: noun, draft: true }  # Beifahrer
+      - { id: lx1578, pos: noun, draft: true }  # Bremse
+      - { id: lx1579, pos: noun, draft: true }  # Diesel
+      - { id: lx1580, pos: noun, draft: true }  # E-Bike
+      - { id: lx1581, pos: noun, draft: true }  # Fahrbahn
+      - { id: lx1582, pos: noun, draft: true }  # Fahrkartenautomat
+      - { id: lx1583, pos: noun, draft: true }  # Fahrschein
+      - { id: lx1584, pos: noun, draft: true }  # Fahrspur
+      - { id: lx1585, pos: noun, draft: true }  # Fahrzeug
+      - { id: lx1586, pos: noun, draft: true }  # Gurt
+      - { id: lx1587, pos: noun, draft: true }  # Helm
+      - { id: lx1588, pos: noun, draft: true }  # Hupe
+      - { id: lx1589, pos: noun, draft: true }  # Kupplung
+      - { id: lx1590, pos: noun, draft: true }  # Kurve
+      - { id: lx1591, pos: noun, draft: true }  # Ladegerät
+      - { id: lx1592, pos: noun, draft: true }  # Landstraße
+      - { id: lx1593, pos: noun, draft: true }  # Lastwagen
+      - { id: lx1594, pos: noun, draft: true }  # Lenker
+      - { id: lx1595, pos: noun, draft: true }  # Lenkung
+      - { id: lx1596, pos: noun, draft: true }  # Linie
+      - { id: lx1597, pos: noun, draft: true }  # Navigationsgerät
+      - { id: lx1598, pos: noun, draft: true }  # Panne
+      - { id: lx1599, pos: noun, draft: true }  # Rad
+      - { id: lx1600, pos: noun, draft: true }  # Radfahrer
+      - { id: lx1601, pos: noun, draft: true }  # Roller
+      - { id: lx1602, pos: noun, draft: true }  # S-Bahn
+      - { id: lx1603, pos: noun, draft: true }  # Sitz
+      - { id: lx1604, pos: noun, draft: true }  # Tank
+      - { id: lx1605, pos: noun, draft: true }  # Verbindung
+      - { id: lx1606, pos: noun, draft: true }  # Verkehrsschild
+      - { id: lx1607, pos: noun, draft: true }  # Wagen
+      - { id: lx1608, pos: adj, draft: true }  # elektrisch
+      - { id: lx1609, pos: adj, draft: true }  # mobil
+      - { id: lx1610, pos: adj, draft: true }  # verkehrsreich
+      - { id: lx1611, pos: adj, draft: true }  # vollbesetzt
   b1:
     concepts:
       - { id: transportmeans_noun, pos: noun, freq_rank: 4180 }
@@ -91,6 +157,71 @@ tiers:
       - { id: consumption_noun, pos: noun, freq_rank: 4640 }
       - { id: maintenance_noun, pos: noun, freq_rank: 5170 }
       - { id: breakdownservice_noun, pos: noun, freq_rank: 6730 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx3029, pos: verb, draft: true }  # abschleppen
+      - { id: lx3030, pos: verb, draft: true }  # abstempeln
+      - { id: lx3031, pos: verb, draft: true }  # anlegen
+      - { id: lx3032, pos: verb, draft: true }  # auffahren
+      - { id: lx3033, pos: verb, draft: true }  # ausbremsen
+      - { id: lx3034, pos: verb, draft: true }  # beladen
+      - { id: lx3035, pos: verb, draft: true }  # entladen
+      - { id: lx3036, pos: verb, draft: true }  # entwerten
+      - { id: lx3037, pos: verb, draft: true }  # landen
+      - { id: lx3038, pos: verb, draft: true }  # losfahren
+      - { id: lx3039, pos: verb, draft: true }  # nachlösen
+      - { id: lx3040, pos: verb, draft: true }  # rangieren
+      - { id: lx3041, pos: verb, draft: true }  # umladen
+      - { id: lx3042, pos: verb, draft: true }  # vorbeifahren
+      - { id: lx3043, pos: verb, draft: true }  # weiterfahren
+      - { id: lx3044, pos: verb, draft: true }  # weiterreisen
+      - { id: lx3045, pos: verb, draft: true }  # zurücksetzen
+      - { id: lx3046, pos: noun, draft: true }  # Abo
+      - { id: lx3047, pos: noun, draft: true }  # Abonnement
+      - { id: lx3048, pos: noun, draft: true }  # Abzweigung
+      - { id: lx3049, pos: noun, draft: true }  # Ampelanlage
+      - { id: lx3050, pos: noun, draft: true }  # Auffahrt
+      - { id: lx3051, pos: noun, draft: true }  # Ausfahrt
+      - { id: lx3052, pos: noun, draft: true }  # Ausstieg
+      - { id: lx3053, pos: noun, draft: true }  # Bahnverkehr
+      - { id: lx3054, pos: noun, draft: true }  # Bremsweg
+      - { id: lx3055, pos: noun, draft: true }  # Einbahnstraße
+      - { id: lx3056, pos: noun, draft: true }  # Einfahrt
+      - { id: lx3057, pos: noun, draft: true }  # Einstieg
+      - { id: lx3058, pos: noun, draft: true }  # Fahrstil
+      - { id: lx3059, pos: noun, draft: true }  # Fahrstreifen
+      - { id: lx3060, pos: noun, draft: true }  # Fahrtrichtung
+      - { id: lx3061, pos: noun, draft: true }  # Fußweg
+      - { id: lx3062, pos: noun, draft: true }  # Gegenfahrbahn
+      - { id: lx3063, pos: noun, draft: true }  # Halteverbot
+      - { id: lx3064, pos: noun, draft: true }  # Höchstgeschwindigkeit
+      - { id: lx3065, pos: noun, draft: true }  # Kreisverkehr
+      - { id: lx3066, pos: noun, draft: true }  # Luftverkehr
+      - { id: lx3067, pos: noun, draft: true }  # Parkverbot
+      - { id: lx3068, pos: noun, draft: true }  # Radstreifen
+      - { id: lx3069, pos: noun, draft: true }  # Regionalverkehr
+      - { id: lx3070, pos: noun, draft: true }  # Sackgasse
+      - { id: lx3071, pos: noun, draft: true }  # Schienenersatzverkehr
+      - { id: lx3072, pos: noun, draft: true }  # Schienenverkehr
+      - { id: lx3073, pos: noun, draft: true }  # Schranke
+      - { id: lx3074, pos: noun, draft: true }  # Seitenstreifen
+      - { id: lx3075, pos: noun, draft: true }  # Sicherheitsabstand
+      - { id: lx3076, pos: noun, draft: true }  # Sitzplatzreservierung
+      - { id: lx3077, pos: noun, draft: true }  # Spur
+      - { id: lx3078, pos: noun, draft: true }  # Straßenverkehr
+      - { id: lx3079, pos: noun, draft: true }  # Tageskarte
+      - { id: lx3080, pos: noun, draft: true }  # Überführung
+      - { id: lx3081, pos: noun, draft: true }  # Umgehungsstraße
+      - { id: lx3082, pos: noun, draft: true }  # Unterführung
+      - { id: lx3083, pos: noun, draft: true }  # Zeitkarte
+      - { id: lx3084, pos: adj, draft: true }  # fahrbereit
+      - { id: lx3085, pos: adj, draft: true }  # fahrlässig
+      - { id: lx3086, pos: adj, draft: true }  # fahrtüchtig
+      - { id: lx3087, pos: adj, draft: true }  # fahruntüchtig
+      - { id: lx3088, pos: adj, draft: true }  # reserviert
+      - { id: lx3089, pos: adj, draft: true }  # überladen
+      - { id: lx3090, pos: adj, draft: true }  # verkehrssicher
+      - { id: lx3091, pos: adj, draft: true }  # verkehrstauglich
+      - { id: lx3092, pos: adj, draft: true }  # verspätet
   b2:
     concepts:
       - { id: transportinfra_noun, pos: noun, freq_rank: 6470 }
@@ -117,3 +248,43 @@ tiers:
       - { id: logisticschain_noun, pos: noun, freq_rank: 6530 }
       - { id: customsclearance_noun, pos: noun, freq_rank: 7350 }
       - { id: logbook_object, pos: noun, freq_rank: 7920 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4737, pos: verb, draft: true }  # auslasten
+      - { id: lx4738, pos: verb, draft: true }  # drosseln
+      - { id: lx4739, pos: verb, draft: true }  # elektrifizieren
+      - { id: lx4740, pos: verb, draft: true }  # entschleunigen
+      - { id: lx4741, pos: verb, draft: true }  # kollidieren
+      - { id: lx4742, pos: verb, draft: true }  # nachrüsten
+      - { id: lx4743, pos: verb, draft: true }  # optimieren
+      - { id: lx4744, pos: verb, draft: true }  # umrüsten
+      - { id: lx4745, pos: verb, draft: true }  # vernetzen
+      - { id: lx4746, pos: verb, draft: true }  # verunglücken
+      - { id: lx4747, pos: noun, draft: true }  # Auslastung
+      - { id: lx4748, pos: noun, draft: true }  # Berufsverkehr
+      - { id: lx4749, pos: noun, draft: true }  # Bikesharing
+      - { id: lx4750, pos: noun, draft: true }  # Carsharing
+      - { id: lx4751, pos: noun, draft: true }  # Durchgangsverkehr
+      - { id: lx4752, pos: noun, draft: true }  # Elektroauto
+      - { id: lx4753, pos: noun, draft: true }  # Fahrgastrechte
+      - { id: lx4754, pos: noun, draft: true }  # Fahrgemeinschaft
+      - { id: lx4755, pos: noun, draft: true }  # Hybridfahrzeug
+      - { id: lx4756, pos: noun, draft: true }  # Individualverkehr
+      - { id: lx4757, pos: noun, draft: true }  # Ladestation
+      - { id: lx4758, pos: noun, draft: true }  # Lastenrad
+      - { id: lx4759, pos: noun, draft: true }  # Leihfahrrad
+      - { id: lx4760, pos: noun, draft: true }  # Lieferverkehr
+      - { id: lx4761, pos: noun, draft: true }  # Linienverkehr
+      - { id: lx4762, pos: noun, draft: true }  # Mitfahrzentrale
+      - { id: lx4763, pos: noun, draft: true }  # Mobilität
+      - { id: lx4764, pos: noun, draft: true }  # Pendler
+      - { id: lx4765, pos: noun, draft: true }  # Unfallursache
+      - { id: lx4766, pos: noun, draft: true }  # Verkehrsbelastung
+      - { id: lx4767, pos: noun, draft: true }  # Verkehrsfluss
+      - { id: lx4768, pos: noun, draft: true }  # Verkehrsplanung
+      - { id: lx4769, pos: noun, draft: true }  # Verkehrsverbund
+      - { id: lx4770, pos: adj, draft: true }  # barrierearm
+      - { id: lx4771, pos: adj, draft: true }  # emissionsfrei
+      - { id: lx4772, pos: adj, draft: true }  # multimodal
+      - { id: lx4773, pos: adj, draft: true }  # streckenabhängig
+      - { id: lx4774, pos: adj, draft: true }  # verkehrsbedingt
+      - { id: lx4775, pos: adj, draft: true }  # vorausschauend

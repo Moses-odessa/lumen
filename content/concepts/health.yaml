@@ -1,0 +1,340 @@
+# Созвездие «Тело, здоровье и помощь» — эталонное. Написано целиком на всех
+# пяти ярусах, чтобы измерить реальную цену контента и умножить на 30
+# (docs/PLAN_M0_M8.md, M4).
+#
+# Созвездие переименовано при импорте словника: тема называется так, как её
+# называет словник. Иначе матчнутый концепт принадлежал бы двум созвездиям
+# сразу и «тема» в проекте значила бы две разные вещи. Идентификаторы
+# концептов и фраз при этом сохранили старый префикс (doctor_…) — они ключи,
+# по которым у игрока лежит память о слове, и переименование стёрло бы
+# прогресс всем, кто уже играл.
+#
+# TODO(data): вычитан носителем только ярус A0 (см. content/launch.yaml).
+# Ярусы A1–B2 написаны, но до вычитки не запускаются — правило «лучше меньше
+# ярусов, чем плохие» из docs/CONTENT_PIPELINE.md.
+#
+# Источники: Goethe/ÖSD Wortlisten A1–B1 для ярусов A0–A2, частотные списки
+# по субтитрам для freq_rank, немецкая медицинско-страховая терминология
+# (Krankenkasse, Widerspruch, Zuzahlung) для B1–B2.
+constellation: health
+tiers:
+  a0:
+    concepts:
+      - { id: doctor_person, pos: noun, freq_rank: 1120 }
+      - { id: pain_noun, pos: noun, freq_rank: 1640 }
+      - { id: help_noun, pos: noun, freq_rank: 890 }
+      - { id: head_body, pos: noun, freq_rank: 640 }
+      - { id: belly_body, pos: noun, freq_rank: 2310 }
+      - { id: hand_body, pos: noun, freq_rank: 520 }
+      - { id: fever_noun, pos: noun, freq_rank: 3480 }
+      - { id: medicine_noun, pos: noun, freq_rank: 2760 }
+      - { id: pharmacy_place, pos: noun, freq_rank: 3150 }
+      - { id: hospital_place, pos: noun, freq_rank: 1980 }
+      - { id: sick_adj, pos: adj, freq_rank: 1450 }
+      - { id: appointment_noun, pos: noun, freq_rank: 2040 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0167, pos: verb, draft: true }  # helfen
+      - { id: lx0168, pos: verb, draft: true }  # wehtun
+      - { id: lx0169, pos: noun, draft: true }  # Auge
+      - { id: lx0170, pos: noun, draft: true }  # Ohr
+  a1:
+    concepts:
+      - { id: tooth_body, pos: noun, freq_rank: 2890 }
+      - { id: back_body, pos: noun, freq_rank: 1730 }
+      - { id: leg_body, pos: noun, freq_rank: 1210 }
+      - { id: throat_body, pos: noun, freq_rank: 1560 }
+      - { id: cough_noun, pos: noun, freq_rank: 4120 }
+      - { id: cold_illness, pos: noun, freq_rank: 4560 }
+      - { id: prescription_noun, pos: noun, freq_rank: 3620 }
+      - { id: nurse_person, pos: noun, freq_rank: 3890 }
+      - { id: waiting_room, pos: noun, freq_rank: 5210 }
+      - { id: insurance_card, pos: noun, freq_rank: 6740 }
+      - { id: healthy_adj, pos: adj, freq_rank: 2210 }
+      - { id: temperature_noun, pos: noun, freq_rank: 3040 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx0573, pos: verb, draft: true }  # atmen
+      - { id: lx0574, pos: verb, draft: true }  # ausruhen
+      - { id: lx0575, pos: verb, draft: true }  # fehlen
+      - { id: lx0576, pos: verb, draft: true }  # niesen
+      - { id: lx0577, pos: verb, draft: true }  # rauchen
+      - { id: lx0578, pos: verb, draft: true }  # schwitzen
+      - { id: lx0579, pos: verb, draft: true }  # sich erkälten
+      - { id: lx0580, pos: verb, draft: true }  # untersuchen
+      - { id: lx0581, pos: verb, draft: true }  # verletzen
+      - { id: lx0582, pos: noun, draft: true }  # Arm
+      - { id: lx0583, pos: noun, draft: true }  # Feuer
+      - { id: lx0584, pos: noun, draft: true }  # Finger
+      - { id: lx0585, pos: noun, draft: true }  # Fuß
+      - { id: lx0586, pos: noun, draft: true }  # Gesicht
+      - { id: lx0587, pos: noun, draft: true }  # Gesundheit
+      - { id: lx0588, pos: noun, draft: true }  # Haar
+      - { id: lx0589, pos: noun, draft: true }  # Knie
+      - { id: lx0590, pos: noun, draft: true }  # Körper
+      - { id: lx0591, pos: noun, draft: true }  # Krankheit
+      - { id: lx0592, pos: noun, draft: true }  # Medizin
+      - { id: lx0593, pos: noun, draft: true }  # Mund
+      - { id: lx0594, pos: noun, draft: true }  # Nase
+      - { id: lx0595, pos: noun, draft: true }  # Schnupfen
+      - { id: lx0596, pos: noun, draft: true }  # Sprechstunde
+      - { id: lx0597, pos: noun, draft: true }  # Vorsicht
+      - { id: lx0598, pos: adj, draft: true }  # schwach
+      - { id: lx0599, pos: adj, draft: true }  # stark
+      - { id: lx0600, pos: adj, draft: true }  # übel
+  a2:
+    concepts:
+      - { id: sick_note, pos: noun, freq_rank: 7120 }
+      - { id: dosage_noun, pos: noun, freq_rank: 8340 }
+      - { id: side_effect, pos: noun, freq_rank: 6980 }
+      - { id: allergy_noun, pos: noun, freq_rank: 5870 }
+      - { id: blood_noun, pos: noun, freq_rank: 1890 }
+      - { id: plaster_noun, pos: noun, freq_rank: 7650 }
+      - { id: ointment_noun, pos: noun, freq_rank: 8210 }
+      - { id: tablet_noun, pos: noun, freq_rank: 4780 }
+      - { id: injection_noun, pos: noun, freq_rank: 5340 }
+      - { id: vaccination_noun, pos: noun, freq_rank: 6120 }
+      - { id: emergency_noun, pos: noun, freq_rank: 3410 }
+      - { id: ambulance_noun, pos: noun, freq_rank: 4930 }
+      - { id: surgery_place, pos: noun, freq_rank: 2670 }
+      - { id: dentist_person, pos: noun, freq_rank: 5010 }
+      - { id: examination_noun, pos: noun, freq_rank: 3280 }
+      - { id: treatment_noun, pos: noun, freq_rank: 3760 }
+      - { id: painkiller_noun, pos: noun, freq_rank: 7890 }
+      - { id: flu_illness, pos: noun, freq_rank: 5620 }
+      - { id: wound_noun, pos: noun, freq_rank: 3920 }
+      - { id: dizzy_adj, pos: adj, freq_rank: 8760 }
+      - { id: breath_noun, pos: noun, freq_rank: 4310 }
+      - { id: heart_body, pos: noun, freq_rank: 980 }
+      - { id: stomach_organ, pos: noun, freq_rank: 4650 }
+      - { id: skin_body, pos: noun, freq_rank: 2540 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx1391, pos: verb, draft: true }  # ausatmen
+      - { id: lx1392, pos: verb, draft: true }  # behandeln
+      - { id: lx1393, pos: verb, draft: true }  # bluten
+      - { id: lx1394, pos: verb, draft: true }  # einatmen
+      - { id: lx1395, pos: verb, draft: true }  # einnehmen
+      - { id: lx1396, pos: verb, draft: true }  # erbrechen
+      - { id: lx1397, pos: verb, draft: true }  # gähnen
+      - { id: lx1398, pos: verb, draft: true }  # heilen
+      - { id: lx1399, pos: verb, draft: true }  # impfen
+      - { id: lx1400, pos: verb, draft: true }  # messen
+      - { id: lx1401, pos: verb, draft: true }  # sich erholen
+      - { id: lx1402, pos: verb, draft: true }  # sich übergeben
+      - { id: lx1403, pos: verb, draft: true }  # sterben
+      - { id: lx1404, pos: verb, draft: true }  # verschreiben
+      - { id: lx1405, pos: noun, draft: true }  # Attest
+      - { id: lx1406, pos: noun, draft: true }  # Brust
+      - { id: lx1407, pos: noun, draft: true }  # Darm
+      - { id: lx1408, pos: noun, draft: true }  # Ellbogen
+      - { id: lx1409, pos: noun, draft: true }  # Ferse
+      - { id: lx1410, pos: noun, draft: true }  # Fußgelenk
+      - { id: lx1411, pos: noun, draft: true }  # Gehirn
+      - { id: lx1412, pos: noun, draft: true }  # Gehör
+      - { id: lx1413, pos: noun, draft: true }  # Gelenk
+      - { id: lx1414, pos: noun, draft: true }  # Handgelenk
+      - { id: lx1415, pos: noun, draft: true }  # Hausarzt
+      - { id: lx1416, pos: noun, draft: true }  # Hüfte
+      - { id: lx1417, pos: noun, draft: true }  # Kapsel
+      - { id: lx1418, pos: noun, draft: true }  # Knochen
+      - { id: lx1419, pos: noun, draft: true }  # Krankenversicherung
+      - { id: lx1420, pos: noun, draft: true }  # Kreislauf
+      - { id: lx1421, pos: noun, draft: true }  # Leber
+      - { id: lx1422, pos: noun, draft: true }  # Lippe
+      - { id: lx1423, pos: noun, draft: true }  # Lunge
+      - { id: lx1424, pos: noun, draft: true }  # Muskel
+      - { id: lx1425, pos: noun, draft: true }  # Nacken
+      - { id: lx1426, pos: noun, draft: true }  # Nagel
+      - { id: lx1427, pos: noun, draft: true }  # Niere
+      - { id: lx1428, pos: noun, draft: true }  # Patient
+      - { id: lx1429, pos: noun, draft: true }  # Pille
+      - { id: lx1430, pos: noun, draft: true }  # Puls
+      - { id: lx1431, pos: noun, draft: true }  # Rettung
+      - { id: lx1432, pos: noun, draft: true }  # Rettungswagen
+      - { id: lx1433, pos: noun, draft: true }  # Schulter
+      - { id: lx1434, pos: noun, draft: true }  # Sehvermögen
+      - { id: lx1435, pos: noun, draft: true }  # Stirn
+      - { id: lx1436, pos: noun, draft: true }  # Unglück
+      - { id: lx1437, pos: noun, draft: true }  # Verband
+      - { id: lx1438, pos: noun, draft: true }  # Verletzung
+      - { id: lx1439, pos: noun, draft: true }  # Wange
+      - { id: lx1440, pos: noun, draft: true }  # Zeh
+      - { id: lx1441, pos: noun, draft: true }  # Zunge
+      - { id: lx1442, pos: adj, draft: true }  # allergisch
+      - { id: lx1443, pos: adj, draft: true }  # ansteckend
+      - { id: lx1444, pos: adj, draft: true }  # blind
+      - { id: lx1445, pos: adj, draft: true }  # erkältet
+      - { id: lx1446, pos: adj, draft: true }  # fiebrig
+      - { id: lx1447, pos: adj, draft: true }  # heiser
+      - { id: lx1448, pos: adj, draft: true }  # schmerzfrei
+      - { id: lx1449, pos: adj, draft: true }  # schmerzhaft
+      - { id: lx1450, pos: adj, draft: true }  # taub
+      - { id: lx1451, pos: adj, draft: true }  # verletzt
+  b1:
+    concepts:
+      - { id: cost_coverage, pos: noun, freq_rank: 11200 }
+      - { id: referral_noun, pos: noun, freq_rank: 9840 }
+      - { id: lab_result, pos: noun, freq_rank: 12100 }
+      - { id: diagnosis_noun, pos: noun, freq_rank: 6430 }
+      - { id: therapy_noun, pos: noun, freq_rank: 5180 }
+      - { id: specialist_person, pos: noun, freq_rank: 7340 }
+      - { id: health_insurance, pos: noun, freq_rank: 6890 }
+      - { id: medical_report, pos: noun, freq_rank: 10400 }
+      - { id: chronic_adj, pos: adj, freq_rank: 8930 }
+      - { id: inflammation_noun, pos: noun, freq_rank: 7810 }
+      - { id: infection_noun, pos: noun, freq_rank: 5960 }
+      - { id: antibiotic_noun, pos: noun, freq_rank: 8450 }
+      - { id: blood_pressure, pos: noun, freq_rank: 7020 }
+      - { id: blood_draw, pos: noun, freq_rank: 11800 }
+      - { id: ultrasound_noun, pos: noun, freq_rank: 9210 }
+      - { id: xray_noun, pos: noun, freq_rank: 8670 }
+      - { id: operation_noun, pos: noun, freq_rank: 4520 }
+      - { id: anesthesia_noun, pos: noun, freq_rank: 9530 }
+      - { id: rehab_noun, pos: noun, freq_rank: 10100 }
+      - { id: physiotherapy_noun, pos: noun, freq_rank: 10700 }
+      - { id: symptom_noun, pos: noun, freq_rank: 6210 }
+      - { id: complaints_noun, pos: noun, freq_rank: 7480 }
+      - { id: medical_history, pos: noun, freq_rank: 11500 }
+      - { id: discharge_noun, pos: noun, freq_rank: 9070 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx2854, pos: verb, draft: true }  # abmagern
+      - { id: lx2855, pos: verb, draft: true }  # abnehmen
+      - { id: lx2856, pos: verb, draft: true }  # anstecken
+      - { id: lx2857, pos: verb, draft: true }  # auskurieren
+      - { id: lx2858, pos: verb, draft: true }  # betäuben
+      - { id: lx2859, pos: verb, draft: true }  # desinfizieren
+      - { id: lx2860, pos: verb, draft: true }  # diagnostizieren
+      - { id: lx2861, pos: verb, draft: true }  # durchschlafen
+      - { id: lx2862, pos: verb, draft: true }  # erkranken
+      - { id: lx2863, pos: verb, draft: true }  # genesen
+      - { id: lx2864, pos: verb, draft: true }  # gesunden
+      - { id: lx2865, pos: verb, draft: true }  # infizieren
+      - { id: lx2866, pos: verb, draft: true }  # lindern
+      - { id: lx2867, pos: verb, draft: true }  # operieren
+      - { id: lx2868, pos: verb, draft: true }  # schonen
+      - { id: lx2869, pos: verb, draft: true }  # therapieren
+      - { id: lx2870, pos: verb, draft: true }  # vorbeugen
+      - { id: lx2871, pos: verb, draft: true }  # zunehmen
+      - { id: lx2872, pos: noun, draft: true }  # Abhängigkeit
+      - { id: lx2873, pos: noun, draft: true }  # Arbeitsunfähigkeitsbescheinigung
+      - { id: lx2874, pos: noun, draft: true }  # Ausschlag
+      - { id: lx2875, pos: noun, draft: true }  # Befund
+      - { id: lx2876, pos: noun, draft: true }  # Beipackzettel
+      - { id: lx2877, pos: noun, draft: true }  # Belastung
+      - { id: lx2878, pos: noun, draft: true }  # Bereitschaftsdienst
+      - { id: lx2879, pos: noun, draft: true }  # Beruhigungsmittel
+      - { id: lx2880, pos: noun, draft: true }  # Blutbild
+      - { id: lx2881, pos: noun, draft: true }  # Blutzucker
+      - { id: lx2882, pos: noun, draft: true }  # Brechreiz
+      - { id: lx2883, pos: noun, draft: true }  # Bronchitis
+      - { id: lx2884, pos: noun, draft: true }  # Bruch
+      - { id: lx2885, pos: noun, draft: true }  # Dosierung
+      - { id: lx2886, pos: noun, draft: true }  # Durchfall
+      - { id: lx2887, pos: noun, draft: true }  # Erschöpfung
+      - { id: lx2888, pos: noun, draft: true }  # Fieberthermometer
+      - { id: lx2889, pos: noun, draft: true }  # Früherkennung
+      - { id: lx2890, pos: noun, draft: true }  # Heilungsprozess
+      - { id: lx2891, pos: noun, draft: true }  # Herzinfarkt
+      - { id: lx2892, pos: noun, draft: true }  # Herzschlag
+      - { id: lx2893, pos: noun, draft: true }  # Immunsystem
+      - { id: lx2894, pos: noun, draft: true }  # Juckreiz
+      - { id: lx2895, pos: noun, draft: true }  # Labor
+      - { id: lx2896, pos: noun, draft: true }  # Migräne
+      - { id: lx2897, pos: noun, draft: true }  # Nervensystem
+      - { id: lx2898, pos: noun, draft: true }  # Notdienst
+      - { id: lx2899, pos: noun, draft: true }  # Schlafstörung
+      - { id: lx2900, pos: noun, draft: true }  # Schlaganfall
+      - { id: lx2901, pos: noun, draft: true }  # Schüttelfrost
+      - { id: lx2902, pos: noun, draft: true }  # Schwindel
+      - { id: lx2903, pos: noun, draft: true }  # Sucht
+      - { id: lx2904, pos: noun, draft: true }  # Überlastung
+      - { id: lx2905, pos: noun, draft: true }  # Vorsorge
+      - { id: lx2906, pos: noun, draft: true }  # Wirkstoff
+      - { id: lx2907, pos: noun, draft: true }  # Wirkung
+      - { id: lx2908, pos: adj, draft: true }  # akut
+      - { id: lx2909, pos: adj, draft: true }  # harmlos
+      - { id: lx2910, pos: adj, draft: true }  # körperlich
+      - { id: lx2911, pos: adj, draft: true }  # lebensgefährlich
+      - { id: lx2912, pos: adj, draft: true }  # psychisch
+      - { id: lx2913, pos: adj, draft: true }  # rezeptfrei
+      - { id: lx2914, pos: adj, draft: true }  # rezeptpflichtig
+      - { id: lx2915, pos: adj, draft: true }  # seelisch
+      - { id: lx2916, pos: adj, draft: true }  # übergewichtig
+      - { id: lx2917, pos: adj, draft: true }  # untergewichtig
+      - { id: lx2918, pos: adj, draft: true }  # unwirksam
+      - { id: lx2919, pos: adj, draft: true }  # wirksam
+  b2:
+    concepts:
+      - { id: copayment_noun, pos: noun, freq_rank: 14200 }
+      - { id: objection_noun, pos: noun, freq_rank: 9640 }
+      - { id: findings_report, pos: noun, freq_rank: 13800 }
+      - { id: reimbursement_noun, pos: noun, freq_rank: 12400 }
+      - { id: supplementary_insurance, pos: noun, freq_rank: 15100 }
+      - { id: contribution_noun, pos: noun, freq_rank: 6120 }
+      - { id: certificate_noun, pos: noun, freq_rank: 10900 }
+      - { id: incapacity_noun, pos: noun, freq_rank: 14800 }
+      - { id: expert_opinion, pos: noun, freq_rank: 9380 }
+      - { id: consent_noun, pos: noun, freq_rank: 11300 }
+      - { id: liability_noun, pos: noun, freq_rank: 10200 }
+      - { id: malpractice_noun, pos: noun, freq_rank: 16400 }
+      - { id: prognosis_noun, pos: noun, freq_rank: 10600 }
+      - { id: contraindication_noun, pos: noun, freq_rank: 17200 }
+      - { id: interaction_noun, pos: noun, freq_rank: 13100 }
+      - { id: dosage_form, pos: noun, freq_rank: 18000 }
+      - { id: prescription_only, pos: adj, freq_rank: 15600 }
+      - { id: outpatient_adj, pos: adj, freq_rank: 12800 }
+      - { id: inpatient_adj, pos: adj, freq_rank: 12900 }
+      - { id: patient_file, pos: noun, freq_rank: 13500 }
+      - { id: data_protection, pos: noun, freq_rank: 8240 }
+      - { id: second_opinion, pos: noun, freq_rank: 14600 }
+      - { id: waiting_period, pos: noun, freq_rank: 11700 }
+      - { id: cost_estimate, pos: noun, freq_rank: 13200 }
+      # ── импортировано из словника, не вычитано ──
+      - { id: lx4604, pos: verb, draft: true }  # auslösen
+      - { id: lx4605, pos: verb, draft: true }  # benachrichtigen
+      - { id: lx4606, pos: verb, draft: true }  # einwilligen
+      - { id: lx4607, pos: verb, draft: true }  # kompensieren
+      - { id: lx4608, pos: verb, draft: true }  # mobilisieren
+      - { id: lx4609, pos: verb, draft: true }  # nachbehandeln
+      - { id: lx4610, pos: verb, draft: true }  # nachlassen
+      - { id: lx4611, pos: verb, draft: true }  # rehabilitieren
+      - { id: lx4612, pos: verb, draft: true }  # sensibilisieren
+      - { id: lx4613, pos: verb, draft: true }  # stabilisieren
+      - { id: lx4614, pos: verb, draft: true }  # überlasten
+      - { id: lx4615, pos: verb, draft: true }  # verabreichen
+      - { id: lx4616, pos: verb, draft: true }  # verschlimmern
+      - { id: lx4617, pos: noun, draft: true }  # Ansteckungsrisiko
+      - { id: lx4618, pos: noun, draft: true }  # Aufklärung
+      - { id: lx4619, pos: noun, draft: true }  # Beratungsgespräch
+      - { id: lx4620, pos: noun, draft: true }  # Bewegungsmangel
+      - { id: lx4621, pos: noun, draft: true }  # Blutkreislauf
+      - { id: lx4622, pos: noun, draft: true }  # Genesung
+      - { id: lx4623, pos: noun, draft: true }  # Gesundheitssystem
+      - { id: lx4624, pos: noun, draft: true }  # Gesundheitsversorgung
+      - { id: lx4625, pos: noun, draft: true }  # Gesundheitswesen
+      - { id: lx4626, pos: noun, draft: true }  # Gesundheitszustand
+      - { id: lx4627, pos: noun, draft: true }  # Hospiz
+      - { id: lx4628, pos: noun, draft: true }  # Infektionsrisiko
+      - { id: lx4629, pos: noun, draft: true }  # Krankheitsbild
+      - { id: lx4630, pos: noun, draft: true }  # Krankheitsverlauf
+      - { id: lx4631, pos: noun, draft: true }  # Lebenserwartung
+      - { id: lx4632, pos: noun, draft: true }  # Lebensqualität
+      - { id: lx4633, pos: noun, draft: true }  # Organspende
+      - { id: lx4634, pos: noun, draft: true }  # Pflegebedarf
+      - { id: lx4635, pos: noun, draft: true }  # Pflegeheim
+      - { id: lx4636, pos: noun, draft: true }  # Prävention
+      - { id: lx4637, pos: noun, draft: true }  # Psychotherapeut
+      - { id: lx4638, pos: noun, draft: true }  # Psychotherapie
+      - { id: lx4639, pos: noun, draft: true }  # Rehabilitation
+      - { id: lx4640, pos: noun, draft: true }  # Rettungsdienst
+      - { id: lx4641, pos: noun, draft: true }  # Risikofaktor
+      - { id: lx4642, pos: noun, draft: true }  # Schlafmangel
+      - { id: lx4643, pos: noun, draft: true }  # Schweigepflicht
+      - { id: lx4644, pos: noun, draft: true }  # Selbsthilfe
+      - { id: lx4645, pos: noun, draft: true }  # Stressbewältigung
+      - { id: lx4646, pos: adj, draft: true }  # entzündungshemmend
+      - { id: lx4647, pos: adj, draft: true }  # ganzheitlich
+      - { id: lx4648, pos: adj, draft: true }  # heilbar
+      - { id: lx4649, pos: adj, draft: true }  # präventiv
+      - { id: lx4650, pos: adj, draft: true }  # schmerzlindernd
+      - { id: lx4651, pos: adj, draft: true }  # therapeutisch
+      - { id: lx4652, pos: adj, draft: true }  # unheilbar
+      - { id: lx4653, pos: adj, draft: true }  # vorbeugend

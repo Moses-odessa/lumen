@@ -1,0 +1,247 @@
+# Созвездие «Чувства и характер».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: feelings
+tiers:
+  a0:
+    concepts:
+      - { id: lx0084, pos: verb, draft: true }  # lachen
+      - { id: lx0085, pos: verb, draft: true }  # mögen
+      - { id: lx0086, pos: verb, draft: true }  # weinen
+      - { id: lx0087, pos: noun, draft: true }  # Angst
+      - { id: lx0088, pos: noun, draft: true }  # Freude
+      - { id: lx0089, pos: adj, draft: true }  # froh
+      - { id: lx0090, pos: adj, draft: true }  # glücklich
+      - { id: lx0091, pos: adj, draft: true }  # gut
+      - { id: lx0092, pos: adj, draft: true }  # schlecht
+      - { id: lx0093, pos: adj, draft: true }  # traurig
+  a1:
+    concepts:
+      - { id: lx0344, pos: verb, draft: true }  # ärgern
+      - { id: lx0345, pos: verb, draft: true }  # freuen
+      - { id: lx0346, pos: verb, draft: true }  # fühlen
+      - { id: lx0347, pos: verb, draft: true }  # hassen
+      - { id: lx0348, pos: verb, draft: true }  # hoffen
+      - { id: lx0349, pos: verb, draft: true }  # sich interessieren
+      - { id: lx0350, pos: verb, draft: true }  # wünschen
+      - { id: lx0351, pos: noun, draft: true }  # Gefühl
+      - { id: lx0352, pos: noun, draft: true }  # Glück
+      - { id: lx0353, pos: noun, draft: true }  # Liebe
+      - { id: lx0354, pos: noun, draft: true }  # Lust
+      - { id: lx0355, pos: noun, draft: true }  # Ruhe
+      - { id: lx0356, pos: noun, draft: true }  # Spaß
+      - { id: lx0357, pos: noun, draft: true }  # Wunsch
+      - { id: lx0358, pos: adj, draft: true }  # böse
+      - { id: lx0359, pos: adj, draft: true }  # freundlich
+      - { id: lx0360, pos: adj, draft: true }  # lustig
+      - { id: lx0361, pos: adj, draft: true }  # nervös
+      - { id: lx0362, pos: adj, draft: true }  # nett
+      - { id: lx0363, pos: adj, draft: true }  # ruhig
+      - { id: lx0364, pos: adj, draft: true }  # unfreundlich
+      - { id: lx0365, pos: adj, draft: true }  # zufrieden
+  a2:
+    concepts:
+      - { id: lx0972, pos: verb, draft: true }  # aufregen
+      - { id: lx0973, pos: verb, draft: true }  # beruhigen
+      - { id: lx0974, pos: verb, draft: true }  # erschrecken
+      - { id: lx0975, pos: verb, draft: true }  # fürchten
+      - { id: lx0976, pos: verb, draft: true }  # gefallen
+      - { id: lx0977, pos: verb, draft: true }  # leiden
+      - { id: lx0978, pos: verb, draft: true }  # nerven
+      - { id: lx0979, pos: verb, draft: true }  # sich langweilen
+      - { id: lx0980, pos: verb, draft: true }  # sich schämen
+      - { id: lx0981, pos: verb, draft: true }  # staunen
+      - { id: lx0982, pos: verb, draft: true }  # stören
+      - { id: lx0983, pos: verb, draft: true }  # träumen
+      - { id: lx0984, pos: verb, draft: true }  # trösten
+      - { id: lx0985, pos: verb, draft: true }  # vertragen
+      - { id: lx0986, pos: verb, draft: true }  # zweifeln
+      - { id: lx0987, pos: noun, draft: true }  # Ärger
+      - { id: lx0988, pos: noun, draft: true }  # Enttäuschung
+      - { id: lx0989, pos: noun, draft: true }  # Geduld
+      - { id: lx0990, pos: noun, draft: true }  # Hoffnung
+      - { id: lx0991, pos: noun, draft: true }  # Interesse
+      - { id: lx0992, pos: noun, draft: true }  # Langeweile
+      - { id: lx0993, pos: noun, draft: true }  # Mitleid
+      - { id: lx0994, pos: noun, draft: true }  # Mut
+      - { id: lx0995, pos: noun, draft: true }  # Schreck
+      - { id: lx0996, pos: noun, draft: true }  # Sehnsucht
+      - { id: lx0997, pos: noun, draft: true }  # Sorge
+      - { id: lx0998, pos: noun, draft: true }  # Stimmung
+      - { id: lx0999, pos: noun, draft: true }  # Stress
+      - { id: lx1000, pos: noun, draft: true }  # Überraschung
+      - { id: lx1001, pos: noun, draft: true }  # Wut
+      - { id: lx1002, pos: adj, draft: true }  # aufgeregt
+      - { id: lx1003, pos: adj, draft: true }  # ehrlich
+      - { id: lx1004, pos: adj, draft: true }  # einsam
+      - { id: lx1005, pos: adj, draft: true }  # enttäuscht
+      - { id: lx1006, pos: adj, draft: true }  # faul
+      - { id: lx1007, pos: adj, draft: true }  # fleißig
+      - { id: lx1008, pos: adj, draft: true }  # geduldig
+      - { id: lx1009, pos: adj, draft: true }  # gelangweilt
+      - { id: lx1010, pos: adj, draft: true }  # gespannt
+      - { id: lx1011, pos: adj, draft: true }  # hilfsbereit
+      - { id: lx1012, pos: adj, draft: true }  # mutig
+      - { id: lx1013, pos: adj, draft: true }  # schüchtern
+      - { id: lx1014, pos: adj, draft: true }  # stolz
+      - { id: lx1015, pos: adj, draft: true }  # unehrlich
+      - { id: lx1016, pos: adj, draft: true }  # ungeduldig
+      - { id: lx1017, pos: adj, draft: true }  # verliebt
+      - { id: lx1018, pos: adj, draft: true }  # vorsichtig
+      - { id: lx1019, pos: adj, draft: true }  # wütend
+  b1:
+    concepts:
+      - { id: lx2437, pos: verb, draft: true }  # aufmuntern
+      - { id: lx2438, pos: verb, draft: true }  # bedauern
+      - { id: lx2439, pos: verb, draft: true }  # begeistern
+      - { id: lx2440, pos: verb, draft: true }  # belasten
+      - { id: lx2441, pos: verb, draft: true }  # beleidigen
+      - { id: lx2442, pos: verb, draft: true }  # bereuen
+      - { id: lx2443, pos: verb, draft: true }  # beunruhigen
+      - { id: lx2444, pos: verb, draft: true }  # bewundern
+      - { id: lx2445, pos: verb, draft: true }  # demütigen
+      - { id: lx2446, pos: verb, draft: true }  # entlasten
+      - { id: lx2447, pos: verb, draft: true }  # enttäuschen
+      - { id: lx2448, pos: verb, draft: true }  # ermutigen
+      - { id: lx2449, pos: verb, draft: true }  # genießen
+      - { id: lx2450, pos: verb, draft: true }  # motivieren
+      - { id: lx2451, pos: verb, draft: true }  # schätzen
+      - { id: lx2452, pos: verb, draft: true }  # sich überwinden
+      - { id: lx2453, pos: verb, draft: true }  # verunsichern
+      - { id: lx2454, pos: noun, draft: true }  # Begeisterung
+      - { id: lx2455, pos: noun, draft: true }  # Ehrlichkeit
+      - { id: lx2456, pos: noun, draft: true }  # Eifersucht
+      - { id: lx2457, pos: noun, draft: true }  # Einsamkeit
+      - { id: lx2458, pos: noun, draft: true }  # Empfindlichkeit
+      - { id: lx2459, pos: noun, draft: true }  # Erleichterung
+      - { id: lx2460, pos: noun, draft: true }  # Fernweh
+      - { id: lx2461, pos: noun, draft: true }  # Frust
+      - { id: lx2462, pos: noun, draft: true }  # Gelassenheit
+      - { id: lx2463, pos: noun, draft: true }  # Hass
+      - { id: lx2464, pos: noun, draft: true }  # Heimweh
+      - { id: lx2465, pos: noun, draft: true }  # Humor
+      - { id: lx2466, pos: noun, draft: true }  # Neid
+      - { id: lx2467, pos: noun, draft: true }  # Neugier
+      - { id: lx2468, pos: noun, draft: true }  # Respekt
+      - { id: lx2469, pos: noun, draft: true }  # Rücksicht
+      - { id: lx2470, pos: noun, draft: true }  # Rücksichtnahme
+      - { id: lx2471, pos: noun, draft: true }  # Selbstbewusstsein
+      - { id: lx2472, pos: noun, draft: true }  # Selbstsicherheit
+      - { id: lx2473, pos: noun, draft: true }  # Selbstvertrauen
+      - { id: lx2474, pos: noun, draft: true }  # Trost
+      - { id: lx2475, pos: noun, draft: true }  # Unsicherheit
+      - { id: lx2476, pos: noun, draft: true }  # Unzufriedenheit
+      - { id: lx2477, pos: noun, draft: true }  # Verzweiflung
+      - { id: lx2478, pos: noun, draft: true }  # Wohlbefinden
+      - { id: lx2479, pos: noun, draft: true }  # Zufriedenheit
+      - { id: lx2480, pos: noun, draft: true }  # Zuverlässigkeit
+      - { id: lx2481, pos: adj, draft: true }  # begeistert
+      - { id: lx2482, pos: adj, draft: true }  # eifersüchtig
+      - { id: lx2483, pos: adj, draft: true }  # empfindlich
+      - { id: lx2484, pos: adj, draft: true }  # empfindsam
+      - { id: lx2485, pos: adj, draft: true }  # erleichtert
+      - { id: lx2486, pos: adj, draft: true }  # geizig
+      - { id: lx2487, pos: adj, draft: true }  # gelassen
+      - { id: lx2488, pos: adj, draft: true }  # großzügig
+      - { id: lx2489, pos: adj, draft: true }  # intolerant
+      - { id: lx2490, pos: adj, draft: true }  # neidisch
+      - { id: lx2491, pos: adj, draft: true }  # neugierig
+      - { id: lx2492, pos: adj, draft: true }  # optimistisch
+      - { id: lx2493, pos: adj, draft: true }  # pessimistisch
+      - { id: lx2494, pos: adj, draft: true }  # rücksichtslos
+      - { id: lx2495, pos: adj, draft: true }  # rücksichtsvoll
+      - { id: lx2496, pos: adj, draft: true }  # selbstbewusst
+      - { id: lx2497, pos: adj, draft: true }  # sensibel
+      - { id: lx2498, pos: adj, draft: true }  # tolerant
+      - { id: lx2499, pos: adj, draft: true }  # unzuverlässig
+      - { id: lx2500, pos: adj, draft: true }  # verwirrt
+      - { id: lx2501, pos: adj, draft: true }  # zuverlässig
+  b2:
+    concepts:
+      - { id: lx4265, pos: verb, draft: true }  # aufwühlen
+      - { id: lx4266, pos: verb, draft: true }  # ausgleichen
+      - { id: lx4267, pos: verb, draft: true }  # ausleben
+      - { id: lx4268, pos: verb, draft: true }  # beherrschen
+      - { id: lx4269, pos: verb, draft: true }  # beschwichtigen
+      - { id: lx4270, pos: verb, draft: true }  # ertragen
+      - { id: lx4271, pos: verb, draft: true }  # kränken
+      - { id: lx4272, pos: verb, draft: true }  # mitfühlen
+      - { id: lx4273, pos: verb, draft: true }  # nachempfinden
+      - { id: lx4274, pos: verb, draft: true }  # nachtragen
+      - { id: lx4275, pos: verb, draft: true }  # sich einfühlen
+      - { id: lx4276, pos: verb, draft: true }  # überwältigen
+      - { id: lx4277, pos: verb, draft: true }  # verabscheuen
+      - { id: lx4278, pos: verb, draft: true }  # verachten
+      - { id: lx4279, pos: verb, draft: true }  # verbittern
+      - { id: lx4280, pos: verb, draft: true }  # verdrängen
+      - { id: lx4281, pos: verb, draft: true }  # verkraften
+      - { id: lx4282, pos: verb, draft: true }  # verspotten
+      - { id: lx4283, pos: verb, draft: true }  # zurückhalten
+      - { id: lx4284, pos: noun, draft: true }  # Antrieb
+      - { id: lx4285, pos: noun, draft: true }  # Arroganz
+      - { id: lx4286, pos: noun, draft: true }  # Aufrichtigkeit
+      - { id: lx4287, pos: noun, draft: true }  # Begeisterungsfähigkeit
+      - { id: lx4288, pos: noun, draft: true }  # Belastbarkeit
+      - { id: lx4289, pos: noun, draft: true }  # Bescheidenheit
+      - { id: lx4290, pos: noun, draft: true }  # Bitterkeit
+      - { id: lx4291, pos: noun, draft: true }  # Dankbarkeit
+      - { id: lx4292, pos: noun, draft: true }  # Demütigung
+      - { id: lx4293, pos: noun, draft: true }  # Ehrgeiz
+      - { id: lx4294, pos: noun, draft: true }  # Einfühlungsvermögen
+      - { id: lx4295, pos: noun, draft: true }  # Eitelkeit
+      - { id: lx4296, pos: noun, draft: true }  # Empathie
+      - { id: lx4297, pos: noun, draft: true }  # Entmutigung
+      - { id: lx4298, pos: noun, draft: true }  # Entschlossenheit
+      - { id: lx4299, pos: noun, draft: true }  # Frustration
+      - { id: lx4300, pos: noun, draft: true }  # Geborgenheit
+      - { id: lx4301, pos: noun, draft: true }  # Gleichgültigkeit
+      - { id: lx4302, pos: noun, draft: true }  # Kränkung
+      - { id: lx4303, pos: noun, draft: true }  # Mitgefühl
+      - { id: lx4304, pos: noun, draft: true }  # Reizbarkeit
+      - { id: lx4305, pos: noun, draft: true }  # Selbstachtung
+      - { id: lx4306, pos: noun, draft: true }  # Selbstkritik
+      - { id: lx4307, pos: noun, draft: true }  # Selbstüberschätzung
+      - { id: lx4308, pos: noun, draft: true }  # Selbstwertgefühl
+      - { id: lx4309, pos: noun, draft: true }  # Temperament
+      - { id: lx4310, pos: noun, draft: true }  # Überforderung
+      - { id: lx4311, pos: noun, draft: true }  # Unbehagen
+      - { id: lx4312, pos: noun, draft: true }  # Unterforderung
+      - { id: lx4313, pos: noun, draft: true }  # Verletzlichkeit
+      - { id: lx4314, pos: adj, draft: true }  # anspruchsvoll
+      - { id: lx4315, pos: adj, draft: true }  # arrogant
+      - { id: lx4316, pos: adj, draft: true }  # aufgeschlossen
+      - { id: lx4317, pos: adj, draft: true }  # aufrichtig
+      - { id: lx4318, pos: adj, draft: true }  # ausgeglichen
+      - { id: lx4319, pos: adj, draft: true }  # berechnend
+      - { id: lx4320, pos: adj, draft: true }  # bescheiden
+      - { id: lx4321, pos: adj, draft: true }  # besonnen
+      - { id: lx4322, pos: adj, draft: true }  # eigensinnig
+      - { id: lx4323, pos: adj, draft: true }  # einfühlsam
+      - { id: lx4324, pos: adj, draft: true }  # empathisch
+      - { id: lx4325, pos: adj, draft: true }  # extrovertiert
+      - { id: lx4326, pos: adj, draft: true }  # feinfühlig
+      - { id: lx4327, pos: adj, draft: true }  # gleichgültig
+      - { id: lx4328, pos: adj, draft: true }  # impulsiv
+      - { id: lx4329, pos: adj, draft: true }  # introvertiert
+      - { id: lx4330, pos: adj, draft: true }  # nachsichtig
+      - { id: lx4331, pos: adj, draft: true }  # nachtragend
+      - { id: lx4332, pos: adj, draft: true }  # reizbar
+      - { id: lx4333, pos: adj, draft: true }  # selbstkritisch
+      - { id: lx4334, pos: adj, draft: true }  # überfordert
+      - { id: lx4335, pos: adj, draft: true }  # überheblich
+      - { id: lx4336, pos: adj, draft: true }  # unausgeglichen
+      - { id: lx4337, pos: adj, draft: true }  # unterfordert
+      - { id: lx4338, pos: adj, draft: true }  # unvoreingenommen
+      - { id: lx4339, pos: adj, draft: true }  # verletzend
+      - { id: lx4340, pos: adj, draft: true }  # verletzlich
+      - { id: lx4341, pos: adj, draft: true }  # voreingenommen

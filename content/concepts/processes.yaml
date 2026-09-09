@@ -1,0 +1,204 @@
+# Созвездие «Процессы, изменения и методы».
+#
+# Тема целиком пришла из словника: все слова помечены `draft: true` и в игру
+# не идут. Пометка снимается вычиткой — двумя проходами разных моделей с
+# записью в content/launch.yaml, — а не правкой ради зелёного валидатора.
+#
+# Чего у импортированных слов нет и почему:
+#   freq_rank — словник частотности не несёт, а выдумать её значило бы
+#     записать вымысел в поле, которое читается как измерение;
+#   plural и формы глаголов — нужен внешний источник (веха M15);
+#   дистракторы — их не пишут руками, их выводят из проверенных форм.
+#
+# Источник: docs/GERMAN_LEXICON_6000_A0_B2.yaml.
+constellation: processes
+tiers:
+  a0:
+    concepts:
+      - { id: lx0227, pos: verb, draft: true }  # bekommen
+  a1:
+    concepts:
+      - { id: lx0834, pos: verb, draft: true }  # starten
+      - { id: lx0835, pos: noun, draft: true }  # Ergebnis
+      - { id: lx0836, pos: noun, draft: true }  # Plan
+      - { id: lx0837, pos: noun, draft: true }  # Schluss
+  a2:
+    concepts:
+      - { id: lx2258, pos: verb, draft: true }  # ändern
+      - { id: lx2259, pos: verb, draft: true }  # aufmachen
+      - { id: lx2260, pos: verb, draft: true }  # auseinanderbauen
+      - { id: lx2261, pos: verb, draft: true }  # bauen
+      - { id: lx2262, pos: verb, draft: true }  # klappen
+      - { id: lx2263, pos: verb, draft: true }  # ordnen
+      - { id: lx2264, pos: verb, draft: true }  # sortieren
+      - { id: lx2265, pos: verb, draft: true }  # verändern
+      - { id: lx2266, pos: verb, draft: true }  # verschlechtern
+      - { id: lx2267, pos: verb, draft: true }  # zumachen
+      - { id: lx2268, pos: verb, draft: true }  # zusammenbauen
+      - { id: lx2269, pos: noun, draft: true }  # Änderung
+      - { id: lx2270, pos: noun, draft: true }  # Arbeitsteilung
+      - { id: lx2271, pos: noun, draft: true }  # Erfolg
+      - { id: lx2272, pos: noun, draft: true }  # Gebrauch
+      - { id: lx2273, pos: noun, draft: true }  # Misserfolg
+      - { id: lx2274, pos: noun, draft: true }  # Mittel
+      - { id: lx2275, pos: noun, draft: true }  # Ordnung
+      - { id: lx2276, pos: noun, draft: true }  # Organisation
+      - { id: lx2277, pos: noun, draft: true }  # Planung
+      - { id: lx2278, pos: noun, draft: true }  # Veränderung
+      - { id: lx2279, pos: noun, draft: true }  # Verbesserung
+      - { id: lx2280, pos: noun, draft: true }  # Verfahren
+      - { id: lx2281, pos: noun, draft: true }  # Versuch
+      - { id: lx2282, pos: noun, draft: true }  # Vorbereitung
+      - { id: lx2283, pos: adj, draft: true }  # bereit
+      - { id: lx2284, pos: adj, draft: true }  # fertig
+      - { id: lx2285, pos: adj, draft: true }  # kompliziert
+      - { id: lx2286, pos: adj, draft: true }  # unfertig
+  b1:
+    concepts:
+      - { id: lx4071, pos: verb, draft: true }  # anpassen
+      - { id: lx4072, pos: verb, draft: true }  # anwenden
+      - { id: lx4073, pos: verb, draft: true }  # berücksichtigen
+      - { id: lx4074, pos: verb, draft: true }  # betragen
+      - { id: lx4075, pos: verb, draft: true }  # betreiben
+      - { id: lx4076, pos: verb, draft: true }  # durchführen
+      - { id: lx4077, pos: verb, draft: true }  # einsetzen
+      - { id: lx4078, pos: verb, draft: true }  # entstehen
+      - { id: lx4079, pos: verb, draft: true }  # erfolgen
+      - { id: lx4080, pos: verb, draft: true }  # erleichtern
+      - { id: lx4081, pos: verb, draft: true }  # erproben
+      - { id: lx4082, pos: verb, draft: true }  # erscheinen
+      - { id: lx4083, pos: verb, draft: true }  # erschweren
+      - { id: lx4084, pos: verb, draft: true }  # erzeugen
+      - { id: lx4085, pos: verb, draft: true }  # fertigstellen
+      - { id: lx4086, pos: verb, draft: true }  # funktionieren
+      - { id: lx4087, pos: verb, draft: true }  # geschehen
+      - { id: lx4088, pos: verb, draft: true }  # modernisieren
+      - { id: lx4089, pos: verb, draft: true }  # realisieren
+      - { id: lx4090, pos: verb, draft: true }  # sich bewähren
+      - { id: lx4091, pos: verb, draft: true }  # sich ereignen
+      - { id: lx4092, pos: verb, draft: true }  # umsetzen
+      - { id: lx4093, pos: verb, draft: true }  # verarbeiten
+      - { id: lx4094, pos: verb, draft: true }  # vereinfachen
+      - { id: lx4095, pos: verb, draft: true }  # verlangsamen
+      - { id: lx4096, pos: verb, draft: true }  # verschwinden
+      - { id: lx4097, pos: verb, draft: true }  # verwenden
+      - { id: lx4098, pos: verb, draft: true }  # verwirklichen
+      - { id: lx4099, pos: verb, draft: true }  # vorkommen
+      - { id: lx4100, pos: verb, draft: true }  # weiterarbeiten
+      - { id: lx4101, pos: verb, draft: true }  # weiterentwickeln
+      - { id: lx4102, pos: noun, draft: true }  # Abstimmung
+      - { id: lx4103, pos: noun, draft: true }  # Anpassung
+      - { id: lx4104, pos: noun, draft: true }  # Arbeitsgang
+      - { id: lx4105, pos: noun, draft: true }  # Arbeitsschritt
+      - { id: lx4106, pos: noun, draft: true }  # Ausführung
+      - { id: lx4107, pos: noun, draft: true }  # Beschleunigung
+      - { id: lx4108, pos: noun, draft: true }  # Durchführung
+      - { id: lx4109, pos: noun, draft: true }  # Endergebnis
+      - { id: lx4110, pos: noun, draft: true }  # Entstehung
+      - { id: lx4111, pos: noun, draft: true }  # Erneuerung
+      - { id: lx4112, pos: noun, draft: true }  # Erscheinung
+      - { id: lx4113, pos: noun, draft: true }  # Erschwerung
+      - { id: lx4114, pos: noun, draft: true }  # Fortschritt
+      - { id: lx4115, pos: noun, draft: true }  # Funktion
+      - { id: lx4116, pos: noun, draft: true }  # Funktionsweise
+      - { id: lx4117, pos: noun, draft: true }  # Hilfsmittel
+      - { id: lx4118, pos: noun, draft: true }  # Kontrolle
+      - { id: lx4119, pos: noun, draft: true }  # Konzept
+      - { id: lx4120, pos: noun, draft: true }  # Korrektur
+      - { id: lx4121, pos: noun, draft: true }  # Leistung
+      - { id: lx4122, pos: noun, draft: true }  # Nutzung
+      - { id: lx4123, pos: noun, draft: true }  # Rückschritt
+      - { id: lx4124, pos: noun, draft: true }  # Rückstand
+      - { id: lx4125, pos: noun, draft: true }  # Stillstand
+      - { id: lx4126, pos: noun, draft: true }  # Überprüfung
+      - { id: lx4127, pos: noun, draft: true }  # Umsetzung
+      - { id: lx4128, pos: noun, draft: true }  # Vereinfachung
+      - { id: lx4129, pos: noun, draft: true }  # Verwendung
+      - { id: lx4130, pos: noun, draft: true }  # Vorgang
+      - { id: lx4131, pos: noun, draft: true }  # Vorgehen
+      - { id: lx4132, pos: noun, draft: true }  # Werkzeugset
+      - { id: lx4133, pos: noun, draft: true }  # Zwischenergebnis
+      - { id: lx4134, pos: adj, draft: true }  # erfolglos
+      - { id: lx4135, pos: adj, draft: true }  # erfolgreich
+      - { id: lx4136, pos: adj, draft: true }  # geplant
+      - { id: lx4137, pos: adj, draft: true }  # kontinuierlich
+      - { id: lx4138, pos: adj, draft: true }  # methodisch
+      - { id: lx4139, pos: adj, draft: true }  # planmäßig
+      - { id: lx4140, pos: adj, draft: true }  # plötzlich
+      - { id: lx4141, pos: adj, draft: true }  # systematisch
+      - { id: lx4142, pos: adj, draft: true }  # ungeplant
+      - { id: lx4143, pos: adj, draft: true }  # unsystematisch
+      - { id: lx4144, pos: adv, draft: true }  # schrittweise
+  b2:
+    concepts:
+      - { id: lx5365, pos: verb, draft: true }  # abbrechen
+      - { id: lx5366, pos: verb, draft: true }  # abschaffen
+      - { id: lx5367, pos: verb, draft: true }  # abwickeln
+      - { id: lx5368, pos: verb, draft: true }  # anstoßen
+      - { id: lx5369, pos: verb, draft: true }  # auflösen
+      - { id: lx5370, pos: verb, draft: true }  # ausweiten
+      - { id: lx5371, pos: verb, draft: true }  # bedingen
+      - { id: lx5372, pos: verb, draft: true }  # beeinflussen
+      - { id: lx5373, pos: verb, draft: true }  # begrenzen
+      - { id: lx5374, pos: verb, draft: true }  # beschränken
+      - { id: lx5375, pos: verb, draft: true }  # bewirken
+      - { id: lx5376, pos: verb, draft: true }  # erfordern
+      - { id: lx5377, pos: verb, draft: true }  # erhöhen
+      - { id: lx5378, pos: verb, draft: true }  # ermöglichen
+      - { id: lx5379, pos: verb, draft: true }  # erweitern
+      - { id: lx5380, pos: verb, draft: true }  # etablieren
+      - { id: lx5381, pos: verb, draft: true }  # fortführen
+      - { id: lx5382, pos: verb, draft: true }  # gliedern
+      - { id: lx5383, pos: verb, draft: true }  # hemmen
+      - { id: lx5384, pos: verb, draft: true }  # hervorrufen
+      - { id: lx5385, pos: verb, draft: true }  # implementieren
+      - { id: lx5386, pos: verb, draft: true }  # reaktivieren
+      - { id: lx5387, pos: verb, draft: true }  # regeln
+      - { id: lx5388, pos: verb, draft: true }  # reorganisieren
+      - { id: lx5389, pos: verb, draft: true }  # standardisieren
+      - { id: lx5390, pos: verb, draft: true }  # steuern
+      - { id: lx5391, pos: verb, draft: true }  # transformieren
+      - { id: lx5392, pos: verb, draft: true }  # untergliedern
+      - { id: lx5393, pos: verb, draft: true }  # vereinheitlichen
+      - { id: lx5394, pos: verb, draft: true }  # verhindern
+      - { id: lx5395, pos: verb, draft: true }  # vermindern
+      - { id: lx5396, pos: verb, draft: true }  # verringern
+      - { id: lx5397, pos: verb, draft: true }  # verursachen
+      - { id: lx5398, pos: verb, draft: true }  # vollenden
+      - { id: lx5399, pos: verb, draft: true }  # vollziehen
+      - { id: lx5400, pos: verb, draft: true }  # vorantreiben
+      - { id: lx5401, pos: verb, draft: true }  # voraussetzen
+      - { id: lx5402, pos: verb, draft: true }  # wiederaufnehmen
+      - { id: lx5403, pos: noun, draft: true }  # Ansatz
+      - { id: lx5404, pos: noun, draft: true }  # Auswertung
+      - { id: lx5405, pos: noun, draft: true }  # Engpass
+      - { id: lx5406, pos: noun, draft: true }  # Gliederung
+      - { id: lx5407, pos: noun, draft: true }  # Handlungsbedarf
+      - { id: lx5408, pos: noun, draft: true }  # Handlungsplan
+      - { id: lx5409, pos: noun, draft: true }  # Hierarchie
+      - { id: lx5410, pos: noun, draft: true }  # Lösungsansatz
+      - { id: lx5411, pos: noun, draft: true }  # Maßnahme
+      - { id: lx5412, pos: noun, draft: true }  # Mechanismus
+      - { id: lx5413, pos: noun, draft: true }  # Methode
+      - { id: lx5414, pos: noun, draft: true }  # Regelung
+      - { id: lx5415, pos: noun, draft: true }  # Regulierung
+      - { id: lx5416, pos: noun, draft: true }  # Steuerung
+      - { id: lx5417, pos: noun, draft: true }  # Strategie
+      - { id: lx5418, pos: noun, draft: true }  # Struktur
+      - { id: lx5419, pos: noun, draft: true }  # System
+      - { id: lx5420, pos: noun, draft: true }  # Taktik
+      - { id: lx5421, pos: noun, draft: true }  # Transformation
+      - { id: lx5422, pos: noun, draft: true }  # Zusammenspiel
+      - { id: lx5423, pos: adj, draft: true }  # effektiv
+      - { id: lx5424, pos: adj, draft: true }  # effizient
+      - { id: lx5425, pos: adj, draft: true }  # erfolgversprechend
+      - { id: lx5426, pos: adj, draft: true }  # ergebnisoffen
+      - { id: lx5427, pos: adj, draft: true }  # ineffektiv
+      - { id: lx5428, pos: adj, draft: true }  # ineffizient
+      - { id: lx5429, pos: adj, draft: true }  # zielführend
+      - { id: lx5430, pos: adv, draft: true }  # gegenseitig
+      - { id: lx5431, pos: adv, draft: true }  # inkonsequent
+      - { id: lx5432, pos: adv, draft: true }  # konsequent
+      - { id: lx5433, pos: adv, draft: true }  # mittelbar
+      - { id: lx5434, pos: adv, draft: true }  # sukzessive
+      - { id: lx5435, pos: adv, draft: true }  # wechselseitig

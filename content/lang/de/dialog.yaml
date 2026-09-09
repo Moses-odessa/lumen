@@ -1,0 +1,1049 @@
+# Немецкие лексемы созвездия «Общение и язык».
+#
+# Тема целиком импортирована из словника. У слова есть форма, артикль и род —
+# и всё: множественного числа, форм глагола и дистракторов словник не несёт,
+# а выдумывать их нельзя (docs/CONTENT_PIPELINE.md, content/dictionaries/README.md).
+#
+# Язык объявлен один раз, в content/lang/de/_language.yaml.
+lang: de
+lexemes:
+  # ── импортировано из словника, не вычитано ─────────────────────────────
+  lx0001:
+    form: du
+  lx0002:
+    form: er
+  lx0003:
+    form: es
+  lx0004:
+    form: ich
+  # Личное ihr; притяжательное ihr и вежливое Ihr вводить контекстно, без дополнительной строки.
+  lx0005:
+    form: ihr
+  lx0006:
+    form: man
+  lx0007:
+    form: sich
+  # Личное местоимение sie; вежливое Sie и число разграничивать в контексте, без дополнительной записи.
+  lx0008:
+    form: sie
+  lx0009:
+    form: was
+  lx0010:
+    form: wer
+  lx0011:
+    form: wir
+  # Определённый артикль: der/die/das и падежные формы входят в эту запись; не учить только форму der.
+  lx0012:
+    form: der
+  # Неопределённый артикль: ein/eine и падежные формы входят в эту запись.
+  lx0013:
+    form: ein
+  lx0014:
+    form: dein
+  lx0015:
+    form: dieser
+  lx0016:
+    form: euer
+  lx0017:
+    form: kein
+  lx0018:
+    form: mein
+  lx0019:
+    form: unser
+  lx0020:
+    form: an
+  lx0021:
+    form: auf
+  lx0022:
+    form: aus
+  lx0023:
+    form: für
+  lx0024:
+    form: in
+  lx0025:
+    form: mit
+  lx0026:
+    form: von
+  lx0027:
+    form: zu
+  lx0028:
+    form: aber
+  lx0029:
+    form: oder
+  lx0030:
+    form: und
+  lx0031:
+    form: auch
+  lx0032:
+    form: bitte
+  lx0033:
+    form: doch
+  lx0034:
+    form: ja
+  lx0035:
+    form: nein
+  lx0036:
+    form: nicht
+  lx0037:
+    form: noch
+  lx0038:
+    form: nur
+  lx0039:
+    form: schon
+  lx0040:
+    form: sehr
+  lx0041:
+    form: so
+  lx0042:
+    form: danke
+  lx0043:
+    form: hallo
+  lx0044:
+    form: tschüss
+  lx0045:
+    form: antworten
+  lx0046:
+    form: buchstabieren
+  lx0047:
+    form: fragen
+  lx0048:
+    form: heißen
+  lx0049:
+    form: hören
+  lx0050:
+    form: lesen
+  lx0051:
+    form: sagen
+  lx0052:
+    form: schreiben
+  lx0053:
+    form: sprechen
+  lx0054:
+    form: verstehen
+  lx0055:
+    form: wiederholen
+  lx0056:
+    form: Antwort
+    article: die
+    gender: f
+  lx0057:
+    form: Buchstabe
+    article: der
+    gender: m
+  lx0058:
+    form: Deutsch
+    article: das
+    gender: n
+  lx0059:
+    form: Frage
+    article: die
+    gender: f
+  lx0060:
+    form: Satz
+    article: der
+    gender: m
+  lx0061:
+    form: Sprache
+    article: die
+    gender: f
+  lx0062:
+    form: Wort
+    article: das
+    gender: n
+  # Сравнительные lieber/am liebsten изучаются как формы, не отдельные записи.
+  lx0063:
+    form: gern
+  lx0064:
+    form: leider
+  lx0065:
+    form: vielleicht
+  lx0066:
+    form: wann
+  lx0067:
+    form: warum
+  lx0068:
+    form: wie
+  lx0069:
+    form: wieder
+  lx0070:
+    form: wo
+  lx0071:
+    form: woher
+  lx0072:
+    form: wohin
+  lx0228:
+    form: etwas
+  lx0229:
+    form: jemand
+  lx0230:
+    form: nichts
+  lx0231:
+    form: niemand
+  lx0232:
+    form: alle
+  lx0233:
+    form: anderer
+  lx0234:
+    form: beide
+  lx0235:
+    form: bisschen
+  lx0236:
+    form: einige
+  lx0237:
+    form: jeder
+  lx0238:
+    form: welcher
+  lx0239:
+    form: ab
+  lx0240:
+    form: bei
+  lx0241:
+    form: durch
+  lx0242:
+    form: gegen
+  lx0243:
+    form: hinter
+  lx0244:
+    form: nach
+  lx0245:
+    form: neben
+  lx0246:
+    form: ohne
+  lx0247:
+    form: pro
+  lx0248:
+    form: seit
+  lx0249:
+    form: über
+  lx0250:
+    form: um
+  lx0251:
+    form: unter
+  lx0252:
+    form: vor
+  lx0253:
+    form: zwischen
+  lx0254:
+    form: als
+  lx0255:
+    form: bis
+  lx0256:
+    form: dass
+  lx0257:
+    form: weil
+  lx0258:
+    form: wenn
+  lx0259:
+    form: anrufen
+  lx0260:
+    form: bedeuten
+  lx0261:
+    form: begrüßen
+  lx0262:
+    form: bitten
+  lx0263:
+    form: danken
+  # Употребление: sich entschuldigen; jemanden entschuldigen
+  lx0264:
+    form: entschuldigen
+  lx0265:
+    form: erklären
+  lx0266:
+    form: erzählen
+  lx0267:
+    form: grüßen
+  lx0268:
+    form: meinen
+  lx0269:
+    form: nennen
+  lx0270:
+    form: reden
+  lx0271:
+    form: stimmen
+  lx0272:
+    form: telefonieren
+  # Употребление: sich verabschieden; jemanden verabschieden
+  lx0273:
+    form: verabschieden
+  lx0274:
+    form: zuhören
+  lx0275:
+    form: Anruf
+    article: der
+    gender: m
+  lx0276:
+    form: Aussprache
+    article: die
+    gender: f
+  lx0277:
+    form: Bedeutung
+    article: die
+    gender: f
+  lx0278:
+    form: Beispiel
+    article: das
+    gender: n
+  lx0279:
+    form: Brief
+    article: der
+    gender: m
+  lx0280:
+    form: Entschuldigung
+    article: die
+    gender: f
+  lx0281:
+    form: Erklärung
+    article: die
+    gender: f
+  lx0282:
+    form: Gespräch
+    article: das
+    gender: n
+  lx0283:
+    form: Gruß
+    article: der
+    gender: m
+  lx0284:
+    form: Information
+    article: die
+    gender: f
+  lx0285:
+    form: Muttersprache
+    article: die
+    gender: f
+  lx0286:
+    form: Nachricht
+    article: die
+    gender: f
+  lx0287:
+    form: Telefonat
+    article: das
+    gender: n
+  lx0288:
+    form: Text
+    article: der
+    gender: m
+  lx0289:
+    form: Thema
+    article: das
+    gender: n
+  lx0290:
+    form: Übersetzung
+    article: die
+    gender: f
+  lx0291:
+    form: Wörterbuch
+    article: das
+    gender: n
+  lx0292:
+    form: deutlich
+  lx0293:
+    form: höflich
+  lx0294:
+    form: langsam
+  lx0295:
+    form: laut
+  lx0296:
+    form: leise
+  lx0297:
+    form: bestimmt
+  lx0298:
+    form: ebenfalls
+  lx0299:
+    form: echt
+  lx0300:
+    form: erst
+  lx0301:
+    form: gar
+  lx0302:
+    form: hoffentlich
+  lx0303:
+    form: nochmals
+  lx0304:
+    form: nun
+  lx0305:
+    form: selbst
+  lx0306:
+    form: sogar
+  lx0307:
+    form: sonst
+  lx0308:
+    form: weshalb
+  lx0309:
+    form: wieso
+  lx0310:
+    form: wohl
+  lx0838:
+    form: einander
+  lx0839:
+    form: mancher
+  lx0840:
+    form: mehrere
+  lx0841:
+    form: sämtlich
+  lx0842:
+    form: bevor
+  lx0843:
+    form: damit
+  lx0844:
+    form: denn
+  lx0845:
+    form: entweder
+  lx0846:
+    form: falls
+  lx0847:
+    form: nachdem
+  lx0848:
+    form: ob
+  lx0849:
+    form: obwohl
+  lx0850:
+    form: seitdem
+  lx0851:
+    form: sobald
+  lx0852:
+    form: sodass
+  lx0853:
+    form: sondern
+  lx0854:
+    form: sowohl
+  lx0855:
+    form: während
+  lx0856:
+    form: weder
+  lx0857:
+    form: ablehnen
+  lx0858:
+    form: ausreden
+  lx0859:
+    form: aussprechen
+  lx0860:
+    form: berichten
+  lx0861:
+    form: beschreiben
+  lx0862:
+    form: besprechen
+  lx0863:
+    form: diktieren
+  lx0864:
+    form: einladen
+  lx0865:
+    form: empfehlen
+  lx0866:
+    form: lügen
+  lx0867:
+    form: mitteilen
+  lx0868:
+    form: nachfragen
+  lx0869:
+    form: 'sich bedanken'
+  lx0870:
+    form: 'sich beschweren'
+  lx0871:
+    form: übersetzen
+  lx0872:
+    form: versprechen
+  lx0873:
+    form: vorlesen
+  lx0874:
+    form: vorschlagen
+  lx0875:
+    form: zustimmen
+  lx0876:
+    form: Akzent
+    article: der
+    gender: m
+  lx0877:
+    form: Anrede
+    article: die
+    gender: f
+  lx0878:
+    form: Ausdruck
+    article: der
+    gender: m
+  lx0879:
+    form: Auskunft
+    article: die
+    gender: f
+  lx0880:
+    form: Betonung
+    article: die
+    gender: f
+  lx0881:
+    form: Dialekt
+    article: der
+    gender: m
+  lx0882:
+    form: Dialog
+    article: der
+    gender: m
+  lx0883:
+    form: Einladung
+    article: die
+    gender: f
+  lx0884:
+    form: Grammatik
+    article: die
+    gender: f
+  lx0885:
+    form: Kompliment
+    article: das
+    gender: n
+  lx0886:
+    form: Liste
+    article: die
+    gender: f
+  lx0887:
+    form: Missverständnis
+    article: das
+    gender: n
+  lx0888:
+    form: Mitteilung
+    article: die
+    gender: f
+  lx0889:
+    form: Ratschlag
+    article: der
+    gender: m
+  lx0890:
+    form: Rückfrage
+    article: die
+    gender: f
+  lx0891:
+    form: Silbe
+    article: die
+    gender: f
+  lx0892:
+    form: Stichwort
+    article: das
+    gender: n
+  lx0893:
+    form: Stimme
+    article: die
+    gender: f
+  lx0894:
+    form: Unterhaltung
+    article: die
+    gender: f
+  lx0895:
+    form: Wortschatz
+    article: der
+    gender: m
+  lx0896:
+    form: fremdsprachig
+  lx0897:
+    form: mündlich
+  lx0898:
+    form: schriftlich
+  lx0899:
+    form: unverständlich
+  lx0900:
+    form: verständlich
+  lx0901:
+    form: allerdings
+  lx0902:
+    form: also
+  lx0903:
+    form: bloß
+  lx0904:
+    form: dabei
+  lx0905:
+    form: dadurch
+  lx0906:
+    form: dafür
+  lx0907:
+    form: dagegen
+  lx0908:
+    form: daher
+  lx0909:
+    form: daran
+  lx0910:
+    form: darauf
+  lx0911:
+    form: darin
+  lx0912:
+    form: darum
+  lx0913:
+    form: davon
+  lx0914:
+    form: dazu
+  lx0915:
+    form: deshalb
+  lx0916:
+    form: deswegen
+  lx0917:
+    form: eigentlich
+  lx0918:
+    form: jedenfalls
+  lx0919:
+    form: nämlich
+  lx0920:
+    form: sowieso
+  lx0921:
+    form: trotzdem
+  lx0922:
+    form: überhaupt
+  lx0923:
+    form: übrigens
+  lx0924:
+    form: wenigstens
+  lx0925:
+    form: wobei
+  lx0926:
+    form: wofür
+  lx0927:
+    form: womit
+  lx0928:
+    form: woran
+  lx0929:
+    form: worauf
+  lx0930:
+    form: worüber
+  lx0931:
+    form: worum
+  lx0932:
+    form: wozu
+  lx2287:
+    form: irgendwas
+  lx2288:
+    form: irgendwer
+  lx2289:
+    form: irgendein
+  lx2290:
+    form: irgendwelcher
+  lx2291:
+    form: anhand
+  lx2292:
+    form: außer
+  lx2293:
+    form: außerhalb
+  lx2294:
+    form: einschließlich
+  lx2295:
+    form: innerhalb
+  lx2296:
+    form: mithilfe
+  lx2297:
+    form: statt
+  lx2298:
+    form: trotz
+  lx2299:
+    form: wegen
+  lx2300:
+    form: sofern
+  lx2301:
+    form: solange
+  lx2302:
+    form: sowie
+  lx2303:
+    form: halt
+  lx2304:
+    form: ankündigen
+  lx2305:
+    form: ausdrücken
+  lx2306:
+    form: ausrichten
+  lx2307:
+    form: behaupten
+  lx2308:
+    form: betonen
+  lx2309:
+    form: diskutieren
+  lx2310:
+    form: erläutern
+  lx2311:
+    form: erwähnen
+  lx2312:
+    form: flüstern
+  lx2313:
+    form: formulieren
+  lx2314:
+    form: missverstehen
+  lx2315:
+    form: plaudern
+  lx2316:
+    form: rufen
+  lx2317:
+    form: scherzen
+  lx2318:
+    form: schreien
+  lx2319:
+    form: schweigen
+  lx2320:
+    form: überreden
+  lx2321:
+    form: überzeugen
+  lx2322:
+    form: umschreiben
+  lx2323:
+    form: unterbrechen
+  lx2324:
+    form: verhandeln
+  lx2325:
+    form: vermitteln
+  lx2326:
+    form: warnen
+  lx2327:
+    form: widersprechen
+  lx2328:
+    form: zurückrufen
+  lx2329:
+    form: zusammenfassen
+  lx2330:
+    form: Ablehnung
+    article: die
+    gender: f
+  lx2331:
+    form: Andeutung
+    article: die
+    gender: f
+  lx2332:
+    form: Argument
+    article: das
+    gender: n
+  lx2333:
+    form: Aufforderung
+    article: die
+    gender: f
+  lx2334:
+    form: Aussage
+    article: die
+    gender: f
+  lx2335:
+    form: Behauptung
+    article: die
+    gender: f
+  lx2336:
+    form: Debatte
+    article: die
+    gender: f
+  lx2337:
+    form: Diskussion
+    article: die
+    gender: f
+  lx2338:
+    form: Einwand
+    article: der
+    gender: m
+  lx2339:
+    form: Fremdsprache
+    article: die
+    gender: f
+  lx2340:
+    form: Gesprächspartner
+    article: der
+    gender: m
+  lx2341:
+    form: Hinweis
+    article: der
+    gender: m
+  lx2342:
+    form: Höflichkeit
+    article: die
+    gender: f
+  lx2343:
+    form: Redebeitrag
+    article: der
+    gender: m
+  lx2344:
+    form: Rückmeldung
+    article: die
+    gender: f
+  lx2345:
+    form: Sprecher
+    article: der
+    gender: m
+  lx2346:
+    form: Tonfall
+    article: der
+    gender: m
+  lx2347:
+    form: Unterbrechung
+    article: die
+    gender: f
+  lx2348:
+    form: Verhandlung
+    article: die
+    gender: f
+  lx2349:
+    form: Verständigung
+    article: die
+    gender: f
+  lx2350:
+    form: Warnung
+    article: die
+    gender: f
+  lx2351:
+    form: Wortlaut
+    article: der
+    gender: m
+  lx2352:
+    form: Zusammenfassung
+    article: die
+    gender: f
+  lx2353:
+    form: Zustimmung
+    article: die
+    gender: f
+  lx2354:
+    form: Zweitsprache
+    article: die
+    gender: f
+  lx2355:
+    form: direkt
+  lx2356:
+    form: gesprächig
+  lx2357:
+    form: indirekt
+  lx2358:
+    form: sachlich
+  lx2359:
+    form: sonstig
+  lx2360:
+    form: wortlos
+  lx2361:
+    form: zweisprachig
+  lx2362:
+    form: andererseits
+  lx2363:
+    form: ausnahmsweise
+  lx2364:
+    form: außerdem
+  lx2365:
+    form: beispielsweise
+  lx2366:
+    form: beziehungsweise
+  lx2367:
+    form: dennoch
+  lx2368:
+    form: desto
+  lx2369:
+    form: einerseits
+  lx2370:
+    form: hingegen
+  lx2371:
+    form: immerhin
+  lx2372:
+    form: irgendwoher
+  lx2373:
+    form: irgendwohin
+  lx2374:
+    form: je
+  lx2375:
+    form: ohnehin
+  lx2376:
+    form: stattdessen
+  lx2377:
+    form: umso
+  lx2378:
+    form: vielmehr
+  lx2379:
+    form: weswegen
+  lx2380:
+    form: wodurch
+  lx2381:
+    form: wogegen
+  lx2382:
+    form: womöglich
+  lx2383:
+    form: worin
+  lx2384:
+    form: wovon
+  lx2385:
+    form: zugleich
+  lx2386:
+    form: zumindest
+  lx4145:
+    form: angesichts
+  lx4146:
+    form: bezüglich
+  lx4147:
+    form: hinsichtlich
+  lx4148:
+    form: mangels
+  lx4149:
+    form: mittels
+  lx4150:
+    form: seitens
+  lx4151:
+    form: ungeachtet
+  lx4152:
+    form: zufolge
+  lx4153:
+    form: zugunsten
+  lx4154:
+    form: zulasten
+  lx4155:
+    form: zwecks
+  lx4156:
+    form: indem
+  lx4157:
+    form: obgleich
+  lx4158:
+    form: wenngleich
+  lx4159:
+    form: zumal
+  lx4160:
+    form: ansprechen
+  lx4161:
+    form: argumentieren
+  lx4162:
+    form: bekräftigen
+  lx4163:
+    form: bestreiten
+  lx4164:
+    form: differenzieren
+  lx4165:
+    form: einleiten
+  lx4166:
+    form: einwenden
+  lx4167:
+    form: entgegnen
+  lx4168:
+    form: erwidern
+  lx4169:
+    form: hinterfragen
+  lx4170:
+    form: nachhaken
+  lx4171:
+    form: paraphrasieren
+  lx4172:
+    form: präzisieren
+  lx4173:
+    form: relativieren
+  lx4174:
+    form: schlichten
+  lx4175:
+    form: schlussfolgern
+  lx4176:
+    form: überleiten
+  lx4177:
+    form: unterstellen
+  lx4178:
+    form: verallgemeinern
+  lx4179:
+    form: veranschaulichen
+  lx4180:
+    form: verdeutlichen
+  lx4181:
+    form: verweisen
+  lx4182:
+    form: Ausdrucksweise
+    article: die
+    gender: f
+  lx4183:
+    form: Äußerung
+    article: die
+    gender: f
+  lx4184:
+    form: Fachsprache
+    article: die
+    gender: f
+  lx4185:
+    form: Gegenfrage
+    article: die
+    gender: f
+  lx4186:
+    form: Gesprächsführung
+    article: die
+    gender: f
+  lx4187:
+    form: Gestik
+    article: die
+    gender: f
+  lx4188:
+    form: Körpersprache
+    article: die
+    gender: f
+  lx4189:
+    form: Mehrdeutigkeit
+    article: die
+    gender: f
+  lx4190:
+    form: Mehrsprachigkeit
+    article: die
+    gender: f
+  lx4191:
+    form: Mimik
+    article: die
+    gender: f
+  lx4192:
+    form: Redefluss
+    article: der
+    gender: m
+  lx4193:
+    form: Redewendung
+    article: die
+    gender: f
+  lx4194:
+    form: Sprachbarriere
+    article: die
+    gender: f
+  lx4195:
+    form: Sprachgefühl
+    article: das
+    gender: n
+  lx4196:
+    form: Stellungnahme
+    article: die
+    gender: f
+  lx4197:
+    form: Umgangssprache
+    article: die
+    gender: f
+  lx4198:
+    form: Unterton
+    article: der
+    gender: m
+  lx4199:
+    form: Verständlichkeit
+    article: die
+    gender: f
+  lx4200:
+    form: Wortwahl
+    article: die
+    gender: f
+  lx4201:
+    form: Wortwechsel
+    article: der
+    gender: m
+  lx4202:
+    form: Zitat
+    article: das
+    gender: n
+  lx4203:
+    form: ausdrucksstark
+  lx4204:
+    form: differenziert
+  lx4205:
+    form: eindeutig
+  lx4206:
+    form: missverständlich
+  lx4207:
+    form: nonverbal
+  lx4208:
+    form: respektvoll
+  lx4209:
+    form: schlüssig
+  lx4210:
+    form: umgangssprachlich
+  lx4211:
+    form: wortgewandt
+  lx4212:
+    form: andernfalls
+  lx4213:
+    form: dementsprechend
+  lx4214:
+    form: demnach
+  lx4215:
+    form: folglich
+  lx4216:
+    form: gleichwohl
+  lx4217:
+    form: insofern
+  lx4218:
+    form: nichtsdestotrotz
+  lx4219:
+    form: sinngemäß
+  lx4220:
+    form: wohlgemerkt
