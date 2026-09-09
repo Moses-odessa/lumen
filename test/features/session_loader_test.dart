@@ -341,8 +341,15 @@ void main() {
       );
 
       expect(question, isNotNull);
-      // Все слова вынуты: в скелете не осталось ни одного слова.
-      expect(question!.prompt.replaceAll('_____', '').trim(), isEmpty);
+      // Все слова вынуты: в скелете не осталось ничего, кроме знаков
+      // препинания. Знаки остаются на месте — они принадлежат предложению, а
+      // не слову, и на плитку не уезжают.
+      expect(
+        question!.prompt
+            .replaceAll('_____', '')
+            .replaceAll(RegExp(r'[\s.,!?;:…«»„“”()\[\]]'), ''),
+        isEmpty,
+      );
       expect(question.options.length, question.slotCount);
       expect(question.slotCount,
           greaterThan(SessionBalance.phraseGapsMin),
@@ -373,16 +380,92 @@ void main() {
 
       expect(question, isNotNull);
       for (final answer in answers) {
-        // Плитка несёт слово ровно как в предложении — со знаком препинания,
-        // если он к нему прилип («rechts.»). Это немецкая орфография, ей и
-        // учит сборка предложения; заодно точка говорит, какое слово
-        // последнее, а заглавная — какое первое.
+        // Плитка несёт слово, а знак препинания остаётся в предложении.
+        // Заглавная при этом на плитке остаётся: это орфография слова в этом
+        // предложении, и ей сборка как раз учит.
         expect(
           question!.options.any((o) => o.contains(answer)),
           isTrue,
           reason: 'слово фразы «$answer» не вынуто: ${question.options}',
         );
       }
+    });
+  });
+
+  group('знаки препинания', () {
+    test('знак остаётся в предложении, а на плитке — слово', () async {
+      // С устройства: плитка читалась как «Penicillin.» — со точкой, то есть
+      // вместе с концом предложения. Игрок видел, куда её ставить, ещё не
+      // решив задание, а обещание при этом было неверное: точка принадлежит
+      // предложению, как запятая и вопросительный знак, а не слову.
+      //
+      // Проверяется по всему запущенному корпусу и на самой большой глубине:
+      // при максимуме пропусков вынуто каждое слово, значит каждое слово
+      // корпуса проходит через плитку.
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(17),
+      );
+
+      final marks = RegExp(r'^[.,!?;:…«»„“”()\[\]]|[.,!?;:…«»„“”()\[\]]\$');
+      var checked = 0;
+
+      for (final constellation in await content.constellations()) {
+        final phrases = await content.phrasesFor(
+          constellation,
+          Tier.a0,
+          lang: 'de',
+        );
+        for (final phrase in phrases) {
+          final question = await builder.buildPhraseQuestion(
+            phrase: phrase,
+            lumens: 0,
+            gaps: SessionBalance.phraseGapsAll,
+          );
+          if (question == null) continue; // короткие отбрасывает выбор
+          checked++;
+
+          for (final option in question.options) {
+            expect(marks.hasMatch(option), isFalse,
+                reason: '${phrase.id}: на плитке знак препинания — «\$option»');
+          }
+
+          // И главное: собранное предложение по-прежнему то самое. Знак не
+          // потерялся и не удвоился — он остался в скелете там, где стоял.
+          expect(question.assembled, question.answerSpeech,
+              reason: '${phrase.id}: сборка разошлась с предложением');
+        }
+      }
+
+      expect(checked, greaterThan(20), reason: 'корпус не прочитан');
+    });
+
+    test('дефис остаётся частью слова, а запятая при нём — нет', () async {
+      // «Renten-, Kranken- und Pflegekasse gehören zur Sozialversicherung.» —
+      // единственное место в корпусе, где на краю слова стоят сразу два
+      // знака. Дефис здесь часть слова, а не знак при нём: снять надо
+      // запятую и только её.
+      final row = await content.phrase('work_b2_socialinsurance');
+      if (row == null) return; // фраза живёт на незапущенном ярусе
+
+      final builder = QuestionBuilder(
+        content: content,
+        targetLang: 'de',
+        nativeLang: 'uk',
+        random: Random(19),
+      );
+      final question = await builder.buildPhraseQuestion(
+        phrase: row,
+        lumens: 0,
+        gaps: SessionBalance.phraseGapsAll,
+      );
+
+      expect(question, isNotNull);
+      expect(question!.options, contains('Renten-'));
+      expect(question.options, contains('Kranken-'));
+      expect(question.assembled, question.answerSpeech);
     });
   });
 

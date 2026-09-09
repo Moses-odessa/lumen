@@ -248,12 +248,20 @@ class QuestionBuilder {
     final tokens = _tokenise(phrase.template, answers);
     if (tokens.words.length < SessionBalance.phraseMinWords) return null;
 
-    final chosen = _pickGaps(tokens, gaps, partial: partial);
+    // Знаки препинания снимаются со слов заранее: плитка несёт слово, а знак
+    // остаётся в предложении.
+    final bare = [for (final word in tokens.words) _bare(word)];
+    final gappable = [
+      for (var i = 0; i < bare.length; i++)
+        if (bare[i].core.isNotEmpty) i
+    ];
+
+    final chosen = _pickGaps(tokens, gaps, partial: partial, gappable: gappable);
     if (chosen.length < SessionBalance.phraseGapsMin) return null;
 
     // Пул — ровно вынутые слова, перемешанные. Порядок в пуле случаен, но
     // состав задан: игрок видит то, что вынуто, и ничего больше.
-    final pool = [for (final i in chosen) tokens.words[i]]..shuffle(_random);
+    final pool = [for (final i in chosen) bare[i].core]..shuffle(_random);
 
     // Индексы ищутся по неиспользованным вхождениям, а не через `indexOf`:
     // слово в предложении может повторяться («Das ist ein guter Preis für so
@@ -264,18 +272,22 @@ class QuestionBuilder {
     final used = <int>{};
     final bySlot = <int>[];
     for (final i in chosen) {
-      final index = _firstUnused(pool, tokens.words[i], used);
+      final index = _firstUnused(pool, bare[i].core, used);
       if (index < 0) return null;
       used.add(index);
       bySlot.add(index);
     }
 
-    // Скелет: слова на месте, вынутые — пропусками. При максимуме пропусков
-    // это строка из одних пропусков, и отдельного вида центра для неё не
-    // нужно: тот же виджет рисует и её.
+    // Скелет: слова на месте, вынутые — пропусками, а знаки препинания
+    // остаются там, где стояли. При максимуме пропусков это строка из одних
+    // пропусков со знаками, и отдельного вида центра для неё не нужно: тот же
+    // виджет рисует и её.
     final skeleton = [
       for (var i = 0; i < tokens.words.length; i++)
-        chosen.contains(i) ? '_____' : tokens.words[i]
+        if (chosen.contains(i))
+          '${bare[i].prefix}_____${bare[i].suffix}'
+        else
+          tokens.words[i]
     ].join(' ');
 
     return CircleQuestion(
@@ -283,7 +295,7 @@ class QuestionBuilder {
       tier: Tier.fromCode(phrase.tier),
       // Имя механики — от того, всё ли вынуто: игрок видит разные задания,
       // и статистика с этапами их различают.
-      mode: chosen.length == tokens.words.length
+      mode: chosen.length == gappable.length
           ? GameMode.buildPhrase
           : GameMode.fillGaps,
       prompt: skeleton,
@@ -300,9 +312,9 @@ class QuestionBuilder {
   /// Слова предложения и позиции тех, что несут пропуск шаблона.
   ///
   /// Режется **шаблон**, а не готовое предложение: только так известно, какое
-  /// слово фраза учит. Знак препинания при этом никуда не уезжает — он и так
-  /// прилип к слову (`"{water}."` → `"Wasser."`), поэтому один пропуск
-  /// шаблона это ровно одно слово.
+  /// слово фраза учит. Слово при этом остаётся со своим знаком препинания
+  /// (`"{water}."` → `"Wasser."`) — разделяет их [_bare], и только для тех
+  /// слов, которые вынимаются в пул.
   static ({List<String> words, Set<int> taught}) _tokenise(
     String template,
     List<String> answers,
@@ -339,8 +351,9 @@ class QuestionBuilder {
     ({List<String> words, Set<int> taught}) tokens,
     int gaps, {
     required bool partial,
+    required List<int> gappable,
   }) {
-    final total = tokens.words.length;
+    final total = gappable.length;
     // Ноль означает «все слова», а не «ноль пропусков»: это максимум шкалы,
     // то самое «собери предложение». Прогонять его через `clamp` нельзя —
     // ноль превратился бы в минимум, и самая трудная настройка стала бы самой
@@ -358,10 +371,11 @@ class QuestionBuilder {
         ? total
         : gaps.clamp(SessionBalance.phraseGapsMin, ceiling);
 
-    final chosen = <int>{...tokens.taught.where((i) => i < total)};
+    final gaps0 = gappable.toSet();
+    final chosen = <int>{...tokens.taught.where(gaps0.contains)};
     if (chosen.length < wanted) {
       final rest = [
-        for (var i = 0; i < total; i++)
+        for (final i in gappable)
           if (!chosen.contains(i)) i
       ]..shuffle(_random);
       for (final i in rest) {
@@ -371,6 +385,38 @@ class QuestionBuilder {
     }
     return chosen.toList()..sort();
   }
+
+  /// Слово и знаки препинания вокруг него.
+  ///
+  /// Плитка несёт **слово**, а знак остаётся в предложении. Плитка
+  /// «Penicillin.» — с точкой — читалась как ответ вместе с концом
+  /// предложения: игрок видел, куда её надо ставить, ещё не решив задание.
+  /// Это же и обещание неверное: точка принадлежит предложению, как и запятая
+  /// с вопросительным знаком, а не слову.
+  ///
+  /// Снимаются только те знаки, которые в корпусе действительно стоят по
+  /// краям слова: `. ? , :` — и на всякий случай кавычки со скобками. Дефис
+  /// НЕ снимается: «Renten-, Kranken- und Pflegekasse» — там он часть слова,
+  /// а не знак при нём, и запятую с него снять надо, а дефис оставить.
+  /// Апостроф тоже: «geht's» несёт его внутри, и слово без него — не слово.
+  static ({String prefix, String core, String suffix}) _bare(String token) {
+    var start = 0;
+    var end = token.length;
+    while (start < end && _edgeMarks.contains(token[start])) {
+      start++;
+    }
+    while (end > start && _edgeMarks.contains(token[end - 1])) {
+      end--;
+    }
+    return (
+      prefix: token.substring(0, start),
+      core: token.substring(start, end),
+      suffix: token.substring(end),
+    );
+  }
+
+  /// Знаки, которые считаются знаками **при** слове, а не его частью.
+  static const _edgeMarks = '.,!?;:…«»„“”()[]';
 
   static int _firstUnused(List<String> pool, String word, Set<int> used) {
     for (var i = 0; i < pool.length; i++) {
