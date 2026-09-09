@@ -160,6 +160,77 @@ void main() {
         expect(await db.needsItemSweep(), isFalse);
       });
     });
+
+    group('время и дни', () {
+      test('дни подряд считаются от сегодня или от вчера', () async {
+        // Вчера тоже считается началом: серия не должна обрываться в
+        // полночь у человека, который просто ещё не садился за игру.
+        final now = DateTime(2026, 9, 9, 14);
+
+        Future<void> played(DateTime at) => db.saveSession(
+              SessionsCompanion.insert(
+                startedAt: at,
+                durationMs: 300000,
+                lmGained: 10,
+                score: 100,
+                newWords: 0,
+              ),
+            );
+
+        // Три дня подряд, кончая вчерашним, плюс разрыв и старый день.
+        await played(DateTime(2026, 9, 8, 10));
+        await played(DateTime(2026, 9, 7, 10));
+        await played(DateTime(2026, 9, 6, 10));
+        await played(DateTime(2026, 9, 3, 10));
+
+        final time = await db.loadPlayTime(now);
+        expect(time.streak, 3, reason: 'разрыв не оборвал серию');
+        expect(time.days, 4);
+        expect(time.sessions, 4);
+        expect(time.total, const Duration(minutes: 20));
+      });
+
+      test('две сессии в один день — это один день', () async {
+        final now = DateTime(2026, 9, 9, 20);
+        for (final hour in [9, 14]) {
+          await db.saveSession(SessionsCompanion.insert(
+            startedAt: DateTime(2026, 9, 9, hour),
+            durationMs: 60000,
+            lmGained: 5,
+            score: 50,
+            newWords: 0,
+          ));
+        }
+
+        final time = await db.loadPlayTime(now);
+        expect(time.days, 1);
+        expect(time.sessions, 2);
+        expect(time.streak, 1);
+        expect(time.perDay, const Duration(minutes: 2));
+      });
+
+      test('давняя игра серии не даёт', () async {
+        await db.saveSession(SessionsCompanion.insert(
+          startedAt: DateTime(2026, 8, 1),
+          durationMs: 60000,
+          lmGained: 5,
+          score: 50,
+          newWords: 0,
+        ));
+
+        final time = await db.loadPlayTime(DateTime(2026, 9, 9));
+        expect(time.streak, 0);
+        expect(time.days, 1);
+      });
+
+      test('пустая история — пустые итоги', () async {
+        final time = await db.loadPlayTime(DateTime(2026, 9, 9));
+        expect(time.isEmpty, isTrue);
+        expect(time.streak, 0);
+        expect(time.total, Duration.zero);
+      });
+
+    });
   });
 
   group('content.db', () {

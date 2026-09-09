@@ -137,10 +137,18 @@ final dictionaryProvider = FutureProvider<List<DictionaryEntry>>((ref) async {
     for (final row in await db.loadWordStates()) row.itemId: row,
   };
 
+  // Лексемы читаются двумя запросами на язык, а не двумя на слово.
+  //
+  // Раньше цикл ниже спрашивал базу по лексеме на концепт: 1728
+  // последовательных ожиданий на сегодняшних 864 концептах и почти
+  // тринадцать тысяч на 6299 — то есть экран, который не открывается.
+  final targets = await content.lexemesFor(targetLang);
+  final natives = await content.lexemesFor(nativeLang);
+
   final entries = <DictionaryEntry>[];
   for (final concept in await content.conceptsUpTo(tier)) {
-    final target = await content.lexeme(concept.id, targetLang);
-    final native = await content.lexeme(concept.id, nativeLang);
+    final target = targets[concept.id];
+    final native = natives[concept.id];
     if (target == null || native == null) continue;
 
     final row = states[concept.id];

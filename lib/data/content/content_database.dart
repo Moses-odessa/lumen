@@ -272,6 +272,20 @@ class ContentDatabase extends _$ContentDatabase {
             ..where((t) => t.conceptId.equals(conceptId) & t.lang.equals(lang)))
           .getSingleOrNull();
 
+  /// Все лексемы языка одним запросом: concept_id → лексема.
+  ///
+  /// Нужно экранам, которые показывают список: словарь читал по лексеме на
+  /// концепт в цикле, то есть два запроса на слово. На 864 концептах это 1728
+  /// последовательных ожиданий и заметная пауза; на 6299 — почти тринадцать
+  /// тысяч, то есть экран, который не открывается.
+  ///
+  /// Индекс `lexemes_lang` заведён ровно под этот запрос.
+  Future<Map<String, LexemeRow>> lexemesFor(String lang) async {
+    final rows =
+        await (select(lexemes)..where((t) => t.lang.equals(lang))).get();
+    return {for (final row in rows) row.conceptId: row};
+  }
+
   /// Дистракторы концепта нужного типа: `far` — тема, `near` — созвучные.
   Future<List<DistractorRow>> distractorsFor(
     String conceptId,
