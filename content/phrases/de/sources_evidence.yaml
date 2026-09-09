@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: sources_evidence
+tiers:
+  b2:
+    - id: sources_evidence_b2_01
+      text: "Worauf stützt sich diese Behauptung?"
+    - id: sources_evidence_b2_02
+      text: "Gibt es Daten, die das bestätigen?"
+    - id: sources_evidence_b2_03
+      text: "Ich würde gern die Originalquelle prüfen."
+    - id: sources_evidence_b2_04
+      text: "Wann wurde diese Information veröffentlicht?"
+    - id: sources_evidence_b2_05
+      text: "Wer ist für den Inhalt verantwortlich?"
+    - id: sources_evidence_b2_06
+      text: "Ist das eine Tatsache oder eine Interpretation?"
+    - id: sources_evidence_b2_07
+      text: "Die Überschrift allein vermittelt kein vollständiges Bild."
+    - id: sources_evidence_b2_08
+      text: "Der Artikel nennt keine Quelle für die Zahlen."
+    - id: sources_evidence_b2_09
+      text: "Ein einzelnes Beispiel beweist noch nichts."
+    - id: sources_evidence_b2_10
+      text: "Ein Zusammenhang bedeutet nicht unbedingt eine Ursache-Wirkungs-Beziehung."
+    - id: sources_evidence_b2_11
+      text: "Man sollte mehrere unabhängige Quellen vergleichen."
+    - id: sources_evidence_b2_12
+      text: "Diese Ergebnisse lassen sich nicht automatisch verallgemeinern."
+    - id: sources_evidence_b2_13
+      text: "Den Angaben von ... zufolge ..."
+    - id: sources_evidence_b2_14
+      text: "Der Autor behauptet, dass ..., aber ..."
+    - id: sources_evidence_b2_15
+      text: "Die vorliegenden Daten deuten auf ... hin."
+    - id: sources_evidence_b2_16
+      text: "Wie zuverlässig ist ...?"
+    - id: sources_evidence_b2_17
+      text: "Es ist unklar, ob ... berücksichtigt wurde."
+    - id: sources_evidence_b2_18
+      text: "Ohne Informationen über ... lässt sich ... schwer beurteilen."
+    - id: sources_evidence_b2_19
+      text: "Das bestätigt ..., beweist aber nicht ..."
+    - id: sources_evidence_b2_20
+      text: "Ich würde überprüfen, ob Folgendes stimmt: ..."

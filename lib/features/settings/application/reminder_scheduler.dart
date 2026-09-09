@@ -50,8 +50,8 @@ class ReminderScheduler {
     final dimming = <String, int>{};
     var total = 0;
 
-    final constellationByConcept = {
-      for (final c in await content.conceptsUpTo(tier)) c.id: c.constellation,
+    final constellationByItem = {
+      for (final p in await content.phrasesUpTo(tier)) p.id: p.constellation,
     };
 
     for (final row in await db.loadWordStates()) {
@@ -68,7 +68,7 @@ class ReminderScheduler {
       if (lm >= LumenBand.flickering.minLm) continue;
       total++;
 
-      final constellation = constellationByConcept[row.itemId];
+      final constellation = constellationByItem[row.itemId];
       if (constellation != null) {
         dimming.update(constellation, (n) => n + 1, ifAbsent: () => 1);
       }

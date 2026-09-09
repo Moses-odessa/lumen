@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: needs_help
+tiers:
+  a0:
+    - id: needs_help_a0_01
+      text: "Ich brauche Hilfe."
+    - id: needs_help_a0_02
+      text: "Helfen Sie mir bitte."
+    - id: needs_help_a0_03
+      text: "Ich habe Durst."
+    - id: needs_help_a0_04
+      text: "Ich habe Hunger."
+    - id: needs_help_a0_05
+      text: "Ich bin müde."
+    - id: needs_help_a0_06
+      text: "Mir ist kalt."
+    - id: needs_help_a0_07
+      text: "Mir ist heiß."
+    - id: needs_help_a0_08
+      text: "Mir geht es nicht gut."
+    - id: needs_help_a0_09
+      text: "Wasser, bitte."
+    - id: needs_help_a0_10
+      text: "Darf ich?"
+    - id: needs_help_a0_11
+      text: "Ja, bitte."
+    - id: needs_help_a0_12
+      text: "Nein, danke."
+    - id: needs_help_a0_13
+      text: "Das reicht."
+    - id: needs_help_a0_14
+      text: "Nicht jetzt."
+    - id: needs_help_a0_15
+      text: "Ich bin bereit."
+    - id: needs_help_a0_16
+      text: "Vorsicht!"
+    - id: needs_help_a0_17
+      text: "Warten Sie bitte."
+    - id: needs_help_a0_18
+      text: "Ich brauche ..."
+    - id: needs_help_a0_19
+      text: "Ich möchte ..."
+    - id: needs_help_a0_20
+      text: "Ich habe kein ..."

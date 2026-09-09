@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/player.dart';
-import '../../domain/entities/tier.dart';
 import '../content/content_provider.dart';
 import '../local/app_database.dart';
 import '../local/database_provider.dart';
@@ -58,10 +57,11 @@ Future<void> _sweepIfNeeded(
   final lang = player?.targetLang ?? defaultTargetLang;
   final content = container.read(contentDatabaseProvider(lang));
 
-  final known = <String>{
-    for (final concept in await content.conceptsUpTo(Tier.b2)) concept.id,
-    ...await content.allPhraseIds(),
-  };
+  // Единицей изучения стала фраза, и id концептов, лежащие в памяти со
+  // словарных времён, контенту больше не соответствуют. Их убирает эта же
+  // чистка: она сравнивает память с тем, что есть в базе, и не знает, чем
+  // единица была раньше.
+  final known = await content.allPhraseIds();
   final removed = await db.sweepUnknownItems(known);
   if (removed > 0) {
     debugPrint('user.db: убрано $removed единиц памяти без контента');

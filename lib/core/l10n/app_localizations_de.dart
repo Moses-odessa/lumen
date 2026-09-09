@@ -93,9 +93,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calibrationHintConfirm => 'Wir prüfen noch einmal';
 
   @override
-  String get calibrationHintPhrases => 'Jetzt ganze Sätze';
-
-  @override
   String get calibrationHintDone => 'Fertig';
 
   @override
@@ -220,9 +217,6 @@ class AppLocalizationsDe extends AppLocalizations {
       'In der Inhaltsdatenbank gibt es keine Sternbilder für diese Stufe.';
 
   @override
-  String get skyDictionary => 'Wörterbuch';
-
-  @override
   String constellationLitOf(int lit, int total) {
     return '$lit von $total Sternen leuchten';
   }
@@ -247,21 +241,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String tierSuggestDown(String current, String target) {
     return '$current scheint schwer zu fallen. $target versuchen?';
   }
-
-  @override
-  String get dictionaryTitle => 'Wörterbuch';
-
-  @override
-  String get dictionarySearchHint => 'Ein Wort in einer der beiden Sprachen';
-
-  @override
-  String get dictionaryNothing => 'Nichts gefunden';
-
-  @override
-  String get dictionaryResetFilters => 'Filter zurücksetzen';
-
-  @override
-  String get dictionaryBurningFilter => 'leuchten';
 
   @override
   String get bandBurning => 'leuchtet';
@@ -656,21 +635,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Ebene $level · ×$multiplier';
   }
-
-  @override
-  String get promptTagAdverb => 'Adverb';
-
-  @override
-  String get promptTagAdjective => 'Adjektiv';
-
-  @override
-  String get promptTagUncountable => 'unzählbar';
-
-  @override
-  String get promptTagPluralOnly => 'nur Plural';
-
-  @override
-  String get promptTagUsuallyPlural => 'meist Plural';
 
   @override
   String get promptTagCasual => 'umgangssprachlich';

@@ -93,9 +93,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String get calibrationHintConfirm => 'Перевіряємо ще раз';
 
   @override
-  String get calibrationHintPhrases => 'Тепер цілі фрази';
-
-  @override
   String get calibrationHintDone => 'Готово';
 
   @override
@@ -218,9 +215,6 @@ class AppLocalizationsUk extends AppLocalizations {
       'У контентній базі немає сузір’їв для цього ярусу.';
 
   @override
-  String get skyDictionary => 'Словник';
-
-  @override
   String constellationLitOf(int lit, int total) {
     return '$lit із $total зір світять';
   }
@@ -245,21 +239,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String tierSuggestDown(String current, String target) {
     return 'Схоже, $current дається важко. Спробувати $target?';
   }
-
-  @override
-  String get dictionaryTitle => 'Словник';
-
-  @override
-  String get dictionarySearchHint => 'Слово будь-якою з двох мов';
-
-  @override
-  String get dictionaryNothing => 'Нічого не знайшлося';
-
-  @override
-  String get dictionaryResetFilters => 'Скинути фільтри';
-
-  @override
-  String get dictionaryBurningFilter => 'світять';
 
   @override
   String get bandBurning => 'світить';
@@ -653,21 +632,6 @@ class AppLocalizationsUk extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Рівень $level · ×$multiplier';
   }
-
-  @override
-  String get promptTagAdverb => 'прислівник';
-
-  @override
-  String get promptTagAdjective => 'прикметник';
-
-  @override
-  String get promptTagUncountable => 'незлічуване';
-
-  @override
-  String get promptTagPluralOnly => 'тільки множина';
-
-  @override
-  String get promptTagUsuallyPlural => 'зазвичай множина';
 
   @override
   String get promptTagCasual => 'розмовне';

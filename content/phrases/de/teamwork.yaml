@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: teamwork
+tiers:
+  b1:
+    - id: teamwork_b1_01
+      text: "Lassen Sie uns die Aufgaben verteilen."
+      register: formal
+    - id: teamwork_b1_02
+      text: "Ich kann das übernehmen."
+    - id: teamwork_b1_03
+      text: "Wer ist für diesen Teil verantwortlich?"
+    - id: teamwork_b1_04
+      text: "Was hat im Moment Vorrang?"
+    - id: teamwork_b1_05
+      text: "Ich arbeite daran."
+    - id: teamwork_b1_06
+      text: "Die Aufgabe ist fast erledigt."
+    - id: teamwork_b1_07
+      text: "Ich bin auf ein Problem gestoßen."
+    - id: teamwork_b1_08
+      text: "Ich brauche Ihre Entscheidung."
+    - id: teamwork_b1_09
+      text: "Ohne diese Daten kann ich nicht weitermachen."
+    - id: teamwork_b1_10
+      text: "Können Sie meinen Vorschlag prüfen?"
+    - id: teamwork_b1_11
+      text: "Ich werde Ihre Anmerkungen berücksichtigen."
+    - id: teamwork_b1_12
+      text: "Wir müssen den nächsten Schritt abstimmen."
+    - id: teamwork_b1_13
+      text: "Ich werde diese Frist nicht einhalten können."
+    - id: teamwork_b1_14
+      text: "Können wir den Arbeitsumfang reduzieren?"
+    - id: teamwork_b1_15
+      text: "Ich melde mich, sobald alles fertig ist."
+    - id: teamwork_b1_16
+      text: "Danke für die schnelle Rückmeldung."
+    - id: teamwork_b1_17
+      text: "Ich bin für ... verantwortlich."
+    - id: teamwork_b1_18
+      text: "Zum Abschluss brauche ich ..."
+    - id: teamwork_b1_19
+      text: "Wir haben vereinbart, dass ..."
+    - id: teamwork_b1_20
+      text: "Ich schlage vor, zuerst ... und dann ..."

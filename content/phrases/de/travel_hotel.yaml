@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: travel_hotel
+tiers:
+  a1:
+    - id: travel_hotel_a1_01
+      text: "Ich habe eine Reservierung."
+    - id: travel_hotel_a1_02
+      text: "Auf den Namen Kowalenko."
+    - id: travel_hotel_a1_03
+      text: "Ich brauche ein Zimmer für eine Nacht."
+    - id: travel_hotel_a1_04
+      text: "Ist ein Doppelzimmer frei?"
+    - id: travel_hotel_a1_05
+      text: "Ist das Frühstück inbegriffen?"
+    - id: travel_hotel_a1_06
+      text: "Um wie viel Uhr gibt es Frühstück?"
+    - id: travel_hotel_a1_07
+      text: "Wo ist mein Zimmer?"
+    - id: travel_hotel_a1_08
+      text: "Wie lautet das WLAN-Passwort?"
+    - id: travel_hotel_a1_09
+      text: "Der Schlüssel funktioniert nicht."
+    - id: travel_hotel_a1_10
+      text: "Kann ich noch ein Handtuch haben?"
+    - id: travel_hotel_a1_11
+      text: "Wo kann ich mein Gepäck lassen?"
+    - id: travel_hotel_a1_12
+      text: "Wann muss ich auschecken?"
+    - id: travel_hotel_a1_13
+      text: "Ich bleibe drei Tage."
+    - id: travel_hotel_a1_14
+      text: "Ich möchte das Museum besuchen."
+    - id: travel_hotel_a1_15
+      text: "Darf ich ein Foto machen?"
+    - id: travel_hotel_a1_16
+      text: "Hier ist es sehr schön."
+    - id: travel_hotel_a1_17
+      text: "Ich möchte ... buchen."
+    - id: travel_hotel_a1_18
+      text: "Die Reservierung gilt für ... Nächte."
+    - id: travel_hotel_a1_19
+      text: "Was kostet ... pro Nacht?"
+    - id: travel_hotel_a1_20
+      text: "Kann man hier ...?"

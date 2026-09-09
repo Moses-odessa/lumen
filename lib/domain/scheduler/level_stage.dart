@@ -72,53 +72,14 @@ abstract final class StageRules {
     LevelStage.reminder,
   ];
 
-  /// Сколько вариантов показывает этап.
-  ///
-  /// [extra] — надбавка захода. К знакомству она **не** применяется: круг с
-  /// одним вариантом на то и рассчитан, и добавить к нему второй значит
-  /// превратить показ в проверку слова, которого игрок ещё не видел.
-  static int optionsFor(LevelStage stage, {int extra = 0}) {
-    if (stage.isShowing) return SessionBalance.introductionOptions;
-    final base = switch (stage) {
-      LevelStage.introduction => SessionBalance.introductionOptions,
-      LevelStage.consolidation => StageBalance.consolidationOptions,
-      LevelStage.check => StageBalance.checkOptions,
-      LevelStage.reminder => StageBalance.reminderOptions,
-      LevelStage.sprint => StageBalance.sprintOptions,
-    };
-    return (base + extra).clamp(
-      ScoreBalance.optionsMin,
-      ScoreBalance.optionsMax + extra,
-    );
-  }
-
-  /// Сколько слов вынимать из фразы.
-  ///
-  /// Та же шкала сложности, что число вариантов в круге, и живёт она здесь по
-  /// той же причине: вариантность и глубина пропусков есть сложность, а
-  /// сложностью распоряжается тот, кто за неё отвечает. Сборщик знает только,
-  /// как вынуть.
-  ///
-  /// Ноль означает «все слова» — это и есть «собери предложение»: не отдельная
-  /// механика, а максимум этой шкалы. Раньше их было две, с двумя
-  /// реализациями, и реализации расходились.
-  ///
-  /// Надбавка захода прибавляется, как и к вариантам: закрывающая уровень
-  /// фраза обязана дорожать вместе с уровнем. Пока не прибавлялась, словесные
-  /// круги дорожали, а фраза — нет.
-  static int gapsFor(LevelStage stage, {int extra = 0}) {
-    final base = switch (stage) {
-      // Знакомство фразой не спрашивает: слово только что показали.
-      LevelStage.introduction => SessionBalance.phraseGapsMin,
-      LevelStage.consolidation => SessionBalance.phraseGapsMin,
-      LevelStage.check => SessionBalance.phraseGapsMin + 1,
-      LevelStage.reminder => SessionBalance.phraseGapsMin + 1,
-      // Спринт — финальная проверка темы: предложение целиком.
-      LevelStage.sprint => SessionBalance.phraseGapsAll,
-    };
-    if (base == SessionBalance.phraseGapsAll) return base;
-    return base + extra;
-  }
+  // `optionsFor` и `gapsFor` удалены вместе со шкалой сложности, которую они
+  // задавали. Вариантов в круге всегда шесть — на полном круге держится
+  // знакомство методом исключения; пропусков нет вовсе — вставки слов в
+  // предложение в игре больше нет.
+  //
+  // Сложность этапа осталась, но выражается она теперь только набором
+  // механик и порогом яркости: показ спрашивает узнавание, проверка —
+  // воспроизведение.
 
   /// Какими механиками этап спрашивает. `null` — любыми.
   static Set<GameMode>? mechanicsFor(LevelStage stage) => switch (stage) {
@@ -148,17 +109,15 @@ abstract final class StageRules {
           },
       };
 
-  /// Тематические варианты или созвучные.
-  static DistractorKind distractorFor(LevelStage stage) => switch (stage) {
-        LevelStage.check => DistractorKind.near,
-        _ => DistractorKind.far,
-      };
+  // `distractorFor` удалён вместе с рукописными дистракторами: вокруг фразы
+  // лежат другие фразы, которые игрок уже знает, и «тематический против
+  // созвучного» к ним не применимо.
 
-  /// Минимальная яркость слова для этапа.
+  /// Минимальная яркость фразы для этапа.
   ///
   /// Ноль у всех, кроме спринта: гонка идёт только по тому, что уже держится
-  /// в памяти. Слово ниже порога в спринт не попадает, даже если оно
-  /// просрочено сильнее остальных.
+  /// в памяти. Фраза ниже порога в спринт не попадает, даже если она
+  /// просрочена сильнее остальных.
   static Lumens minLumensFor(LevelStage stage) =>
       stage == LevelStage.sprint ? StageBalance.sprintMinLumens : 0;
 

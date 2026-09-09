@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: history_consequences
+tiers:
+  b1:
+    - id: history_consequences_b1_01
+      text: "Alles begann mit einem Missverständnis."
+    - id: history_consequences_b1_02
+      text: "Zuerst habe ich dem keine Bedeutung beigemessen."
+    - id: history_consequences_b1_03
+      text: "Später stellte sich heraus, dass die Information falsch war."
+    - id: history_consequences_b1_04
+      text: "Inzwischen hatten wir schon mit der Arbeit begonnen."
+    - id: history_consequences_b1_05
+      text: "Dadurch kam es zu einer Verzögerung."
+    - id: history_consequences_b1_06
+      text: "Wir beschlossen, den Plan zu ändern."
+    - id: history_consequences_b1_07
+      text: "Ich wusste nicht, wie ich darauf reagieren sollte."
+    - id: history_consequences_b1_08
+      text: "Ich brauchte Zeit, um das zu verstehen."
+    - id: history_consequences_b1_09
+      text: "Schließlich fanden wir eine Lösung."
+    - id: history_consequences_b1_10
+      text: "Diese Erfahrung hat mich viel gelehrt."
+    - id: history_consequences_b1_11
+      text: "Heute würde ich anders handeln."
+    - id: history_consequences_b1_12
+      text: "Am schwierigsten war es, neu anzufangen."
+    - id: history_consequences_b1_13
+      text: "Wir konnten die Situation nicht beeinflussen."
+    - id: history_consequences_b1_14
+      text: "Trotz der Schwierigkeiten machten wir weiter."
+    - id: history_consequences_b1_15
+      text: "Das wurde für mich zu einem Wendepunkt."
+    - id: history_consequences_b1_16
+      text: "Danach hat sich vieles verändert."
+    - id: history_consequences_b1_17
+      text: "Sobald wir ..., wurde klar, dass ..."
+    - id: history_consequences_b1_18
+      text: "Während ich ..., ..."
+    - id: history_consequences_b1_19
+      text: "Der Grund dafür, dass ..., war ..."
+    - id: history_consequences_b1_20
+      text: "Wenn ich damals ... gewusst hätte, ..."

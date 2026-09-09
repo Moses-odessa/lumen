@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: ecology_mobility
+tiers:
+  b1:
+    - id: ecology_mobility_b1_01
+      text: "Ich versuche, das Auto seltener zu benutzen."
+    - id: ecology_mobility_b1_02
+      text: "Die öffentlichen Verkehrsmittel sind hier praktisch."
+    - id: ecology_mobility_b1_03
+      text: "Mit dem Fahrrad bin ich oft schneller da."
+    - id: ecology_mobility_b1_04
+      text: "Man kann nicht überall ohne Auto auskommen."
+    - id: ecology_mobility_b1_05
+      text: "Ich nehme eine Mehrwegflasche mit."
+    - id: ecology_mobility_b1_06
+      text: "Wir trennen zu Hause unseren Müll."
+    - id: ecology_mobility_b1_07
+      text: "In welchen Müll gehört diese Verpackung?"
+    - id: ecology_mobility_b1_08
+      text: "Reparieren ist besser als Wegwerfen."
+    - id: ecology_mobility_b1_09
+      text: "Ich kaufe nur, was ich brauche."
+    - id: ecology_mobility_b1_10
+      text: "Wir werfen zu viele Lebensmittel weg."
+    - id: ecology_mobility_b1_11
+      text: "Das spart sowohl Geld als auch Ressourcen."
+    - id: ecology_mobility_b1_12
+      text: "Auch kleine Veränderungen machen einen Unterschied."
+    - id: ecology_mobility_b1_13
+      text: "Die Menschen brauchen bezahlbare Alternativen."
+    - id: ecology_mobility_b1_14
+      text: "Ich möchte wissen, woher dieses Produkt kommt."
+    - id: ecology_mobility_b1_15
+      text: "Hier werden mehr Grünflächen gebraucht."
+    - id: ecology_mobility_b1_16
+      text: "Es ist wichtig, nicht nur an heute zu denken."
+    - id: ecology_mobility_b1_17
+      text: "Um ... zu sparen, ..."
+    - id: ecology_mobility_b1_18
+      text: "Wenn es mehr ... gäbe, könnten die Menschen ..."
+    - id: ecology_mobility_b1_19
+      text: "Das Problem liegt nicht nur an ..., sondern auch an ..."
+    - id: ecology_mobility_b1_20
+      text: "In unserer Stadt fehlt ..."

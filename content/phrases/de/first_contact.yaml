@@ -1,0 +1,51 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: first_contact
+tiers:
+  a0:
+    - id: first_contact_a0_01
+      text: "Hallo!"
+      register: casual
+    - id: first_contact_a0_02
+      text: "Guten Morgen!"
+    - id: first_contact_a0_03
+      text: "Guten Abend!"
+    - id: first_contact_a0_04
+      text: "Gute Nacht!"
+    - id: first_contact_a0_05
+      text: "Auf Wiedersehen!"
+    - id: first_contact_a0_06
+      text: "Bis morgen!"
+    - id: first_contact_a0_07
+      text: "Bis bald!"
+    - id: first_contact_a0_08
+      text: "Wie geht's?"
+    - id: first_contact_a0_09
+      text: "Gut, danke."
+    - id: first_contact_a0_10
+      text: "Und dir?"
+    - id: first_contact_a0_11
+      text: "Freut mich."
+    - id: first_contact_a0_12
+      text: "Herzlich willkommen!"
+    - id: first_contact_a0_13
+      text: "Danke für die Hilfe."
+    - id: first_contact_a0_14
+      text: "Gern geschehen."
+    - id: first_contact_a0_15
+      text: "Entschuldigung."
+      register: formal
+    - id: first_contact_a0_16
+      text: "Es tut mir leid."
+    - id: first_contact_a0_17
+      text: "Kein Problem."
+    - id: first_contact_a0_18
+      text: "Schönen Tag noch!"
+    - id: first_contact_a0_19
+      text: "Danke für ..."
+    - id: first_contact_a0_20
+      text: "Bis ..."

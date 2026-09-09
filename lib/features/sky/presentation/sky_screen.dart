@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/analytics/analytics.dart';
-import '../../../core/router/app_router.dart';
 import '../../../core/theme/palette.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
@@ -38,11 +36,6 @@ class SkyScreen extends ConsumerWidget {
         appBar: AppBar(
           title: Text(l10n.skyTitle),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.list_alt_outlined),
-              tooltip: l10n.skyDictionary,
-              onPressed: () => context.push(Routes.dictionary),
-            ),
             switch (snapshot) {
               AsyncData(:final value) => Padding(
                 padding: const EdgeInsets.only(right: 16),

@@ -52,7 +52,7 @@ final databasesDiagnosticsProvider =
       userSchemaVersion: userDb.schemaVersion,
       userTablesOpened: userTablesOpened,
       contentLang: meta['lang'] ?? '—',
-      contentConcepts: await contentDb.countConcepts(),
+      contentConcepts: await contentDb.countPhrases(),
       contentMeta: meta,
     );
   } catch (e) {

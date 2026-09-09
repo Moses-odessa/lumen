@@ -4,7 +4,6 @@ library;
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:lumen/domain/entities/part_of_speech.dart' as domain;
 import 'package:lumen/domain/entities/prompt_tag.dart' as domain;
 
 import '../../tool/content_schema.dart';
@@ -19,6 +18,33 @@ import '../../tool/content_sources.dart';
 ///
 /// Главное, что здесь проверяется, — обещание «язык добавляется одним
 /// файлом». Обещание, не закрытое тестом, живёт до первой правки.
+///
+/// ── Что ушло вместе со словарным слоем ────────────────────────────────────
+///
+/// Пайплайн больше не читает ни `content/concepts/*.yaml`, ни секции
+/// `lexemes:` языковых файлов: единицей изучения стала фраза. Вместе с этим
+/// ушли пять проверок — три из них удалены совсем, у двух остался смысл, и он
+/// перенесён на нынешнее правило:
+///
+/// * «покрытие считается, а не берётся из файла» — `coverageOf` считал
+///   лексемы языка. Покрытие теперь это число переводов фраз, и вместо
+///   прежней проверки здесь стоит «язык без переводов читается»: у проекта
+///   ровно такие языки есть (`en`, `ru` — только заголовок), и требование
+///   секции `phrases:` уронило бы сборку на них.
+/// * «принимаемые порядки слов разбираются списком» — охраняла `orders:` и
+///   `acceptedOrders`: список законных сборок фразы из её же слов. Механики
+///   вставки слов в предложение больше нет, значит нет ни сборок, ни того,
+///   что можно было бы принять сверх шаблона.
+/// * «фразы рядом с концептами больше не принимаются» — охраняла запрет
+///   держать немецкое предложение в язык-нейтральном файле. Файлы концептов
+///   не читаются вовсе, поэтому запрещать в них нечего; смысл проверки —
+///   «фраза принадлежит языку» — перенесён на каталог фраз, см. «фраза лежит
+///   в каталоге своего языка».
+/// * «служебные слова» — две проверки: совпадение `functionWordPos` с набором
+///   приложения и `ConceptSource.isFunctionWord`. Обе решали, годится ли слово
+///   для круга с вариантами. У фразы части речи нет, а варианты вокруг неё —
+///   другие фразы, которые игрок уже знает. В пайплайне от этого не осталось
+///   ничего: ни набора, ни `ConceptSource`.
 void main() {
   group('язык — это файл', () {
     late Directory root;
@@ -32,24 +58,24 @@ void main() {
 
     test('добавление одного файла добавляет язык', () {
       final before = ContentSources.load(root, lang: 'de');
-      expect(before.languages.keys, ['de']);
+      expect(before.languages.keys, unorderedEquals(['de', 'uk']));
 
       // Ровно то, что должен сделать человек, добавляющий язык: положить
-      // один файл. Ни строки Dart, ни правки списков.
+      // один файл. Ни строки Dart, ни правки списков. Всё, что язык приносит
+      // с собой, — заголовок и переводы фраз.
       File('${root.path}/lang/fr.yaml').writeAsStringSync('''
 lang: fr
 role: native
 status: draft
 name: Français
-lexemes:
-  bread_food: { form: pain, gender: m }
-  water_drink: { form: eau, gender: f }
-  milk_drink: { form: lait, gender: m }
+phrases:
+  food_a0_bread: "Au petit déjeuner, je mange du pain."
+  food_a0_water: "Je bois de l'eau chaque jour."
 ''');
 
       final after = ContentSources.load(root, lang: 'de');
-      expect(after.languages.keys, containsAll(['de', 'fr']));
-      expect(after.coverageOf('fr'), 3);
+      expect(after.languages.keys, containsAll(['de', 'fr', 'uk']));
+      expect(after.languages['fr']!.phraseTranslations.length, 2);
       expect(after.languages['fr']!.name, 'Français');
       expect(after.languages['fr']!.isNative, isTrue);
       expect(after.languages['fr']!.isLaunched, isFalse);
@@ -59,25 +85,27 @@ lexemes:
     });
 
     test('язык может быть каталогом файлов по темам', () {
-      // 6299 концептов в одном YAML — сорок тысяч строк, которые нельзя ни
-      // читать, ни править по частям.
+      // Вид остался от словарного слоя: шесть тысяч лексем в одном YAML — это
+      // сорок тысяч строк, которые нельзя ни читать, ни править по частям.
+      // Переводы фраз столько места не занимают, но каталоги на диске лежат
+      // (`content/lang/de/` — двадцать пять файлов), и читать их надо.
+      // Заголовок при этом объявляется один раз, в любом из файлов.
       Directory('${root.path}/lang/it').createSync();
-      File('${root.path}/lang/it/food.yaml').writeAsStringSync('''
+      File('${root.path}/lang/it/_language.yaml').writeAsStringSync('''
 lang: it
 role: native
 status: draft
 name: Italiano
-lexemes:
-  bread_food: { form: pane, gender: m }
 ''');
-      File('${root.path}/lang/it/drink.yaml').writeAsStringSync('''
+      File('${root.path}/lang/it/food.yaml').writeAsStringSync('''
 lang: it
-lexemes:
-  water_drink: { form: acqua, gender: f }
+phrases:
+  food_a0_bread: "A colazione mangio il pane."
+  food_a0_water: "Bevo acqua ogni giorno."
 ''');
 
       final sources = ContentSources.load(root, lang: 'de');
-      expect(sources.coverageOf('it'), 2);
+      expect(sources.languages['it']!.phraseTranslations.length, 2);
       expect(sources.languages['it']!.name, 'Italiano');
     });
 
@@ -86,8 +114,8 @@ lexemes:
 lang: fr
 status: draft
 name: Français
-lexemes:
-  bread_food: { form: pain }
+phrases:
+  food_a0_bread: "Au petit déjeuner, je mange du pain."
 ''');
       expect(
         () => ContentSources.load(root, lang: 'de'),
@@ -105,8 +133,8 @@ lang: it
 role: native
 status: draft
 name: Italiano
-lexemes:
-  bread_food: { form: pane }
+phrases:
+  food_a0_bread: "A colazione mangio il pane."
 ''');
       expect(
         () => ContentSources.load(root, lang: 'de'),
@@ -114,15 +142,30 @@ lexemes:
       );
     });
 
-    test('покрытие считается, а не берётся из файла', () {
+    test('покрытие — это число прочитанных переводов, а язык без них законен',
+        () {
+      // Покрытие языка не объявляется в файле, а считается по тому, что в нём
+      // лежит: объявленное число разошлось бы с содержимым при первой же
+      // правке — этот проект уже ловил такое на строке о вычитке в launch.yaml.
+      //
+      // Ноль — законный результат, и это не мелочь: у языка изучения переводов
+      // нет по определению (переводить фразу на её же язык незачем), а `en` и
+      // `ru` лежат в репозитории одним заголовком. Потребуй чтение секции
+      // `phrases:` — и сборка немецкого упала бы на трёх языках из четырёх.
       final sources = ContentSources.load(root, lang: 'de');
-      // В файле немецкого три лексемы, концептов тоже три.
-      expect(sources.coverageOf('de'), sources.concepts.length);
-      // Языка, которого нет, покрытие нулевое, а не бросок.
-      expect(sources.coverageOf('ja'), 0);
+      expect(sources.languages['uk']!.phraseTranslations.length,
+          sources.phrases.length,
+          reason: 'украинский переводит весь минимальный курс');
+      expect(sources.languages['de']!.phraseTranslations, isEmpty);
     });
   });
 
+  // Удалён тест «и answer, и answers одновременно — ошибка». Он охранял две
+  // формы записи ответа к пропуску: скаляр и список по слотам, — и требовал
+  // ровно одну из них. Пропусков в фразе больше нет, ответа тоже, и после
+  // правки тест продолжал зеленеть по неверной причине: исключение бросалось
+  // за отсутствие `text`, а не за двойной ответ. Тест, который нельзя
+  // сломать тем, о чём он написан, — это отсутствующий тест.
   group('фразы', () {
     late Directory root;
 
@@ -133,105 +176,91 @@ lexemes:
 
     tearDown(() => root.deleteSync(recursive: true));
 
-    test('один пропуск пишется скаляром, несколько — списком', () {
+    test('фраза в файле — готовая строка', () {
+      // Раньше фраза лежала разобранной: `template` с пропуском `{bread}` и
+      // `answer` к нему, — потому что её собирала механика вставки слов.
+      // Механики нет, и разбирать нечего: у фразы есть текст. Проверка нужна
+      // не ради поля, а ради того, что в базу не уедет ни `{bread}`, ни «…» на
+      // месте пропуска: игрок увидел бы это на экране и услышал в синтезе.
       _writePhrases(root, '''
   a0:
     - id: food_a0_bread
-      template: "Ich kaufe {bread}."
-      answer: Brot
-      concepts: [bread_food]
+      text: "Ich kaufe Brot."
+      register: casual
     - id: food_a0_two
-      template: "Ich {want} das {bread}."
-      answers: [möchte, Brot]
-      concepts: [bread_food]
+      text: "Ich möchte das Brot."
+      register: formal
 ''');
       final sources = ContentSources.load(root, lang: 'de');
       expect(sources.phrases.length, 2);
-      expect(sources.phrases.first.answers, ['Brot']);
-      expect(sources.phrases.first.slotCount, 1);
-      expect(sources.phrases.last.answers, ['möchte', 'Brot']);
-      expect(sources.phrases.last.slotCount, 2);
+      expect(sources.phrases.first.text, 'Ich kaufe Brot.');
+      expect(sources.phrases.last.text, 'Ich möchte das Brot.');
+      expect(sources.phrases.first.register, 'casual');
+
+      // Порядок знакомства — это порядок строк в файле, и он считается при
+      // чтении, а не пишется полем: поле пришлось бы править у всех фраз ниже
+      // при каждой вставке в середину. Частотности, которая раньше задавала
+      // последовательность, у фразы нет и быть не может.
+      expect(sources.phrases.map((p) => p.idx), [0, 1]);
     });
 
-    test('число ответов обязано совпадать с числом пропусков', () {
+    test('пропуск в тексте фразы — ошибка чтения', () {
+      // `{…}` в тексте означает, что фраза написана по старой форме, для
+      // механики вставки слов. Прочитать её как готовую строку значит отдать
+      // игроку фигурные скобки на экране; прочитать как шаблон нечем —
+      // подстановки больше нет вовсе.
       _writePhrases(root, '''
   a0:
     - id: food_a0_bread
-      template: "Ich {verb} das {bread}."
-      answer: Brot
-      concepts: [bread_food]
+      text: "Ich kaufe {bread}."
 ''');
       expect(
         () => ContentSources.load(root, lang: 'de'),
         throwsA(isA<ContentSourceException>().having(
           (e) => e.message,
           'message',
-          contains('пропусков'),
+          contains('пропусков в фразе больше не бывает'),
         )),
       );
     });
 
-    test('и answer, и answers одновременно — ошибка', () {
-      _writePhrases(root, '''
-  a0:
-    - id: food_a0_bread
-      template: "Ich kaufe {bread}."
-      answer: Brot
-      answers: [Brot]
-      concepts: [bread_food]
-''');
-      expect(
-        () => ContentSources.load(root, lang: 'de'),
-        throwsA(isA<ContentSourceException>()),
-      );
-    });
-
-    test('принимаемые порядки слов разбираются списком', () {
-      // Неверных вариантов у фразовой механики больше нет: вокруг лежат ровно
-      // вынутые слова. Вместо них у фразы могут быть заявлены другие верные
-      // порядки — немецкий позволяет вынести в начало почти любой член
-      // предложения, и собранный из своих же слов законный порядок не ошибка.
-      _writePhrases(root, '''
-  a0:
-    - id: food_a0_bread
-      template: "Heute kaufe ich {bread}."
-      answer: Brot
-      orders:
-        - "Ich kaufe heute Brot."
-      concepts: [bread_food]
-''');
-      final phrase = ContentSources.load(root, lang: 'de').phrases.single;
-      expect(phrase.orders, ['Ich kaufe heute Brot.']);
-      // Заданный шаблоном порядок идёт первым и не дублируется.
-      expect(phrase.acceptedOrders('Heute kaufe ich Brot.'), [
-        'Heute kaufe ich Brot.',
-        'Ich kaufe heute Brot.',
-      ]);
-      expect(phrase.acceptedOrders('Ich kaufe heute Brot.').length, 1,
-          reason: 'заявленный порядок совпал с заданным — дубля быть не должно');
-    });
-
-    test('фразы рядом с концептами больше не принимаются', () {
-      // Раньше немецкое предложение лежало в язык-нейтральном файле, и это
-      // работало ровно потому, что язык изучения был один.
-      File('${root.path}/concepts/food.yaml').writeAsStringSync('''
-constellation: food
+    test('фраза лежит в каталоге своего языка', () {
+      // Фраза принадлежит языку изучения, а не теме: немецкое предложение
+      // нельзя положить в язык-нейтральный файл, и раньше оно там лежало —
+      // рядом с концептами. Работало это ровно потому, что язык изучения был
+      // один. Каталог `phrases/<код>/` делает принадлежность видимой, а
+      // проверка ниже — обязательной: файл, объявивший другой язык, попал бы
+      // в сборку немецкого французскими фразами.
+      File('${root.path}/phrases/de/city.yaml').writeAsStringSync('''
+lang: fr
+constellation: city
 tiers:
   a0:
-    concepts:
-      - { id: bread_food, pos: noun }
-    phrases:
-      - id: food_a0_bread
-        template: "Ich kaufe {bread}."
-        answer: Brot
-        concepts: [bread_food]
+    - id: city_a0_map
+      template: "Je cherche la {map}."
+      answer: carte
 ''');
       expect(
         () => ContentSources.load(root, lang: 'de'),
         throwsA(isA<ContentSourceException>().having(
           (e) => e.message,
           'message',
-          contains('phrases'),
+          contains('phrases/de/'),
+        )),
+      );
+    });
+
+    test('без файла фраз сборка не начинается', () {
+      // Пустой каталог фраз — это не «курс без фраз», а не тот язык или не тот
+      // путь. Собрать из него можно только базу без единой звезды, и узнать об
+      // этом пришлось бы уже в игре: небо открылось бы пустым.
+      Directory('${root.path}/phrases/de').deleteSync(recursive: true);
+      expect(
+        () => ContentSources.load(root, lang: 'de'),
+        throwsA(isA<ContentSourceException>().having(
+          (e) => e.message,
+          'message',
+          contains('единица изучения'),
         )),
       );
     });
@@ -251,51 +280,35 @@ tiers:
       // Дубль намеренный: tool/ не тянет за собой lib/. Расхождение здесь
       // означало бы, что валидатор пропустил код, к которому у приложения нет
       // перевода, — и пометка просто не показалась бы. Именно это и лечится:
-      // раньше на её месте стоял свободный текст на языке файла.
+      // раньше на её месте стоял свободный текст на языке файла, а после
+      // словарного слоя осталась одна пометка, которая у фразы есть, —
+      // регистр.
       expect(promptTags, domain.promptTags);
-    });
-  });
-
-  group('служебные слова', () {
-    test('набор частей речи одинаков в пайплайне и в приложении', () {
-      // Дубль намеренный: tool/ не тянет за собой lib/. Расхождение здесь
-      // означало бы, что валидатор не требует дистракторов от слова, круг из
-      // которого игра всё-таки попытается собрать.
-      expect(functionWordPos, domain.functionWordPos);
-    });
-
-    test('часть речи решает, годится ли слово для круга', () {
-      final noun = ConceptSource(
-        id: 'bread_food',
-        tier: 'a0',
-        constellation: 'food',
-        pos: 'noun',
-      );
-      final particle = ConceptSource(
-        id: 'nicht_particle',
-        tier: 'a0',
-        constellation: 'dialog',
-        pos: 'particle',
-      );
-      expect(noun.isFunctionWord, isFalse);
-      expect(particle.isFunctionWord, isTrue);
     });
   });
 }
 
-/// Минимальный курс: три концепта, немецкий, ни одной фразы.
+/// Минимальный курс: три немецкие фразы, украинские переводы к ним и ни одной
+/// лексемы. Фраза — единица изучения, и без файла фраз чтение исходников не
+/// начинается вовсе.
 void _writeMinimalCourse(Directory root) {
-  Directory('${root.path}/concepts').createSync(recursive: true);
+  Directory('${root.path}/phrases/de').createSync(recursive: true);
   Directory('${root.path}/lang').createSync(recursive: true);
 
-  File('${root.path}/concepts/food.yaml').writeAsStringSync('''
+  File('${root.path}/phrases/de/food.yaml').writeAsStringSync('''
+lang: de
 constellation: food
 tiers:
   a0:
-    concepts:
-      - { id: bread_food, pos: noun, freq_rank: 1870 }
-      - { id: water_drink, pos: noun, freq_rank: 610 }
-      - { id: milk_drink, pos: noun, freq_rank: 2450 }
+    - id: food_a0_bread
+      text: "Zum Frühstück esse ich Brot."
+      register: casual
+    - id: food_a0_water
+      text: "Ich trinke jeden Tag Wasser."
+      register: casual
+    - id: food_a0_hunger
+      text: "Ich habe großen Hunger."
+      register: casual
 ''');
 
   File('${root.path}/lang/de.yaml').writeAsStringSync('''
@@ -303,22 +316,22 @@ lang: de
 role: target
 status: launched
 name: Deutsch
-lexemes:
-  bread_food:
-    form: Brot
-    article: das
-    gender: n
-    plural: Brote
-    distractors:
-      far: [Wasser, Milch]
-      near: [Brut, Boot, Brett]
-  water_drink: { form: Wasser, article: das, gender: n }
-  milk_drink: { form: Milch, article: die, gender: f }
+''');
+
+  File('${root.path}/lang/uk.yaml').writeAsStringSync('''
+lang: uk
+role: native
+status: launched
+name: Українська
+phrases:
+  food_a0_bread: "На сніданок я їм хліб."
+  food_a0_water: "Я п'ю воду щодня."
+  food_a0_hunger: "Я дуже голодний."
 ''');
 }
 
+/// Заменяет файл фраз минимального курса своим набором ярусов.
 void _writePhrases(Directory root, String tiers) {
-  Directory('${root.path}/phrases/de').createSync(recursive: true);
   File('${root.path}/phrases/de/food.yaml').writeAsStringSync('''
 lang: de
 constellation: food

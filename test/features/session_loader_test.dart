@@ -7,9 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/data/content/content_database.dart';
 import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/data/repositories/word_state_repository.dart';
-import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
+import 'package:lumen/domain/entities/prompt_tag.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scheduler/level_stage.dart';
 import 'package:lumen/domain/scheduler/session_planner.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/scoring/climb.dart';
@@ -19,12 +20,86 @@ import 'package:lumen/features/game/application/session_loader.dart';
 /// Сквозная проверка ядра: настоящий ассет `content.db`, настоящая
 /// Drift-схема и настоящий планировщик. Именно здесь ловятся расхождения,
 /// которых не видно ни в одном юнит-тесте по отдельности.
+///
+/// Единица изучения — фраза. Ассет несёт 432 немецких фразы и ровно столько
+/// же украинских переводов; запущен один ярус A0 — тридцать шесть фраз, по
+/// четыре на каждое из девяти созвездий.
+///
+/// **Родной язык здесь `uk`, и это не вкус.** Переводы фраз живут в
+/// `content/lang/<код>.yaml`, и есть они только у украинского: `ru` и `en`
+/// лежат черновиками, где секции `phrases` нет вовсе. Со `ru` загрузчик
+/// собрал бы пустую сессию — каждый круг отказался бы собираться из-за
+/// отсутствия перевода, — и сквозной тест проверял бы пустоту.
+///
+/// ── Что этот файл охранял и чего больше нет ────────────────────────────────
+///
+/// Всё удалённое ниже держалось на вставке слов в предложение — пропуски,
+/// плитки, порядок сборки. Механики нет, и вместе с ней нет `slotCount`,
+/// `answers`, `assembled`, `accepted`, `phrase_slots`, `phrase_orders`.
+///
+/// * «уровень закрывается фразовым забегом» — охранял пятый забег в конце
+///   уровня: `fillGaps`, потом `buildPhrase`, обе на одном предложении, и
+///   слова с фразами не мешались. Фраза стала единицей изучения, и закрывать
+///   уровень фразами отдельно значило бы закрывать его тем же, чем он и шёл.
+///   Перенесён на новое правило: последний забег — последний этап.
+/// * «собранная фраза совпадает с тем, что будет произнесено» — охранял
+///   `assembled`: игрок, закрыв последний пропуск, обязан услышать ту фразу,
+///   которую собрал. Собирать нечего; перенесён на то, что от обещания
+///   осталось, — озвучка ответа это сама фраза, а не её перевод.
+/// * «глубина пропусков»: «пропусков ровно столько, сколько попросили», «ноль
+///   означает все слова, а не ни одного», «слово, которому учит фраза,
+///   вынимается всегда». Шкалы глубины нет: `SessionBalance.phraseGapsMin`,
+///   `phraseGapsAll` и `QuestionBuilder.buildPhrase` удалены.
+/// * «знаки препинания»: «знак остаётся в предложении, а на плитке — слово» и
+///   «дефис остаётся частью слова, а запятая при нём — нет». Плитки нет,
+///   фраза показывается целиком, и делить её на слово и знак больше не надо.
+///   Сплошной проход по корпусу, которым первый из них это проверял,
+///   перенесён — им теперь проверяется, что каждая фраза яруса собирается в
+///   круг.
+/// * «частичный круг оставляет хоть одно слово на месте» — охранял, что два
+///   закрывающих круга на одном предложении отличаются глубиной: сперва часть
+///   слов, потом все. Кругов на предложение теперь один, и глубины у него нет.
+/// * «заявленный порядок слов принимается и забегом, и калибровкой
+///   одинаково» — охранял `phrase_orders`: у фразы был список верных порядков
+///   сборки, и две реализации сверки расходились. Порядок слов больше не
+///   спрашивается: фраза заучивается целиком.
+/// * «многослотовая фраза: каждый слот знает только свой вариант» — охранял
+///   `answers` по слотам и то, что верным признаётся вариант с тем же
+///   **текстом**, а не только с тем же номером. Слотов нет, ответ один;
+///   правило про текст живёт в `CircleQuestion.isCorrectOption`, и на
+///   настоящем контенте его сторожит «у каждого круга есть центр, шесть
+///   вариантов и один верный ответ»: принятым обязан оказаться ровно один.
+/// * «повторённое слово во фразе получает свой вариант пула» — охранял, что
+///   два пропуска с одним и тем же словом не спорят за один вариант.
+///   Пропусков нет.
+/// * «вид дистракторов приходит с кругом, а не выводится из механики» и
+///   «добор соседями на больших созвездиях: соседи не обрезаются запросом» —
+///   охраняли рукописные дистракторы и добор по созвездию.
+///   `distractors`, `concepts` и `lexemes` из схемы удалены: вокруг фразы
+///   стоят другие **фразы**, и берутся они из пула, который приносит
+///   загрузчик.
+/// * «набор неверных вариантов меняется от круга к кругу» — охранял то же
+///   самое с другой стороны и теперь перевёрнут: состав пяти других обязан
+///   быть **одинаковым** при любом зерне, потому что берётся с начала
+///   упорядоченного пула. Перенесён под новым именем.
+/// * «обе фразовые механики стоят на одном предложении» — фразовых механик
+///   как отдельного вида нет: фразовые все три.
+/// * «заход расширяет круг и на словах, и на фразе» — надбавки вариантов от
+///   захода нет: `ClimbBalance.levelsPerExtraOption` и `extraOptionsMax`
+///   удалены, круг всегда шестивариантный. Обратная сторона той же ошибки
+///   («знакомство остаётся показом на любом уровне захода») перенесена на
+///   новое правило: заход ширины круга не трогает.
+/// * «короткое предложение не выбирается вовсе» — порога длины фразы нет
+///   (`phraseMinWords` удалён), и отбраковывать по нему нечего. Перенесён на
+///   то, из-за чего круг может не собраться теперь: нет перевода или в пуле
+///   меньше пяти других.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   late Directory support;
   late AppDatabase userDb;
   late ContentDatabase content;
+  late QuestionBuilder builder;
   late SessionLoader loader;
 
   final now = DateTime.utc(2026, 5, 1, 9);
@@ -41,14 +116,15 @@ void main() {
 
     userDb = AppDatabase(NativeDatabase.memory());
     content = ContentDatabase.forLanguage('de');
+    builder = QuestionBuilder(
+      content: content,
+      targetLang: 'de',
+      nativeLang: 'uk',
+      random: Random(1),
+    );
     loader = SessionLoader(
       words: WordStateRepository(userDb),
-      builder: QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'ru',
-        random: Random(1),
-      ),
+      builder: builder,
       tier: Tier.a0,
       freePace: false,
       capabilities: const SessionCapabilities(),
@@ -67,656 +143,444 @@ void main() {
     support.deleteSync(recursive: true);
   });
 
+  /// Фразы запущенного яруса: `id → предложение на изучаемом`.
+  Future<Map<String, String>> targetTexts() async => {
+        for (final row in await content.phrasesUpTo(Tier.a0))
+          row.id: row.sentence,
+      };
+
+  /// Их же переводы на родной: `id → предложение на родном`.
+  Future<Map<String, String>> nativeTexts() async => content.translationsFor(
+        (await content.phrasesUpTo(Tier.a0)).map((row) => row.id),
+        'uk',
+      );
+
+  /// Тексты вариантов круга на том языке, на котором их показывает механика.
+  Map<String, String> shownIn(
+    GameMode mode, {
+    required Map<String, String> target,
+    required Map<String, String> native,
+  }) =>
+      mode.optionsInTargetLanguage ? target : native;
+
   group('первый уровень', () {
     test('собирается из настоящего контента', () async {
       final session = await loader.level(now);
 
       expect(session.isEmpty, isFalse);
-      // У нового игрока повторять нечего — только новые слова.
+      // У нового игрока повторять нечего — только новые фразы.
       expect(session.reviews, 0);
       expect(session.newWords, 6);
     });
 
-    test('у каждого круга есть центр, варианты и верный ответ на каждый слот',
+    test('последний забег уровня — последний его этап', () async {
+      final session = await loader.level(now);
+
+      // Раньше уровень закрывался пятым забегом на фразах. Теперь фраза — это
+      // и есть материал каждого круга, и отдельный фразовый забег стал бы
+      // повтором уровня самим собой. Забеги остались ровно этапами
+      // планировщика, и «напоминания» у нового игрока нет: повторять нечего.
+      expect(session.runs.map((r) => r.stage), [
+        LevelStage.introduction,
+        LevelStage.consolidation,
+        LevelStage.check,
+      ]);
+    });
+
+    test('у каждого круга есть центр, шесть вариантов и один верный ответ',
         () async {
       final session = await loader.level(now);
 
       // Раньше здесь стояла оговорка «кроме кругов набора»: у поля ввода
-      // вариантов не было вовсе, и на таких кругах проверку приходилось
-      // пропускать. Набора больше нет, и оговорка ушла вместе с ним —
-      // вариант выбирается во всех шести механиках без исключений.
+      // вариантов не было вовсе. Потом добавилась вторая — «кроме фразовых»:
+      // там вариантов было столько, сколько пропусков. Обеих механик нет, и
+      // оговорок нет: круг во всех трёх механиках устроен одинаково.
       for (final q in session.questions) {
         expect(q.itemId, isNotEmpty);
-        expect(q.options, isNotEmpty, reason: '${q.itemId}: круг без вариантов');
-        expect(q.slotCount, greaterThanOrEqualTo(1), reason: q.itemId);
+        expect(q.options, hasLength(ScoreBalance.optionsPerCircle),
+            reason: '${q.itemId}: круг не на шесть вариантов');
+        expect(q.answerIndex, inInclusiveRange(0, q.options.length - 1),
+            reason: '${q.itemId}: верный вариант указывает вне круга');
+        expect(q.answer, isNotEmpty, reason: '${q.itemId}: ответ без текста');
 
-        // Верный ответ нужен каждому слоту, а не кругу целиком: круг — это
-        // фраза с одним слотом, и одного индекса хватало бы лишь на четыре
-        // механики из шести.
-        for (var slot = 0; slot < q.slotCount; slot++) {
-          expect(q.answers[slot], inInclusiveRange(0, q.options.length - 1),
-              reason: '${q.itemId}: слот $slot указывает вне пула');
-          expect(q.answerFor(slot), isNotEmpty,
-              reason: '${q.itemId}: слот $slot без текста');
-          expect(q.isCorrectFor(slot, q.answers[slot]), isTrue,
-              reason: '${q.itemId}: слот $slot не признаёт свой же ответ');
-        }
+        // Принятым обязан оказаться ровно один вариант. Проверка не про
+        // `isCorrectOption`, а про контент: круг принимает вариант с тем же
+        // текстом, что у ответа, — и если две фразы яруса переведены одной
+        // строкой, у круга окажется два верных ответа, а игрок получит
+        // «неверно» на верном.
+        final accepted = [
+          for (var i = 0; i < q.options.length; i++)
+            if (q.isCorrectOption(i)) i,
+        ];
+        expect(accepted, [q.answerIndex],
+            reason: '${q.itemId}: принятых вариантов не один — $accepted');
 
-        // Центр круга — текст, звук или пустые места. Пустой центр без звука
-        // и без слотов означал бы круг без задания.
+        // Центр круга — текст или звук. Пустой центр без звука означал бы
+        // круг без задания.
         if (q.prompt.isEmpty) {
-          expect(q.mode.needsAudio || q.mode == GameMode.buildPhrase, isTrue,
+          expect(q.mode.needsAudio, isTrue,
               reason: '${q.itemId}: пустой центр в механике ${q.mode.name}');
-          if (q.mode.needsAudio) {
-            expect(q.promptSpeech, isNotNull, reason: q.itemId);
-          }
+          expect(q.promptSpeech, isNotNull, reason: q.itemId);
         }
 
-        // Инвариант README: концепт без озвучки не проходит валидацию,
-        // значит и в игре у ответа всегда есть, что произнести.
+        // Озвучка ответа есть всегда: за пять минут игрок слышит полсотни
+        // образцов произношения, ничего для этого не делая.
         expect(q.answerSpeech, isNotNull, reason: q.itemId);
       }
     });
 
-    test('вариантов ровно столько, сколько круг обещает игроку', () async {
+    test('вариантов шесть и на знакомстве тоже', () async {
       final session = await loader.level(now);
 
-      for (final q in session.questions) {
-        if (q.isNew) {
-          // Знакомство — не проверка, а показ: выбирать не из чего.
-          expect(q.options.length, SessionBalance.introductionOptions,
-              reason: '${q.itemId}: знакомство с выбором');
-          continue;
-        }
-        if (q.mode.isPhrase) {
-          // У фразы вокруг лежат ровно вынутые слова, поэтому пул равен числу
-          // пропусков — от двух до всех слов предложения. Потолка у него нет:
-          // его задаёт длина предложения, а не ширина экрана.
-          expect(q.options.length, q.slotCount,
-              reason: '${q.itemId}: в пуле не только вынутые слова');
-          expect(q.options.length,
-              greaterThanOrEqualTo(SessionBalance.phraseGapsMin),
-              reason: '${q.itemId}: пропусков меньше двух');
-          continue;
-        }
-        expect(q.options.length, greaterThanOrEqualTo(3),
-            reason: '${q.itemId}: слишком мало вариантов');
-        expect(q.options.length, lessThanOrEqualTo(ScoreBalance.optionsMax),
-            reason: '${q.itemId}: круг шире экрана');
+      // Прежде знакомство было исключением из этого правила: один вариант,
+      // соединил и услышал. Теперь оно устроено методом исключения — вокруг
+      // новой фразы стоят пять уже известных, — и неполный круг ломал бы
+      // ровно это: при одном варианте исключать нечего вовсе.
+      final introductions = session.questions.where((q) => q.isNew).toList();
+      expect(introductions, isNotEmpty);
+      for (final q in introductions) {
+        expect(q.options, hasLength(ScoreBalance.optionsPerCircle),
+            reason: '${q.itemId}: показ с неполным кругом');
       }
     });
 
     test('варианты в круге не повторяются', () async {
       final session = await loader.level(now);
 
-      // «Собери предложение» исключён намеренно: слово может повторяться в
-      // самом предложении («Ich habe ... und ich ...»), и два одинаковых
-      // слова в пуле там не поломка, а текст. Различает их номер слота —
-      // ровно поэтому ответы хранятся индексами, а не формами.
-      final choices =
-          session.questions.where((q) => q.mode != GameMode.buildPhrase);
-      for (final q in choices) {
+      // Два одинаковых варианта — это круг с двумя верными ответами, и
+      // «неверно» на верном ответе. Раньше отсюда исключалась сборка
+      // предложения: слово могло повторяться в самом предложении, и две
+      // одинаковые плитки там были текстом, а не поломкой. Исключать больше
+      // некого — вокруг стоят целые фразы.
+      for (final q in session.questions) {
         final lowered = q.options.map((o) => o.toLowerCase()).toList();
         expect(lowered.toSet().length, lowered.length,
             reason: '${q.itemId}: дубли среди вариантов');
       }
     });
 
-    test('первый показ нового слова — понимание, центр на изучаемом', () async {
+    test('первый показ новой фразы — понимание, центр на изучаемом', () async {
       final session = await loader.level(now);
       final first = session.questions.firstWhere((q) => q.isNew);
 
       expect(first.mode, GameMode.pickNative);
-      // Понимание: в центре немецкий, вокруг русский.
-      expect(first.prompt, isNotEmpty);
-      final lexeme = await content.lexeme(first.itemId, 'de');
-      expect(first.prompt, contains(lexeme!.form));
+      // Понимание: в центре немецкая фраза, вокруг украинские переводы.
+      final row = await content.phrase(first.itemId);
+      expect(first.prompt, row!.sentence);
+      expect(first.answer, await content.translation(first.itemId, 'uk'));
+      // Перевод вокруг и есть ответ — показывать его второй раз незачем.
+      expect(first.translation, isNull);
     });
 
-    test('знакомство доходит до игрока даже без дистракторов', () async {
+    test('на первом уровне известного нет, и круг всё равно собирается',
+        () async {
       final session = await loader.level(now);
 
-      // Круг с одним вариантом стал законным, и это не мелочь: прежде
-      // сборщик возвращал `null`, не набрав двух дистракторов, и знакомство
-      // с редким словом молча исчезало из уровня. Проверяется поэтому не
-      // форма круга, а доставка: все обещанные новые слова на месте.
+      // Знакомство идёт исключением, но у нового игрока не знакомо ничего, и
+      // исключать не из чего. Это не поломка: `_optionPool` добирает пул
+      // остальными фразами яруса, и первый круг честно оказывается выбором из
+      // шести незнакомых. Проверяется поэтому не «вокруг стоят известные», а
+      // доставка: все обещанные новые фразы на месте, и каждая пришла с
+      // полным кругом из настоящего контента.
       final introduced =
           session.questions.where((q) => q.isNew).map((q) => q.itemId).toSet();
-      expect(introduced.length, session.newWords);
+      expect(introduced, hasLength(session.newWords));
 
+      final native = await nativeTexts();
       for (final q in session.questions.where((q) => q.isNew)) {
-        expect(q.options.length, 1, reason: q.itemId);
-        expect(q.answerIndex, 0, reason: q.itemId);
-        expect(q.isCorrectFor(0, 0), isTrue, reason: q.itemId);
-        expect(q.isCorrectFor(0, 1), isFalse, reason: q.itemId);
+        expect(q.options, hasLength(ScoreBalance.optionsPerCircle),
+            reason: q.itemId);
+        expect(q.options.every(native.values.contains), isTrue,
+            reason: '${q.itemId}: в круге не перевод фразы яруса — '
+                '${q.options}');
+        expect(q.answer, native[q.itemId], reason: q.itemId);
       }
     });
 
-    test('уровень закрывается фразовым забегом', () async {
+    test('озвучка ответа — сама фраза, а не её перевод', () async {
       final session = await loader.level(now);
-      final phrases = session.runs.last.questions;
+      final target = await targetTexts();
 
-      // Фраза — другой масштаб задачи, и мешать её со словами не стоит:
-      // отдельный короткий забег в конце.
-      expect(phrases, isNotEmpty);
-      expect(phrases.every((q) => q.mode.isPhrase), isTrue,
-          reason: 'в фразовом забеге оказалось слово');
-      expect(
-        session.runs
-            .take(session.runs.length - 1)
-            .expand((run) => run.questions)
-            .every((q) => q.mode.isWordMode),
-        isTrue,
-        reason: 'фраза попала в забег со словами',
-      );
-
-      final modes = phrases.map((q) => q.mode).toList();
-      expect(modes, contains(GameMode.fillGaps));
-      // Порядок не случаен: сначала пропуски, потом сборка предложения из
-      // слов. Сборка по памяти труднее, и ставить её первой значило бы
-      // спрашивать то, чего игрок в этом уровне ещё не видел.
-      if (modes.contains(GameMode.buildPhrase)) {
-        expect(modes.indexOf(GameMode.fillGaps),
-            lessThan(modes.indexOf(GameMode.buildPhrase)));
-      }
-
-      for (final q in phrases.where((q) => q.mode == GameMode.fillGaps)) {
-        expect(q.prompt, contains('_____'));
-        // В пуле обязаны быть ответы всех пропусков: игрок тянет каждое
-        // слово к своему месту из одного набора сверху и снизу.
-        for (var slot = 0; slot < q.slotCount; slot++) {
-          expect(q.options, contains(q.answerFor(slot)));
-        }
+      // То, что игрок слышит, соединив верно, обязано быть той же фразой,
+      // которую круг про неё и спрашивал. В `pickNative` и `listenNative`
+      // ответ выбирается на родном языке — если озвучить выбранное, игрок
+      // услышит украинскую строчку вместо немецкой и выучит не то.
+      for (final q in session.questions) {
+        expect(q.answerSpeech, target[q.itemId], reason: q.itemId);
       }
     });
 
-    test('собранная фраза совпадает с тем, что будет произнесено', () async {
+    test('внутри забега фраза не повторяется', () async {
       final session = await loader.level(now);
 
-      for (final q in session.runs.last.questions) {
-        // `assembled` — это то, что игрок услышит, закрыв последний слот.
-        // Расхождение с озвучкой значит, что он услышит не ту фразу, которую
-        // собрал.
-        expect(q.assembled, q.answerSpeech, reason: q.itemId);
-        expect(q.assembled, isNot(contains('_____')), reason: q.itemId);
-      }
-    });
-
-    test('одно слово не идёт двумя кругами подряд', () async {
-      final session = await loader.level(now);
-      // Фразовый забег исключён: обе его механики стоят на одном материале,
-      // и повтор опорного концепта там задуман, а не проспан планировщиком.
-      // Прежний тест добивался того же, отбрасывая последний круг, — тогда
-      // фраза была одна.
-      final ids = session.questions
-          .where((q) => q.mode.isWordMode)
-          .map((q) => q.itemId)
-          .toList();
-
-      for (var i = 1; i < ids.length; i++) {
-        expect(ids[i], isNot(ids[i - 1]), reason: 'позиция $i');
+      // Два круга на одной фразе внутри забега проверяли бы буфер
+      // кратковременной памяти, а не повторение. Между забегами повтор
+      // законен: там лежит экран итогов и сброс комбо — ровно затем, чтобы
+      // повторение было повторением.
+      for (final run in session.runs) {
+        final ids = run.questions.map((q) => q.itemId).toList();
+        expect(ids.toSet(), hasLength(ids.length),
+            reason: '${run.stage.name}: $ids');
       }
     });
   });
 
-  group('добор соседями', () {
-    test('набор неверных вариантов меняется от круга к кругу', () async {
-      // Третий случай одной и той же ошибки: список без порядка плюс
-      // обрезка. `siblingForms` порядка не задаёт, в созвездии ровно
-      // двенадцать концептов при лимите двенадцать, а `_assembleOptions`
-      // берёт первые `wanted - 1`. На родном языке своих дистракторов почти
-      // ни у кого нет — и восемь концептов из двенадцати получали одну и ту
-      // же четвёрку неверных вариантов в каждой сессии. Игрок учил при этом
-      // не слово, а то, что «эти четыре никогда не верны».
+  group('знакомство методом исключения', () {
+    /// Шесть фраз, засеянных как уже известные — по одной из созвездий A0.
+    ///
+    /// Взяты из разных тем нарочно: круг собирается через весь ярус, а не
+    /// внутри темы, и подмена известной фразы соседкой по теме была бы не
+    /// видна, если бы все шесть лежали в одной.
+    const known = [
+      'about_me_a0_01',
+      'first_contact_a0_01',
+      'needs_help_a0_01',
+      'place_time_price_a0_01',
+      'understanding_a0_01',
+      'about_me_a0_02',
+    ];
+
+    /// Игрок, который уже знает эти фразы, садится за уровень.
+    ///
+    /// Яркость засева — 55 lm: выше порога
+    /// [ScoreBalance.knownForEliminationLm], то есть полоса «узнаёте, но не
+    /// вспоминаете сами». Именно её загрузчик считает достаточной, чтобы
+    /// фраза встала вокруг новой.
+    Future<LoadedSession> levelKnowing(List<String> ids) async {
+      await WordStateRepository(userDb).seed(
+        confirmed: {for (final id in ids) id: Tier.a0},
+        lumens: 55,
+        now: now,
+      );
+      return loader.level(now);
+    }
+
+    test('вокруг фразы стоят те, что игрок уже знает', () async {
+      final session = await levelKnowing(known);
+      final target = await targetTexts();
+      final native = await nativeTexts();
+
+      // Это и есть правило пула: `_optionPool` кладёт известное впереди, а
+      // сборщик берёт **первые** пять. Перемешать пул до отбора значило бы
+      // ставить вокруг новой фразы случайные — то есть сломать исключение,
+      // на котором держится знакомство.
+      for (final q in session.questions) {
+        final shown = shownIn(q.mode, target: target, native: native);
+        final others = q.options.toSet().difference({q.answer});
+        expect(others, hasLength(ScoreBalance.optionsPerCircle - 1),
+            reason: q.itemId);
+
+        final fromKnown = {
+          for (final id in known)
+            if (id != q.itemId) shown[id]!,
+        };
+        expect(fromKnown, containsAll(others),
+            reason: '${q.itemId} (${q.mode.name}): вокруг стоит незнакомое — '
+                '${others.difference(fromKnown)}');
+      }
+    });
+
+    test('знакомство идёт среди пяти известных', () async {
+      // Известных ровно пять: тогда «пять известных вокруг» проверяется на
+      // равенство, а не на вложенность, и подмена одного из них случайной
+      // фразой яруса будет видна.
+      final session = await levelKnowing(known.take(5).toList());
+      final native = await nativeTexts();
+      final around = {for (final id in known.take(5)) native[id]!};
+
+      final introductions = session.questions.where((q) => q.isNew).toList();
+      expect(introductions, isNotEmpty);
+      for (final q in introductions) {
+        // Новая фраза известной быть не может: засеянные в новые не идут.
+        expect(known.take(5), isNot(contains(q.itemId)));
+        expect(q.mode, GameMode.pickNative);
+        expect(q.options.toSet().difference({q.answer}), around,
+            reason: q.itemId);
+      }
+    });
+
+    test('состав пяти других задаёт пул, а не зерно', () async {
+      // Раньше здесь стоял обратный тест — «набор неверных вариантов меняется
+      // от круга к кругу». Он охранял добор соседями по созвездию: список без
+      // порядка плюс обрезка давали восьми концептам из двенадцати одну и ту
+      // же четвёрку неверных вариантов в каждой сессии, и игрок учил не
+      // слово, а то, что «эти четыре никогда не верны».
       //
-      // Финальный `shuffle` в `_assembleOptions` это не лечит: он тасует
-      // показанное, а не выбранное. Поэтому тест смотрит на **состав**, а не
-      // на порядок.
-      final sets = <Set<String>>[];
+      // Правило перевернулось вместе с механикой. Пять других — это не
+      // дистракторы, а фразы, которые игрок уже знает, и берутся они с начала
+      // упорядоченного пула именно потому, что там стоит самое знакомое.
+      // Состав обязан быть одинаковым при любом зерне; зерно решает только
+      // порядок — иначе верный вариант всегда стоял бы на одном месте круга,
+      // и игрок отвечал бы, не читая.
+      final pool = [for (final row in await content.phrasesUpTo(Tier.a0)) row.id];
+      const circle = PlannedCircle(
+        itemId: 'about_me_a0_01',
+        mode: GameMode.pickNative,
+        isNew: false,
+        lumens: 0,
+      );
+
+      // Состав сравнивается склеенной строкой, а не множеством множеств:
+      // у `Set` в Dart нет равенства по значению, и `Set<Set<String>>` считал
+      // бы одинаковые составы разными элементами. Прежний тест на этом и
+      // держался — он требовал «составов больше одного» и получал это
+      // бесплатно, по ссылочному равенству, ни разу не заглянув внутрь.
+      final compositions = <String>{};
+      final answerPlaces = <int>{};
       for (var seed = 0; seed < 12; seed++) {
-        final builder = QuestionBuilder(
+        final question = await QuestionBuilder(
           content: content,
           targetLang: 'de',
           nativeLang: 'uk',
           random: Random(seed),
-        );
-        final question = await builder.build(const PlannedCircle(
-          itemId: 'checkout_place',
-          mode: GameMode.pickNative,
-          isNew: false,
-          lumens: 0,
-          options: 4,
-        ));
-        expect(question, isNotNull);
-        sets.add(question!.options.toSet());
+        ).build(circle, pool: pool);
+
+        expect(question, isNotNull, reason: 'зерно $seed');
+        compositions.add((question!.options.toList()..sort()).join(' | '));
+        answerPlaces.add(question.answerIndex);
       }
 
-      expect(sets.toSet().length, greaterThan(1),
-          reason: 'состав вариантов один и тот же при любом зерне — значит '
-              'соседи снова берутся по фиксированному порядку');
+      expect(compositions, hasLength(1),
+          reason: 'состав вариантов зависит от зерна — значит пул тасуется '
+              'до отбора, и вокруг новой фразы встают случайные');
+      expect(answerPlaces.length, greaterThan(1),
+          reason: 'верный вариант всегда на одном месте круга');
     });
   });
 
-  group('глубина пропусков', () {
-    test('пропусков ровно столько, сколько попросили', () async {
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(7),
-      );
+  group('круг, который нельзя собрать', () {
+    const circle = PlannedCircle(
+      itemId: 'about_me_a0_01',
+      mode: GameMode.pickNative,
+      isNew: false,
+      lumens: 0,
+    );
 
-      // «Город»: все его фразы A0 длиннее порога, значит любая глубина от
-      // двух до всех слов на них достижима.
-      for (final gaps in [2, 3, 4]) {
-        final question = await builder.buildPhrase(
-          constellation: 'city',
-          tier: Tier.a0,
-          lumens: 0,
-          gaps: gaps,
-        );
-        expect(question, isNotNull, reason: 'глубина $gaps');
-        expect(question!.slotCount, gaps, reason: 'глубина $gaps');
-        // Вокруг лежат ровно вынутые слова — ни одного постороннего.
-        expect(question.options.length, gaps, reason: 'глубина $gaps');
-      }
-    });
-
-    test('ноль означает все слова, а не ни одного', () async {
-      // Ноль — максимум шкалы, то самое «собери предложение». Прогон его
-      // через `clamp(phraseGapsMin, total)` превращал самую трудную настройку
-      // в самую лёгкую, и молча: круг проходился, пропусков было два вместо
-      // всех, а заметить это можно было только по числу слотов.
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(11),
-      );
-      final question = await builder.buildPhrase(
-        constellation: 'city',
-        tier: Tier.a0,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsAll,
-      );
-
-      expect(question, isNotNull);
-      // Все слова вынуты: в скелете не осталось ничего, кроме знаков
-      // препинания. Знаки остаются на месте — они принадлежат предложению, а
-      // не слову, и на плитку не уезжают.
-      expect(
-        question!.prompt
-            .replaceAll('_____', '')
-            .replaceAll(RegExp(r'[\s.,!?;:…«»„“”()\[\]]'), ''),
-        isEmpty,
-      );
-      expect(question.options.length, question.slotCount);
-      expect(question.slotCount,
-          greaterThan(SessionBalance.phraseGapsMin),
-          reason: 'предложение из двух слов не отличило бы максимум от минимума');
-    });
-
-    test('слово, которому учит фраза, вынимается всегда', () async {
-      // Иначе круг перестаёт проверять то слово, ради которого существует, —
-      // а память всё равно запишется против него.
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(3),
-      );
-      final phrase = await builder.pickPhrase(
-        constellation: 'city',
-        tier: Tier.a0,
-      );
-      expect(phrase, isNotNull);
-
-      final answers = await content.phraseAnswers(phrase!.id);
-      final question = await builder.buildPhraseQuestion(
-        phrase: phrase,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsMin,
-      );
-
-      expect(question, isNotNull);
-      for (final answer in answers) {
-        // Плитка несёт слово, а знак препинания остаётся в предложении.
-        // Заглавная при этом на плитке остаётся: это орфография слова в этом
-        // предложении, и ей сборка как раз учит.
-        expect(
-          question!.options.any((o) => o.contains(answer)),
-          isTrue,
-          reason: 'слово фразы «$answer» не вынуто: ${question.options}',
-        );
-      }
-    });
-  });
-
-  group('знаки препинания', () {
-    test('знак остаётся в предложении, а на плитке — слово', () async {
-      // С устройства: плитка читалась как «Penicillin.» — со точкой, то есть
-      // вместе с концом предложения. Игрок видел, куда её ставить, ещё не
-      // решив задание, а обещание при этом было неверное: точка принадлежит
-      // предложению, как запятая и вопросительный знак, а не слову.
+    test('фраза без перевода на родной круг не собирает', () async {
+      // Раньше непоказуемое отбраковывала длина: «Ich trinke Wasser.» — три
+      // слова при пороге четыре, — и сборка возвращала `null`, а загрузчик
+      // молча пропускал круг. Порога длины больше нет: фраза показывается
+      // целиком, и короткая показывается так же, как длинная.
       //
-      // Проверяется по всему запущенному корпусу и на самой большой глубине:
-      // при максимуме пропусков вынуто каждое слово, значит каждое слово
-      // корпуса проходит через плитку.
-      final builder = QuestionBuilder(
+      // Причина отказа осталась одна — нехватка текста. Язык подсказок берётся
+      // французский: он есть в интерфейсе, но в контенте его нет вовсе, то
+      // есть переводов ноль. Это и есть неполный язык, и он обязан давать
+      // меньше кругов, а не чужие.
+      //
+      // Раньше здесь стоял русский: в прежнем ассете украинских переводов
+      // было 432, а русских ноль. Разговорник пришёл одним источником на пять
+      // языков сразу, и неполного среди них не осталось — пример пришлось
+      // взять снаружи контента.
+      final fr = QuestionBuilder(
         content: content,
         targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(17),
-      );
-
-      final marks = RegExp(r'^[.,!?;:…«»„“”()\[\]]|[.,!?;:…«»„“”()\[\]]\$');
-      var checked = 0;
-
-      for (final constellation in await content.constellations()) {
-        final phrases = await content.phrasesFor(
-          constellation,
-          Tier.a0,
-          lang: 'de',
-        );
-        for (final phrase in phrases) {
-          final question = await builder.buildPhraseQuestion(
-            phrase: phrase,
-            lumens: 0,
-            gaps: SessionBalance.phraseGapsAll,
-          );
-          if (question == null) continue; // короткие отбрасывает выбор
-          checked++;
-
-          for (final option in question.options) {
-            expect(marks.hasMatch(option), isFalse,
-                reason: '${phrase.id}: на плитке знак препинания — «\$option»');
-          }
-
-          // И главное: собранное предложение по-прежнему то самое. Знак не
-          // потерялся и не удвоился — он остался в скелете там, где стоял.
-          expect(question.assembled, question.answerSpeech,
-              reason: '${phrase.id}: сборка разошлась с предложением');
-        }
-      }
-
-      expect(checked, greaterThan(20), reason: 'корпус не прочитан');
-    });
-
-    test('дефис остаётся частью слова, а запятая при нём — нет', () async {
-      // «Renten-, Kranken- und Pflegekasse gehören zur Sozialversicherung.» —
-      // единственное место в корпусе, где на краю слова стоят сразу два
-      // знака. Дефис здесь часть слова, а не знак при нём: снять надо
-      // запятую и только её.
-      final row = await content.phrase('work_b2_socialinsurance');
-      if (row == null) return; // фраза живёт на незапущенном ярусе
-
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(19),
-      );
-      final question = await builder.buildPhraseQuestion(
-        phrase: row,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsAll,
-      );
-
-      expect(question, isNotNull);
-      expect(question!.options, contains('Renten-'));
-      expect(question.options, contains('Kranken-'));
-      expect(question.assembled, question.answerSpeech);
-    });
-  });
-
-  group('фраза, которую нельзя показать', () {
-    test('короткое предложение не выбирается вовсе', () async {
-      // «Ich trinke Wasser.» — три слова при пороге четыре. Раньше его
-      // отбрасывала сборка, возвращая `null`, а загрузчик молча пропускал
-      // круг: уровень «Еды» заканчивался без обеих закрывающих фраз, и
-      // заметить это было нельзя — ошибки нет, просто кругов меньше. В
-      // калибровке было хуже: `null` превращался в автоматический неверный
-      // ответ на невиданный вопрос, то есть в потерянный ярус.
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
+        nativeLang: 'fr',
         random: Random(5),
       );
+      final pool = [for (final row in await content.phrasesUpTo(Tier.a0)) row.id];
 
-      // Все фразы «Еды» на A0 должны быть выбираемы: короткие отбрасывает
-      // выбор, а не сборка, значит выбранная всегда собирается.
-      for (var seed = 0; seed < 20; seed++) {
-        final b = QuestionBuilder(
-          content: content,
-          targetLang: 'de',
-          nativeLang: 'uk',
-          random: Random(seed),
+      expect(await fr.build(circle, pool: pool), isNull);
+      // А на языке с переводами тот же круг собирается — значит отказ именно
+      // из-за перевода, а не из-за фразы или пула.
+      expect(await builder.build(circle, pool: pool), isNotNull);
+    });
+
+    test('пула меньше чем на пять других круг не собирает', () async {
+      // Пять — это ровно то, из чего исключают. Неполный круг ломает
+      // знакомство: при четырёх вариантах исключать приходится из четырёх, и
+      // угадывание дешевеет с 17 % до 25 %. Показать такой круг молча хуже,
+      // чем пропустить фразу.
+      const others = [
+        'about_me_a0_02',
+        'about_me_a0_03',
+        'about_me_a0_04',
+        'about_me_a0_05',
+        'about_me_a0_06',
+      ];
+
+      expect(await builder.build(circle, pool: others.take(4).toList()), isNull);
+      expect(await builder.build(circle, pool: others), isNotNull);
+    });
+  });
+
+  group('весь корпус запущенного яруса', () {
+    test('каждая фраза собирается в круг', () async {
+      // Сплошным проходом по корпусу раньше проверялись знаки препинания: при
+      // максимуме пропусков через плитку проходило каждое слово яруса, и надо
+      // было убедиться, что точка остаётся в предложении. Плиток нет, а проход
+      // ценен сам по себе — он ловит фразу, которую нельзя показать, до того
+      // как она молча выпадет из уровня. Молча — потому что отказ сборки не
+      // ошибка: кругов просто становится меньше.
+      final rows = await content.phrasesUpTo(Tier.a0);
+      final pool = [for (final row in rows) row.id];
+      final native = await nativeTexts();
+
+      for (final row in rows) {
+        final question = await builder.build(
+          PlannedCircle(
+            itemId: row.id,
+            mode: GameMode.pickTarget,
+            isNew: false,
+            lumens: 40,
+          ),
+          pool: pool,
         );
-        final phrase =
-            await b.pickPhrase(constellation: 'food', tier: Tier.a0);
-        expect(phrase, isNotNull, reason: 'зерно $seed');
-        final question = await b.buildPhraseQuestion(
-          phrase: phrase!,
-          lumens: 0,
-          gaps: SessionBalance.phraseGapsAll,
-        );
-        expect(question, isNotNull,
-            reason: 'зерно $seed: выбрана фраза, которую не собрать — '
-                '${phrase.id}');
-      }
 
-      expect(builder, isNotNull);
-    });
-
-    test('частичный круг оставляет хоть одно слово на месте', () async {
-      // Уровень закрывается двумя кругами на одном предложении: сперва часть
-      // слов, потом всё. На коротких фразах при заходе от четвёртого уровня
-      // запрошенная глубина упиралась в длину, и оба круга вынимали всё —
-      // обещанное «сперва часть, потом целиком» превращалось в «целиком,
-      // целиком».
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(9),
-      );
-      final phrase =
-          await builder.pickPhrase(constellation: 'transport', tier: Tier.a0);
-      expect(phrase, isNotNull);
-
-      // Глубина заведомо больше длины любой фразы A0.
-      final partial = await builder.buildPhraseQuestion(
-        phrase: phrase!,
-        lumens: 0,
-        gaps: 99,
-      );
-      final full = await builder.buildPhraseQuestion(
-        phrase: phrase,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsAll,
-      );
-
-      expect(partial, isNotNull);
-      expect(full, isNotNull);
-      expect(partial!.slotCount, lessThan(full!.slotCount),
-          reason: 'частичный круг совпал с полным');
-      // В скелете частичного осталось хоть одно слово.
-      expect(partial.prompt.replaceAll('_____', '').trim(), isNotEmpty);
-    });
-  });
-
-  group('заявленный порядок слов', () {
-    test('принимается и забегом, и калибровкой одинаково', () async {
-      // Две реализации «верен ли ответ на фразу» расходились: забег собирал
-      // предложение и сверял со списком принимаемых порядков, а калибровка
-      // сверяла по слотам — то есть заявленные порядки игнорировала. Пока
-      // калибровка спрашивала только минимальную глубину, разница не
-      // проявлялась; первый же порядок, укладывающийся в два пропуска, дал бы
-      // «неверно» на верном ответе при замере уровня.
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'uk',
-        random: Random(4),
-      );
-      final phrases = await content.phrasesFor('health', Tier.a0, lang: 'de');
-      final phrase = phrases.firstWhere((p) => p.id == 'doctor_a0_help');
-
-      final question = await builder.buildPhraseQuestion(
-        phrase: phrase,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsAll,
-      );
-      expect(question, isNotNull);
-      expect(question!.accepted, isNotEmpty,
-          reason: 'фраза заявляет порядок, а до вопроса он не доехал');
-
-      // Заявленный порядок собирается из тех же слов и принимается.
-      final declared = question.accepted
-          .firstWhere((o) => o != question.assembled, orElse: () => '');
-      expect(declared, isNotEmpty);
-      expect(question.acceptsAssembly(declared), isTrue);
-
-      // А переставленное наугад — нет.
-      final scrambled = question.options.reversed.join(' ');
-      expect(question.acceptsAssembly(scrambled), isFalse);
-    });
-  });
-
-  group('добор соседями на больших созвездиях', () {
-    test('соседи не обрезаются запросом', () async {
-      // Третий случай одного класса, найденный до того, как выстрелил.
-      // `siblingForms` обрезал запросом с `limit: 12` — «в созвездии ровно
-      // двенадцать концептов». Верно для A0 и A1; на A2 и выше их двадцать
-      // четыре, и запрос отдавал половину, выбранную индексом SQLite. Одну и
-      // ту же половину навсегда, а перемешивание у вызывающего тасует уже
-      // выбранное.
-      final all = await content.siblingForms(
-        constellation: 'health',
-        tier: 'a2',
-        lang: 'de',
-        excludeConceptId: '',
-      );
-      final onTier = (await content.conceptsFor('health', Tier.a2))
-          .where((c) => c.tier == 'a2')
-          .length;
-
-      expect(onTier, greaterThan(12),
-          reason: 'ярус мельче лимита — обрезка не проявилась бы');
-      expect(all.length, onTier,
-          reason: 'запрос вернул не всех соседей яруса');
-    });
-  });
-
-  group('многослотовая фраза', () {
-    test('каждый слот знает только свой вариант', () async {
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'ru',
-        random: Random(3),
-      );
-      // «Город» взят не наугад: все его фразы A0 длиннее порога
-      // `phraseMinWords`, поэтому слотов гарантированно несколько — на одном
-      // слоте проверять различимость слотов было бы нечем.
-      final question = await builder.buildPhrase(
-        constellation: 'city',
-        tier: Tier.a0,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsAll,
-      );
-
-      expect(question, isNotNull);
-      expect(question!.slotCount,
-          greaterThanOrEqualTo(SessionBalance.phraseMinWords));
-      expect(question.isSingleSlot, isFalse);
-
-      for (var slot = 0; slot < question.slotCount; slot++) {
-        for (var option = 0; option < question.options.length; option++) {
-          // Верным признаётся вариант с тем же **текстом**, а не только с тем
-          // же номером: слово в предложении может повторяться, и две
-          // неотличимые плитки взаимозаменяемы.
-          expect(
-            question.isCorrectFor(slot, option),
-            question.options[option] == question.answerFor(slot),
-            reason: 'слот $slot, вариант $option',
-          );
+        expect(question, isNotNull, reason: '${row.id}: круг не собрался');
+        expect(question!.options, hasLength(ScoreBalance.optionsPerCircle),
+            reason: row.id);
+        // Воспроизведение: в центре родной язык, вокруг изучаемый.
+        expect(question.prompt, native[row.id], reason: row.id);
+        expect(question.answer, row.sentence, reason: row.id);
+        expect(question.tier, Tier.a0, reason: row.id);
+        // Регистр приезжает кодом, а не текстом: строку к нему даёт
+        // локализация. Пометка при этом необязательна — в разговорнике она
+        // стоит там, где различие «ты/Вы» существенно, и таких фраз 25 из
+        // 1000. Проверяется поэтому не наличие, а то, что пришёл код из
+        // набора: свободный текст показался бы игроку на языке файла.
+        if (question.promptTag != null) {
+          expect(promptTags, contains(question.promptTag), reason: row.id);
         }
       }
 
-      // Слот вне шаблона не признаёт ничего: лишнее место на экране не
-      // должно засчитываться верным.
-      expect(question.isCorrectFor(question.slotCount, 0), isFalse);
-      expect(question.isCorrectFor(-1, 0), isFalse);
-
-      // Порядок слов — это и есть задание: собранное предложение обязано
-      // совпасть с озвучкой целиком. При максимуме пропусков в пуле лежит всё
-      // предложение, поэтому слов в нём столько же, сколько слотов.
-      expect(question.assembled, question.answerSpeech);
-      expect(question.assembled.split(' ').length, question.slotCount);
+      // Проход обязан прочитать ярус, а не пустой список: A0 — это пять тем
+      // по двадцать фраз. Порог, а не равенство: ярус можно дописать, но
+      // усохнуть он не должен молча.
+      expect(rows.length, greaterThanOrEqualTo(100),
+          reason: 'корпус усох — проход прочитал не то, что думает');
     });
   });
 
-  group('вид дистракторов', () {
-    test('приходит с кругом, а не выводится из механики', () async {
-      final concepts = await content.conceptsUpTo(Tier.a0);
-      String? itemId;
-      var far = const <String>[];
-      var near = const <String>[];
-      for (final concept in concepts) {
-        final thematic = await content.distractorsFor(
-            concept.id, 'de', DistractorKind.far.code);
-        final phonetic = await content.distractorsFor(
-            concept.id, 'de', DistractorKind.near.code);
-        if (thematic.isNotEmpty && phonetic.isNotEmpty) {
-          itemId = concept.id;
-          far = thematic.map((d) => d.form).toList();
-          near = phonetic.map((d) => d.form).toList();
-          break;
+  group('заход', () {
+    test('заход не расширяет круг: вариантов шесть на любом уровне', () async {
+      // Надбавка вариантов от захода жила в сборщике и прибавлялась к каждому
+      // кругу — включая тот, которому планировщик намеренно оставил один
+      // вариант. С четвёртого уровня захода первый в жизни показ фразы
+      // становился выбором из двух, с седьмого — из трёх.
+      //
+      // Шкалы вариантности больше нет вовсе, и охраняется теперь это:
+      // `ClimbDifficulty` двигает порог «автоматизма» и смещение к трудным
+      // механикам, а ширину круга не трогает — на полном круге держится
+      // знакомство исключением.
+      for (final level in [1, 4, 7, 12, 40]) {
+        final session = await loader.level(
+          now,
+          difficulty: ClimbRules.difficultyFor(level),
+        );
+        expect(session.questions.where((q) => q.isNew), isNotEmpty,
+            reason: 'уровень $level: знакомства не осталось');
+
+        for (final q in session.questions) {
+          expect(q.options, hasLength(ScoreBalance.optionsPerCircle),
+              reason: 'уровень $level, ${q.itemId}: '
+                  '${q.options.length} вариантов');
         }
-      }
-      expect(itemId, isNotNull,
-          reason: 'в de.db нет концепта с обоими видами дистракторов');
-
-      final builder = QuestionBuilder(
-        content: content,
-        targetLang: 'de',
-        nativeLang: 'ru',
-        random: Random(7),
-      );
-      // Механика у обоих кругов одна и та же. Раньше «созвучные» означали
-      // другой режим — «Тесный круг», — и попросить их, не меняя режима, было
-      // нечем. Теперь это параметр круга, и разница видна на одной механике.
-      final base = PlannedCircle(
-        itemId: itemId!,
-        mode: GameMode.pickTarget,
-        isNew: false,
-        lumens: 60,
-      );
-      final thematic =
-          await builder.build(base.copyWith(distractorKind: DistractorKind.far));
-      final phonetic = await builder
-          .build(base.copyWith(distractorKind: DistractorKind.near));
-
-      expect(thematic, isNotNull);
-      expect(phonetic, isNotNull);
-      expect(thematic!.mode, phonetic!.mode);
-
-      // Заданные руками имеют приоритет над добором по созвездию, поэтому
-      // весь ручной набор нужного вида обязан оказаться в круге.
-      expect(phonetic.options, containsAll(near));
-      expect(thematic.options, containsAll(far));
-      // Созвучные подобраны по фонетике и соседями по теме не бывают —
-      // значит в тематическом круге им взяться неоткуда.
-      for (final form in near) {
-        expect(thematic.options, isNot(contains(form)), reason: form);
       }
     });
   });
 
   group('после игры', () {
-    test('сыгранные слова возвращаются как повторы, а не как новые', () async {
+    test('сыгранные фразы возвращаются как повторы, а не как новые', () async {
       final repository = WordStateRepository(userDb);
       final session = await loader.level(now);
 
@@ -743,12 +607,13 @@ void main() {
       expect(reviewedIds, containsAll(playedIds.toSet().take(1)));
     });
 
-    test('режим повтора растёт вместе с яркостью слова', () async {
+    test('шесть верных быстрых ответов уводят фразу на недели', () async {
       final repository = WordStateRepository(userDb);
-      final concepts = await content.conceptsUpTo(Tier.a0);
-      final id = concepts.first.id;
+      final phrases = await content.phrasesUpTo(Tier.a0);
+      final id = phrases.first.id;
 
-      // Доводим слово до высокой яркости серией верных быстрых ответов.
+      // Доводим фразу до высокой яркости серией верных быстрых ответов,
+      // каждый — в свой срок повторения.
       var at = now;
       for (var i = 0; i < 6; i++) {
         await repository.applyAnswer(
@@ -764,7 +629,7 @@ void main() {
       }
 
       final state = await repository.load(id);
-      // Слово повторяли шесть раз подряд верно — оно должно уйти далеко.
+      // Фразу повторяли шесть раз подряд верно — она должна уйти далеко.
       expect(state.stability, greaterThan(10));
       expect(state.reps, 6);
     });
@@ -778,11 +643,11 @@ void main() {
 
     test('после игры Восход показывает самые тусклые звёзды', () async {
       final repository = WordStateRepository(userDb);
-      final concepts = await content.conceptsUpTo(Tier.a0);
+      final phrases = await content.phrasesUpTo(Tier.a0);
 
-      for (final concept in concepts.take(4)) {
+      for (final phrase in phrases.take(4)) {
         await repository.applyAnswer(
-          itemId: concept.id,
+          itemId: phrase.id,
           tier: Tier.a0,
           mode: GameMode.pickTarget,
           correct: true,
@@ -802,115 +667,6 @@ void main() {
       final lumens = session.questions.map((q) => q.lumens).toList();
       final sorted = [...lumens]..sort();
       expect(lumens, sorted);
-    });
-  });
-
-  group('починенное вехой M10', () {
-    // Каждый тест здесь закрывает дефект, найденный при переносе тестов на
-    // новый набор механик. Все шесть были в моём собственном коде, и ни один
-    // не падал: они делали игру тише — хуже, но работающей.
-
-    test('обе фразовые механики стоят на одном предложении', () async {
-      // Комментарий в загрузчике обещал «обе на одном материале», а код звал
-      // сборку дважды, и та каждый раз тянула случайную фразу заново. На
-      // четырёх фразах A0 они совпадали примерно в четверти случаев —
-      // обещание выполнялось иногда. Выполняющееся иногда обещание хуже
-      // отсутствующего: игрок не может опереться на то, чего не понимает.
-      final session = await loader.level(now);
-      final phrases =
-          session.questions.where((q) => q.mode.isPhrase).toList();
-
-      // «Собери предложение» может не собраться из короткой фразы — это
-      // отказ по длине, а не поломка. Проверяем, когда собрались обе.
-      if (phrases.length < 2) return;
-
-      expect(phrases.map((q) => q.mode).toSet(),
-          {GameMode.fillGaps, GameMode.buildPhrase});
-      expect(
-        phrases.map((q) => q.answerSpeech).toSet(),
-        hasLength(1),
-        reason: 'механики встали на разные предложения: '
-            '${phrases.map((q) => q.answerSpeech).toList()}',
-      );
-    });
-
-    test('знакомство остаётся показом на любом уровне захода', () async {
-      // Надбавка вариантов от захода жила в сборщике и прибавлялась к
-      // каждому кругу — включая тот, которому планировщик намеренно оставил
-      // один вариант. С четвёртого уровня захода первый в жизни показ слова
-      // становился выбором из двух, с седьмого — из трёх: показ превращался
-      // в проверку слова, которого игрок ещё не видел.
-      for (final level in [1, 4, 7, 12, 40]) {
-        final session = await loader.level(
-          now,
-          difficulty: ClimbRules.difficultyFor(level),
-        );
-        final introductions =
-            session.questions.where((q) => q.isNew).toList();
-        expect(introductions, isNotEmpty, reason: 'уровень $level');
-
-        for (final question in introductions) {
-          expect(
-            question.options.length,
-            SessionBalance.introductionOptions,
-            reason: 'уровень $level: у знакомства '
-                '${question.options.length} вариантов',
-          );
-        }
-      }
-    });
-
-    test('заход расширяет круг и на словах, и на фразе', () async {
-      // Обратная сторона той же ошибки: `_phraseRuns` не получал сложность
-      // вовсе, и пул фразы оставался шириной в шесть при любом уровне.
-      // Словесные круги дорожали, а закрывающая уровень фраза — нет.
-      final easy = await loader.level(now);
-      final hard = await loader.level(
-        now,
-        difficulty: ClimbRules.difficultyFor(40),
-      );
-
-      // Мерить надо ту механику, чья ширина и есть параметр сложности.
-      // «Собери предложение» под это не подходит: его пул — слова самого
-      // предложения, и от захода он не зависит вовсе. Пока фразы были
-      // короткими, разницы не было; после того как девятнадцать шаблонов
-      // получили придаточное, пул сборки дорос до девяти — и «самый широкий
-      // фразовый круг» стал мерить длину предложения вместо сложности.
-      int widest(LoadedSession s, bool Function(CircleQuestion) pick) {
-        final matching =
-            s.questions.where(pick).map((q) => q.options.length);
-        return matching.isEmpty ? 0 : matching.reduce(max);
-      }
-
-      bool words(CircleQuestion q) => q.mode.isWordMode && !q.isNew;
-      bool gaps(CircleQuestion q) => q.mode == GameMode.fillGaps && !q.isNew;
-
-      expect(widest(hard, words), greaterThan(widest(easy, words)),
-          reason: 'словесные круги не расширились');
-      if (widest(easy, gaps) > 0) {
-        expect(widest(hard, gaps), greaterThan(widest(easy, gaps)),
-            reason: 'пропуски не расширились вместе с заходом');
-      }
-    });
-
-    test('повторённое слово во фразе получает свой вариант пула', () async {
-      // `_fillGaps` искал индекс через `indexOf`: два пропуска с одним и тем
-      // же словом получали один индекс, спорили за один вариант, а второе
-      // такое же слово в пуле оставалось недостижимым. Рядом, в сборке
-      // предложения из слов, от этого стояла защита — два сборщика фраз
-      // расходились друг с другом.
-      //
-      // В контенте фраз с повторённым ответом пока нет, поэтому проверяется
-      // общее свойство: у каждого слота свой индекс.
-      final session = await loader.level(now);
-      for (final question in session.questions.where((q) => q.mode.isPhrase)) {
-        expect(
-          question.answers.toSet(),
-          hasLength(question.answers.length),
-          reason: '${question.itemId}: слоты делят один вариант '
-              '(${question.answers})',
-        );
-      }
     });
   });
 }

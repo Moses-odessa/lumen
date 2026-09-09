@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: symptoms_treatment
+tiers:
+  a2:
+    - id: symptoms_treatment_a2_01
+      text: "Das hat vor drei Tagen angefangen."
+    - id: symptoms_treatment_a2_02
+      text: "Die Schmerzen sind ständig da."
+    - id: symptoms_treatment_a2_03
+      text: "Die Schmerzen kommen und gehen."
+    - id: symptoms_treatment_a2_04
+      text: "Wenn ich mich bewege, tut es mehr weh."
+    - id: symptoms_treatment_a2_05
+      text: "Nachts geht es mir schlechter."
+    - id: symptoms_treatment_a2_06
+      text: "Ich habe schon ein Schmerzmittel genommen."
+    - id: symptoms_treatment_a2_07
+      text: "Dieses Medikament hilft mir nicht."
+    - id: symptoms_treatment_a2_08
+      text: "Gibt es Nebenwirkungen?"
+    - id: symptoms_treatment_a2_09
+      text: "Soll ich es vor oder nach dem Essen nehmen?"
+    - id: symptoms_treatment_a2_10
+      text: "Darf ich arbeiten?"
+    - id: symptoms_treatment_a2_11
+      text: "Wie viele Tage soll ich mich ausruhen?"
+    - id: symptoms_treatment_a2_12
+      text: "Ich brauche eine Bescheinigung für die Arbeit."
+    - id: symptoms_treatment_a2_13
+      text: "Wann sind die Ergebnisse da?"
+    - id: symptoms_treatment_a2_14
+      text: "Muss ich noch einmal kommen?"
+    - id: symptoms_treatment_a2_15
+      text: "Was soll ich tun, wenn es schlimmer wird?"
+    - id: symptoms_treatment_a2_16
+      text: "Können Sie das einfacher erklären?"
+    - id: symptoms_treatment_a2_17
+      text: "Ich habe seit ... Tagen ..."
+    - id: symptoms_treatment_a2_18
+      text: "Es tut weh, wenn ich ..."
+    - id: symptoms_treatment_a2_19
+      text: "Ich nehme regelmäßig ..."
+    - id: symptoms_treatment_a2_20
+      text: "Darf ich ... zusammen mit ... nehmen?"

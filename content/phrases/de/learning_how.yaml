@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: learning_how
+tiers:
+  a2:
+    - id: learning_how_a2_01
+      text: "Ich lerne die Sprache seit einem halben Jahr."
+    - id: learning_how_a2_02
+      text: "Lesen fällt mir leichter als Sprechen."
+    - id: learning_how_a2_03
+      text: "Ich vergesse neue Wörter oft."
+    - id: learning_how_a2_04
+      text: "Ich möchte mein Hörverstehen verbessern."
+    - id: learning_how_a2_05
+      text: "Kann ich noch ein Beispiel bekommen?"
+    - id: learning_how_a2_06
+      text: "Was ist der Unterschied zwischen diesen Wörtern?"
+    - id: learning_how_a2_07
+      text: "Wie verwendet man das in einem Satz?"
+    - id: learning_how_a2_08
+      text: "Bitte korrigieren Sie meine Fehler."
+    - id: learning_how_a2_09
+      text: "Ich möchte es zuerst selbst versuchen."
+    - id: learning_how_a2_10
+      text: "Ich muss das wiederholen."
+    - id: learning_how_a2_11
+      text: "Ich übe jeden Tag ein bisschen."
+    - id: learning_how_a2_12
+      text: "Lass uns ohne Übersetzung sprechen."
+      register: casual
+    - id: learning_how_a2_13
+      text: "Ich schreibe nützliche Ausdrücke auf."
+    - id: learning_how_a2_14
+      text: "Ich höre mir das mehrmals an."
+    - id: learning_how_a2_15
+      text: "Jetzt ist es klarer."
+    - id: learning_how_a2_16
+      text: "Ich sehe schon Fortschritte."
+    - id: learning_how_a2_17
+      text: "Es fällt mir schwer, ..."
+    - id: learning_how_a2_18
+      text: "Ich merke es mir besser, wenn ..."
+    - id: learning_how_a2_19
+      text: "Mein Ziel für diese Woche ist ..."
+    - id: learning_how_a2_20
+      text: "Ich würde gern ... üben."

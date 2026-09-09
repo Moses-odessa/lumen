@@ -76,9 +76,9 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
 
   // Яркость считается из тройки FSRS, а не берётся из кеша: кеш обновляется
   // при старте сессии, а карту могут открыть и через неделю простоя.
-  final lumensByConcept = <String, Lumens>{};
+  final lumensByItem = <String, Lumens>{};
   for (final row in await db.loadWordStates()) {
-    lumensByConcept[row.itemId] = MemoryState(
+    lumensByItem[row.itemId] = MemoryState(
       difficulty: row.difficulty,
       stability: row.stability,
       lastReview: row.lastReview,
@@ -87,7 +87,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
     ).lumensAt(now);
   }
 
-  final concepts = await content.conceptsUpTo(tier);
+  final items = await content.phrasesUpTo(tier);
 
   // Небо делится на два множества, и это деление принципиальное.
   //
@@ -105,19 +105,19 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
   final allStars = <String, List<Lumens>>{};
   final totals = <String, int>{};
 
-  // Светящие звёзды считаются по тем же концептам, что рисует карта, а не
+  // Светящие звёзды считаются по тем же фразам, что рисует карта, а не
   // запросом по всей базе: строка памяти может остаться от яруса выше или от
-  // слова, которого в контенте больше нет.
+  // фразы, которой в контенте больше нет.
   var litStars = 0;
 
-  for (final concept in concepts) {
-    totals.update(concept.constellation, (n) => n + 1, ifAbsent: () => 1);
-    final lumens = lumensByConcept[concept.id];
-    allStars.putIfAbsent(concept.constellation, () => []).add(lumens ?? 0);
+  for (final item in items) {
+    totals.update(item.constellation, (n) => n + 1, ifAbsent: () => 1);
+    final lumens = lumensByItem[item.id];
+    allStars.putIfAbsent(item.constellation, () => []).add(lumens ?? 0);
     if (lumens == null) continue;
     if (lumens >= LumenBand.dimming.minLm) litStars++;
-    worked.putIfAbsent(concept.constellation, () => []).add(
-          StarInput(itemId: concept.id, lumens: lumens),
+    worked.putIfAbsent(item.constellation, () => []).add(
+          StarInput(itemId: item.id, lumens: lumens),
         );
   }
 
@@ -164,7 +164,7 @@ final skySnapshotProvider = FutureProvider<SkySnapshot>((ref) async {
     placements: placements,
     states: states,
     tier: tier,
-    totalStars: concepts.length,
+    totalStars: items.length,
     litConstellations: states.values.where((s) => s.isLit).length,
     litStars: litStars,
   );

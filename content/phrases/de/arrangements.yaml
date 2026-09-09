@@ -1,0 +1,52 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: arrangements
+tiers:
+  a2:
+    - id: arrangements_a2_01
+      text: "Ich möchte unser Treffen verschieben."
+    - id: arrangements_a2_02
+      text: "Morgen passt es mir besser."
+    - id: arrangements_a2_03
+      text: "Können wir uns eine halbe Stunde später treffen?"
+    - id: arrangements_a2_04
+      text: "Leider muss ich das Treffen absagen."
+    - id: arrangements_a2_05
+      text: "Danke für Ihr Verständnis."
+      register: formal
+    - id: arrangements_a2_06
+      text: "Lassen Sie uns einen anderen Termin finden."
+      register: formal
+    - id: arrangements_a2_07
+      text: "Bleibt es bei unseren Plänen?"
+    - id: arrangements_a2_08
+      text: "Ich bestätige den Termin am Freitag."
+    - id: arrangements_a2_09
+      text: "Ich verspäte mich um zehn Minuten."
+    - id: arrangements_a2_10
+      text: "Danke, dass Sie gewartet haben."
+      register: formal
+    - id: arrangements_a2_11
+      text: "Sagen Sie bitte vorher Bescheid."
+    - id: arrangements_a2_12
+      text: "Bis wann wird das gebraucht?"
+    - id: arrangements_a2_13
+      text: "Ich erledige das bis Montag."
+    - id: arrangements_a2_14
+      text: "Das braucht mehr Zeit."
+    - id: arrangements_a2_15
+      text: "Ich habe schon etwas vor."
+    - id: arrangements_a2_16
+      text: "Abgemacht."
+    - id: arrangements_a2_17
+      text: "Würde Ihnen ... passen?"
+    - id: arrangements_a2_18
+      text: "Ich bin von ... bis ... frei."
+    - id: arrangements_a2_19
+      text: "Bitte bestätigen Sie ..."
+    - id: arrangements_a2_20
+      text: "Wenn sich etwas ändert, ..."

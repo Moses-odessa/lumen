@@ -93,9 +93,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get calibrationHintConfirm => 'Проверяем ещё раз';
 
   @override
-  String get calibrationHintPhrases => 'Теперь целые фразы';
-
-  @override
   String get calibrationHintDone => 'Готово';
 
   @override
@@ -217,9 +214,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get skyEmptyBody => 'В контентной базе нет созвездий для этого яруса.';
 
   @override
-  String get skyDictionary => 'Словарь';
-
-  @override
   String constellationLitOf(int lit, int total) {
     return '$lit из $total звёзд горят';
   }
@@ -244,21 +238,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String tierSuggestDown(String current, String target) {
     return 'Похоже, $current даётся тяжело. Попробовать $target?';
   }
-
-  @override
-  String get dictionaryTitle => 'Словарь';
-
-  @override
-  String get dictionarySearchHint => 'Слово на любом из двух языков';
-
-  @override
-  String get dictionaryNothing => 'Ничего не нашлось';
-
-  @override
-  String get dictionaryResetFilters => 'Сбросить фильтры';
-
-  @override
-  String get dictionaryBurningFilter => 'горят';
 
   @override
   String get bandBurning => 'горит';
@@ -649,21 +628,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Уровень $level · ×$multiplier';
   }
-
-  @override
-  String get promptTagAdverb => 'наречие';
-
-  @override
-  String get promptTagAdjective => 'прилагательное';
-
-  @override
-  String get promptTagUncountable => 'неисчисляемое';
-
-  @override
-  String get promptTagPluralOnly => 'только множественное';
-
-  @override
-  String get promptTagUsuallyPlural => 'обычно во множественном';
 
   @override
   String get promptTagCasual => 'разговорное';

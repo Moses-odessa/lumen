@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: travel_trouble
+tiers:
+  a2:
+    - id: travel_trouble_a2_01
+      text: "Ich habe meinen Zug verpasst."
+    - id: travel_trouble_a2_02
+      text: "Mein Flug wurde gestrichen."
+    - id: travel_trouble_a2_03
+      text: "Was ist die nächste Reisemöglichkeit?"
+    - id: travel_trouble_a2_04
+      text: "Ist diese Fahrkarte noch gültig?"
+    - id: travel_trouble_a2_05
+      text: "Ich brauche eine andere Route."
+    - id: travel_trouble_a2_06
+      text: "Wo hält der Ersatzbus?"
+    - id: travel_trouble_a2_07
+      text: "Ich habe mein Portemonnaie verloren."
+    - id: travel_trouble_a2_08
+      text: "Ich habe meine Tasche im Bus liegen lassen."
+    - id: travel_trouble_a2_09
+      text: "Wo ist das Fundbüro?"
+    - id: travel_trouble_a2_10
+      text: "Mein Gepäck ist nicht angekommen."
+    - id: travel_trouble_a2_11
+      text: "Hier ist die Beschreibung meines Koffers."
+    - id: travel_trouble_a2_12
+      text: "Ich brauche eine Verspätungsbestätigung."
+    - id: travel_trouble_a2_13
+      text: "Wo kann ich einen Antrag stellen?"
+    - id: travel_trouble_a2_14
+      text: "Kann ich das Reisedatum ändern?"
+    - id: travel_trouble_a2_15
+      text: "Ich erreiche meinen Anschluss nicht."
+    - id: travel_trouble_a2_16
+      text: "Wer kann mir helfen?"
+    - id: travel_trouble_a2_17
+      text: "Ich habe ... bei ... verloren."
+    - id: travel_trouble_a2_18
+      text: "Die Verspätung beträgt ..."
+    - id: travel_trouble_a2_19
+      text: "Gibt es eine andere Möglichkeit, ...?"
+    - id: travel_trouble_a2_20
+      text: "An wen kann ich mich wegen ... wenden?"

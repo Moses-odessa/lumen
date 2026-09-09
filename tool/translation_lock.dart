@@ -25,22 +25,20 @@ import 'package:crypto/crypto.dart';
 
 import 'content_sources.dart';
 
-/// Отпечаток фразы: шаблон с заполненными пропусками.
+/// Отпечаток фразы: её готовый текст.
 ///
-/// Считается по **собранному предложению**, а не по шаблону и ответам
-/// отдельно: перевод делается с предложения, и правка, которая предложение не
-/// меняет (порядок ключей в YAML, комментарий рядом), устаревания не значит.
-String phraseFingerprint(PhraseSource phrase) {
-  var i = 0;
-  final sentence = phrase.template.replaceAllMapped(
-    RegExp(r'\{[^}]*\}'),
-    (_) => i < phrase.answers.length ? phrase.answers[i++] : '',
-  );
-  return sha256
-      .convert(utf8.encode(sentence))
-      .toString()
-      .substring(0, 12);
-}
+/// Считается по **предложению**, а не по шаблону и ответам отдельно: перевод
+/// делается с предложения, и правка, которая предложение не меняет (порядок
+/// ключей в YAML, комментарий рядом), устаревания не значит.
+///
+/// Раньше подстановка делалась здесь же, потому что у фразы был шаблон с
+/// пропуском. Теперь готовый текст собирает чтение исходников
+/// (`phraseSpeech`), и здесь остаётся только хеш — от той же самой строки,
+/// поэтому уже записанные замки остались в силе.
+String phraseFingerprint(PhraseSource phrase) => sha256
+    .convert(utf8.encode(phrase.text))
+    .toString()
+    .substring(0, 12);
 
 /// Файл замка для языка: `content/lang/<код>.lock`.
 File translationLockFile(String root, String lang) =>

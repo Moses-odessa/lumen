@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: health_doctor
+tiers:
+  a1:
+    - id: health_doctor_a1_01
+      text: "Ich habe Kopfschmerzen."
+    - id: health_doctor_a1_02
+      text: "Ich habe Fieber."
+    - id: health_doctor_a1_03
+      text: "Hier tut es weh."
+    - id: health_doctor_a1_04
+      text: "Ich brauche einen Arzt."
+    - id: health_doctor_a1_05
+      text: "Wo ist die nächste Apotheke?"
+    - id: health_doctor_a1_06
+      text: "Kann ich einen Termin vereinbaren?"
+    - id: health_doctor_a1_07
+      text: "Es ist dringend."
+    - id: health_doctor_a1_08
+      text: "Ich habe Husten."
+    - id: health_doctor_a1_09
+      text: "Mir ist schwindelig."
+    - id: health_doctor_a1_10
+      text: "Ich kann nicht schlafen."
+    - id: health_doctor_a1_11
+      text: "Ich nehme Medikamente."
+    - id: health_doctor_a1_12
+      text: "Ich habe ein Rezept."
+    - id: health_doctor_a1_13
+      text: "Wie nehme ich dieses Medikament ein?"
+    - id: health_doctor_a1_14
+      text: "Wie oft am Tag?"
+    - id: health_doctor_a1_15
+      text: "Mir geht es schon besser."
+    - id: health_doctor_a1_16
+      text: "Rufen Sie bitte einen Krankenwagen."
+    - id: health_doctor_a1_17
+      text: "Mein ... tut weh."
+    - id: health_doctor_a1_18
+      text: "Ich bin gegen ... allergisch."
+    - id: health_doctor_a1_19
+      text: "Ich brauche einen Termin bei ..."
+    - id: health_doctor_a1_20
+      text: "Wie lange muss ich ...?"

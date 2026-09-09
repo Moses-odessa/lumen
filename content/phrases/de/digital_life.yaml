@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: digital_life
+tiers:
+  a2:
+    - id: digital_life_a2_01
+      text: "Ich kann mich nicht in meinem Konto anmelden."
+    - id: digital_life_a2_02
+      text: "Ich habe mein Passwort vergessen."
+    - id: digital_life_a2_03
+      text: "Wie setze ich mein Passwort zurück?"
+    - id: digital_life_a2_04
+      text: "Der Bestätigungscode ist nicht angekommen."
+    - id: digital_life_a2_05
+      text: "Der Link funktioniert nicht mehr."
+    - id: digital_life_a2_06
+      text: "Die Datei ist zu groß."
+    - id: digital_life_a2_07
+      text: "Kannst du das als PDF schicken?"
+    - id: digital_life_a2_08
+      text: "Kann man mich gut hören?"
+    - id: digital_life_a2_09
+      text: "Mein Mikrofon ist ausgeschaltet."
+    - id: digital_life_a2_10
+      text: "Das Bild ist eingefroren."
+    - id: digital_life_a2_11
+      text: "Ich verbinde mich noch einmal."
+    - id: digital_life_a2_12
+      text: "Muss ich das Update installieren?"
+    - id: digital_life_a2_13
+      text: "Ich habe eine Sicherungskopie erstellt."
+    - id: digital_life_a2_14
+      text: "Schick mir nicht dein Passwort."
+      register: casual
+    - id: digital_life_a2_15
+      text: "Ich kenne den Absender nicht."
+    - id: digital_life_a2_16
+      text: "Ich möchte die Benachrichtigungen ausschalten."
+    - id: digital_life_a2_17
+      text: "Es gelingt mir nicht, ..."
+    - id: digital_life_a2_18
+      text: "Auf dem Bildschirm steht ..."
+    - id: digital_life_a2_19
+      text: "Wo kann ich ... ändern?"
+    - id: digital_life_a2_20
+      text: "Ich habe eine Nachricht über ... erhalten."

@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: culture_impressions
+tiers:
+  b1:
+    - id: culture_impressions_b1_01
+      text: "Der Film hat mich sehr beeindruckt."
+    - id: culture_impressions_b1_02
+      text: "Die Handlung entwickelt sich langsam."
+    - id: culture_impressions_b1_03
+      text: "Die Hauptfigur versucht, ihr Leben zu ändern."
+    - id: culture_impressions_b1_04
+      text: "Die Geschichte beruht auf wahren Ereignissen."
+    - id: culture_impressions_b1_05
+      text: "Mir hat die Atmosphäre gefallen."
+    - id: culture_impressions_b1_06
+      text: "Das Ende war überraschend."
+    - id: culture_impressions_b1_07
+      text: "Ich möchte das Ende nicht verraten."
+    - id: culture_impressions_b1_08
+      text: "Das Buch hat mich zum Nachdenken gebracht."
+    - id: culture_impressions_b1_09
+      text: "Einige Szenen fand ich unrealistisch."
+    - id: culture_impressions_b1_10
+      text: "Die Musik passt gut zur Geschichte."
+    - id: culture_impressions_b1_11
+      text: "Ich würde das Freunden empfehlen."
+    - id: culture_impressions_b1_12
+      text: "Das ist nicht ganz mein Geschmack."
+    - id: culture_impressions_b1_13
+      text: "Ich lese meistens im Original."
+    - id: culture_impressions_b1_14
+      text: "Untertitel helfen mir, die Dialoge zu verstehen."
+    - id: culture_impressions_b1_15
+      text: "Welche Idee wollte der Autor vermitteln?"
+    - id: culture_impressions_b1_16
+      text: "Jeder kann das anders verstehen."
+    - id: culture_impressions_b1_17
+      text: "In dem Film geht es um ..."
+    - id: culture_impressions_b1_18
+      text: "Am meisten hat mich ... beeindruckt."
+    - id: culture_impressions_b1_19
+      text: "Anders als im Buch ..."
+    - id: culture_impressions_b1_20
+      text: "Ich würde das denen empfehlen, die ..."

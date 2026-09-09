@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: hedging
+tiers:
+  b2:
+    - id: hedging_b2_01
+      text: "Soweit ich das beurteilen kann, ist es realistisch."
+    - id: hedging_b2_02
+      text: "Ich schließe diese Möglichkeit nicht aus."
+    - id: hedging_b2_03
+      text: "Ganz sicher können wir nicht sein."
+    - id: hedging_b2_04
+      text: "In diesem Stadium ist es zu früh für Schlussfolgerungen."
+    - id: hedging_b2_05
+      text: "Das ist eher eine Vermutung als eine Tatsache."
+    - id: hedging_b2_06
+      text: "Die verfügbaren Informationen reichen nicht für eine sichere Aussage."
+    - id: hedging_b2_07
+      text: "In diesem Punkt könnte ich mich irren."
+    - id: hedging_b2_08
+      text: "Ich bin bereit, meine Meinung zu überdenken."
+    - id: hedging_b2_09
+      text: "Das hängt davon ab, wie man Erfolg definiert."
+    - id: hedging_b2_10
+      text: "Ausnahmen sind möglich, aber die Regel bleibt nützlich."
+    - id: hedging_b2_11
+      text: "Möglicherweise spielen hier mehrere Faktoren eine Rolle."
+    - id: hedging_b2_12
+      text: "Ich würde das vorsichtiger formulieren."
+    - id: hedging_b2_13
+      text: "Soweit mir bekannt ist, ..."
+    - id: hedging_b2_14
+      text: "Es gibt Gründe anzunehmen, dass ..."
+    - id: hedging_b2_15
+      text: "Es lässt sich nicht ausschließen, dass ..."
+    - id: hedging_b2_16
+      text: "Vorausgesetzt, dass ..., ..."
+    - id: hedging_b2_17
+      text: "Das betrifft überwiegend ... und nicht ..."
+    - id: hedging_b2_18
+      text: "Unter den jetzigen Umständen neige ich zu ..."
+    - id: hedging_b2_19
+      text: "Sofern keine neuen Daten vorliegen, ..."
+    - id: hedging_b2_20
+      text: "Ich würde nicht behaupten, dass ..., jedoch ..."

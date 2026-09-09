@@ -36,8 +36,14 @@ enum CalibrationPhase {
   /// проверена созвучными», а код обещания не давал.
   confirm,
 
-  /// Четыре фразы на найденном ярусе.
-  phrases,
+  // Фаза `phrases` удалена вместе с разницей, которую она мерила.
+  //
+  // Она спрашивала четыре целых предложения на найденном ярусе и роняла
+  // ярус, если игрок собрал меньше половины: «знает слова, но не собирает
+  // предложения — типичная картина у человека, который учил язык по
+  // спискам». Единицей изучения стала фраза, отдельных слов в игре нет —
+  // значит и гребёнка, и поиск, и подтверждение спрашивают ровно то же, что
+  // спрашивала эта фаза. Отдельная проверка стала повтором.
 
   /// Ярус найден.
   done,
@@ -49,7 +55,6 @@ class CalibrationStep {
     required this.tier,
     required this.mode,
     required this.phase,
-    this.distractorKind = DistractorKind.far,
     this.isRepeat = false,
   });
 
@@ -66,13 +71,11 @@ class CalibrationStep {
   /// просто перестала бы срабатывать никогда, и каждая граница
   /// подтверждалась бы с шансом угадать один к шести. Тесты калибровки при
   /// этом остались бы зелёными.
-  final DistractorKind distractorKind;
 
   /// Переспрос подозрительно быстрого ответа: в зачёт не идёт.
   final bool isRepeat;
 
   /// Круг с созвучными вариантами: угадать вдвое труднее.
-  bool get isTight => distractorKind == DistractorKind.near;
 }
 
 /// Состояние теста. Неизменяемое: каждый ответ порождает новое.
@@ -86,9 +89,6 @@ class CalibrationState {
     this.consecutiveWrong = 0,
     this.confirmations = 0,
     this.confirmFailures = 0,
-    this.tightConfirmed = false,
-    this.phrasesAsked = 0,
-    this.phrasesCorrect = 0,
     this.lowest,
     this.highest,
     this.pendingRepeat = false,
@@ -114,9 +114,8 @@ class CalibrationState {
   final int consecutiveCorrect;
   final int consecutiveWrong;
 
-  /// Успешных подтверждений границы и был ли среди них тесный круг.
+  /// Успешных подтверждений границы.
   final int confirmations;
-  final bool tightConfirmed;
 
   /// Промахов при подтверждении.
   ///
@@ -124,9 +123,6 @@ class CalibrationState {
   /// против случайного промаха пальцем. Ронять целый ярус из-за одной
   /// осечки — это ошибка в другую сторону, и она обходится дороже.
   final int confirmFailures;
-
-  final int phrasesAsked;
-  final int phrasesCorrect;
 
   /// Границы поиска: самый высокий подтверждённый и самый низкий
   /// проваленный ярус.
@@ -149,17 +145,9 @@ class CalibrationState {
         tier: probe,
         phase: phase,
         isRepeat: pendingRepeat,
-        mode: switch (phase) {
-          // Фразы проверяют сборку предложения — это механика e.
-          CalibrationPhase.phrases => GameMode.fillGaps,
-          _ => GameMode.pickTarget,
-        },
-        // Граница обязана быть проверена созвучными вариантами хотя бы раз:
-        // шесть тематических дают 17 % случайного попадания, и на них это
-        // слишком дёшево.
-        distractorKind: phase == CalibrationPhase.confirm && !tightConfirmed
-            ? DistractorKind.near
-            : DistractorKind.far,
+        // Механика одна на весь тест: назвать фразу на изучаемом языке.
+        // Это самое требовательное из трёх, и мерить ярус надо им.
+        mode: GameMode.pickTarget,
       );
 
   CalibrationState copyWith({
@@ -171,9 +159,6 @@ class CalibrationState {
     int? consecutiveWrong,
     int? confirmations,
     int? confirmFailures,
-    bool? tightConfirmed,
-    int? phrasesAsked,
-    int? phrasesCorrect,
     Tier? Function()? lowest,
     Tier? Function()? highest,
     bool? pendingRepeat,
@@ -189,9 +174,6 @@ class CalibrationState {
         consecutiveWrong: consecutiveWrong ?? this.consecutiveWrong,
         confirmations: confirmations ?? this.confirmations,
         confirmFailures: confirmFailures ?? this.confirmFailures,
-        tightConfirmed: tightConfirmed ?? this.tightConfirmed,
-        phrasesAsked: phrasesAsked ?? this.phrasesAsked,
-        phrasesCorrect: phrasesCorrect ?? this.phrasesCorrect,
         lowest: lowest == null ? this.lowest : lowest(),
         highest: highest == null ? this.highest : highest(),
         pendingRepeat: pendingRepeat ?? this.pendingRepeat,
@@ -205,9 +187,7 @@ class CalibrationState {
         CalibrationPhase.search =>
           0.25 + (asked / CalibrationBalance.searchCirclesMax) * 0.45,
         CalibrationPhase.confirm => 0.7 +
-            (confirmations / CalibrationBalance.borderConfirmations) * 0.15,
-        CalibrationPhase.phrases => 0.85 +
-            (phrasesAsked / CalibrationBalance.finalPhraseChecks) * 0.15,
+            (confirmations / CalibrationBalance.borderConfirmations) * 0.3,
         CalibrationPhase.done => 1,
       };
 }
@@ -261,7 +241,6 @@ abstract final class Calibration {
       CalibrationPhase.comb => _comb(state, correct),
       CalibrationPhase.search => _search(state, correct),
       CalibrationPhase.confirm => _confirm(state, correct),
-      CalibrationPhase.phrases => _phrases(state, correct),
       CalibrationPhase.done => state,
     };
   }
@@ -291,12 +270,18 @@ abstract final class Calibration {
     final up = state.probe.up;
 
     if (up == null) {
-      // Верхний ярус взят с ходу — подтверждаем и заканчиваем фразами.
+      // Верхний ярус взят с ходу — подтверждать нечего, тест закончен.
+      //
+      // Раньше отсюда шли к проверке фразами: она была единственным, что
+      // отделяло «прошёл всю гребёнку» от «получил B2». Угадать гребёнку это
+      // (1/6)⁵, один шанс из семи с половиной тысяч, так что отдельной
+      // проверки такой прогон и не требовал.
       return next.copyWith(
-        phase: CalibrationPhase.phrases,
+        phase: CalibrationPhase.done,
         confirmed: confirmed,
         lowest: () => state.probe,
         probe: state.probe,
+        result: () => state.probe,
       );
     }
 
@@ -375,7 +360,6 @@ abstract final class Calibration {
   /// случайного попадания, и без повторной проверки каждый шестой игрок
   /// получал бы завышенный результат.
   static CalibrationState _confirm(CalibrationState state, bool correct) {
-    final wasTight = state.step.isTight;
     var next = state.copyWith(asked: state.asked + 1);
 
     if (!correct) {
@@ -389,33 +373,29 @@ abstract final class Calibration {
 
       final down = state.probe.down;
       if (down == null) {
-        // Ниже A0 некуда: остаётся проверка фразами.
+        // Ниже A0 некуда — тест закончен, и это A0.
         //
-        // `result` здесь не выставляется. Раньше выставлялся — и нарушал
-        // собственный контракт поля («итог; null, пока тест не закончен»):
-        // состояние читалось как `phase: phrases, isDone: false, result: a0`
-        // все четыре оставшихся круга. Ничего в приложении на это не
-        // смотрело, потому что гейт стоит на `isDone`, — но любой, кто
-        // проверил бы `result != null`, закончил бы тест на четыре круга
-        // раньше и выдал незаработанный A0.
+        // Раньше здесь начиналась проверка фразами, и `result` не
+        // выставлялся, чтобы не нарушить контракт поля «null, пока тест не
+        // закончен». Проверки больше нет, значит тест действительно
+        // закончен, и `result` выставляется вместе с фазой — как во всех
+        // остальных концовках.
         return next.copyWith(
-          phase: CalibrationPhase.phrases,
+          phase: CalibrationPhase.done,
           probe: Tier.a0,
-          phrasesAsked: 0,
+          result: () => Tier.a0,
         );
       }
       return next.copyWith(
         probe: down,
         confirmations: 0,
         confirmFailures: 0,
-        tightConfirmed: false,
         highest: () => _lower(state.highest, state.probe),
       );
     }
 
     next = next.copyWith(
       confirmations: state.confirmations + 1,
-      tightConfirmed: state.tightConfirmed || wasTight,
       // Счётчик промахов обнуляется верным ответом.
       //
       // Без этого «промах → верно → промах» ронял ярус, хотя правило рядом
@@ -429,37 +409,20 @@ abstract final class Calibration {
       highest: () => _clearIfStale(state.highest, state.probe),
     );
 
-    final enough = next.confirmations >= CalibrationBalance.borderConfirmations;
-    if (enough && next.tightConfirmed) {
-      return next.copyWith(phase: CalibrationPhase.phrases, phrasesAsked: 0);
+    // Подтверждений хватило — ярус найден.
+    //
+    // Второго условия здесь больше нет. Оно требовало, чтобы хотя бы одно
+    // подтверждение прошло «тесным кругом» — на созвучных вариантах, потому
+    // что шесть тематических дают 17 % случайного попадания. Рукописных
+    // дистракторов в игре нет: вокруг фразы стоят другие фразы, и «тесного
+    // круга» как отдельного вида круга не существует.
+    if (next.confirmations >= CalibrationBalance.borderConfirmations) {
+      return next.copyWith(
+        phase: CalibrationPhase.done,
+        result: () => next.probe,
+      );
     }
     return next;
-  }
-
-  /// Четыре фразы на найденном ярусе.
-  ///
-  /// Знает слова, но не собирает предложения — типичная картина у человека,
-  /// который учил язык по спискам. Ярус в этом случае честнее опустить.
-  static CalibrationState _phrases(CalibrationState state, bool correct) {
-    final next = state.copyWith(
-      asked: state.asked + 1,
-      phrasesAsked: state.phrasesAsked + 1,
-      phrasesCorrect: state.phrasesCorrect + (correct ? 1 : 0),
-    );
-
-    if (next.phrasesAsked < CalibrationBalance.finalPhraseChecks) {
-      return next;
-    }
-
-    // Меньше половины фраз — сдвиг на ярус вниз.
-    final passed = next.phrasesCorrect * 2 >= CalibrationBalance.finalPhraseChecks;
-    final tier = passed ? next.probe : (next.probe.down ?? next.probe);
-
-    return next.copyWith(
-      phase: CalibrationPhase.done,
-      probe: tier,
-      result: () => tier,
-    );
   }
 
   /// Оценка яруса по границам поиска.

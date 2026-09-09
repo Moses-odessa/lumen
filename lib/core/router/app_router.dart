@@ -11,7 +11,6 @@ import '../../features/ritual/presentation/ritual_screen.dart';
 import '../../features/settings/presentation/about_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/shell/presentation/app_shell.dart';
-import '../../features/sky/presentation/dictionary_screen.dart';
 import '../../features/sky/presentation/sky_screen.dart';
 
 /// Пути приложения в одном месте — чтобы не искать строки по коду.
@@ -33,7 +32,6 @@ abstract final class Routes {
   static const recalibrate = '/settings/recalibrate';
 
   /// Словарь: все звёзды списком, с фильтрами и поиском.
-  static const dictionary = '/dictionary';
 
   /// Спайк по задержке звука — измеряется на реальном телефоне (M1).
 }
@@ -91,10 +89,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: Routes.dictionary,
-        builder: (_, _) => const DictionaryScreen(),
       ),
       GoRoute(
         path: Routes.customWords,

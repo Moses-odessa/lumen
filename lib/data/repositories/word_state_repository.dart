@@ -81,8 +81,6 @@ class WordStateRepository {
   /// Пересчитывать их снаружи означало бы считать их неправильно.
   ///
   /// [tier] нужен только при первом появлении слова — дальше он уже в строке.
-  /// [slots] — сколько размещений потребовал ответ: у круга один, у фразы
-  /// столько, сколько пропусков. См. `ScoreRules.paceFor`.
   Future<WordUpdate> applyAnswer({
     required String itemId,
     required Tier tier,
@@ -90,21 +88,17 @@ class WordStateRepository {
     required bool correct,
     required Duration latency,
     required DateTime now,
-    int slots = 1,
   }) async {
     final existing = await _db.loadWordState(itemId);
     final before = existing == null ? MemoryState.unseen : _toMemory(existing);
 
-    // Оценка и серия считаются по времени **на одно размещение**, а запись
-    // отзыва хранит исходное: судить по нему нельзя, а знать полезно.
-    final pace = ScoreRules.paceFor(latency, slots: slots);
-    final grade = gradeFromLatency(pace, correct: correct);
+    final grade = gradeFromLatency(latency, correct: correct);
     final after = fsrs.review(before, grade, now);
 
     final fastStreak = ScoreRules.nextFastStreak(
       current: existing?.fastStreak ?? 0,
       correct: correct,
-      latency: pace,
+      latency: latency,
       mode: mode,
     );
 

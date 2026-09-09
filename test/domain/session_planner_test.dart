@@ -7,13 +7,41 @@ import 'package:lumen/domain/scheduler/level_stage.dart';
 import 'package:lumen/domain/scheduler/session_planner.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 
-/// Планировщик проверяется на синтетическом словаре: важны не конкретные
-/// слова, а свойства раскладки — тусклые вперёд, новые вразбивку, механика по
-/// владению.
+/// Планировщик проверяется на синтетическом наборе фраз: важны не сами
+/// предложения, а свойства раскладки — тусклые вперёд, новые вразбивку,
+/// механика по владению.
+///
+/// Единица изучения — фраза, а не слово. Планировщику это почти безразлично:
+/// он знает о материале ровно [StudyItem] — ярус, яркость и срок, — и заменой
+/// слова на фразу здесь изменились названия, а не правила.
+///
+/// ── Что этот файл охранял и чего больше нет ────────────────────────────────
+///
+/// * «выключенный набор исключает «Набор»» — механики с полем ввода больше
+///   нет, а вместе с ней ушёл и переключатель
+///   `SessionCapabilities.typingEnabled`. Гарантия «планировщик не поставит
+///   круг с вводом, когда ввод выключен» стала беспредметной: вводить текст в
+///   игре негде, и выключать нечего.
+/// * «фразовые механики по яркости не выбираются — их ставит этап» — охранял
+///   то, что у `fillGaps` и `buildPhrase` нет диапазона по яркости слова: их
+///   материал — предложение, а не слово. Теперь предложение — материал всех
+///   трёх механик, `GameMode.isPhrase` не существует, и диапазон есть у
+///   каждой. Тест перенесён на то, что осталось правдой в том же месте кода:
+///   шкала яркости накрыта механиками целиком, без дырок.
+/// * «дистракторы на проверке созвучные, на закреплении тематические» и «вид
+///   дистракторов едет на круге, а не выводится из механики» — охраняли
+///   `PlannedCircle.distractorKind` и `StageRules.distractorFor`. Рукописных
+///   неверных вариантов в игре нет вовсе: вокруг фразы стоят другие фразы,
+///   которые игрок уже знает, и «тематический против созвучного» к ним
+///   неприменимо.
+/// * «по умолчанию круг тематический и на полное число вариантов» — охранял
+///   `PlannedCircle.options` и `ScoreBalance.optionsMax`. Вариантов в круге
+///   всегда шесть: на полном круге держится знакомство методом исключения, и
+///   шкалой сложности их число быть перестало.
 void main() {
   final now = DateTime.utc(2026, 3, 1, 8);
 
-  StudyItem word(
+  StudyItem phrase(
     String id, {
     int lumens = 50,
     Duration? overdue,
@@ -33,17 +61,17 @@ void main() {
   group('пул сессии', () {
     test('самые тусклые идут первыми', () {
       final pool = SessionPlanner.pool([
-        word('bright', lumens: 90),
-        word('dim', lumens: 12),
-        word('medium', lumens: 55),
+        phrase('bright', lumens: 90),
+        phrase('dim', lumens: 12),
+        phrase('medium', lumens: 55),
       ], now);
 
-      expect(pool.map((w) => w.itemId), ['dim', 'medium', 'bright']);
+      expect(pool.map((p) => p.itemId), ['dim', 'medium', 'bright']);
     });
 
-    test('не просроченные слова в пул не попадают', () {
+    test('не просроченные фразы в пул не попадают', () {
       final pool = SessionPlanner.pool([
-        word('due', lumens: 40),
+        phrase('due', lumens: 40),
         StudyItem(
           itemId: 'later',
           tier: Tier.a1,
@@ -52,21 +80,21 @@ void main() {
         ),
       ], now);
 
-      expect(pool.map((w) => w.itemId), ['due']);
+      expect(pool.map((p) => p.itemId), ['due']);
     });
 
-    test('новые слова в пул повторений не попадают', () {
+    test('новые фразы в пул повторений не попадают', () {
       final pool = SessionPlanner.pool([
-        word('review', lumens: 40),
-        word('fresh', isNew: true),
+        phrase('review', lumens: 40),
+        phrase('fresh', isNew: true),
       ], now);
 
-      expect(pool.map((w) => w.itemId), ['review']);
+      expect(pool.map((p) => p.itemId), ['review']);
     });
 
     test('пул ограничен размером', () {
       final many = [
-        for (var i = 0; i < 100; i++) word('w$i', lumens: i),
+        for (var i = 0; i < 100; i++) phrase('p$i', lumens: i),
       ];
       expect(SessionPlanner.pool(many, now).length,
           SessionBalance.sessionPoolSize);
@@ -75,17 +103,16 @@ void main() {
 
     test('при равной яркости раньше идёт то, что дольше ждало', () {
       final pool = SessionPlanner.pool([
-        word('recent', lumens: 30, overdue: const Duration(hours: 1)),
-        word('stale', lumens: 30, overdue: const Duration(days: 9)),
+        phrase('recent', lumens: 30, overdue: const Duration(hours: 1)),
+        phrase('stale', lumens: 30, overdue: const Duration(days: 9)),
       ], now);
 
       expect(pool.first.itemId, 'stale');
     });
 
-    test('слово ровно на границе due считается просроченным', () {
+    test('фраза ровно на границе due считается просроченной', () {
       final pool = SessionPlanner.pool([
-        StudyItem(
-            itemId: 'edge', tier: Tier.a0, lumens: 20, due: now),
+        StudyItem(itemId: 'edge', tier: Tier.a0, lumens: 20, due: now),
       ], now);
       expect(pool, hasLength(1));
     });
@@ -94,14 +121,14 @@ void main() {
   group('выбор механики', () {
     test('требовательность растёт вслед за владением', () {
       // Лестница та же, что была (узнавание → круг → слух → производство),
-      // но ступеней теперь четыре, и разделены они не режимами, а тем, что
+      // но ступеней теперь три, и разделены они не режимами, а тем, что
       // в центре и на каком языке варианты.
       expect(SessionPlanner.modeFor(5), GameMode.pickNative);
       expect(SessionPlanner.modeFor(22), GameMode.listenNative);
       expect(SessionPlanner.modeFor(40), GameMode.pickTarget);
       // На 90 lm стоял `listenTarget`; механики больше нет, и верхнюю
       // ступень занял `pickTarget` — потолок его диапазона поднят до 100
-      // ровно затем, чтобы самое выученное слово не спрашивалось самой
+      // ровно затем, чтобы самая выученная фраза не спрашивалась самой
       // дешёвой механикой.
       expect(SessionPlanner.modeFor(90), GameMode.pickTarget);
     });
@@ -122,18 +149,19 @@ void main() {
       }
     });
 
-    // УДАЛЕНО: «выключенный набор исключает «Набор»».
-    //
-    // Механики с полем ввода больше нет, а вместе с ней ушёл и переключатель
-    // SessionCapabilities.typingEnabled. Гарантия «планировщик не поставит
-    // круг с вводом, когда ввод выключен» стала беспредметной: вводить текст
-    // в игре негде, и выключать нечего.
-
-    test('фразовые механики по яркости не выбираются — их ставит этап', () {
-      // Раньше так вела себя одна «фраза», теперь фразовых механик две, и
-      // обе не имеют диапазона по яркости слова: их материал — предложение.
+    test('на любой яркости есть механика, чей диапазон её накрывает', () {
+      // Диапазоны механик обязаны накрывать шкалу целиком. Дырка в ней не
+      // роняет планировщик и вообще ничего не ломает на глаз: яркость не
+      // подходит ни одной механике, `modeFor` уходит в ветку «самая
+      // требовательная из разрешённых» и возвращает круг, который для этой
+      // яркости не предназначен. Игрок при этом видит рабочий экран.
+      //
+      // Проверка нужна именно без случайности: она про покрытие шкалы, а не
+      // про выбор внутри подходящих — тот охраняет тест ниже.
       for (var lm = 0; lm <= 100; lm++) {
-        expect(SessionPlanner.modeFor(lm).isPhrase, isFalse, reason: '$lm lm');
+        final range = ScoreBalance.modeLumenRange(SessionPlanner.modeFor(lm));
+        expect(lm, inInclusiveRange(range.min, range.max),
+            reason: '$lm lm не накрыт ни одним диапазоном');
       }
     });
 
@@ -177,14 +205,23 @@ void main() {
     });
 
     test('яркость вне разрешённых диапазонов не выводит за набор этапа', () {
-      // 90 lm не накрывает ни pickNative, ни listenNative. Прежний код в
-      // такой ситуации возвращал «Круг» — механику, которую этап не
-      // разрешал; теперь берётся самая требовательная из разрешённых.
-      expect(
-        SessionPlanner.modeFor(90,
-            allowed: const {GameMode.pickNative, GameMode.listenNative}),
-        GameMode.listenNative,
-      );
+      // Прежний код в такой ситуации возвращал «Круг» — механику, которую
+      // этап не разрешал; теперь берётся самая требовательная из разрешённых.
+      const allowed = {GameMode.listenNative, GameMode.pickTarget};
+      const lm = 5;
+
+      // Условие теста проверяется, а не подразумевается. Диапазоны переехали
+      // вместе с удалением `listenTarget`: тускло-яркая пара, на которой это
+      // правило раньше показывали (90 lm при pickNative и listenNative),
+      // теперь накрыта слухом целиком, и тест молча проверял бы обычную
+      // ветку «подходящее нашлось».
+      for (final mode in allowed) {
+        final range = ScoreBalance.modeLumenRange(mode);
+        expect(lm, isNot(inInclusiveRange(range.min, range.max)),
+            reason: '$mode накрывает $lm lm — правило проверяется не на том');
+      }
+
+      expect(SessionPlanner.modeFor(lm, allowed: allowed), GameMode.pickTarget);
     });
 
     test('этап только на слух без звука не даёт непоказуемый круг', () {
@@ -203,9 +240,9 @@ void main() {
 
   group('уровень этапами', () {
     List<StudyItem> reviews(int n) =>
-        [for (var i = 0; i < n; i++) word('r$i', lumens: 20 + i)];
+        [for (var i = 0; i < n; i++) phrase('r$i', lumens: 20 + i)];
     List<StudyItem> fresh(int n) =>
-        [for (var i = 0; i < n; i++) word('n$i', lumens: 0, isNew: true)];
+        [for (var i = 0; i < n; i++) phrase('n$i', lumens: 0, isNew: true)];
 
     /// Все круги уровня подряд — то, что раньше возвращал сам `level`.
     List<PlannedCircle> flat(List<StagedRun> runs) =>
@@ -224,13 +261,19 @@ void main() {
         LevelStage.reminder,
       ]);
 
-      // Требования растут: на знакомстве выбирать не из чего, дальше есть.
-      final options = [for (final run in runs) run.circles.first.options];
-      expect(options.first, SessionBalance.introductionOptions);
-      for (var i = 1; i < options.length; i++) {
-        expect(options[i], greaterThan(SessionBalance.introductionOptions),
-            reason: 'этап ${runs[i].stage.name} остался показом');
-      }
+      // Требования растут не числом вариантов — их всегда шесть, — а тем,
+      // о чём этап спрашивает. Знакомство спрашивает узнавание: фразу только
+      // что показали, требовать её обратно рано. Проверка спрашивает
+      // воспроизведение — знает ли игрок фразу настолько, чтобы выдать её, а
+      // не узнать среди шести.
+      final introduction =
+          runs.firstWhere((r) => r.stage == LevelStage.introduction);
+      expect(introduction.circles.every((c) => !c.mode.isProductive), isTrue,
+          reason: 'знакомство спрашивает производство');
+
+      final check = runs.firstWhere((r) => r.stage == LevelStage.check);
+      expect(check.circles.every((c) => c.mode.isProductive), isTrue,
+          reason: 'проверка спрашивает узнавание');
     });
 
     test('состав уровня: шесть новых по три показа плюс двенадцать повторов',
@@ -248,7 +291,7 @@ void main() {
       expect(plan.length, 30);
     });
 
-    test('новое слово встречается по разу на каждом из первых трёх этапов',
+    test('новая фраза встречается по разу на каждом из первых трёх этапов',
         () {
       // Раньше показы вплетались между повторами и разводились правилом
       // «не ближе трёх кругов». Теперь их разводят сами этапы, и разведены
@@ -279,29 +322,21 @@ void main() {
       }
     });
 
-    test('первый показ нового слова — понимание без таймера', () {
+    test('первый показ новой фразы — понимание и без окна на ответ', () {
       final runs = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
       final introduction =
           runs.firstWhere((r) => r.stage == LevelStage.introduction);
 
       for (final circle in introduction.circles) {
+        // `isNew` — это и есть «без таймера»: окно на ответ открывается на
+        // каждом круге, кроме помеченного так. Раньше знакомство узнавалось
+        // ещё и по одному варианту в круге; вариантов всегда шесть, потому
+        // что знакомство идёт исключением, и метка осталась единственным
+        // признаком показа.
         expect(circle.isNew, isTrue, reason: circle.itemId);
         expect(StageRules.mechanicsFor(LevelStage.introduction),
             contains(circle.mode));
-        expect(circle.options, SessionBalance.introductionOptions);
-        expect(circle.options, ScoreBalance.optionsMin);
-      }
-    });
-
-    test('дистракторы на проверке созвучные, на закреплении тематические', () {
-      final runs = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
-
-      for (final run in runs) {
-        final expected = run.stage == LevelStage.check
-            ? DistractorKind.near
-            : DistractorKind.far;
-        expect(run.circles.map((c) => c.distractorKind).toSet(), {expected},
-            reason: run.stage.name);
+        expect(circle.mode.isProductive, isFalse, reason: circle.itemId);
       }
     });
 
@@ -322,28 +357,38 @@ void main() {
       }
     });
 
-    test('напоминанию достаются самые тусклые повторы', () {
+    test('повторы делятся между этапами по яркости, а не идут трижды', () {
       final runs = SessionPlanner.level(
         reviews: [
-          word('bright', lumens: 90),
-          word('mid', lumens: 50),
-          word('dim', lumens: 5),
+          phrase('bright', lumens: 90),
+          phrase('mid', lumens: 50),
+          phrase('dim', lumens: 5),
         ],
         fresh: const [],
         reviewWords: 3,
       );
 
-      // Очередь отсортирована по яркости, и последний этап забирает её
-      // хвост — то, что ближе всего к тому, чтобы быть забытым совсем.
-      final reminder = runs.firstWhere((r) => r.stage == LevelStage.reminder);
-      expect(reminder.circles.map((c) => c.itemId), contains('bright'));
+      // Очередь отсортирована по яркости от тусклых, и этапы забирают её с
+      // начала: самое близкое к тому, чтобы быть забытым совсем, идёт раньше,
+      // пока внимания больше.
+      //
+      // ВНИМАНИЕ: комментарий в `SessionPlanner.level` обещает обратное —
+      // «напоминанию идут самые тусклые», — а забирает напоминание хвост
+      // очереди, то есть самое яркое. Тест описывает код, а расхождение с
+      // комментарием вынесено в отчёт: править `lib/` в задаче переноса
+      // тестов нельзя, а тест с названием-неправдой хуже отсутствующего.
+      String only(LevelStage stage) => runs
+          .firstWhere((r) => r.stage == stage)
+          .circles
+          .map((c) => c.itemId)
+          .single;
 
-      final consolidation =
-          runs.firstWhere((r) => r.stage == LevelStage.consolidation);
-      expect(consolidation.circles.map((c) => c.itemId), contains('dim'));
+      expect(only(LevelStage.consolidation), 'dim');
+      expect(only(LevelStage.check), 'mid');
+      expect(only(LevelStage.reminder), 'bright');
     });
 
-    test('уровень без новых слов — это просто повторы', () {
+    test('уровень без новых фраз — это просто повторы', () {
       final plan = flat(
         SessionPlanner.level(reviews: reviews(12), fresh: const []),
       );
@@ -351,7 +396,7 @@ void main() {
       expect(plan.every((c) => !c.isNew), isTrue);
     });
 
-    test('уровень без повторов — три этапа по новым словам', () {
+    test('уровень без повторов — три этапа по новым фразам', () {
       final runs = SessionPlanner.level(reviews: const [], fresh: fresh(3));
 
       expect(runs.map((r) => r.stage), [
@@ -383,12 +428,12 @@ void main() {
   });
 
   group('спринт', () {
-    test('берёт только яркие слова', () {
+    test('берёт только яркие фразы', () {
       final run = SessionPlanner.sprint(
         candidates: [
-          word('dim', lumens: 10),
-          word('bright', lumens: 90),
-          word('mid', lumens: 60),
+          phrase('dim', lumens: 10),
+          phrase('bright', lumens: 90),
+          phrase('mid', lumens: 60),
         ],
         goal: SprintGoal.attempt(0),
       );
@@ -400,21 +445,21 @@ void main() {
       expect(ids, containsAll(['bright', 'mid']));
     });
 
-    test('новых слов не берёт никогда', () {
+    test('новых фраз не берёт никогда', () {
       final run = SessionPlanner.sprint(
         candidates: [
-          word('new', lumens: 90, isNew: true),
-          word('known', lumens: 90),
+          phrase('new', lumens: 90, isNew: true),
+          phrase('known', lumens: 90),
         ],
         goal: SprintGoal.attempt(0),
       );
       expect(run!.circles.map((c) => c.itemId).toSet(), {'known'});
     });
 
-    test('без ярких слов спринта нет', () {
+    test('без ярких фраз спринта нет', () {
       expect(
         SessionPlanner.sprint(
-          candidates: [word('dim', lumens: 10)],
+          candidates: [phrase('dim', lumens: 10)],
           goal: SprintGoal.attempt(0),
         ),
         isNull,
@@ -422,11 +467,11 @@ void main() {
     });
 
     test('кругов ставится с запасом на ошибки', () {
-      // Ошибка возвращает слово в конец очереди. Упереться в конец списка
+      // Ошибка возвращает фразу в конец очереди. Упереться в конец списка
       // раньше, чем взята планка, нельзя.
       final goal = SprintGoal.attempt(0);
       final run = SessionPlanner.sprint(
-        candidates: [word('a', lumens: 90), word('b', lumens: 90)],
+        candidates: [phrase('a', lumens: 90), phrase('b', lumens: 90)],
         goal: goal,
       );
       expect(run!.circles.length, greaterThan(goal.connections));
@@ -455,9 +500,9 @@ void main() {
     test('только повторы, самые тусклые первыми', () {
       final plan = SessionPlanner.sunrise(
         candidates: [
-          word('bright', lumens: 88),
-          word('fresh', isNew: true),
-          word('dim', lumens: 9),
+          phrase('bright', lumens: 88),
+          phrase('fresh', isNew: true),
+          phrase('dim', lumens: 9),
         ],
         now: now,
       );
@@ -466,9 +511,9 @@ void main() {
       expect(plan.every((c) => !c.isNew), isTrue);
     });
 
-    test('механика подбирается по яркости каждого слова', () {
+    test('механика подбирается по яркости каждой фразы', () {
       final plan = SessionPlanner.sunrise(
-        candidates: [word('a', lumens: 10), word('b', lumens: 95)],
+        candidates: [phrase('a', lumens: 10), phrase('b', lumens: 95)],
         now: now,
       );
       expect(plan.first.mode, GameMode.pickNative);
@@ -484,7 +529,7 @@ void main() {
       final circles = [
         for (var i = 0; i < 30; i++)
           PlannedCircle(
-              itemId: 'w$i',
+              itemId: 'p$i',
               mode: GameMode.pickTarget,
               isNew: false,
               lumens: 50),
@@ -499,7 +544,7 @@ void main() {
       final circles = [
         for (var i = 0; i < 22; i++)
           PlannedCircle(
-              itemId: 'w$i',
+              itemId: 'p$i',
               mode: GameMode.pickTarget,
               isNew: false,
               lumens: 50),
@@ -520,7 +565,7 @@ void main() {
       final circles = [
         for (var i = 0; i < 4; i++)
           PlannedCircle(
-              itemId: 'w$i',
+              itemId: 'p$i',
               mode: GameMode.pickTarget,
               isNew: false,
               lumens: 50),
@@ -530,7 +575,7 @@ void main() {
   });
 
   group('свой темп', () {
-    test('по умолчанию новых слов ровно столько, сколько в уровне', () {
+    test('по умолчанию новых фраз ровно столько, сколько в уровне', () {
       expect(
         SessionPlanner.allowedNewWords(reviewCount: 500, freePace: false),
         SessionBalance.newWordsPerLevel,
@@ -543,7 +588,7 @@ void main() {
       expect(allowed, greaterThan(SessionBalance.newWordsPerLevel));
     });
 
-    test('чем длиннее очередь повторений, тем меньше новых на слово', () {
+    test('чем длиннее очередь повторений, тем меньше новых на фразу', () {
       final small =
           SessionPlanner.allowedNewWords(reviewCount: 20, freePace: true);
       final large =
@@ -561,18 +606,18 @@ void main() {
       );
     });
 
-    test('доля новых слов в плане считается по словам, а не по кругам', () {
+    test('доля новых считается по фразам, а не по кругам', () {
       final runs = SessionPlanner.level(
-        reviews: [for (var i = 0; i < 12; i++) word('r$i', lumens: 30)],
+        reviews: [for (var i = 0; i < 12; i++) phrase('r$i', lumens: 30)],
         fresh: [
-          for (var i = 0; i < 6; i++) word('n$i', lumens: 0, isNew: true),
+          for (var i = 0; i < 6; i++) phrase('n$i', lumens: 0, isNew: true),
         ],
       );
       final plan = [for (final run in runs) ...run.circles];
-      // 6 новых из 18 слов, хотя кругов у новых втрое больше.
+      // 6 новых из 18 фраз, хотя кругов у новых втрое больше.
       //
       // Считается по `isNew`, а тот стоит только на первом показе — то есть
-      // на этапе знакомства. Остальные два показа того же слова идут
+      // на этапе знакомства. Остальные два показа той же фразы идут
       // обычными кругами, и это верно: доля нужна, чтобы не утопить игрока
       // в новом материале, а не чтобы посчитать круги.
       expect(SessionPlanner.newWordShare(plan), closeTo(6 / 18, 1e-9));
@@ -583,66 +628,47 @@ void main() {
     });
   });
 
-  group('сложность круга', () {
-    test('вид дистракторов едет на круге, а не выводится из механики', () {
-      // Раньше «созвучные» означало другую механику («Тесный круг»), и
-      // спросить «то же самое, но с созвучными» было нельзя. Теперь два
-      // круга одной механики отличаются только этим параметром.
-      const wide = PlannedCircle(
-          itemId: 'arzt',
-          mode: GameMode.pickTarget,
-          isNew: false,
-          lumens: 62);
-      final tight = wide.copyWith(distractorKind: DistractorKind.near);
-
-      expect(wide.distractorKind, DistractorKind.far);
-      expect(tight.distractorKind, DistractorKind.near);
-      expect(tight.mode, wide.mode);
-    });
-
-    test('по умолчанию круг тематический и на полное число вариантов', () {
+  group('круг в плане', () {
+    test('copyWith меняет механику и метку показа, но не фразу и не яркость',
+        () {
+      // Ручек у `copyWith` осталось две. `options` и `distractorKind` ушли:
+      // вариантов всегда шесть, а неверные варианты — это другие фразы из
+      // пула, и круг о них не знает. Зато `isNew` менять надо по-прежнему:
+      // одна и та же фраза идёт показом на знакомстве и обычным кругом
+      // дальше, и различает эти круги только метка.
       const circle = PlannedCircle(
-          itemId: 'arzt',
-          mode: GameMode.pickTarget,
-          isNew: false,
-          lumens: 62);
-      expect(circle.distractorKind, DistractorKind.far);
-      expect(circle.options, ScoreBalance.optionsMax);
-    });
-
-    test('copyWith меняет сложность, но не слово и не его яркость', () {
-      const circle = PlannedCircle(
-          itemId: 'arzt',
-          mode: GameMode.pickTarget,
-          isNew: false,
-          lumens: 62);
-      final easier = circle.copyWith(
-        mode: GameMode.pickNative,
-        options: ScoreBalance.optionsMin,
-        isNew: true,
+        itemId: 'doctor_a0_help',
+        mode: GameMode.pickTarget,
+        isNew: false,
+        lumens: 62,
       );
+      final easier = circle.copyWith(mode: GameMode.pickNative, isNew: true);
 
-      expect(easier.itemId, 'arzt');
+      expect(easier.itemId, 'doctor_a0_help');
       expect(easier.lumens, 62);
       expect(easier.mode, GameMode.pickNative);
-      expect(easier.options, 1);
       expect(easier.isNew, isTrue);
+      // Исходный круг не тронут: план строится копированием, и мутация
+      // испортила бы уже разложенные этапы.
+      expect(circle.mode, GameMode.pickTarget);
+      expect(circle.isNew, isFalse);
     });
-  });
 
-  test('PlannedCircle читаемо печатается', () {
-    // Круг с созвучными вариантами — то, что прежде было отдельным режимом
-    // «tight»: в печати это должно быть видно, иначе два внешне одинаковых
-    // круга не различить в логе.
-    const circle = PlannedCircle(
-      itemId: 'arzt',
-      mode: GameMode.pickTarget,
-      isNew: false,
-      lumens: 62,
-      distractorKind: DistractorKind.near,
-    );
-    expect(circle.toString(), contains('arzt'));
-    expect(circle.toString(), contains('pickTarget'));
-    expect(circle.toString(), contains('near'));
+    test('PlannedCircle читаемо печатается', () {
+      // Раньше в печати требовался вид дистракторов: два круга одной
+      // механики отличались только им, и в логе их было не различить. Вида
+      // нет, и различает круги яркость — значит она обязана быть в строке,
+      // иначе два показа одной фразы на разных этапах сливаются в одну
+      // запись.
+      const circle = PlannedCircle(
+        itemId: 'doctor_a0_help',
+        mode: GameMode.pickTarget,
+        isNew: false,
+        lumens: 62,
+      );
+      expect(circle.toString(), contains('doctor_a0_help'));
+      expect(circle.toString(), contains('pickTarget'));
+      expect(circle.toString(), contains('62'));
+    });
   });
 }

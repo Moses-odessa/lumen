@@ -1,0 +1,52 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: study_contact
+tiers:
+  a1:
+    - id: study_contact_a1_01
+      text: "Wann beginnt der Unterricht?"
+    - id: study_contact_a1_02
+      text: "Ich habe eine Frage."
+    - id: study_contact_a1_03
+      text: "Ich kenne dieses Wort nicht."
+    - id: study_contact_a1_04
+      text: "Darf ich antworten?"
+    - id: study_contact_a1_05
+      text: "Auf welcher Seite sind wir?"
+    - id: study_contact_a1_06
+      text: "Ich mache meine Hausaufgaben."
+    - id: study_contact_a1_07
+      text: "Lass uns zusammen üben."
+      register: casual
+    - id: study_contact_a1_08
+      text: "Ich brauche mehr Zeit."
+    - id: study_contact_a1_09
+      text: "Ich schicke dir eine Nachricht."
+    - id: study_contact_a1_10
+      text: "Kann ich dich anrufen?"
+    - id: study_contact_a1_11
+      text: "Mein Handy ist leer."
+    - id: study_contact_a1_12
+      text: "Gibt es ein Ladegerät?"
+    - id: study_contact_a1_13
+      text: "Das Internet funktioniert nicht."
+    - id: study_contact_a1_14
+      text: "Ich kann die Datei nicht öffnen."
+    - id: study_contact_a1_15
+      text: "Schick mir den Link."
+      register: casual
+    - id: study_contact_a1_16
+      text: "Speichere das bitte."
+      register: casual
+    - id: study_contact_a1_17
+      text: "Ich möchte lernen, ..."
+    - id: study_contact_a1_18
+      text: "Wie öffne ich ...?"
+    - id: study_contact_a1_19
+      text: "Kannst du mir ... schicken?"
+    - id: study_contact_a1_20
+      text: "Meine E-Mail-Adresse ist ..."

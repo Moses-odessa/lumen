@@ -1,0 +1,51 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: feelings_support
+tiers:
+  a2:
+    - id: feelings_support_a2_01
+      text: "Ich freue mich sehr, dich zu sehen."
+    - id: feelings_support_a2_02
+      text: "Ich habe Heimweh."
+    - id: feelings_support_a2_03
+      text: "Ich mache mir Sorgen wegen der Prüfung."
+    - id: feelings_support_a2_04
+      text: "Das ist mir etwas unangenehm."
+    - id: feelings_support_a2_05
+      text: "Ich bin vom Ergebnis enttäuscht."
+    - id: feelings_support_a2_06
+      text: "Ich bin stolz auf dich."
+    - id: feelings_support_a2_07
+      text: "Was macht dir Sorgen?"
+    - id: feelings_support_a2_08
+      text: "Möchtest du darüber reden?"
+    - id: feelings_support_a2_09
+      text: "Ich höre dir zu."
+    - id: feelings_support_a2_10
+      text: "Ich verstehe, wie du dich fühlst."
+    - id: feelings_support_a2_11
+      text: "Du bist nicht allein."
+    - id: feelings_support_a2_12
+      text: "Lass dir Zeit."
+      register: casual
+    - id: feelings_support_a2_13
+      text: "Machen wir eine kurze Pause."
+      register: casual
+    - id: feelings_support_a2_14
+      text: "Brauchst du Hilfe oder einen Rat?"
+    - id: feelings_support_a2_15
+      text: "Ich brauche Zeit für mich."
+    - id: feelings_support_a2_16
+      text: "Danke, dass du da bist."
+    - id: feelings_support_a2_17
+      text: "Ich freue mich, wenn ..."
+    - id: feelings_support_a2_18
+      text: "Es macht mich traurig, dass ..."
+    - id: feelings_support_a2_19
+      text: "Ich mache mir Sorgen um ..."
+    - id: feelings_support_a2_20
+      text: "Mir hilft ..."

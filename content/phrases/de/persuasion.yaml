@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: persuasion
+tiers:
+  b2:
+    - id: persuasion_b2_01
+      text: "Ich möchte Sie auf einen wiederholten Fehler aufmerksam machen."
+    - id: persuasion_b2_02
+      text: "Trotz meiner vorherigen Anfrage wurde das Problem nicht behoben."
+    - id: persuasion_b2_03
+      text: "Dieses Ergebnis entspricht nicht den vereinbarten Bedingungen."
+    - id: persuasion_b2_04
+      text: "Ich erwarte einen konkreten Lösungsvorschlag."
+    - id: persuasion_b2_05
+      text: "Bitte teilen Sie mir mit, welche Schritte unternommen werden."
+    - id: persuasion_b2_06
+      text: "Mir liegt an einer einvernehmlichen Lösung."
+    - id: persuasion_b2_07
+      text: "Mit meiner Anfrage möchte ich eine Wiederholung vermeiden."
+    - id: persuasion_b2_08
+      text: "Ich bin bereit, eine alternative Lösung zu besprechen."
+    - id: persuasion_b2_09
+      text: "Bitte begründen Sie diese Ablehnung."
+    - id: persuasion_b2_10
+      text: "Kann die Entscheidung angesichts der neuen Informationen überprüft werden?"
+    - id: persuasion_b2_11
+      text: "Meinerseits habe ich alle vereinbarten Bedingungen erfüllt."
+    - id: persuasion_b2_12
+      text: "Ich wäre für eine inhaltliche statt einer rein formellen Antwort dankbar."
+    - id: persuasion_b2_13
+      text: "Angesichts ... halte ich es für sinnvoll, ..."
+    - id: persuasion_b2_14
+      text: "Meine Bitte stützt sich auf ..."
+    - id: persuasion_b2_15
+      text: "Bitte berücksichtigen Sie, dass ..."
+    - id: persuasion_b2_16
+      text: "Falls ... nicht möglich ist, bitte ich um ..."
+    - id: persuasion_b2_17
+      text: "Ich wäre bereit, ... zu akzeptieren, wenn ..."
+    - id: persuasion_b2_18
+      text: "Die vorgeschlagene Lösung würde es ermöglichen, ..."
+    - id: persuasion_b2_19
+      text: "Um weitere Missverständnisse zu vermeiden, ..."
+    - id: persuasion_b2_20
+      text: "Ich hoffe, dass es uns gelingt, ..."

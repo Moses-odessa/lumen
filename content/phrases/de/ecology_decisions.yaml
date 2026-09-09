@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: ecology_decisions
+tiers:
+  b2:
+    - id: ecology_decisions_b2_01
+      text: "Umweltmaßnahmen müssen fair und bezahlbar sein."
+    - id: ecology_decisions_b2_02
+      text: "Der gesamte Lebenszyklus des Produkts muss berücksichtigt werden."
+    - id: ecology_decisions_b2_03
+      text: "Ein niedriger Preis spiegelt nicht immer die tatsächlichen Kosten wider."
+    - id: ecology_decisions_b2_04
+      text: "Wer trägt die Kosten des Übergangs?"
+    - id: ecology_decisions_b2_05
+      text: "Individuelle Entscheidungen sind wichtig, ersetzen aber keine strukturellen Veränderungen."
+    - id: ecology_decisions_b2_06
+      text: "Der langfristige Nutzen kann die Anfangskosten übersteigen."
+    - id: ecology_decisions_b2_07
+      text: "Wir brauchen messbare Ziele."
+    - id: ecology_decisions_b2_08
+      text: "Wie prüfen wir, ob diese Maßnahme wirkt?"
+    - id: ecology_decisions_b2_09
+      text: "Man sollte das Problem nicht bloß an einen anderen Ort verlagern."
+    - id: ecology_decisions_b2_10
+      text: "Die versprochene Wirkung hängt von den Nutzungsbedingungen ab."
+    - id: ecology_decisions_b2_11
+      text: "Man muss tatsächliche Veränderungen von Werbung unterscheiden."
+    - id: ecology_decisions_b2_12
+      text: "Auch die möglichen Folgen des Nichtstuns haben ihren Preis."
+    - id: ecology_decisions_b2_13
+      text: "Beim Vergleich von ... und ... muss man ... berücksichtigen."
+    - id: ecology_decisions_b2_14
+      text: "Der Umweltvorteil entfällt, wenn ..."
+    - id: ecology_decisions_b2_15
+      text: "Der Übergang zu ... wird ... erfordern."
+    - id: ecology_decisions_b2_16
+      text: "Um ... nicht zu verschärfen, sollte man ..."
+    - id: ecology_decisions_b2_17
+      text: "Je nach ... kann das Ergebnis ..."
+    - id: ecology_decisions_b2_18
+      text: "Die Kosten für ... sollten mit ... verglichen werden."
+    - id: ecology_decisions_b2_19
+      text: "Ohne Veränderungen bei ... wird es kaum gelingen, ..."
+    - id: ecology_decisions_b2_20
+      text: "Diese Maßnahme ist nur sinnvoll, wenn ..."

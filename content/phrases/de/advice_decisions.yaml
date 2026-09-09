@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: advice_decisions
+tiers:
+  b1:
+    - id: advice_decisions_b1_01
+      text: "An deiner Stelle würde ich warten."
+    - id: advice_decisions_b1_02
+      text: "Vielleicht lohnt es sich, um Hilfe zu bitten."
+    - id: advice_decisions_b1_03
+      text: "Du musst dich nicht sofort entscheiden."
+    - id: advice_decisions_b1_04
+      text: "Ich würde zuerst die Bedingungen prüfen."
+    - id: advice_decisions_b1_05
+      text: "Warum nicht eine andere Methode ausprobieren?"
+    - id: advice_decisions_b1_06
+      text: "Das könnte funktionieren."
+    - id: advice_decisions_b1_07
+      text: "Welche Möglichkeit erscheint dir realistisch?"
+    - id: advice_decisions_b1_08
+      text: "Was passiert, wenn wir nichts ändern?"
+    - id: advice_decisions_b1_09
+      text: "Man muss nicht alles auf einmal machen."
+    - id: advice_decisions_b1_10
+      text: "Fangen wir mit einem kleinen Schritt an."
+    - id: advice_decisions_b1_11
+      text: "Die Entscheidung liegt bei dir."
+    - id: advice_decisions_b1_12
+      text: "Ich möchte dich nicht unter Druck setzen."
+    - id: advice_decisions_b1_13
+      text: "Wir können es eine Woche lang ausprobieren."
+    - id: advice_decisions_b1_14
+      text: "Danach sehen wir, ob es geholfen hat."
+    - id: advice_decisions_b1_15
+      text: "Wir haben noch einen Plan B."
+    - id: advice_decisions_b1_16
+      text: "Ich würde keine voreiligen Schlüsse ziehen."
+    - id: advice_decisions_b1_17
+      text: "Mein Rat wäre, ..."
+    - id: advice_decisions_b1_18
+      text: "Man könnte ..., um ..."
+    - id: advice_decisions_b1_19
+      text: "Wenn du ... möchtest, versuche ..."
+    - id: advice_decisions_b1_20
+      text: "Der Vorteil dieser Lösung ist, dass ..."

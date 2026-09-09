@@ -1,259 +1,49 @@
-# Фразы созвездия «Транспорт» на немецком.
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
 #
-# Фраза принадлежит языку изучения, а не концепту: немецкое
-# предложение нельзя положить в язык-нейтральный файл. Переводы фраз
-# на родные языки лежат в content/lang/<код>.yaml, секция phrases.
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
 lang: de
 constellation: transport
 tiers:
-  a0:
-    - id: transport_a0_ticket
-      template: "Ich brauche eine {ticket} nach Berlin."
-      answer: Fahrkarte
-      register: casual
-      concepts: [ticket_transport]
-    - id: transport_a0_station
-      template: "Mein Zug fährt um acht vom {station} ab."
-      answer: Bahnhof
-      orders:
-        - "Mein Zug fährt vom Bahnhof um acht ab."
-      register: casual
-      concepts: [station_place]
-    - id: transport_a0_bus
-      template: "Der {bus} kommt gleich, wir müssen zur Haltestelle."
-      answer: Bus
-      register: casual
-      concepts: [bus_transport]
-    - id: transport_a0_late
-      template: "Ich komme zu {late}."
-      answer: spät
-      register: casual
-      concepts: [late_adj]
-
   a1:
-    - id: transport_a1_delay
-      template: "Der Zug hat {delay}."
-      answer: Verspätung
-      register: casual
-      concepts: [delay_noun]
-    - id: transport_a1_platform
-      template: "Der Zug fährt vom {platform} ab."
-      answer: Bahnsteig
-      register: casual
-      concepts: [platform_place]
-    - id: transport_a1_connection
-      template: "Ich habe meinen {connection} verpasst."
-      answer: Anschluss
-      register: casual
-      concepts: [connection_noun]
-    - id: transport_a1_luggage
-      template: "Wo ist mein {luggage}?"
-      answer: Gepäck
-      register: casual
-      concepts: [luggage_noun]
-    - id: transport_a1_taxi
-      template: "Rufen Sie bitte ein {taxi}."
-      answer: Taxi
-      register: formal
-      concepts: [taxi_transport]
-    - id: transport_a1_departure
-      template: "Wann ist die {departure}?"
-      answer: Abfahrt
-      register: casual
-      concepts: [departure_noun]
-    - id: transport_a1_seat
-      template: "Ist dieser {seat} frei?"
-      answer: Sitzplatz
-      register: casual
-      concepts: [seat_object]
-    - id: transport_a1_journey
-      template: "Die {journey} dauert zwei Stunden."
-      answer: Reise
-      register: casual
-      concepts: [journey_noun]
-
-  a2:
-    - id: transport_a2_jam
-      template: "Wir stehen im {jam}."
-      answer: Stau
-      register: casual
-      concepts: [jam_noun]
-    - id: transport_a2_licence
-      template: "Den {licence} macht man in der Fahrschule."
-      answer: Führerschein
-      register: casual
-      concepts: [licence_noun]
-    - id: transport_a2_accident
-      template: "Es gab einen {accident}."
-      answer: Unfall
-      register: casual
-      concepts: [accident_noun]
-    - id: transport_a2_parking
-      template: "Ich finde keinen {parking}."
-      answer: Parkplatz
-      register: casual
-      concepts: [parking_place]
-    - id: transport_a2_petrol
-      template: "Wir brauchen noch {petrol}."
-      answer: Benzin
-      register: casual
-      concepts: [petrol_noun]
-    - id: transport_a2_insurance
-      template: "Die {insurance} zahlt den Schaden."
-      answer: Versicherung
-      register: casual
-      concepts: [insurance_noun]
-    - id: transport_a2_speed
-      template: "Halten Sie die vorgeschriebene {speed} ein."
-      answer: Geschwindigkeit
-      register: formal
-      concepts: [speed_noun]
-    - id: transport_a2_workshop
-      template: "Das Auto ist in der {workshop}."
-      answer: Werkstatt
-      register: casual
-      concepts: [workshop_place]
-    - id: transport_a2_airport
-      template: "Vom {airport} fliegen wir nach Rom."
-      answer: Flughafen
-      register: casual
-      concepts: [airport_place]
-    - id: transport_a2_ferry
-      template: "Die {ferry} fährt jede Stunde."
-      answer: Fähre
-      register: casual
-      concepts: [ferry_transport]
-    - id: transport_a2_engine
-      template: "Der {engine} macht Geräusche."
-      answer: Motor
-      register: casual
-      concepts: [engine_object]
-    - id: transport_a2_diversion
-      template: "Achtung, eine {diversion}."
-      answer: Umleitung
-      register: casual
-      concepts: [diversion_noun]
-
-  b1:
-    - id: transport_b1_fine
-      template: "Das {fine} beträgt achtzig Euro."
-      answer: Bußgeld
-      register: casual
-      concepts: [fine_noun]
-    - id: transport_b1_speedlimit
-      template: "Hier gilt ein {speedlimit}."
-      answer: Tempolimit
-      register: casual
-      concepts: [speedlimit_noun]
-    - id: transport_b1_passenger
-      template: "Jeder {passenger} braucht einen Fahrschein."
-      answer: Fahrgast
-      register: casual
-      concepts: [passenger_person]
-    - id: transport_b1_reduction
-      template: "Studenten bekommen eine {reduction}."
-      answer: Ermäßigung
-      register: casual
-      concepts: [reduction_noun]
-    - id: transport_b1_monthlyticket
-      template: "Die {monthlyticket} lohnt sich."
-      answer: Monatskarte
-      register: casual
-      concepts: [monthlyticket_noun]
-    - id: transport_b1_rightofway
-      template: "An dieser Kreuzung habe ich {rightofway}."
-      answer: Vorfahrt
-      register: casual
-      concepts: [rightofway_noun]
-    - id: transport_b1_registration
-      template: "Die {registration} dauert eine Woche."
-      answer: Zulassung
-      register: casual
-      concepts: [registration_noun]
-    - id: transport_b1_inspection
-      template: "Die {inspection} ist fällig."
-      answer: Hauptuntersuchung
-      register: casual
-      concepts: [inspection_noun]
-    - id: transport_b1_consumption
-      template: "Der {consumption} liegt bei sechs Litern."
-      answer: Verbrauch
-      register: casual
-      concepts: [consumption_noun]
-    - id: transport_b1_maintenance
-      template: "Die {maintenance} steht an."
-      answer: Wartung
-      register: casual
-      concepts: [maintenance_noun]
-    - id: transport_b1_localtransport
-      template: "Bus und Straßenbahn gehören zum {localtransport}."
-      answer: Nahverkehr
-      register: casual
-      concepts: [localtransport_noun]
-    - id: transport_b1_breakdown
-      template: "Rufen Sie den {breakdown}."
-      answer: Pannendienst
-      register: formal
-      concepts: [breakdownservice_noun]
-
-  b2:
-    - id: transport_b2_excess
-      template: "Die {excess} beträgt dreihundert Euro."
-      answer: Selbstbeteiligung
-      register: casual
-      concepts: [excess_noun]
-    - id: transport_b2_lowemission
-      template: "Die {lowemission} gilt ab Montag."
-      answer: Umweltzone
-      register: casual
-      concepts: [lowemissionzone_noun]
-    - id: transport_b2_subsidy
-      template: "Ohne {subsidy} rechnet sich das nicht."
-      answer: Subvention
-      register: casual
-      concepts: [subsidy_noun]
-    - id: transport_b2_claims
-      template: "Die {claims} dauert Wochen."
-      answer: Schadensregulierung
-      register: casual
-      concepts: [claimssettlement_noun]
-    - id: transport_b2_roadsafety
-      template: "Die {roadsafety} hat Vorrang."
-      answer: Verkehrssicherheit
-      register: casual
-      concepts: [roadsafety_noun]
-    - id: transport_b2_freight
-      template: "Im {freight} werden Waren transportiert, keine Menschen."
-      answer: Güterverkehr
-      register: casual
-      concepts: [freighttransport_noun]
-    - id: transport_b2_customs
-      template: "Die {customs} verzögert die Lieferung."
-      answer: Zollabfertigung
-      register: casual
-      concepts: [customsclearance_noun]
-    - id: transport_b2_infra
-      template: "Straßen, Brücken und Schienen bilden die {infra}."
-      answer: Verkehrsinfrastruktur
-      register: casual
-      concepts: [transportinfra_noun]
-    - id: transport_b2_noise
-      template: "Der {noise} kostet Millionen."
-      answer: Lärmschutz
-      register: casual
-      concepts: [noiseprotection_noun]
-    - id: transport_b2_liability
-      template: "Der {liability} steht im Kleingedruckten."
-      answer: Haftungsausschluss
-      register: casual
-      concepts: [liabilityexclusion_noun]
-    - id: transport_b2_network
-      template: "Das {network} wird erweitert."
-      answer: Streckennetz
-      register: casual
-      concepts: [routenetwork_noun]
-    - id: transport_b2_logbook
-      template: "Das {logbook} zeigt jede einzelne Fahrt."
-      answer: Fahrtenbuch
-      register: casual
-      concepts: [logbook_object]
+    - id: transport_a1_01
+      text: "Wie komme ich zum Bahnhof?"
+    - id: transport_a1_02
+      text: "Wo ist die nächste Haltestelle?"
+    - id: transport_a1_03
+      text: "Welcher Bus fährt ins Zentrum?"
+    - id: transport_a1_04
+      text: "Fährt dieser Zug nach Berlin?"
+    - id: transport_a1_05
+      text: "Muss ich umsteigen?"
+    - id: transport_a1_06
+      text: "Wo muss ich aussteigen?"
+    - id: transport_a1_07
+      text: "Wie lange dauert die Fahrt?"
+    - id: transport_a1_08
+      text: "Eine Hin- und Rückfahrkarte, bitte."
+    - id: transport_a1_09
+      text: "Von welchem Gleis?"
+    - id: transport_a1_10
+      text: "Wann fährt der nächste Zug?"
+    - id: transport_a1_11
+      text: "Der Bus ist schon da."
+    - id: transport_a1_12
+      text: "Der Zug hat Verspätung."
+    - id: transport_a1_13
+      text: "Ist dieser Platz frei?"
+    - id: transport_a1_14
+      text: "Darf ich vorbei?"
+    - id: transport_a1_15
+      text: "Ich steige an der nächsten Haltestelle aus."
+    - id: transport_a1_16
+      text: "Ich gehe in die falsche Richtung."
+    - id: transport_a1_17
+      text: "Wie komme ich zu ...?"
+    - id: transport_a1_18
+      text: "Das ist neben ..."
+    - id: transport_a1_19
+      text: "Ich fahre nach ..."
+    - id: transport_a1_20
+      text: "Ich brauche eine Fahrkarte nach ..."

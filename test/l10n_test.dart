@@ -30,13 +30,16 @@ void main() {
   test('шаблон непустой и содержит все экраны', () {
     expect(templateKeys.length, greaterThan(100));
     // Проверка на «забыли добавить экран целиком».
+    //
+    // Префикса `dictionary` в списке больше нет: экран словаря удалён вместе
+    // со словарным слоем — единицей изучения стала фраза, и списка слов у
+    // игрока не существует.
     for (final prefix in [
       'onboarding',
       'calibration',
       'ritual',
       'run',
       'sky',
-      'dictionary',
       'profile',
       'customWords',
       'settings',

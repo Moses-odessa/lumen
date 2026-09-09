@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: work_search
+tiers:
+  a2:
+    - id: work_search_a2_01
+      text: "Ich suche eine Arbeit."
+    - id: work_search_a2_02
+      text: "Ich interessiere mich für diese Stelle."
+    - id: work_search_a2_03
+      text: "Wohin kann ich meinen Lebenslauf schicken?"
+    - id: work_search_a2_04
+      text: "Ich habe Erfahrung im Verkauf."
+    - id: work_search_a2_05
+      text: "Ich habe in einer kleinen Firma gearbeitet."
+    - id: work_search_a2_06
+      text: "Ich lerne schnell."
+    - id: work_search_a2_07
+      text: "Ich arbeite gern im Team."
+    - id: work_search_a2_08
+      text: "Ich kann nächsten Monat anfangen."
+    - id: work_search_a2_09
+      text: "Ist das eine Vollzeit- oder Teilzeitstelle?"
+    - id: work_search_a2_10
+      text: "Wie sind die Arbeitszeiten?"
+    - id: work_search_a2_11
+      text: "Was sind meine Hauptaufgaben?"
+    - id: work_search_a2_12
+      text: "Wer wird mein Vorgesetzter sein?"
+    - id: work_search_a2_13
+      text: "Gibt es eine Schulung?"
+    - id: work_search_a2_14
+      text: "Wann findet das Vorstellungsgespräch statt?"
+    - id: work_search_a2_15
+      text: "Ich habe alle Unterlagen geschickt."
+    - id: work_search_a2_16
+      text: "Wann kann ich mit einer Antwort rechnen?"
+    - id: work_search_a2_17
+      text: "Ich habe Erfahrung mit ..."
+    - id: work_search_a2_18
+      text: "Zu meinen Aufgaben gehörte ..."
+    - id: work_search_a2_19
+      text: "Ich würde gern ... arbeiten."
+    - id: work_search_a2_20
+      text: "Braucht man für diese Arbeit ...?"

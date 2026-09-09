@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: negotiation
+tiers:
+  b2:
+    - id: negotiation_b2_01
+      text: "Lassen Sie uns klären, was beiden Seiten wichtig ist."
+      register: formal
+    - id: negotiation_b2_02
+      text: "Unsere Ziele liegen näher beieinander, als es scheint."
+    - id: negotiation_b2_03
+      text: "Beim Zeitplan bin ich zu einem Kompromiss bereit."
+    - id: negotiation_b2_04
+      text: "Bei der Qualität können wir jedoch keine Abstriche machen."
+    - id: negotiation_b2_05
+      text: "Was könnten Sie im Gegenzug anbieten?"
+    - id: negotiation_b2_06
+      text: "Unter diesen Bedingungen ist das Angebot für uns nicht akzeptabel."
+    - id: negotiation_b2_07
+      text: "Ich verstehe Ihre Einschränkungen."
+    - id: negotiation_b2_08
+      text: "Wir brauchen eine Lösung, mit der beide Seiten leben können."
+    - id: negotiation_b2_09
+      text: "Können wir eine Zwischenlösung in Betracht ziehen?"
+    - id: negotiation_b2_10
+      text: "Das ist ein Zugeständnis, das wir machen können."
+    - id: negotiation_b2_11
+      text: "Ich würde ungern bereits Vereinbartes wieder aufgreifen."
+    - id: negotiation_b2_12
+      text: "Halten wir die Vereinbarung schriftlich fest."
+    - id: negotiation_b2_13
+      text: "Wir sind bereit, ..., unter der Voraussetzung, dass ..."
+    - id: negotiation_b2_14
+      text: "Wenn Sie uns bei ... entgegenkommen, werden wir ..."
+    - id: negotiation_b2_15
+      text: "Unsere wichtigste Bedingung ist, dass ..."
+    - id: negotiation_b2_16
+      text: "Zwischen ... und ... lässt sich ein Kompromiss finden."
+    - id: negotiation_b2_17
+      text: "Was hindert uns daran, ...?"
+    - id: negotiation_b2_18
+      text: "Welche Garantien gibt es für ...?"
+    - id: negotiation_b2_19
+      text: "Einigen wir uns zunächst auf ..., und ..."
+    - id: negotiation_b2_20
+      text: "Wenn wir bis ... keine Einigung erzielen, ..."

@@ -61,11 +61,11 @@ class CalibrationController extends Notifier<CalibrationUiState> {
 
   final _random = Random();
 
-  /// Слова, которые игрок подтвердил: из них засевается память.
-  final Map<String, Tier> _confirmedConcepts = {};
+  /// Фразы, которые игрок подтвердил: из них засевается память.
+  final Map<String, Tier> _confirmed = {};
 
   Future<void> start() async {
-    _confirmedConcepts.clear();
+    _confirmed.clear();
     state = CalibrationUiState(
       calibration: CalibrationState.start(),
       loading: true,
@@ -75,23 +75,15 @@ class CalibrationController extends Notifier<CalibrationUiState> {
   }
 
   /// Ответ на текущий круг — выбором варианта.
+  ///
+  /// Вход один: фразовых кругов со слотами больше нет, и второго способа
+  /// ответить тоже. Пока их было два, они успели разойтись — забег сверял
+  /// собранное предложение, а калибровка расстановку по слотам, то есть
+  /// объявляла бы верную сборку ошибкой при замере уровня.
   Future<void> answer(int index, Duration latency) async {
     final question = state.question;
     if (question == null || state.loading) return;
-    if (!question.isSingleSlot) return;
     await _record(question, question.isCorrectOption(index), latency);
-  }
-
-  /// Ответ на фразовый вопрос — заполнением всех слотов.
-  Future<void> answerSlots(List<int> bySlot, Duration latency) async {
-    final question = state.question;
-    if (question == null || state.loading) return;
-
-    // Тем же способом, что забег: сравнивается собранное предложение, а не
-    // расстановка по слотам. Сверка по слотам игнорировала заявленные
-    // порядки слов и объявила бы верную сборку ошибкой — при замере уровня,
-    // где ошибка стоит яруса.
-    await _record(question, question.acceptsSlots(bySlot), latency);
   }
 
   /// Проигрывает центр сам, как только круг открылся.
@@ -121,22 +113,7 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       if (question.answerSpeech != null) {
         ref.read(speechServiceProvider).speak(question.answerSpeech!);
       }
-      // Засевается только слово, и это не мелочь в двух местах сразу.
-      //
-      // Во-первых, у фразового круга `itemId` — концепт, который фраза учит,
-      // а если фраза не привязана ни к одному концепту, то **её собственный
-      // id**. Такая строка памяти не соответствует ни одной звезде: на карте
-      // она невидима, круг из неё не собирается, отзыв по ней не пишется —
-      // значит она просрочена навсегда и вечно занимает место в начале
-      // очереди повторений.
-      //
-      // Во-вторых, доказательство слабое и без этого. Калибровочная фраза
-      // спрашивается на минимальной глубине: два пропуска, две плитки, то
-      // есть выбор из двух порядков. Верная сборка говорит о порядке слов, а
-      // не о том, что игрок знает вот это слово.
-      if (!question.mode.isPhrase) {
-        _confirmedConcepts[question.itemId] = question.tier;
-      }
+      _confirmed[question.itemId] = question.tier;
     }
 
     final next = Calibration.answer(
@@ -225,9 +202,14 @@ class CalibrationController extends Notifier<CalibrationUiState> {
 
   /// Круг для шага теста.
   ///
-  /// Набор калибровки из `content.db` используется, если он написан; пока
-  /// его нет — берём обычные концепты яруса. Тест от этого чуть менее
-  /// точен, но работает, а не падает.
+  /// Фраза берётся из **отобранного** набора (`content/calibration/<lang>.yaml`),
+  /// а не наугад: набор идёт по кругу через созвездия, и решение о ярусе не
+  /// должно зависеть от жеребьёвки. Пока набор читать было некому, правка
+  /// файла ни на что не влияла — это уже случалось.
+  ///
+  /// Пул вариантов здесь свой: игрок ещё не начал играть, знать он ничего не
+  /// может, поэтому пять других фраз берутся из того же яруса. Метод
+  /// исключения на калибровке и не нужен — тест мерит, а не учит.
   Future<CircleQuestion?> _buildQuestion(CalibrationStep step) async {
     final content = ref.read(currentContentDatabaseProvider);
     final player = ref.read(playerControllerProvider);
@@ -238,75 +220,28 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       random: _random,
     );
 
-    if (step.mode.isPhrase) {
-      // Фраза берётся из **отобранного** набора, а не наугад.
-      //
-      // `content/calibration/de.yaml` несёт по четыре фразы на ярус,
-      // выбранные по кругу через созвездия, и они отгружались в базу — а
-      // читать их было некому: эта ветка брала случайное созвездие и
-      // случайную фразу, а `phrase_id` из набора не спрашивал никто. Правка
-      // файла ни на что не влияла.
-      //
-      // Это не косметика: финальная проверка фразами решает, оставить игроку
-      // измеренный ярус или спустить на один. Решение, принятое по четырём
-      // случайным фразам вместо четырёх отобранных, зависит от жеребьёвки —
-      // а фразы разной длины теперь и разной трудности.
-      final curated = (await content.calibrationFor(step.tier))
-          .where((i) => i.phraseId != null)
-          .map((i) => i.phraseId!)
-          .toList();
+    final onTier = await content.phrasesOn(step.tier);
+    if (onTier.isEmpty) return null;
 
-      if (curated.isNotEmpty) {
-        final phrase = await content
-            .phrase(curated[_random.nextInt(curated.length)]);
-        if (phrase != null) {
-          // Калибровка спрашивает фразу на самой лёгкой глубине: она измеряет
-          // уровень игрока, а не его выносливость.
-          return builder.buildPhraseQuestion(
-            phrase: phrase,
-            lumens: 0,
-            gaps: SessionBalance.phraseGapsMin,
-          );
-        }
-      }
-
-      // Набора нет — берём любую фразу яруса. Прежнее поведение осталось
-      // запасным путём, а не основным.
-      final constellations = await content.constellations();
-      if (constellations.isEmpty) return null;
-      return builder.buildPhrase(
-        constellation: constellations[_random.nextInt(constellations.length)],
-        tier: step.tier,
-        lumens: 0,
-        gaps: SessionBalance.phraseGapsMin,
-      );
-    }
-
-    final items = await content.calibrationFor(step.tier);
-    final conceptIds = items
-        .where((i) => i.conceptId != null)
-        .map((i) => i.conceptId!)
+    final curated = (await content.calibrationFor(step.tier))
+        .map((i) => i.phraseId)
+        .where((id) => onTier.any((p) => p.id == id))
         .toList();
 
-    if (conceptIds.isEmpty) {
-      final concepts = await content.conceptsUpTo(step.tier);
-      final onTier =
-          concepts.where((c) => c.tier == step.tier.code).toList();
-      if (onTier.isEmpty) return null;
-      conceptIds.add(onTier[_random.nextInt(onTier.length)].id);
-    }
+    final itemId = curated.isNotEmpty
+        ? curated[_random.nextInt(curated.length)]
+        : onTier[_random.nextInt(onTier.length)].id;
+
+    final pool = [for (final row in onTier) row.id]..shuffle(_random);
 
     return builder.build(
       PlannedCircle(
-        itemId: conceptIds[_random.nextInt(conceptIds.length)],
+        itemId: itemId,
         mode: step.mode,
         isNew: false,
         lumens: 0,
-        // Вид дистракторов приходит из шага, а не выводится из механики.
-        // На подтверждении границы он созвучный: шесть тематических дают
-        // 17 % случайного попадания, и подтверждать ярус на них дёшево.
-        distractorKind: step.distractorKind,
       ),
+      pool: pool,
     );
   }
 
@@ -339,13 +274,13 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     var seeded = 0;
     try {
       await ref.read(wordStateRepositoryProvider).seed(
-            confirmed: _confirmedConcepts,
+            confirmed: _confirmed,
             lumens: (CalibrationBalance.seedLmMin +
                     CalibrationBalance.seedLmMax) ~/
                 2,
             now: DateTime.now(),
           );
-      seeded = _confirmedConcepts.length;
+      seeded = _confirmed.length;
     } catch (_) {
       // Засев — оптимизация, а не условие игры.
     }

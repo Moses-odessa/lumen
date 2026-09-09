@@ -1,0 +1,51 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: relations_boundaries
+tiers:
+  b1:
+    - id: relations_boundaries_b1_01
+      text: "Mir ist wichtig, gehört zu werden."
+    - id: relations_boundaries_b1_02
+      text: "Ich würde das gern in Ruhe besprechen."
+    - id: relations_boundaries_b1_03
+      text: "Dein Ton macht mich traurig."
+    - id: relations_boundaries_b1_04
+      text: "Ich mache dir keinen Vorwurf."
+    - id: relations_boundaries_b1_05
+      text: "Ich brauche etwas Zeit allein."
+    - id: relations_boundaries_b1_06
+      text: "Ich bin gerade nicht bereit, darüber zu sprechen."
+    - id: relations_boundaries_b1_07
+      text: "Kommen wir morgen darauf zurück."
+    - id: relations_boundaries_b1_08
+      text: "Ich respektiere deine Entscheidung."
+    - id: relations_boundaries_b1_09
+      text: "Aber meine Entscheidung ist auch wichtig."
+    - id: relations_boundaries_b1_10
+      text: "Das kommt für mich nicht infrage."
+    - id: relations_boundaries_b1_11
+      text: "Das kann ich nicht versprechen."
+    - id: relations_boundaries_b1_12
+      text: "Bitte entscheide nicht für mich."
+      register: casual
+    - id: relations_boundaries_b1_13
+      text: "Was erwartest du von mir?"
+    - id: relations_boundaries_b1_14
+      text: "Lass uns gemeinsame Regeln vereinbaren."
+      register: casual
+    - id: relations_boundaries_b1_15
+      text: "Diesmal übernehme ich die Verantwortung."
+    - id: relations_boundaries_b1_16
+      text: "Unsere Beziehung ist mir wichtiger als der Streit."
+    - id: relations_boundaries_b1_17
+      text: "Wenn du ..., fühle ich mich ..."
+    - id: relations_boundaries_b1_18
+      text: "Ich würde mir wünschen, dass wir ..."
+    - id: relations_boundaries_b1_19
+      text: "Ich bin bereit, ..., aber nicht ..."
+    - id: relations_boundaries_b1_20
+      text: "Meine Grenze ist ..."

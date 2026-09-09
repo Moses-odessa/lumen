@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: returns_delivery
+tiers:
+  a2:
+    - id: returns_delivery_a2_01
+      text: "Ich möchte diesen Artikel zurückgeben."
+    - id: returns_delivery_a2_02
+      text: "Ich habe den Kassenbon."
+    - id: returns_delivery_a2_03
+      text: "Ich habe das gestern gekauft."
+    - id: returns_delivery_a2_04
+      text: "Die Größe hat mir nicht gepasst."
+    - id: returns_delivery_a2_05
+      text: "Der Artikel ist beschädigt."
+    - id: returns_delivery_a2_06
+      text: "Das ist nicht das, was ich bestellt habe."
+    - id: returns_delivery_a2_07
+      text: "Kann ich das umtauschen?"
+    - id: returns_delivery_a2_08
+      text: "Ich hätte gern eine Rückerstattung."
+    - id: returns_delivery_a2_09
+      text: "Wie lange dauert die Rückerstattung?"
+    - id: returns_delivery_a2_10
+      text: "Das Paket ist noch nicht angekommen."
+    - id: returns_delivery_a2_11
+      text: "Wo kann ich die Bestellung verfolgen?"
+    - id: returns_delivery_a2_12
+      text: "Die Lieferadresse ist falsch."
+    - id: returns_delivery_a2_13
+      text: "Im Paket fehlt ein Artikel."
+    - id: returns_delivery_a2_14
+      text: "Ich habe versehentlich zweimal bestellt."
+    - id: returns_delivery_a2_15
+      text: "Kann ich die Bestellung stornieren?"
+    - id: returns_delivery_a2_16
+      text: "Wer bezahlt den Rückversand?"
+    - id: returns_delivery_a2_17
+      text: "Meine Bestellnummer lautet ..."
+    - id: returns_delivery_a2_18
+      text: "Statt ... habe ich ... erhalten."
+    - id: returns_delivery_a2_19
+      text: "Ich möchte ... gegen ... umtauschen."
+    - id: returns_delivery_a2_20
+      text: "Bitte schicken Sie mir ..."

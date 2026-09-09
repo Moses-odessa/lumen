@@ -1,1456 +1,1010 @@
-# Українські лексеми — мова підказок.
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
 #
-# Напрямок «українська → німецька» у великих застосунків просто відсутній,
-# тому вона в проєкті з першого дня. Дистрактори задані лише для A0 — див.
-# пояснення у ru.yaml.
-#
-# Заголовок нижче — це все, що потрібно, щоб мова з'явилася у застосунку.
-# Мови знаходяться переглядом каталогу content/lang/, а не списком у коді:
-# додати мову означає створити один файл, а не правити Dart.
+# Язык подсказок: заголовок плюс переводы фраз. Лексем здесь
+# больше нет — единицей изучения стала фраза.
 lang: uk
 role: native
 status: launched
 name: Українська
-lexemes:
-  # ── A0 ────────────────────────────────────────────────────────────────
-  doctor_person:
-    form: лікар
-    gender: m
-    plural: лікарі
-    distractors:
-      far: [зуб, догляд]
-  pain_noun:
-    form: біль
-    gender: m
-    distractors:
-      far: [рана, кашель]
-  help_noun:
-    form: допомога
-    gender: f
-    distractors:
-      far: [догляд, виклик]
-  head_body:
-    form: голова
-    gender: f
-    plural: голови
-    distractors:
-      far: [шия, спина]
-  belly_body:
-    form: живіт
-    gender: m
-    plural: животи
-    distractors:
-      far: [груди, нога]
-  hand_body:
-    form: рука
-    gender: f
-    plural: руки
-    distractors:
-      far: [нога, палець]
-  fever_noun:
-    form: жар
-    gender: m
-    distractors:
-      far: [кашель, нежить]
-  medicine_noun:
-    form: ліки
-    note: plural_only
-    distractors:
-      far: [рецепт, мазь]
-  pharmacy_place:
-    form: аптека
-    gender: f
-    plural: аптеки
-    distractors:
-      far: [прийом, клініка]
-  hospital_place:
-    form: лікарня
-    gender: f
-    plural: лікарні
-    distractors:
-      far: [прийом, швидка]
-  sick_adj:
-    form: хворий
-    note: adjective
-    distractors:
-      far: [втомлений, здоровий]
-  appointment_noun:
-    form: запис
-    gender: m
-    plural: записи
-    note: на прийом
-    distractors:
-      far: [рецепт, прийом]
-
-  # ── A1 ────────────────────────────────────────────────────────────────
-  tooth_body: { form: зуб, gender: m, plural: зуби }
-  back_body: { form: спина, gender: f, plural: спини }
-  leg_body: { form: нога, gender: f, plural: ноги }
-  throat_body: { form: горло, gender: n, plural: горла }
-  cough_noun: { form: кашель, gender: m }
-  cold_illness: { form: застуда, gender: f, plural: застуди }
-  prescription_noun: { form: рецепт, gender: m, plural: рецепти }
-  nurse_person: { form: медсестра, gender: f, plural: медсестри }
-  waiting_room: { form: приймальня, gender: f }
-  insurance_card: { form: страхова картка, gender: f }
-  healthy_adj: { form: здоровий, note: adjective }
-  temperature_noun: { form: температура, gender: f }
-
-  # ── A2 ────────────────────────────────────────────────────────────────
-  sick_note: { form: лікарняний лист, gender: m }
-  dosage_noun: { form: доза, gender: f, plural: дози }
-  side_effect: { form: побічна дія, gender: f }
-  allergy_noun: { form: алергія, gender: f }
-  blood_noun: { form: кров, gender: f }
-  plaster_noun: { form: пластир, gender: m, plural: пластирі }
-  ointment_noun: { form: мазь, gender: f, plural: мазі }
-  tablet_noun: { form: таблетка, gender: f, plural: таблетки }
-  injection_noun: { form: укол, gender: m, plural: уколи }
-  vaccination_noun: { form: щеплення, gender: n }
-  emergency_noun: { form: невідкладний випадок, gender: m }
-  ambulance_noun: { form: швидка допомога, gender: f }
-  surgery_place: { form: лікарська практика, gender: f }
-  dentist_person: { form: стоматолог, gender: m, plural: стоматологи }
-  examination_noun: { form: обстеження, gender: n }
-  treatment_noun: { form: лікування, gender: n }
-  painkiller_noun: { form: знеболювальне, gender: n }
-  flu_illness: { form: грип, gender: m }
-  wound_noun: { form: рана, gender: f, plural: рани }
-  dizzy_adj: { form: запаморочення, note: «мені паморочиться» }
-  breath_noun: { form: дихання, gender: n }
-  heart_body: { form: серце, gender: n, plural: серця }
-  stomach_organ: { form: шлунок, gender: m, plural: шлунки }
-  skin_body: { form: шкіра, gender: f }
-
-  # ── B1 ────────────────────────────────────────────────────────────────
-  cost_coverage: { form: покриття витрат, gender: n }
-  referral_noun: { form: направлення, gender: n }
-  lab_result: { form: результат аналізів, gender: m }
-  diagnosis_noun: { form: діагноз, gender: m, plural: діагнози }
-  therapy_noun: { form: терапія, gender: f }
-  specialist_person: { form: профільний лікар, gender: m }
-  health_insurance: { form: лікарняна каса, gender: f }
-  medical_report: { form: висновок лікаря, gender: m }
-  chronic_adj: { form: хронічний, note: adjective }
-  inflammation_noun: { form: запалення, gender: n }
-  infection_noun: { form: інфекція, gender: f }
-  antibiotic_noun: { form: антибіотик, gender: m, plural: антибіотики }
-  blood_pressure: { form: тиск, gender: m }
-  blood_draw: { form: забір крові, gender: m }
-  ultrasound_noun: { form: УЗД, gender: n }
-  xray_noun: { form: рентгенівський знімок, gender: m }
-  operation_noun: { form: операція, gender: f, plural: операції }
-  anesthesia_noun: { form: наркоз, gender: m }
-  rehab_noun: { form: реабілітація, gender: f }
-  physiotherapy_noun: { form: фізіотерапія, gender: f }
-  symptom_noun: { form: симптом, gender: m, plural: симптоми }
-  complaints_noun: { form: скарги, gender: f, note: plural_only }
-  medical_history: { form: анамнез, gender: m }
-  discharge_noun: { form: виписка, gender: f }
-
-  # ── B2 ────────────────────────────────────────────────────────────────
-  copayment_noun: { form: доплата, gender: f, plural: доплати }
-  objection_noun: { form: заперечення, gender: n }
-  findings_report: { form: звіт про результати, gender: m }
-  reimbursement_noun: { form: відшкодування, gender: n }
-  supplementary_insurance: { form: додаткове страхування, gender: n }
-  contribution_noun: { form: внесок, gender: m, plural: внески }
-  certificate_noun: { form: довідка, gender: f, plural: довідки }
-  incapacity_noun: { form: непрацездатність, gender: f }
-  expert_opinion: { form: експертний висновок, gender: m }
-  consent_noun: { form: згода, gender: f }
-  liability_noun: { form: відповідальність, gender: f }
-  malpractice_noun: { form: лікарська помилка, gender: f }
-  prognosis_noun: { form: прогноз, gender: m, plural: прогнози }
-  contraindication_noun: { form: протипоказання, gender: n }
-  interaction_noun: { form: взаємодія, gender: f }
-  dosage_form: { form: форма випуску, gender: f }
-  prescription_only: { form: рецептурний, note: adjective }
-  outpatient_adj: { form: амбулаторний, note: adjective }
-  inpatient_adj: { form: стаціонарний, note: adjective }
-  patient_file: { form: медична картка, gender: f }
-  data_protection: { form: захист даних, gender: m }
-  second_opinion: { form: друга думка, gender: f }
-  waiting_period: { form: строк очікування, gender: m }
-  cost_estimate: { form: кошторис витрат, gender: m }
-
-  # ── Сузір'я «Їжа», A0 ─────────────────────────────────────────────────
-  bread_food: { form: хліб, gender: m, plural: хліби }
-  water_drink: { form: вода, gender: f, plural: води }
-  milk_drink: { form: молоко, gender: n }
-  coffee_drink: { form: кава, gender: f }
-  apple_food: { form: яблуко, gender: n, plural: яблука }
-  meat_food: { form: м'ясо, gender: n }
-  fish_food: { form: риба, gender: f, plural: риби }
-  soup_food: { form: суп, gender: m, plural: супи }
-  salt_food: { form: сіль, gender: f }
-  sugar_food: { form: цукор, gender: m }
-  hunger_noun: { form: голод, gender: m }
-  restaurant_place: { form: ресторан, gender: m, plural: ресторани }
-
-  # ── Сузір'я «Транспорт», A0 ───────────────────────────────────────────
-  train_transport: { form: потяг, gender: m, plural: потяги }
-  bus_transport: { form: автобус, gender: m, plural: автобуси }
-  car_transport: { form: машина, gender: f, plural: машини }
-  ticket_transport: { form: квиток, gender: m, plural: квитки }
-  station_place: { form: вокзал, gender: m, plural: вокзали }
-  street_place: { form: вулиця, gender: f, plural: вулиці }
-  bicycle_transport: { form: велосипед, gender: m, plural: велосипеди }
-  airplane_transport: { form: літак, gender: m, plural: літаки }
-  way_noun: { form: шлях, gender: m, plural: шляхи }
-  driver_person: { form: водій, gender: m, plural: водії }
-  stop_place: { form: зупинка, gender: f, plural: зупинки }
-  late_adj: { form: пізно, note: adverb }
-
-  # ── Сузір'я «Дім», A0 ─────────────────────────────────────────────────
-  house_place: { form: будинок, gender: m, plural: будинки }
-  door_object: { form: двері, note: plural_only }
-  window_object: { form: вікно, gender: n, plural: вікна }
-  table_object: { form: стіл, gender: m, plural: столи }
-  chair_object: { form: стілець, gender: m, plural: стільці }
-  bed_object: { form: ліжко, gender: n, plural: ліжка }
-  kitchen_room: { form: кухня, gender: f, plural: кухні }
-  room_place: { form: кімната, gender: f, plural: кімнати }
-  key_object: { form: ключ, gender: m, plural: ключі }
-  rent_noun: { form: оренда, gender: f }
-  neighbour_person: { form: сусід, gender: m, plural: сусіди }
-  light_object: { form: світло, gender: n }
-
-  # ── Сузір'я «Магазин», A0 ─────────────────────────────────────────────
-  shop_place: { form: магазин, gender: m, plural: магазини }
-  money_noun: { form: гроші, note: plural_only }
-  price_noun: { form: ціна, gender: f, plural: ціни }
-  card_object: { form: картка, gender: f, plural: картки }
-  checkout_place: { form: каса, gender: f, plural: каси }
-  bag_object: { form: пакет, gender: m, plural: пакети }
-  purchase_noun: { form: покупка, gender: f, plural: покупки }
-  receipt_noun: { form: квитанція, gender: f, plural: квитанції }
-  customer_person: { form: покупець, gender: m, plural: покупці }
-  cheap_adj: { form: дешевий, note: adjective }
-  expensive_adj: { form: дорогий, note: adjective }
-  open_adj: { form: відчинено, note: adverb }
-
-  # ── Сузір'я «Сім'я», A0 ───────────────────────────────────────────────
-  mother_person: { form: мати, gender: f, plural: матері }
-  father_person: { form: батько, gender: m, plural: батьки }
-  child_person: { form: дитина, gender: f, plural: діти }
-  son_person: { form: син, gender: m, plural: сини }
-  daughter_person: { form: дочка, gender: f, plural: дочки }
-  sister_person: { form: сестра, gender: f, plural: сестри }
-  friend_person: { form: друг, gender: m, plural: друзі }
-  name_noun: { form: ім'я, gender: n, plural: імена }
-  family_noun: { form: сім'я, gender: f, plural: сім'ї }
-  man_person: { form: чоловік, gender: m, plural: чоловіки }
-  woman_person: { form: жінка, gender: f, plural: жінки }
-  old_adj: { form: старий, note: adjective }
-
-  # ── Сузір'я «Час», A0 ─────────────────────────────────────────────────
-  day_time: { form: день, gender: m, plural: дні }
-  night_time: { form: ніч, gender: f, plural: ночі }
-  hour_time: { form: година, gender: f, plural: години }
-  minute_time: { form: хвилина, gender: f, plural: хвилини }
-  week_time: { form: тиждень, gender: m, plural: тижні }
-  month_time: { form: місяць, gender: m, plural: місяці }
-  year_time: { form: рік, gender: m, plural: роки }
-  morning_time: { form: ранок, gender: m, plural: ранки }
-  evening_time: { form: вечір, gender: m, plural: вечори }
-  clock_object: { form: годинник, gender: m, plural: годинники }
-  today_adv: { form: сьогодні, note: adverb }
-  yesterday_adv: { form: вчора, note: adverb }
-
-  # ── Сузір'я «Місто», A0 ───────────────────────────────────────────────
-  city_place: { form: місто, gender: n, plural: міста }
-  square_place: { form: площа, gender: f, plural: площі }
-  park_place: { form: парк, gender: m, plural: парки }
-  bank_place: { form: банк, gender: m, plural: банки }
-  church_place: { form: церква, gender: f, plural: церкви }
-  market_place: { form: ринок, gender: m, plural: ринки }
-  museum_place: { form: музей, gender: m, plural: музеї }
-  post_place: { form: пошта, gender: f }
-  hotel_place: { form: готель, gender: m, plural: готелі }
-  centre_place: { form: центр, gender: m, plural: центри }
-  map_object: { form: мапа, gender: f, plural: мапи }
-  right_adv: { form: праворуч, note: adverb }
-
-  # ── Сузір'я «Робота», A0 ──────────────────────────────────────────────
-  work_noun: { form: робота, gender: f, plural: роботи }
-  job_noun: { form: професія, gender: f, plural: професії }
-  boss_person: { form: начальник, gender: m, plural: начальники }
-  colleague_person: { form: колега, gender: m, plural: колеги }
-  office_place: { form: офіс, gender: m, plural: офіси }
-  company_noun: { form: фірма, gender: f, plural: фірми }
-  salary_noun: { form: зарплата, gender: f, plural: зарплати }
-  contract_noun: { form: договір, gender: m, plural: договори }
-  meeting_noun: { form: нарада, gender: f, plural: наради }
-  holiday_noun: { form: відпустка, gender: f, plural: відпустки }
-  free_adj: { form: вільний, note: adjective }
-  tired_adj: { form: втомлений, note: adjective }
-
-  # ── A1, всі сузір'я ───────────────────────────────────────────────────
-  breakfast_meal: { form: сніданок, gender: m, plural: сніданки }
-  lunch_meal: { form: обід, gender: m, plural: обіди }
-  dinner_meal: { form: вечеря, gender: f, plural: вечері }
-  plate_object: { form: тарілка, gender: f, plural: тарілки }
-  glass_object: { form: склянка, gender: f, plural: склянки }
-  fork_object: { form: виделка, gender: f, plural: виделки }
-  knife_object: { form: ніж, gender: m, plural: ножі }
-  spoon_object: { form: ложка, gender: f, plural: ложки }
-  cheese_food: { form: сир, gender: m, plural: сири }
-  butter_food: { form: вершкове масло, gender: n }
-  egg_food: { form: яйце, gender: n, plural: яйця }
-  vegetable_food: { form: овочі, gender: m, plural: овочі }
-  platform_place: { form: платформа, gender: f, plural: платформи }
-  delay_noun: { form: запізнення, gender: n }
-  connection_noun: { form: пересадка, gender: f, plural: пересадки }
-  timetable_object: { form: розклад, gender: m, plural: розклади }
-  luggage_noun: { form: багаж, gender: m }
-  taxi_transport: { form: таксі, gender: n }
-  tram_transport: { form: трамвай, gender: m, plural: трамваї }
-  metro_transport: { form: метро, gender: n }
-  seat_object: { form: місце, gender: n, plural: місця }
-  journey_noun: { form: подорож, gender: f, plural: подорожі }
-  arrival_noun: { form: прибуття, gender: n }
-  departure_noun: { form: відправлення, gender: n }
-  flat_place: { form: квартира, gender: f, plural: квартири }
-  floor_object: { form: підлога, gender: f, plural: підлоги }
-  wall_object: { form: стіна, gender: f, plural: стіни }
-  roof_object: { form: дах, gender: m, plural: дахи }
-  garden_place: { form: сад, gender: m, plural: сади }
-  cellar_place: { form: підвал, gender: m, plural: підвали }
-  stairs_object: { form: сходи, gender: m, plural: сходи }
-  bathroom_room: { form: ванна кімната, gender: f }
-  shower_object: { form: душ, gender: m }
-  wardrobe_object: { form: шафа, gender: f, plural: шафи }
-  lamp_object: { form: лампа, gender: f, plural: лампи }
-  heating_object: { form: опалення, gender: n }
-  cash_noun: { form: готівка, gender: f }
-  change_noun: { form: решта, gender: f }
-  discount_noun: { form: знижка, gender: f, plural: знижки }
-  size_noun: { form: розмір, gender: m, plural: розміри }
-  basket_object: { form: кошик, gender: m, plural: кошики }
-  fitting_room: { form: примірочна, gender: f, plural: примірочні }
-  offer_noun: { form: пропозиція, gender: f, plural: пропозиції }
-  quality_noun: { form: якість, gender: f }
-  product_noun: { form: товар, gender: m, plural: товари }
-  brand_noun: { form: марка, gender: f, plural: марки }
-  delivery_noun: { form: доставка, gender: f, plural: доставки }
-  exchange_noun: { form: обмін, gender: m, plural: обміни }
-  brother_person: { form: брат, gender: m, plural: брати }
-  grandmother_person: { form: бабуся, gender: f, plural: бабусі }
-  grandfather_person: { form: дідусь, gender: m, plural: дідусі }
-  husband_person: { form: чоловік, gender: m, plural: чоловіки, note: у шлюбі }
-  wife_person: { form: дружина, gender: f, plural: дружини }
-  aunt_person: { form: тітка, gender: f, plural: тітки }
-  uncle_person: { form: дядько, gender: m, plural: дядьки }
-  cousin_person: { form: двоюрідний брат, gender: m }
-  grandchild_person: { form: онук, gender: m, plural: онуки }
-  birthday_noun: { form: день народження, gender: m }
-  wedding_noun: { form: весілля, gender: n, plural: весілля }
-  young_adj: { form: молодий, note: adjective }
-  weekend_time: { form: вихідні, gender: m, plural: вихідні }
-  date_noun: { form: дата, gender: f, plural: дати }
-  calendar_object: { form: календар, gender: m, plural: календарі }
-  noon_time: { form: полудень, gender: m }
-  tomorrow_adv: { form: завтра, note: adverb }
-  always_adv: { form: завжди, note: adverb }
-  never_adv: { form: ніколи, note: adverb }
-  often_adv: { form: часто, note: adverb }
-  sometimes_adv: { form: іноді, note: adverb }
-  early_adv: { form: рано, note: adverb }
-  now_adv: { form: зараз, note: adverb }
-  soon_adv: { form: скоро, note: adverb }
-  crossing_place: { form: перехрестя, gender: n }
-  traffic_light: { form: світлофор, gender: m, plural: світлофори }
-  pedestrian_person: { form: пішохід, gender: m, plural: пішоходи }
-  bridge_place: { form: міст, gender: m, plural: мости }
-  river_place: { form: річка, gender: f, plural: річки }
-  corner_place: { form: ріг, gender: m, plural: роги }
-  direction_noun: { form: напрямок, gender: m, plural: напрямки }
-  address_noun: { form: адреса, gender: f, plural: адреси }
-  district_place: { form: район, gender: m, plural: райони }
-  townhall_place: { form: ратуша, gender: f, plural: ратуші }
-  entrance_place: { form: вхід, gender: m, plural: входи }
-  exit_place: { form: вихід, gender: m, plural: виходи }
-  application_noun: { form: заявка на роботу, gender: f }
-  cv_noun: { form: резюме, gender: n }
-  interview_noun: { form: співбесіда, gender: f, plural: співбесіди }
-  employee_person: { form: співробітник, gender: m, plural: співробітники }
-  employer_person: { form: роботодавець, gender: m, plural: роботодавці }
-  department_noun: { form: відділ, gender: m, plural: відділи }
-  project_noun: { form: проєкт, gender: m, plural: проєкти }
-  deadline_noun: { form: термін, gender: m, plural: терміни }
-  overtime_noun: { form: понаднормові, gender: m, plural: понаднормові }
-  break_noun: { form: перерва, gender: f, plural: перерви }
-  task_noun: { form: завдання, gender: n, plural: завдання }
-  experience_noun: { form: досвід, gender: m }
-
-  # ── A2, всі сузір'я ───────────────────────────────────────────────────
-  fruit_food: { form: фрукти, gender: m, plural: фрукти }
-  potato_food: { form: картопля, gender: f }
-  rice_food: { form: рис, gender: m }
-  pasta_food: { form: макарони, gender: m, plural: макарони }
-  chicken_food: { form: курка, gender: f }
-  beef_food: { form: яловичина, gender: f }
-  pork_food: { form: свинина, gender: f }
-  sausage_food: { form: ковбаса, gender: f, plural: ковбаси }
-  sauce_food: { form: соус, gender: m, plural: соуси }
-  pepper_food: { form: перець, gender: m }
-  oil_food: { form: олія, gender: f }
-  flour_food: { form: борошно, gender: n }
-  cake_food: { form: пиріг, gender: m, plural: пироги }
-  chocolate_food: { form: шоколад, gender: m }
-  icecream_food: { form: морозиво, gender: n }
-  juice_drink: { form: сік, gender: m, plural: соки }
-  tea_drink: { form: чай, gender: m }
-  beer_drink: { form: пиво, gender: n }
-  wine_drink: { form: вино, gender: n, plural: вина }
-  menu_object: { form: меню, gender: n }
-  waiter_person: { form: офіціант, gender: m, plural: офіціанти }
-  bill_noun: { form: рахунок, gender: m, plural: рахунки }
-  order_noun: { form: замовлення, gender: n }
-  tip_noun: { form: чайові, gender: m, plural: чайові }
-  motorway_place: { form: автобан, gender: m, plural: автобани }
-  petrol_station: { form: заправка, gender: f, plural: заправки }
-  petrol_noun: { form: бензин, gender: m }
-  licence_noun: { form: водійські права, gender: n }
-  accident_noun: { form: аварія, gender: f, plural: аварії }
-  jam_noun: { form: затор, gender: m, plural: затори }
-  diversion_noun: { form: об'їзд, gender: m, plural: об'їзди }
-  roadworks_noun: { form: дорожні роботи, gender: f }
-  parking_place: { form: парковка, gender: f, plural: парковки }
-  garage_place: { form: паркінг, gender: m, plural: паркінги }
-  kilometre_noun: { form: кілометр, gender: m, plural: кілометри }
-  speed_noun: { form: швидкість, gender: f, plural: швидкості }
-  tyre_object: { form: шина, gender: f, plural: шини }
-  engine_object: { form: двигун, gender: m, plural: двигуни }
-  workshop_place: { form: автомайстерня, gender: f }
-  insurance_noun: { form: страховка, gender: f, plural: страховки }
-  seatbelt_object: { form: ремінь безпеки, gender: m }
-  vehicle_papers: { form: техпаспорт, gender: m }
-  ferry_transport: { form: пором, gender: m, plural: пороми }
-  harbour_place: { form: порт, gender: m, plural: порти }
-  airport_place: { form: аеропорт, gender: m, plural: аеропорти }
-  takeoff_noun: { form: виліт, gender: m, plural: вильоти }
-  landing_noun: { form: посадка, gender: f, plural: посадки }
-  carpool_noun: { form: попутка, gender: f, plural: попутки }
-  landlord_person: { form: орендодавець, gender: m, plural: орендодавці }
-  lease_noun: { form: договір оренди, gender: m }
-  deposit_noun: { form: застава, gender: f, plural: застави }
-  utilities_noun: { form: комунальні витрати, gender: f }
-  caretaker_person: { form: комендант, gender: m, plural: коменданти }
-  houserules_noun: { form: правила будинку, gender: n }
-  balcony_place: { form: балкон, gender: m, plural: балкони }
-  terrace_place: { form: тераса, gender: f, plural: тераси }
-  furniture_noun: { form: меблі, gender: m, plural: меблі }
-  sofa_object: { form: диван, gender: m, plural: дивани }
-  carpet_object: { form: килим, gender: m, plural: килими }
-  curtain_object: { form: штора, gender: f, plural: штори }
-  mirror_object: { form: дзеркало, gender: n, plural: дзеркала }
-  shelf_object: { form: полиця, gender: f, plural: полиці }
-  washing_machine: { form: пральна машина, gender: f }
-  fridge_object: { form: холодильник, gender: m, plural: холодильники }
-  stove_object: { form: плита, gender: f, plural: плити }
-  oven_object: { form: духовка, gender: f, plural: духовки }
-  socket_object: { form: розетка, gender: f, plural: розетки }
-  electricity_noun: { form: електрика, gender: f }
-  tap_object: { form: кран, gender: m, plural: крани }
-  rubbish_noun: { form: сміття, gender: n }
-  bin_object: { form: смітник, gender: m, plural: смітники }
-  move_noun: { form: переїзд, gender: m, plural: переїзди }
-  seller_person: { form: продавець, gender: m, plural: продавці }
-  receipt_slip: { form: касовий чек, gender: m }
-  creditcard_object: { form: кредитна картка, gender: f }
-  transfer_noun: { form: переказ, gender: m, plural: перекази }
-  voucher_noun: { form: ваучер, gender: m, plural: ваучери }
-  special_offer: { form: спецпропозиція, gender: f }
-  clearance_noun: { form: розпродаж, gender: m, plural: розпродажі }
-  warehouse_place: { form: склад, gender: m, plural: склади }
-  assortment_noun: { form: асортимент, gender: m }
-  warranty_noun: { form: гарантія, gender: f, plural: гарантії }
-  complaint_noun: { form: рекламація, gender: f, plural: рекламації }
-  return_noun: { form: повернення, gender: n }
-  shipping_noun: { form: пересилка, gender: f }
-  packaging_noun: { form: упаковка, gender: f, plural: упаковки }
-  label_object: { form: етикетка, gender: f, plural: етикетки }
-  pricetag_object: { form: цінник, gender: m, plural: цінники }
-  vat_noun: { form: ПДВ, gender: m }
-  instalment_noun: { form: розстрочка, gender: f }
-  downpayment_noun: { form: передоплата, gender: f }
-  ordernumber_noun: { form: номер замовлення, gender: m }
-  cart_object: { form: кошик покупок, gender: m }
-  support_noun: { form: служба підтримки, gender: f }
-  openinghours_noun: { form: години роботи, gender: f }
-  publicholiday_noun: { form: святковий день, gender: m }
-  relatives_noun: { form: родичі, gender: m, plural: родичі }
-  brotherinlaw_person: { form: шурин, gender: m, plural: шурини }
-  sisterinlaw_person: { form: невістка, gender: f, plural: невістки }
-  niece_person: { form: племінниця, gender: f, plural: племінниці }
-  nephew_person: { form: племінник, gender: m, plural: племінники }
-  motherinlaw_person: { form: свекруха, gender: f }
-  fatherinlaw_person: { form: свекор, gender: m }
-  stepfather_person: { form: вітчим, gender: m, plural: вітчими }
-  twin_person: { form: близнюк, gender: m, plural: близнюки }
-  siblings_noun: { form: брати і сестри, gender: m }
-  engagement_noun: { form: заручини, gender: f, plural: заручини }
-  divorce_noun: { form: розлучення, gender: n }
-  marriage_noun: { form: шлюб, gender: m, plural: шлюби }
-  upbringing_noun: { form: виховання, gender: n }
-  childhood_noun: { form: дитинство, gender: n }
-  youth_noun: { form: юність, gender: f }
-  pension_noun: { form: пенсія, gender: f, plural: пенсії }
-  surname_noun: { form: прізвище, gender: n, plural: прізвища }
-  firstname_noun: { form: ім'я, gender: n, plural: імена }
-  birthplace_noun: { form: місце народження, gender: n }
-  citizenship_noun: { form: громадянство, gender: n }
-  maritalstatus_noun: { form: сімейний стан, gender: m }
-  household_noun: { form: домашнє господарство, gender: n }
-  kindergarten_place: { form: дитячий садок, gender: m }
-  monday_time: { form: понеділок, gender: m, plural: понеділки }
-  tuesday_time: { form: вівторок, gender: m, plural: вівторки }
-  wednesday_time: { form: середа, gender: f, plural: середи }
-  thursday_time: { form: четвер, gender: m, plural: четверги }
-  friday_time: { form: п'ятниця, gender: f, plural: п'ятниці }
-  saturday_time: { form: субота, gender: f, plural: суботи }
-  sunday_time: { form: неділя, gender: f, plural: неділі }
-  season_time: { form: пора року, gender: f }
-  spring_time: { form: весна, gender: f }
-  summer_time: { form: літо, gender: n }
-  autumn_time: { form: осінь, gender: f }
-  winter_time: { form: зима, gender: f }
-  vacation_time: { form: канікули, gender: m, plural: канікули }
-  appointment_meeting: { form: домовленість, gender: f }
-  duration_noun: { form: тривалість, gender: f }
-  beginning_noun: { form: початок, gender: m }
-  ending_noun: { form: кінець, gender: m, plural: кінці }
-  future_noun: { form: майбутнє, gender: n }
-  past_noun: { form: минуле, gender: n }
-  present_noun: { form: сьогодення, gender: n }
-  moment_noun: { form: мить, gender: f }
-  century_noun: { form: століття, gender: n, plural: століття }
-  clocktime_noun: { form: час доби, gender: m }
-  alarm_object: { form: будильник, gender: m, plural: будильники }
-  suburb_place: { form: передмістя, gender: n }
-  settlement_place: { form: селище, gender: n, plural: селища }
-  pavement_place: { form: тротуар, gender: m, plural: тротуари }
-  cyclepath_place: { form: велодоріжка, gender: f, plural: велодоріжки }
-  crosswalk_place: { form: пішохідний перехід, gender: m }
-  streetlamp_object: { form: ліхтар, gender: m, plural: ліхтарі }
-  monument_place: { form: пам'ятник, gender: m, plural: пам'ятники }
-  fountain_place: { form: криниця, gender: f, plural: криниці }
-  cemetery_place: { form: цвинтар, gender: m, plural: цвинтарі }
-  library_place: { form: бібліотека, gender: f, plural: бібліотеки }
-  school_place: { form: школа, gender: f, plural: школи }
-  cinema_place: { form: кінотеатр, gender: m, plural: кінотеатри }
-  theatre_place: { form: театр, gender: m, plural: театри }
-  stadium_place: { form: стадіон, gender: m, plural: стадіони }
-  pool_place: { form: басейн, gender: m, plural: басейни }
-  playground_place: { form: дитячий майданчик, gender: m }
-  pedestrian_zone: { form: пішохідна зона, gender: f }
-  resident_person: { form: мешканець, gender: m, plural: мешканці }
-  administration_noun: { form: адміністрація, gender: f }
-  citizenoffice_place: { form: бюро реєстрації, gender: n }
-  police_noun: { form: поліція, gender: f }
-  firebrigade_noun: { form: пожежна охорона, gender: f }
-  emergency_call: { form: номер екстреної служби, gender: m }
-  sight_noun: { form: визначна пам'ятка, gender: f }
-  employment_contract: { form: трудовий договір, gender: m }
-  probation_noun: { form: випробувальний термін, gender: m }
-  dismissal_noun: { form: звільнення, gender: n }
-  reference_noun: { form: характеристика, gender: f }
-  raise_noun: { form: підвищення зарплати, gender: n }
-  fulltime_noun: { form: повна зайнятість, gender: f }
-  parttime_noun: { form: часткова зайнятість, gender: f }
-  shift_noun: { form: зміна, gender: f, plural: зміни }
-  homeoffice_noun: { form: робота з дому, gender: f }
-  conference_noun: { form: конференція, gender: f, plural: конференції }
-  colleague_female: { form: колега, gender: f, plural: колеги }
-  supervisor_person: { form: керівник, gender: m, plural: керівники }
-  internship_noun: { form: стажування, gender: n }
-  training_noun: { form: профнавчання, gender: n }
-  furthertraining_noun: { form: підвищення кваліфікації, gender: n }
-  studies_noun: { form: навчання, gender: n }
-  union_noun: { form: профспілка, gender: f, plural: профспілки }
-  workscouncil_noun: { form: виробнича рада, gender: f }
-  sicknote_noun: { form: лікарняний лист, gender: m }
-  workinghours_noun: { form: робочий час, gender: m }
-  endofday_noun: { form: кінець робочого дня, gender: m }
-  tax_noun: { form: податок, gender: m, plural: податки }
-  socialcontribution_noun: { form: соціальний внесок, gender: m }
-  payslip_noun: { form: розрахунковий лист, gender: m }
-
-  # ── B1, всі сузір'я ───────────────────────────────────────────────────
-  ingredient_noun: { form: інгредієнт, gender: m, plural: інгредієнти }
-  recipe_noun: { form: рецепт страви, gender: m }
-  pan_object: { form: сковорода, gender: f, plural: сковороди }
-  pot_object: { form: каструля, gender: f, plural: каструлі }
-  starter_food: { form: закуска, gender: f, plural: закуски }
-  maincourse_food: { form: основна страва, gender: f }
-  dessert_food: { form: десерт, gender: m, plural: десерти }
-  portion_noun: { form: порція, gender: f, plural: порції }
-  sidedish_food: { form: гарнір, gender: m, plural: гарніри }
-  spice_food: { form: спеція, gender: f, plural: спеції }
-  garlic_food: { form: часник, gender: m }
-  onion_food: { form: цибуля, gender: f }
-  mushroom_food: { form: гриб, gender: m, plural: гриби }
-  bean_food: { form: квасоля, gender: f }
-  lentil_food: { form: сочевиця, gender: f }
-  wholegrain_food: { form: цільне зерно, gender: n }
-  groceries_noun: { form: продукти харчування, gender: m }
-  shelflife_noun: { form: термін придатності, gender: m }
-  preparation_noun: { form: приготування, gender: n }
-  taste_noun: { form: смак, gender: m, plural: смаки }
-  nutrition_noun: { form: харчування, gender: n }
-  cookingtime_noun: { form: час приготування, gender: m }
-  freshness_noun: { form: свіжість, gender: f }
-  coldchain_noun: { form: холодовий ланцюг, gender: m }
-  transportmeans_noun: { form: транспортний засіб, gender: m }
-  localtransport_noun: { form: приміський транспорт, gender: m }
-  longdistance_noun: { form: далеке сполучення, gender: n }
-  surcharge_noun: { form: доплата, gender: f, plural: доплати }
-  reduction_noun: { form: пільга, gender: f, plural: пільги }
-  monthlyticket_noun: { form: проїзний, gender: m, plural: проїзні }
-  validation_noun: { form: компостування, gender: n }
-  passenger_person: { form: пасажир, gender: m, plural: пасажири }
-  conductor_person: { form: кондуктор, gender: m, plural: кондуктори }
-  levelcrossing_place: { form: переїзд, gender: m, plural: переїзди }
-  rightofway_noun: { form: перевага руху, gender: f }
-  overtakingban_noun: { form: заборона обгону, gender: f }
-  speedlimit_noun: { form: обмеження швидкості, gender: n }
-  fine_noun: { form: штраф, gender: m, plural: штрафи }
-  drivingban_noun: { form: позбавлення прав, gender: n }
-  numberplate_object: { form: номерний знак, gender: m }
-  registration_noun: { form: реєстрація авто, gender: f }
-  inspection_noun: { form: техогляд, gender: m, plural: техогляди }
-  emissionstandard_noun: { form: екологічний стандарт, gender: m }
-  chargingpoint_place: { form: зарядна станція, gender: f }
-  range_noun: { form: запас ходу, gender: m }
-  consumption_noun: { form: витрата пального, gender: f }
-  maintenance_noun: { form: техобслуговування, gender: n }
-  breakdownservice_noun: { form: техдопомога, gender: f }
-  tenancylaw_noun: { form: житлове право, gender: n }
-  noticeperiod_noun: { form: строк розірвання, gender: m }
-  sublet_noun: { form: суборенда, gender: f }
-  rentincrease_noun: { form: підвищення оренди, gender: n }
-  utilitiesbill_noun: { form: рахунок за комунальні, gender: m }
-  livingspace_noun: { form: житлова площа, gender: f }
-  floorplan_object: { form: планування, gender: n }
-  groundfloor_place: { form: перший поверх, gender: m }
-  atticfloor_place: { form: мансарда, gender: f, plural: мансарди }
-  renovation_noun: { form: ремонт, gender: m, plural: ремонти }
-  refurbishment_noun: { form: реконструкція, gender: f }
-  mould_noun: { form: цвіль, gender: f }
-  damp_noun: { form: вологість, gender: f }
-  tradesman_person: { form: майстер, gender: m, plural: майстри }
-  repair_noun: { form: полагодження, gender: n }
-  defect_noun: { form: дефект, gender: m, plural: дефекти }
-  residentregistration_noun: { form: реєстрація місця, gender: f }
-  registrationcertificate_noun: { form: довідка про реєстрацію, gender: f }
-  contentsinsurance_noun: { form: страхування майна, gender: n }
-  smokedetector_object: { form: датчик диму, gender: m }
-  energycertificate_noun: { form: енергопаспорт, gender: m }
-  heatingcosts_noun: { form: витрати на опалення, gender: f }
-  watermeter_object: { form: лічильник води, gender: m }
-  wastesorting_noun: { form: сортування сміття, gender: n }
-  withdrawalright_noun: { form: право на повернення, gender: n }
-  withdrawalperiod_noun: { form: строк повернення, gender: m }
-  purchasecontract_noun: { form: договір купівлі-продажу, gender: m }
-  statutorywarranty_noun: { form: гарантія за законом, gender: f }
-  rectification_noun: { form: усунення недоліку, gender: n }
-  pricereduction_noun: { form: уцінка, gender: f, plural: уцінки }
-  deliverytime_noun: { form: строк доставки, gender: m }
-  cashondelivery_noun: { form: накладений платіж, gender: m }
-  tracking_noun: { form: відстеження, gender: n }
-  clearanceitem_noun: { form: уцінений товар, gender: m }
-  remainder_noun: { form: залишок партії, gender: m }
-  financing_noun: { form: розстрочка від банку, gender: f }
-  creditrating_noun: { form: кредитний рейтинг, gender: m }
-  directdebit_noun: { form: пряме списання, gender: n }
-  chargeback_noun: { form: повернення списання, gender: n }
-  paymentterm_noun: { form: строк оплати, gender: m }
-  reminder_noun: { form: нагадування про оплату, gender: n }
-  debtcollection_noun: { form: стягнення боргу, gender: n }
-  billingaddress_noun: { form: адреса для рахунку, gender: f }
-  deliveryaddress_noun: { form: адреса доставки, gender: f }
-  middleman_person: { form: посередник, gender: m, plural: посередники }
-  pricecomparison_noun: { form: порівняння цін, gender: n }
-  review_noun: { form: відгук покупця, gender: m }
-  loyaltypoints_noun: { form: бонусні бали, gender: m }
-  guardian_person: { form: опікун, gender: m, plural: опікуни }
-  custody_noun: { form: право опіки, gender: n }
-  maintenance_payment: { form: аліменти, gender: m, plural: аліменти }
-  childbenefit_noun: { form: допомога на дитину, gender: f }
-  parentalallowance_noun: { form: батьківська допомога, gender: f }
-  parentalleave_noun: { form: батьківська відпустка, gender: f }
-  childcare_noun: { form: догляд за дітьми, gender: m }
-  childminder_person: { form: няня, gender: f, plural: няні }
-  adoption_noun: { form: усиновлення, gender: n }
-  fosterfamily_noun: { form: прийомна сім'я, gender: f }
-  godparenthood_noun: { form: кумівство, gender: n }
-  inheritance_noun: { form: спадщина, gender: f }
-  will_noun: { form: заповіт, gender: m, plural: заповіти }
-  estate_noun: { form: спадкова маса, gender: f }
-  powerofattorney_noun: { form: довіреність, gender: f, plural: довіреності }
-  healthproxy_noun: { form: довіреність на лікування, gender: f }
-  registryoffice_place: { form: РАЦС, gender: m }
-  marriageceremony_noun: { form: укладення шлюбу, gender: n }
-  birthcertificate_noun: { form: свідоцтво про народження, gender: n }
-  deathcertificate_noun: { form: свідоцтво про смерть, gender: n }
-  familybook_object: { form: сімейна книга, gender: f }
-  kinshipdegree_noun: { form: ступінь спорідненості, gender: m }
-  generation_noun: { form: покоління, gender: n, plural: покоління }
-  cohabitation_noun: { form: спільне проживання, gender: n }
-  period_noun: { form: період, gender: m, plural: періоди }
-  pointintime_noun: { form: момент часу, gender: m }
-  cutoffdate_noun: { form: кінцева дата, gender: f }
-  delay_general: { form: затримка, gender: f, plural: затримки }
-  postponement_noun: { form: відстрочка, gender: f, plural: відстрочки }
-  schedule_noun: { form: графік, gender: m, plural: графіки }
-  sequenceflow_noun: { form: перебіг, gender: m }
-  order_sequence: { form: черговість, gender: f }
-  simultaneity_noun: { form: одночасність, gender: f }
-  regularity_noun: { form: регулярність, gender: f }
-  frequency_general: { form: частота, gender: f }
-  timezone_noun: { form: часовий пояс, gender: m }
-  summertime_noun: { form: літній час, gender: m }
-  wintertime_noun: { form: зимовий час, gender: m }
-  leapyear_noun: { form: високосний рік, gender: m }
-  anniversary_noun: { form: річниця, gender: f, plural: річниці }
-  timewaste_noun: { form: марнування часу, gender: n }
-  punctuality_noun: { form: пунктуальність, gender: f }
-  diary_object: { form: щоденник, gender: m, plural: щоденники }
-  leadtime_noun: { form: час підготовки, gender: m }
-  graceperiod_noun: { form: додатковий строк, gender: m }
-  timepressure_noun: { form: брак часу, gender: m }
-  opportunity_noun: { form: можливість, gender: f, plural: можливості }
-  eternity_noun: { form: вічність, gender: f }
-  municipality_place: { form: громада, gender: f, plural: громади }
-  county_place: { form: район, gender: m, plural: райони }
-  borough_place: { form: округ, gender: m, plural: округи }
-  mayor_person: { form: бургомістр, gender: m, plural: бургомістри }
-  citycouncil_noun: { form: міська рада, gender: f }
-  constituency_place: { form: виборчий округ, gender: m }
-  registrationoffice_place: { form: паспортний стіл, gender: m }
-  publicorder_office: { form: служба порядку, gender: f }
-  buildingauthority_place: { form: будівельне управління, gender: n }
-  permit_noun: { form: дозвіл, gender: m, plural: дозволи }
-  application_form: { form: заява, gender: f, plural: заяви }
-  form_object: { form: бланк, gender: m, plural: бланки }
-  fee_noun: { form: мито, gender: n }
-  notice_decision: { form: повідомлення, gender: n }
-  civicobjection_noun: { form: заперечення, gender: n }
-  publicsurgery_noun: { form: прийом громадян, gender: m }
-  publicsphere_noun: { form: громадськість, gender: f }
-  infrastructure_noun: { form: інфраструктура, gender: f }
-  urbandevelopment_noun: { form: міський розвиток, gender: m }
-  greenspace_place: { form: зелена зона, gender: f }
-  localsupply_noun: { form: місцеве постачання, gender: n }
-  trafficcalming_noun: { form: заспокоєння руху, gender: n }
-  redevelopmentarea_place: { form: зона реконструкції, gender: f }
-  jurisdiction_noun: { form: компетенція, gender: f }
-  jobadvert_noun: { form: оголошення про вакансію, gender: n }
-  coverletter_noun: { form: супровідний лист, gender: m }
-  qualification_noun: { form: кваліфікація, gender: f }
-  competence_noun: { form: компетенція фахівця, gender: f }
-  workreference_noun: { form: трудова характеристика, gender: f }
-  fixedterm_noun: { form: строковість договору, gender: f }
-  permanentcontract_noun: { form: переведення в безстроковий, gender: n }
-  warning_noun: { form: попередження, gender: n }
-  terminationagreement_noun: { form: угода про розірвання, gender: f }
-  dismissalprotection_noun: { form: захист від звільнення, gender: m }
-  companyagreement_noun: { form: угода з радою, gender: f }
-  collectiveagreement_noun: { form: тарифний договір, gender: m }
-  minimumwage_noun: { form: мінімальна зарплата, gender: f }
-  salarynegotiation_noun: { form: переговори про зарплату, gender: m }
-  bonuspayment_noun: { form: разова виплата, gender: f }
-  holidayentitlement_noun: { form: право на відпустку, gender: n }
-  remainingleave_noun: { form: залишок відпустки, gender: m }
-  occupationalsafety_noun: { form: охорона праці, gender: f }
-  induction_noun: { form: введення на посаду, gender: n }
-  targetagreement_noun: { form: угода про цілі, gender: f }
-  performancereview_noun: { form: оцінка роботи, gender: f }
-  personnelfile_noun: { form: особова справа, gender: f }
-  workingatmosphere_noun: { form: атмосфера в колективі, gender: f }
-  turnover_staff: { form: плинність кадрів, gender: f }
-
-  # ── B2, всі сузір'я ───────────────────────────────────────────────────
-  nutritionalvalue_noun: { form: харчова цінність, gender: f }
-  calorie_noun: { form: калорія, gender: f, plural: калорії }
-  protein_noun: { form: білок, gender: m, plural: білки }
-  carbohydrate_noun: { form: вуглевод, gender: m, plural: вуглеводи }
-  fibre_noun: { form: клітковина, gender: f }
-  preservative_noun: { form: консервант, gender: m, plural: консерванти }
-  additive_noun: { form: добавка, gender: f, plural: добавки }
-  labelling_noun: { form: маркування, gender: n }
-  intolerance_noun: { form: непереносимість, gender: f }
-  allergen_noun: { form: алерген, gender: m, plural: алергени }
-  lactose_noun: { form: лактоза, gender: f }
-  gluten_noun: { form: глютен, gender: m }
-  organicproduct_noun: { form: біопродукт, gender: m, plural: біопродукти }
-  countryoforigin_noun: { form: країна походження, gender: f }
-  bestbefore_noun: { form: дата придатності, gender: f }
-  supplychain_noun: { form: ланцюг постачання, gender: m }
-  producer_person: { form: виробник, gender: m, plural: виробники }
-  wholesale_noun: { form: оптова торгівля, gender: f }
-  retail_noun: { form: роздрібна торгівля, gender: f }
-  consumerprotection_noun: { form: захист споживача, gender: m }
-  foodlaw_noun: { form: харчове право, gender: n }
-  hygienerule_noun: { form: санітарна норма, gender: f }
-  sustainability_noun: { form: сталість, gender: f }
-  regionality_noun: { form: регіональність, gender: f }
-  transportinfra_noun: { form: транспортна інфраструктура, gender: f }
-  routenetwork_noun: { form: мережа маршрутів, gender: f }
-  clockfacetimetable_noun: { form: тактовий розклад, gender: m }
-  capacitybottleneck_noun: { form: брак потужності, gender: m }
-  emissionlimit_noun: { form: межа викидів, gender: f }
-  lowemissionzone_noun: { form: екологічна зона, gender: f }
-  particulate_noun: { form: дрібний пил, gender: m }
-  noiseprotection_noun: { form: шумозахист, gender: m }
-  mobilityshift_noun: { form: транспортний перехід, gender: m }
-  electromobility_noun: { form: електромобільність, gender: f }
-  charginginfra_noun: { form: зарядна інфраструктура, gender: f }
-  subsidy_noun: { form: субсидія, gender: f, plural: субсидії }
-  trackprice_noun: { form: плата за колії, gender: f }
-  operatormodel_noun: { form: модель оператора, gender: f }
-  liabilityexclusion_noun: { form: виключення відповідальності, gender: n }
-  claimssettlement_noun: { form: врегулювання збитків, gender: n }
-  comprehensivecover_noun: { form: каско, gender: n }
-  excess_noun: { form: франшиза, gender: f }
-  roadsafety_noun: { form: безпека руху, gender: f }
-  accidentstatistics_noun: { form: статистика аварій, gender: f }
-  freighttransport_noun: { form: вантажні перевезення, gender: n }
-  logisticschain_noun: { form: логістичний ланцюг, gender: m }
-  customsclearance_noun: { form: митне оформлення, gender: n }
-  logbook_object: { form: дорожній журнал, gender: m }
-  rentindex_noun: { form: індекс оренди, gender: m }
-  modernisationlevy_noun: { form: надбавка за модернізацію, gender: f }
-  maintenancereserve_noun: { form: резерв на ремонт, gender: m }
-  condominium_noun: { form: власність на квартиру, gender: f }
-  ownersassociation_noun: { form: об'єднання співвласників, gender: n }
-  landregister_noun: { form: земельна книга, gender: f }
-  transfertax_noun: { form: податок на купівлю, gender: m }
-  mortgage_noun: { form: іпотека, gender: f, plural: іпотеки }
-  repayment_noun: { form: погашення, gender: n }
-  fixedinterest_noun: { form: фіксація ставки, gender: f }
-  lendingvalue_noun: { form: заставна вартість, gender: f }
-  leasehold_noun: { form: право забудови, gender: n }
-  evictionclaim_noun: { form: позов про виселення, gender: m }
-  rentreduction_noun: { form: зниження оренди, gender: n }
-  defectnotice_noun: { form: повідомлення про дефекти, gender: n }
-  marketvalue_noun: { form: ринкова вартість, gender: f }
-  buildingapplication_noun: { form: заявка на будівництво, gender: f }
-  developmentplan_noun: { form: план забудови, gender: m }
-  heritageprotection_noun: { form: охорона пам'яток, gender: f }
-  insulation_noun: { form: теплоізоляція, gender: f }
-  efficiencyclass_noun: { form: клас енергоефективності, gender: m }
-  advancepayment_noun: { form: авансовий платіж, gender: m }
-  depositaccount_noun: { form: рахунок для застави, gender: m }
-  handoverprotocol_noun: { form: акт приймання-передачі, gender: m }
-  termsandconditions_noun: { form: умови угоди, gender: f }
-  contractclause_noun: { form: пункт договору, gender: m }
-  liabilitylimit_noun: { form: обмеження відповідальності, gender: n }
-  limitationperiod_noun: { form: позовна давність, gender: f }
-  burdenofproof_noun: { form: тягар доказування, gender: m }
-  materialdefect_noun: { form: недолік товару, gender: m }
-  legaldefect_noun: { form: правовий недолік, gender: m }
-  subsequentperformance_noun: { form: довиконання, gender: n }
-  withdrawal_contract: { form: відмова від договору, gender: f }
-  damages_noun: { form: відшкодування збитків, gender: n }
-  consumercentre_noun: { form: центр захисту споживачів, gender: m }
-  competitionlaw_noun: { form: конкурентне право, gender: n }
-  pricefixing_noun: { form: підтримання цін, gender: n }
-  cartelauthority_noun: { form: антимонопольне відомство, gender: n }
-  marketshare_noun: { form: частка ринку, gender: f }
-  supplyshortage_noun: { form: дефіцит постачання, gender: m }
-  procurement_noun: { form: закупівля, gender: f, plural: закупівлі }
-  costing_noun: { form: калькуляція, gender: f }
-  margin_noun: { form: маржа, gender: f }
-  returnonsales_noun: { form: рентабельність продажів, gender: f }
-  stocktaking_noun: { form: інвентаризація, gender: f }
-  merchandisesystem_noun: { form: товарний облік, gender: m }
-  paymentdefault_noun: { form: прострочення платежу, gender: n }
-  creditcheck_noun: { form: перевірка платоспроможності, gender: f }
-  prenup_noun: { form: шлюбний договір, gender: m }
-  separationofproperty_noun: { form: роздільність майна, gender: f }
-  communityofaccrued_noun: { form: спільність приросту, gender: f }
-  pensionequalisation_noun: { form: поділ пенсійних прав, gender: m }
-  maintenanceobligation_noun: { form: обов'язок утримання, gender: m }
-  maintenancetitle_noun: { form: виконавчий лист, gender: m }
-  custodydispute_noun: { form: спір про опіку, gender: m }
-  accessright_noun: { form: право спілкування, gender: n }
-  childwelfare_noun: { form: благо дитини, gender: n }
-  youthoffice_place: { form: служба у справах дітей, gender: f }
-  familycourt_place: { form: суд у сімейних справах, gender: m }
-  succession_noun: { form: черговість спадкування, gender: f }
-  compulsoryshare_noun: { form: обов'язкова частка, gender: f }
-  inheritancetax_noun: { form: податок на спадщину, gender: m }
-  bequest_noun: { form: заповідальний відказ, gender: m }
-  estateadministration_noun: { form: управління спадщиною, gender: n }
-  guardianshiplaw_noun: { form: право опікунства, gender: n }
-  livingwill_noun: { form: розпорядження пацієнта, gender: n }
-  generationalcontract_noun: { form: договір поколінь, gender: m }
-  pensionclaim_noun: { form: право на пенсію, gender: n }
-  survivorspension_noun: { form: пенсія у зв'язку з втратою, gender: f }
-  familyreunion_noun: { form: возз'єднання сім'ї, gender: n }
-  residencepermit_noun: { form: посвідка на проживання, gender: f }
-  naturalisation_noun: { form: натуралізація, gender: f }
-  timemanagement_noun: { form: управління часом, gender: n }
-  prioritisation_noun: { form: розстановка пріоритетів, gender: f }
-  milestone_noun: { form: контрольна точка, gender: f }
-  projectphase_noun: { form: фаза проєкту, gender: f }
-  timeseries_noun: { form: часовий ряд, gender: m }
-  periodicity_noun: { form: періодичність, gender: f }
-  synchronisation_noun: { form: синхронізація, gender: f }
-  limitationdeadline_noun: { form: строк давності, gender: m }
-  transitionperiod_noun: { form: перехідний період, gender: m }
-  qualifyingperiod_noun: { form: карантинний строк, gender: m }
-  paybackperiod_noun: { form: строк окупності, gender: m }
-  halflife_noun: { form: період напіврозпаду, gender: m }
-  chronology_noun: { form: хронологія, gender: f }
-  epoch_noun: { form: епоха, gender: f, plural: епохи }
-  era_noun: { form: ера, gender: f, plural: ери }
-  zeitgeist_noun: { form: дух часу, gender: m }
-  prehistory_noun: { form: передісторія, gender: f }
-  aftereffect_noun: { form: післядія, gender: f }
-  retroactivity_noun: { form: зворотна дія, gender: f }
-  clocking_noun: { form: тактування, gender: n }
-  frequency_technical: { form: частота сигналу, gender: f }
-  interval_noun: { form: інтервал, gender: m, plural: інтервали }
-  rotation_noun: { form: черговість зміни, gender: f }
-  cycle_noun: { form: цикл, gender: m, plural: цикли }
-  localpolitics_noun: { form: комунальна політика, gender: f }
-  budgetplan_noun: { form: бюджетний план, gender: m }
-  taxrevenue_noun: { form: податкові надходження, gender: n }
-  tradetax_noun: { form: промисловий податок, gender: m }
-  levy_noun: { form: збір, gender: m, plural: збори }
-  specialpurposeassoc_noun: { form: цільовий союз, gender: m }
-  publicservices_noun: { form: базове забезпечення, gender: n }
-  landuseplan_noun: { form: план землекористування, gender: m }
-  urbanplanninglaw_noun: { form: містобудівне планування, gender: n }
-  sitedevelopment_noun: { form: освоєння ділянки, gender: n }
-  expropriation_noun: { form: вилучення власності, gender: n }
-  publicbenefit_noun: { form: суспільна користь, gender: f }
-  citizenspetition_noun: { form: ініціатива громадян, gender: f }
-  referendum_noun: { form: місцевий референдум, gender: m }
-  councildecision_noun: { form: рішення ради, gender: n }
-  officialgazette_noun: { form: офіційний вісник, gender: m }
-  administrativeact_noun: { form: адміністративний акт, gender: m }
-  legalremedy_noun: { form: засіб оскарження, gender: m }
-  administrativecourt_place: { form: адміністративний суд, gender: m }
-  minoroffence_noun: { form: адміністративне порушення, gender: n }
-  hazardprevention_noun: { form: запобігання небезпеці, gender: n }
-  disasterresponse_noun: { form: захист від катастроф, gender: m }
-  townplanning_noun: { form: містобудування, gender: n }
-  heritageconservation_noun: { form: збереження пам'яток, gender: n }
-  labourlaw_noun: { form: трудове право, gender: n }
-  businesstransfer_noun: { form: перехід підприємства, gender: m }
-  massredundancy_noun: { form: масове звільнення, gender: n }
-  socialplan_noun: { form: соціальний план, gender: m }
-  interestbalance_noun: { form: узгодження інтересів, gender: n }
-  shorttimework_noun: { form: скорочений режим, gender: m }
-  insolvencypay_noun: { form: допомога при банкрутстві, gender: f }
-  bogusselfemployment_noun: { form: удавана самозайнятість, gender: f }
-  contractforwork_noun: { form: договір підряду, gender: m }
-  temporarywork_noun: { form: позикова праця, gender: f }
-  staffleasing_noun: { form: надання персоналу, gender: n }
-  codetermination_noun: { form: співучасть в управлінні, gender: f }
-  supervisoryboard_noun: { form: наглядова рада, gender: f }
-  tariffautonomy_noun: { form: тарифна автономія, gender: f }
-  righttostrike_noun: { form: право на страйк, gender: n }
-  lockout_noun: { form: локаут, gender: m }
-  ancillarycosts_noun: { form: додаткові витрати, gender: f }
-  socialinsurance_noun: { form: соціальне страхування, gender: n }
-  pensioninsurance_noun: { form: пенсійне страхування, gender: n }
-  unemploymentinsurance_noun: { form: страхування на випадок безробіття, gender: n }
-  careinsurance_noun: { form: страхування догляду, gender: n }
-  employersliability_noun: { form: професійна каса, gender: f }
-  labourcourt_place: { form: трудовий суд, gender: m }
-  conciliationhearing_noun: { form: примирне слухання, gender: n }
-
-# Переклади фраз цілком: вони проявляються після того, як усі пропуски
-# заповнені. Пропуск, заповнений правильно, але так і не пояснений, учить
-# добирати форму й нічого більше.
-#
-# Перекладено моделлю, перевірено перехресно другою моделлю; носій мови не
-# залучався (PLAN.md, «Вичитка»). Друга модель знайшла те, чого перша не
-# бачила: німецькі слова, залишені без перекладу в українському рядку —
-# саме те слово, якому картка й навчає, — кальки на кшталт «міське
-# планування» замість «містобудування» і колізію термінів, де «збір» уже
-# позначав Umlage.
 phrases:
-  # ── city / a0 ─────────────────────────────────
-  city_a0_map: "На мапі я знаходжу кожну вулицю."
-  city_a0_post: "Я несу лист на пошту."
-  city_a0_hotel: "Ми шукаємо готель на дві ночі."
-  city_a0_right: "Ідіть праворуч."
-  # ── city / a1 ─────────────────────────────────
-  city_a1_address: "Яка ваша адреса?"
-  city_a1_crossing: "На перехресті ліворуч."
-  city_a1_bridge: "Ідіть через міст."
-  city_a1_townhall: "Ратуша стоїть на ринковій площі."
-  city_a1_direction: "У якому напрямку?"
-  city_a1_exit: "Ми виходимо через цей вихід."
-  city_a1_river: "Річка широка."
-  city_a1_corner: "Кафе на розі."
-  # ── city / a2 ─────────────────────────────────
-  city_a2_library: "Бібліотека відчинена до восьмої."
-  city_a2_police: "Викличте поліцію."
-  city_a2_emergency: "Номер екстреного виклику — 112."
-  city_a2_school: "Мої діти ходять до цієї школи."
-  city_a2_cinema: "Підемо в кіно?"
-  city_a2_administration: "Адміністрація не працює."
-  city_a2_citizenoffice: "Зареєструйтеся в бюро реєстрації."
-  city_a2_playground: "Дитячий майданчик за рогом."
-  city_a2_suburb: "Ми живемо в передмісті."
-  city_a2_sight: "Це найвідоміша пам'ятка."
-  city_a2_pool: "Улітку ми ходимо в басейн."
-  city_a2_resident: "Мешканці скаржаться."
-  # ── city / b1 ─────────────────────────────────
-  city_b1_permit: "Без дозволу не вийде."
-  city_b1_form: "Заповніть бланк."
-  city_b1_fee: "Мито становить тридцять євро."
-  city_b1_notice: "Повідомлення надійшло вчора."
-  city_b1_objection: "Я подаю заперечення."
-  city_b1_mayor: "Бургомістр керує міською адміністрацією."
-  city_b1_municipality: "Громада оплачує розбудову."
-  city_b1_jurisdiction: "Це не в нашій компетенції."
-  city_b1_infrastructure: "Інфраструктура застаріла."
-  city_b1_greenspace: "Зелена зона збережеться."
-  city_b1_publicorder: "Це контролює служба порядку."
-  city_b1_application: "Заява вже надійшла."
-  # ── city / b2 ─────────────────────────────────
-  city_b2_referendum: "Місцевий референдум був успішним."
-  city_b2_administrativeact: "Ідеться про адміністративний акт."
-  city_b2_court: "Адміністративний акт оскаржують в адміністративному суді."
-  city_b2_offence: "Це адміністративне правопорушення."
-  city_b2_budget: "Бюджетний план визначає доходи й видатки."
-  city_b2_expropriation: "Загрожує вилучення власності."
-  city_b2_gazette: "Це написано в офіційному віснику."
-  city_b2_tradetax: "Підприємства сплачують громаді промисловий податок."
-  city_b2_planning: "Містобудування охоплює транспорт, житло та зелені зони."
-  city_b2_remedy: "Цей засіб оскарження допустимий."
-  city_b2_disaster: "Захист від катастроф — це завдання федеральних земель."
-  city_b2_landuse: "План землекористування діє на всій території громади."
-  # ── doctor / a0 ─────────────────────────────────
-  doctor_a0_help: "Мені потрібна допомога, сам я цього не зроблю."
-  doctor_a0_pain: "У мене з учора біль у спині."
-  doctor_a0_doctor: "Мені потрібно до лікаря, у мене болить голова."
-  doctor_a0_appointment: "У мене запис до лікаря."
-  # ── doctor / a1 ─────────────────────────────────
-  doctor_a1_prescription: "Мені потрібен рецепт?"
-  doctor_a1_throat: "У мене болить горло."
-  doctor_a1_card: "Ось моя страхова картка."
-  doctor_a1_cough: "У мене вже три дні кашель."
-  doctor_a1_healthy: "Я знову здоровий."
-  doctor_a1_waiting: "Почекайте, будь ласка, у приймальні."
-  doctor_a1_temperature: "Ви зміряли температуру?"
-  doctor_a1_tooth: "У мене від учора болить зуб."
-  # ── doctor / a2 ─────────────────────────────────
-  doctor_a2_sicknote: "Мені потрібен лікарняний для роботодавця."
-  doctor_a2_allergy: "У мене алергія на пеніцилін."
-  doctor_a2_dosage: "Яка доза?"
-  doctor_a2_emergency: "Невідкладний випадок — це, наприклад, інфаркт."
-  doctor_a2_appointment: "Я хотів би записатися на прийом у вашій лікарській практиці."
-  doctor_a2_sideeffect: "Які побічні дії має цей препарат?"
-  doctor_a2_wound: "Рана має залишатися чистою."
-  doctor_a2_blood: "Ми візьмемо у вас кров."
-  doctor_a2_dizzy: "У мене з самого ранку паморочиться голова."
-  doctor_a2_vaccination: "Щеплення ще діє?"
-  doctor_a2_tablet: "Приймайте одну таблетку після їжі."
-  doctor_a2_heart: "У мене серце б'ється надто швидко."
-  # ── doctor / b1 ─────────────────────────────────
-  doctor_b1_referral: "Мені потрібне направлення до лікаря-спеціаліста."
-  doctor_b1_coverage: "Ми подаємо заяву на покриття витрат."
-  doctor_b1_diagnosis: "Який діагноз?"
-  doctor_b1_pressure: "У вас надто високий тиск."
-  doctor_b1_infection: "Це бактеріальна інфекція."
-  doctor_b1_report: "Надішліть мені, будь ласка, висновок лікаря."
-  doctor_b1_chronic: "Захворювання хронічне."
-  doctor_b1_operation: "Операція триває близько двох годин."
-  doctor_b1_symptom: "Відколи у вас цей симптом?"
-  doctor_b1_discharge: "Виписку заплановано на п'ятницю."
-  doctor_b1_lab: "Результатів аналізів ще немає."
-  doctor_b1_rehab: "Після операції буде реабілітація."
-  # ── doctor / b2 ─────────────────────────────────
-  doctor_b2_objection: "Я подаю заперечення проти цього рішення."
-  doctor_b2_copayment: "Скільки становить доплата?"
-  doctor_b2_secondopinion: "Я хотів би отримати другу думку."
-  doctor_b2_outpatient: "Втручання проведуть амбулаторно."
-  doctor_b2_consent: "Підпишіть, будь ласка, згоду."
-  doctor_b2_reimbursement: "Відшкодування триває до чотирьох тижнів."
-  doctor_b2_interaction: "Є взаємодія з вашим препаратом від тиску."
-  doctor_b2_incapacity: "Непрацездатність засвідчено до кінця місяця."
-  doctor_b2_estimate: "Складіть, будь ласка, кошторис."
-  doctor_b2_opinion: "У страхової каси вже є висновок експерта."
-  doctor_b2_privacy: "Захист даних забороняє передавати їх далі."
-  doctor_b2_file: "Я подаю запит на доступ до своєї медичної картки."
-  # ── family / a0 ─────────────────────────────────
-  family_a0_name: "Продиктуйте, будь ласка, своє ім'я по літерах."
-  family_a0_family: "Це моя сім'я: дружина, син і дочка."
-  family_a0_child: "У мене є дитина, вона ще спить."
-  family_a0_friend: "Він мій друг."
-  # ── family / a1 ─────────────────────────────────
-  family_a1_brother: "Це мій брат."
-  family_a1_birthday: "Сьогодні в мене день народження."
-  family_a1_wedding: "Ми святкуємо весілля."
-  family_a1_grandmother: "Моя бабуся живе тут."
-  family_a1_husband: "Мій чоловік багато працює."
-  family_a1_aunt: "Моя тітка приїде завтра."
-  family_a1_young: "Він ще дуже молодий."
-  family_a1_uncle: "Мій дядько — брат моєї мами."
-  # ── family / a2 ─────────────────────────────────
-  family_a2_siblings: "У тебе є брати чи сестри?"
-  family_a2_surname: "Після весілля вона взяла моє прізвище."
-  family_a2_marriage: "Шлюб триває вже двадцять років."
-  family_a2_divorce: "Після розлучення він переїхав."
-  family_a2_kindergarten: "Дитина ходить у дитячий садок."
-  family_a2_citizenship: "Яке у вас громадянство?"
-  family_a2_pension: "Мій батько на пенсії."
-  family_a2_relatives: "У нас є родичі в Берліні."
-  family_a2_engagement: "Ми святкуємо заручини."
-  family_a2_childhood: "Його дитинство було гарним."
-  family_a2_household: "Ми ведемо спільне господарство."
-  family_a2_maritalstatus: "Просимо вказати сімейний стан."
-  # ── family / b1 ─────────────────────────────────
-  family_b1_custody: "Право опіки охоплює всі рішення щодо дитини."
-  family_b1_maintenance: "Аліменти виплачують щомісяця."
-  family_b1_childbenefit: "На кожну дитину виплачують допомогу."
-  family_b1_parentalleave: "Він бере відпустку для догляду за дитиною."
-  family_b1_will: "Заповіт лежить у нотаріуса."
-  family_b1_inheritance: "Спадщину ділять."
-  family_b1_registryoffice: "Ми одружуємося в Standesamt."
-  family_b1_birthcertificate: "У свідоцтві про народження вказані місце й день народження."
-  family_b1_powerofattorney: "Для цієї угоди достатньо простої довіреності."
-  family_b1_adoption: "Усиновлення тривало два роки."
-  family_b1_generation: "Молоде покоління думає інакше."
-  family_b1_childcare: "Догляд за нашою дитиною коштує триста євро."
-  # ── family / b2 ─────────────────────────────────
-  family_b2_prenup: "Без шлюбного договору діють норми закону."
-  family_b2_accessright: "Право на спілкування дозволяє регулярно бачитися з дитиною."
-  family_b2_youthoffice: "До справи залучили Jugendamt."
-  family_b2_familycourt: "Рішення про розлучення ухвалює Familiengericht."
-  family_b2_compulsoryshare: "Йому належить обов'язкова частка спадщини."
-  family_b2_inheritancetax: "Після відкриття спадщини треба сплатити податок на спадщину."
-  family_b2_livingwill: "Розпорядження пацієнта щодо лікування вже оформлене."
-  family_b2_residencepermit: "Термін дії дозволу на проживання закінчується."
-  family_b2_naturalisation: "Отримання громадянства триває роками."
-  family_b2_reunion: "Возз'єднання сім'ї схвалили."
-  family_b2_pensionclaim: "Rentenversicherung перевіряє моє право на пенсію."
-  family_b2_childwelfare: "Інтереси дитини важливіші за бажання батьків."
-  # ── food / a0 ─────────────────────────────────
-  food_a0_bread: "На сніданок я їм хліб."
-  food_a0_water: "Я щодня п'ю воду."
-  food_a0_hunger: "Я відчуваю сильний голод."
-  food_a0_restaurant: "Ми йдемо в ресторан і їмо рибу."
-  # ── food / a1 ─────────────────────────────────
-  food_a1_breakfast: "Я готую сніданок."
-  food_a1_cheese: "Я хотів би трохи сиру."
-  food_a1_egg: "Хочеш яйце?"
-  food_a1_glass: "Принесіть мені склянку."
-  food_a1_vegetable: "Я їм багато овочів."
-  food_a1_dinner: "Після вечері ми йдемо спати."
-  food_a1_fork: "Мені бракує виделки."
-  food_a1_lunch: "О дванадцятій годині буде обід."
-  # ── food / a2 ─────────────────────────────────
-  food_a2_menu: "Принесіть мені, будь ласка, меню."
-  food_a2_bill: "Рахунок, будь ласка."
-  food_a2_order: "Мого замовлення ще немає."
-  food_a2_wine: "Келих вина, будь ласка."
-  food_a2_tea: "Я волію пити чай."
-  food_a2_potato: "Картопля зварена."
-  food_a2_cake: "Пиріг спечений удома."
-  food_a2_waiter: "Офіціант зараз підійде."
-  food_a2_tip: "Чайові вже включені."
-  food_a2_sausage: "Я хотів би ковбасу."
-  food_a2_juice: "Для дитини сік."
-  food_a2_chocolate: "Ти любиш темний шоколад?"
-  # ── food / b1 ─────────────────────────────────
-  food_b1_ingredient: "Ще бракує одного інгредієнта."
-  food_b1_recipe: "Цей рецепт від моєї бабусі."
-  food_b1_portion: "Порція надто мала."
-  food_b1_taste: "Смак незвичний."
-  food_b1_nutrition: "Дбайте про своє харчування."
-  food_b1_shelflife: "Як можна продовжити термін придатності?"
-  food_b1_dessert: "На десерт буде морозиво."
-  food_b1_maincourse: "Після закуски буде основна страва."
-  food_b1_spice: "Що це за спеція?"
-  food_b1_preparation: "Приготування триває двадцять хвилин."
-  food_b1_onion: "Наріжте цибулю дрібно."
-  food_b1_groceries: "Продукти подорожчали."
-  # ── food / b2 ─────────────────────────────────
-  food_b2_labelling: "Маркування обов'язкове."
-  food_b2_allergen: "Арахіс — поширений алерген."
-  food_b2_intolerance: "У нього непереносимість."
-  food_b2_origin: "Країна походження вказана на упаковці."
-  food_b2_supplychain: "Ланцюг постачання перервано."
-  food_b2_sustainability: "Ми робимо ставку на сталий розвиток."
-  food_b2_additive: "Консервант — це добавка."
-  food_b2_retail: "У роздрібній торгівлі товар купує кінцевий споживач."
-  food_b2_consumerprotection: "Тут діє захист споживача."
-  food_b2_nutritionalvalue: "У харчовій цінності вказано жир, цукор і білок."
-  food_b2_organic: "Біопродукт дорожчий."
-  food_b2_hygiene: "Санітарна норма діє для всіх підприємств."
-  # ── home / a0 ─────────────────────────────────
-  home_a0_key: "Я шукаю свій ключ, двері зачинені."
-  home_a0_kitchen: "Це кухня, тут я готую."
-  home_a0_rent: "Оренда надто висока, я шукаю нову кімнату."
-  home_a0_room: "Я знімаю кімнату."
-  # ── home / a1 ─────────────────────────────────
-  home_a1_flat: "Я шукаю квартиру."
-  home_a1_garden: "У нас є сад."
-  home_a1_bathroom: "Де ванна кімната?"
-  home_a1_heating: "Опалення не працює."
-  home_a1_stairs: "Ідіть сходами."
-  home_a1_cellar: "Велосипеди стоять у підвалі."
-  home_a1_lamp: "Лампа зламана."
-  home_a1_wall: "Картина висить на стіні."
-  # ── home / a2 ─────────────────────────────────
-  home_a2_landlord: "Орендодавець не обов'язково є власником."
-  home_a2_lease: "Уважно прочитайте договір оренди."
-  home_a2_deposit: "Застава становить три базові орендні плати."
-  home_a2_utilities: "Комунальні платежі додаються."
-  home_a2_electricity: "Електрика зникла."
-  home_a2_fridge: "Холодильник порожній."
-  home_a2_furniture: "Квартира вже з меблями."
-  home_a2_rubbish: "Куди викидати сміття?"
-  home_a2_move: "Переїзд у суботу."
-  home_a2_balcony: "Ми сидимо на балконі."
-  home_a2_washing: "Пральна машина пере мій одяг."
-  home_a2_caretaker: "Запитайте у коменданта."
-  # ── home / b1 ─────────────────────────────────
-  home_b1_noticeperiod: "Хто розриває договір оренди, має дотримуватися строку розірвання."
-  home_b1_rentincrease: "Підвищення оренди прийшло листом."
-  home_b1_defect: "Я повідомляю про дефект."
-  home_b1_mould: "На стіні пліснява."
-  home_b1_livingspace: "Дитяча і кухня входять до житлової площі."
-  home_b1_renovation: "Після ремонту пахне фарбою."
-  home_b1_registration: "Хто щойно приїхав до Німеччини, має зробити реєстрацію."
-  home_b1_heatingcosts: "Витрати на опалення залежать від ціни газу."
-  home_b1_tradesman: "Майстер прийде у вівторок."
-  home_b1_smokedetector: "Димовий датчик пищить, коли сідає батарейка."
-  home_b1_wastesorting: "Сортування сміття тут обов'язкове."
-  home_b1_sublet: "Для суборенди потрібен дозвіл."
-  # ── home / b2 ─────────────────────────────────
-  home_b2_rentindex: "Звична для району орендна плата вказана в індексі оренди."
-  home_b2_landregister: "Це записано в земельній книзі."
-  home_b2_mortgage: "Іпотека триває двадцять років."
-  home_b2_rentreduction: "Я заявляю про зменшення орендної плати."
-  home_b2_handover: "Акт приймання-передачі підписують обидві сторони."
-  home_b2_insulation: "Теплоізоляція зменшує витрати на опалення."
-  home_b2_buildingapplication: "Заяву на будівництво відхилили."
-  home_b2_owners: "Це вирішує об'єднання співвласників."
-  home_b2_heritage: "Стара ратуша під охороною як пам'ятка архітектури."
-  home_b2_marketvalue: "Під час продажу важлива ринкова вартість."
-  home_b2_repayment: "Погашення починається відразу."
-  home_b2_defectnotice: "Повідомлення про дефекти надіслали рекомендованим листом."
-  # ── shop / a0 ─────────────────────────────────
-  shop_a0_money: "У мене немає грошей, я не можу це купити."
-  shop_a0_expensive: "Це занадто дорого, я цього не куплю."
-  shop_a0_checkout: "Я хочу заплатити на касі."
-  shop_a0_price: "Це добра ціна за таку машину."
-  # ── shop / a1 ─────────────────────────────────
-  shop_a1_cash: "Я знімаю готівку в банкоматі."
-  shop_a1_size: "У вас є цей розмір?"
-  shop_a1_discount: "Чи є знижка?"
-  shop_a1_delivery: "Доставка триває три дні."
-  shop_a1_exchange: "Чи можливий обмін?"
-  shop_a1_quality: "Матеріал визначає якість."
-  shop_a1_offer: "Це гарна пропозиція."
-  shop_a1_change: "Мені повертають два євро решти."
-  # ── shop / a2 ─────────────────────────────────
-  shop_a2_warranty: "Виробник добровільно дає гарантію."
-  shop_a2_return: "Чи можливе повернення?"
-  shop_a2_receipt: "Збережіть чек."
-  shop_a2_creditcard: "Я плачу кредитною карткою."
-  shop_a2_voucher: "У мене є ще один купон."
-  shop_a2_shipping: "Пересилання безкоштовне."
-  shop_a2_complaint: "Я хочу подати рекламацію."
-  shop_a2_openinghours: "Який тут графік роботи?"
-  shop_a2_special: "Це спеціальна пропозиція."
-  shop_a2_vat: "До кожної ціни додається дев'ятнадцять відсотків ПДВ."
-  shop_a2_transfer: "Оплати, будь ласка, банківським переказом."
-  shop_a2_seller: "Запитайте продавця."
-  # ── shop / b1 ─────────────────────────────────
-  shop_b1_withdrawal: "У разі купівлі онлайн у вас є право на відмову протягом чотирнадцяти днів."
-  shop_b1_deliverytime: "Термін доставки становить три дні."
-  shop_b1_reminder: "Мені прийшло нагадування про оплату."
-  shop_b1_tracking: "Відстеження посилки нічого не показує."
-  shop_b1_financing: "Ми пропонуємо фінансування."
-  shop_b1_directdebit: "Можлива оплата списанням з рахунку."
-  shop_b1_review: "Відгук покупця був негативний."
-  shop_b1_pricecomparison: "Варто порівняти ціни."
-  shop_b1_warranty: "Гарантія за законом діє два роки."
-  shop_b1_paymentterm: "Строк оплати становить чотирнадцять днів."
-  shop_b1_billingaddress: "Адреса для рахунку може відрізнятися від адреси доставки."
-  shop_b1_contract: "Договір купівлі-продажу прийшов на електронну пошту."
-  # ── shop / b2 ─────────────────────────────────
-  shop_b2_terms: "Загальні умови діють для всіх замовлень."
-  shop_b2_limitation: "Коли настає строк давності?"
-  shop_b2_damages: "Він вимагає відшкодування збитків."
-  shop_b2_defect: "Товар пошкоджений, наявний недолік товару."
-  shop_b2_withdrawal: "Ми заявляємо про відмову від договору."
-  shop_b2_burden: "Тягар доказування визначає результат процесу."
-  shop_b2_margin: "Маржа надто мала."
-  shop_b2_stocktaking: "Зачинено на інвентаризацію."
-  shop_b2_shortage: "Є перебої з постачанням."
-  shop_b2_default: "Клієнт прострочив оплату."
-  shop_b2_marketshare: "Частка ринку зростає."
-  shop_b2_consumercentre: "Центр захисту прав споживачів консультує щодо договорів купівлі-продажу."
-  # ── time / a0 ─────────────────────────────────
-  time_a0_clock: "Я дивлюся на годинник."
-  time_a0_today: "Ми зустрічаємося сьогодні, а не завтра."
-  time_a0_week: "Наступного тижня я вільний."
-  time_a0_evening: "Увечері я маю час."
-  # ── time / a1 ─────────────────────────────────
-  time_a1_weekend: "На вихідних я вдома."
-  time_a1_date: "Яке сьогодні число?"
-  time_a1_tomorrow: "Побачимося завтра."
-  time_a1_never: "Я цього ніколи не робив."
-  time_a1_often: "Він часто спізнюється."
-  time_a1_now: "Мені треба зараз іти."
-  time_a1_soon: "Автобус скоро приїде."
-  time_a1_noon: "О дванадцятій годині настає полудень."
-  # ── time / a2 ─────────────────────────────────
-  time_a2_monday: "Понеділок — перший день тижня."
-  time_a2_summer: "Улітку дні найдовші."
-  time_a2_vacation: "Канікули починаються завтра."
-  time_a2_appointment: "Ми домовилися про зустріч."
-  time_a2_beginning: "Початок о восьмій."
-  time_a2_ending: "Я залишуся до кінця."
-  time_a2_future: "Надалі я робитиму це інакше."
-  time_a2_clocktime: "О котрій годині ми зустрічаємося?"
-  time_a2_alarm: "Мій будильник не задзвонив."
-  time_a2_winter: "Узимку рано темніє."
-  time_a2_duration: "Тривалість — дві години."
-  time_a2_moment: "Хвилинку, будь ласка."
-  # ── time / b1 ─────────────────────────────────
-  time_b1_period: "У цей період він хворів."
-  time_b1_cutoffdate: "Кінцевий термін — перше травня."
-  time_b1_delay: "Була затримка."
-  time_b1_schedule: "Графік уже остаточний."
-  time_b1_punctuality: "Для нас важлива пунктуальність."
-  time_b1_timezone: "Ми в іншому часовому поясі."
-  time_b1_opportunity: "Це гарна нагода."
-  time_b1_timepressure: "Мене підганяє час."
-  time_b1_summertime: "Літній час починається в березні."
-  time_b1_anniversary: "Сьогодні наша річниця."
-  time_b1_diary: "Я запишу це в календар."
-  time_b1_postponement: "Ми просимо відстрочки."
-  # ── time / b2 ─────────────────────────────────
-  time_b2_milestone: "Першу віху досягнуто."
-  time_b2_limitation: "Після спливу строку давності вимогу вже не можна примусово виконати."
-  time_b2_transition: "Доки новий закон не набере чинності, діє перехідний період."
-  time_b2_prioritisation: "Бракує розстановки пріоритетів."
-  time_b2_interval: "Інтервал — десять хвилин."
-  time_b2_cycle: "Цикл повторюється."
-  time_b2_era: "Починається нова епоха."
-  time_b2_retroactivity: "Зворотна дія стосується часу до набрання чинності."
-  time_b2_projectphase: "Після планування настає друга фаза проєкту."
-  time_b2_timemanagement: "Він добре керує своїм часом."
-  time_b2_qualifying: "Перед першою виплатою діє період очікування."
-  time_b2_chronology: "Хронологія починається з найдавнішої події."
-  # ── transport / a0 ─────────────────────────────────
-  transport_a0_ticket: "Мені потрібен квиток до Берліна."
-  transport_a0_station: "Мій потяг о восьмій відходить з вокзалу."
-  transport_a0_bus: "Автобус скоро приїде, нам треба на зупинку."
-  transport_a0_late: "Я приходжу занадто пізно."
-  # ── transport / a1 ─────────────────────────────────
-  transport_a1_delay: "Поїзд запізнюється."
-  transport_a1_platform: "Поїзд відходить з платформи."
-  transport_a1_connection: "Я не встиг на пересадку."
-  transport_a1_luggage: "Де мій багаж?"
-  transport_a1_taxi: "Викличте, будь ласка, таксі."
-  transport_a1_departure: "Коли відправлення?"
-  transport_a1_seat: "Це місце вільне?"
-  transport_a1_journey: "Подорож триває дві години."
-  # ── transport / a2 ─────────────────────────────────
-  transport_a2_jam: "Ми стоїмо в заторі."
-  transport_a2_licence: "Водійські права отримують в автошколі."
-  transport_a2_accident: "Сталася аварія."
-  transport_a2_parking: "Я не можу знайти місце для парковки."
-  transport_a2_petrol: "Нам ще потрібен бензин."
-  transport_a2_insurance: "Страховка покриває збитки."
-  transport_a2_speed: "Дотримуйтеся встановленої швидкості."
-  transport_a2_workshop: "Машина в автомайстерні."
-  transport_a2_airport: "З аеропорту ми летимо до Рима."
-  transport_a2_ferry: "Пором ходить щогодини."
-  transport_a2_engine: "Двигун шумить."
-  transport_a2_diversion: "Увага, об'їзд."
-  # ── transport / b1 ─────────────────────────────────
-  transport_b1_fine: "Штраф становить вісімдесят євро."
-  transport_b1_speedlimit: "Тут діє обмеження швидкості."
-  transport_b1_passenger: "Кожному пасажирові потрібен квиток."
-  transport_b1_reduction: "Студенти отримують пільгу."
-  transport_b1_monthlyticket: "Місячний проїзний вигідний."
-  transport_b1_rightofway: "На цьому перехресті я маю перевагу руху."
-  transport_b1_registration: "Реєстрація авто триває тиждень."
-  transport_b1_inspection: "Настав час технічного огляду."
-  transport_b1_consumption: "Витрата пального становить близько шести літрів."
-  transport_b1_maintenance: "На черзі технічне обслуговування."
-  transport_b1_localtransport: "Автобус і трамвай належать до приміського транспорту."
-  transport_b1_breakdown: "Викличте службу технічної допомоги."
-  # ── transport / b2 ─────────────────────────────────
-  transport_b2_excess: "Франшиза становить триста євро."
-  transport_b2_lowemission: "Екологічна зона діє з понеділка."
-  transport_b2_subsidy: "Без субсидії це не окупиться."
-  transport_b2_claims: "Урегулювання збитків триває тижнями."
-  transport_b2_roadsafety: "Безпека дорожнього руху має пріоритет."
-  transport_b2_freight: "У вантажних перевезеннях везуть товари, а не людей."
-  transport_b2_customs: "Митне оформлення затримує доставку."
-  transport_b2_infra: "Дороги, мости й колії утворюють транспортну інфраструктуру."
-  transport_b2_noise: "Захист від шуму коштує мільйони."
-  transport_b2_liability: "Виключення відповідальності написане дрібним шрифтом."
-  transport_b2_network: "Мережу маршрутів розширюють."
-  transport_b2_logbook: "Дорожній журнал показує кожну окрему поїздку."
-  # ── work / a0 ─────────────────────────────────
-  work_a0_work: "Я йду на роботу, мій начальник чекає."
-  work_a0_office: "Він в офісі й розмовляє по телефону."
-  work_a0_holiday: "У серпні я у відпустці."
-  work_a0_tired: "Я дуже втомлений, іду спати."
-  # ── work / a1 ─────────────────────────────────
-  work_a1_application: "Я пишу заявку на роботу."
-  work_a1_cv: "Надішліть мені своє резюме."
-  work_a1_interview: "У мене завтра співбесіда."
-  work_a1_break: "Я роблю перерву."
-  work_a1_department: "Він працює в нашому відділі."
-  work_a1_deadline: "Кінцевий термін у п'ятницю."
-  work_a1_experience: "У мене великий досвід."
-  work_a1_task: "Це складне завдання."
-  # ── work / a2 ─────────────────────────────────
-  work_a2_contract: "Я підписав трудовий договір зі своїм роботодавцем."
-  work_a2_probation: "Випробувальний термін триває шість місяців."
-  work_a2_dismissal: "Я отримав повідомлення про звільнення."
-  work_a2_parttime: "На неповній ставці я працюю лише двадцять годин."
-  work_a2_shift: "У мене сьогодні зміна."
-  work_a2_training: "Після школи він починає професійне навчання."
-  work_a2_sicknote: "Надішліть лікарняний до п'ятниці."
-  work_a2_tax: "Податок утримують одразу із зарплати."
-  work_a2_endofday: "Я на сьогодні закінчую роботу."
-  work_a2_supervisor: "Керівник у відпустці."
-  work_a2_homeoffice: "Щопонеділка я працюю з дому."
-  work_a2_payslip: "Розрахунковий листок приходить поштою."
-  # ── work / b1 ─────────────────────────────────
-  work_b1_jobadvert: "Оголошення про вакансію було в газеті."
-  work_b1_warning: "Він отримав письмове попередження."
-  work_b1_minimumwage: "Законодавчо встановлену мінімальну зарплату визначає федеральний уряд."
-  work_b1_collectiveagreement: "Колективний договір визначає зарплату й робочий час."
-  work_b1_qualification: "Ваша кваліфікація добре підходить."
-  work_b1_reference: "Характеристика з роботи була дуже гарна."
-  work_b1_holidayentitlement: "Право на відпустку записане в трудовому договорі."
-  work_b1_induction: "Введення на посаду триває два тижні."
-  work_b1_atmosphere: "У нашій фірмі панує гарна атмосфера в колективі."
-  work_b1_fixedterm: "Термін договору закінчується."
-  work_b1_coverletter: "Без супровідного листа заявка на роботу неповна."
-  work_b1_safety: "Охорона праці має запобігати нещасним випадкам на підприємстві."
-  # ── work / b2 ─────────────────────────────────
-  work_b2_labourlaw: "Трудове право регулює відносини між роботодавцем і працівником."
-  work_b2_shorttime: "Коли бракує замовлень, ми переходимо на скорочений робочий час."
-  work_b2_socialplan: "Соціальний план узгодили на перемовинах."
-  work_b2_codetermination: "Право працівників на участь в управлінні закріплене в законі."
-  work_b2_labourcourt: "Через звільнення ми судимося в суді з трудових спорів."
-  work_b2_socialinsurance: "Пенсійна каса, медична каса й каса догляду входять до соціального страхування."
-  work_b2_temporarywork: "Агентство позичає своїх працівників підприємствам, це і є позикова праця."
-  work_b2_ancillary: "Додаткові нарахування на зарплату сплачує роботодавець."
-  work_b2_strike: "Право на страйк випливає зі свободи об'єднань."
-  work_b2_redundancy: "Завод закривається, попереду масові звільнення."
-  work_b2_careinsurance: "Страхування догляду виплачує кошти, коли людина постійно потребує стороннього догляду."
-  work_b2_conciliation: "Примирне слухання призначили на понеділок."
+  about_me_a0_01: "Мене звати ..."
+  about_me_a0_02: "Як тебе звати?"
+  about_me_a0_03: "Я з ..."
+  about_me_a0_04: "Звідки ти?"
+  about_me_a0_05: "Я живу в ..."
+  about_me_a0_06: "Де ти живеш?"
+  about_me_a0_07: "Мені ... років."
+  about_me_a0_08: "Скільки тобі років?"
+  about_me_a0_09: "Я працюю тут."
+  about_me_a0_10: "Я навчаюся."
+  about_me_a0_11: "Це мій друг."
+  about_me_a0_12: "Це моя сім'я."
+  about_me_a0_13: "Я тут уперше."
+  about_me_a0_14: "Я тут у відпустці."
+  about_me_a0_15: "Я розмовляю англійською."
+  about_me_a0_16: "Я трохи розмовляю німецькою."
+  about_me_a0_17: "Я ще вчуся."
+  about_me_a0_18: "Моя адреса ..."
+  about_me_a0_19: "Мій номер телефону ..."
+  about_me_a0_20: "А ти?"
+  advice_decisions_b1_01: "На твоєму місці я зачекав би."
+  advice_decisions_b1_02: "Можливо, варто попросити допомоги."
+  advice_decisions_b1_03: "Тобі не потрібно вирішувати одразу."
+  advice_decisions_b1_04: "Я б спочатку перевірив умови."
+  advice_decisions_b1_05: "Чому б не спробувати інший спосіб?"
+  advice_decisions_b1_06: "Це могло б спрацювати."
+  advice_decisions_b1_07: "Який варіант здається тобі реалістичним?"
+  advice_decisions_b1_08: "Що буде, якщо нічого не змінювати?"
+  advice_decisions_b1_09: "Необов'язково робити все відразу."
+  advice_decisions_b1_10: "Почнімо з малого кроку."
+  advice_decisions_b1_11: "Рішення залишається за тобою."
+  advice_decisions_b1_12: "Я не хочу тиснути на тебе."
+  advice_decisions_b1_13: "Можна спробувати це на тиждень."
+  advice_decisions_b1_14: "Потім подивимося, чи допомогло."
+  advice_decisions_b1_15: "У нас ще є запасний план."
+  advice_decisions_b1_16: "Я б не поспішав із висновками."
+  advice_decisions_b1_17: "Моя порада — ..."
+  advice_decisions_b1_18: "Можна було б ..., щоб ..."
+  advice_decisions_b1_19: "Якщо ти хочеш ..., спробуй ..."
+  advice_decisions_b1_20: "Перевага цього рішення в тому, що ..."
+  agree_object_b1_01: "З цим я згоден."
+  agree_object_b1_02: "У цьому питанні ти маєш рацію."
+  agree_object_b1_03: "Це слушне зауваження."
+  agree_object_b1_04: "Я теж так думаю."
+  agree_object_b1_05: "Здебільшого я згоден."
+  agree_object_b1_06: "Тут я бачу це інакше."
+  agree_object_b1_07: "Я розумію аргумент, але не поділяю висновок."
+  agree_object_b1_08: "Не думаю, що це завжди так."
+  agree_object_b1_09: "Я не зовсім із цим згоден."
+  agree_object_b1_10: "Це залежить від ситуації."
+  agree_object_b1_11: "Можливо, ми говоримо про різні речі."
+  agree_object_b1_12: "Давай уточнимо, у чому ми згодні."
+  agree_object_b1_13: "Ми можемо мати різні думки."
+  agree_object_b1_14: "Я не хотів тебе перебивати."
+  agree_object_b1_15: "Дай мені, будь ласка, закінчити думку."
+  agree_object_b1_16: "Добре, тепер я розумію твою позицію."
+  agree_object_b1_17: "Я погоджуюся щодо ..., але ..."
+  agree_object_b1_18: "З одного боку ..., з іншого боку ..."
+  agree_object_b1_19: "Це правда, проте ..."
+  agree_object_b1_20: "Чи не варто також врахувати ...?"
+  ai_information_b2_01: "Ця відповідь звучить переконливо, але потребує перевірки."
+  ai_information_b2_02: "Інструмент може помилятися, навіть якщо відповідає впевнено."
+  ai_information_b2_03: "Я використовую ШІ як допомогу, а не як єдине джерело."
+  ai_information_b2_04: "Нам потрібно перевірити наведені посилання."
+  ai_information_b2_05: "Чи вказано, що зображення було згенеровано?"
+  ai_information_b2_06: "Схоже, цитату вирвали з контексту."
+  ai_information_b2_07: "Не варто ділитися інформацією лише через емоційний заголовок."
+  ai_information_b2_08: "Я хотів би знати, як використовуються мої дані."
+  ai_information_b2_09: "Я не давав згоди на передачу цих даних."
+  ai_information_b2_10: "Доступ слід обмежити необхідним мінімумом."
+  ai_information_b2_11: "Автоматизація не усуває потреби в контролі."
+  ai_information_b2_12: "Важливо розуміти обмеження цієї системи."
+  ai_information_b2_13: "Перш ніж довіряти ..., перевіримо ..."
+  ai_information_b2_14: "Цей інструмент корисний для ..., але не для ..."
+  ai_information_b2_15: "Чи може результат бути спотворений через ...?"
+  ai_information_b2_16: "З погляду захисту даних, ..."
+  ai_information_b2_17: "Я б не вводив сюди ..."
+  ai_information_b2_18: "Рішення має залишатися за ..., тому що ..."
+  ai_information_b2_19: "Потрібно чітко зазначити, чи правильне таке твердження: ..."
+  ai_information_b2_20: "Зручність не повинна досягатися коштом ..."
+  argument_building_b2_01: "Спершу варто визначити, що саме ми обговорюємо."
+  argument_building_b2_02: "Я розглянув би це питання з двох боків."
+  argument_building_b2_03: "Мій головний аргумент стосується довгострокових наслідків."
+  argument_building_b2_04: "На користь цього рішення говорить його доступність."
+  argument_building_b2_05: "Проти цього можна висунути два заперечення."
+  argument_building_b2_06: "Цей аргумент переконливий, але не вирішальний."
+  argument_building_b2_07: "Нам слід розрізняти мету і засоби."
+  argument_building_b2_08: "Одне не обов'язково виключає інше."
+  argument_building_b2_09: "Проблема складніша, ніж здається на перший погляд."
+  argument_building_b2_10: "Варто врахувати і менш очевидні наслідки."
+  argument_building_b2_11: "Я не став би зводити все до одного чинника."
+  argument_building_b2_12: "Це не питання вибору між двома крайнощами."
+  argument_building_b2_13: "Теза, яку я хочу обґрунтувати, полягає в тому, що ..."
+  argument_building_b2_14: "Ключове запитання не ..., а ..."
+  argument_building_b2_15: "Навіть якщо припустити, що ..., ..."
+  argument_building_b2_16: "Це справедливо тією мірою, якою ..."
+  argument_building_b2_17: "Важливо не стільки ..., скільки ..."
+  argument_building_b2_18: "Поряд із ... слід розглянути ..."
+  argument_building_b2_19: "З цього випливає не ..., а ..."
+  argument_building_b2_20: "Перш ніж зробити висновок, потрібно ..."
+  arrangements_a2_01: "Я хочу перенести нашу зустріч."
+  arrangements_a2_02: "Завтра мені зручніше."
+  arrangements_a2_03: "Можемо зустрітися на пів години пізніше?"
+  arrangements_a2_04: "На жаль, я маю скасувати зустріч."
+  arrangements_a2_05: "Дякую за розуміння."
+  arrangements_a2_06: "Давайте знайдемо інший час."
+  arrangements_a2_07: "Наші плани ще в силі?"
+  arrangements_a2_08: "Підтверджую зустріч у п'ятницю."
+  arrangements_a2_09: "Я запізнюся на десять хвилин."
+  arrangements_a2_10: "Дякую, що зачекали."
+  arrangements_a2_11: "Повідомте, будь ласка, заздалегідь."
+  arrangements_a2_12: "До якого часу це потрібно?"
+  arrangements_a2_13: "Я зроблю це до понеділка."
+  arrangements_a2_14: "На це потрібно більше часу."
+  arrangements_a2_15: "У мене вже є плани."
+  arrangements_a2_16: "Ми домовилися."
+  arrangements_a2_17: "Чи підійде вам ...?"
+  arrangements_a2_18: "Я вільний з ... до ..."
+  arrangements_a2_19: "Будь ласка, підтвердьте ..."
+  arrangements_a2_20: "Якщо щось зміниться, ..."
+  cafe_food_a1_01: "Столик на двох, будь ласка."
+  cafe_food_a1_02: "Можна меню?"
+  cafe_food_a1_03: "Що ви порекомендуєте?"
+  cafe_food_a1_04: "Я ще обираю."
+  cafe_food_a1_05: "Я хотів би замовити."
+  cafe_food_a1_06: "Для мене суп, будь ласка."
+  cafe_food_a1_07: "Без цукру, будь ласка."
+  cafe_food_a1_08: "З молоком, будь ласка."
+  cafe_food_a1_09: "Я не їм м'яса."
+  cafe_food_a1_10: "У мене алергія на горіхи."
+  cafe_food_a1_11: "Це гостре?"
+  cafe_food_a1_12: "Це дуже смачно."
+  cafe_food_a1_13: "Можна ще хліба?"
+  cafe_food_a1_14: "Із собою, будь ласка."
+  cafe_food_a1_15: "Ми хотіли б заплатити окремо."
+  cafe_food_a1_16: "Чайові включені?"
+  cafe_food_a1_17: "Я хотів би ... без ..."
+  cafe_food_a1_18: "Чи є у вас ...?"
+  cafe_food_a1_19: "На сніданок я їм ..."
+  cafe_food_a1_20: "Мені більше подобається ..."
+  clarify_mediate_b1_01: "Якщо я правильно розумію, у нас два варіанти."
+  clarify_mediate_b1_02: "Ти маєш на увазі сьогодні чи завтра?"
+  clarify_mediate_b1_03: "Можеш висловити це іншими словами?"
+  clarify_mediate_b1_04: "Я спробую пояснити простіше."
+  clarify_mediate_b1_05: "Суть у тому, що нам потрібен час."
+  clarify_mediate_b1_06: "Це не зовсім те, що я мав на увазі."
+  clarify_mediate_b1_07: "Я поясню на прикладі."
+  clarify_mediate_b1_08: "Давайте не змішувати ці два питання."
+  clarify_mediate_b1_09: "Ми говоримо про ціну чи про якість?"
+  clarify_mediate_b1_10: "Я коротко передам головну думку."
+  clarify_mediate_b1_11: "Вона просить підтвердити час."
+  clarify_mediate_b1_12: "Він не відмовляється, а просить уточнення."
+  clarify_mediate_b1_13: "Можливо, проблема лише у формулюванні."
+  clarify_mediate_b1_14: "Правильно я передав твою думку?"
+  clarify_mediate_b1_15: "Що саме тобі незрозуміло?"
+  clarify_mediate_b1_16: "Тепер ми однаково це розуміємо."
+  clarify_mediate_b1_17: "Інакше кажучи, ..."
+  clarify_mediate_b1_18: "Під ... я маю на увазі ..."
+  clarify_mediate_b1_19: "Чи правильно я зрозумів, що ...?"
+  clarify_mediate_b1_20: "Підсумовуючи сказане, ..."
+  comparison_conditions_a2_01: "Цей варіант мені більше підходить."
+  comparison_conditions_a2_02: "Це дешевше, але далі."
+  comparison_conditions_a2_03: "Для мене час важливіший за ціну."
+  comparison_conditions_a2_04: "Обидва варіанти хороші."
+  comparison_conditions_a2_05: "Я ще не вирішив."
+  comparison_conditions_a2_06: "Це залежить від погоди."
+  comparison_conditions_a2_07: "Я залишуся вдома, бо йде дощ."
+  comparison_conditions_a2_08: "Якщо буде час, я прийду."
+  comparison_conditions_a2_09: "Ми можемо почати без нього."
+  comparison_conditions_a2_10: "Спочатку потрібно запитати."
+  comparison_conditions_a2_11: "Краще зробити це зараз."
+  comparison_conditions_a2_12: "Це не так складно, як здається."
+  comparison_conditions_a2_13: "Мені потрібне щось простіше."
+  comparison_conditions_a2_14: "Я обираю якість, а не кількість."
+  comparison_conditions_a2_15: "Це можливо лише вранці."
+  comparison_conditions_a2_16: "Іншого варіанта немає."
+  comparison_conditions_a2_17: "Я обираю ..., тому що ..."
+  comparison_conditions_a2_18: "Якщо ..., то ..."
+  comparison_conditions_a2_19: "... важливіше, ніж ..."
+  comparison_conditions_a2_20: "Замість того щоб ..., можна ..."
+  culture_impressions_b1_01: "Фільм справив на мене сильне враження."
+  culture_impressions_b1_02: "Сюжет розвивається повільно."
+  culture_impressions_b1_03: "Головний герой намагається змінити своє життя."
+  culture_impressions_b1_04: "Історія заснована на реальних подіях."
+  culture_impressions_b1_05: "Мені сподобалася атмосфера."
+  culture_impressions_b1_06: "Кінець був несподіваним."
+  culture_impressions_b1_07: "Я не хочу розкривати кінцівку."
+  culture_impressions_b1_08: "Книга змусила мене замислитися."
+  culture_impressions_b1_09: "Деякі сцени здалися мені нереалістичними."
+  culture_impressions_b1_10: "Музика добре підходить до історії."
+  culture_impressions_b1_11: "Я порекомендував би це друзям."
+  culture_impressions_b1_12: "Це не зовсім на мій смак."
+  culture_impressions_b1_13: "Я зазвичай читаю в оригіналі."
+  culture_impressions_b1_14: "Субтитри допомагають мені розуміти діалоги."
+  culture_impressions_b1_15: "Яку думку хотів передати автор?"
+  culture_impressions_b1_16: "Кожен може зрозуміти це по-своєму."
+  culture_impressions_b1_17: "У фільмі йдеться про ..."
+  culture_impressions_b1_18: "Найбільше мене вразило ..."
+  culture_impressions_b1_19: "На відміну від книги, ..."
+  culture_impressions_b1_20: "Я б рекомендував це тим, хто ..."
+  daily_routine_a1_01: "Я встаю о сьомій."
+  daily_routine_a1_02: "Спочатку я снідаю."
+  daily_routine_a1_03: "Потім я йду на роботу."
+  daily_routine_a1_04: "Я працюю з дому."
+  daily_routine_a1_05: "Опівдні в мене перерва."
+  daily_routine_a1_06: "Я повертаюся додому о шостій."
+  daily_routine_a1_07: "Увечері я готую."
+  daily_routine_a1_08: "Я рано лягаю спати."
+  daily_routine_a1_09: "Я роблю це щодня."
+  daily_routine_a1_10: "Зазвичай я їжджу автобусом."
+  daily_routine_a1_11: "Іноді я ходжу пішки."
+  daily_routine_a1_12: "У неділю я не працюю."
+  daily_routine_a1_13: "Коли ти снідаєш?"
+  daily_routine_a1_14: "Як часто ти готуєш?"
+  daily_routine_a1_15: "Сьогодні я маю багато справ."
+  daily_routine_a1_16: "Я ще не закінчив."
+  daily_routine_a1_17: "Щоранку я ..."
+  daily_routine_a1_18: "Після роботи я ..."
+  daily_routine_a1_19: "Перед сном я ..."
+  daily_routine_a1_20: "По вихідних ми ..."
+  digital_life_a2_01: "Я не можу увійти в акаунт."
+  digital_life_a2_02: "Я забув пароль."
+  digital_life_a2_03: "Як скинути пароль?"
+  digital_life_a2_04: "Код підтвердження не надійшов."
+  digital_life_a2_05: "Посилання більше не працює."
+  digital_life_a2_06: "Файл занадто великий."
+  digital_life_a2_07: "Можеш надіслати це як PDF?"
+  digital_life_a2_08: "Мене добре чути?"
+  digital_life_a2_09: "У мене вимкнений мікрофон."
+  digital_life_a2_10: "Зображення зависло."
+  digital_life_a2_11: "Я підключуся ще раз."
+  digital_life_a2_12: "Чи потрібно встановити оновлення?"
+  digital_life_a2_13: "Я зробив резервну копію."
+  digital_life_a2_14: "Не надсилай мені свій пароль."
+  digital_life_a2_15: "Я не знаю відправника."
+  digital_life_a2_16: "Я хочу вимкнути сповіщення."
+  digital_life_a2_17: "Не вдається ..."
+  digital_life_a2_18: "На екрані написано ..."
+  digital_life_a2_19: "Де можна змінити ...?"
+  digital_life_a2_20: "Я отримав повідомлення про ..."
+  ecology_decisions_b2_01: "Екологічні заходи мають бути справедливими й фінансово доступними."
+  ecology_decisions_b2_02: "Потрібно враховувати повний життєвий цикл продукту."
+  ecology_decisions_b2_03: "Низька ціна не завжди відображає справжню вартість."
+  ecology_decisions_b2_04: "Хто нестиме витрати переходу?"
+  ecology_decisions_b2_05: "Особистий вибір важливий, але не замінює системних змін."
+  ecology_decisions_b2_06: "Довгострокова вигода може перевищити початкові витрати."
+  ecology_decisions_b2_07: "Нам потрібні вимірювані цілі."
+  ecology_decisions_b2_08: "Як ми перевіримо, чи працює цей захід?"
+  ecology_decisions_b2_09: "Не слід просто переносити проблему в інше місце."
+  ecology_decisions_b2_10: "Обіцяний ефект залежить від умов використання."
+  ecology_decisions_b2_11: "Потрібно відрізняти реальні зміни від реклами."
+  ecology_decisions_b2_12: "Можливі наслідки бездіяльності теж мають ціну."
+  ecology_decisions_b2_13: "Порівнюючи ... і ..., потрібно врахувати ..."
+  ecology_decisions_b2_14: "Екологічна перевага зникає, якщо ..."
+  ecology_decisions_b2_15: "Перехід до ... потребуватиме ..."
+  ecology_decisions_b2_16: "Щоб не посилити ..., варто ..."
+  ecology_decisions_b2_17: "Залежно від ..., результат може ..."
+  ecology_decisions_b2_18: "Витрати на ... слід порівнювати з ..."
+  ecology_decisions_b2_19: "Без змін у ... навряд чи вдасться ..."
+  ecology_decisions_b2_20: "Цей захід матиме сенс лише тоді, коли ..."
+  ecology_mobility_b1_01: "Я намагаюся менше користуватися автомобілем."
+  ecology_mobility_b1_02: "Громадський транспорт тут зручний."
+  ecology_mobility_b1_03: "На велосипеді я часто дістаюся швидше."
+  ecology_mobility_b1_04: "Не всюди можна обійтися без машини."
+  ecology_mobility_b1_05: "Я беру багаторазову пляшку."
+  ecology_mobility_b1_06: "Ми сортуємо сміття вдома."
+  ecology_mobility_b1_07: "Куди викидати цю упаковку?"
+  ecology_mobility_b1_08: "Краще відремонтувати, ніж викинути."
+  ecology_mobility_b1_09: "Я купую лише те, що мені потрібно."
+  ecology_mobility_b1_10: "Ми викидаємо занадто багато їжі."
+  ecology_mobility_b1_11: "Це економить і гроші, і ресурси."
+  ecology_mobility_b1_12: "Невеликі зміни теж мають значення."
+  ecology_mobility_b1_13: "Людям потрібні доступні альтернативи."
+  ecology_mobility_b1_14: "Я хочу дізнатися, звідки цей продукт."
+  ecology_mobility_b1_15: "Тут потрібно більше зелених зон."
+  ecology_mobility_b1_16: "Важливо думати не лише про сьогодні."
+  ecology_mobility_b1_17: "Щоб заощадити ..., я ..."
+  ecology_mobility_b1_18: "Якби було більше ..., люди могли б ..."
+  ecology_mobility_b1_19: "Проблема полягає не лише в ..., а й у ..."
+  ecology_mobility_b1_20: "У нашому місті бракує ..."
+  feelings_support_a2_01: "Я дуже радий тебе бачити."
+  feelings_support_a2_02: "Я сумую за домом."
+  feelings_support_a2_03: "Я хвилююся через іспит."
+  feelings_support_a2_04: "Мені трохи ніяково."
+  feelings_support_a2_05: "Я розчарований результатом."
+  feelings_support_a2_06: "Я пишаюся тобою."
+  feelings_support_a2_07: "Що тебе турбує?"
+  feelings_support_a2_08: "Хочеш про це поговорити?"
+  feelings_support_a2_09: "Я тебе слухаю."
+  feelings_support_a2_10: "Я розумію, що ти відчуваєш."
+  feelings_support_a2_11: "Ти не один."
+  feelings_support_a2_12: "Не поспішай."
+  feelings_support_a2_13: "Зробімо невелику перерву."
+  feelings_support_a2_14: "Тобі потрібна допомога чи порада?"
+  feelings_support_a2_15: "Мені потрібен час на себе."
+  feelings_support_a2_16: "Дякую, що ти поруч."
+  feelings_support_a2_17: "Я радію, коли ..."
+  feelings_support_a2_18: "Мене засмучує, що ..."
+  feelings_support_a2_19: "Я хвилююся за ..."
+  feelings_support_a2_20: "Мені допомагає ..."
+  first_contact_a0_01: "Привіт!"
+  first_contact_a0_02: "Доброго ранку!"
+  first_contact_a0_03: "Добрий вечір!"
+  first_contact_a0_04: "На добраніч!"
+  first_contact_a0_05: "До побачення!"
+  first_contact_a0_06: "До завтра!"
+  first_contact_a0_07: "До зустрічі!"
+  first_contact_a0_08: "Як справи?"
+  first_contact_a0_09: "Добре, дякую."
+  first_contact_a0_10: "А в тебе?"
+  first_contact_a0_11: "Дуже приємно."
+  first_contact_a0_12: "Ласкаво просимо!"
+  first_contact_a0_13: "Дякую за допомогу."
+  first_contact_a0_14: "Нема за що."
+  first_contact_a0_15: "Перепрошую."
+  first_contact_a0_16: "Мені шкода."
+  first_contact_a0_17: "Нічого страшного."
+  first_contact_a0_18: "Гарного дня!"
+  first_contact_a0_19: "Дякую за ..."
+  first_contact_a0_20: "До ..."
+  health_doctor_a1_01: "У мене болить голова."
+  health_doctor_a1_02: "У мене температура."
+  health_doctor_a1_03: "У мене болить ось тут."
+  health_doctor_a1_04: "Мені потрібен лікар."
+  health_doctor_a1_05: "Де найближча аптека?"
+  health_doctor_a1_06: "Можна записатися на прийом?"
+  health_doctor_a1_07: "Це терміново."
+  health_doctor_a1_08: "У мене кашель."
+  health_doctor_a1_09: "Мені паморочиться голова."
+  health_doctor_a1_10: "Я не можу спати."
+  health_doctor_a1_11: "Я приймаю ліки."
+  health_doctor_a1_12: "У мене є рецепт."
+  health_doctor_a1_13: "Як приймати ці ліки?"
+  health_doctor_a1_14: "Скільки разів на день?"
+  health_doctor_a1_15: "Мені вже краще."
+  health_doctor_a1_16: "Викличте швидку, будь ласка."
+  health_doctor_a1_17: "У мене болить ..."
+  health_doctor_a1_18: "У мене алергія на ..."
+  health_doctor_a1_19: "Мені потрібен прийом у ..."
+  health_doctor_a1_20: "Як довго потрібно ...?"
+  health_lifestyle_b1_01: "Останнім часом я погано сплю."
+  health_lifestyle_b1_02: "Мені важко поєднувати роботу й відпочинок."
+  health_lifestyle_b1_03: "Я хочу поступово змінити свої звички."
+  health_lifestyle_b1_04: "Мені допомагають регулярні прогулянки."
+  health_lifestyle_b1_05: "Я намагаюся робити перерви."
+  health_lifestyle_b1_06: "Після роботи мені важко розслабитися."
+  health_lifestyle_b1_07: "Це впливає на моє самопочуття."
+  health_lifestyle_b1_08: "Я хотів би обговорити це з фахівцем."
+  health_lifestyle_b1_09: "Які є можливості лікування?"
+  health_lifestyle_b1_10: "Які переваги й ризики цього лікування?"
+  health_lifestyle_b1_11: "Чи існує інший варіант?"
+  health_lifestyle_b1_12: "Я хотів би отримати другу думку."
+  health_lifestyle_b1_13: "Чи правильно я зрозумів рекомендацію?"
+  health_lifestyle_b1_14: "Я не хочу самостійно змінювати дозу."
+  health_lifestyle_b1_15: "Я хочу бути активнішим без перевантаження."
+  health_lifestyle_b1_16: "Мені потрібен план, якого я зможу дотримуватися."
+  health_lifestyle_b1_17: "Я помічаю, що після ..."
+  health_lifestyle_b1_18: "Мій стан погіршується, коли ..."
+  health_lifestyle_b1_19: "Що мені врахувати під час ...?"
+  health_lifestyle_b1_20: "Чи пов'язано це з ...?"
+  hedging_b2_01: "Наскільки я можу судити, це реалістично."
+  hedging_b2_02: "Я не виключаю такої можливості."
+  hedging_b2_03: "Цілковитої впевненості в нас немає."
+  hedging_b2_04: "На цьому етапі зарано робити висновки."
+  hedging_b2_05: "Це радше припущення, ніж факт."
+  hedging_b2_06: "Наявної інформації недостатньо для певного висновку."
+  hedging_b2_07: "Тут я можу помилятися."
+  hedging_b2_08: "Я готовий переглянути свою думку."
+  hedging_b2_09: "Це залежить від того, як визначити успіх."
+  hedging_b2_10: "Винятки можливі, але правило залишається корисним."
+  hedging_b2_11: "Можливо, тут діють кілька чинників."
+  hedging_b2_12: "Я сформулював би це обережніше."
+  hedging_b2_13: "Наскільки мені відомо, ..."
+  hedging_b2_14: "Є підстави припускати, що ..."
+  hedging_b2_15: "Не можна виключити, що ..."
+  hedging_b2_16: "За умови, що ..., ..."
+  hedging_b2_17: "Це здебільшого стосується ..., а не ..."
+  hedging_b2_18: "За нинішніх обставин я схиляюся до ..."
+  hedging_b2_19: "Якщо не з'являться нові дані, ..."
+  hedging_b2_20: "Я б не стверджував, що ..., проте ..."
+  history_consequences_b1_01: "Усе почалося з непорозуміння."
+  history_consequences_b1_02: "Спочатку я не надав цьому значення."
+  history_consequences_b1_03: "Пізніше з'ясувалося, що інформація була неправильною."
+  history_consequences_b1_04: "Тим часом ми вже почали роботу."
+  history_consequences_b1_05: "Через це виникла затримка."
+  history_consequences_b1_06: "Ми вирішили змінити план."
+  history_consequences_b1_07: "Я не знав, як на це реагувати."
+  history_consequences_b1_08: "Мені знадобився час, щоб це зрозуміти."
+  history_consequences_b1_09: "Зрештою ми знайшли рішення."
+  history_consequences_b1_10: "Цей досвід багато чого мене навчив."
+  history_consequences_b1_11: "Тепер я вчинив би інакше."
+  history_consequences_b1_12: "Найважче було почати спочатку."
+  history_consequences_b1_13: "Ми не могли вплинути на ситуацію."
+  history_consequences_b1_14: "Незважаючи на труднощі, ми продовжили."
+  history_consequences_b1_15: "Це стало для мене поворотним моментом."
+  history_consequences_b1_16: "Після цього багато що змінилося."
+  history_consequences_b1_17: "Щойно ми ..., стало зрозуміло, що ..."
+  history_consequences_b1_18: "Поки я ..., ..."
+  history_consequences_b1_19: "Причиною того, що ..., було ..."
+  history_consequences_b1_20: "Якби я тоді знав ..., ..."
+  housing_repairs_a2_01: "Я шукаю квартиру на тривалий термін."
+  housing_repairs_a2_02: "Скільки кімнат у квартирі?"
+  housing_repairs_a2_03: "Комунальні платежі включені?"
+  housing_repairs_a2_04: "Яка сума застави?"
+  housing_repairs_a2_05: "Коли можна подивитися квартиру?"
+  housing_repairs_a2_06: "Чи дозволені домашні тварини?"
+  housing_repairs_a2_07: "Я переїжджаю наступного місяця."
+  housing_repairs_a2_08: "Опалення не працює."
+  housing_repairs_a2_09: "Немає гарячої води."
+  housing_repairs_a2_10: "З крана крапає вода."
+  housing_repairs_a2_11: "Вікно не зачиняється."
+  housing_repairs_a2_12: "Світло в коридорі не горить."
+  housing_repairs_a2_13: "Кому повідомити про проблему?"
+  housing_repairs_a2_14: "Коли прийде майстер?"
+  housing_repairs_a2_15: "Я буду вдома після п'ятої."
+  housing_repairs_a2_16: "Можна трохи тихіше?"
+  housing_repairs_a2_17: "У квартирі немає ..."
+  housing_repairs_a2_18: "З ... щось не так."
+  housing_repairs_a2_19: "Проблема почалася ..."
+  housing_repairs_a2_20: "Чи можна відремонтувати ...?"
+  idioms_speech_b2_01: "У мене зараз багато справ."
+  idioms_speech_b2_02: "Мені потрібно все це поєднати."
+  idioms_speech_b2_03: "Я збився з думки."
+  idioms_speech_b2_04: "Це влучно сказано."
+  idioms_speech_b2_05: "Давай не ходити навколо."
+  idioms_speech_b2_06: "Це зовсім інша справа."
+  idioms_speech_b2_07: "Не варто перебільшувати проблему."
+  idioms_speech_b2_08: "Я тримаю за тебе кулаки."
+  idioms_speech_b2_09: "Це лише вершина айсберга."
+  idioms_speech_b2_10: "У цьому й проблема."
+  idioms_speech_b2_11: "Мені треба обдумати це до завтра."
+  idioms_speech_b2_12: "Я не хочу робити поспішних кроків."
+  idioms_speech_b2_13: "Здається, ми говоримо повз одне одного."
+  idioms_speech_b2_14: "Тепер усе починає складатися."
+  idioms_speech_b2_15: "Наші плани зірвалися."
+  idioms_speech_b2_16: "Це мені не дає спокою."
+  idioms_speech_b2_17: "Я не можу просто заплющити на це очі."
+  idioms_speech_b2_18: "Ми нарешті зрушили з місця."
+  idioms_speech_b2_19: "Це було останньою краплею."
+  idioms_speech_b2_20: "Усе поступово налагодиться."
+  learning_how_a2_01: "Я вчу мову вже пів року."
+  learning_how_a2_02: "Мені легше читати, ніж говорити."
+  learning_how_a2_03: "Я часто забуваю нові слова."
+  learning_how_a2_04: "Я хочу краще розуміти на слух."
+  learning_how_a2_05: "Можна ще один приклад?"
+  learning_how_a2_06: "У чому різниця між цими словами?"
+  learning_how_a2_07: "Як використати це в реченні?"
+  learning_how_a2_08: "Будь ласка, виправляйте мої помилки."
+  learning_how_a2_09: "Я хочу спочатку спробувати сам."
+  learning_how_a2_10: "Мені потрібно це повторити."
+  learning_how_a2_11: "Я займаюся потроху щодня."
+  learning_how_a2_12: "Давай говорити без перекладу."
+  learning_how_a2_13: "Я записую корисні вирази."
+  learning_how_a2_14: "Я слухаю це кілька разів."
+  learning_how_a2_15: "Тепер це стало зрозуміліше."
+  learning_how_a2_16: "Я вже бачу прогрес."
+  learning_how_a2_17: "Мені важко ..."
+  learning_how_a2_18: "Я краще запам'ятовую, коли ..."
+  learning_how_a2_19: "Моя мета цього тижня ..."
+  learning_how_a2_20: "Я хотів би потренувати ..."
+  letters_requests_b1_01: "Шановна пані Мюллер,"
+  letters_requests_b1_02: "Пишу вам щодо мого замовлення."
+  letters_requests_b1_03: "Дякую за ваш лист."
+  letters_requests_b1_04: "У додатку ви знайдете документи."
+  letters_requests_b1_05: "Будь ласка, підтвердьте отримання."
+  letters_requests_b1_06: "Мені потрібна додаткова інформація."
+  letters_requests_b1_07: "Я хотів би уточнити один пункт."
+  letters_requests_b1_08: "На жаль, я ще не отримав відповіді."
+  letters_requests_b1_09: "Посилаюся на нашу телефонну розмову."
+  letters_requests_b1_10: "Чи можете ви повідомити термін розгляду?"
+  letters_requests_b1_11: "Я готовий надати відсутні документи."
+  letters_requests_b1_12: "У формі є помилка."
+  letters_requests_b1_13: "Будь ласка, виправте мою адресу."
+  letters_requests_b1_14: "Вибачте за пізню відповідь."
+  letters_requests_b1_15: "Буду вдячний за відповідь до п'ятниці."
+  letters_requests_b1_16: "З повагою,"
+  letters_requests_b1_17: "Звертаюся до вас із проханням ..."
+  letters_requests_b1_18: "Як ми обговорювали, ..."
+  letters_requests_b1_19: "У зв'язку з ... прошу ..."
+  letters_requests_b1_20: "Якщо потрібні уточнення, ..."
+  meetings_decisions_b2_01: "Пропоную почати з головного питання."
+  meetings_decisions_b2_02: "Яка мета сьогоднішньої зустрічі?"
+  meetings_decisions_b2_03: "Нам потрібно прийняти рішення, а не лише обмінятися думками."
+  meetings_decisions_b2_04: "Хто ще хотів би висловитися?"
+  meetings_decisions_b2_05: "Давайте повернемося до порядку денного."
+  meetings_decisions_b2_06: "Це важливо, але потребує окремого обговорення."
+  meetings_decisions_b2_07: "Ми трохи відхилилися від теми."
+  meetings_decisions_b2_08: "Які ризики ми ще не обговорили?"
+  meetings_decisions_b2_09: "Чи є заперечення проти цього рішення?"
+  meetings_decisions_b2_10: "Мовчання не обов'язково означає згоду."
+  meetings_decisions_b2_11: "Хто матиме право остаточного рішення?"
+  meetings_decisions_b2_12: "Потрібно визначити відповідального і строк."
+  meetings_decisions_b2_13: "До наступної зустрічі ми маємо ..."
+  meetings_decisions_b2_14: "Відкритим залишається питання ..."
+  meetings_decisions_b2_15: "Ми досягли згоди щодо ..."
+  meetings_decisions_b2_16: "Я зафіксую, що ..."
+  meetings_decisions_b2_17: "Перший крок полягає в тому, щоб ..."
+  meetings_decisions_b2_18: "Перевіримо результат після ..."
+  meetings_decisions_b2_19: "Чи правильно я підсумував: ...?"
+  meetings_decisions_b2_20: "На завершення хочу нагадати про ..."
+  money_contracts_b1_01: "Я хочу краще планувати свій бюджет."
+  money_contracts_b1_02: "Мої витрати зросли."
+  money_contracts_b1_03: "Я намагаюся відкладати щомісяця."
+  money_contracts_b1_04: "Скільки це коштуватиме загалом?"
+  money_contracts_b1_05: "Чи є додаткові платежі?"
+  money_contracts_b1_06: "Яка мінімальна тривалість договору?"
+  money_contracts_b1_07: "Договір продовжується автоматично?"
+  money_contracts_b1_08: "Який строк повідомлення про розірвання?"
+  money_contracts_b1_09: "Я хочу спочатку прочитати всі умови."
+  money_contracts_b1_10: "Можете пояснити цей пункт договору?"
+  money_contracts_b1_11: "Я не погоджуюся на цю комісію."
+  money_contracts_b1_12: "З мого рахунку списали двічі."
+  money_contracts_b1_13: "Я вже оплатив цей рахунок."
+  money_contracts_b1_14: "Можна оплатити частинами?"
+  money_contracts_b1_15: "Будь ласка, надайте письмове підтвердження."
+  money_contracts_b1_16: "Я не підпишу, поки не зрозумію умови."
+  money_contracts_b1_17: "У ціну входить ..."
+  money_contracts_b1_18: "Я хотів би розірвати ..."
+  money_contracts_b1_19: "Згідно з договором, ..."
+  money_contracts_b1_20: "Перш ніж погодитися, я хочу ..."
+  needs_help_a0_01: "Мені потрібна допомога."
+  needs_help_a0_02: "Допоможіть мені, будь ласка."
+  needs_help_a0_03: "Я хочу пити."
+  needs_help_a0_04: "Я хочу їсти."
+  needs_help_a0_05: "Я втомився."
+  needs_help_a0_06: "Мені холодно."
+  needs_help_a0_07: "Мені спекотно."
+  needs_help_a0_08: "Мені недобре."
+  needs_help_a0_09: "Води, будь ласка."
+  needs_help_a0_10: "Можна?"
+  needs_help_a0_11: "Так, будь ласка."
+  needs_help_a0_12: "Ні, дякую."
+  needs_help_a0_13: "Цього достатньо."
+  needs_help_a0_14: "Не зараз."
+  needs_help_a0_15: "Я готовий."
+  needs_help_a0_16: "Обережно!"
+  needs_help_a0_17: "Зачекайте, будь ласка."
+  needs_help_a0_18: "Мені потрібно ..."
+  needs_help_a0_19: "Я хотів би ..."
+  needs_help_a0_20: "У мене немає ..."
+  negotiation_b2_01: "Давайте з'ясуємо, що важливо для кожної сторони."
+  negotiation_b2_02: "Наші цілі ближчі, ніж здається."
+  negotiation_b2_03: "Я готовий до компромісу щодо строків."
+  negotiation_b2_04: "Але якістю ми поступитися не можемо."
+  negotiation_b2_05: "Що ви могли б запропонувати натомість?"
+  negotiation_b2_06: "За цих умов пропозиція для нас неприйнятна."
+  negotiation_b2_07: "Я розумію ваші обмеження."
+  negotiation_b2_08: "Нам потрібне рішення, прийнятне для обох сторін."
+  negotiation_b2_09: "Можемо розглянути проміжний варіант?"
+  negotiation_b2_10: "Це поступка, на яку ми можемо піти."
+  negotiation_b2_11: "Не хотілося б повертатися до вже погодженого."
+  negotiation_b2_12: "Зафіксуймо домовленість письмово."
+  negotiation_b2_13: "Ми готові ..., за умови що ..."
+  negotiation_b2_14: "Якщо ви поступитеся щодо ..., ми ..."
+  negotiation_b2_15: "Наша головна умова полягає в тому, що ..."
+  negotiation_b2_16: "Між ... і ... можна знайти компроміс."
+  negotiation_b2_17: "Що заважає нам ...?"
+  negotiation_b2_18: "Які гарантії є щодо ...?"
+  negotiation_b2_19: "Домовмося поки що про ..., а ..."
+  negotiation_b2_20: "Якщо до ... згоди не буде, ..."
+  opinion_reasons_b1_01: "На мою думку, це хороша ідея."
+  opinion_reasons_b1_02: "Особисто я обрав би інший варіант."
+  opinion_reasons_b1_03: "Головна причина — брак часу."
+  opinion_reasons_b1_04: "Для мене це питання довіри."
+  opinion_reasons_b1_05: "У мене є кілька причин так думати."
+  opinion_reasons_b1_06: "Це допомогло б нам заощадити час."
+  opinion_reasons_b1_07: "До того ж це зручніше."
+  opinion_reasons_b1_08: "Ось простий приклад."
+  opinion_reasons_b1_09: "З власного досвіду можу сказати, що це працює."
+  opinion_reasons_b1_10: "Не всі бачать це так само."
+  opinion_reasons_b1_11: "Це лише моя особиста думка."
+  opinion_reasons_b1_12: "Я ще не маю чіткої позиції."
+  opinion_reasons_b1_13: "Мені бракує інформації для рішення."
+  opinion_reasons_b1_14: "Що ти про це думаєш?"
+  opinion_reasons_b1_15: "Чому для тебе це так важливо?"
+  opinion_reasons_b1_16: "Я бачу тут і переваги, і недоліки."
+  opinion_reasons_b1_17: "Я вважаю, що ..."
+  opinion_reasons_b1_18: "Одна з причин полягає в тому, що ..."
+  opinion_reasons_b1_19: "Для мене вирішальним є ..."
+  opinion_reasons_b1_20: "Наприклад, коли ..., ..."
+  past_stories_a2_01: "Учора я був удома."
+  past_stories_a2_02: "На вихідних ми їздили за місто."
+  past_stories_a2_03: "Я вже там був."
+  past_stories_a2_04: "Я ніколи цього не пробував."
+  past_stories_a2_05: "Це сталося минулого тижня."
+  past_stories_a2_06: "Спочатку все було добре."
+  past_stories_a2_07: "Потім почався дощ."
+  past_stories_a2_08: "Нам довелося повернутися."
+  past_stories_a2_09: "Попри це, було весело."
+  past_stories_a2_10: "Як минули твої вихідні?"
+  past_stories_a2_11: "Що сталося потім?"
+  past_stories_a2_12: "Скільки часу ти там був?"
+  past_stories_a2_13: "Я забув ключі."
+  past_stories_a2_14: "На щастя, все закінчилося добре."
+  past_stories_a2_15: "Це був мій перший раз."
+  past_stories_a2_16: "Я цього не очікував."
+  past_stories_a2_17: "Коли я був дитиною, ..."
+  past_stories_a2_18: "Раніше я часто ..."
+  past_stories_a2_19: "Минулого разу ми ..."
+  past_stories_a2_20: "Після цього я ..."
+  people_family_a1_01: "У мене є брат."
+  people_family_a1_02: "У мене немає дітей."
+  people_family_a1_03: "Ми живемо разом."
+  people_family_a1_04: "Мої батьки живуть неподалік."
+  people_family_a1_05: "Ти одружений?"
+  people_family_a1_06: "Чим ти займаєшся?"
+  people_family_a1_07: "Де ти працюєш?"
+  people_family_a1_08: "Він мій сусід."
+  people_family_a1_09: "Ми добре знайомі."
+  people_family_a1_10: "Я його не знаю."
+  people_family_a1_11: "Моя сестра старша за мене."
+  people_family_a1_12: "У нас велика сім'я."
+  people_family_a1_13: "Це для моєї мами."
+  people_family_a1_14: "Як звати твого сина?"
+  people_family_a1_15: "Передавай привіт родині."
+  people_family_a1_16: "З днем народження!"
+  people_family_a1_17: "Я працюю ..."
+  people_family_a1_18: "Ми знайомі з ..."
+  people_family_a1_19: "Мій друг любить ..."
+  people_family_a1_20: "У нашій сім'ї ..."
+  persuasion_b2_01: "Хотів би звернути вашу увагу на повторну помилку."
+  persuasion_b2_02: "Попри попереднє звернення, проблему не усунуто."
+  persuasion_b2_03: "Такий результат не відповідає погодженим умовам."
+  persuasion_b2_04: "Я очікую конкретної пропозиції щодо виправлення."
+  persuasion_b2_05: "Будь ласка, повідомте, які кроки буде вжито."
+  persuasion_b2_06: "Я зацікавлений у мирному вирішенні питання."
+  persuasion_b2_07: "Мета мого звернення — запобігти повторенню ситуації."
+  persuasion_b2_08: "Я готовий обговорити альтернативне рішення."
+  persuasion_b2_09: "Прошу надати обґрунтування цієї відмови."
+  persuasion_b2_10: "Чи можна переглянути рішення з урахуванням нових даних?"
+  persuasion_b2_11: "Зі свого боку я виконав усі погоджені умови."
+  persuasion_b2_12: "Буду вдячний за змістовну, а не формальну відповідь."
+  persuasion_b2_13: "З огляду на ..., вважаю за доцільне ..."
+  persuasion_b2_14: "Моє прохання ґрунтується на ..."
+  persuasion_b2_15: "Прошу врахувати, що ..."
+  persuasion_b2_16: "У разі неможливості ... прошу ..."
+  persuasion_b2_17: "Я був би готовий погодитися на ..., якби ..."
+  persuasion_b2_18: "Пропоноване рішення дозволило б ..."
+  persuasion_b2_19: "Для уникнення подальших непорозумінь, ..."
+  persuasion_b2_20: "Сподіваюся, нам вдасться ..."
+  place_time_price_a0_01: "Де туалет?"
+  place_time_price_a0_02: "Де вихід?"
+  place_time_price_a0_03: "Ось тут."
+  place_time_price_a0_04: "Це там."
+  place_time_price_a0_05: "Ліворуч, будь ласка."
+  place_time_price_a0_06: "Праворуч, будь ласка."
+  place_time_price_a0_07: "Прямо."
+  place_time_price_a0_08: "Це далеко?"
+  place_time_price_a0_09: "Котра година?"
+  place_time_price_a0_10: "Коли?"
+  place_time_price_a0_11: "Сьогодні чи завтра?"
+  place_time_price_a0_12: "Зараз чи пізніше?"
+  place_time_price_a0_13: "Скільки це коштує?"
+  place_time_price_a0_14: "Я візьму це."
+  place_time_price_a0_15: "Рахунок, будь ласка."
+  place_time_price_a0_16: "Один квиток, будь ласка."
+  place_time_price_a0_17: "Лише один, будь ласка."
+  place_time_price_a0_18: "Де ...?"
+  place_time_price_a0_19: "О ... годині."
+  place_time_price_a0_20: "Скільки ...?"
+  plans_invitations_a1_01: "У тебе є час сьогодні?"
+  plans_invitations_a1_02: "Що ти робиш увечері?"
+  plans_invitations_a1_03: "Ходімо вип'ємо кави."
+  plans_invitations_a1_04: "Хочеш піти зі мною?"
+  plans_invitations_a1_05: "Із задоволенням."
+  plans_invitations_a1_06: "Звучить добре."
+  plans_invitations_a1_07: "На жаль, я не можу."
+  plans_invitations_a1_08: "Сьогодні в мене немає часу."
+  plans_invitations_a1_09: "Може, іншим разом."
+  plans_invitations_a1_10: "О котрій зустрінемося?"
+  plans_invitations_a1_11: "Де зустрінемося?"
+  plans_invitations_a1_12: "О шостій мені підходить."
+  plans_invitations_a1_13: "Я прийду трохи пізніше."
+  plans_invitations_a1_14: "Я вже в дорозі."
+  plans_invitations_a1_15: "Я чекаю біля входу."
+  plans_invitations_a1_16: "Дякую за запрошення."
+  plans_invitations_a1_17: "Хочеш ...?"
+  plans_invitations_a1_18: "Пропоную зробити так: ..."
+  plans_invitations_a1_19: "Я вільний у ... о ..."
+  plans_invitations_a1_20: "Зустрінемося біля ..."
+  presentations_data_b2_01: "Сьогодні я коротко представлю результати."
+  presentations_data_b2_02: "Мій виступ складається з трьох частин."
+  presentations_data_b2_03: "Спочатку кілька слів про контекст."
+  presentations_data_b2_04: "На цій діаграмі видно зміну з часом."
+  presentations_data_b2_05: "Зверніть увагу на різницю між групами."
+  presentations_data_b2_06: "Порівняно з минулим роком показник зріс."
+  presentations_data_b2_07: "Зростання не було рівномірним."
+  presentations_data_b2_08: "У середньому результат залишився стабільним."
+  presentations_data_b2_09: "Середнє значення приховує значні відмінності."
+  presentations_data_b2_10: "Цифри слід читати в контексті."
+  presentations_data_b2_11: "Це попередні, а не остаточні результати."
+  presentations_data_b2_12: "Охоче відповім на запитання наприкінці."
+  presentations_data_b2_13: "Як видно з ..., ..."
+  presentations_data_b2_14: "Частка ... становить ..."
+  presentations_data_b2_15: "Показник зріс з ... до ..."
+  presentations_data_b2_16: "Це відповідає зростанню на ..."
+  presentations_data_b2_17: "У той час як ... зростає, ..."
+  presentations_data_b2_18: "Найпомітніша зміна стосується ..."
+  presentations_data_b2_19: "Ці дані охоплюють період ..."
+  presentations_data_b2_20: "Головний висновок мого виступу: ..."
+  relations_boundaries_b1_01: "Мені важливо бути почутим."
+  relations_boundaries_b1_02: "Я хотів би спокійно це обговорити."
+  relations_boundaries_b1_03: "Мене засмучує твій тон."
+  relations_boundaries_b1_04: "Я не звинувачую тебе."
+  relations_boundaries_b1_05: "Мені потрібно побути самому."
+  relations_boundaries_b1_06: "Зараз я не готовий про це говорити."
+  relations_boundaries_b1_07: "Повернімося до цього завтра."
+  relations_boundaries_b1_08: "Я поважаю твоє рішення."
+  relations_boundaries_b1_09: "Але моє рішення теж важливе."
+  relations_boundaries_b1_10: "Мені це не підходить."
+  relations_boundaries_b1_11: "Я не можу цього пообіцяти."
+  relations_boundaries_b1_12: "Прошу не вирішувати за мене."
+  relations_boundaries_b1_13: "Чого ти очікуєш від мене?"
+  relations_boundaries_b1_14: "Давай домовимося про спільні правила."
+  relations_boundaries_b1_15: "Цього разу я беру відповідальність на себе."
+  relations_boundaries_b1_16: "Для мене наші стосунки важливіші за суперечку."
+  relations_boundaries_b1_17: "Коли ти ..., я почуваюся ..."
+  relations_boundaries_b1_18: "Мені хотілося б, щоб ми ..."
+  relations_boundaries_b1_19: "Я готовий ..., але не ..."
+  relations_boundaries_b1_20: "Моя межа — ..."
+  returns_delivery_a2_01: "Я хочу повернути цей товар."
+  returns_delivery_a2_02: "У мене є чек."
+  returns_delivery_a2_03: "Я купив це вчора."
+  returns_delivery_a2_04: "Розмір мені не підійшов."
+  returns_delivery_a2_05: "Товар пошкоджений."
+  returns_delivery_a2_06: "Це не те, що я замовляв."
+  returns_delivery_a2_07: "Можна обміняти це?"
+  returns_delivery_a2_08: "Я хотів би повернення грошей."
+  returns_delivery_a2_09: "Скільки триває повернення коштів?"
+  returns_delivery_a2_10: "Посилка ще не надійшла."
+  returns_delivery_a2_11: "Де можна відстежити замовлення?"
+  returns_delivery_a2_12: "Адреса доставки неправильна."
+  returns_delivery_a2_13: "У посилці бракує однієї речі."
+  returns_delivery_a2_14: "Я випадково замовив двічі."
+  returns_delivery_a2_15: "Можна скасувати замовлення?"
+  returns_delivery_a2_16: "Хто оплачує повернення?"
+  returns_delivery_a2_17: "Номер мого замовлення ..."
+  returns_delivery_a2_18: "Замість ... я отримав ..."
+  returns_delivery_a2_19: "Я хочу обміняти ... на ..."
+  returns_delivery_a2_20: "Будь ласка, надішліть мені ..."
+  shopping_payment_a1_01: "Я просто дивлюся."
+  shopping_payment_a1_02: "Я шукаю куртку."
+  shopping_payment_a1_03: "Можна це приміряти?"
+  shopping_payment_a1_04: "Де примірочна?"
+  shopping_payment_a1_05: "Це замале."
+  shopping_payment_a1_06: "Це мені підходить."
+  shopping_payment_a1_07: "Мені потрібен більший розмір."
+  shopping_payment_a1_08: "Є інший колір?"
+  shopping_payment_a1_09: "Це занадто дорого."
+  shopping_payment_a1_10: "Є щось дешевше?"
+  shopping_payment_a1_11: "Ціна зі знижкою?"
+  shopping_payment_a1_12: "Де каса?"
+  shopping_payment_a1_13: "Можна заплатити карткою?"
+  shopping_payment_a1_14: "Я плачу готівкою."
+  shopping_payment_a1_15: "Чек, будь ласка."
+  shopping_payment_a1_16: "Пакет не потрібен."
+  shopping_payment_a1_17: "Я шукаю ... для ..."
+  shopping_payment_a1_18: "Можна подивитися ...?"
+  shopping_payment_a1_19: "Це коштує ..."
+  shopping_payment_a1_20: "Я плачу за ..."
+  society_rights_b2_01: "Правило має однаково застосовуватися до всіх."
+  society_rights_b2_02: "Однакове ставлення не завжди означає однакові можливості."
+  society_rights_b2_03: "Важливо почути тих, кого це безпосередньо стосується."
+  society_rights_b2_04: "Які групи можуть залишитися поза увагою?"
+  society_rights_b2_05: "Рішення має бути зрозумілим для громадян."
+  society_rights_b2_06: "Я хотів би зрозуміти правову підставу."
+  society_rights_b2_07: "До кого можна звернутися зі скаргою?"
+  society_rights_b2_08: "Критика рішення не означає неповагу до людини."
+  society_rights_b2_09: "Ми можемо не погоджуватися, не переходячи на особистості."
+  society_rights_b2_10: "Доступність має враховувати різні потреби."
+  society_rights_b2_11: "Самої заборони може бути недостатньо."
+  society_rights_b2_12: "Потрібні не лише правила, а й можливість їх виконувати."
+  society_rights_b2_13: "З погляду рівних можливостей, ..."
+  society_rights_b2_14: "Це рішення особливо вплине на ..."
+  society_rights_b2_15: "Необхідно забезпечити, щоб ..."
+  society_rights_b2_16: "Питання в тому, хто має право ..."
+  society_rights_b2_17: "Свобода ... має поєднуватися з ..."
+  society_rights_b2_18: "Я підтримую мету ..., але сумніваюся щодо ..."
+  society_rights_b2_19: "Щоб участь була реальною, потрібно ..."
+  society_rights_b2_20: "Було б несправедливо ..., якщо ..."
+  sources_evidence_b2_01: "На чому ґрунтується це твердження?"
+  sources_evidence_b2_02: "Чи є дані, які це підтверджують?"
+  sources_evidence_b2_03: "Я хотів би перевірити першоджерело."
+  sources_evidence_b2_04: "Коли опублікували цю інформацію?"
+  sources_evidence_b2_05: "Хто відповідає за зміст?"
+  sources_evidence_b2_06: "Це факт чи інтерпретація?"
+  sources_evidence_b2_07: "Сам заголовок не дає повної картини."
+  sources_evidence_b2_08: "У статті не вказано джерело цифр."
+  sources_evidence_b2_09: "Приклад сам по собі ще нічого не доводить."
+  sources_evidence_b2_10: "Кореляція не обов'язково означає причинний зв'язок."
+  sources_evidence_b2_11: "Потрібно порівняти кілька незалежних джерел."
+  sources_evidence_b2_12: "Ці результати не можна автоматично узагальнювати."
+  sources_evidence_b2_13: "За даними ..., ..."
+  sources_evidence_b2_14: "Автор стверджує, що ..., але ..."
+  sources_evidence_b2_15: "Наведені дані свідчать про ..."
+  sources_evidence_b2_16: "Наскільки надійним є ...?"
+  sources_evidence_b2_17: "Неясно, чи враховано ..."
+  sources_evidence_b2_18: "Без інформації про ... важко оцінити ..."
+  sources_evidence_b2_19: "Це підтверджує ..., але не доводить ..."
+  sources_evidence_b2_20: "Я б перевірив, чи це справді так: ..."
+  study_contact_a1_01: "Коли починається заняття?"
+  study_contact_a1_02: "У мене є запитання."
+  study_contact_a1_03: "Я не знаю цього слова."
+  study_contact_a1_04: "Можна відповісти?"
+  study_contact_a1_05: "На якій ми сторінці?"
+  study_contact_a1_06: "Я роблю домашнє завдання."
+  study_contact_a1_07: "Давай потренуємося разом."
+  study_contact_a1_08: "Мені потрібно більше часу."
+  study_contact_a1_09: "Я надішлю тобі повідомлення."
+  study_contact_a1_10: "Можна тобі зателефонувати?"
+  study_contact_a1_11: "Мій телефон розрядився."
+  study_contact_a1_12: "Є зарядний пристрій?"
+  study_contact_a1_13: "Інтернет не працює."
+  study_contact_a1_14: "Я не можу відкрити файл."
+  study_contact_a1_15: "Надішли мені посилання."
+  study_contact_a1_16: "Збережи це, будь ласка."
+  study_contact_a1_17: "Я хочу навчитися ..."
+  study_contact_a1_18: "Як відкрити ...?"
+  study_contact_a1_19: "Можеш надіслати мені ...?"
+  study_contact_a1_20: "Моя електронна адреса ..."
+  summary_rethink_b2_01: "Якщо підсумувати, у нас більше спільного, ніж розбіжностей."
+  summary_rethink_b2_02: "Обговорення показало, де саме наші погляди розходяться."
+  summary_rethink_b2_03: "Я став краще розуміти іншу сторону."
+  summary_rethink_b2_04: "Моя позиція змінилася не повністю, але стала точнішою."
+  summary_rethink_b2_05: "Деякі питання поки що залишаються без відповіді."
+  summary_rethink_b2_06: "Ми маємо достатньо інформації для наступного кроку."
+  summary_rethink_b2_07: "Це рішення варто переглянути після пробного періоду."
+  summary_rethink_b2_08: "Успіх залежатиме не лише від рішення, а й від виконання."
+  summary_rethink_b2_09: "Заднім числом ситуація виглядає інакше."
+  summary_rethink_b2_10: "Тоді ми діяли на основі доступної інформації."
+  summary_rethink_b2_11: "Помилку варто визнати, але не повторювати."
+  summary_rethink_b2_12: "Найціннішим результатом стала ясність щодо наступних кроків."
+  summary_rethink_b2_13: "Підбиваючи підсумок, можна сказати, що ..."
+  summary_rethink_b2_14: "Хоча ми не дійшли згоди щодо ..., ..."
+  summary_rethink_b2_15: "Найважливіше, що я зрозумів, — ..."
+  summary_rethink_b2_16: "Якби ми раніше ..., тепер ..."
+  summary_rethink_b2_17: "Замість запитувати, хто винен, варто ..."
+  summary_rethink_b2_18: "Незалежно від того, що ..., ..."
+  summary_rethink_b2_19: "Ми повернемося до цього питання, коли ..."
+  summary_rethink_b2_20: "Пропоную завершити конкретною домовленістю: ..."
+  symptoms_treatment_a2_01: "Це почалося три дні тому."
+  symptoms_treatment_a2_02: "Біль постійний."
+  symptoms_treatment_a2_03: "Біль з'являється і зникає."
+  symptoms_treatment_a2_04: "Коли я рухаюся, болить сильніше."
+  symptoms_treatment_a2_05: "Уночі мені стає гірше."
+  symptoms_treatment_a2_06: "Я вже прийняв знеболювальне."
+  symptoms_treatment_a2_07: "Ці ліки мені не допомагають."
+  symptoms_treatment_a2_08: "Чи є побічні ефекти?"
+  symptoms_treatment_a2_09: "Приймати до чи після їжі?"
+  symptoms_treatment_a2_10: "Чи можна мені працювати?"
+  symptoms_treatment_a2_11: "Скільки днів потрібно відпочивати?"
+  symptoms_treatment_a2_12: "Мені потрібна довідка для роботи."
+  symptoms_treatment_a2_13: "Коли будуть результати?"
+  symptoms_treatment_a2_14: "Потрібно прийти ще раз?"
+  symptoms_treatment_a2_15: "Що робити, якщо стане гірше?"
+  symptoms_treatment_a2_16: "Можете пояснити це простіше?"
+  symptoms_treatment_a2_17: "У мене ... вже ... днів."
+  symptoms_treatment_a2_18: "Болить, коли я ..."
+  symptoms_treatment_a2_19: "Я регулярно приймаю ..."
+  symptoms_treatment_a2_20: "Чи можна поєднувати ... з ...?"
+  teamwork_b1_01: "Давайте розподілимо завдання."
+  teamwork_b1_02: "Я можу взяти це на себе."
+  teamwork_b1_03: "Хто відповідає за цю частину?"
+  teamwork_b1_04: "Що зараз має пріоритет?"
+  teamwork_b1_05: "Я працюю над цим."
+  teamwork_b1_06: "Завдання майже готове."
+  teamwork_b1_07: "Я зіткнувся з проблемою."
+  teamwork_b1_08: "Мені потрібне ваше рішення."
+  teamwork_b1_09: "Без цих даних я не можу продовжити."
+  teamwork_b1_10: "Можете перевірити мій варіант?"
+  teamwork_b1_11: "Я врахую ваші зауваження."
+  teamwork_b1_12: "Нам потрібно узгодити наступний крок."
+  teamwork_b1_13: "До цього строку я не встигну."
+  teamwork_b1_14: "Можемо зменшити обсяг роботи?"
+  teamwork_b1_15: "Я повідомлю, щойно все буде готово."
+  teamwork_b1_16: "Дякую за швидку відповідь."
+  teamwork_b1_17: "Я відповідаю за ..."
+  teamwork_b1_18: "Для завершення мені потрібні ..."
+  teamwork_b1_19: "Ми домовилися, що ..."
+  teamwork_b1_20: "Я пропоную спочатку ..., а потім ..."
+  transport_a1_01: "Як дістатися до вокзалу?"
+  transport_a1_02: "Де найближча зупинка?"
+  transport_a1_03: "Який автобус їде в центр?"
+  transport_a1_04: "Цей поїзд їде до Берліна?"
+  transport_a1_05: "Мені потрібна пересадка?"
+  transport_a1_06: "Де мені виходити?"
+  transport_a1_07: "Скільки триває поїздка?"
+  transport_a1_08: "Квиток туди й назад, будь ласка."
+  transport_a1_09: "З якої платформи?"
+  transport_a1_10: "Коли наступний поїзд?"
+  transport_a1_11: "Автобус уже тут."
+  transport_a1_12: "Поїзд запізнюється."
+  transport_a1_13: "Це місце вільне?"
+  transport_a1_14: "Можна пройти?"
+  transport_a1_15: "Я виходжу на наступній зупинці."
+  transport_a1_16: "Я йду не в той бік."
+  transport_a1_17: "Як дістатися до ...?"
+  transport_a1_18: "Це поруч із ..."
+  transport_a1_19: "Я їду до ..."
+  transport_a1_20: "Мені потрібен квиток до ..."
+  travel_hotel_a1_01: "У мене є бронювання."
+  travel_hotel_a1_02: "На ім'я Коваленко."
+  travel_hotel_a1_03: "Мені потрібен номер на одну ніч."
+  travel_hotel_a1_04: "Є вільний двомісний номер?"
+  travel_hotel_a1_05: "Сніданок включений?"
+  travel_hotel_a1_06: "О котрій годині сніданок?"
+  travel_hotel_a1_07: "Де мій номер?"
+  travel_hotel_a1_08: "Який пароль від Wi-Fi?"
+  travel_hotel_a1_09: "Ключ не працює."
+  travel_hotel_a1_10: "Можна ще один рушник?"
+  travel_hotel_a1_11: "Де можна залишити багаж?"
+  travel_hotel_a1_12: "Коли потрібно звільнити номер?"
+  travel_hotel_a1_13: "Я залишаюся на три дні."
+  travel_hotel_a1_14: "Я хочу відвідати музей."
+  travel_hotel_a1_15: "Можна зробити фото?"
+  travel_hotel_a1_16: "Тут дуже гарно."
+  travel_hotel_a1_17: "Я хотів би забронювати ..."
+  travel_hotel_a1_18: "Бронювання на ... ночей."
+  travel_hotel_a1_19: "Скільки коштує ... за ніч?"
+  travel_hotel_a1_20: "Чи можна тут ...?"
+  travel_trouble_a2_01: "Я пропустив свій поїзд."
+  travel_trouble_a2_02: "Мій рейс скасували."
+  travel_trouble_a2_03: "Яка наступна можливість виїхати?"
+  travel_trouble_a2_04: "Цей квиток ще дійсний?"
+  travel_trouble_a2_05: "Мені потрібен інший маршрут."
+  travel_trouble_a2_06: "Де зупиняється автобус замість поїзда?"
+  travel_trouble_a2_07: "Я загубив свій гаманець."
+  travel_trouble_a2_08: "Я залишив сумку в автобусі."
+  travel_trouble_a2_09: "Де бюро знахідок?"
+  travel_trouble_a2_10: "Мій багаж не прибув."
+  travel_trouble_a2_11: "Ось опис моєї валізи."
+  travel_trouble_a2_12: "Мені потрібне підтвердження затримки."
+  travel_trouble_a2_13: "Де можна подати заяву?"
+  travel_trouble_a2_14: "Можна змінити дату поїздки?"
+  travel_trouble_a2_15: "Я не встигаю на пересадку."
+  travel_trouble_a2_16: "Хто може мені допомогти?"
+  travel_trouble_a2_17: "Я загубив ... біля ..."
+  travel_trouble_a2_18: "Затримка становить ..."
+  travel_trouble_a2_19: "Чи є інший спосіб ...?"
+  travel_trouble_a2_20: "Куди звернутися щодо ...?"
+  understanding_a0_01: "Я не розумію."
+  understanding_a0_02: "Тепер я розумію."
+  understanding_a0_03: "Повільніше, будь ласка."
+  understanding_a0_04: "Ще раз, будь ласка."
+  understanding_a0_05: "Повторіть, будь ласка."
+  understanding_a0_06: "Що це означає?"
+  understanding_a0_07: "Як це сказати німецькою?"
+  understanding_a0_08: "Як це пишеться?"
+  understanding_a0_09: "Напишіть це, будь ласка."
+  understanding_a0_10: "Покажіть, будь ласка."
+  understanding_a0_11: "Я не знаю."
+  understanding_a0_12: "Я не впевнений."
+  understanding_a0_13: "Так, саме так."
+  understanding_a0_14: "Ні, не це."
+  understanding_a0_15: "Це правильно?"
+  understanding_a0_16: "Одну хвилинку, будь ласка."
+  understanding_a0_17: "Я не чую."
+  understanding_a0_18: "Голосніше, будь ласка."
+  understanding_a0_19: "Можна англійською?"
+  understanding_a0_20: "Як вимовляється ...?"
+  work_change_b2_01: "Професійний досвід не завжди замінює систематичне навчання."
+  work_change_b2_02: "Мені важливо розуміти, навіщо потрібна ця зміна."
+  work_change_b2_03: "Нові обов'язки мають супроводжуватися підтримкою."
+  work_change_b2_04: "Гнучкий графік не означає постійну доступність."
+  work_change_b2_05: "Продуктивність не варто вимірювати лише кількістю годин."
+  work_change_b2_06: "Яка компетенція буде потрібна нам надалі?"
+  work_change_b2_07: "Навчання має бути пов'язане з реальними завданнями."
+  work_change_b2_08: "Помилки можуть бути джерелом навчання, якщо їх аналізувати."
+  work_change_b2_09: "Я ціную конкретний зворотний зв'язок більше за загальну похвалу."
+  work_change_b2_10: "Перехід має бути поступовим і передбачуваним."
+  work_change_b2_11: "Нам потрібно зберегти те, що вже працює."
+  work_change_b2_12: "Не кожна нова технологія розв'язує реальну проблему."
+  work_change_b2_13: "Щоб адаптуватися до ..., нам потрібно ..."
+  work_change_b2_14: "Я хотів би розвинути ..., щоб ..."
+  work_change_b2_15: "Складність полягає в тому, щоб поєднати ... і ..."
+  work_change_b2_16: "Замість оцінювати лише ..., варто ..."
+  work_change_b2_17: "Успішність переходу залежатиме від ..."
+  work_change_b2_18: "Мій попередній досвід показав, що ..."
+  work_change_b2_19: "Для сталого результату важливо ..."
+  work_change_b2_20: "Перш ніж упроваджувати ..., слід перевірити ..."
+  work_search_a2_01: "Я шукаю роботу."
+  work_search_a2_02: "Мене цікавить ця вакансія."
+  work_search_a2_03: "Де можна надіслати резюме?"
+  work_search_a2_04: "У мене є досвід у продажах."
+  work_search_a2_05: "Я працював у невеликій компанії."
+  work_search_a2_06: "Я швидко вчуся."
+  work_search_a2_07: "Я люблю працювати в команді."
+  work_search_a2_08: "Я можу почати наступного місяця."
+  work_search_a2_09: "Це повний чи неповний робочий день?"
+  work_search_a2_10: "Який робочий графік?"
+  work_search_a2_11: "Які мої основні завдання?"
+  work_search_a2_12: "Хто буде моїм керівником?"
+  work_search_a2_13: "Чи передбачене навчання?"
+  work_search_a2_14: "Коли відбудеться співбесіда?"
+  work_search_a2_15: "Я надіслав усі документи."
+  work_search_a2_16: "Коли можна очікувати відповідь?"
+  work_search_a2_17: "Я маю досвід роботи з ..."
+  work_search_a2_18: "Мої обов'язки включали ..."
+  work_search_a2_19: "Я хотів би працювати ..."
+  work_search_a2_20: "Чи потрібен для цієї роботи ...?"

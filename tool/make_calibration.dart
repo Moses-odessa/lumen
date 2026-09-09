@@ -8,12 +8,16 @@
 //
 // Правило:
 //
-// 1. Внутри яруса концепты сортируются по частотности — калибровка должна
-//    мерить владение обиходным словарём, а не знание редких слов.
-// 2. Отбор идёт по кругу через созвездия. Иначе весь тест окажется про одну
+// 1. Спрашивают только фразы. Раньше двадцать шесть позиций из тридцати были
+//    словами, и четыре — фразами, чтобы тест отличал «знаю слова» от «умею
+//    собрать предложение». Отдельного слова в игре больше нет, значит и
+//    мерить владение словом бессмысленно: игрок его никогда не увидит.
+// 2. Внутри созвездия фразы берутся в авторском порядке — том же, в котором
+//    они лежат в файле. Прежний отбор шёл по частотности слова, а у фразы
+//    частотности нет; авторский порядок — это и есть заявленная
+//    последовательность знакомства, то есть от обиходного к редкому.
+// 3. Отбор идёт по кругу через созвездия. Иначе весь тест окажется про одну
 //    тему, и человек, знающий медицину, но не кухню, получит завышенный ярус.
-// 3. Четыре позиции из тридцати — фразы: тест обязан отличать «знаю слова» от
-//    «умею собрать предложение», это отдельная фаза онбординга.
 //
 // Файл создаётся один раз и дальше правится руками: генератор нужен, чтобы
 // начать с осмысленного набора, а не чтобы владеть им вечно.
@@ -23,8 +27,7 @@ import 'dart:io';
 import 'content_schema.dart';
 import 'content_sources.dart';
 
-const _wordsPerTier = 26;
-const _phrasesPerTier = 4;
+const _phrasesPerTier = 30;
 
 Future<void> main(List<String> args) async {
   final lang = _argValue(args, '--lang') ?? defaultTargetLang;
@@ -32,7 +35,14 @@ Future<void> main(List<String> args) async {
 
   final ContentSources sources;
   try {
-    sources = ContentSources.load(Directory('${root.path}/content'), lang: lang);
+    // Прежний набор не читается: генератор его перезаписывает, а набор,
+    // собранный по устаревшим правилам, чтением отвергается — и починить его
+    // можно только этим генератором.
+    sources = ContentSources.load(
+      Directory('${root.path}/content'),
+      lang: lang,
+      withCalibration: false,
+    );
   } on ContentSourceException catch (e) {
     stderr.writeln('Ошибка в исходниках: ${e.message}');
     exitCode = 1;
@@ -42,8 +52,8 @@ Future<void> main(List<String> args) async {
   final buffer = StringBuffer()
     ..writeln('# Набор калибровки — собран `tool/make_calibration.dart`.')
     ..writeln('#')
-    ..writeln('# Отбор: внутри яруса по частотности, по кругу через созвездия,')
-    ..writeln('# четыре позиции из тридцати — фразы. Правило целиком описано')
+    ..writeln('# Отбор: по 30 фраз на ярус, по кругу через созвездия, внутри')
+    ..writeln('# созвездия — в авторском порядке. Правило целиком описано')
     ..writeln('# в шапке генератора.')
     ..writeln('#')
     ..writeln('# Править руками можно и нужно: генератор даёт осмысленную')
@@ -53,17 +63,11 @@ Future<void> main(List<String> args) async {
 
   var total = 0;
   for (final tier in tiers) {
-    final words = _pickWords(sources, tier);
     final phrases = _pickPhrases(sources, tier);
-    if (words.isEmpty && phrases.isEmpty) continue;
+    if (phrases.isEmpty) continue;
 
     buffer.writeln('  # ── ${tier.toUpperCase()} '
-        '(${words.length} слов, ${phrases.length} фраз) ──');
-    for (final concept in words) {
-      buffer.writeln('  - { id: cal_${tier}_${concept.id}, tier: $tier, '
-          'concept: ${concept.id} }');
-      total++;
-    }
+        '(${phrases.length} фраз) ──');
     for (final phrase in phrases) {
       buffer.writeln('  - { id: cal_${tier}_${phrase.id}, tier: $tier, '
           'phrase: ${phrase.id} }');
@@ -78,29 +82,14 @@ Future<void> main(List<String> args) async {
 
   stdout.writeln('Набор калибровки $lang: $total позиций → ${file.path}');
   for (final tier in tiers) {
-    final words = _pickWords(sources, tier).length;
-    final phrases = _pickPhrases(sources, tier).length;
-    final sum = words + phrases;
-    final mark = sum >= 30 ? '✓' : '…';
-    stdout.writeln('  $mark $tier: $sum (слов $words, фраз $phrases)');
+    final count = _pickPhrases(sources, tier).length;
+    final mark = count >= _phrasesPerTier ? '✓' : '…';
+    stdout.writeln('  $mark $tier: $count фраз');
   }
 }
 
-/// Слова яруса: по частотности, по кругу через созвездия.
-List<ConceptSource> _pickWords(ContentSources sources, String tier) {
-  final byConstellation = <String, List<ConceptSource>>{};
-  for (final concept in sources.concepts.values) {
-    if (concept.tier != tier) continue;
-    byConstellation.putIfAbsent(concept.constellation, () => []).add(concept);
-  }
-  for (final list in byConstellation.values) {
-    list.sort((a, b) => (a.freqRank ?? 1 << 30).compareTo(b.freqRank ?? 1 << 30));
-  }
-
-  return _roundRobin(byConstellation, _wordsPerTier);
-}
-
-/// Фразы яруса — так же по кругу, чтобы четыре фразы не оказались из одной темы.
+/// Фразы яруса: по кругу через созвездия, внутри созвездия — по порядку в
+/// файле. Иначе тридцать позиций окажутся из двух тем.
 List<PhraseSource> _pickPhrases(ContentSources sources, String tier) {
   final byConstellation = <String, List<PhraseSource>>{};
   for (final phrase in sources.phrases) {
@@ -108,7 +97,7 @@ List<PhraseSource> _pickPhrases(ContentSources sources, String tier) {
     byConstellation.putIfAbsent(phrase.constellation, () => []).add(phrase);
   }
   for (final list in byConstellation.values) {
-    list.sort((a, b) => a.id.compareTo(b.id));
+    list.sort((a, b) => a.idx.compareTo(b.idx));
   }
 
   return _roundRobin(byConstellation, _phrasesPerTier);

@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: idioms_speech
+tiers:
+  b2:
+    - id: idioms_speech_b2_01
+      text: "Ich habe gerade viel um die Ohren."
+    - id: idioms_speech_b2_02
+      text: "Ich muss das alles unter einen Hut bringen."
+    - id: idioms_speech_b2_03
+      text: "Ich habe den Faden verloren."
+    - id: idioms_speech_b2_04
+      text: "Das hat den Nagel auf den Kopf getroffen."
+    - id: idioms_speech_b2_05
+      text: "Lass uns nicht um den heißen Brei herumreden."
+      register: casual
+    - id: idioms_speech_b2_06
+      text: "Das ist eine ganz andere Sache."
+    - id: idioms_speech_b2_07
+      text: "Man sollte aus einer Mücke keinen Elefanten machen."
+    - id: idioms_speech_b2_08
+      text: "Ich drücke dir die Daumen."
+    - id: idioms_speech_b2_09
+      text: "Das ist nur die Spitze des Eisbergs."
+    - id: idioms_speech_b2_10
+      text: "Da liegt das Problem."
+    - id: idioms_speech_b2_11
+      text: "Ich muss noch eine Nacht darüber schlafen."
+    - id: idioms_speech_b2_12
+      text: "Ich möchte nichts überstürzen."
+    - id: idioms_speech_b2_13
+      text: "Wir reden offenbar aneinander vorbei."
+    - id: idioms_speech_b2_14
+      text: "Jetzt fügt sich alles zusammen."
+    - id: idioms_speech_b2_15
+      text: "Unsere Pläne sind ins Wasser gefallen."
+    - id: idioms_speech_b2_16
+      text: "Das lässt mir keine Ruhe."
+    - id: idioms_speech_b2_17
+      text: "Ich kann davor nicht einfach die Augen verschließen."
+    - id: idioms_speech_b2_18
+      text: "Wir sind endlich einen Schritt weiter."
+    - id: idioms_speech_b2_19
+      text: "Das war der Tropfen, der das Fass zum Überlaufen brachte."
+    - id: idioms_speech_b2_20
+      text: "Das wird sich nach und nach einspielen."

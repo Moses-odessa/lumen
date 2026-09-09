@@ -1,0 +1,51 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: agree_object
+tiers:
+  b1:
+    - id: agree_object_b1_01
+      text: "Damit bin ich einverstanden."
+    - id: agree_object_b1_02
+      text: "In diesem Punkt hast du recht."
+    - id: agree_object_b1_03
+      text: "Das ist ein guter Punkt."
+    - id: agree_object_b1_04
+      text: "Das denke ich auch."
+    - id: agree_object_b1_05
+      text: "Im Großen und Ganzen stimme ich zu."
+    - id: agree_object_b1_06
+      text: "Da sehe ich das anders."
+    - id: agree_object_b1_07
+      text: "Ich verstehe das Argument, teile aber die Schlussfolgerung nicht."
+    - id: agree_object_b1_08
+      text: "Ich glaube nicht, dass das immer so ist."
+    - id: agree_object_b1_09
+      text: "Da stimme ich nicht ganz zu."
+    - id: agree_object_b1_10
+      text: "Das kommt auf die Situation an."
+    - id: agree_object_b1_11
+      text: "Vielleicht reden wir über verschiedene Dinge."
+    - id: agree_object_b1_12
+      text: "Lass uns klären, worin wir uns einig sind."
+      register: casual
+    - id: agree_object_b1_13
+      text: "Wir können unterschiedlicher Meinung sein."
+    - id: agree_object_b1_14
+      text: "Ich wollte dich nicht unterbrechen."
+    - id: agree_object_b1_15
+      text: "Lass mich bitte meinen Gedanken zu Ende führen."
+      register: casual
+    - id: agree_object_b1_16
+      text: "Gut, jetzt verstehe ich deinen Standpunkt."
+    - id: agree_object_b1_17
+      text: "Bei ... stimme ich zu, aber ..."
+    - id: agree_object_b1_18
+      text: "Einerseits ..., andererseits ..."
+    - id: agree_object_b1_19
+      text: "Das stimmt, allerdings ..."
+    - id: agree_object_b1_20
+      text: "Sollte man nicht auch ... berücksichtigen?"

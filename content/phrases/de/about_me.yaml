@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: about_me
+tiers:
+  a0:
+    - id: about_me_a0_01
+      text: "Ich heiße ..."
+    - id: about_me_a0_02
+      text: "Wie heißt du?"
+    - id: about_me_a0_03
+      text: "Ich komme aus ..."
+    - id: about_me_a0_04
+      text: "Woher kommst du?"
+    - id: about_me_a0_05
+      text: "Ich wohne in ..."
+    - id: about_me_a0_06
+      text: "Wo wohnst du?"
+    - id: about_me_a0_07
+      text: "Ich bin ... Jahre alt."
+    - id: about_me_a0_08
+      text: "Wie alt bist du?"
+    - id: about_me_a0_09
+      text: "Ich arbeite hier."
+    - id: about_me_a0_10
+      text: "Ich lerne."
+    - id: about_me_a0_11
+      text: "Das ist mein Freund."
+    - id: about_me_a0_12
+      text: "Das ist meine Familie."
+    - id: about_me_a0_13
+      text: "Ich bin zum ersten Mal hier."
+    - id: about_me_a0_14
+      text: "Ich bin hier im Urlaub."
+    - id: about_me_a0_15
+      text: "Ich spreche Englisch."
+    - id: about_me_a0_16
+      text: "Ich spreche ein bisschen Deutsch."
+    - id: about_me_a0_17
+      text: "Ich lerne noch."
+    - id: about_me_a0_18
+      text: "Meine Adresse ist ..."
+    - id: about_me_a0_19
+      text: "Meine Telefonnummer ist ..."
+    - id: about_me_a0_20
+      text: "Und du?"

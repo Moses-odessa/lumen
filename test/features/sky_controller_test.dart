@@ -19,6 +19,10 @@ import 'package:lumen/features/sky/application/sky_controller.dart';
 /// Два числа в подвале карты соврали одновременно и по разным причинам.
 /// Поймать это можно было только здесь, где сходятся обе базы и запись
 /// игрока: по отдельности каждый слой работал как написан.
+///
+/// Звезда — это фраза. Со словарным слоем ушёл `conceptsUpTo`, и состав неба
+/// теперь даёт `ContentDatabase.phrasesUpTo`; ни одна проверка от этого не
+/// удалена — считать по фразам небо обязано ровно то же самое.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -88,16 +92,23 @@ void main() {
   test('ярус урезается до запущенного, даже если в записи он выше', () async {
     // В ассете `launched_tiers` = a0, и это единственный ярус, который даёт
     // играть загрузчик сессии. Небо же брало ярус из записи игрока как есть:
-    // бейдж показывал «B2», `conceptsUpTo` отдавал концепты всех пяти ярусов,
-    // а состав созвездия раздувался с 12 слов до 96 — и по этим 96 считались
-    // `isLit` (80 % ярче 70 lm) и открытие соседей, то есть небо зажигалось
-    // примерно в восемь раз труднее, чем задумано.
+    // бейдж показывал «B2», выборка отдавала фразы всех пяти ярусов — 432
+    // звезды вместо 36, а состав созвездия 48 фраз вместо 4, — и по этому
+    // раздутому составу считались `isLit` (80 % ярче 70 lm) и открытие
+    // соседей, то есть небо зажигалось примерно в двенадцать раз труднее,
+    // чем задумано.
+    final low = containerFor(Tier.a0);
+    final course =
+        await low.read(currentContentDatabaseProvider).countPhrases();
+
     final wide = await containerFor(Tier.b2).read(skySnapshotProvider.future);
-    final narrow = await containerFor(Tier.a0).read(skySnapshotProvider.future);
+    final narrow = await low.read(skySnapshotProvider.future);
 
     expect(wide.tier, Tier.a0, reason: 'незапущенный ярус дошёл до неба');
     expect(wide.totalStars, narrow.totalStars);
-    expect(wide.totalStars, lessThan(864),
+    // Число курса берётся из базы, а не пишется в тесте: курс растёт файлами
+    // контента, и константа здесь устарела бы молча.
+    expect(wide.totalStars, lessThan(course),
         reason: 'на небе весь курс, а не запущенный ярус');
   });
 
@@ -110,9 +121,9 @@ void main() {
     // ответил.
     final container = containerFor(Tier.a0);
     final content = container.read(currentContentDatabaseProvider);
-    final ids = (await content.conceptsUpTo(Tier.a0))
+    final ids = (await content.phrasesUpTo(Tier.a0))
         .take(3)
-        .map((c) => c.id)
+        .map((p) => p.id)
         .toList();
     expect(ids, hasLength(3));
 
@@ -135,9 +146,9 @@ void main() {
     // ложью в другую сторону.
     final container = containerFor(Tier.a0);
     final content = container.read(currentContentDatabaseProvider);
-    final ids = (await content.conceptsUpTo(Tier.a0))
+    final ids = (await content.phrasesUpTo(Tier.a0))
         .take(2)
-        .map((c) => c.id)
+        .map((p) => p.id)
         .toList();
 
     final words = WordStateRepository(db);

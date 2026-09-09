@@ -9,14 +9,21 @@ import 'package:lumen/domain/scoring/balance.dart';
 /// Синтетический игрок с заданным истинным уровнем.
 ///
 /// Он знает всё на своём ярусе и ниже, а выше — угадывает с вероятностью
-/// 1/6: калибровка спрашивает полным кругом, а шесть — потолок вариантов
-/// на экране. Плюс немного шума: живой человек ошибается и на знакомом.
+/// 1/[ScoreBalance.optionsPerCircle]: круг всегда полный, и наугад попадают в
+/// один из шести. Плюс немного шума: живой человек ошибается и на знакомом.
+///
+/// Штрафы за трудность круга отсюда ушли вместе с тем, что их порождало.
+/// Раньше их было два: фразовая механика (собрать предложение труднее, чем
+/// узнать слово) и созвучные дистракторы. Механика в тесте теперь одна на все
+/// фазы, а «неверный вариант» никто не пишет руками — вокруг фразы стоят
+/// другие фразы. Модель, в которой один и тот же круг то труднее, то легче,
+/// врала бы калибровке в её же пользу.
 class _Player {
   _Player({
     required this.trueTier,
     required this.random,
     this.slip = 0.08,
-    this.guessRate = 1 / 6,
+    this.guessRate = 1 / ScoreBalance.optionsPerCircle,
   });
 
   final Tier trueTier;
@@ -29,16 +36,8 @@ class _Player {
   final double guessRate;
 
   bool answer(CalibrationStep step) {
-    // Фразы даются тяжелее отдельных слов: собрать предложение сложнее,
-    // чем узнать слово.
-    final penalty = step.mode.isPhrase ? 0.15 : 0.0;
-    // Созвучные дистракторы тоже сложнее. Раньше это читалось по режиму
-    // (`GameMode.tight`), теперь — по виду дистракторов: механика у тесного
-    // круга та же самая, и отличить его можно только так.
-    final tight = step.isTight ? 0.08 : 0.0;
-
     if (step.tier.index <= trueTier.index) {
-      return random.nextDouble() > slip + penalty + tight;
+      return random.nextDouble() > slip;
     }
     return random.nextDouble() < guessRate;
   }
@@ -78,43 +77,99 @@ CalibrationState _toConfirm() {
       latency: const Duration(seconds: 2),
     );
   }
+  // Иначе тест, который начинается этой строкой, проверял бы неизвестно что:
+  // не дошедший до подтверждения прогон отдаёт состояние любой другой фазы.
+  expect(state.phase, CalibrationPhase.confirm,
+      reason: 'до подтверждения границы не дошли за 100 кругов');
   return state;
 }
 
+/// Доводит до подтверждения на самом нижнем ярусе: игрок не берёт ничего.
+CalibrationState _toConfirmAtA0() {
+  var state = CalibrationState.start();
+  var guard = 0;
+  while (state.phase != CalibrationPhase.confirm && guard++ < 100) {
+    state = Calibration.answer(
+      state,
+      correct: false,
+      latency: const Duration(seconds: 3),
+    );
+  }
+  expect(state.phase, CalibrationPhase.confirm,
+      reason: 'до подтверждения границы не дошли за 100 кругов');
+  return state;
+}
+
+/// Что отсюда удалено вместе с правилами, которых больше нет.
+///
+/// * Группа «финальные фразы», три теста: «спрашивается ровно четыре фразы»,
+///   «провал фраз опускает результат на ярус», «половина верных фраз ярус
+///   сохраняет». Они охраняли фазу `CalibrationPhase.phrases`: найдя ярус,
+///   тест спрашивал четыре целых предложения механикой `fillGaps` и ронял
+///   ярус, если игрок собрал меньше половины, — «знает слова, но не собирает
+///   предложения». Единицей изучения стала фраза: гребёнка, поиск и
+///   подтверждение спрашивают ровно то, что спрашивала эта фаза, и отдельная
+///   проверка стала повтором самой себя. Фазы нет, `finalPhraseChecks` нет,
+///   правила «не собрал предложения — ярус вниз» нет.
+/// * Пять тестов про созвучные варианты: «теснота живёт в дистракторах и не
+///   зависит от механики», «граница проверяется тесным кругом», «тесный круг
+///   — вид дистракторов, а не отдельная механика», «после тесного
+///   подтверждения круг снова обычный», «ни одна граница не подтверждается
+///   без созвучного круга». Все они охраняли `CalibrationStep.distractorKind`
+///   и требование «хотя бы одно подтверждение созвучными вариантами»: шесть
+///   тематических дают 17 % случайного попадания, и без созвучных граница
+///   подтверждалась бы угадыванием. Рукописных дистракторов в игре больше
+///   нет — вокруг фразы стоят другие фразы яруса, «неверный вариант» никто не
+///   придумывает. Вида дистракторов не существует, `tightConfirmed` тоже, и
+///   охранять нечего. То, что от них осталось охранять — «механика в тесте
+///   одна», — проверяется в группе «шаг».
 void main() {
   group('шаг', () {
-    test('теснота живёт в дистракторах и не зависит от механики', () {
-      // Поле обязано быть на шаге, а не выводиться из режима. Иначе правило
-      // «границу проверяем созвучными» становится невыразимым: механика у
-      // обычного и тесного круга теперь одна.
-      const loose = CalibrationStep(
-        tier: Tier.a1,
-        mode: GameMode.pickTarget,
-        phase: CalibrationPhase.search,
-      );
-      const tight = CalibrationStep(
-        tier: Tier.a1,
-        mode: GameMode.pickTarget,
-        phase: CalibrationPhase.confirm,
-        distractorKind: DistractorKind.near,
-      );
+    test('весь тест мерит одной механикой, и она продуктивная', () {
+      // Ярус нельзя мерить узнаванием: выбрать перевод из шести проще, чем
+      // назвать фразу на изучаемом, и игрок, который «всё понимает», получил
+      // бы ярус, на котором не может сказать ничего. Отсюда единственная
+      // механика на все фазы — самая требовательная из трёх.
+      //
+      // Это же место занимала проверка вида дистракторов: механик в тесте
+      // было две, обычный круг и тесный, и различить их можно было только по
+      // ним. Различать больше нечего, и осталось правило про механику.
+      final modes = <GameMode>{};
+      final phases = <CalibrationPhase>{};
 
-      expect(loose.mode, tight.mode);
-      expect(loose.isTight, isFalse, reason: 'по умолчанию круг тематический');
-      expect(tight.isTight, isTrue);
+      var state = CalibrationState.start();
+      var guard = 0;
+      while (!state.isDone && guard++ < 200) {
+        modes.add(state.step.mode);
+        phases.add(state.step.phase);
+        state = Calibration.answer(
+          state,
+          correct: state.step.tier.index <= Tier.a2.index,
+          latency: const Duration(seconds: 2),
+        );
+      }
+
+      expect(modes, {GameMode.pickTarget});
+      expect(modes.single.isProductive, isTrue,
+          reason: 'ярус измерен узнаванием, а не производством');
+      // Иначе множество режимов набралось бы из одной фазы, и проверка выше
+      // говорила бы только про гребёнку.
+      expect(phases, {
+        CalibrationPhase.comb,
+        CalibrationPhase.search,
+        CalibrationPhase.confirm,
+      });
     });
   });
 
   group('гребёнка', () {
-    test('начинается с самого нижнего яруса обычным кругом', () {
+    test('начинается с самого нижнего яруса', () {
       final state = CalibrationState.start();
       expect(state.phase, CalibrationPhase.comb);
       expect(state.step.tier, Tier.a0);
       expect(state.step.mode, GameMode.pickTarget);
-      // «Обычный» — это про дистракторы, а не про механику: первый круг
-      // игры не должен требовать различать созвучные формы.
-      expect(state.step.distractorKind, DistractorKind.far);
-      expect(state.step.isTight, isFalse);
+      expect(state.step.isRepeat, isFalse);
+      expect(state.result, isNull);
     });
 
     test('верный ответ поднимает на ярус выше', () {
@@ -138,15 +193,29 @@ void main() {
       expect(state.highest, Tier.a1);
     });
 
-    test('пройденная целиком гребёнка ведёт сразу к фразам', () {
+    test('взятая с ходу гребёнка заканчивает тест верхним ярусом', () {
+      // Раньше отсюда шли к проверке фразами: она была единственным, что
+      // отделяло «прошёл всю гребёнку» от «получил B2», и ярус выставляла
+      // она. Проверки нет — значит гребёнка обязана быть полноценной
+      // концовкой: и закончить тест, и объявить итог. Угадать её целиком это
+      // (1/6)⁵, один шанс из семи с половиной тысяч.
       var state = CalibrationState.start();
+      final phases = <CalibrationPhase>[];
       for (var i = 0; i < Tier.values.length; i++) {
+        phases.add(state.phase);
         state = Calibration.answer(state,
             correct: true, latency: const Duration(seconds: 2));
       }
 
-      expect(state.phase, CalibrationPhase.phrases);
-      expect(state.probe, Tier.b2);
+      expect(phases, everyElement(CalibrationPhase.comb),
+          reason: 'гребёнка сходила куда-то ещё по дороге вверх');
+      expect(state.phase, CalibrationPhase.done);
+      expect(state.result, Tier.b2);
+      expect(state.asked, Tier.values.length,
+          reason: 'верхний ярус стоил лишних кругов');
+      // Засев памяти идёт из подтверждённых ярусов, и верхний в них тоже
+      // должен попасть: игрок его взял.
+      expect(state.confirmed, containsAll(Tier.values));
     });
   });
 
@@ -191,6 +260,8 @@ void main() {
             correct: true, latency: const Duration(milliseconds: 200));
       }
       expect(repeats, lessThanOrEqualTo(CalibrationBalance.maxRepeats));
+      expect(repeats, greaterThan(0),
+          reason: 'ни один быстрый ответ не переспросили — мерить нечего');
     });
 
     test('медленный верный ответ не переспрашивается', () {
@@ -201,15 +272,72 @@ void main() {
     });
 
     test('на подтверждённом ярусе быстрый ответ подозрений не вызывает', () {
-      // Быстро отвечать на том, что знаешь, — норма, а не признак угадывания.
+      // Быстро отвечать на том, что знаешь, — норма, а не признак
+      // угадывания. Правило держится на `_isAboveKnown`, и без него игрок,
+      // который просто быстро играет, тратил бы переспросы на своих же
+      // подтверждённых ярусах.
+      //
+      // Раньше в этом тесте стоял один медленный **неверный** ответ: он
+      // проверял, что промах не переспрашивается, то есть не то, что обещано
+      // в названии. Переспрос требует верного ответа, так что тот вариант был
+      // истинным по построению.
       var state = CalibrationState.start();
       state = Calibration.answer(state,
           correct: false, latency: const Duration(seconds: 3));
+      state = Calibration.answer(state,
+          correct: true, latency: const Duration(seconds: 2));
+      expect(state.step.tier, Tier.a0);
+      expect(state.lowest, Tier.a0, reason: 'ярус не стал подтверждённым');
+
+      final before = state.asked;
+      state = Calibration.answer(state,
+          correct: true, latency: const Duration(milliseconds: 200));
+
       expect(state.step.isRepeat, isFalse);
+      expect(state.asked, before + 1, reason: 'круг ушёл в переспрос');
+      expect(state.repeats, 0);
     });
   });
 
   group('подтверждение границы', () {
+    test('три подтверждения заканчивают тест и объявляют ярус', () {
+      // Прежде подтверждение было не концом, а поворотом: найденный ярус оно
+      // передавало фазе фраз, и итог выставляла она. Фазы нет — значит
+      // подтверждение обязано делать и то, и другое.
+      //
+      // Цена пропуска не абстрактная: `CalibrationController._finish` читает
+      // `result ?? Tier.a0`, и тест, дошедший до `done` без итога, молча
+      // выдал бы A0 игроку, ответившему на B1.
+      var state = _toConfirm();
+      final probe = state.probe;
+      final before = state.asked;
+
+      for (var i = 1; i < CalibrationBalance.borderConfirmations; i++) {
+        state = Calibration.answer(state,
+            correct: true, latency: const Duration(seconds: 2));
+        expect(state.isDone, isFalse,
+            reason: 'тест закончился на подтверждении $i из '
+                '${CalibrationBalance.borderConfirmations}');
+      }
+      state = Calibration.answer(state,
+          correct: true, latency: const Duration(seconds: 2));
+
+      expect(state.phase, CalibrationPhase.done);
+      expect(state.result, probe);
+      expect(state.asked, before + CalibrationBalance.borderConfirmations,
+          reason: 'после подтверждения спросили что-то ещё');
+    });
+
+    test('одного верного круга для подтверждения мало', () {
+      var state = _toConfirm();
+
+      state = Calibration.answer(state,
+          correct: true, latency: const Duration(seconds: 2));
+      expect(state.phase, CalibrationPhase.confirm,
+          reason: 'ярус не может подтверждаться одним кругом');
+      expect(state.confirmations, 1);
+    });
+
     test('верный ответ обнуляет счётчик промахов', () {
       // Правило рядом с константой сказано так: «ярус роняет только вторая
       // осечка ПОДРЯД». Счётчик копился накопительно, и «промах → верно →
@@ -232,139 +360,6 @@ void main() {
           correct: false, latency: const Duration(seconds: 2));
       expect(state.probe, probe,
           reason: 'ярус упал от промахов, которые не шли подряд');
-    });
-
-    test('итог остаётся пустым, пока тест не закончен', () {
-      // Контракт поля: «итог; null, пока тест не закончен». Ветка «две
-      // осечки на A0» его нарушала: состояние читалось как
-      // phase: phrases, isDone: false, result: a0 — все четыре оставшихся
-      // круга. Гейт в приложении стоит на isDone, поэтому не стреляло; любой,
-      // кто проверил бы result != null, закончил бы тест на четыре круга
-      // раньше и выдал незаработанный A0.
-      var state = CalibrationState.start();
-      var guard = 0;
-      while (!state.isDone && guard++ < 200) {
-        expect(state.result, isNull,
-            reason: 'итог появился в фазе ${state.phase}');
-        state = Calibration.answer(state,
-            correct: false, latency: const Duration(seconds: 3));
-      }
-      expect(state.isDone, isTrue);
-      expect(state.result, isNotNull);
-    });
-
-    test('граница проверяется тесным кругом', () {
-      var state = CalibrationState.start();
-      // Гоним поиск до подтверждения.
-      var guard = 0;
-      while (state.phase != CalibrationPhase.confirm && guard++ < 100) {
-        state = Calibration.answer(
-          state,
-          correct: state.step.tier.index <= Tier.a1.index,
-          latency: const Duration(seconds: 2),
-        );
-      }
-
-      expect(state.phase, CalibrationPhase.confirm);
-      // Первый круг подтверждения — обязательно тесный. Тесноту теперь
-      // видно только по дистракторам: механика осталась той же, что в
-      // гребёнке, и проверка по режиму молча перестала бы что-либо значить.
-      expect(state.step.distractorKind, DistractorKind.near);
-      expect(state.step.isTight, isTrue);
-      expect(state.step.mode, GameMode.pickTarget);
-    });
-
-    test('тесный круг — вид дистракторов, а не отдельная механика', () {
-      // Граница проверяется тем же жестом и той же механикой, что и всё
-      // остальное: игрок не должен на последнем шаге теста учить новое
-      // задание. Меняется только то, из чего он выбирает.
-      var state = CalibrationState.start();
-      final combMode = state.step.mode;
-
-      var guard = 0;
-      while (state.phase != CalibrationPhase.confirm && guard++ < 100) {
-        state = Calibration.answer(
-          state,
-          correct: state.step.tier.index <= Tier.a1.index,
-          latency: const Duration(seconds: 2),
-        );
-      }
-
-      expect(state.step.mode, combMode);
-      expect(state.step.isTight, isTrue);
-    });
-
-    test('после тесного подтверждения круг снова обычный', () {
-      // Требование — «хотя бы раз созвучными», а не «всегда». Три тесных
-      // круга подряд превратили бы подтверждение в наказание за то, что
-      // игрок дошёл до своей границы.
-      var state = _toConfirm();
-      expect(state.step.isTight, isTrue);
-
-      state = Calibration.answer(state,
-          correct: true, latency: const Duration(seconds: 2));
-
-      expect(state.tightConfirmed, isTrue);
-      expect(state.step.distractorKind, DistractorKind.far);
-    });
-
-    test('ни одна граница не подтверждается без созвучного круга', () {
-      // Инвариант, который прежде читался как `mode == GameMode.tight`.
-      // После слияния круга и тесного круга такая проверка не упала бы — она
-      // просто никогда больше не срабатывала бы, и каждая граница
-      // подтверждалась бы шестью тематическими вариантами, то есть с шансом
-      // угадать один к шести. Поэтому проверяется не шаг, а весь прогон.
-      final random = Random(13);
-      var confirmRuns = 0;
-
-      for (final tier in Tier.values) {
-        for (var i = 0; i < 20; i++) {
-          final player = _Player(trueTier: tier, random: random);
-          var state = CalibrationState.start();
-          var sawConfirm = false;
-          var sawNear = false;
-          var guard = 0;
-
-          while (!state.isDone && guard++ < 200) {
-            final step = state.step;
-            if (step.phase == CalibrationPhase.confirm) sawConfirm = true;
-            if (step.distractorKind == DistractorKind.near) sawNear = true;
-            state = Calibration.answer(
-              state,
-              correct: player.answer(step),
-              latency: player.latency(step),
-            );
-          }
-
-          // Равенство, а не импликация: созвучные уместны только на границе,
-          // и появиться где-то ещё они тоже не должны.
-          expect(sawNear, sawConfirm, reason: 'ярус $tier, прогон $i');
-          if (sawConfirm) confirmRuns++;
-        }
-      }
-
-      // Иначе проверка выше сводится к `false == false` на каждом прогоне и
-      // зеленеет, даже если фазу подтверждения выкинуть целиком.
-      expect(confirmRuns, greaterThan(50),
-          reason: 'прогоны не доходят до подтверждения — проверять нечего');
-    });
-
-    test('одного верного круга для подтверждения мало', () {
-      var state = CalibrationState.start();
-      var guard = 0;
-      while (state.phase != CalibrationPhase.confirm && guard++ < 100) {
-        state = Calibration.answer(
-          state,
-          correct: state.step.tier.index <= Tier.a1.index,
-          latency: const Duration(seconds: 2),
-        );
-      }
-
-      state = Calibration.answer(state,
-          correct: true, latency: const Duration(seconds: 2));
-      expect(state.phase, CalibrationPhase.confirm,
-          reason: 'ярус не может подтверждаться одним кругом');
-      expect(state.confirmations, 1);
     });
 
     test('одна осечка при подтверждении прощается', () {
@@ -397,6 +392,51 @@ void main() {
       expect(state.confirmations, 0);
       expect(state.confirmFailures, 0);
       expect(state.probe.index, lessThan(probe.index));
+      expect(state.isDone, isFalse, reason: 'ниже есть куда спускаться');
+    });
+
+    test('ниже A0 некуда: вторая осечка там заканчивает тест', () {
+      // Единственная ветка, где ярус ронять нельзя, а закончить тест раньше
+      // было нечем: она уводила в фазу фраз и не выставляла `result`, чтобы
+      // не нарушить контракт поля. Получалось состояние
+      // `phase: phrases, isDone: false, result: a0` на все четыре оставшихся
+      // круга. Фазы нет, ветка стала концовкой, и итог выставляется вместе с
+      // фазой — как во всех остальных концовках.
+      var state = _toConfirmAtA0();
+      expect(state.probe, Tier.a0, reason: 'подтверждать начали не с нуля');
+      final before = state.asked;
+
+      state = Calibration.answer(state,
+          correct: false, latency: const Duration(seconds: 3));
+      expect(state.isDone, isFalse, reason: 'и на нуле осечка прощается');
+      expect(state.result, isNull);
+
+      state = Calibration.answer(state,
+          correct: false, latency: const Duration(seconds: 3));
+
+      expect(state.phase, CalibrationPhase.done);
+      expect(state.probe, Tier.a0);
+      expect(state.result, Tier.a0);
+      expect(state.asked, before + 2,
+          reason: 'после второй осечки на нуле спросили что-то ещё');
+    });
+
+    test('итог остаётся пустым, пока тест не закончен', () {
+      // Контракт поля: «итог; null, пока тест не закончен». Гейт в приложении
+      // стоит на `isDone`, а `_finish` читает `result ?? Tier.a0`, поэтому
+      // любое расхождение этих двух признаков стоит игроку яруса — в одну
+      // сторону тест кончается раньше времени, в другую выдаёт A0 вместо
+      // измеренного.
+      var state = CalibrationState.start();
+      var guard = 0;
+      while (!state.isDone && guard++ < 200) {
+        expect(state.result, isNull,
+            reason: 'итог появился в фазе ${state.phase}');
+        state = Calibration.answer(state,
+            correct: false, latency: const Duration(seconds: 3));
+      }
+      expect(state.isDone, isTrue);
+      expect(state.result, isNotNull);
     });
 
     test('верный ответ снимает потолок, поставленный случайной осечкой', () {
@@ -415,64 +455,6 @@ void main() {
       }
 
       expect(state.result!.index, greaterThan(Tier.a0.index));
-    });
-  });
-
-  group('финальные фразы', () {
-    CalibrationState toPhrases() {
-      var state = CalibrationState.start();
-      var guard = 0;
-      while (state.phase != CalibrationPhase.phrases && guard++ < 200) {
-        state = Calibration.answer(
-          state,
-          correct: state.step.tier.index <= Tier.a2.index,
-          latency: const Duration(seconds: 2),
-        );
-      }
-      return state;
-    }
-
-    test('спрашивается ровно четыре фразы', () {
-      var state = toPhrases();
-      final tier = state.probe;
-
-      for (var i = 0; i < CalibrationBalance.finalPhraseChecks; i++) {
-        expect(state.isDone, isFalse, reason: 'фраза ${i + 1}');
-        expect(state.step.mode, GameMode.fillGaps);
-        // Механика может однажды стать другой фразовой, но проверка обязана
-        // остаться фразовой: словами ярус уже проверен выше.
-        expect(state.step.mode.isPhrase, isTrue);
-        state = Calibration.answer(state,
-            correct: true, latency: const Duration(seconds: 2));
-      }
-
-      expect(state.isDone, isTrue);
-      expect(state.result, tier);
-    });
-
-    test('провал фраз опускает результат на ярус', () {
-      var state = toPhrases();
-      final tier = state.probe;
-
-      for (var i = 0; i < CalibrationBalance.finalPhraseChecks; i++) {
-        state = Calibration.answer(state,
-            correct: false, latency: const Duration(seconds: 4));
-      }
-
-      expect(state.isDone, isTrue);
-      expect(state.result!.index, lessThan(tier.index));
-    });
-
-    test('половина верных фраз ярус сохраняет', () {
-      var state = toPhrases();
-      final tier = state.probe;
-
-      for (var i = 0; i < CalibrationBalance.finalPhraseChecks; i++) {
-        state = Calibration.answer(state,
-            correct: i.isEven, latency: const Duration(seconds: 2));
-      }
-
-      expect(state.result, tier);
     });
   });
 
@@ -547,7 +529,7 @@ void main() {
           trueTier: Tier.a0,
           random: random,
           slip: 0.5,
-          guessRate: 1 / 6,
+          guessRate: 1 / ScoreBalance.optionsPerCircle,
         ));
         if (state.result!.index >= Tier.a2.index) high++;
       }
@@ -604,19 +586,24 @@ void main() {
 
     // Тест «оценка словаря растёт вместе с ярусом» удалён вместе с
     // `Calibration.estimatedVocabulary`. Он утверждал, что на B2 игрок знает
-    // 2880 слов, — при том, что в базе их 864, а множитель «30 созвездий»
-    // был взят из планов, а не из содержимого. Тест защищал ложное число.
+    // 2880 слов, — при том, что в базе их было 864, а множитель «30
+    // созвездий» был взят из планов, а не из содержимого. Тест защищал ложное
+    // число.
     //
-    // Число теперь приходит из базы (`countConceptsUpTo`), и проверять его
-    // на выдуманных данных бессмысленно: проверяет его тот же ассет, что
-    // играет.
+    // Отдельных слов в игре не осталось вовсе: считать теперь нечего, кроме
+    // фраз, и число приходит из базы (`ContentDatabase.phrasesUpTo`).
+    // Проверять его на выдуманных данных бессмысленно — проверяет его тот же
+    // ассет, что играет.
   });
 
   group('прогресс', () {
-    test('растёт от начала к концу и не выходит за границы', () {
+    test('полоса идёт от нуля к единице и не выходит за границы', () {
+      // Монотонности здесь нет, и это не оплошность: сорвавшееся
+      // подтверждение сбрасывает `confirmations` вместе с ярусом, и полоса
+      // делает шаг назад. Обещать «осталось чуть-чуть» и потом отобрать
+      // обещание хуже, чем шагнуть назад честно.
       var state = CalibrationState.start();
-      var previous = state.progress;
-      expect(previous, inInclusiveRange(0, 1));
+      expect(state.progress, 0);
 
       final player = _Player(trueTier: Tier.a2, random: Random(6));
       var guard = 0;

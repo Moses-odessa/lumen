@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: ai_information
+tiers:
+  b2:
+    - id: ai_information_b2_01
+      text: "Diese Antwort klingt überzeugend, muss aber überprüft werden."
+    - id: ai_information_b2_02
+      text: "Das Tool kann Fehler machen, auch wenn es sicher antwortet."
+    - id: ai_information_b2_03
+      text: "Ich nutze KI als Hilfe, nicht als einzige Quelle."
+    - id: ai_information_b2_04
+      text: "Wir müssen die angegebenen Links überprüfen."
+    - id: ai_information_b2_05
+      text: "Wird angegeben, dass das Bild generiert wurde?"
+    - id: ai_information_b2_06
+      text: "Das Zitat scheint aus dem Zusammenhang gerissen zu sein."
+    - id: ai_information_b2_07
+      text: "Man sollte Informationen nicht allein wegen einer emotionalen Überschrift teilen."
+    - id: ai_information_b2_08
+      text: "Ich möchte wissen, wie meine Daten verwendet werden."
+    - id: ai_information_b2_09
+      text: "Ich habe der Weitergabe dieser Daten nicht zugestimmt."
+    - id: ai_information_b2_10
+      text: "Der Zugriff sollte auf das Notwendige beschränkt werden."
+    - id: ai_information_b2_11
+      text: "Automatisierung macht Kontrolle nicht überflüssig."
+    - id: ai_information_b2_12
+      text: "Es ist wichtig, die Grenzen dieses Systems zu verstehen."
+    - id: ai_information_b2_13
+      text: "Bevor wir ... vertrauen, prüfen wir ..."
+    - id: ai_information_b2_14
+      text: "Dieses Tool eignet sich für ..., aber nicht für ..."
+    - id: ai_information_b2_15
+      text: "Könnte das Ergebnis durch ... verzerrt sein?"
+    - id: ai_information_b2_16
+      text: "Aus Sicht des Datenschutzes ..."
+    - id: ai_information_b2_17
+      text: "Ich würde hier keine ... eingeben."
+    - id: ai_information_b2_18
+      text: "Die Entscheidung sollte bei ... bleiben, weil ..."
+    - id: ai_information_b2_19
+      text: "Es muss klar angegeben werden, ob folgende Aussage stimmt: ..."
+    - id: ai_information_b2_20
+      text: "Bequemlichkeit sollte nicht auf Kosten von ... gehen."

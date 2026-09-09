@@ -31,13 +31,13 @@ final contentMetaProvider = FutureProvider<Map<String, String>>((ref) =>
 final launchedTiersProvider = FutureProvider<Set<Tier>>((ref) =>
     ref.watch(currentContentDatabaseProvider).launchedTiers());
 
-/// Сколько слов курса лежит на ярусе и ниже.
+/// Сколько фраз курса лежит на ярусе и ниже.
 ///
 /// Экран результата калибровки говорит игроку это число, и оно обязано
 /// приходить из базы: курс растёт файлами контента, а не константой в коде.
 final vocabularyUpToProvider =
     FutureProvider.family<int, Tier>((ref, tier) =>
-        ref.watch(currentContentDatabaseProvider).countConceptsUpTo(tier));
+        ref.watch(currentContentDatabaseProvider).countPhrasesUpTo(tier));
 
 /// Языки, которыми можно подсказывать, и языки, на которых можно учить.
 ///

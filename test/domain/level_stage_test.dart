@@ -2,78 +2,43 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/scheduler/level_stage.dart';
 import 'package:lumen/domain/scoring/balance.dart';
-import 'package:lumen/domain/scoring/climb.dart';
 import 'package:lumen/domain/scoring/score.dart';
 
 /// Тесты на этапы уровня.
 ///
-/// Смысл этапов в том, что «насколько трудно» отделено от «какие слова». Все
+/// Смысл этапов в том, что «насколько трудно» отделено от «какие фразы». Все
 /// проверки ниже про первое: второе решает яркость по FSRS, и путать их
-/// нельзя — иначе либо сложность перестаёт расти, либо слова перестают
+/// нельзя — иначе либо сложность перестаёт расти, либо фразы перестают
 /// повторяться вовремя.
+///
+/// **Что здесь удалено.** Сложность этапа больше не выражается ни числом
+/// вариантов, ни видом дистракторов: вариантов в круге всегда шесть, потому
+/// что на полном круге держится знакомство методом исключения, а неверные
+/// варианты не пишутся руками — вокруг фразы стоят другие фразы, которые
+/// игрок уже знает. `StageRules.optionsFor`, `gapsFor` и `distractorFor`
+/// удалены, и вместе с ними удалена вся группа «вариантность по этапам»:
+///
+/// * «Знакомство — один вариант, и заход этого не меняет» охранял
+///   `SessionBalance.introductionOptions = 1` и то, что надбавка захода в
+///   показ не просачивается. Знакомство было показом: один вариант, соединил
+///   и услышал. Теперь оно устроено исключением, и неполный круг ломал бы
+///   ровно это.
+/// * «Дальше вариантов больше, чем на показе» охранял шкалу 1 → 4 → 6 → 5 → 4
+///   по этапам. Шкалы нет: у всех этапов круг одинаковый, и сложность даёт
+///   набор механик.
+/// * «Заход не выводит этап за экранный потолок» охранял
+///   `ClimbBalance.extraOptionsMax` — седьмой и восьмой вариант от захода.
+///   Ручки нет.
+///
+/// «Проверка спрашивает жёстче закрепления» не удалён, а перенесён: правило
+/// уцелело, только выражается теперь механиками, а не числами. Оно ниже, в
+/// группе про механики.
+///
+/// * «Фразовые механики этап не назначает» охранял `GameMode.isPhrase`: у
+///   фразовых механик материалом было предложение, а не звезда, и ставились
+///   они отдельно от слов. Единицей изучения стала фраза, все три механики
+///   спрашивают фразу, и делить набор больше не на что.
 void main() {
-  group('вариантность по этапам', () {
-    test('знакомство — один вариант, и заход этого не меняет', () {
-      // Один вариант это отказ от проверки: выбирать не из чего, и круг
-      // превращается в показ. Надбавка захода к нему не применяется — иначе
-      // с четвёртого уровня первый в жизни показ слова становился бы
-      // выбором из двух.
-      for (final extra in [0, 1, 2, 5]) {
-        expect(
-          StageRules.optionsFor(LevelStage.introduction, extra: extra),
-          SessionBalance.introductionOptions,
-          reason: 'надбавка $extra просочилась в показ',
-        );
-      }
-      expect(SessionBalance.introductionOptions, ScoreBalance.optionsMin);
-    });
-
-    test('дальше вариантов больше, чем на показе', () {
-      for (final stage in LevelStage.values) {
-        if (stage.isShowing) continue;
-        expect(
-          StageRules.optionsFor(stage),
-          greaterThan(SessionBalance.introductionOptions),
-          reason: '${stage.name} остался показом',
-        );
-      }
-    });
-
-    test('проверка спрашивает жёстче закрепления', () {
-      // Между ними и лежит вся идея этапов: сначала вспомнить значение,
-      // потом различить оттенок.
-      expect(
-        StageRules.optionsFor(LevelStage.check),
-        greaterThan(StageRules.optionsFor(LevelStage.consolidation)),
-      );
-      expect(
-        StageRules.distractorFor(LevelStage.check),
-        DistractorKind.near,
-      );
-      expect(
-        StageRules.distractorFor(LevelStage.consolidation),
-        DistractorKind.far,
-      );
-    });
-
-    test('заход не выводит этап за экранный потолок', () {
-      for (var level = 1; level <= 100; level++) {
-        final extra = ClimbRules.difficultyFor(level).extraOptions;
-        for (final stage in LevelStage.values) {
-          final options = StageRules.optionsFor(stage, extra: extra);
-          expect(
-            options,
-            inInclusiveRange(
-              ScoreBalance.optionsMin,
-              ScoreBalance.optionsMax + ClimbBalance.extraOptionsMax,
-            ),
-            reason: '${stage.name} на уровне $level: $options вариантов',
-          );
-        }
-      }
-    });
-  });
-
   group('механики по этапам', () {
     test('знакомство спрашивает только на понимание', () {
       // Слово только что показали; требовать воспроизведения рано.
@@ -87,20 +52,37 @@ void main() {
       expect(allowed.every((m) => m.isProductive), isTrue);
     });
 
+    test('проверка спрашивает жёстче закрепления', () {
+      // Между ними и лежит вся идея этапов: сначала вспомнить фразу, потом
+      // выдать её самому. Прежде разница мерилась числами — четыре варианта
+      // против шести и тематические дистракторы против созвучных, — а теперь
+      // единственная шкала сложности этапа это набор механик, и разница
+      // обязана быть видна именно там.
+      final consolidation = StageRules.mechanicsFor(LevelStage.consolidation)!;
+      final check = StageRules.mechanicsFor(LevelStage.check)!;
+
+      // Сужение, а не смена: проверка спрашивает тем, что закрепление уже
+      // разрешало. Механика, впервые появляющаяся на проверке, была бы для
+      // игрока новым заданием на этапе, который меряет знание фразы.
+      expect(check, isNotEmpty);
+      expect(consolidation.containsAll(check), isTrue,
+          reason: 'проверка спрашивает тем, чего на закреплении не было');
+      expect(check.length, lessThan(consolidation.length),
+          reason: 'проверка ничего не сузила');
+
+      // И сужение именно в эту сторону: отброшено всё, что спрашивает
+      // узнавание. Разойдись это с [GameMode.isProductive] — и проверка
+      // начнёт засчитывать узнанное за выданное.
+      expect(
+        consolidation.difference(check),
+        consolidation.where((m) => !m.isProductive).toSet(),
+      );
+    });
+
     test('напоминание не сужает набор', () {
       // Слова здесь разной яркости, и выбор механики — работа планировщика,
       // а не расписания.
       expect(StageRules.mechanicsFor(LevelStage.reminder), isNull);
-    });
-
-    test('фразовые механики этап не назначает', () {
-      // Их материал — предложение, а не звезда: ставятся они отдельно.
-      for (final stage in LevelStage.values) {
-        final allowed = StageRules.mechanicsFor(stage);
-        if (allowed == null) continue;
-        expect(allowed.any((m) => m.isPhrase), isFalse,
-            reason: '${stage.name} назначает фразовую механику словам');
-      }
     });
 
     test('каждый этап оставляет хоть одну механику без звука', () {

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/scoring/balance.dart';
 import 'prompt_tag_text.dart';
 
 /// Что произошло с кругом после ответа.
@@ -48,7 +49,7 @@ class CircleArena extends StatefulWidget {
 }
 
 class _CircleArenaState extends State<CircleArena>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   /// Момент появления круга — от него отсчитывается время отклика.
   late DateTime _shownAt;
 
@@ -67,6 +68,20 @@ class _CircleArenaState extends State<CircleArena>
     duration: const Duration(milliseconds: 260),
   )..forward();
 
+  /// Окно на ответ: полоса, которая истекает за пять секунд.
+  ///
+  /// Своя анимация, а не отсчёт из контроллера, и это осознанно: истина о
+  /// том, когда круг закрылся, живёт в `RunController`, а здесь нужна только
+  /// картинка. Оба отсчёта начинаются в одном кадре — от появления круга, —
+  /// поэтому расходиться им негде.
+  ///
+  /// На знакомстве окна нет: там к ответу приходят исключением, читая пять
+  /// знакомых вариантов.
+  late final AnimationController _window = AnimationController(
+    vsync: this,
+    duration: ScoreBalance.answerWindow,
+  );
+
   /// Геометрия последней отрисовки — по ней ищем вариант под пальцем.
   _ArenaLayout? _layout;
 
@@ -74,6 +89,17 @@ class _CircleArenaState extends State<CircleArena>
   void initState() {
     super.initState();
     _shownAt = DateTime.now();
+    _restartWindow();
+  }
+
+  /// Запускает полосу окна, если круг её требует.
+  void _restartWindow() {
+    _window.stop();
+    if (widget.enabled && !widget.question.isNew) {
+      _window.forward(from: 0);
+    } else {
+      _window.value = 0;
+    }
   }
 
   @override
@@ -87,12 +113,14 @@ class _CircleArenaState extends State<CircleArena>
       _chosen = null;
       _outcome = null;
       _reveal.forward(from: 0);
+      _restartWindow();
     }
   }
 
   @override
   void dispose() {
     _reveal.dispose();
+    _window.dispose();
     super.dispose();
   }
 
@@ -116,6 +144,7 @@ class _CircleArenaState extends State<CircleArena>
   void _answer(int index) {
     if (!widget.enabled || _chosen != null) return;
     final latency = DateTime.now().difference(_shownAt);
+    _window.stop();
     setState(() {
       _chosen = index;
       _outcome = widget.question.isCorrectOption(index)
@@ -161,6 +190,7 @@ class _CircleArenaState extends State<CircleArena>
                 _buildCenter(context, layout),
                 for (var i = 0; i < question.options.length; i++)
                   _buildOption(context, layout, i),
+                if (!question.isNew) _buildWindowBar(),
               ],
             ),
           ),
@@ -168,6 +198,28 @@ class _CircleArenaState extends State<CircleArena>
       },
     );
   }
+
+  /// Полоса окна поверх арены.
+  ///
+  /// Сверху и тонкая: она нужна краем глаза. Круг — главное на экране, и
+  /// таймер, который на себя смотрит, отбирает у него внимание ровно тогда,
+  /// когда игрок должен читать варианты.
+  Widget _buildWindowBar() => Positioned(
+        left: 0,
+        right: 0,
+        top: 0,
+        child: AnimatedBuilder(
+          animation: _window,
+          builder: (context, _) => LinearProgressIndicator(
+            value: 1 - _window.value,
+            minHeight: 3,
+            backgroundColor: Colors.transparent,
+            color: _window.value > 0.75
+                ? LumenPalette.wrong
+                : LumenPalette.starlight,
+          ),
+        ),
+      );
 
   Widget _buildCenter(BuildContext context, _ArenaLayout layout) {
     final question = widget.question;
@@ -183,7 +235,7 @@ class _CircleArenaState extends State<CircleArena>
     final tag = question.promptTag == null
         ? null
         : promptTagText(AppLocalizations.of(context), question.promptTag);
-    final hint = [question.promptHint, tag].nonNulls.join(' · ');
+    final hint = [null, tag].nonNulls.join(' · ');
 
     return Positioned(
       left: layout.center.dx - layout.centerRadius,

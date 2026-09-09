@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: people_family
+tiers:
+  a1:
+    - id: people_family_a1_01
+      text: "Ich habe einen Bruder."
+    - id: people_family_a1_02
+      text: "Ich habe keine Kinder."
+    - id: people_family_a1_03
+      text: "Wir wohnen zusammen."
+    - id: people_family_a1_04
+      text: "Meine Eltern wohnen in der Nähe."
+    - id: people_family_a1_05
+      text: "Bist du verheiratet?"
+    - id: people_family_a1_06
+      text: "Was machst du beruflich?"
+    - id: people_family_a1_07
+      text: "Wo arbeitest du?"
+    - id: people_family_a1_08
+      text: "Er ist mein Nachbar."
+    - id: people_family_a1_09
+      text: "Wir kennen uns gut."
+    - id: people_family_a1_10
+      text: "Ich kenne ihn nicht."
+    - id: people_family_a1_11
+      text: "Meine Schwester ist älter als ich."
+    - id: people_family_a1_12
+      text: "Wir haben eine große Familie."
+    - id: people_family_a1_13
+      text: "Das ist für meine Mutter."
+    - id: people_family_a1_14
+      text: "Wie heißt dein Sohn?"
+    - id: people_family_a1_15
+      text: "Grüß deine Familie von mir."
+      register: casual
+    - id: people_family_a1_16
+      text: "Alles Gute zum Geburtstag!"
+    - id: people_family_a1_17
+      text: "Ich arbeite als ..."
+    - id: people_family_a1_18
+      text: "Wir kennen uns seit ..."
+    - id: people_family_a1_19
+      text: "Mein Freund mag ..."
+    - id: people_family_a1_20
+      text: "In unserer Familie ..."

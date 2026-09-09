@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: presentations_data
+tiers:
+  b2:
+    - id: presentations_data_b2_01
+      text: "Heute werde ich die Ergebnisse kurz vorstellen."
+    - id: presentations_data_b2_02
+      text: "Mein Vortrag besteht aus drei Teilen."
+    - id: presentations_data_b2_03
+      text: "Zunächst ein paar Worte zum Hintergrund."
+    - id: presentations_data_b2_04
+      text: "Diese Grafik zeigt die Veränderung im Laufe der Zeit."
+    - id: presentations_data_b2_05
+      text: "Beachten Sie den Unterschied zwischen den Gruppen."
+      register: formal
+    - id: presentations_data_b2_06
+      text: "Im Vergleich zum Vorjahr ist der Wert gestiegen."
+    - id: presentations_data_b2_07
+      text: "Der Anstieg verlief nicht gleichmäßig."
+    - id: presentations_data_b2_08
+      text: "Im Durchschnitt blieb das Ergebnis stabil."
+    - id: presentations_data_b2_09
+      text: "Der Durchschnitt verbirgt erhebliche Unterschiede."
+    - id: presentations_data_b2_10
+      text: "Die Zahlen müssen im Zusammenhang betrachtet werden."
+    - id: presentations_data_b2_11
+      text: "Das sind vorläufige, keine endgültigen Ergebnisse."
+    - id: presentations_data_b2_12
+      text: "Am Ende beantworte ich gern Fragen."
+    - id: presentations_data_b2_13
+      text: "Wie aus ... hervorgeht, ..."
+    - id: presentations_data_b2_14
+      text: "Der Anteil von ... beträgt ..."
+    - id: presentations_data_b2_15
+      text: "Der Wert ist von ... auf ... gestiegen."
+    - id: presentations_data_b2_16
+      text: "Das entspricht einem Anstieg um ..."
+    - id: presentations_data_b2_17
+      text: "Während ... zunimmt, ..."
+    - id: presentations_data_b2_18
+      text: "Die auffälligste Veränderung betrifft ..."
+    - id: presentations_data_b2_19
+      text: "Diese Daten beziehen sich auf den Zeitraum ..."
+    - id: presentations_data_b2_20
+      text: "Die wichtigste Aussage meines Vortrags ist: ..."

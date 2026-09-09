@@ -16,14 +16,12 @@ import 'balance.dart';
 /// шагами — аркада ломается не когда сложно, а когда сложность прыгает.
 class ClimbDifficulty {
   const ClimbDifficulty({
-    required this.extraOptions,
     required this.speedFastest,
     required this.modeDraws,
     required this.circlesPerRun,
   });
 
   /// Сколько вариантов добавить к обычному числу для режима.
-  final int extraOptions;
 
   /// Порог «автоматизма» для максимального скоростного множителя.
   final Duration speedFastest;
@@ -94,10 +92,6 @@ abstract final class ClimbRules {
   static ClimbDifficulty difficultyFor(int level) {
     final steps = max(level, 1) - 1;
     return ClimbDifficulty(
-      extraOptions: min(
-        steps ~/ ClimbBalance.levelsPerExtraOption,
-        ClimbBalance.extraOptionsMax,
-      ),
       speedFastest: _speedFastest(steps),
       modeDraws: min(
         ClimbBalance.modeDrawsBase + steps ~/ ClimbBalance.levelsPerExtraDraw,

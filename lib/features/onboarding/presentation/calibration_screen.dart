@@ -5,7 +5,6 @@ import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/calibration/calibration.dart';
 import '../../game/presentation/circle_arena.dart';
-import '../../game/presentation/slots_arena.dart';
 import '../application/calibration_controller.dart';
 
 /// Экран калибровки: та же механика круга, только слова со всех ярусов.
@@ -91,24 +90,6 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
                         child: Text(error),
                       ),
                     ),
-                  // Фразовый вопрос идёт в свою арену, как и в забеге.
-                  //
-                  // Раньше здесь безусловно рисовался круг, и работало это
-                  // лишь потому, что у всех 432 фраз ровно один пропуск:
-                  // круг умеет один слот, а зачёт шёл по нулевому. Первая
-                  // фраза с двумя пропусками сделала бы финальную проверку
-                  // калибровки непроходимой — второй слот заполнить нечем, а
-                  // засчитан был бы первый.
-                  CalibrationUiState(question: final question?)
-                      when question.mode.isPhrase =>
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: SlotsArena(
-                        question: question,
-                        enabled: !state.loading,
-                        onAnswer: controller.answerSlots,
-                      ),
-                    ),
                   CalibrationUiState(question: final question?) => Padding(
                       padding: const EdgeInsets.all(16),
                       child: CircleArena(
@@ -145,7 +126,6 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
         CalibrationPhase.comb => l10n.calibrationHintComb,
         CalibrationPhase.search => l10n.calibrationHintSearch,
         CalibrationPhase.confirm => l10n.calibrationHintConfirm,
-        CalibrationPhase.phrases => l10n.calibrationHintPhrases,
         CalibrationPhase.done => l10n.calibrationHintDone,
       };
 }

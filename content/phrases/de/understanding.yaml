@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: understanding
+tiers:
+  a0:
+    - id: understanding_a0_01
+      text: "Ich verstehe nicht."
+    - id: understanding_a0_02
+      text: "Jetzt verstehe ich."
+    - id: understanding_a0_03
+      text: "Langsamer, bitte."
+    - id: understanding_a0_04
+      text: "Noch einmal, bitte."
+    - id: understanding_a0_05
+      text: "Wiederholen Sie das bitte."
+    - id: understanding_a0_06
+      text: "Was bedeutet das?"
+    - id: understanding_a0_07
+      text: "Wie sagt man das auf Deutsch?"
+    - id: understanding_a0_08
+      text: "Wie schreibt man das?"
+    - id: understanding_a0_09
+      text: "Schreiben Sie das bitte auf."
+    - id: understanding_a0_10
+      text: "Zeigen Sie es mir bitte."
+    - id: understanding_a0_11
+      text: "Ich weiß nicht."
+    - id: understanding_a0_12
+      text: "Ich bin nicht sicher."
+    - id: understanding_a0_13
+      text: "Ja, genau."
+    - id: understanding_a0_14
+      text: "Nein, nicht das."
+    - id: understanding_a0_15
+      text: "Ist das richtig?"
+    - id: understanding_a0_16
+      text: "Einen Moment, bitte."
+    - id: understanding_a0_17
+      text: "Ich höre nichts."
+    - id: understanding_a0_18
+      text: "Lauter, bitte."
+    - id: understanding_a0_19
+      text: "Geht es auf Englisch?"
+    - id: understanding_a0_20
+      text: "Wie spricht man ... aus?"

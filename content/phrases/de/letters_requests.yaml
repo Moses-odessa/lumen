@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: letters_requests
+tiers:
+  b1:
+    - id: letters_requests_b1_01
+      text: "Sehr geehrte Frau Müller,"
+    - id: letters_requests_b1_02
+      text: "Ich schreibe Ihnen wegen meiner Bestellung."
+    - id: letters_requests_b1_03
+      text: "Vielen Dank für Ihre E-Mail."
+    - id: letters_requests_b1_04
+      text: "Im Anhang finden Sie die Unterlagen."
+    - id: letters_requests_b1_05
+      text: "Bitte bestätigen Sie den Eingang."
+    - id: letters_requests_b1_06
+      text: "Ich benötige weitere Informationen."
+    - id: letters_requests_b1_07
+      text: "Ich möchte einen Punkt klären."
+    - id: letters_requests_b1_08
+      text: "Leider habe ich noch keine Antwort erhalten."
+    - id: letters_requests_b1_09
+      text: "Ich beziehe mich auf unser Telefongespräch."
+    - id: letters_requests_b1_10
+      text: "Können Sie mir die Bearbeitungsdauer nennen?"
+    - id: letters_requests_b1_11
+      text: "Ich reiche fehlende Unterlagen gern nach."
+    - id: letters_requests_b1_12
+      text: "Das Formular enthält einen Fehler."
+    - id: letters_requests_b1_13
+      text: "Bitte korrigieren Sie meine Adresse."
+    - id: letters_requests_b1_14
+      text: "Entschuldigen Sie die späte Antwort."
+    - id: letters_requests_b1_15
+      text: "Über eine Antwort bis Freitag würde ich mich freuen."
+    - id: letters_requests_b1_16
+      text: "Mit freundlichen Grüßen"
+    - id: letters_requests_b1_17
+      text: "Ich wende mich mit der Bitte an Sie, ..."
+    - id: letters_requests_b1_18
+      text: "Wie besprochen, ..."
+    - id: letters_requests_b1_19
+      text: "Wegen ... bitte ich um ..."
+    - id: letters_requests_b1_20
+      text: "Falls Rückfragen bestehen, ..."

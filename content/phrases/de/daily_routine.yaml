@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: daily_routine
+tiers:
+  a1:
+    - id: daily_routine_a1_01
+      text: "Ich stehe um sieben auf."
+    - id: daily_routine_a1_02
+      text: "Zuerst frühstücke ich."
+    - id: daily_routine_a1_03
+      text: "Danach gehe ich zur Arbeit."
+    - id: daily_routine_a1_04
+      text: "Ich arbeite von zu Hause aus."
+    - id: daily_routine_a1_05
+      text: "Mittags habe ich Pause."
+    - id: daily_routine_a1_06
+      text: "Ich komme um sechs nach Hause."
+    - id: daily_routine_a1_07
+      text: "Abends koche ich."
+    - id: daily_routine_a1_08
+      text: "Ich gehe früh ins Bett."
+    - id: daily_routine_a1_09
+      text: "Ich mache das jeden Tag."
+    - id: daily_routine_a1_10
+      text: "Normalerweise fahre ich mit dem Bus."
+    - id: daily_routine_a1_11
+      text: "Manchmal gehe ich zu Fuß."
+    - id: daily_routine_a1_12
+      text: "Sonntags arbeite ich nicht."
+    - id: daily_routine_a1_13
+      text: "Wann frühstückst du?"
+    - id: daily_routine_a1_14
+      text: "Wie oft kochst du?"
+    - id: daily_routine_a1_15
+      text: "Heute habe ich viel zu tun."
+    - id: daily_routine_a1_16
+      text: "Ich bin noch nicht fertig."
+    - id: daily_routine_a1_17
+      text: "Jeden Morgen ..."
+    - id: daily_routine_a1_18
+      text: "Nach der Arbeit ..."
+    - id: daily_routine_a1_19
+      text: "Vor dem Schlafengehen ..."
+    - id: daily_routine_a1_20
+      text: "Am Wochenende ..."

@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: place_time_price
+tiers:
+  a0:
+    - id: place_time_price_a0_01
+      text: "Wo ist die Toilette?"
+    - id: place_time_price_a0_02
+      text: "Wo ist der Ausgang?"
+    - id: place_time_price_a0_03
+      text: "Hier ist es."
+    - id: place_time_price_a0_04
+      text: "Es ist dort."
+    - id: place_time_price_a0_05
+      text: "Nach links, bitte."
+    - id: place_time_price_a0_06
+      text: "Nach rechts, bitte."
+    - id: place_time_price_a0_07
+      text: "Geradeaus."
+    - id: place_time_price_a0_08
+      text: "Ist es weit?"
+    - id: place_time_price_a0_09
+      text: "Wie spät ist es?"
+    - id: place_time_price_a0_10
+      text: "Wann?"
+    - id: place_time_price_a0_11
+      text: "Heute oder morgen?"
+    - id: place_time_price_a0_12
+      text: "Jetzt oder später?"
+    - id: place_time_price_a0_13
+      text: "Wie viel kostet das?"
+    - id: place_time_price_a0_14
+      text: "Ich nehme das."
+    - id: place_time_price_a0_15
+      text: "Die Rechnung, bitte."
+    - id: place_time_price_a0_16
+      text: "Eine Fahrkarte, bitte."
+    - id: place_time_price_a0_17
+      text: "Nur einen, bitte."
+    - id: place_time_price_a0_18
+      text: "Wo ist ...?"
+    - id: place_time_price_a0_19
+      text: "Um ... Uhr."
+    - id: place_time_price_a0_20
+      text: "Wie viele ...?"

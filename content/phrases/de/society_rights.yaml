@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: society_rights
+tiers:
+  b2:
+    - id: society_rights_b2_01
+      text: "Die Regel sollte für alle gleichermaßen gelten."
+    - id: society_rights_b2_02
+      text: "Gleichbehandlung bedeutet nicht immer gleiche Chancen."
+    - id: society_rights_b2_03
+      text: "Es ist wichtig, die unmittelbar Betroffenen anzuhören."
+    - id: society_rights_b2_04
+      text: "Welche Gruppen könnten übersehen werden?"
+    - id: society_rights_b2_05
+      text: "Die Entscheidung muss für die Bürger nachvollziehbar sein."
+    - id: society_rights_b2_06
+      text: "Ich möchte die rechtliche Grundlage verstehen."
+    - id: society_rights_b2_07
+      text: "An wen kann man sich mit einer Beschwerde wenden?"
+    - id: society_rights_b2_08
+      text: "Eine Entscheidung zu kritisieren bedeutet nicht, die Person zu missachten."
+    - id: society_rights_b2_09
+      text: "Wir können widersprechen, ohne persönlich zu werden."
+    - id: society_rights_b2_10
+      text: "Barrierefreiheit muss unterschiedliche Bedürfnisse berücksichtigen."
+    - id: society_rights_b2_11
+      text: "Ein Verbot allein reicht möglicherweise nicht aus."
+    - id: society_rights_b2_12
+      text: "Es braucht nicht nur Regeln, sondern auch Möglichkeiten, sie einzuhalten."
+    - id: society_rights_b2_13
+      text: "Aus Sicht der Chancengleichheit ..."
+    - id: society_rights_b2_14
+      text: "Diese Entscheidung wird sich besonders auf ... auswirken."
+    - id: society_rights_b2_15
+      text: "Es muss sichergestellt werden, dass ..."
+    - id: society_rights_b2_16
+      text: "Die Frage ist, wer berechtigt ist, ..."
+    - id: society_rights_b2_17
+      text: "Die Freiheit zu ... muss mit ... verbunden sein."
+    - id: society_rights_b2_18
+      text: "Ich unterstütze das Ziel ..., habe aber Zweifel an ..."
+    - id: society_rights_b2_19
+      text: "Damit Beteiligung tatsächlich möglich ist, braucht es ..."
+    - id: society_rights_b2_20
+      text: "Es wäre unfair, ..., wenn ..."

@@ -1,1337 +1,1010 @@
-# English lexemes — a hint language.
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
 #
-# It used to be described as the fallback for a concept the player's native
-# language does not cover. That fallback is gone, and deliberately: a concept
-# is now playable only when BOTH languages of the pair have a form. Slipping
-# an English word into a Ukrainian player's circle is not a graceful
-# degradation, it is a different question than the one the game meant to ask.
-# Missing coverage now means fewer words, not foreign ones.
-#
-# Distractors are only defined for A0; see the note in ru.yaml.
-#
-# status: draft — complete for today's 864 concepts, but not carried forward
-# to 6299 (PLAN.md). The file stays whole; draft only lifts the completeness
-# requirement and keeps the validator watching it.
+# Язык подсказок: заголовок плюс переводы фраз. Лексем здесь
+# больше нет — единицей изучения стала фраза.
 lang: en
 role: native
-status: draft
+status: launched
 name: English
-lexemes:
-  # ── A0 ────────────────────────────────────────────────────────────────
-  doctor_person:
-    form: doctor
-    plural: doctors
-    distractors:
-      far: [tooth, care]
-  pain_noun:
-    form: pain
-    distractors:
-      far: [wound, cough]
-  help_noun:
-    form: help
-    distractors:
-      far: [care, emergency]
-  head_body:
-    form: head
-    plural: heads
-    distractors:
-      far: [neck, back]
-  belly_body:
-    form: belly
-    plural: bellies
-    distractors:
-      far: [chest, leg]
-  hand_body:
-    form: hand
-    plural: hands
-    distractors:
-      far: [foot, finger]
-  fever_noun:
-    form: fever
-    distractors:
-      far: [cough, cold]
-  medicine_noun:
-    form: medicine
-    plural: medicines
-    distractors:
-      far: [prescription, ointment]
-  pharmacy_place:
-    form: pharmacy
-    plural: pharmacies
-    distractors:
-      far: [surgery, clinic]
-  hospital_place:
-    form: hospital
-    plural: hospitals
-    distractors:
-      far: [surgery, ambulance]
-  sick_adj:
-    form: sick
-    note: adjective
-    distractors:
-      far: [tired, healthy]
-  appointment_noun:
-    form: appointment
-    plural: appointments
-    distractors:
-      far: [prescription, booking]
-
-  # ── A1 ────────────────────────────────────────────────────────────────
-  tooth_body: { form: tooth, plural: teeth }
-  back_body: { form: back, plural: backs }
-  leg_body: { form: leg, plural: legs }
-  throat_body: { form: throat, plural: throats }
-  cough_noun: { form: cough }
-  cold_illness: { form: a cold }
-  prescription_noun: { form: prescription, plural: prescriptions }
-  nurse_person: { form: nurse, plural: nurses }
-  waiting_room: { form: waiting room }
-  insurance_card: { form: insurance card }
-  healthy_adj: { form: healthy, note: adjective }
-  temperature_noun: { form: temperature }
-
-  # ── A2 ────────────────────────────────────────────────────────────────
-  sick_note: { form: sick report }
-  dosage_noun: { form: dose, plural: doses }
-  side_effect: { form: side effect, plural: side effects }
-  allergy_noun: { form: allergy, plural: allergies }
-  blood_noun: { form: blood }
-  plaster_noun: { form: plaster, plural: plasters }
-  ointment_noun: { form: ointment, plural: ointments }
-  tablet_noun: { form: tablet, plural: tablets }
-  injection_noun: { form: injection, plural: injections }
-  vaccination_noun: { form: vaccination, plural: vaccinations }
-  emergency_noun: { form: emergency, plural: emergencies }
-  ambulance_noun: { form: ambulance, plural: ambulances }
-  surgery_place: { form: surgery, note: doctor's practice }
-  dentist_person: { form: dentist, plural: dentists }
-  examination_noun: { form: examination, plural: examinations }
-  treatment_noun: { form: treatment, plural: treatments }
-  painkiller_noun: { form: painkiller, plural: painkillers }
-  flu_illness: { form: flu }
-  wound_noun: { form: wound, plural: wounds }
-  dizzy_adj: { form: dizzy, note: adjective }
-  breath_noun: { form: breath }
-  heart_body: { form: heart, plural: hearts }
-  stomach_organ: { form: stomach, plural: stomachs }
-  skin_body: { form: skin }
-
-  # ── B1 ────────────────────────────────────────────────────────────────
-  cost_coverage: { form: cost coverage }
-  referral_noun: { form: referral, plural: referrals }
-  lab_result: { form: lab result, plural: lab results }
-  diagnosis_noun: { form: diagnosis, plural: diagnoses }
-  therapy_noun: { form: therapy, plural: therapies }
-  specialist_person: { form: specialist, plural: specialists }
-  health_insurance: { form: health insurer }
-  medical_report: { form: medical report }
-  chronic_adj: { form: chronic, note: adjective }
-  inflammation_noun: { form: inflammation }
-  infection_noun: { form: infection, plural: infections }
-  antibiotic_noun: { form: antibiotic, plural: antibiotics }
-  blood_pressure: { form: blood pressure }
-  blood_draw: { form: blood draw }
-  ultrasound_noun: { form: ultrasound }
-  xray_noun: { form: X-ray, plural: X-rays }
-  operation_noun: { form: operation, plural: operations }
-  anesthesia_noun: { form: anaesthetic }
-  rehab_noun: { form: rehab }
-  physiotherapy_noun: { form: physiotherapy }
-  symptom_noun: { form: symptom, plural: symptoms }
-  complaints_noun: { form: complaints, note: usually_plural }
-  medical_history: { form: medical history }
-  discharge_noun: { form: discharge }
-
-  # ── B2 ────────────────────────────────────────────────────────────────
-  copayment_noun: { form: co-payment, plural: co-payments }
-  objection_noun: { form: appeal, plural: appeals }
-  findings_report: { form: findings report }
-  reimbursement_noun: { form: reimbursement }
-  supplementary_insurance: { form: supplementary insurance }
-  contribution_noun: { form: contribution, plural: contributions }
-  certificate_noun: { form: certificate, plural: certificates }
-  incapacity_noun: { form: incapacity for work }
-  expert_opinion: { form: expert opinion }
-  consent_noun: { form: consent }
-  liability_noun: { form: liability }
-  malpractice_noun: { form: medical error }
-  prognosis_noun: { form: prognosis, plural: prognoses }
-  contraindication_noun: { form: contraindication }
-  interaction_noun: { form: drug interaction }
-  dosage_form: { form: dosage form }
-  prescription_only: { form: prescription-only, note: adjective }
-  outpatient_adj: { form: outpatient, note: adjective }
-  inpatient_adj: { form: inpatient, note: adjective }
-  patient_file: { form: patient file }
-  data_protection: { form: data protection }
-  second_opinion: { form: second opinion }
-  waiting_period: { form: waiting period }
-  cost_estimate: { form: cost estimate }
-
-  # ── Constellation "food", A0 ──────────────────────────────────────────
-  bread_food:
-    form: bread
-    plural: breads
-    distractors:
-      far: [butter, cheese]
-  water_drink:
-    form: water
-    plural: waters
-    distractors:
-      far: [juice, tea]
-  milk_drink:
-    form: milk
-    distractors:
-      far: [cream, yoghurt]
-  coffee_drink:
-    form: coffee
-    plural: coffees
-    distractors:
-      far: [tea, cocoa]
-  apple_food:
-    form: apple
-    plural: apples
-    distractors:
-      far: [pear, grape]
-  meat_food:
-    form: meat
-    distractors:
-      far: [sausage, ham]
-  fish_food:
-    form: fish
-    plural: fish
-    distractors:
-      far: [crab, mussel]
-  soup_food:
-    form: soup
-    plural: soups
-    distractors:
-      far: [salad, sauce]
-  salt_food:
-    form: salt
-    distractors:
-      far: [pepper, vinegar]
-  sugar_food:
-    form: sugar
-    distractors:
-      far: [honey, syrup]
-  hunger_noun:
-    form: hunger
-    distractors:
-      far: [thirst, appetite]
-  restaurant_place:
-    form: restaurant
-    plural: restaurants
-    distractors:
-      far: [canteen, snack bar]
-
-  # ── Constellation "transport", A0 ─────────────────────────────────────
-  train_transport:
-    form: train
-    plural: trains
-    distractors:
-      far: [track, carriage]
-  bus_transport:
-    form: bus
-    plural: buses
-    distractors:
-      far: [tram, taxi]
-  car_transport:
-    form: car
-    plural: cars
-    distractors:
-      far: [motorbike, scooter]
-  ticket_transport:
-    form: ticket
-    plural: tickets
-    distractors:
-      far: [passport, luggage]
-  station_place:
-    form: station
-    plural: stations
-    distractors:
-      far: [airport, harbour]
-  street_place:
-    form: street
-    plural: streets
-    distractors:
-      far: [lane, square]
-  bicycle_transport:
-    form: bicycle
-    plural: bicycles
-    distractors:
-      far: [scooter, trailer]
-  airplane_transport:
-    form: airplane
-    plural: airplanes
-    distractors:
-      far: [helicopter, rocket]
-  way_noun:
-    form: way
-    plural: ways
-    distractors:
-      far: [path, route]
-  driver_person:
-    form: driver
-    plural: drivers
-    distractors:
-      far: [conductor, pilot]
-  stop_place:
-    form: stop
-    plural: stops
-    distractors:
-      far: [platform, shelter]
-  late_adj:
-    form: late
-    note: adjective
-    distractors:
-      far: [punctual, early]
-
-  # ── Constellation "home", A0 ──────────────────────────────────────────
-  house_place:
-    form: house
-    plural: houses
-    distractors:
-      far: [flat, garden]
-  door_object:
-    form: door
-    plural: doors
-    distractors:
-      far: [wall, stairs]
-  window_object:
-    form: window
-    plural: windows
-    distractors:
-      far: [balcony, curtain]
-  table_object:
-    form: table
-    plural: tables
-    distractors:
-      far: [wardrobe, shelf]
-  chair_object:
-    form: chair
-    plural: chairs
-    distractors:
-      far: [armchair, bench]
-  bed_object:
-    form: bed
-    plural: beds
-    distractors:
-      far: [blanket, pillow]
-  kitchen_room:
-    form: kitchen
-    plural: kitchens
-    distractors:
-      far: [bathroom, hallway]
-  room_place:
-    form: room
-    plural: rooms
-    distractors:
-      far: [flat, cellar]
-  key_object:
-    form: key
-    plural: keys
-    distractors:
-      far: [lock, doorbell]
-  rent_noun:
-    form: rent
-    distractors:
-      far: [deposit, utilities]
-  neighbour_person:
-    form: neighbour
-    plural: neighbours
-    distractors:
-      far: [landlord, caretaker]
-  light_object:
-    form: light
-    plural: lights
-    distractors:
-      far: [lamp, candle]
-
-  # ── Constellation "shop", A0 ──────────────────────────────────────────
-  shop_place:
-    form: shop
-    plural: shops
-    distractors:
-      far: [market, kiosk]
-  money_noun:
-    form: money
-    distractors:
-      far: [coin, note]
-  price_noun:
-    form: price
-    plural: prices
-    distractors:
-      far: [discount, offer]
-  card_object:
-    form: card
-    plural: cards
-    distractors:
-      far: [cash, account]
-  checkout_place:
-    form: checkout
-    plural: checkouts
-    distractors:
-      far: [shelf, entrance]
-  bag_object:
-    form: bag
-    plural: bags
-    distractors:
-      far: [basket, pouch]
-  purchase_noun:
-    form: purchase
-    plural: purchases
-    distractors:
-      far: [order, delivery]
-  receipt_noun:
-    form: receipt
-    plural: receipts
-    distractors:
-      far: [invoice, warranty]
-  customer_person:
-    form: customer
-    plural: customers
-    distractors:
-      far: [seller, owner]
-  cheap_adj:
-    form: cheap
-    note: adjective
-    distractors:
-      far: [free, secondhand]
-  expensive_adj:
-    form: expensive
-    note: adjective
-    distractors:
-      far: [valuable, scarce]
-  open_adj:
-    form: open
-    note: adjective
-    distractors:
-      far: [closed, occupied]
-
-  # ── Constellation "family", A0 ────────────────────────────────────────
-  mother_person:
-    form: mother
-    plural: mothers
-    distractors:
-      far: [grandmother, aunt]
-  father_person:
-    form: father
-    plural: fathers
-    distractors:
-      far: [grandfather, uncle]
-  child_person:
-    form: child
-    plural: children
-    distractors:
-      far: [baby, teenager]
-  son_person:
-    form: son
-    plural: sons
-    distractors:
-      far: [nephew, grandson]
-  daughter_person:
-    form: daughter
-    plural: daughters
-    distractors:
-      far: [niece, granddaughter]
-  sister_person:
-    form: sister
-    plural: sisters
-    distractors:
-      far: [brother, cousin]
-  friend_person:
-    form: friend
-    plural: friends
-    distractors:
-      far: [acquaintance, guest]
-  name_noun:
-    form: name
-    plural: names
-    distractors:
-      far: [address, age]
-  family_noun:
-    form: family
-    plural: families
-    distractors:
-      far: [relatives, household]
-  man_person:
-    form: man
-    plural: men
-    distractors:
-      far: [boy, sir]
-  woman_person:
-    form: woman
-    plural: women
-    distractors:
-      far: [girl, lady]
-  old_adj:
-    form: old
-    note: adjective
-    distractors:
-      far: [young, new]
-
-  # ── Constellation "time", A0 ──────────────────────────────────────────
-  day_time:
-    form: day
-    plural: days
-    distractors:
-      far: [date, appointment]
-  night_time:
-    form: night
-    plural: nights
-    distractors:
-      far: [dusk, midnight]
-  hour_time:
-    form: hour
-    plural: hours
-    distractors:
-      far: [moment, while]
-  minute_time:
-    form: minute
-    plural: minutes
-    distractors:
-      far: [second, instant]
-  week_time:
-    form: week
-    plural: weeks
-    distractors:
-      far: [weekend, holiday]
-  month_time:
-    form: month
-    plural: months
-    distractors:
-      far: [quarter, season]
-  year_time:
-    form: year
-    plural: years
-    distractors:
-      far: [decade, age]
-  morning_time:
-    form: morning
-    plural: mornings
-    distractors:
-      far: [noon, midday]
-  evening_time:
-    form: evening
-    plural: evenings
-    distractors:
-      far: [afternoon, midnight]
-  clock_object:
-    form: clock
-    plural: clocks
-    distractors:
-      far: [calendar, alarm]
-  today_adv:
-    form: today
-    note: adverb
-    distractors:
-      far: [tomorrow, always]
-  yesterday_adv:
-    form: yesterday
-    note: adverb
-    distractors:
-      far: [formerly, recently]
-
-  # ── Constellation "city", A0 ──────────────────────────────────────────
-  city_place:
-    form: city
-    plural: cities
-    distractors:
-      far: [village, countryside]
-  square_place:
-    form: square
-    plural: squares
-    distractors:
-      far: [lane, embankment]
-  park_place:
-    form: park
-    plural: parks
-    distractors:
-      far: [garden, forest]
-  bank_place:
-    form: bank
-    plural: banks
-    distractors:
-      far: [savings bank, cash machine]
-  church_place:
-    form: church
-    plural: churches
-    distractors:
-      far: [cathedral, monastery]
-  market_place:
-    form: market
-    plural: markets
-    distractors:
-      far: [store, hall]
-  museum_place:
-    form: museum
-    plural: museums
-    distractors:
-      far: [gallery, theatre]
-  post_place:
-    form: post office
-    plural: post offices
-    distractors:
-      far: [council, town hall]
-  hotel_place:
-    form: hotel
-    plural: hotels
-    distractors:
-      far: [guesthouse, inn]
-  centre_place:
-    form: centre
-    plural: centres
-    distractors:
-      far: [outskirts, district]
-  map_object:
-    form: city map
-    plural: city maps
-    distractors:
-      far: [signpost, sign]
-  right_adv:
-    form: right
-    note: adverb
-    distractors:
-      far: [left, straight on]
-
-  # ── Constellation "work", A0 ──────────────────────────────────────────
-  work_noun:
-    form: work
-    distractors:
-      far: [task, duty]
-  job_noun:
-    form: profession
-    plural: professions
-    distractors:
-      far: [position, career]
-  boss_person:
-    form: boss
-    plural: bosses
-    distractors:
-      far: [manager, owner]
-  colleague_person:
-    form: colleague
-    plural: colleagues
-    distractors:
-      far: [intern, team]
-  office_place:
-    form: office
-    plural: offices
-    distractors:
-      far: [workshop, warehouse]
-  company_noun:
-    form: company
-    plural: companies
-    distractors:
-      far: [business, corporation]
-  salary_noun:
-    form: salary
-    plural: salaries
-    distractors:
-      far: [wage, bonus]
-  contract_noun:
-    form: contract
-    plural: contracts
-    distractors:
-      far: [dismissal, reference]
-  meeting_noun:
-    form: meeting
-    plural: meetings
-    distractors:
-      far: [conference, training]
-  holiday_noun:
-    form: holiday
-    plural: holidays
-    distractors:
-      far: [public holiday, break]
-  free_adj:
-    form: free
-    note: adjective
-    distractors:
-      far: [occupied, busy]
-  tired_adj:
-    form: tired
-    note: adjective
-    distractors:
-      far: [awake, fit]
-
-  # ── A1, all constellations ────────────────────────────────────────────
-  breakfast_meal: { form: breakfast, plural: breakfasts }
-  lunch_meal: { form: lunch, plural: lunches }
-  dinner_meal: { form: dinner, plural: dinners }
-  plate_object: { form: plate, plural: plates }
-  glass_object: { form: glass, plural: glasses }
-  fork_object: { form: fork, plural: forks }
-  knife_object: { form: knife, plural: knives }
-  spoon_object: { form: spoon, plural: spoons }
-  cheese_food: { form: cheese, plural: cheeses }
-  butter_food: { form: butter }
-  egg_food: { form: egg, plural: eggs }
-  vegetable_food: { form: vegetable, plural: vegetables }
-  platform_place: { form: platform, plural: platforms }
-  delay_noun: { form: delay, plural: delays }
-  connection_noun: { form: connection, plural: connections }
-  timetable_object: { form: timetable, plural: timetables }
-  luggage_noun: { form: luggage }
-  taxi_transport: { form: taxi, plural: taxis }
-  tram_transport: { form: tram, plural: trams }
-  metro_transport: { form: underground }
-  seat_object: { form: seat, plural: seats }
-  journey_noun: { form: journey, plural: journeys }
-  arrival_noun: { form: arrival, plural: arrivals }
-  departure_noun: { form: departure, plural: departures }
-  flat_place: { form: flat, plural: flats }
-  floor_object: { form: floor, plural: floors }
-  wall_object: { form: wall, plural: walls }
-  roof_object: { form: roof, plural: roofs }
-  garden_place: { form: garden, plural: gardens }
-  cellar_place: { form: cellar, plural: cellars }
-  stairs_object: { form: stairs }
-  bathroom_room: { form: bathroom, plural: bathrooms }
-  shower_object: { form: shower, plural: showers }
-  wardrobe_object: { form: wardrobe, plural: wardrobes }
-  lamp_object: { form: lamp, plural: lamps }
-  heating_object: { form: heating }
-  cash_noun: { form: cash }
-  change_noun: { form: change }
-  discount_noun: { form: discount, plural: discounts }
-  size_noun: { form: size, plural: sizes }
-  basket_object: { form: shopping basket, plural: shopping baskets }
-  fitting_room: { form: fitting room, plural: fitting rooms }
-  offer_noun: { form: offer, plural: offers }
-  quality_noun: { form: quality, plural: qualities }
-  product_noun: { form: product, plural: products }
-  brand_noun: { form: brand, plural: brands }
-  delivery_noun: { form: delivery, plural: deliveries }
-  exchange_noun: { form: exchange, plural: exchanges }
-  brother_person: { form: brother, plural: brothers }
-  grandmother_person: { form: grandmother, plural: grandmothers }
-  grandfather_person: { form: grandfather, plural: grandfathers }
-  husband_person: { form: husband, plural: husbands }
-  wife_person: { form: wife, plural: wives }
-  aunt_person: { form: aunt, plural: aunts }
-  uncle_person: { form: uncle, plural: uncles }
-  cousin_person: { form: male cousin, plural: cousins }
-  grandchild_person: { form: grandchild, plural: grandchildren }
-  birthday_noun: { form: birthday, plural: birthdays }
-  wedding_noun: { form: wedding, plural: weddings }
-  young_adj: { form: young, note: adjective }
-  weekend_time: { form: weekend, plural: weekends }
-  date_noun: { form: date, plural: dates }
-  calendar_object: { form: calendar, plural: calendars }
-  noon_time: { form: midday }
-  tomorrow_adv: { form: tomorrow, note: adverb }
-  always_adv: { form: always, note: adverb }
-  never_adv: { form: never, note: adverb }
-  often_adv: { form: often, note: adverb }
-  sometimes_adv: { form: sometimes, note: adverb }
-  early_adv: { form: early, note: adverb }
-  now_adv: { form: now, note: adverb }
-  soon_adv: { form: soon, note: adverb }
-  crossing_place: { form: crossing, plural: crossings }
-  traffic_light: { form: traffic light, plural: traffic lights }
-  pedestrian_person: { form: pedestrian, plural: pedestrians }
-  bridge_place: { form: bridge, plural: bridges }
-  river_place: { form: river, plural: rivers }
-  corner_place: { form: corner, plural: corners }
-  direction_noun: { form: direction, plural: directions }
-  address_noun: { form: address, plural: addresses }
-  district_place: { form: district, plural: districts }
-  townhall_place: { form: town hall, plural: town halls }
-  entrance_place: { form: entrance, plural: entrances }
-  exit_place: { form: exit, plural: exits }
-  application_noun: { form: application, plural: applications }
-  cv_noun: { form: CV, plural: CVs }
-  interview_noun: { form: job interview, plural: job interviews }
-  employee_person: { form: employee, plural: employees }
-  employer_person: { form: employer, plural: employers }
-  department_noun: { form: department, plural: departments }
-  project_noun: { form: project, plural: projects }
-  deadline_noun: { form: deadline, plural: deadlines }
-  overtime_noun: { form: overtime }
-  break_noun: { form: break, plural: breaks }
-  task_noun: { form: task, plural: tasks }
-  experience_noun: { form: experience }
-
-  # ── A2, all constellations ────────────────────────────────────────────
-  fruit_food: { form: fruit }
-  potato_food: { form: potato, plural: potatoes }
-  rice_food: { form: rice }
-  pasta_food: { form: pasta }
-  chicken_food: { form: chicken }
-  beef_food: { form: beef }
-  pork_food: { form: pork }
-  sausage_food: { form: sausage, plural: sausages }
-  sauce_food: { form: sauce, plural: sauces }
-  pepper_food: { form: pepper }
-  oil_food: { form: oil, plural: oils }
-  flour_food: { form: flour }
-  cake_food: { form: cake, plural: cakes }
-  chocolate_food: { form: chocolate }
-  icecream_food: { form: ice cream }
-  juice_drink: { form: juice, plural: juices }
-  tea_drink: { form: tea }
-  beer_drink: { form: beer, plural: beers }
-  wine_drink: { form: wine, plural: wines }
-  menu_object: { form: menu, plural: menus }
-  waiter_person: { form: waiter, plural: waiters }
-  bill_noun: { form: bill, plural: bills }
-  order_noun: { form: order, plural: orders }
-  tip_noun: { form: tip, plural: tips }
-  motorway_place: { form: motorway, plural: motorways }
-  petrol_station: { form: petrol station, plural: petrol stations }
-  petrol_noun: { form: petrol }
-  licence_noun: { form: driving licence, plural: driving licences }
-  accident_noun: { form: accident, plural: accidents }
-  jam_noun: { form: traffic jam, plural: traffic jams }
-  diversion_noun: { form: diversion, plural: diversions }
-  roadworks_noun: { form: roadworks }
-  parking_place: { form: car park, plural: car parks }
-  garage_place: { form: multi-storey car park }
-  kilometre_noun: { form: kilometre, plural: kilometres }
-  speed_noun: { form: speed, plural: speeds }
-  tyre_object: { form: tyre, plural: tyres }
-  engine_object: { form: engine, plural: engines }
-  workshop_place: { form: garage, plural: garages }
-  insurance_noun: { form: insurance }
-  seatbelt_object: { form: seatbelt, plural: seatbelts }
-  vehicle_papers: { form: vehicle registration }
-  ferry_transport: { form: ferry, plural: ferries }
-  harbour_place: { form: harbour, plural: harbours }
-  airport_place: { form: airport, plural: airports }
-  takeoff_noun: { form: take-off, plural: take-offs }
-  landing_noun: { form: landing, plural: landings }
-  carpool_noun: { form: ridesharing }
-  landlord_person: { form: landlord, plural: landlords }
-  lease_noun: { form: lease, plural: leases }
-  deposit_noun: { form: deposit, plural: deposits }
-  utilities_noun: { form: utilities }
-  caretaker_person: { form: caretaker, plural: caretakers }
-  houserules_noun: { form: house rules }
-  balcony_place: { form: balcony, plural: balconies }
-  terrace_place: { form: terrace, plural: terraces }
-  furniture_noun: { form: furniture }
-  sofa_object: { form: sofa, plural: sofas }
-  carpet_object: { form: carpet, plural: carpets }
-  curtain_object: { form: curtain, plural: curtains }
-  mirror_object: { form: mirror, plural: mirrors }
-  shelf_object: { form: shelving unit, plural: shelves }
-  washing_machine: { form: washing machine, plural: washing machines }
-  fridge_object: { form: fridge, plural: fridges }
-  stove_object: { form: stove, plural: stoves }
-  oven_object: { form: oven, plural: ovens }
-  socket_object: { form: socket, plural: sockets }
-  electricity_noun: { form: electricity }
-  tap_object: { form: tap, plural: taps }
-  rubbish_noun: { form: rubbish }
-  bin_object: { form: bin, plural: bins }
-  move_noun: { form: move, plural: moves }
-  seller_person: { form: shop assistant, plural: shop assistants }
-  receipt_slip: { form: till receipt, plural: till receipts }
-  creditcard_object: { form: credit card, plural: credit cards }
-  transfer_noun: { form: bank transfer, plural: bank transfers }
-  voucher_noun: { form: voucher, plural: vouchers }
-  special_offer: { form: special offer, plural: special offers }
-  clearance_noun: { form: clearance sale, plural: clearance sales }
-  warehouse_place: { form: warehouse, plural: warehouses }
-  assortment_noun: { form: range, plural: ranges }
-  warranty_noun: { form: voluntary warranty, plural: warranties }
-  complaint_noun: { form: product complaint, plural: complaints }
-  return_noun: { form: return, plural: returns }
-  shipping_noun: { form: shipping }
-  packaging_noun: { form: packaging }
-  label_object: { form: label, plural: labels }
-  pricetag_object: { form: price tag, plural: price tags }
-  vat_noun: { form: VAT }
-  instalment_noun: { form: instalment plan, plural: instalment plans }
-  downpayment_noun: { form: down payment, plural: down payments }
-  ordernumber_noun: { form: order number, plural: order numbers }
-  cart_object: { form: shopping cart, plural: shopping carts }
-  support_noun: { form: customer service }
-  openinghours_noun: { form: opening hours }
-  publicholiday_noun: { form: public holiday, plural: public holidays }
-  relatives_noun: { form: relatives }
-  brotherinlaw_person: { form: brother-in-law, plural: brothers-in-law }
-  sisterinlaw_person: { form: sister-in-law, plural: sisters-in-law }
-  niece_person: { form: niece, plural: nieces }
-  nephew_person: { form: nephew, plural: nephews }
-  motherinlaw_person: { form: mother-in-law, plural: mothers-in-law }
-  fatherinlaw_person: { form: father-in-law, plural: fathers-in-law }
-  stepfather_person: { form: stepfather, plural: stepfathers }
-  twin_person: { form: twin, plural: twins }
-  siblings_noun: { form: siblings }
-  engagement_noun: { form: engagement, plural: engagements }
-  divorce_noun: { form: divorce, plural: divorces }
-  marriage_noun: { form: marriage, plural: marriages }
-  upbringing_noun: { form: upbringing }
-  childhood_noun: { form: childhood }
-  youth_noun: { form: youth }
-  pension_noun: { form: pension, plural: pensions }
-  surname_noun: { form: surname, plural: surnames }
-  firstname_noun: { form: first name, plural: first names }
-  birthplace_noun: { form: place of birth }
-  citizenship_noun: { form: citizenship }
-  maritalstatus_noun: { form: marital status }
-  household_noun: { form: household, plural: households }
-  kindergarten_place: { form: kindergarten, plural: kindergartens }
-  monday_time: { form: Monday, plural: Mondays }
-  tuesday_time: { form: Tuesday, plural: Tuesdays }
-  wednesday_time: { form: Wednesday, plural: Wednesdays }
-  thursday_time: { form: Thursday, plural: Thursdays }
-  friday_time: { form: Friday, plural: Fridays }
-  saturday_time: { form: Saturday, plural: Saturdays }
-  sunday_time: { form: Sunday, plural: Sundays }
-  season_time: { form: season, plural: seasons }
-  spring_time: { form: spring }
-  summer_time: { form: summer, plural: summers }
-  autumn_time: { form: autumn }
-  winter_time: { form: winter, plural: winters }
-  vacation_time: { form: holidays }
-  appointment_meeting: { form: arrangement, plural: arrangements }
-  duration_noun: { form: duration }
-  beginning_noun: { form: beginning, plural: beginnings }
-  ending_noun: { form: end, plural: ends }
-  future_noun: { form: future }
-  past_noun: { form: past }
-  present_noun: { form: present }
-  moment_noun: { form: moment, plural: moments }
-  century_noun: { form: century, plural: centuries }
-  clocktime_noun: { form: clock time }
-  alarm_object: { form: alarm clock, plural: alarm clocks }
-  suburb_place: { form: suburb, plural: suburbs }
-  settlement_place: { form: housing estate, plural: housing estates }
-  pavement_place: { form: pavement, plural: pavements }
-  cyclepath_place: { form: cycle path, plural: cycle paths }
-  crosswalk_place: { form: pedestrian crossing, plural: pedestrian crossings }
-  streetlamp_object: { form: street lamp, plural: street lamps }
-  monument_place: { form: monument, plural: monuments }
-  fountain_place: { form: fountain, plural: fountains }
-  cemetery_place: { form: cemetery, plural: cemeteries }
-  library_place: { form: library, plural: libraries }
-  school_place: { form: school, plural: schools }
-  cinema_place: { form: cinema, plural: cinemas }
-  theatre_place: { form: theatre, plural: theatres }
-  stadium_place: { form: stadium, plural: stadiums }
-  pool_place: { form: swimming pool, plural: swimming pools }
-  playground_place: { form: playground, plural: playgrounds }
-  pedestrian_zone: { form: pedestrian zone, plural: pedestrian zones }
-  resident_person: { form: resident, plural: residents }
-  administration_noun: { form: administration }
-  citizenoffice_place: { form: citizens' office, plural: citizens' offices }
-  police_noun: { form: police }
-  firebrigade_noun: { form: fire brigade }
-  emergency_call: { form: emergency number, plural: emergency numbers }
-  sight_noun: { form: sight, plural: sights }
-  employment_contract: { form: employment contract, plural: employment contracts }
-  probation_noun: { form: probationary period, plural: probationary periods }
-  dismissal_noun: { form: notice, plural: notices }
-  reference_noun: { form: reference, plural: references }
-  raise_noun: { form: pay rise, plural: pay rises }
-  fulltime_noun: { form: full-time work }
-  parttime_noun: { form: part-time work }
-  shift_noun: { form: shift, plural: shifts }
-  homeoffice_noun: { form: home office }
-  conference_noun: { form: conference, plural: conferences }
-  colleague_female: { form: female colleague, plural: female colleagues }
-  supervisor_person: { form: line manager, plural: line managers }
-  internship_noun: { form: internship, plural: internships }
-  training_noun: { form: vocational training }
-  furthertraining_noun: { form: further training }
-  studies_noun: { form: studies }
-  union_noun: { form: trade union, plural: trade unions }
-  workscouncil_noun: { form: works council, plural: works councils }
-  sicknote_noun: { form: sick note, plural: sick notes }
-  workinghours_noun: { form: working hours }
-  endofday_noun: { form: end of the working day }
-  tax_noun: { form: tax, plural: taxes }
-  socialcontribution_noun: { form: social security contribution, plural: social security contributions }
-  payslip_noun: { form: payslip, plural: payslips }
-
-  # ── B1, all constellations ────────────────────────────────────────────
-  ingredient_noun: { form: ingredient, plural: ingredients }
-  recipe_noun: { form: recipe, plural: recipes }
-  pan_object: { form: frying pan, plural: frying pans }
-  pot_object: { form: pot, plural: pots }
-  starter_food: { form: starter, plural: starters }
-  maincourse_food: { form: main course, plural: main courses }
-  dessert_food: { form: dessert, plural: desserts }
-  portion_noun: { form: portion, plural: portions }
-  sidedish_food: { form: side dish, plural: side dishes }
-  spice_food: { form: spice, plural: spices }
-  garlic_food: { form: garlic }
-  onion_food: { form: onion, plural: onions }
-  mushroom_food: { form: mushroom, plural: mushrooms }
-  bean_food: { form: bean, plural: beans }
-  lentil_food: { form: lentil, plural: lentils }
-  wholegrain_food: { form: wholegrain }
-  groceries_noun: { form: foodstuff, plural: foodstuffs }
-  shelflife_noun: { form: shelf life }
-  preparation_noun: { form: preparation }
-  taste_noun: { form: taste }
-  nutrition_noun: { form: nutrition }
-  cookingtime_noun: { form: cooking time }
-  freshness_noun: { form: freshness }
-  coldchain_noun: { form: cold chain }
-  transportmeans_noun: { form: means of transport }
-  localtransport_noun: { form: local transport }
-  longdistance_noun: { form: long-distance transport }
-  surcharge_noun: { form: surcharge, plural: surcharges }
-  reduction_noun: { form: concession, plural: concessions }
-  monthlyticket_noun: { form: monthly ticket, plural: monthly tickets }
-  validation_noun: { form: ticket validation }
-  passenger_person: { form: passenger, plural: passengers }
-  conductor_person: { form: ticket inspector, plural: ticket inspectors }
-  levelcrossing_place: { form: level crossing, plural: level crossings }
-  rightofway_noun: { form: right of way }
-  overtakingban_noun: { form: overtaking ban, plural: overtaking bans }
-  speedlimit_noun: { form: speed limit, plural: speed limits }
-  fine_noun: { form: fine, plural: fines }
-  drivingban_noun: { form: driving ban, plural: driving bans }
-  numberplate_object: { form: number plate, plural: number plates }
-  registration_noun: { form: vehicle registration }
-  inspection_noun: { form: roadworthiness test, plural: roadworthiness tests }
-  emissionstandard_noun: { form: emission standard, plural: emission standards }
-  chargingpoint_place: { form: charging point, plural: charging points }
-  range_noun: { form: range }
-  consumption_noun: { form: fuel consumption }
-  maintenance_noun: { form: servicing }
-  breakdownservice_noun: { form: breakdown service }
-  tenancylaw_noun: { form: tenancy law }
-  noticeperiod_noun: { form: notice period, plural: notice periods }
-  sublet_noun: { form: sublet }
-  rentincrease_noun: { form: rent increase, plural: rent increases }
-  utilitiesbill_noun: { form: service charge statement }
-  livingspace_noun: { form: living space }
-  floorplan_object: { form: floor plan, plural: floor plans }
-  groundfloor_place: { form: ground floor }
-  atticfloor_place: { form: attic floor }
-  renovation_noun: { form: renovation, plural: renovations }
-  refurbishment_noun: { form: refurbishment }
-  mould_noun: { form: mould }
-  damp_noun: { form: damp }
-  tradesman_person: { form: tradesman, plural: tradesmen }
-  repair_noun: { form: repair, plural: repairs }
-  defect_noun: { form: defect, plural: defects }
-  residentregistration_noun: { form: address registration }
-  registrationcertificate_noun: { form: registration certificate }
-  contentsinsurance_noun: { form: contents insurance }
-  smokedetector_object: { form: smoke detector, plural: smoke detectors }
-  energycertificate_noun: { form: energy certificate }
-  heatingcosts_noun: { form: heating costs }
-  watermeter_object: { form: water meter, plural: water meters }
-  wastesorting_noun: { form: waste separation }
-  withdrawalright_noun: { form: right of withdrawal }
-  withdrawalperiod_noun: { form: withdrawal period }
-  purchasecontract_noun: { form: purchase contract, plural: purchase contracts }
-  statutorywarranty_noun: { form: statutory warranty }
-  rectification_noun: { form: rectification }
-  pricereduction_noun: { form: price reduction, plural: price reductions }
-  deliverytime_noun: { form: delivery time }
-  cashondelivery_noun: { form: cash on delivery }
-  tracking_noun: { form: parcel tracking }
-  clearanceitem_noun: { form: clearance item, plural: clearance items }
-  remainder_noun: { form: remaindered stock }
-  financing_noun: { form: financing }
-  creditrating_noun: { form: credit rating }
-  directdebit_noun: { form: direct debit, plural: direct debits }
-  chargeback_noun: { form: returned debit, plural: returned debits }
-  paymentterm_noun: { form: payment term, plural: payment terms }
-  reminder_noun: { form: payment reminder, plural: payment reminders }
-  debtcollection_noun: { form: debt collection }
-  billingaddress_noun: { form: billing address, plural: billing addresses }
-  deliveryaddress_noun: { form: delivery address, plural: delivery addresses }
-  middleman_person: { form: middleman, plural: middlemen }
-  pricecomparison_noun: { form: price comparison, plural: price comparisons }
-  review_noun: { form: customer review, plural: customer reviews }
-  loyaltypoints_noun: { form: loyalty points }
-  guardian_person: { form: legal guardian, plural: legal guardians }
-  custody_noun: { form: custody }
-  maintenance_payment: { form: maintenance }
-  childbenefit_noun: { form: child benefit }
-  parentalallowance_noun: { form: parental allowance }
-  parentalleave_noun: { form: parental leave }
-  childcare_noun: { form: childcare }
-  childminder_person: { form: childminder, plural: childminders }
-  adoption_noun: { form: adoption, plural: adoptions }
-  fosterfamily_noun: { form: foster family, plural: foster families }
-  godparenthood_noun: { form: godparenthood }
-  inheritance_noun: { form: inheritance, plural: inheritances }
-  will_noun: { form: will, plural: wills }
-  estate_noun: { form: estate, plural: estates }
-  powerofattorney_noun: { form: power of attorney }
-  healthproxy_noun: { form: advance power of attorney }
-  registryoffice_place: { form: registry office, plural: registry offices }
-  marriageceremony_noun: { form: marriage ceremony, plural: marriage ceremonies }
-  birthcertificate_noun: { form: birth certificate, plural: birth certificates }
-  deathcertificate_noun: { form: death certificate, plural: death certificates }
-  familybook_object: { form: family record book }
-  kinshipdegree_noun: { form: degree of kinship }
-  generation_noun: { form: generation, plural: generations }
-  cohabitation_noun: { form: living together }
-  period_noun: { form: period, plural: periods }
-  pointintime_noun: { form: point in time }
-  cutoffdate_noun: { form: cut-off date, plural: cut-off dates }
-  delay_general: { form: delay, plural: delays }
-  postponement_noun: { form: postponement, plural: postponements }
-  schedule_noun: { form: schedule, plural: schedules }
-  sequenceflow_noun: { form: process }
-  order_sequence: { form: order }
-  simultaneity_noun: { form: simultaneity }
-  regularity_noun: { form: regularity }
-  frequency_general: { form: frequency }
-  timezone_noun: { form: time zone, plural: time zones }
-  summertime_noun: { form: summer time }
-  wintertime_noun: { form: winter time }
-  leapyear_noun: { form: leap year, plural: leap years }
-  anniversary_noun: { form: anniversary, plural: anniversaries }
-  timewaste_noun: { form: waste of time }
-  punctuality_noun: { form: punctuality }
-  diary_object: { form: appointment diary, plural: appointment diaries }
-  leadtime_noun: { form: lead time }
-  graceperiod_noun: { form: grace period }
-  timepressure_noun: { form: time pressure }
-  opportunity_noun: { form: opportunity, plural: opportunities }
-  eternity_noun: { form: eternity }
-  municipality_place: { form: municipality, plural: municipalities }
-  county_place: { form: rural district, plural: rural districts }
-  borough_place: { form: borough, plural: boroughs }
-  mayor_person: { form: mayor, plural: mayors }
-  citycouncil_noun: { form: city council, plural: city councils }
-  constituency_place: { form: constituency, plural: constituencies }
-  registrationoffice_place: { form: residents registration office }
-  publicorder_office: { form: public order office }
-  buildingauthority_place: { form: building authority }
-  permit_noun: { form: permit, plural: permits }
-  application_form: { form: application, plural: applications }
-  form_object: { form: form, plural: forms }
-  fee_noun: { form: fee, plural: fees }
-  notice_decision: { form: official notice, plural: official notices }
-  civicobjection_noun: { form: formal objection, plural: formal objections }
-  publicsurgery_noun: { form: public consultation hour }
-  publicsphere_noun: { form: general public }
-  infrastructure_noun: { form: infrastructure }
-  urbandevelopment_noun: { form: urban development }
-  greenspace_place: { form: green space, plural: green spaces }
-  localsupply_noun: { form: local amenities }
-  trafficcalming_noun: { form: traffic calming }
-  redevelopmentarea_place: { form: redevelopment area, plural: redevelopment areas }
-  jurisdiction_noun: { form: official competence }
-  jobadvert_noun: { form: job advert, plural: job adverts }
-  coverletter_noun: { form: cover letter, plural: cover letters }
-  qualification_noun: { form: qualification, plural: qualifications }
-  competence_noun: { form: competence, plural: competences }
-  workreference_noun: { form: employer reference, plural: employer references }
-  fixedterm_noun: { form: fixed term }
-  permanentcontract_noun: { form: conversion to permanent }
-  warning_noun: { form: formal warning, plural: formal warnings }
-  terminationagreement_noun: { form: termination agreement, plural: termination agreements }
-  dismissalprotection_noun: { form: protection against dismissal }
-  companyagreement_noun: { form: works agreement, plural: works agreements }
-  collectiveagreement_noun: { form: collective agreement, plural: collective agreements }
-  minimumwage_noun: { form: minimum wage }
-  salarynegotiation_noun: { form: salary negotiation, plural: salary negotiations }
-  bonuspayment_noun: { form: bonus payment, plural: bonus payments }
-  holidayentitlement_noun: { form: holiday entitlement }
-  remainingleave_noun: { form: remaining leave }
-  occupationalsafety_noun: { form: occupational safety }
-  induction_noun: { form: induction }
-  targetagreement_noun: { form: target agreement, plural: target agreements }
-  performancereview_noun: { form: performance review, plural: performance reviews }
-  personnelfile_noun: { form: personnel file, plural: personnel files }
-  workingatmosphere_noun: { form: working atmosphere }
-  turnover_staff: { form: staff turnover }
-
-  # ── B2, all constellations ────────────────────────────────────────────
-  nutritionalvalue_noun: { form: nutritional value }
-  calorie_noun: { form: calorie, plural: calories }
-  protein_noun: { form: protein }
-  carbohydrate_noun: { form: carbohydrate, plural: carbohydrates }
-  fibre_noun: { form: dietary fibre }
-  preservative_noun: { form: preservative, plural: preservatives }
-  additive_noun: { form: additive, plural: additives }
-  labelling_noun: { form: labelling }
-  intolerance_noun: { form: intolerance, plural: intolerances }
-  allergen_noun: { form: allergen, plural: allergens }
-  lactose_noun: { form: lactose }
-  gluten_noun: { form: gluten }
-  organicproduct_noun: { form: organic product, plural: organic products }
-  countryoforigin_noun: { form: country of origin }
-  bestbefore_noun: { form: best-before date }
-  supplychain_noun: { form: supply chain, plural: supply chains }
-  producer_person: { form: producer, plural: producers }
-  wholesale_noun: { form: wholesale }
-  retail_noun: { form: retail }
-  consumerprotection_noun: { form: consumer protection }
-  foodlaw_noun: { form: food law }
-  hygienerule_noun: { form: hygiene regulation, plural: hygiene regulations }
-  sustainability_noun: { form: sustainability }
-  regionality_noun: { form: regional sourcing }
-  transportinfra_noun: { form: transport infrastructure }
-  routenetwork_noun: { form: route network, plural: route networks }
-  clockfacetimetable_noun: { form: clock-face scheduling }
-  capacitybottleneck_noun: { form: capacity bottleneck, plural: capacity bottlenecks }
-  emissionlimit_noun: { form: emission limit, plural: emission limits }
-  lowemissionzone_noun: { form: low-emission zone, plural: low-emission zones }
-  particulate_noun: { form: particulate matter }
-  noiseprotection_noun: { form: noise protection }
-  mobilityshift_noun: { form: transport transition }
-  electromobility_noun: { form: electromobility }
-  charginginfra_noun: { form: charging infrastructure }
-  subsidy_noun: { form: subsidy, plural: subsidies }
-  trackprice_noun: { form: track access charge, plural: track access charges }
-  operatormodel_noun: { form: operator model, plural: operator models }
-  liabilityexclusion_noun: { form: exclusion of liability }
-  claimssettlement_noun: { form: claims settlement }
-  comprehensivecover_noun: { form: comprehensive cover }
-  excess_noun: { form: excess }
-  roadsafety_noun: { form: road safety }
-  accidentstatistics_noun: { form: accident statistics }
-  freighttransport_noun: { form: freight transport }
-  logisticschain_noun: { form: logistics chain, plural: logistics chains }
-  customsclearance_noun: { form: customs clearance }
-  logbook_object: { form: logbook, plural: logbooks }
-  rentindex_noun: { form: local rent survey }
-  modernisationlevy_noun: { form: modernisation levy }
-  maintenancereserve_noun: { form: maintenance reserve }
-  condominium_noun: { form: freehold flat ownership }
-  ownersassociation_noun: { form: owners association, plural: owners associations }
-  landregister_noun: { form: land register }
-  transfertax_noun: { form: property transfer tax }
-  mortgage_noun: { form: mortgage, plural: mortgages }
-  repayment_noun: { form: repayment }
-  fixedinterest_noun: { form: fixed-interest period }
-  lendingvalue_noun: { form: lending value }
-  leasehold_noun: { form: leasehold }
-  evictionclaim_noun: { form: eviction claim, plural: eviction claims }
-  rentreduction_noun: { form: rent reduction, plural: rent reductions }
-  defectnotice_noun: { form: notice of defects }
-  marketvalue_noun: { form: market value }
-  buildingapplication_noun: { form: building application, plural: building applications }
-  developmentplan_noun: { form: development plan, plural: development plans }
-  heritageprotection_noun: { form: heritage protection }
-  insulation_noun: { form: thermal insulation }
-  efficiencyclass_noun: { form: energy efficiency class }
-  advancepayment_noun: { form: advance service charge }
-  depositaccount_noun: { form: deposit account, plural: deposit accounts }
-  handoverprotocol_noun: { form: handover report, plural: handover reports }
-  termsandconditions_noun: { form: terms and conditions }
-  contractclause_noun: { form: contract clause, plural: contract clauses }
-  liabilitylimit_noun: { form: limitation of liability }
-  limitationperiod_noun: { form: statutory limitation }
-  burdenofproof_noun: { form: burden of proof }
-  materialdefect_noun: { form: material defect, plural: material defects }
-  legaldefect_noun: { form: defect of title }
-  subsequentperformance_noun: { form: subsequent performance }
-  withdrawal_contract: { form: rescission }
-  damages_noun: { form: damages }
-  consumercentre_noun: { form: consumer advice centre }
-  competitionlaw_noun: { form: competition law }
-  pricefixing_noun: { form: resale price maintenance }
-  cartelauthority_noun: { form: competition authority }
-  marketshare_noun: { form: market share, plural: market shares }
-  supplyshortage_noun: { form: supply shortage, plural: supply shortages }
-  procurement_noun: { form: procurement }
-  costing_noun: { form: costing }
-  margin_noun: { form: margin, plural: margins }
-  returnonsales_noun: { form: return on sales }
-  stocktaking_noun: { form: stocktaking }
-  merchandisesystem_noun: { form: merchandise management }
-  paymentdefault_noun: { form: payment default }
-  creditcheck_noun: { form: credit check, plural: credit checks }
-  prenup_noun: { form: prenuptial agreement, plural: prenuptial agreements }
-  separationofproperty_noun: { form: separation of property }
-  communityofaccrued_noun: { form: community of accrued gains }
-  pensionequalisation_noun: { form: pension equalisation }
-  maintenanceobligation_noun: { form: maintenance obligation, plural: maintenance obligations }
-  maintenancetitle_noun: { form: maintenance order, plural: maintenance orders }
-  custodydispute_noun: { form: custody dispute, plural: custody disputes }
-  accessright_noun: { form: right of access }
-  childwelfare_noun: { form: best interests of the child }
-  youthoffice_place: { form: youth welfare office, plural: youth welfare offices }
-  familycourt_place: { form: family court, plural: family courts }
-  succession_noun: { form: order of succession }
-  compulsoryshare_noun: { form: compulsory share, plural: compulsory shares }
-  inheritancetax_noun: { form: inheritance tax }
-  bequest_noun: { form: bequest, plural: bequests }
-  estateadministration_noun: { form: estate administration }
-  guardianshiplaw_noun: { form: adult guardianship law }
-  livingwill_noun: { form: living will, plural: living wills }
-  generationalcontract_noun: { form: generational contract }
-  pensionclaim_noun: { form: pension entitlement, plural: pension entitlements }
-  survivorspension_noun: { form: survivors pension, plural: survivors pensions }
-  familyreunion_noun: { form: family reunification }
-  residencepermit_noun: { form: residence title, plural: residence permits }
-  naturalisation_noun: { form: naturalisation }
-  timemanagement_noun: { form: time management }
-  prioritisation_noun: { form: prioritisation }
-  milestone_noun: { form: milestone, plural: milestones }
-  projectphase_noun: { form: project phase, plural: project phases }
-  timeseries_noun: { form: time series }
-  periodicity_noun: { form: periodicity }
-  synchronisation_noun: { form: synchronisation }
-  limitationdeadline_noun: { form: limitation period, plural: limitation periods }
-  transitionperiod_noun: { form: transition period, plural: transition periods }
-  qualifyingperiod_noun: { form: qualifying period, plural: qualifying periods }
-  paybackperiod_noun: { form: payback period, plural: payback periods }
-  halflife_noun: { form: half-life }
-  chronology_noun: { form: chronology, plural: chronologies }
-  epoch_noun: { form: epoch, plural: epochs }
-  era_noun: { form: era, plural: eras }
-  zeitgeist_noun: { form: zeitgeist }
-  prehistory_noun: { form: backstory }
-  aftereffect_noun: { form: after-effect, plural: after-effects }
-  retroactivity_noun: { form: retroactive effect }
-  clocking_noun: { form: clocking }
-  frequency_technical: { form: frequency, plural: frequencies }
-  interval_noun: { form: interval, plural: intervals }
-  rotation_noun: { form: regular rotation }
-  cycle_noun: { form: cycle, plural: cycles }
-  localpolitics_noun: { form: local politics }
-  budgetplan_noun: { form: budget plan, plural: budget plans }
-  taxrevenue_noun: { form: tax revenue }
-  tradetax_noun: { form: trade tax }
-  levy_noun: { form: levy, plural: levies }
-  specialpurposeassoc_noun: { form: special purpose association }
-  publicservices_noun: { form: public services provision }
-  landuseplan_noun: { form: land use plan, plural: land use plans }
-  urbanplanninglaw_noun: { form: urban land-use planning }
-  sitedevelopment_noun: { form: site development }
-  expropriation_noun: { form: expropriation, plural: expropriations }
-  publicbenefit_noun: { form: charitable status }
-  citizenspetition_noun: { form: citizens petition, plural: citizens petitions }
-  referendum_noun: { form: local referendum, plural: local referendums }
-  councildecision_noun: { form: council resolution, plural: council resolutions }
-  officialgazette_noun: { form: official gazette, plural: official gazettes }
-  administrativeact_noun: { form: administrative act, plural: administrative acts }
-  legalremedy_noun: { form: legal remedy, plural: legal remedies }
-  administrativecourt_place: { form: administrative court, plural: administrative courts }
-  minoroffence_noun: { form: regulatory offence, plural: regulatory offences }
-  hazardprevention_noun: { form: hazard prevention }
-  disasterresponse_noun: { form: disaster response }
-  townplanning_noun: { form: town planning }
-  heritageconservation_noun: { form: heritage conservation }
-  labourlaw_noun: { form: labour law }
-  businesstransfer_noun: { form: transfer of undertaking }
-  massredundancy_noun: { form: mass redundancy, plural: mass redundancies }
-  socialplan_noun: { form: social compensation plan }
-  interestbalance_noun: { form: reconciliation of interests }
-  shorttimework_noun: { form: short-time work }
-  insolvencypay_noun: { form: insolvency pay }
-  bogusselfemployment_noun: { form: bogus self-employment }
-  contractforwork_noun: { form: contract for work, plural: contracts for work }
-  temporarywork_noun: { form: agency work }
-  staffleasing_noun: { form: staff leasing }
-  codetermination_noun: { form: codetermination }
-  supervisoryboard_noun: { form: supervisory board, plural: supervisory boards }
-  tariffautonomy_noun: { form: collective bargaining autonomy }
-  righttostrike_noun: { form: right to strike }
-  lockout_noun: { form: lockout, plural: lockouts }
-  ancillarycosts_noun: { form: non-wage labour costs }
-  socialinsurance_noun: { form: social insurance }
-  pensioninsurance_noun: { form: state pension insurance }
-  unemploymentinsurance_noun: { form: unemployment insurance }
-  careinsurance_noun: { form: long-term care insurance }
-  employersliability_noun: { form: employers liability association }
-  labourcourt_place: { form: labour court, plural: labour courts }
-  conciliationhearing_noun: { form: conciliation hearing, plural: conciliation hearings }
+phrases:
+  about_me_a0_01: "My name is ..."
+  about_me_a0_02: "What's your name?"
+  about_me_a0_03: "I'm from ..."
+  about_me_a0_04: "Where are you from?"
+  about_me_a0_05: "I live in ..."
+  about_me_a0_06: "Where do you live?"
+  about_me_a0_07: "I'm ... years old."
+  about_me_a0_08: "How old are you?"
+  about_me_a0_09: "I work here."
+  about_me_a0_10: "I'm studying."
+  about_me_a0_11: "This is my friend."
+  about_me_a0_12: "This is my family."
+  about_me_a0_13: "It's my first time here."
+  about_me_a0_14: "I'm here on holiday."
+  about_me_a0_15: "I speak English."
+  about_me_a0_16: "I speak a little German."
+  about_me_a0_17: "I'm still learning."
+  about_me_a0_18: "My address is ..."
+  about_me_a0_19: "My phone number is ..."
+  about_me_a0_20: "What about you?"
+  advice_decisions_b1_01: "If I were you, I'd wait."
+  advice_decisions_b1_02: "It might be worth asking for help."
+  advice_decisions_b1_03: "You don't have to decide straight away."
+  advice_decisions_b1_04: "I'd check the conditions first."
+  advice_decisions_b1_05: "Why not try another method?"
+  advice_decisions_b1_06: "That could work."
+  advice_decisions_b1_07: "Which option seems realistic to you?"
+  advice_decisions_b1_08: "What happens if we change nothing?"
+  advice_decisions_b1_09: "You don't have to do everything at once."
+  advice_decisions_b1_10: "Let's start with a small step."
+  advice_decisions_b1_11: "The decision is yours."
+  advice_decisions_b1_12: "I don't want to put pressure on you."
+  advice_decisions_b1_13: "We can try it for a week."
+  advice_decisions_b1_14: "Then we'll see whether it helped."
+  advice_decisions_b1_15: "We still have a backup plan."
+  advice_decisions_b1_16: "I wouldn't jump to conclusions."
+  advice_decisions_b1_17: "My advice would be to ..."
+  advice_decisions_b1_18: "We could ... in order to ..."
+  advice_decisions_b1_19: "If you want to ..., try ..."
+  advice_decisions_b1_20: "The advantage of this solution is that ..."
+  agree_object_b1_01: "I agree with that."
+  agree_object_b1_02: "You're right on this point."
+  agree_object_b1_03: "That's a good point."
+  agree_object_b1_04: "I think so too."
+  agree_object_b1_05: "On the whole, I agree."
+  agree_object_b1_06: "I see that differently."
+  agree_object_b1_07: "I understand the argument, but I don't share the conclusion."
+  agree_object_b1_08: "I don't think that's always the case."
+  agree_object_b1_09: "I don't entirely agree with that."
+  agree_object_b1_10: "That depends on the situation."
+  agree_object_b1_11: "Perhaps we're talking about different things."
+  agree_object_b1_12: "Let's clarify what we agree on."
+  agree_object_b1_13: "We can have different opinions."
+  agree_object_b1_14: "I didn't mean to interrupt you."
+  agree_object_b1_15: "Please let me finish my point."
+  agree_object_b1_16: "Okay, now I understand your position."
+  agree_object_b1_17: "I agree about ..., but ..."
+  agree_object_b1_18: "On the one hand ..., on the other hand ..."
+  agree_object_b1_19: "That's true, however ..."
+  agree_object_b1_20: "Shouldn't we also consider ...?"
+  ai_information_b2_01: "This answer sounds convincing, but it needs checking."
+  ai_information_b2_02: "The tool can be wrong even when it answers confidently."
+  ai_information_b2_03: "I use AI as an aid, not as my only source."
+  ai_information_b2_04: "We need to check the links provided."
+  ai_information_b2_05: "Is it stated that the image was generated?"
+  ai_information_b2_06: "The quote seems to have been taken out of context."
+  ai_information_b2_07: "We shouldn't share information just because of an emotional headline."
+  ai_information_b2_08: "I'd like to know how my data is used."
+  ai_information_b2_09: "I haven't consented to this data being shared."
+  ai_information_b2_10: "Access should be limited to what's necessary."
+  ai_information_b2_11: "Automation doesn't remove the need for oversight."
+  ai_information_b2_12: "It's important to understand the limits of this system."
+  ai_information_b2_13: "Before trusting ..., let's check ..."
+  ai_information_b2_14: "This tool is useful for ..., but not for ..."
+  ai_information_b2_15: "Could the result be biased because of ...?"
+  ai_information_b2_16: "From a data protection perspective, ..."
+  ai_information_b2_17: "I wouldn't enter ... here."
+  ai_information_b2_18: "The decision should remain with ... because ..."
+  ai_information_b2_19: "It must be clearly stated whether the following claim is true: ..."
+  ai_information_b2_20: "Convenience shouldn't come at the expense of ..."
+  argument_building_b2_01: "First, we should clarify exactly what we're discussing."
+  argument_building_b2_02: "I'd look at the issue from two perspectives."
+  argument_building_b2_03: "My main argument concerns the long-term consequences."
+  argument_building_b2_04: "One point in favour of this solution is that it's easily accessible."
+  argument_building_b2_05: "Two objections can be raised against this."
+  argument_building_b2_06: "This argument is convincing but not decisive."
+  argument_building_b2_07: "We should distinguish between the goal and the means."
+  argument_building_b2_08: "One doesn't necessarily rule out the other."
+  argument_building_b2_09: "The problem is more complex than it first appears."
+  argument_building_b2_10: "The less obvious consequences should also be considered."
+  argument_building_b2_11: "I wouldn't reduce everything to a single factor."
+  argument_building_b2_12: "This isn't about choosing between two extremes."
+  argument_building_b2_13: "The claim I'd like to support is that ..."
+  argument_building_b2_14: "The key question is not ..., but ..."
+  argument_building_b2_15: "Even if we assume that ..., ..."
+  argument_building_b2_16: "This is true insofar as ..."
+  argument_building_b2_17: "What matters is not so much ... as ..."
+  argument_building_b2_18: "Alongside ..., we should consider ..."
+  argument_building_b2_19: "What follows from this is not ..., but ..."
+  argument_building_b2_20: "Before drawing a conclusion, we need to ..."
+  arrangements_a2_01: "I'd like to reschedule our meeting."
+  arrangements_a2_02: "Tomorrow works better for me."
+  arrangements_a2_03: "Can we meet half an hour later?"
+  arrangements_a2_04: "Unfortunately, I have to cancel the meeting."
+  arrangements_a2_05: "Thank you for your understanding."
+  arrangements_a2_06: "Let's find another time."
+  arrangements_a2_07: "Are our plans still on?"
+  arrangements_a2_08: "I'm confirming the appointment on Friday."
+  arrangements_a2_09: "I'll be ten minutes late."
+  arrangements_a2_10: "Thank you for waiting."
+  arrangements_a2_11: "Please let me know in advance."
+  arrangements_a2_12: "When is this needed by?"
+  arrangements_a2_13: "I'll get it done by Monday."
+  arrangements_a2_14: "That needs more time."
+  arrangements_a2_15: "I already have plans."
+  arrangements_a2_16: "It's a deal."
+  arrangements_a2_17: "Would ... suit you?"
+  arrangements_a2_18: "I'm free from ... to ..."
+  arrangements_a2_19: "Please confirm ..."
+  arrangements_a2_20: "If anything changes, ..."
+  cafe_food_a1_01: "A table for two, please."
+  cafe_food_a1_02: "Can I have the menu?"
+  cafe_food_a1_03: "What do you recommend?"
+  cafe_food_a1_04: "I'm still deciding."
+  cafe_food_a1_05: "I'd like to order."
+  cafe_food_a1_06: "The soup for me, please."
+  cafe_food_a1_07: "Without sugar, please."
+  cafe_food_a1_08: "With milk, please."
+  cafe_food_a1_09: "I don't eat meat."
+  cafe_food_a1_10: "I'm allergic to nuts."
+  cafe_food_a1_11: "Is that spicy?"
+  cafe_food_a1_12: "This tastes very good."
+  cafe_food_a1_13: "Can I have some more bread?"
+  cafe_food_a1_14: "To take away, please."
+  cafe_food_a1_15: "We'd like to pay separately."
+  cafe_food_a1_16: "Is the tip included?"
+  cafe_food_a1_17: "I'd like ... without ..."
+  cafe_food_a1_18: "Do you have ...?"
+  cafe_food_a1_19: "For breakfast, I have ..."
+  cafe_food_a1_20: "I prefer ..."
+  clarify_mediate_b1_01: "If I understand correctly, we have two options."
+  clarify_mediate_b1_02: "Do you mean today or tomorrow?"
+  clarify_mediate_b1_03: "Can you put that in other words?"
+  clarify_mediate_b1_04: "I'll try to explain it more simply."
+  clarify_mediate_b1_05: "The point is that we need time."
+  clarify_mediate_b1_06: "That's not quite what I meant."
+  clarify_mediate_b1_07: "I'll explain with an example."
+  clarify_mediate_b1_08: "Let's not mix up these two issues."
+  clarify_mediate_b1_09: "Are we talking about the price or the quality?"
+  clarify_mediate_b1_10: "I'll briefly summarise the main point."
+  clarify_mediate_b1_11: "She's asking for the time to be confirmed."
+  clarify_mediate_b1_12: "He's not refusing; he's asking for clarification."
+  clarify_mediate_b1_13: "Perhaps the problem is only in the wording."
+  clarify_mediate_b1_14: "Have I conveyed your point correctly?"
+  clarify_mediate_b1_15: "What exactly is unclear to you?"
+  clarify_mediate_b1_16: "Now we understand it in the same way."
+  clarify_mediate_b1_17: "In other words, ..."
+  clarify_mediate_b1_18: "By ..., I mean ..."
+  clarify_mediate_b1_19: "Have I understood correctly that ...?"
+  clarify_mediate_b1_20: "To summarise what's been said, ..."
+  comparison_conditions_a2_01: "This option suits me better."
+  comparison_conditions_a2_02: "It's cheaper but further away."
+  comparison_conditions_a2_03: "Time matters more to me than the price."
+  comparison_conditions_a2_04: "Both options are good."
+  comparison_conditions_a2_05: "I haven't decided yet."
+  comparison_conditions_a2_06: "It depends on the weather."
+  comparison_conditions_a2_07: "I'm staying home because it's raining."
+  comparison_conditions_a2_08: "If I have time, I'll come."
+  comparison_conditions_a2_09: "We can start without him."
+  comparison_conditions_a2_10: "We need to ask first."
+  comparison_conditions_a2_11: "It's better to do it now."
+  comparison_conditions_a2_12: "It's not as difficult as it looks."
+  comparison_conditions_a2_13: "I need something simpler."
+  comparison_conditions_a2_14: "I choose quality rather than quantity."
+  comparison_conditions_a2_15: "That's only possible in the morning."
+  comparison_conditions_a2_16: "There's no other option."
+  comparison_conditions_a2_17: "I choose ... because ..."
+  comparison_conditions_a2_18: "If ..., then ..."
+  comparison_conditions_a2_19: "... is more important than ..."
+  comparison_conditions_a2_20: "Instead of ..., you can ..."
+  culture_impressions_b1_01: "The film made a strong impression on me."
+  culture_impressions_b1_02: "The plot develops slowly."
+  culture_impressions_b1_03: "The main character tries to change their life."
+  culture_impressions_b1_04: "The story is based on real events."
+  culture_impressions_b1_05: "I liked the atmosphere."
+  culture_impressions_b1_06: "The ending was unexpected."
+  culture_impressions_b1_07: "I don't want to give away the ending."
+  culture_impressions_b1_08: "The book made me think."
+  culture_impressions_b1_09: "I found some scenes unrealistic."
+  culture_impressions_b1_10: "The music suits the story well."
+  culture_impressions_b1_11: "I'd recommend it to friends."
+  culture_impressions_b1_12: "It's not quite to my taste."
+  culture_impressions_b1_13: "I usually read in the original language."
+  culture_impressions_b1_14: "Subtitles help me understand the dialogue."
+  culture_impressions_b1_15: "What idea did the author want to convey?"
+  culture_impressions_b1_16: "Everyone can understand it differently."
+  culture_impressions_b1_17: "The film is about ..."
+  culture_impressions_b1_18: "What impressed me most was ..."
+  culture_impressions_b1_19: "Unlike in the book, ..."
+  culture_impressions_b1_20: "I'd recommend it to people who ..."
+  daily_routine_a1_01: "I get up at seven."
+  daily_routine_a1_02: "First, I have breakfast."
+  daily_routine_a1_03: "Then I go to work."
+  daily_routine_a1_04: "I work from home."
+  daily_routine_a1_05: "I have a break at noon."
+  daily_routine_a1_06: "I get home at six."
+  daily_routine_a1_07: "I cook in the evening."
+  daily_routine_a1_08: "I go to bed early."
+  daily_routine_a1_09: "I do that every day."
+  daily_routine_a1_10: "I usually take the bus."
+  daily_routine_a1_11: "Sometimes I walk."
+  daily_routine_a1_12: "I don't work on Sundays."
+  daily_routine_a1_13: "When do you have breakfast?"
+  daily_routine_a1_14: "How often do you cook?"
+  daily_routine_a1_15: "I have a lot to do today."
+  daily_routine_a1_16: "I'm not finished yet."
+  daily_routine_a1_17: "Every morning, I ..."
+  daily_routine_a1_18: "After work, I ..."
+  daily_routine_a1_19: "Before going to bed, I ..."
+  daily_routine_a1_20: "At weekends, we ..."
+  digital_life_a2_01: "I can't log in to my account."
+  digital_life_a2_02: "I've forgotten my password."
+  digital_life_a2_03: "How do I reset my password?"
+  digital_life_a2_04: "The verification code hasn't arrived."
+  digital_life_a2_05: "The link no longer works."
+  digital_life_a2_06: "The file is too large."
+  digital_life_a2_07: "Can you send it as a PDF?"
+  digital_life_a2_08: "Can you hear me clearly?"
+  digital_life_a2_09: "My microphone is muted."
+  digital_life_a2_10: "The picture has frozen."
+  digital_life_a2_11: "I'll reconnect."
+  digital_life_a2_12: "Do I need to install the update?"
+  digital_life_a2_13: "I've made a backup."
+  digital_life_a2_14: "Don't send me your password."
+  digital_life_a2_15: "I don't know the sender."
+  digital_life_a2_16: "I'd like to turn off notifications."
+  digital_life_a2_17: "I can't manage to ..."
+  digital_life_a2_18: "The screen says ..."
+  digital_life_a2_19: "Where can I change ...?"
+  digital_life_a2_20: "I received a message about ..."
+  ecology_decisions_b2_01: "Environmental measures must be fair and affordable."
+  ecology_decisions_b2_02: "The product's entire life cycle needs to be considered."
+  ecology_decisions_b2_03: "A low price doesn't always reflect the true cost."
+  ecology_decisions_b2_04: "Who will bear the costs of the transition?"
+  ecology_decisions_b2_05: "Individual choices matter, but they don't replace structural change."
+  ecology_decisions_b2_06: "The long-term benefits may outweigh the initial costs."
+  ecology_decisions_b2_07: "We need measurable targets."
+  ecology_decisions_b2_08: "How will we check whether this measure works?"
+  ecology_decisions_b2_09: "We shouldn't simply shift the problem elsewhere."
+  ecology_decisions_b2_10: "The promised effect depends on how it's used."
+  ecology_decisions_b2_11: "We need to distinguish real change from advertising."
+  ecology_decisions_b2_12: "The possible consequences of inaction also have a cost."
+  ecology_decisions_b2_13: "When comparing ... and ..., we need to consider ..."
+  ecology_decisions_b2_14: "The environmental benefit disappears if ..."
+  ecology_decisions_b2_15: "The transition to ... will require ..."
+  ecology_decisions_b2_16: "To avoid worsening ..., we should ..."
+  ecology_decisions_b2_17: "Depending on ..., the outcome may ..."
+  ecology_decisions_b2_18: "The costs of ... should be compared with ..."
+  ecology_decisions_b2_19: "Without changes to ..., it's unlikely that we'll ..."
+  ecology_decisions_b2_20: "This measure will only make sense if ..."
+  ecology_mobility_b1_01: "I try to use the car less often."
+  ecology_mobility_b1_02: "Public transport is convenient here."
+  ecology_mobility_b1_03: "I often get there faster by bike."
+  ecology_mobility_b1_04: "You can't manage without a car everywhere."
+  ecology_mobility_b1_05: "I take a reusable bottle with me."
+  ecology_mobility_b1_06: "We sort our rubbish at home."
+  ecology_mobility_b1_07: "Which bin does this packaging go in?"
+  ecology_mobility_b1_08: "It's better to repair it than throw it away."
+  ecology_mobility_b1_09: "I only buy what I need."
+  ecology_mobility_b1_10: "We throw away too much food."
+  ecology_mobility_b1_11: "That saves both money and resources."
+  ecology_mobility_b1_12: "Small changes make a difference too."
+  ecology_mobility_b1_13: "People need affordable alternatives."
+  ecology_mobility_b1_14: "I'd like to know where this product comes from."
+  ecology_mobility_b1_15: "More green spaces are needed here."
+  ecology_mobility_b1_16: "It's important to think beyond today."
+  ecology_mobility_b1_17: "To save ..., I ..."
+  ecology_mobility_b1_18: "If there were more ..., people could ..."
+  ecology_mobility_b1_19: "The problem lies not only in ..., but also in ..."
+  ecology_mobility_b1_20: "Our city lacks ..."
+  feelings_support_a2_01: "I'm really happy to see you."
+  feelings_support_a2_02: "I miss home."
+  feelings_support_a2_03: "I'm worried about the exam."
+  feelings_support_a2_04: "I feel a little awkward about this."
+  feelings_support_a2_05: "I'm disappointed with the result."
+  feelings_support_a2_06: "I'm proud of you."
+  feelings_support_a2_07: "What's worrying you?"
+  feelings_support_a2_08: "Would you like to talk about it?"
+  feelings_support_a2_09: "I'm listening to you."
+  feelings_support_a2_10: "I understand how you feel."
+  feelings_support_a2_11: "You're not alone."
+  feelings_support_a2_12: "Take your time."
+  feelings_support_a2_13: "Let's take a short break."
+  feelings_support_a2_14: "Do you need help or advice?"
+  feelings_support_a2_15: "I need some time for myself."
+  feelings_support_a2_16: "Thank you for being there."
+  feelings_support_a2_17: "I'm happy when ..."
+  feelings_support_a2_18: "It makes me sad that ..."
+  feelings_support_a2_19: "I'm worried about ..."
+  feelings_support_a2_20: "... helps me."
+  first_contact_a0_01: "Hello!"
+  first_contact_a0_02: "Good morning!"
+  first_contact_a0_03: "Good evening!"
+  first_contact_a0_04: "Good night!"
+  first_contact_a0_05: "Goodbye!"
+  first_contact_a0_06: "See you tomorrow!"
+  first_contact_a0_07: "See you soon!"
+  first_contact_a0_08: "How's it going?"
+  first_contact_a0_09: "Fine, thanks."
+  first_contact_a0_10: "And you?"
+  first_contact_a0_11: "Nice to meet you."
+  first_contact_a0_12: "Welcome!"
+  first_contact_a0_13: "Thanks for the help."
+  first_contact_a0_14: "You're welcome."
+  first_contact_a0_15: "Excuse me."
+  first_contact_a0_16: "I'm sorry."
+  first_contact_a0_17: "No problem."
+  first_contact_a0_18: "Have a nice day!"
+  first_contact_a0_19: "Thank you for ..."
+  first_contact_a0_20: "See you ..."
+  health_doctor_a1_01: "I have a headache."
+  health_doctor_a1_02: "I have a fever."
+  health_doctor_a1_03: "It hurts here."
+  health_doctor_a1_04: "I need a doctor."
+  health_doctor_a1_05: "Where is the nearest pharmacy?"
+  health_doctor_a1_06: "Can I make an appointment?"
+  health_doctor_a1_07: "It's urgent."
+  health_doctor_a1_08: "I have a cough."
+  health_doctor_a1_09: "I feel dizzy."
+  health_doctor_a1_10: "I can't sleep."
+  health_doctor_a1_11: "I take medication."
+  health_doctor_a1_12: "I have a prescription."
+  health_doctor_a1_13: "How do I take this medicine?"
+  health_doctor_a1_14: "How many times a day?"
+  health_doctor_a1_15: "I'm feeling better now."
+  health_doctor_a1_16: "Please call an ambulance."
+  health_doctor_a1_17: "My ... hurts."
+  health_doctor_a1_18: "I'm allergic to ..."
+  health_doctor_a1_19: "I need an appointment with ..."
+  health_doctor_a1_20: "How long do I need to ...?"
+  health_lifestyle_b1_01: "I've been sleeping badly lately."
+  health_lifestyle_b1_02: "I find it hard to balance work and rest."
+  health_lifestyle_b1_03: "I want to change my habits gradually."
+  health_lifestyle_b1_04: "Regular walks help me."
+  health_lifestyle_b1_05: "I try to take breaks."
+  health_lifestyle_b1_06: "I find it hard to switch off after work."
+  health_lifestyle_b1_07: "It affects my well-being."
+  health_lifestyle_b1_08: "I'd like to discuss it with a professional."
+  health_lifestyle_b1_09: "What treatment options are there?"
+  health_lifestyle_b1_10: "What are the benefits and risks of this treatment?"
+  health_lifestyle_b1_11: "Is there an alternative to this?"
+  health_lifestyle_b1_12: "I'd like to get a second opinion."
+  health_lifestyle_b1_13: "Have I understood the recommendation correctly?"
+  health_lifestyle_b1_14: "I don't want to change the dose on my own."
+  health_lifestyle_b1_15: "I want to be more active without overdoing it."
+  health_lifestyle_b1_16: "I need a plan I can stick to."
+  health_lifestyle_b1_17: "I notice that after ..."
+  health_lifestyle_b1_18: "My condition gets worse when ..."
+  health_lifestyle_b1_19: "What should I bear in mind when ...?"
+  health_lifestyle_b1_20: "Could this be related to ...?"
+  hedging_b2_01: "As far as I can judge, it's realistic."
+  hedging_b2_02: "I don't rule out that possibility."
+  hedging_b2_03: "We can't be completely certain."
+  hedging_b2_04: "At this stage, it's too early to draw conclusions."
+  hedging_b2_05: "That's more of an assumption than a fact."
+  hedging_b2_06: "The available information isn't enough for a firm conclusion."
+  hedging_b2_07: "I could be wrong about this."
+  hedging_b2_08: "I'm willing to reconsider my opinion."
+  hedging_b2_09: "It depends on how you define success."
+  hedging_b2_10: "There may be exceptions, but the rule remains useful."
+  hedging_b2_11: "Several factors may be at play here."
+  hedging_b2_12: "I'd put that more cautiously."
+  hedging_b2_13: "As far as I know, ..."
+  hedging_b2_14: "There are reasons to believe that ..."
+  hedging_b2_15: "It can't be ruled out that ..."
+  hedging_b2_16: "Provided that ..., ..."
+  hedging_b2_17: "This mainly concerns ..., rather than ..."
+  hedging_b2_18: "Under the current circumstances, I'm leaning towards ..."
+  hedging_b2_19: "Unless new data emerges, ..."
+  hedging_b2_20: "I wouldn't claim that ..., yet ..."
+  history_consequences_b1_01: "It all started with a misunderstanding."
+  history_consequences_b1_02: "At first, I didn't think it mattered."
+  history_consequences_b1_03: "Later, it turned out that the information was wrong."
+  history_consequences_b1_04: "Meanwhile, we'd already started working."
+  history_consequences_b1_05: "That caused a delay."
+  history_consequences_b1_06: "We decided to change the plan."
+  history_consequences_b1_07: "I didn't know how to react."
+  history_consequences_b1_08: "It took me time to understand it."
+  history_consequences_b1_09: "Eventually, we found a solution."
+  history_consequences_b1_10: "That experience taught me a lot."
+  history_consequences_b1_11: "I'd act differently now."
+  history_consequences_b1_12: "The hardest part was starting again."
+  history_consequences_b1_13: "We couldn't influence the situation."
+  history_consequences_b1_14: "Despite the difficulties, we continued."
+  history_consequences_b1_15: "That became a turning point for me."
+  history_consequences_b1_16: "A lot changed after that."
+  history_consequences_b1_17: "As soon as we ..., it became clear that ..."
+  history_consequences_b1_18: "While I was ..., ..."
+  history_consequences_b1_19: "The reason that ... was ..."
+  history_consequences_b1_20: "If I'd known ... then, ..."
+  housing_repairs_a2_01: "I'm looking for a flat for a long-term stay."
+  housing_repairs_a2_02: "How many rooms does the flat have?"
+  housing_repairs_a2_03: "Are the service charges included?"
+  housing_repairs_a2_04: "How much is the deposit?"
+  housing_repairs_a2_05: "When can I view the flat?"
+  housing_repairs_a2_06: "Are pets allowed?"
+  housing_repairs_a2_07: "I'm moving next month."
+  housing_repairs_a2_08: "The heating isn't working."
+  housing_repairs_a2_09: "There's no hot water."
+  housing_repairs_a2_10: "The tap is dripping."
+  housing_repairs_a2_11: "The window won't close."
+  housing_repairs_a2_12: "The hallway light isn't working."
+  housing_repairs_a2_13: "Who should I report the problem to?"
+  housing_repairs_a2_14: "When is the repair person coming?"
+  housing_repairs_a2_15: "I'll be home after five."
+  housing_repairs_a2_16: "Could you keep it down a little?"
+  housing_repairs_a2_17: "There is no ... in the flat."
+  housing_repairs_a2_18: "Something is wrong with ..."
+  housing_repairs_a2_19: "The problem started ..."
+  housing_repairs_a2_20: "Can ... be repaired?"
+  idioms_speech_b2_01: "I've got a lot on my plate right now."
+  idioms_speech_b2_02: "I need to juggle all of this."
+  idioms_speech_b2_03: "I've lost my train of thought."
+  idioms_speech_b2_04: "That hit the nail on the head."
+  idioms_speech_b2_05: "Let's not beat around the bush."
+  idioms_speech_b2_06: "That's a different matter altogether."
+  idioms_speech_b2_07: "We shouldn't make a mountain out of a molehill."
+  idioms_speech_b2_08: "I'll keep my fingers crossed for you."
+  idioms_speech_b2_09: "That's just the tip of the iceberg."
+  idioms_speech_b2_10: "That's where the problem lies."
+  idioms_speech_b2_11: "I need to sleep on it."
+  idioms_speech_b2_12: "I don't want to rush into anything."
+  idioms_speech_b2_13: "We seem to be talking at cross purposes."
+  idioms_speech_b2_14: "Now it's all starting to fall into place."
+  idioms_speech_b2_15: "Our plans fell through."
+  idioms_speech_b2_16: "It keeps playing on my mind."
+  idioms_speech_b2_17: "I can't just turn a blind eye to it."
+  idioms_speech_b2_18: "We've finally made some headway."
+  idioms_speech_b2_19: "That was the last straw."
+  idioms_speech_b2_20: "It'll gradually settle into place."
+  learning_how_a2_01: "I've been learning the language for six months."
+  learning_how_a2_02: "I find reading easier than speaking."
+  learning_how_a2_03: "I often forget new words."
+  learning_how_a2_04: "I want to improve my listening comprehension."
+  learning_how_a2_05: "Can I have another example?"
+  learning_how_a2_06: "What's the difference between these words?"
+  learning_how_a2_07: "How do you use this in a sentence?"
+  learning_how_a2_08: "Please correct my mistakes."
+  learning_how_a2_09: "I'd like to try it myself first."
+  learning_how_a2_10: "I need to revise this."
+  learning_how_a2_11: "I practise a little every day."
+  learning_how_a2_12: "Let's speak without translating."
+  learning_how_a2_13: "I write down useful expressions."
+  learning_how_a2_14: "I listen to it several times."
+  learning_how_a2_15: "It's clearer now."
+  learning_how_a2_16: "I can already see progress."
+  learning_how_a2_17: "I find it difficult to ..."
+  learning_how_a2_18: "I remember it better when ..."
+  learning_how_a2_19: "My goal for this week is ..."
+  learning_how_a2_20: "I'd like to practise ..."
+  letters_requests_b1_01: "Dear Ms Müller,"
+  letters_requests_b1_02: "I'm writing about my order."
+  letters_requests_b1_03: "Thank you for your email."
+  letters_requests_b1_04: "You'll find the documents attached."
+  letters_requests_b1_05: "Please confirm receipt."
+  letters_requests_b1_06: "I need further information."
+  letters_requests_b1_07: "I'd like to clarify one point."
+  letters_requests_b1_08: "Unfortunately, I haven't received a reply yet."
+  letters_requests_b1_09: "I'm referring to our telephone conversation."
+  letters_requests_b1_10: "Could you tell me the processing time?"
+  letters_requests_b1_11: "I'm happy to provide any missing documents."
+  letters_requests_b1_12: "There's an error in the form."
+  letters_requests_b1_13: "Please correct my address."
+  letters_requests_b1_14: "Please excuse the late reply."
+  letters_requests_b1_15: "I'd appreciate a reply by Friday."
+  letters_requests_b1_16: "Kind regards,"
+  letters_requests_b1_17: "I'm contacting you to request ..."
+  letters_requests_b1_18: "As discussed, ..."
+  letters_requests_b1_19: "In connection with ..., I request ..."
+  letters_requests_b1_20: "If you need any clarification, ..."
+  meetings_decisions_b2_01: "I suggest starting with the main issue."
+  meetings_decisions_b2_02: "What's the aim of today's meeting?"
+  meetings_decisions_b2_03: "We need to make a decision, not just exchange views."
+  meetings_decisions_b2_04: "Who else would like to comment?"
+  meetings_decisions_b2_05: "Let's return to the agenda."
+  meetings_decisions_b2_06: "That's important, but it needs a separate discussion."
+  meetings_decisions_b2_07: "We've gone a little off topic."
+  meetings_decisions_b2_08: "Which risks haven't we discussed yet?"
+  meetings_decisions_b2_09: "Are there any objections to this decision?"
+  meetings_decisions_b2_10: "Silence doesn't necessarily mean agreement."
+  meetings_decisions_b2_11: "Who will make the final decision?"
+  meetings_decisions_b2_12: "We need to assign an owner and a deadline."
+  meetings_decisions_b2_13: "By the next meeting, we should ..."
+  meetings_decisions_b2_14: "The question of ... remains open."
+  meetings_decisions_b2_15: "We've reached agreement on ..."
+  meetings_decisions_b2_16: "I'll record that ..."
+  meetings_decisions_b2_17: "The first step is to ..."
+  meetings_decisions_b2_18: "Let's review the result after ..."
+  meetings_decisions_b2_19: "Have I summarised that correctly: ...?"
+  meetings_decisions_b2_20: "To finish, I'd like to remind everyone about ..."
+  money_contracts_b1_01: "I want to plan my budget better."
+  money_contracts_b1_02: "My expenses have increased."
+  money_contracts_b1_03: "I try to save something every month."
+  money_contracts_b1_04: "How much will it cost in total?"
+  money_contracts_b1_05: "Are there any additional fees?"
+  money_contracts_b1_06: "What's the minimum contract term?"
+  money_contracts_b1_07: "Does the contract renew automatically?"
+  money_contracts_b1_08: "What's the notice period for cancellation?"
+  money_contracts_b1_09: "I'd like to read all the terms first."
+  money_contracts_b1_10: "Could you explain this clause in the contract?"
+  money_contracts_b1_11: "I don't agree to this fee."
+  money_contracts_b1_12: "The amount was taken from my account twice."
+  money_contracts_b1_13: "I've already paid this bill."
+  money_contracts_b1_14: "Can I pay in instalments?"
+  money_contracts_b1_15: "Please provide written confirmation."
+  money_contracts_b1_16: "I won't sign until I understand the terms."
+  money_contracts_b1_17: "The price includes ..."
+  money_contracts_b1_18: "I'd like to cancel ..."
+  money_contracts_b1_19: "According to the contract, ..."
+  money_contracts_b1_20: "Before agreeing, I'd like to ..."
+  needs_help_a0_01: "I need help."
+  needs_help_a0_02: "Please help me."
+  needs_help_a0_03: "I'm thirsty."
+  needs_help_a0_04: "I'm hungry."
+  needs_help_a0_05: "I'm tired."
+  needs_help_a0_06: "I'm cold."
+  needs_help_a0_07: "I'm hot."
+  needs_help_a0_08: "I don't feel well."
+  needs_help_a0_09: "Water, please."
+  needs_help_a0_10: "May I?"
+  needs_help_a0_11: "Yes, please."
+  needs_help_a0_12: "No, thank you."
+  needs_help_a0_13: "That's enough."
+  needs_help_a0_14: "Not now."
+  needs_help_a0_15: "I'm ready."
+  needs_help_a0_16: "Watch out!"
+  needs_help_a0_17: "Please wait."
+  needs_help_a0_18: "I need ..."
+  needs_help_a0_19: "I would like ..."
+  needs_help_a0_20: "I don't have ..."
+  negotiation_b2_01: "Let's clarify what matters to each side."
+  negotiation_b2_02: "Our goals are closer than they seem."
+  negotiation_b2_03: "I'm willing to compromise on the timeline."
+  negotiation_b2_04: "But we can't compromise on quality."
+  negotiation_b2_05: "What could you offer in return?"
+  negotiation_b2_06: "Under these terms, the offer is unacceptable to us."
+  negotiation_b2_07: "I understand your constraints."
+  negotiation_b2_08: "We need a solution both sides can accept."
+  negotiation_b2_09: "Could we consider an interim solution?"
+  negotiation_b2_10: "That's a concession we can make."
+  negotiation_b2_11: "I'd rather not reopen what we've already agreed."
+  negotiation_b2_12: "Let's put the agreement in writing."
+  negotiation_b2_13: "We're prepared to ..., on condition that ..."
+  negotiation_b2_14: "If you meet us halfway on ..., we'll ..."
+  negotiation_b2_15: "Our main condition is that ..."
+  negotiation_b2_16: "A compromise can be found between ... and ..."
+  negotiation_b2_17: "What's preventing us from ...?"
+  negotiation_b2_18: "What guarantees are there regarding ...?"
+  negotiation_b2_19: "Let's agree on ... for now, and ..."
+  negotiation_b2_20: "If we don't reach an agreement by ..., ..."
+  opinion_reasons_b1_01: "In my opinion, that's a good idea."
+  opinion_reasons_b1_02: "Personally, I'd choose another option."
+  opinion_reasons_b1_03: "The main reason is the lack of time."
+  opinion_reasons_b1_04: "For me, it's a matter of trust."
+  opinion_reasons_b1_05: "I have several reasons for thinking that."
+  opinion_reasons_b1_06: "That would help us save time."
+  opinion_reasons_b1_07: "Besides, it's more convenient."
+  opinion_reasons_b1_08: "Here's a simple example."
+  opinion_reasons_b1_09: "From personal experience, I can say it works."
+  opinion_reasons_b1_10: "Not everyone sees it the same way."
+  opinion_reasons_b1_11: "That's just my personal opinion."
+  opinion_reasons_b1_12: "I don't have a clear position yet."
+  opinion_reasons_b1_13: "I don't have enough information to decide."
+  opinion_reasons_b1_14: "What do you think about it?"
+  opinion_reasons_b1_15: "Why does this matter so much to you?"
+  opinion_reasons_b1_16: "I see both advantages and disadvantages."
+  opinion_reasons_b1_17: "I'm of the opinion that ..."
+  opinion_reasons_b1_18: "One reason is that ..."
+  opinion_reasons_b1_19: "What matters most to me is ..."
+  opinion_reasons_b1_20: "For example, when ..., ..."
+  past_stories_a2_01: "I was at home yesterday."
+  past_stories_a2_02: "We went to the countryside at the weekend."
+  past_stories_a2_03: "I've been there before."
+  past_stories_a2_04: "I've never tried that."
+  past_stories_a2_05: "That happened last week."
+  past_stories_a2_06: "Everything was fine at first."
+  past_stories_a2_07: "Then it started raining."
+  past_stories_a2_08: "We had to go back."
+  past_stories_a2_09: "It was fun anyway."
+  past_stories_a2_10: "How was your weekend?"
+  past_stories_a2_11: "What happened next?"
+  past_stories_a2_12: "How long were you there?"
+  past_stories_a2_13: "I forgot my keys."
+  past_stories_a2_14: "Luckily, everything turned out well."
+  past_stories_a2_15: "That was my first time."
+  past_stories_a2_16: "I didn't expect that."
+  past_stories_a2_17: "When I was a child, ..."
+  past_stories_a2_18: "I used to ... a lot."
+  past_stories_a2_19: "Last time, we ..."
+  past_stories_a2_20: "After that, I ..."
+  people_family_a1_01: "I have a brother."
+  people_family_a1_02: "I don't have children."
+  people_family_a1_03: "We live together."
+  people_family_a1_04: "My parents live nearby."
+  people_family_a1_05: "Are you married?"
+  people_family_a1_06: "What do you do for a living?"
+  people_family_a1_07: "Where do you work?"
+  people_family_a1_08: "He's my neighbour."
+  people_family_a1_09: "We know each other well."
+  people_family_a1_10: "I don't know him."
+  people_family_a1_11: "My sister is older than me."
+  people_family_a1_12: "We have a big family."
+  people_family_a1_13: "This is for my mother."
+  people_family_a1_14: "What's your son's name?"
+  people_family_a1_15: "Say hello to your family for me."
+  people_family_a1_16: "Happy birthday!"
+  people_family_a1_17: "I work as a ..."
+  people_family_a1_18: "We've known each other since ..."
+  people_family_a1_19: "My friend likes ..."
+  people_family_a1_20: "In our family ..."
+  persuasion_b2_01: "I'd like to draw your attention to a recurring error."
+  persuasion_b2_02: "Despite my previous enquiry, the problem hasn't been resolved."
+  persuasion_b2_03: "This result doesn't meet the agreed terms."
+  persuasion_b2_04: "I expect a concrete proposal to put this right."
+  persuasion_b2_05: "Please let me know what steps will be taken."
+  persuasion_b2_06: "I'm interested in resolving this amicably."
+  persuasion_b2_07: "The purpose of my enquiry is to prevent this happening again."
+  persuasion_b2_08: "I'm willing to discuss an alternative solution."
+  persuasion_b2_09: "Please give the reasons for this refusal."
+  persuasion_b2_10: "Could the decision be reviewed in light of the new information?"
+  persuasion_b2_11: "I've fulfilled all the agreed conditions on my side."
+  persuasion_b2_12: "I'd appreciate a substantive rather than a purely formal response."
+  persuasion_b2_13: "In view of ..., I consider it appropriate to ..."
+  persuasion_b2_14: "My request is based on ..."
+  persuasion_b2_15: "Please take into account that ..."
+  persuasion_b2_16: "If ... isn't possible, I request ..."
+  persuasion_b2_17: "I'd be willing to accept ... if ..."
+  persuasion_b2_18: "The proposed solution would make it possible to ..."
+  persuasion_b2_19: "To avoid further misunderstandings, ..."
+  persuasion_b2_20: "I hope we'll be able to ..."
+  place_time_price_a0_01: "Where is the toilet?"
+  place_time_price_a0_02: "Where is the exit?"
+  place_time_price_a0_03: "It's right here."
+  place_time_price_a0_04: "It's over there."
+  place_time_price_a0_05: "To the left, please."
+  place_time_price_a0_06: "To the right, please."
+  place_time_price_a0_07: "Straight ahead."
+  place_time_price_a0_08: "Is it far?"
+  place_time_price_a0_09: "What time is it?"
+  place_time_price_a0_10: "When?"
+  place_time_price_a0_11: "Today or tomorrow?"
+  place_time_price_a0_12: "Now or later?"
+  place_time_price_a0_13: "How much does this cost?"
+  place_time_price_a0_14: "I'll take this."
+  place_time_price_a0_15: "The bill, please."
+  place_time_price_a0_16: "One ticket, please."
+  place_time_price_a0_17: "Just one, please."
+  place_time_price_a0_18: "Where is ...?"
+  place_time_price_a0_19: "At ... o'clock."
+  place_time_price_a0_20: "How many ...?"
+  plans_invitations_a1_01: "Do you have time today?"
+  plans_invitations_a1_02: "What are you doing this evening?"
+  plans_invitations_a1_03: "Let's go for a coffee."
+  plans_invitations_a1_04: "Would you like to come along?"
+  plans_invitations_a1_05: "I'd love to."
+  plans_invitations_a1_06: "That sounds good."
+  plans_invitations_a1_07: "Unfortunately, I can't."
+  plans_invitations_a1_08: "I don't have time today."
+  plans_invitations_a1_09: "Maybe another time."
+  plans_invitations_a1_10: "What time shall we meet?"
+  plans_invitations_a1_11: "Where shall we meet?"
+  plans_invitations_a1_12: "Six works for me."
+  plans_invitations_a1_13: "I'll arrive a little later."
+  plans_invitations_a1_14: "I'm already on my way."
+  plans_invitations_a1_15: "I'm waiting at the entrance."
+  plans_invitations_a1_16: "Thank you for the invitation."
+  plans_invitations_a1_17: "Would you like to ...?"
+  plans_invitations_a1_18: "Here's my suggestion: ..."
+  plans_invitations_a1_19: "I'm available on ... at ..."
+  plans_invitations_a1_20: "Let's meet at ..."
+  presentations_data_b2_01: "Today I'll briefly present the results."
+  presentations_data_b2_02: "My presentation has three parts."
+  presentations_data_b2_03: "First, a few words about the background."
+  presentations_data_b2_04: "This chart shows the change over time."
+  presentations_data_b2_05: "Please note the difference between the groups."
+  presentations_data_b2_06: "The figure has risen compared with last year."
+  presentations_data_b2_07: "The increase wasn't steady."
+  presentations_data_b2_08: "On average, the result remained stable."
+  presentations_data_b2_09: "The average hides significant differences."
+  presentations_data_b2_10: "The figures need to be read in context."
+  presentations_data_b2_11: "These are preliminary, not final results."
+  presentations_data_b2_12: "I'll be happy to take questions at the end."
+  presentations_data_b2_13: "As ... shows, ..."
+  presentations_data_b2_14: "The proportion of ... is ..."
+  presentations_data_b2_15: "The figure rose from ... to ..."
+  presentations_data_b2_16: "That corresponds to an increase of ..."
+  presentations_data_b2_17: "While ... is increasing, ..."
+  presentations_data_b2_18: "The most noticeable change concerns ..."
+  presentations_data_b2_19: "This data covers the period ..."
+  presentations_data_b2_20: "The main takeaway from my presentation is: ..."
+  relations_boundaries_b1_01: "It's important to me to be heard."
+  relations_boundaries_b1_02: "I'd like to discuss this calmly."
+  relations_boundaries_b1_03: "Your tone upsets me."
+  relations_boundaries_b1_04: "I'm not blaming you."
+  relations_boundaries_b1_05: "I need some time alone."
+  relations_boundaries_b1_06: "I'm not ready to talk about it right now."
+  relations_boundaries_b1_07: "Let's come back to this tomorrow."
+  relations_boundaries_b1_08: "I respect your decision."
+  relations_boundaries_b1_09: "But my decision matters too."
+  relations_boundaries_b1_10: "That doesn't work for me."
+  relations_boundaries_b1_11: "I can't promise that."
+  relations_boundaries_b1_12: "Please don't decide for me."
+  relations_boundaries_b1_13: "What do you expect from me?"
+  relations_boundaries_b1_14: "Let's agree on some shared rules."
+  relations_boundaries_b1_15: "I'll take responsibility this time."
+  relations_boundaries_b1_16: "Our relationship matters more to me than the argument."
+  relations_boundaries_b1_17: "When you ..., I feel ..."
+  relations_boundaries_b1_18: "I'd like us to ..."
+  relations_boundaries_b1_19: "I'm willing to ..., but not to ..."
+  relations_boundaries_b1_20: "My boundary is ..."
+  returns_delivery_a2_01: "I'd like to return this item."
+  returns_delivery_a2_02: "I have the receipt."
+  returns_delivery_a2_03: "I bought this yesterday."
+  returns_delivery_a2_04: "The size didn't fit me."
+  returns_delivery_a2_05: "The item is damaged."
+  returns_delivery_a2_06: "This isn't what I ordered."
+  returns_delivery_a2_07: "Can I exchange this?"
+  returns_delivery_a2_08: "I'd like a refund."
+  returns_delivery_a2_09: "How long does the refund take?"
+  returns_delivery_a2_10: "The parcel hasn't arrived yet."
+  returns_delivery_a2_11: "Where can I track the order?"
+  returns_delivery_a2_12: "The delivery address is wrong."
+  returns_delivery_a2_13: "One item is missing from the parcel."
+  returns_delivery_a2_14: "I accidentally ordered twice."
+  returns_delivery_a2_15: "Can I cancel the order?"
+  returns_delivery_a2_16: "Who pays for the return shipping?"
+  returns_delivery_a2_17: "My order number is ..."
+  returns_delivery_a2_18: "I received ... instead of ..."
+  returns_delivery_a2_19: "I'd like to exchange ... for ..."
+  returns_delivery_a2_20: "Please send me ..."
+  shopping_payment_a1_01: "I'm just looking."
+  shopping_payment_a1_02: "I'm looking for a jacket."
+  shopping_payment_a1_03: "Can I try this on?"
+  shopping_payment_a1_04: "Where is the fitting room?"
+  shopping_payment_a1_05: "This is too small."
+  shopping_payment_a1_06: "This fits me."
+  shopping_payment_a1_07: "I need a larger size."
+  shopping_payment_a1_08: "Is there another colour?"
+  shopping_payment_a1_09: "That's too expensive."
+  shopping_payment_a1_10: "Is there anything cheaper?"
+  shopping_payment_a1_11: "Is that the discounted price?"
+  shopping_payment_a1_12: "Where is the checkout?"
+  shopping_payment_a1_13: "Can I pay by card?"
+  shopping_payment_a1_14: "I'm paying cash."
+  shopping_payment_a1_15: "The receipt, please."
+  shopping_payment_a1_16: "I don't need a bag."
+  shopping_payment_a1_17: "I'm looking for ... for ..."
+  shopping_payment_a1_18: "Can I see ...?"
+  shopping_payment_a1_19: "That costs ..."
+  shopping_payment_a1_20: "I'm paying for ..."
+  society_rights_b2_01: "The rule should apply equally to everyone."
+  society_rights_b2_02: "Equal treatment doesn't always mean equal opportunities."
+  society_rights_b2_03: "It's important to hear from those directly affected."
+  society_rights_b2_04: "Which groups might be overlooked?"
+  society_rights_b2_05: "The decision must be understandable to citizens."
+  society_rights_b2_06: "I'd like to understand the legal basis."
+  society_rights_b2_07: "Who can a complaint be addressed to?"
+  society_rights_b2_08: "Criticising a decision doesn't mean disrespecting the person."
+  society_rights_b2_09: "We can disagree without making it personal."
+  society_rights_b2_10: "Accessibility must take different needs into account."
+  society_rights_b2_11: "A ban alone may not be enough."
+  society_rights_b2_12: "We need not only rules but also the means to follow them."
+  society_rights_b2_13: "From an equal opportunities perspective, ..."
+  society_rights_b2_14: "This decision will particularly affect ..."
+  society_rights_b2_15: "We need to ensure that ..."
+  society_rights_b2_16: "The question is who has the right to ..."
+  society_rights_b2_17: "The freedom to ... must go together with ..."
+  society_rights_b2_18: "I support the aim of ..., but have doubts about ..."
+  society_rights_b2_19: "For participation to be meaningful, we need ..."
+  society_rights_b2_20: "It would be unfair to ... if ..."
+  sources_evidence_b2_01: "What is this claim based on?"
+  sources_evidence_b2_02: "Is there data to support this?"
+  sources_evidence_b2_03: "I'd like to check the original source."
+  sources_evidence_b2_04: "When was this information published?"
+  sources_evidence_b2_05: "Who's responsible for the content?"
+  sources_evidence_b2_06: "Is that a fact or an interpretation?"
+  sources_evidence_b2_07: "The headline alone doesn't give the full picture."
+  sources_evidence_b2_08: "The article gives no source for the figures."
+  sources_evidence_b2_09: "One example alone doesn't prove anything."
+  sources_evidence_b2_10: "A correlation doesn't necessarily mean causation."
+  sources_evidence_b2_11: "We should compare several independent sources."
+  sources_evidence_b2_12: "These results can't automatically be generalised."
+  sources_evidence_b2_13: "According to data from ..., ..."
+  sources_evidence_b2_14: "The author claims that ..., but ..."
+  sources_evidence_b2_15: "The available data points to ..."
+  sources_evidence_b2_16: "How reliable is ...?"
+  sources_evidence_b2_17: "It's unclear whether ... was taken into account."
+  sources_evidence_b2_18: "Without information about ..., it's hard to assess ..."
+  sources_evidence_b2_19: "This supports ..., but doesn't prove ..."
+  sources_evidence_b2_20: "I'd check whether the following is true: ..."
+  study_contact_a1_01: "When does the lesson start?"
+  study_contact_a1_02: "I have a question."
+  study_contact_a1_03: "I don't know this word."
+  study_contact_a1_04: "May I answer?"
+  study_contact_a1_05: "What page are we on?"
+  study_contact_a1_06: "I'm doing my homework."
+  study_contact_a1_07: "Let's practise together."
+  study_contact_a1_08: "I need more time."
+  study_contact_a1_09: "I'll send you a message."
+  study_contact_a1_10: "Can I call you?"
+  study_contact_a1_11: "My phone battery is dead."
+  study_contact_a1_12: "Is there a charger?"
+  study_contact_a1_13: "The internet isn't working."
+  study_contact_a1_14: "I can't open the file."
+  study_contact_a1_15: "Send me the link."
+  study_contact_a1_16: "Please save that."
+  study_contact_a1_17: "I want to learn to ..."
+  study_contact_a1_18: "How do I open ...?"
+  study_contact_a1_19: "Can you send me ...?"
+  study_contact_a1_20: "My email address is ..."
+  summary_rethink_b2_01: "To sum up, we have more in common than divides us."
+  summary_rethink_b2_02: "The discussion showed exactly where our views differ."
+  summary_rethink_b2_03: "I understand the other side better now."
+  summary_rethink_b2_04: "My position hasn't changed completely, but it has become more nuanced."
+  summary_rethink_b2_05: "Some questions remain unanswered for now."
+  summary_rethink_b2_06: "We have enough information for the next step."
+  summary_rethink_b2_07: "This decision should be reviewed after a trial period."
+  summary_rethink_b2_08: "Success depends not only on the decision but also on how it's implemented."
+  summary_rethink_b2_09: "In hindsight, the situation looks different."
+  summary_rethink_b2_10: "At the time, we acted on the information available."
+  summary_rethink_b2_11: "We should acknowledge the mistake, but not repeat it."
+  summary_rethink_b2_12: "The most valuable outcome was clarity about the next steps."
+  summary_rethink_b2_13: "On balance, we can say that ..."
+  summary_rethink_b2_14: "Although we didn't agree on ..., ..."
+  summary_rethink_b2_15: "The most important thing I've learned is ..."
+  summary_rethink_b2_16: "If we'd ... earlier, things would now be ..."
+  summary_rethink_b2_17: "Instead of asking who's to blame, we should ..."
+  summary_rethink_b2_18: "Regardless of what ..., ..."
+  summary_rethink_b2_19: "We'll return to this question when ..."
+  summary_rethink_b2_20: "I suggest ending with a concrete agreement: ..."
+  symptoms_treatment_a2_01: "It started three days ago."
+  symptoms_treatment_a2_02: "The pain is constant."
+  symptoms_treatment_a2_03: "The pain comes and goes."
+  symptoms_treatment_a2_04: "It hurts more when I move."
+  symptoms_treatment_a2_05: "I feel worse at night."
+  symptoms_treatment_a2_06: "I've already taken a painkiller."
+  symptoms_treatment_a2_07: "This medicine isn't helping me."
+  symptoms_treatment_a2_08: "Are there any side effects?"
+  symptoms_treatment_a2_09: "Should I take it before or after food?"
+  symptoms_treatment_a2_10: "Am I allowed to work?"
+  symptoms_treatment_a2_11: "How many days should I rest?"
+  symptoms_treatment_a2_12: "I need a certificate for work."
+  symptoms_treatment_a2_13: "When will the results be ready?"
+  symptoms_treatment_a2_14: "Do I need to come back?"
+  symptoms_treatment_a2_15: "What should I do if it gets worse?"
+  symptoms_treatment_a2_16: "Could you explain that more simply?"
+  symptoms_treatment_a2_17: "I've had ... for ... days."
+  symptoms_treatment_a2_18: "It hurts when I ..."
+  symptoms_treatment_a2_19: "I regularly take ..."
+  symptoms_treatment_a2_20: "Can I take ... together with ...?"
+  teamwork_b1_01: "Let's divide up the tasks."
+  teamwork_b1_02: "I can take care of that."
+  teamwork_b1_03: "Who's responsible for this part?"
+  teamwork_b1_04: "What's the priority right now?"
+  teamwork_b1_05: "I'm working on it."
+  teamwork_b1_06: "The task is almost finished."
+  teamwork_b1_07: "I've run into a problem."
+  teamwork_b1_08: "I need your decision."
+  teamwork_b1_09: "I can't continue without this data."
+  teamwork_b1_10: "Could you review my proposal?"
+  teamwork_b1_11: "I'll take your comments into account."
+  teamwork_b1_12: "We need to agree on the next step."
+  teamwork_b1_13: "I won't be able to meet this deadline."
+  teamwork_b1_14: "Can we reduce the scope of the work?"
+  teamwork_b1_15: "I'll let you know as soon as everything is ready."
+  teamwork_b1_16: "Thank you for the quick response."
+  teamwork_b1_17: "I'm responsible for ..."
+  teamwork_b1_18: "To finish, I need ..."
+  teamwork_b1_19: "We agreed that ..."
+  teamwork_b1_20: "I suggest first ... and then ..."
+  transport_a1_01: "How do I get to the station?"
+  transport_a1_02: "Where is the nearest stop?"
+  transport_a1_03: "Which bus goes to the centre?"
+  transport_a1_04: "Does this train go to Berlin?"
+  transport_a1_05: "Do I need to change?"
+  transport_a1_06: "Where should I get off?"
+  transport_a1_07: "How long does the journey take?"
+  transport_a1_08: "A return ticket, please."
+  transport_a1_09: "From which platform?"
+  transport_a1_10: "When is the next train?"
+  transport_a1_11: "The bus is already here."
+  transport_a1_12: "The train is delayed."
+  transport_a1_13: "Is this seat free?"
+  transport_a1_14: "May I get past?"
+  transport_a1_15: "I'm getting off at the next stop."
+  transport_a1_16: "I'm going the wrong way."
+  transport_a1_17: "How do I get to ...?"
+  transport_a1_18: "It's next to ..."
+  transport_a1_19: "I'm going to ..."
+  transport_a1_20: "I need a ticket to ..."
+  travel_hotel_a1_01: "I have a reservation."
+  travel_hotel_a1_02: "Under the name Kovalenko."
+  travel_hotel_a1_03: "I need a room for one night."
+  travel_hotel_a1_04: "Is a double room available?"
+  travel_hotel_a1_05: "Is breakfast included?"
+  travel_hotel_a1_06: "What time is breakfast?"
+  travel_hotel_a1_07: "Where is my room?"
+  travel_hotel_a1_08: "What's the Wi-Fi password?"
+  travel_hotel_a1_09: "The key doesn't work."
+  travel_hotel_a1_10: "Can I have another towel?"
+  travel_hotel_a1_11: "Where can I leave my luggage?"
+  travel_hotel_a1_12: "When do I need to check out?"
+  travel_hotel_a1_13: "I'm staying for three days."
+  travel_hotel_a1_14: "I'd like to visit the museum."
+  travel_hotel_a1_15: "May I take a photo?"
+  travel_hotel_a1_16: "It's very beautiful here."
+  travel_hotel_a1_17: "I'd like to book ..."
+  travel_hotel_a1_18: "The reservation is for ... nights."
+  travel_hotel_a1_19: "How much is ... per night?"
+  travel_hotel_a1_20: "Can you ... here?"
+  travel_trouble_a2_01: "I missed my train."
+  travel_trouble_a2_02: "My flight was cancelled."
+  travel_trouble_a2_03: "What's the next travel option?"
+  travel_trouble_a2_04: "Is this ticket still valid?"
+  travel_trouble_a2_05: "I need another route."
+  travel_trouble_a2_06: "Where does the replacement bus stop?"
+  travel_trouble_a2_07: "I've lost my wallet."
+  travel_trouble_a2_08: "I left my bag on the bus."
+  travel_trouble_a2_09: "Where is the lost property office?"
+  travel_trouble_a2_10: "My luggage hasn't arrived."
+  travel_trouble_a2_11: "Here's a description of my suitcase."
+  travel_trouble_a2_12: "I need confirmation of the delay."
+  travel_trouble_a2_13: "Where can I submit an application?"
+  travel_trouble_a2_14: "Can I change the travel date?"
+  travel_trouble_a2_15: "I won't make my connection."
+  travel_trouble_a2_16: "Who can help me?"
+  travel_trouble_a2_17: "I lost ... near ..."
+  travel_trouble_a2_18: "The delay is ..."
+  travel_trouble_a2_19: "Is there another way to ...?"
+  travel_trouble_a2_20: "Who can I contact about ...?"
+  understanding_a0_01: "I don't understand."
+  understanding_a0_02: "Now I understand."
+  understanding_a0_03: "More slowly, please."
+  understanding_a0_04: "Once more, please."
+  understanding_a0_05: "Please repeat that."
+  understanding_a0_06: "What does that mean?"
+  understanding_a0_07: "How do you say that in German?"
+  understanding_a0_08: "How do you spell that?"
+  understanding_a0_09: "Please write it down."
+  understanding_a0_10: "Please show me."
+  understanding_a0_11: "I don't know."
+  understanding_a0_12: "I'm not sure."
+  understanding_a0_13: "Yes, exactly."
+  understanding_a0_14: "No, not that."
+  understanding_a0_15: "Is that right?"
+  understanding_a0_16: "One moment, please."
+  understanding_a0_17: "I can't hear anything."
+  understanding_a0_18: "Louder, please."
+  understanding_a0_19: "Could we use English?"
+  understanding_a0_20: "How do you pronounce ...?"
+  work_change_b2_01: "Professional experience doesn't always replace structured learning."
+  work_change_b2_02: "It's important to me to understand why this change is needed."
+  work_change_b2_03: "New responsibilities should come with support."
+  work_change_b2_04: "Flexible hours don't mean being available all the time."
+  work_change_b2_05: "Productivity shouldn't be measured only by the number of hours."
+  work_change_b2_06: "Which skill will we need in the future?"
+  work_change_b2_07: "Learning should be linked to real tasks."
+  work_change_b2_08: "Mistakes can be a source of learning if we analyse them."
+  work_change_b2_09: "I value specific feedback more than general praise."
+  work_change_b2_10: "The transition should be gradual and predictable."
+  work_change_b2_11: "We need to keep what already works."
+  work_change_b2_12: "Not every new technology solves a real problem."
+  work_change_b2_13: "To adapt to ..., we need to ..."
+  work_change_b2_14: "I'd like to develop ... so that ..."
+  work_change_b2_15: "The challenge is to reconcile ... and ..."
+  work_change_b2_16: "Instead of assessing only ..., we should ..."
+  work_change_b2_17: "The success of the transition will depend on ..."
+  work_change_b2_18: "My previous experience has shown that ..."
+  work_change_b2_19: "For a lasting result, it's important to ..."
+  work_change_b2_20: "Before introducing ..., we should check ..."
+  work_search_a2_01: "I'm looking for a job."
+  work_search_a2_02: "I'm interested in this vacancy."
+  work_search_a2_03: "Where can I send my CV?"
+  work_search_a2_04: "I have experience in sales."
+  work_search_a2_05: "I worked in a small company."
+  work_search_a2_06: "I learn quickly."
+  work_search_a2_07: "I enjoy working in a team."
+  work_search_a2_08: "I can start next month."
+  work_search_a2_09: "Is this a full-time or part-time role?"
+  work_search_a2_10: "What are the working hours?"
+  work_search_a2_11: "What are my main tasks?"
+  work_search_a2_12: "Who will be my manager?"
+  work_search_a2_13: "Is training provided?"
+  work_search_a2_14: "When will the interview take place?"
+  work_search_a2_15: "I've sent all the documents."
+  work_search_a2_16: "When can I expect a reply?"
+  work_search_a2_17: "I have experience with ..."
+  work_search_a2_18: "My duties included ..."
+  work_search_a2_19: "I'd like to work ..."
+  work_search_a2_20: "Do you need ... for this job?"

@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: work_change
+tiers:
+  b2:
+    - id: work_change_b2_01
+      text: "Berufserfahrung ersetzt nicht immer systematisches Lernen."
+    - id: work_change_b2_02
+      text: "Mir ist wichtig zu verstehen, warum diese Veränderung nötig ist."
+    - id: work_change_b2_03
+      text: "Neue Aufgaben sollten mit Unterstützung verbunden sein."
+    - id: work_change_b2_04
+      text: "Flexible Arbeitszeiten bedeuten nicht ständige Erreichbarkeit."
+    - id: work_change_b2_05
+      text: "Produktivität sollte nicht allein an der Stundenzahl gemessen werden."
+    - id: work_change_b2_06
+      text: "Welche Kompetenz werden wir künftig brauchen?"
+    - id: work_change_b2_07
+      text: "Lernen sollte mit konkreten Aufgaben verbunden sein."
+    - id: work_change_b2_08
+      text: "Fehler können eine Lernquelle sein, wenn man sie analysiert."
+    - id: work_change_b2_09
+      text: "Konkretes Feedback ist mir wichtiger als allgemeines Lob."
+    - id: work_change_b2_10
+      text: "Der Übergang sollte schrittweise und planbar sein."
+    - id: work_change_b2_11
+      text: "Wir müssen bewahren, was bereits funktioniert."
+    - id: work_change_b2_12
+      text: "Nicht jede neue Technologie löst ein tatsächliches Problem."
+    - id: work_change_b2_13
+      text: "Um uns an ... anzupassen, müssen wir ..."
+    - id: work_change_b2_14
+      text: "Ich möchte ... weiterentwickeln, damit ..."
+    - id: work_change_b2_15
+      text: "Die Herausforderung besteht darin, ... und ... zu vereinbaren."
+    - id: work_change_b2_16
+      text: "Statt nur ... zu bewerten, sollte man ..."
+    - id: work_change_b2_17
+      text: "Der Erfolg des Übergangs wird von ... abhängen."
+    - id: work_change_b2_18
+      text: "Meine bisherigen Erfahrungen haben gezeigt, dass ..."
+    - id: work_change_b2_19
+      text: "Für ein dauerhaftes Ergebnis ist es wichtig, ..."
+    - id: work_change_b2_20
+      text: "Bevor man ... einführt, sollte man ... überprüfen."

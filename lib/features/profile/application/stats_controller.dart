@@ -116,20 +116,20 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
   var onTier = 0;
   var litOnTier = 0;
 
-  for (final concept in await content.conceptsUpTo(tier)) {
-    final value = lumens[concept.id] ?? 0;
-    byConstellation.putIfAbsent(concept.constellation, () => []).add(value);
+  for (final phrase in await content.phrasesUpTo(tier)) {
+    final value = lumens[phrase.id] ?? 0;
+    byConstellation.putIfAbsent(phrase.constellation, () => []).add(value);
     if (value >= LumenBand.burning.minLm) {
       burningByConstellation.update(
-        concept.constellation,
+        phrase.constellation,
         (n) => n + 1,
         ifAbsent: () => 1,
       );
     }
-    // Заполнение шкалы считается по словам **текущего** яруса, а не по всему,
+    // Заполнение шкалы считается по фразам **текущего** яруса, а не по всему,
     // что ниже: иначе на B1 шкала показывала бы почти полный ярус за счёт
     // выученного A0, и подъём выше выглядел бы как откат назад.
-    if (concept.tier != tier.code) continue;
+    if (phrase.tier != tier.code) continue;
     onTier++;
     if (value >= ProgressionBalance.litStarMinLm) litOnTier++;
   }

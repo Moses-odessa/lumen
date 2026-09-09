@@ -268,12 +268,6 @@ abstract class AppLocalizations {
   /// **'Checking once more'**
   String get calibrationHintConfirm;
 
-  /// No description provided for @calibrationHintPhrases.
-  ///
-  /// In en, this message translates to:
-  /// **'Now whole phrases'**
-  String get calibrationHintPhrases;
-
   /// No description provided for @calibrationHintDone.
   ///
   /// In en, this message translates to:
@@ -496,12 +490,6 @@ abstract class AppLocalizations {
   /// **'There are no constellations for this tier in the content database.'**
   String get skyEmptyBody;
 
-  /// No description provided for @skyDictionary.
-  ///
-  /// In en, this message translates to:
-  /// **'Dictionary'**
-  String get skyDictionary;
-
   /// No description provided for @constellationLitOf.
   ///
   /// In en, this message translates to:
@@ -537,36 +525,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{current} seems hard. Try {target}?'**
   String tierSuggestDown(String current, String target);
-
-  /// No description provided for @dictionaryTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Dictionary'**
-  String get dictionaryTitle;
-
-  /// No description provided for @dictionarySearchHint.
-  ///
-  /// In en, this message translates to:
-  /// **'A word in either language'**
-  String get dictionarySearchHint;
-
-  /// No description provided for @dictionaryNothing.
-  ///
-  /// In en, this message translates to:
-  /// **'Nothing found'**
-  String get dictionaryNothing;
-
-  /// No description provided for @dictionaryResetFilters.
-  ///
-  /// In en, this message translates to:
-  /// **'Reset filters'**
-  String get dictionaryResetFilters;
-
-  /// No description provided for @dictionaryBurningFilter.
-  ///
-  /// In en, this message translates to:
-  /// **'burning'**
-  String get dictionaryBurningFilter;
 
   /// No description provided for @bandBurning.
   ///
@@ -1227,36 +1185,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Level {level} · ×{multiplier}'**
   String recordsClimbLevel(int level, String multiplier);
-
-  /// Grammar tag under the circle centre: the word is an adverb
-  ///
-  /// In en, this message translates to:
-  /// **'adverb'**
-  String get promptTagAdverb;
-
-  /// Grammar tag under the circle centre: the word is an adjective
-  ///
-  /// In en, this message translates to:
-  /// **'adjective'**
-  String get promptTagAdjective;
-
-  /// Grammar tag: the noun has no plural
-  ///
-  /// In en, this message translates to:
-  /// **'uncountable'**
-  String get promptTagUncountable;
-
-  /// Grammar tag: the noun exists only in the plural
-  ///
-  /// In en, this message translates to:
-  /// **'plural only'**
-  String get promptTagPluralOnly;
-
-  /// Grammar tag: the noun is normally used in the plural
-  ///
-  /// In en, this message translates to:
-  /// **'usually plural'**
-  String get promptTagUsuallyPlural;
 
   /// Register of a phrase: everyday speech
   ///

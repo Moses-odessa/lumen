@@ -140,9 +140,15 @@ class RunState {
 class RunController extends Notifier<RunState> {
   Timer? _advanceTimer;
 
+  /// Окно на ответ. `null` — окна нет: либо круг новый, либо идёт показ.
+  Timer? _windowTimer;
+
   @override
   RunState build() {
-    ref.onDispose(() => _advanceTimer?.cancel());
+    ref.onDispose(() {
+      _advanceTimer?.cancel();
+      _windowTimer?.cancel();
+    });
     return const RunState.empty();
   }
 
@@ -207,6 +213,7 @@ class RunController extends Notifier<RunState> {
     });
     _preloadNext();
     _speakPrompt();
+    _openWindow();
   }
 
   /// Сколько кругов задано — для точности уровня целиком.
@@ -222,66 +229,60 @@ class RunController extends Notifier<RunState> {
   /// Сколько длился забег — уходит в журнал сессий.
   Duration get elapsed => DateTime.now().difference(_startedAt);
 
-  /// Ответ выбором варианта — механики a, b, c, d.
+  /// Ответ выбором варианта — единственный способ ответить.
   ///
-  /// Многослотовый вопрос сюда не пускается, и это не паранойя.
-  /// `isCorrectOption(i)` — это `isCorrectFor(0, i)`, то есть проверка только
-  /// первого слота: фраза с двумя пропусками засчиталась бы полностью верной
-  /// от одного тапа. Раньше такой путь был невозможен, потому что верный
-  /// индекс был один; теперь оба обработчика приходят в одну арену, и ошибка
-  /// в разводке виджета молча превратилась бы в бесплатные очки.
+  /// Второй был: `answerSlots` принимал расстановку слов по пропускам фразы.
+  /// Вместе с ним ушла и защита от того, чтобы многослотовый вопрос попал
+  /// сюда, — она стерегла реальную дыру, в которой фраза с двумя пропусками
+  /// засчитывалась бы полностью верной от одного тапа. Слот теперь один, и
+  /// стеречь нечего.
   void answerOption(int index, Duration latency) {
     final question = state.current;
     if (question == null || state.phase != RunPhase.asking) return;
-    if (!question.isSingleSlot) {
-      assert(
-        false,
-        'answerOption на вопросе с ${question.slotCount} слотами: '
-        'механика ${question.mode.name} отвечается через answerSlots',
-      );
-      return;
-    }
     _submit(question, question.isCorrectOption(index), latency);
   }
 
-  /// Ответ расстановкой всех слов — фразовая механика.
+  /// Открывает окно на ответ: пять секунд, после которых круг закрывается
+  /// сам.
   ///
-  /// [bySlot] — что игрок поставил в каждый слот: индекс слова из пула.
+  /// Смысл окна — учить отвечать быстро: ответ, который игрок вспоминал
+  /// двадцать секунд, в разговоре ему не поможет.
   ///
-  /// Верным считается только полностью собранное предложение, и это не
-  /// строгость, а свойство задания: пропусков столько же, сколько вынутых
-  /// слов, поэтому одно слово не может стоять неверно в одиночку — неверных
-  /// всегда минимум два. «Половина заполненных пропусков» это не половина
-  /// знания, а незаконченный ответ.
-  ///
-  /// Сравнивается **собранное предложение**, а не расстановка по слотам.
-  /// Немецкий позволяет вынести в начало почти любой член предложения, и
-  /// собранный из своих же слов законный другой порядок — не ошибка игрока:
-  /// «Heute habe ich Zeit» и «Ich habe heute Zeit» верны оба. Какие порядки
-  /// принимаются, говорит контент (`orders:` у фразы).
-  void answerSlots(List<int> bySlot, Duration latency) {
+  /// **На знакомстве окна нет.** Там вокруг новой фразы стоят пять уже
+  /// известных, и к ответу игрок приходит исключением — читает пять знакомых
+  /// строчек и понимает, какая шестая. Торопить его в этот момент значит
+  /// требовать угадать, а не сообразить. Это же правило записано в проекте
+  /// давно и в общем виде: на новом материале таймера нет.
+  void _openWindow() {
+    _windowTimer?.cancel();
     final question = state.current;
-    if (question == null || state.phase != RunPhase.asking) return;
-    _submit(question, question.acceptsSlots(bySlot), latency);
+    if (question == null || question.isNew) return;
+    _windowTimer = Timer(ScoreBalance.answerWindow, _expireWindow);
   }
 
+  /// Время вышло: круг закрывается неверным ответом.
+  ///
+  /// Просрочка — это «не вспомнил», а не отдельный третий исход. Слово
+  /// тускнеет и возвращается в очередь ровно так же, как после промаха:
+  /// не успел значит не вспомнил. Отличие одно — верный вариант при этом
+  /// **произносится**, потому что промолчавшему игроку его никто не назвал.
+  void _expireWindow() {
+    final question = state.current;
+    if (question == null || state.phase != RunPhase.asking) return;
+    _submit(question, false, ScoreBalance.answerWindow, expired: true);
+  }
 
-  void _submit(CircleQuestion question, bool correct, Duration latency) {
-    // Скорость меряется на одно размещение, а не на весь ответ.
-    //
-    // Фразовая арена сообщает время до последней плитки: на два-девять
-    // размещений это заведомо несколько секунд, то есть медленнее любого
-    // порога, рассчитанного на один тап. Самая дорогая механика игры не могла
-    // заработать скоростной множитель никогда — и то же время шло в память,
-    // где давало `hard` и сбрасывало серию «горящего слова».
-    //
-    // Одно правило на очки и на память: `ScoreRules.paceFor`. Расходиться им
-    // нельзя — «быстро» для очков и «легко» для памяти это одно наблюдение.
-    final pace = ScoreRules.paceFor(latency, slots: question.slotCount);
+  void _submit(
+    CircleQuestion question,
+    bool correct,
+    Duration latency, {
+    bool expired = false,
+  }) {
+    _windowTimer?.cancel();
 
     final result = _run.apply(
       correct: correct,
-      latency: pace,
+      latency: latency,
       mode: question.mode,
       lumens: question.lumens,
       replayed: _replayed,
@@ -290,20 +291,11 @@ class RunController extends Notifier<RunState> {
     // Каждое верное соединение озвучивается — во всех режимах, а не только
     // в «Слухе». Играет поверх анимации, не задерживая следующий круг.
     final speech = ref.read(speechServiceProvider);
-    if (correct && question.answerSpeech != null) {
+    if ((correct || expired) && question.answerSpeech != null) {
+      // По просрочке звучит верный вариант, и это не поблажка: игрок ничего
+      // не выбрал, значит ему не сказали ответ ни выбором, ни подсветкой
+      // выбранного. Пауза после промаха для этого и длиннее.
       speech.speak(question.answerSpeech!);
-    } else if (!correct && question.mode.isPhrase &&
-        question.answerSpeech != null) {
-      // После неверной сборки предложение звучит тоже — верное.
-      //
-      // В круге со словом озвучка ошибки была бы подсказкой к тому же
-      // вопросу: слово вернётся тем же кругом, и произнести ответ значит
-      // выдать его. Фраза устроена иначе — там ответ это **порядок**, он уже
-      // показан рядом с неверной сборкой, и услышать его правильным ровно то,
-      // что нужно: длинная пауза после ошибки существует затем, чтобы
-      // сравнить своё с верным.
-      speech.speak(question.answerSpeech!);
-      speech.haptic();
     } else if (!correct) {
       speech.haptic();
     }
@@ -362,7 +354,7 @@ class RunController extends Notifier<RunState> {
 
   void _advance() {
     // Спринт кончается на достигнутой планке, а не на конце очереди:
-    // считаются верные связи. Иначе ошибка, возвращающая слово в конец
+    // считаются верные связи. Иначе ошибка, возвращающая круг в конец
     // очереди, продлевала бы забег — то есть наказание за промах
     // превращалось бы в лишнее время.
     if (state.goalReached) {
@@ -383,6 +375,7 @@ class RunController extends Notifier<RunState> {
     );
     _preloadNext();
     _speakPrompt();
+    _openWindow();
   }
 
   /// Время Восхода вышло. Проверяется между кругами, а не по таймеру:
@@ -464,7 +457,6 @@ class RunController extends Notifier<RunState> {
                 mode: question.mode,
                 correct: correct,
                 latency: latency,
-                slots: question.slotCount,
                 now: now,
               );
 

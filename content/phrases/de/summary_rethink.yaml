@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: summary_rethink
+tiers:
+  b2:
+    - id: summary_rethink_b2_01
+      text: "Zusammenfassend haben wir mehr Gemeinsamkeiten als Unterschiede."
+    - id: summary_rethink_b2_02
+      text: "Die Diskussion hat gezeigt, wo unsere Ansichten auseinandergehen."
+    - id: summary_rethink_b2_03
+      text: "Ich kann die andere Seite jetzt besser verstehen."
+    - id: summary_rethink_b2_04
+      text: "Meine Position hat sich nicht völlig geändert, ist aber differenzierter geworden."
+    - id: summary_rethink_b2_05
+      text: "Einige Fragen bleiben vorerst unbeantwortet."
+    - id: summary_rethink_b2_06
+      text: "Wir haben genügend Informationen für den nächsten Schritt."
+    - id: summary_rethink_b2_07
+      text: "Diese Entscheidung sollte nach einer Testphase überprüft werden."
+    - id: summary_rethink_b2_08
+      text: "Der Erfolg hängt nicht nur von der Entscheidung, sondern auch von der Umsetzung ab."
+    - id: summary_rethink_b2_09
+      text: "Im Rückblick sieht die Situation anders aus."
+    - id: summary_rethink_b2_10
+      text: "Damals handelten wir auf Grundlage der verfügbaren Informationen."
+    - id: summary_rethink_b2_11
+      text: "Man sollte den Fehler anerkennen, ihn aber nicht wiederholen."
+    - id: summary_rethink_b2_12
+      text: "Das wertvollste Ergebnis war Klarheit über die nächsten Schritte."
+    - id: summary_rethink_b2_13
+      text: "Unterm Strich lässt sich sagen, dass ..."
+    - id: summary_rethink_b2_14
+      text: "Obwohl wir uns bei ... nicht einig geworden sind, ..."
+    - id: summary_rethink_b2_15
+      text: "Die wichtigste Erkenntnis für mich ist ..."
+    - id: summary_rethink_b2_16
+      text: "Wenn wir früher ... hätten, wäre jetzt ..."
+    - id: summary_rethink_b2_17
+      text: "Statt zu fragen, wer schuld ist, sollte man ..."
+    - id: summary_rethink_b2_18
+      text: "Unabhängig davon, was ..., ..."
+    - id: summary_rethink_b2_19
+      text: "Wir werden auf diese Frage zurückkommen, wenn ..."
+    - id: summary_rethink_b2_20
+      text: "Ich schlage vor, mit einer konkreten Vereinbarung abzuschließen: ..."

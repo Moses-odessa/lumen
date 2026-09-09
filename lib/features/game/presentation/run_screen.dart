@@ -8,7 +8,6 @@ import '../../../domain/scheduler/level_stage.dart';
 import '../application/run_controller.dart';
 import 'circle_arena.dart';
 import 'run_summary_view.dart';
-import 'slots_arena.dart';
 
 /// Экран забега: 10–14 кругов подряд без пауз.
 ///
@@ -66,8 +65,7 @@ class RunScreen extends ConsumerWidget {
                   question: question,
                   enabled: state.phase == RunPhase.asking,
                   onOption: controller.answerOption,
-                  onSlots: controller.answerSlots,
-                  onReplay: controller.replayPrompt,
+                    onReplay: controller.replayPrompt,
                 ),
               ),
             ),
@@ -78,37 +76,27 @@ class RunScreen extends ConsumerWidget {
   }
 }
 
-/// Выбор арены по механике.
+/// Арена круга. Одна на все три механики.
 ///
-/// Геометрия одна на три механики из четырёх: центр и варианты вокруг.
 /// Отличаются они тем, что в центре — текст или динамик, — и на каком языке
 /// варианты; второе арену не касается вовсе, она получает готовый список.
-/// Механика e заполняет слоты, и это единственная другая арена.
+/// Второй арены больше нет: она заполняла пропуски фразы, а вставки слов в
+/// предложение в игре не осталось.
 class _Arena extends StatelessWidget {
   const _Arena({
     required this.question,
     required this.enabled,
     required this.onOption,
-    required this.onSlots,
     required this.onReplay,
   });
 
   final CircleQuestion question;
   final bool enabled;
   final void Function(int, Duration) onOption;
-  final void Function(List<int>, Duration) onSlots;
   final VoidCallback onReplay;
 
   @override
   Widget build(BuildContext context) {
-    if (question.mode.isPhrase) {
-      return SlotsArena(
-        question: question,
-        onAnswer: onSlots,
-        enabled: enabled,
-      );
-    }
-
     return CircleArena(
       question: question,
       onAnswer: onOption,

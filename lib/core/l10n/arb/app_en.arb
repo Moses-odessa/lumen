@@ -36,7 +36,6 @@
   "calibrationHintComb": "Just connect what you know",
   "calibrationHintSearch": "Finding where to start",
   "calibrationHintConfirm": "Checking once more",
-  "calibrationHintPhrases": "Now whole phrases",
   "calibrationHintDone": "Done",
   "calibrationResultTitle": "Your sky begins here",
   "calibrationResultVocabulary": "About {count} words of the course lie on this tier and below.",
@@ -105,7 +104,6 @@
   "skyConstellations": "constellations",
   "skyEmptyTitle": "The sky is empty",
   "skyEmptyBody": "There are no constellations for this tier in the content database.",
-  "skyDictionary": "Dictionary",
   "constellationLitOf": "{lit} of {total} stars are burning",
   "@constellationLitOf": {
     "placeholders": {
@@ -146,11 +144,6 @@
       }
     }
   },
-  "dictionaryTitle": "Dictionary",
-  "dictionarySearchHint": "A word in either language",
-  "dictionaryNothing": "Nothing found",
-  "dictionaryResetFilters": "Reset filters",
-  "dictionaryBurningFilter": "burning",
   "bandBurning": "burning",
   "bandSteady": "steady light",
   "bandFlickering": "flickering",
@@ -431,26 +424,6 @@
         "type": "String"
       }
     }
-  },
-  "promptTagAdverb": "adverb",
-  "@promptTagAdverb": {
-    "description": "Grammar tag under the circle centre: the word is an adverb"
-  },
-  "promptTagAdjective": "adjective",
-  "@promptTagAdjective": {
-    "description": "Grammar tag under the circle centre: the word is an adjective"
-  },
-  "promptTagUncountable": "uncountable",
-  "@promptTagUncountable": {
-    "description": "Grammar tag: the noun has no plural"
-  },
-  "promptTagPluralOnly": "plural only",
-  "@promptTagPluralOnly": {
-    "description": "Grammar tag: the noun exists only in the plural"
-  },
-  "promptTagUsuallyPlural": "usually plural",
-  "@promptTagUsuallyPlural": {
-    "description": "Grammar tag: the noun is normally used in the plural"
   },
   "promptTagCasual": "informal",
   "@promptTagCasual": {

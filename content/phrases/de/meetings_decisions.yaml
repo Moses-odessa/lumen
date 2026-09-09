@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: meetings_decisions
+tiers:
+  b2:
+    - id: meetings_decisions_b2_01
+      text: "Ich schlage vor, mit der wichtigsten Frage zu beginnen."
+    - id: meetings_decisions_b2_02
+      text: "Was ist das Ziel unseres heutigen Treffens?"
+    - id: meetings_decisions_b2_03
+      text: "Wir müssen eine Entscheidung treffen, nicht nur Meinungen austauschen."
+    - id: meetings_decisions_b2_04
+      text: "Wer möchte sich noch dazu äußern?"
+    - id: meetings_decisions_b2_05
+      text: "Lassen Sie uns zur Tagesordnung zurückkehren."
+      register: formal
+    - id: meetings_decisions_b2_06
+      text: "Das ist wichtig, erfordert aber eine eigene Diskussion."
+    - id: meetings_decisions_b2_07
+      text: "Wir sind etwas vom Thema abgekommen."
+    - id: meetings_decisions_b2_08
+      text: "Welche Risiken haben wir noch nicht besprochen?"
+    - id: meetings_decisions_b2_09
+      text: "Gibt es Einwände gegen diese Entscheidung?"
+    - id: meetings_decisions_b2_10
+      text: "Schweigen bedeutet nicht unbedingt Zustimmung."
+    - id: meetings_decisions_b2_11
+      text: "Wer trifft die endgültige Entscheidung?"
+    - id: meetings_decisions_b2_12
+      text: "Wir müssen eine verantwortliche Person und eine Frist festlegen."
+    - id: meetings_decisions_b2_13
+      text: "Bis zum nächsten Treffen sollten wir ..."
+    - id: meetings_decisions_b2_14
+      text: "Offen bleibt die Frage ..."
+    - id: meetings_decisions_b2_15
+      text: "Wir haben uns auf ... geeinigt."
+    - id: meetings_decisions_b2_16
+      text: "Ich halte fest, dass ..."
+    - id: meetings_decisions_b2_17
+      text: "Der erste Schritt besteht darin, ..."
+    - id: meetings_decisions_b2_18
+      text: "Überprüfen wir das Ergebnis nach ..."
+    - id: meetings_decisions_b2_19
+      text: "Habe ich das richtig zusammengefasst: ...?"
+    - id: meetings_decisions_b2_20
+      text: "Abschließend möchte ich an ... erinnern."

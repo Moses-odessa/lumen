@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: clarify_mediate
+tiers:
+  b1:
+    - id: clarify_mediate_b1_01
+      text: "Wenn ich richtig verstehe, haben wir zwei Möglichkeiten."
+    - id: clarify_mediate_b1_02
+      text: "Meinst du heute oder morgen?"
+    - id: clarify_mediate_b1_03
+      text: "Kannst du das mit anderen Worten sagen?"
+    - id: clarify_mediate_b1_04
+      text: "Ich versuche, es einfacher zu erklären."
+    - id: clarify_mediate_b1_05
+      text: "Es geht darum, dass wir Zeit brauchen."
+    - id: clarify_mediate_b1_06
+      text: "Das ist nicht ganz das, was ich meinte."
+    - id: clarify_mediate_b1_07
+      text: "Ich erkläre es an einem Beispiel."
+    - id: clarify_mediate_b1_08
+      text: "Lassen Sie uns diese beiden Fragen nicht vermischen."
+      register: formal
+    - id: clarify_mediate_b1_09
+      text: "Reden wir über den Preis oder über die Qualität?"
+    - id: clarify_mediate_b1_10
+      text: "Ich gebe den Hauptgedanken kurz wieder."
+    - id: clarify_mediate_b1_11
+      text: "Sie bittet darum, die Uhrzeit zu bestätigen."
+    - id: clarify_mediate_b1_12
+      text: "Er lehnt nicht ab, sondern bittet um eine Erklärung."
+    - id: clarify_mediate_b1_13
+      text: "Vielleicht liegt das Problem nur an der Formulierung."
+    - id: clarify_mediate_b1_14
+      text: "Habe ich deinen Gedanken richtig wiedergegeben?"
+    - id: clarify_mediate_b1_15
+      text: "Was genau ist dir unklar?"
+    - id: clarify_mediate_b1_16
+      text: "Jetzt verstehen wir es auf die gleiche Weise."
+    - id: clarify_mediate_b1_17
+      text: "Anders gesagt, ..."
+    - id: clarify_mediate_b1_18
+      text: "Mit ... meine ich ..."
+    - id: clarify_mediate_b1_19
+      text: "Habe ich richtig verstanden, dass ...?"
+    - id: clarify_mediate_b1_20
+      text: "Wenn ich das Gesagte zusammenfasse, ..."

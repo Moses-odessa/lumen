@@ -13,8 +13,8 @@ import '../scoring/balance.dart';
 import '../scoring/climb.dart';
 import 'level_stage.dart';
 
-/// Слово-кандидат на показ. Всё, что планировщику нужно знать о слове;
-/// перевод и озвучка берутся позже из `content.db` по [itemId].
+/// Фраза-кандидат на показ. Всё, что планировщику нужно знать о ней;
+/// текст, перевод и озвучка берутся позже из `content.db` по [itemId].
 class StudyItem {
   const StudyItem({
     required this.itemId,
@@ -45,54 +45,39 @@ class StudyItem {
 
 /// Один запланированный круг.
 ///
-/// [options] и [distractorKind] появились здесь потому, что раньше их решала
-/// механика внутри сборщика вопросов, и между планировщиком и экраном не было
-/// ничего, что могло бы сказать «этот круг — с одним вариантом» или «этот —
-/// с созвучными». Вариантность и вид дистракторов есть шкала сложности, и
-/// распоряжаться ею должен тот, кто отвечает за сложность.
+/// Вариантов всегда шесть, и настройки у этого больше нет.
+///
+/// Раньше здесь стояли `options` и `distractorKind`: сколько вариантов
+/// показать и какого они вида. Оба ушли вместе со словарным слоем. Вид
+/// дистракторов — потому что рукописных неверных вариантов больше нет вовсе:
+/// вокруг фразы лежат **другие фразы, которые игрок уже знает**. Число
+/// вариантов — потому что шкалой сложности оно быть перестало: знакомство
+/// устроено исключением, а исключать можно только из полного круга знакомого.
 class PlannedCircle {
   const PlannedCircle({
     required this.itemId,
     required this.mode,
     required this.isNew,
     required this.lumens,
-    this.options = ScoreBalance.optionsMax,
-    this.distractorKind = DistractorKind.far,
   });
 
   final String itemId;
   final GameMode mode;
 
-  /// Первый показ нового слова: на нём таймера нет.
+  /// Первый показ новой фразы: на нём окна на ответ нет.
   final bool isNew;
 
   final Lumens lumens;
 
-  /// Сколько вариантов показать. Один — это не проверка, а показ.
-  final int options;
-
-  /// Тематические варианты или созвучные.
-  final DistractorKind distractorKind;
-
-  PlannedCircle copyWith({
-    GameMode? mode,
-    bool? isNew,
-    int? options,
-    DistractorKind? distractorKind,
-  }) =>
-      PlannedCircle(
+  PlannedCircle copyWith({GameMode? mode, bool? isNew}) => PlannedCircle(
         itemId: itemId,
         mode: mode ?? this.mode,
         isNew: isNew ?? this.isNew,
         lumens: lumens,
-        options: options ?? this.options,
-        distractorKind: distractorKind ?? this.distractorKind,
       );
 
   @override
-  String toString() =>
-      '$itemId (${mode.name}, $lumens lm, $options вар., '
-      '${distractorKind.name})';
+  String toString() => '$itemId (${mode.name}, $lumens lm)';
 }
 
 /// Забег одного этапа: чем спрашивают и что именно.
@@ -146,12 +131,11 @@ abstract final class SessionPlanner {
     return due.take(size).toList();
   }
 
-  /// Механика по яркости слова.
+  /// Механика по яркости фразы.
   ///
   /// Правило простое: берём **самую требовательную** механику из тех, чей
   /// диапазон накрывает текущую яркость. Сложность растёт вслед за владением,
-  /// а не по расписанию. Фразовые механики сюда не попадают: их материал —
-  /// предложение, а не звезда, и ставятся они явно.
+  /// а не по расписанию.
   ///
   /// [allowed] сужает набор: этап уровня разрешает не все механики.
   /// [random] добавляет разнообразия: без него игрок с яркими словами видел
@@ -227,7 +211,6 @@ abstract final class SessionPlanner {
     final chosenReviews = reviews.toList()
       ..sort((a, b) => a.lumens.compareTo(b.lumens));
 
-    final extra = difficulty?.extraOptions ?? 0;
     final draws = difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase;
 
     // Повторы делятся между этапами: закрепление, проверка и напоминание
@@ -254,7 +237,6 @@ abstract final class SessionPlanner {
             capabilities: capabilities,
             random: random,
             draws: draws,
-            extra: extra,
             // Первый в жизни показ помечается новым: на нём нет таймера.
             isNew: stage == LevelStage.introduction,
           ));
@@ -274,7 +256,6 @@ abstract final class SessionPlanner {
             capabilities: capabilities,
             random: random,
             draws: draws,
-            extra: extra,
           ));
         }
         queue.removeRange(0, take);
@@ -311,7 +292,6 @@ abstract final class SessionPlanner {
         .toList();
     if (bright.isEmpty) return null;
 
-    final extra = difficulty?.extraOptions ?? 0;
     final draws = difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase;
 
     final order = bright.toList();
@@ -328,7 +308,6 @@ abstract final class SessionPlanner {
         capabilities: capabilities,
         random: random,
         draws: draws,
-        extra: extra,
       ));
     }
 
@@ -342,7 +321,6 @@ abstract final class SessionPlanner {
     required SessionCapabilities capabilities,
     required Random? random,
     required int draws,
-    required int extra,
     bool isNew = false,
   }) =>
       PlannedCircle(
@@ -357,8 +335,6 @@ abstract final class SessionPlanner {
         ),
         isNew: isNew,
         lumens: word.lumens,
-        options: StageRules.optionsFor(stage, extra: extra),
-        distractorKind: StageRules.distractorFor(stage),
       );
 
   /// Восход: только повторения, самые тусклые первыми, без новых слов.
@@ -438,8 +414,8 @@ abstract final class SessionPlanner {
 
   // ── Внутреннее ──────────────────────────────────────────────────────────
 
-  /// Механики, которые планировщик выбирает сам, в порядке возрастания
-  /// требовательности. Фразовых здесь нет: их ставит этап.
+  /// Механики в порядке возрастания требовательности. Список полный: после
+  /// удаления фразовой сборки планировщик выбирает из всех, что есть.
   static const List<GameMode> _selectableModes = [
     GameMode.pickNative,
     GameMode.listenNative,

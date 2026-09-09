@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: plans_invitations
+tiers:
+  a1:
+    - id: plans_invitations_a1_01
+      text: "Hast du heute Zeit?"
+    - id: plans_invitations_a1_02
+      text: "Was machst du heute Abend?"
+    - id: plans_invitations_a1_03
+      text: "Lass uns einen Kaffee trinken gehen."
+      register: casual
+    - id: plans_invitations_a1_04
+      text: "Möchtest du mitkommen?"
+    - id: plans_invitations_a1_05
+      text: "Sehr gern."
+    - id: plans_invitations_a1_06
+      text: "Das klingt gut."
+    - id: plans_invitations_a1_07
+      text: "Leider kann ich nicht."
+    - id: plans_invitations_a1_08
+      text: "Heute habe ich keine Zeit."
+    - id: plans_invitations_a1_09
+      text: "Vielleicht ein anderes Mal."
+    - id: plans_invitations_a1_10
+      text: "Um wie viel Uhr treffen wir uns?"
+    - id: plans_invitations_a1_11
+      text: "Wo treffen wir uns?"
+    - id: plans_invitations_a1_12
+      text: "Sechs Uhr passt mir."
+    - id: plans_invitations_a1_13
+      text: "Ich komme etwas später."
+    - id: plans_invitations_a1_14
+      text: "Ich bin schon unterwegs."
+    - id: plans_invitations_a1_15
+      text: "Ich warte am Eingang."
+    - id: plans_invitations_a1_16
+      text: "Danke für die Einladung."
+    - id: plans_invitations_a1_17
+      text: "Möchtest du ...?"
+    - id: plans_invitations_a1_18
+      text: "Mein Vorschlag ist: ..."
+    - id: plans_invitations_a1_19
+      text: "Ich bin am ... um ... frei."
+    - id: plans_invitations_a1_20
+      text: "Wir treffen uns bei ..."

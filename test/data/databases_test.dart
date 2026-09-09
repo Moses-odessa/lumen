@@ -6,6 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/data/content/content_database.dart';
 import 'package:lumen/data/local/app_database.dart';
 import 'package:lumen/domain/entities/player.dart';
+import 'package:lumen/domain/entities/prompt_tag.dart';
 import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/sky/progression.dart';
@@ -15,6 +16,33 @@ import '../../tool/content_sources.dart';
 /// Критерий приёмки M0: обе базы открываются. Проверяется на настоящем
 /// ассете `assets/content/de.db` и на настоящей Drift-схеме `user.db`, а не
 /// на моках — иначе проверка ничего не значит.
+///
+/// ── Что удалено вместе со словарным слоем ─────────────────────────────────
+///
+/// Контентная база v5 несёт пять таблиц, и слова среди них нет. Две проверки
+/// удалены, а не переписаны на фразы:
+///
+/// * «черновых концептов в отгруженной базе нет» — охраняла пометку
+///   `draft: true` и метаданное `drafted_concepts`: сборка обязана была
+///   уважать её так же, как валидатор, иначе черновик из импортированного
+///   словника уезжал игроку. У фразы такой пометки нет ни одной — фразы
+///   пишутся руками, по одной, и их готовность объявляется ярусом в
+///   `content/launch.yaml`, а не полем у каждой строки. Ни фильтра, ни
+///   метаданного в сборке больше нет, охранять нечего.
+/// * «лексемы и дистракторы читаются на всех языках проекта» — охраняла то,
+///   что круг собирается из написанных руками неверных вариантов, а не из
+///   случайных слов. Вариантов больше не пишут: вокруг новой фразы лежат пять
+///   уже известных игроку. Половина проверки — «у единицы изучения есть форма
+///   на языке подсказок» — перенесена на переводы фраз, см. «перевод есть у
+///   каждой фразы»; туда же перенесена и проверка «концепт играбелен только
+///   при форме в обоих языках пары»: `playableConcepts` удалён, а её вторая
+///   половина — «неполнота означает меньше слов, а не падение» — жива.
+///
+/// Проверка «у фразы есть ответы по слотам и перевод на родной» не удалена, а
+/// перенесена: таблицы `phrase_slots` больше нет, потому что пропуск перестал
+/// быть механикой и стал формой записи в файле. Сборка подставляет ответ один
+/// раз, и в базу уезжает готовое предложение — это и проверяет «фраза приходит
+/// готовой к показу».
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -113,26 +141,33 @@ void main() {
           );
 
       test('убирает только то, чего в контенте нет', () async {
+        // Идентификаторы разговорника и словарной эпохи рядом — ровно то, что
+        // лежит в базе игрока, который начал играть до переезда контента:
+        // `bread_food` был концептом, и в контенте его больше нет ни в каком
+        // виде.
+        await seed('food_a0_bread');
         await seed('bread_food');
-        await seed('gone_forever');
 
-        final removed = await db.sweepUnknownItems({'bread_food'});
+        final removed = await db.sweepUnknownItems({'food_a0_bread'});
 
         expect(removed, 1);
-        expect(await db.loadWordState('bread_food'), isNotNull);
-        expect(await db.loadWordState('gone_forever'), isNull);
-        // Журнал ответов чистится вместе с памятью: строки о слове, которого
+        expect(await db.loadWordState('food_a0_bread'), isNotNull);
+        expect(await db.loadWordState('bread_food'), isNull);
+        // Журнал ответов чистится вместе с памятью: строки о единице, которой
         // нет, не годятся ни для дообучения FSRS, ни для статистики.
         final reviews = await db.recentReviews();
-        expect(reviews.map((r) => r.itemId), isNot(contains('gone_forever')));
+        expect(reviews.map((r) => r.itemId), isNot(contains('bread_food')));
       });
 
-      test('фраза — такая же единица памяти, как слово', () async {
+      test('принадлежность решает контент, а не колонка kind', () async {
         // `word_states.kind` никто не пишет: все строки лежат со значением по
-        // умолчанию `word`, включая те, чей itemId — идентификатор фразы.
-        // Поэтому принадлежность определяется членством в объединении
-        // «концепты ∪ фразы», а не типом.
+        // умолчанию `word`, включая те, чей itemId — идентификатор фразы. А
+        // фраза сегодня единственная единица памяти, какая бывает. Значит,
+        // судить по типу нельзя вдвойне: фильтр `kind = 'phrase'` не оставил
+        // бы от памяти игрока ни строки.
         await seed('food_a0_bread');
+        expect((await db.loadWordState('food_a0_bread'))!.kind, 'word');
+
         expect(await db.sweepUnknownItems({'food_a0_bread'}), 0);
         expect(await db.loadWordState('food_a0_bread'), isNotNull);
       });
@@ -141,9 +176,9 @@ void main() {
         // Пустой список означает, что контентная база не открылась, а не что
         // контент опустел. Снести всю память игрока из-за неудачного чтения
         // ассета — цена, несопоставимая с задачей.
-        await seed('bread_food');
+        await seed('food_a0_bread');
         expect(await db.sweepUnknownItems(const {}), 0);
-        expect(await db.loadWordState('bread_food'), isNotNull);
+        expect(await db.loadWordState('food_a0_bread'), isNotNull);
       });
 
       test('метка обслуживания снимается после чистки', () async {
@@ -152,7 +187,7 @@ void main() {
             );
         expect(await db.needsItemSweep(), isTrue);
 
-        await db.sweepUnknownItems({'bread_food'});
+        await db.sweepUnknownItems({'food_a0_bread'});
         expect(await db.needsItemSweep(), isFalse);
       });
 
@@ -274,25 +309,35 @@ void main() {
       expect(await db.launchedTiers(), {Tier.a0});
 
       // Созвездие «У врача» написано целиком на всех пяти ярусах. Точных
-      // размеров тест больше не требует: правило «ровно 12/24/48/72/96»
-      // удалено, потому что на словнике из 6000 лемм его провалили бы десять
-      // тем из двадцати четырёх (PLAN.md, решение 3).
+      // размеров тест не требует: правило «ровно 12/24/48/72/96» удалено —
+      // на словнике из 6000 лемм его провалили бы десять тем из двадцати
+      // четырёх (PLAN.md, решение 3).
       //
-      // Проверяется то, что осталось правдой и после смены правила: размер
-      // накопительный — ярус добавляет звёзды, а не заменяет их, — и на
-      // каждом ярусе созвездие набрало порог появления.
-      expect(await db.countConcepts(), greaterThan(0));
+      // Проверяется то, что осталось правдой и после смены правила: выборка
+      // накопительная — ярус добавляет звёзды, а не заменяет их.
+      expect(await db.countPhrases(), greaterThan(0));
 
-      var previous = 0;
+      var previous = <String>{};
       for (final tier in Tier.values) {
-        final count = (await db.conceptsFor('health', tier)).length;
-        expect(count, greaterThanOrEqualTo(previous),
+        final ids =
+            (await db.phrasesFor('first_contact', tier)).map((p) => p.id);
+        expect(ids, containsAll(previous),
+            reason: 'ярус ${tier.label}: фразы нижнего яруса выпали из выборки');
+        expect(ids.length, greaterThanOrEqualTo(previous.length),
             reason: 'ярус ${tier.label}: созвездие сжалось');
-        expect(Progression.appears(count), isTrue,
-            reason: 'ярус ${tier.label}: $count звёзд, порог '
-                '${ProgressionBalance.minStarsForConstellation}');
-        previous = count;
+        previous = ids.toSet();
       }
+
+      // Порог появления тема берёт **сразу**: в разговорнике тема это блок из
+      // двадцати фраз, и на своём ярусе она видна с первого дня. Прежний
+      // контент этого не давал — у «У врача» на A0 было четыре фразы против
+      // восьми нужных, то есть запущенный ярус оставался без созвездий вовсе.
+      // Проверяется всё равно верхний ярус, а не A0: тема живёт на своём
+      // ярусе, и требовать её присутствия на всех значило бы требовать, чтобы
+      // «Построение аргумента» существовало на A0.
+      expect(Progression.appears(previous.length), isTrue,
+          reason: 'на B2 у созвездия ${previous.length} звёзд, порог '
+              '${ProgressionBalance.minStarsForConstellation}');
 
       // Файл действительно лёг в support-директорию.
       expect(File('${support.path}/content/de.db').existsSync(), isTrue);
@@ -315,57 +360,30 @@ void main() {
               'dart run tool/build_content.dart --lang de');
     });
 
-    test('черновых концептов в отгруженной базе нет', () async {
-      // Пометка `draft: true` обещает «в игру не идёт», и до импорта словника
-      // это обещание держал один валидатор: сборка отгружала черновик
-      // наравне с вычитанным. Пока черновиков было ноль, проверить это было
-      // нечем — и незаметно, что проверять нечего.
-      //
-      // Тест смотрит в исходники и в базу: id, помеченный черновым, не должен
-      // существовать в отгруженном ассете ни как концепт, ни как лексема.
-      final drafted = <String>{};
-      for (final file in Directory('content/concepts')
-          .listSync()
-          .whereType<File>()
-          .where((f) => f.path.endsWith('.yaml'))) {
-        for (final line in file.readAsLinesSync()) {
-          if (!line.contains('draft: true')) continue;
-          final match = RegExp(r'id:\s*([A-Za-z0-9_]+)').firstMatch(line);
-          if (match != null) drafted.add(match.group(1)!);
-        }
-      }
-
+    test('перевод есть у каждой фразы, которую отгрузили', () async {
       final db = ContentDatabase.forLanguage('de');
       addTearDown(db.close);
 
-      final meta = await db.loadMeta();
-      expect(meta['drafted_concepts'], '${drafted.length}',
-          reason: 'сборка не заметила часть черновиков');
+      // Фраза без перевода — вопрос, который нельзя задать: `QuestionBuilder`
+      // отдаёт на такой null, и круг не собирается ни как задание, ни как
+      // вариант вокруг чужого задания. Раньше эту дыру закрывала проверка
+      // «у концепта есть форма в обоих языках пары»; у фразы её место занял
+      // перевод, и он обязан быть у всех отгруженных фраз, а не у большинства.
+      final ids = await db.allPhraseIds();
+      expect(ids, isNotEmpty);
 
-      for (final id in drafted) {
-        expect(await db.lexeme(id, 'de'), isNull,
-            reason: 'черновой концепт $id уехал в базу');
-      }
-    });
+      final uk = await db.translationsFor(ids, 'uk');
+      expect(uk.keys, unorderedEquals(ids),
+          reason: 'без перевода остались: ${ids.difference(uk.keys.toSet())}');
+      expect(uk.values.where((t) => t.trim().isEmpty), isEmpty,
+          reason: 'пустая строка перевода — та же фраза без перевода, только '
+              'молча: круг соберётся с пустым вариантом');
 
-    test('лексемы и дистракторы читаются на всех языках проекта', () async {
-      final db = ContentDatabase.forLanguage('de');
-      addTearDown(db.close);
-
-      final de = await db.lexeme('doctor_person', 'de');
-      expect(de?.form, 'Arzt');
-      expect(de?.article, 'der');
-
-      for (final lang in ['ru', 'uk', 'en']) {
-        final lexeme = await db.lexeme('doctor_person', lang);
-        expect(lexeme, isNotNull, reason: 'нет лексемы на $lang');
-      }
-
-      // Круг собирается из дистракторов контента, а не случайных слов.
-      final far = await db.distractorsFor('doctor_person', 'de', 'far');
-      final near = await db.distractorsFor('doctor_person', 'de', 'near');
-      expect(far.length, greaterThanOrEqualTo(2));
-      expect(near.length, greaterThanOrEqualTo(3));
+      // Языка, которого в базе нет, переводов не даёт — и это не падение, а
+      // пустая карта: неполнота означает меньше фраз в игре, а не сломанный
+      // запуск.
+      expect(await db.translationsFor(ids, 'ja'), isEmpty);
+      expect(await db.translation(ids.first, 'ja'), isNull);
     });
 
     test('языки читаются из базы, а не из списка в коде', () async {
@@ -378,60 +396,57 @@ void main() {
       final de = all.firstWhere((l) => l.code == 'de');
       expect(de.role, 'target');
       expect(de.name, 'Deutsch');
-      // Покрытие считается при сборке, а не объявляется в файле.
-      expect(de.concepts, await db.countConcepts());
+      // Покрытие считается при сборке, а не объявляется в файле, и считается
+      // оно по переводам: у языка изучения их нет — переводить фразу на её же
+      // язык незачем, — а у языка подсказок их столько же, сколько фраз.
+      expect(de.phrases, 0);
+      expect(all.firstWhere((l) => l.code == 'uk').phrases,
+          await db.countPhrases());
 
-      // Русский и английский лежат как draft: проект несёт немецкий и
-      // украинский. Значит, подсказывать предлагается только украинским.
+      // Языков подсказок четыре, и все запущены: разговорник пришёл одним
+      // источником сразу на пять языков — украинский, немецкий, английский,
+      // русский, итальянский, — и объявлять один из них черновым, а другой
+      // готовым было бы неправдой. Немецкий среди них не значится: он язык
+      // изучения.
       final natives = await db.nativeLanguages();
-      expect(natives.map((l) => l.code), ['uk']);
+      expect(natives.map((l) => l.code), ['en', 'it', 'ru', 'uk']);
       expect((await db.targetLanguages()).map((l) => l.code), ['de']);
     });
 
-    test('концепт играбелен только при форме в обоих языках пары', () async {
+    test('фраза приходит готовой к показу', () async {
       final db = ContentDatabase.forLanguage('de');
       addTearDown(db.close);
 
-      final pair = await db.playableConcepts(
-        targetLang: 'de',
-        nativeLang: 'uk',
-        upTo: Tier.b2,
-      );
-      expect(pair.length, await db.countConcepts());
+      // Смотрим на все отгруженные фразы, а не на выборку одной темы: текст
+      // читает игрок, и одна недособранная строка из 432 — это один экран, на
+      // котором видно внутренности сборки.
+      final phrases = await db.phrasesUpTo(Tier.b2);
+      expect(phrases, hasLength(await db.countPhrases()));
+      expect(phrases.map((p) => p.lang).toSet(), {'de'},
+          reason: 'база собирается под один язык изучения');
 
-      // Языка, которого в базе нет, играбельных концептов не даёт — и это
-      // не падение, а пустой список: неполнота означает меньше слов.
-      final missing = await db.playableConcepts(
-        targetLang: 'de',
-        nativeLang: 'ja',
-        upTo: Tier.b2,
-      );
-      expect(missing, isEmpty);
-    });
+      // Подстановка ответа в шаблон сделана сборкой, один раз. У фразы нет ни
+      // пропусков, ни скрытых частей: `{bread}` в отгруженном тексте игрок
+      // увидел бы на экране, а «…» — след того, что ответов было меньше, чем
+      // пропусков, — ещё и услышал бы в синтезе.
+      final unfinished = phrases.where(
+          (p) => p.sentence.contains('{') || p.sentence.contains('…'));
+      expect(unfinished.map((p) => p.id), isEmpty,
+          reason: 'в базу уехал шаблон, а не готовая фраза');
 
-    test('у фразы есть ответы по слотам и перевод на родной', () async {
-      final db = ContentDatabase.forLanguage('de');
-      addTearDown(db.close);
-
-      final phrases = await db.phrasesFor('food', Tier.a0, lang: 'de');
-      expect(phrases, isNotEmpty);
-
-      final phrase = phrases.first;
-      final answers = await db.phraseAnswers(phrase.id);
-      expect(answers, isNotEmpty);
-      // Ответы приехали в отдельную таблицу: пропусков может быть несколько,
-      // и порядок — это порядок слотов слева направо.
-      expect(answers.length, RegExp(r'\{[^}]*\}')
-          .allMatches(phrase.template)
-          .length);
-
-      // Перевод фразы целиком: он проявляется после заполнения пропусков.
-      expect(await db.phraseTranslation(phrase.id, 'uk'), isNotNull);
+      // Регистр — код из закрытого набора, а не строка на языке файла: текст
+      // под центром круга даёт локализация на языке интерфейса. Свободный
+      // текст показался бы игроку как есть — именно это и было под каждой из
+      // 432 фраз, английским служебным словом.
+      final registers = phrases.map((p) => p.register).whereType<String>();
+      expect(registers, isNotEmpty);
+      expect(registers.where((r) => !isPromptTag(r)).toSet(), isEmpty,
+          reason: 'у приложения нет перевода для такой пометки');
     });
 
     test('повторное открытие не перезаписывает файл', () async {
       final first = ContentDatabase.forLanguage('de');
-      await first.countConcepts();
+      await first.countPhrases();
       await first.close();
 
       final file = File('${support.path}/content/de.db');
@@ -439,7 +454,7 @@ void main() {
 
       final second = ContentDatabase.forLanguage('de');
       addTearDown(second.close);
-      expect(await second.countConcepts(), greaterThan(0));
+      expect(await second.countPhrases(), greaterThan(0));
       expect(file.lastModifiedSync(), stamp);
     });
   });

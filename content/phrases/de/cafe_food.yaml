@@ -1,0 +1,50 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: cafe_food
+tiers:
+  a1:
+    - id: cafe_food_a1_01
+      text: "Einen Tisch für zwei, bitte."
+    - id: cafe_food_a1_02
+      text: "Kann ich die Speisekarte haben?"
+    - id: cafe_food_a1_03
+      text: "Was empfehlen Sie?"
+    - id: cafe_food_a1_04
+      text: "Ich überlege noch."
+    - id: cafe_food_a1_05
+      text: "Ich möchte bestellen."
+    - id: cafe_food_a1_06
+      text: "Für mich die Suppe, bitte."
+    - id: cafe_food_a1_07
+      text: "Ohne Zucker, bitte."
+    - id: cafe_food_a1_08
+      text: "Mit Milch, bitte."
+    - id: cafe_food_a1_09
+      text: "Ich esse kein Fleisch."
+    - id: cafe_food_a1_10
+      text: "Ich bin gegen Nüsse allergisch."
+    - id: cafe_food_a1_11
+      text: "Ist das scharf?"
+    - id: cafe_food_a1_12
+      text: "Das schmeckt sehr gut."
+    - id: cafe_food_a1_13
+      text: "Kann ich noch etwas Brot haben?"
+    - id: cafe_food_a1_14
+      text: "Zum Mitnehmen, bitte."
+    - id: cafe_food_a1_15
+      text: "Wir möchten getrennt bezahlen."
+    - id: cafe_food_a1_16
+      text: "Ist das Trinkgeld inbegriffen?"
+    - id: cafe_food_a1_17
+      text: "Ich hätte gern ... ohne ..."
+    - id: cafe_food_a1_18
+      text: "Haben Sie ...?"
+      register: formal
+    - id: cafe_food_a1_19
+      text: "Zum Frühstück esse ich ..."
+    - id: cafe_food_a1_20
+      text: "Ich mag ... lieber."

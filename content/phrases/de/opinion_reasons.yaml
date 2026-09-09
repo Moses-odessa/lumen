@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: opinion_reasons
+tiers:
+  b1:
+    - id: opinion_reasons_b1_01
+      text: "Meiner Meinung nach ist das eine gute Idee."
+    - id: opinion_reasons_b1_02
+      text: "Persönlich würde ich eine andere Möglichkeit wählen."
+    - id: opinion_reasons_b1_03
+      text: "Der Hauptgrund ist der Zeitmangel."
+    - id: opinion_reasons_b1_04
+      text: "Für mich ist das eine Frage des Vertrauens."
+    - id: opinion_reasons_b1_05
+      text: "Ich habe mehrere Gründe, so zu denken."
+    - id: opinion_reasons_b1_06
+      text: "Das würde uns helfen, Zeit zu sparen."
+    - id: opinion_reasons_b1_07
+      text: "Außerdem ist es praktischer."
+    - id: opinion_reasons_b1_08
+      text: "Hier ist ein einfaches Beispiel."
+    - id: opinion_reasons_b1_09
+      text: "Aus eigener Erfahrung kann ich sagen, dass es funktioniert."
+    - id: opinion_reasons_b1_10
+      text: "Nicht alle sehen das genauso."
+    - id: opinion_reasons_b1_11
+      text: "Das ist nur meine persönliche Meinung."
+    - id: opinion_reasons_b1_12
+      text: "Ich habe noch keinen klaren Standpunkt."
+    - id: opinion_reasons_b1_13
+      text: "Mir fehlen Informationen für eine Entscheidung."
+    - id: opinion_reasons_b1_14
+      text: "Was denkst du darüber?"
+    - id: opinion_reasons_b1_15
+      text: "Warum ist dir das so wichtig?"
+    - id: opinion_reasons_b1_16
+      text: "Ich sehe sowohl Vorteile als auch Nachteile."
+    - id: opinion_reasons_b1_17
+      text: "Ich bin der Meinung, dass ..."
+    - id: opinion_reasons_b1_18
+      text: "Ein Grund dafür ist, dass ..."
+    - id: opinion_reasons_b1_19
+      text: "Entscheidend ist für mich ..."
+    - id: opinion_reasons_b1_20
+      text: "Wenn zum Beispiel ..., ..."

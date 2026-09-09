@@ -93,9 +93,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calibrationHintConfirm => 'Checking once more';
 
   @override
-  String get calibrationHintPhrases => 'Now whole phrases';
-
-  @override
   String get calibrationHintDone => 'Done';
 
   @override
@@ -218,9 +215,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'There are no constellations for this tier in the content database.';
 
   @override
-  String get skyDictionary => 'Dictionary';
-
-  @override
   String constellationLitOf(int lit, int total) {
     return '$lit of $total stars are burning';
   }
@@ -245,21 +239,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String tierSuggestDown(String current, String target) {
     return '$current seems hard. Try $target?';
   }
-
-  @override
-  String get dictionaryTitle => 'Dictionary';
-
-  @override
-  String get dictionarySearchHint => 'A word in either language';
-
-  @override
-  String get dictionaryNothing => 'Nothing found';
-
-  @override
-  String get dictionaryResetFilters => 'Reset filters';
-
-  @override
-  String get dictionaryBurningFilter => 'burning';
 
   @override
   String get bandBurning => 'burning';
@@ -650,21 +629,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String recordsClimbLevel(int level, String multiplier) {
     return 'Level $level · ×$multiplier';
   }
-
-  @override
-  String get promptTagAdverb => 'adverb';
-
-  @override
-  String get promptTagAdjective => 'adjective';
-
-  @override
-  String get promptTagUncountable => 'uncountable';
-
-  @override
-  String get promptTagPluralOnly => 'plural only';
-
-  @override
-  String get promptTagUsuallyPlural => 'usually plural';
 
   @override
   String get promptTagCasual => 'informal';

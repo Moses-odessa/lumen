@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: comparison_conditions
+tiers:
+  a2:
+    - id: comparison_conditions_a2_01
+      text: "Diese Möglichkeit passt besser zu mir."
+    - id: comparison_conditions_a2_02
+      text: "Es ist günstiger, aber weiter weg."
+    - id: comparison_conditions_a2_03
+      text: "Zeit ist mir wichtiger als der Preis."
+    - id: comparison_conditions_a2_04
+      text: "Beide Möglichkeiten sind gut."
+    - id: comparison_conditions_a2_05
+      text: "Ich habe mich noch nicht entschieden."
+    - id: comparison_conditions_a2_06
+      text: "Das hängt vom Wetter ab."
+    - id: comparison_conditions_a2_07
+      text: "Ich bleibe zu Hause, weil es regnet."
+    - id: comparison_conditions_a2_08
+      text: "Wenn ich Zeit habe, komme ich."
+    - id: comparison_conditions_a2_09
+      text: "Wir können ohne ihn anfangen."
+    - id: comparison_conditions_a2_10
+      text: "Zuerst muss man fragen."
+    - id: comparison_conditions_a2_11
+      text: "Es ist besser, das jetzt zu machen."
+    - id: comparison_conditions_a2_12
+      text: "Es ist nicht so schwierig, wie es aussieht."
+    - id: comparison_conditions_a2_13
+      text: "Ich brauche etwas Einfacheres."
+    - id: comparison_conditions_a2_14
+      text: "Ich wähle Qualität statt Quantität."
+    - id: comparison_conditions_a2_15
+      text: "Das ist nur morgens möglich."
+    - id: comparison_conditions_a2_16
+      text: "Es gibt keine andere Möglichkeit."
+    - id: comparison_conditions_a2_17
+      text: "Ich wähle ..., weil ..."
+    - id: comparison_conditions_a2_18
+      text: "Wenn ..., dann ..."
+    - id: comparison_conditions_a2_19
+      text: "... ist wichtiger als ..."
+    - id: comparison_conditions_a2_20
+      text: "Statt zu ..., kann man ..."

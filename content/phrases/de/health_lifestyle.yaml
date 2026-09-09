@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: health_lifestyle
+tiers:
+  b1:
+    - id: health_lifestyle_b1_01
+      text: "In letzter Zeit schlafe ich schlecht."
+    - id: health_lifestyle_b1_02
+      text: "Es fällt mir schwer, Arbeit und Erholung zu vereinbaren."
+    - id: health_lifestyle_b1_03
+      text: "Ich möchte meine Gewohnheiten schrittweise ändern."
+    - id: health_lifestyle_b1_04
+      text: "Regelmäßige Spaziergänge helfen mir."
+    - id: health_lifestyle_b1_05
+      text: "Ich versuche, Pausen einzulegen."
+    - id: health_lifestyle_b1_06
+      text: "Nach der Arbeit fällt es mir schwer, abzuschalten."
+    - id: health_lifestyle_b1_07
+      text: "Das wirkt sich auf mein Wohlbefinden aus."
+    - id: health_lifestyle_b1_08
+      text: "Ich würde das gern mit einer Fachperson besprechen."
+    - id: health_lifestyle_b1_09
+      text: "Welche Behandlungsmöglichkeiten gibt es?"
+    - id: health_lifestyle_b1_10
+      text: "Welche Vorteile und Risiken hat diese Behandlung?"
+    - id: health_lifestyle_b1_11
+      text: "Gibt es eine Alternative dazu?"
+    - id: health_lifestyle_b1_12
+      text: "Ich möchte eine zweite Meinung einholen."
+    - id: health_lifestyle_b1_13
+      text: "Habe ich die Empfehlung richtig verstanden?"
+    - id: health_lifestyle_b1_14
+      text: "Ich möchte die Dosis nicht selbst ändern."
+    - id: health_lifestyle_b1_15
+      text: "Ich möchte aktiver sein, ohne mich zu überlasten."
+    - id: health_lifestyle_b1_16
+      text: "Ich brauche einen Plan, den ich einhalten kann."
+    - id: health_lifestyle_b1_17
+      text: "Ich merke, dass nach ..."
+    - id: health_lifestyle_b1_18
+      text: "Mein Zustand verschlechtert sich, wenn ..."
+    - id: health_lifestyle_b1_19
+      text: "Was muss ich bei ... beachten?"
+    - id: health_lifestyle_b1_20
+      text: "Könnte das mit ... zusammenhängen?"

@@ -17,6 +17,12 @@ import '../../tool/content_schema.dart';
 /// Тест воспроизводит продакшен-последовательность: база создаётся снаружи
 /// Drift (как это делает сборщик, вместе с `PRAGMA user_version`), и только
 /// потом открывается приложением.
+///
+/// Схема v5 — разговорник: пять таблиц вместо одиннадцати. Проверки, которые
+/// сверяли `concepts`, `lexemes` и `distractors`, перенесены на `phrases` и
+/// `phrase_translations`; проверки `phrase_slots` и `phrase_orders` удалены
+/// вместе с механикой вставки слова в пропуск — у фразы больше нет ни
+/// пропусков, ни списка верных сборок.
 void main() {
   late raw.Database source;
   late ContentDatabase db;
@@ -43,46 +49,74 @@ void main() {
     expect(contentSchemaVersion, db.schemaVersion);
   });
 
-  test('Drift читает базу, созданную DDL инструмента', () async {
+  test('Drift читает все пять таблиц, созданных DDL инструмента', () async {
+    // Строки написаны так же, как их пишет сборщик: именами колонок SQL.
+    // У фразы колонка называется `text`, а геттер Drift — `sentence`, потому
+    // что `text()` в Drift это билдер колонки и `TextColumn get text =>
+    // text()()` вернул бы сам себя. Такое переименование — ровно тот случай,
+    // когда база и приложение расходятся молча, поэтому оба текста читаются
+    // здесь через Drift-геттеры.
     buildAndOpen(seed: [
-      "INSERT INTO concepts (id, tier, constellation, pos, freq_rank) "
-          "VALUES ('bill_restaurant', 'a1', 'restaurant', 'noun', 900)",
-      "INSERT INTO lexemes "
-          "(concept_id, lang, form, article, gender) VALUES "
-          "('bill_restaurant', 'de', 'Rechnung', 'die', 'f')",
-      "INSERT INTO distractors (concept_id, lang, kind, form) "
-          "VALUES ('bill_restaurant', 'de', 'near', 'Richtung')",
+      "INSERT INTO languages (code, role, status, name, phrases) "
+          "VALUES ('uk', 'native', 'launched', 'Українська', 1)",
+      "INSERT INTO phrases (id, lang, tier, constellation, idx, text, register)"
+          " VALUES ('food_a1_bill', 'de', 'a1', 'food', 0, "
+          "'Die Rechnung, bitte.', 'formal')",
+      "INSERT INTO phrase_translations (phrase_id, lang, text) "
+          "VALUES ('food_a1_bill', 'uk', 'Рахунок, будь ласка.')",
+      "INSERT INTO calibration_items (id, tier, phrase_id, kind) "
+          "VALUES ('cal_a1_1', 'a1', 'food_a1_bill', 'phrase')",
       "INSERT INTO content_meta (key, value) VALUES ('lang', 'de')",
     ]);
 
-    expect(await db.countConcepts(), 1);
+    expect(await db.countPhrases(), 1);
     expect(await db.loadMeta(), {'lang': 'de'});
 
-    final lexeme = await db.lexeme('bill_restaurant', 'de');
-    expect(lexeme?.form, 'Rechnung');
-    expect(lexeme?.article, 'die');
+    final phrase = await db.phrase('food_a1_bill');
+    expect(phrase?.sentence, 'Die Rechnung, bitte.');
+    expect(phrase?.register, 'formal');
 
-    final near = await db.distractorsFor('bill_restaurant', 'de', 'near');
-    expect(near.map((d) => d.form), ['Richtung']);
+    expect(await db.translation('food_a1_bill', 'uk'), 'Рахунок, будь ласка.');
+    expect((await db.calibrationFor(Tier.a1)).single.phraseId, 'food_a1_bill');
+    expect((await db.allLanguages()).single.name, 'Українська');
   });
 
-  test('выборка концептов включает нижние ярусы, а не только текущий',
-      () async {
+  test('выборка фраз включает нижние ярусы, а не только текущий', () async {
     buildAndOpen(seed: [
-      "INSERT INTO concepts (id, tier, constellation, pos, freq_rank) VALUES "
-          "('a', 'a0', 'doctor', 'noun', 1), "
-          "('b', 'a1', 'doctor', 'noun', 2), "
-          "('c', 'b2', 'doctor', 'noun', 3), "
-          "('d', 'a0', 'rent', 'noun', 4)",
+      "INSERT INTO phrases (id, lang, tier, constellation, idx, text) VALUES "
+          "('a', 'de', 'a0', 'health', 0, 'Ich bin krank.'), "
+          "('b', 'de', 'a1', 'health', 0, 'Ich habe Fieber.'), "
+          "('c', 'de', 'b2', 'health', 0, 'Die Diagnose steht fest.'), "
+          "('d', 'de', 'a0', 'home', 0, 'Ich wohne hier.')",
     ]);
 
-    // Небо уплотняется, а не переписывается: на A1 звёзды A0 остаются
+    // Небо уплотняется, а не переписывается: на A1 фразы A0 остаются
     // в ротации повторений.
-    expect((await db.conceptsFor('doctor', Tier.a1)).map((c) => c.id),
+    expect((await db.phrasesFor('health', Tier.a1)).map((p) => p.id),
         ['a', 'b']);
-    expect((await db.conceptsFor('doctor', Tier.a0)).map((c) => c.id), ['a']);
+    expect((await db.phrasesFor('health', Tier.a0)).map((p) => p.id), ['a']);
     // Соседнее созвездие в выборку не попадает.
-    expect((await db.conceptsFor('rent', Tier.b2)).map((c) => c.id), ['d']);
+    expect((await db.phrasesFor('home', Tier.b2)).map((p) => p.id), ['d']);
+  });
+
+  test('фразы яруса приходят в авторском порядке, а не в порядке вставки',
+      () async {
+    // Порядок знакомства задаёт автор — полем `idx`, то есть порядком строк
+    // в файле. Прежнюю последовательность задавала частотность слова
+    // (`concepts.freq_rank`), и у фразы её нет: «Zum Frühstück esse ich Brot»
+    // не встречается в корпусе ни разу. Если запрос забудет `ORDER BY idx`,
+    // знакомство пойдёт в порядке, которым никто не управляет.
+    buildAndOpen(seed: [
+      "INSERT INTO phrases (id, lang, tier, constellation, idx, text) VALUES "
+          "('third', 'de', 'a0', 'food', 2, 'Ich habe Hunger.'), "
+          "('first', 'de', 'a0', 'food', 0, 'Ich esse Brot.'), "
+          "('second', 'de', 'a0', 'food', 1, 'Ich trinke Wasser.')",
+    ]);
+
+    expect((await db.phrasesFor('food', Tier.a0)).map((p) => p.id),
+        ['first', 'second', 'third']);
+    expect((await db.phrasesOn(Tier.a0)).map((p) => p.id),
+        ['first', 'second', 'third']);
   });
 
   test('каждая колонка, которую ждёт Drift, есть в DDL инструмента', () async {
@@ -109,7 +143,7 @@ void main() {
     db = ContentDatabase(NativeDatabase.opened(source));
 
     expect(
-      () => db.countConcepts(),
+      () => db.countPhrases(),
       throwsA(isA<StateError>()),
     );
   });

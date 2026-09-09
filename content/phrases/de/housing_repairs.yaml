@@ -1,0 +1,49 @@
+# Сгенерировано: dart run tool/import_phrasebook.dart
+# Источник: content/_import/phrasebook_1000
+#
+# Правки руками не запрещены, но следующий импорт их снесёт:
+# правь источник, а не этот файл.
+lang: de
+constellation: housing_repairs
+tiers:
+  a2:
+    - id: housing_repairs_a2_01
+      text: "Ich suche eine Wohnung für längere Zeit."
+    - id: housing_repairs_a2_02
+      text: "Wie viele Zimmer hat die Wohnung?"
+    - id: housing_repairs_a2_03
+      text: "Sind die Nebenkosten inbegriffen?"
+    - id: housing_repairs_a2_04
+      text: "Wie hoch ist die Kaution?"
+    - id: housing_repairs_a2_05
+      text: "Wann kann ich die Wohnung besichtigen?"
+    - id: housing_repairs_a2_06
+      text: "Sind Haustiere erlaubt?"
+    - id: housing_repairs_a2_07
+      text: "Ich ziehe nächsten Monat um."
+    - id: housing_repairs_a2_08
+      text: "Die Heizung funktioniert nicht."
+    - id: housing_repairs_a2_09
+      text: "Es gibt kein warmes Wasser."
+    - id: housing_repairs_a2_10
+      text: "Der Wasserhahn tropft."
+    - id: housing_repairs_a2_11
+      text: "Das Fenster lässt sich nicht schließen."
+    - id: housing_repairs_a2_12
+      text: "Das Licht im Flur geht nicht."
+    - id: housing_repairs_a2_13
+      text: "Wem soll ich das Problem melden?"
+    - id: housing_repairs_a2_14
+      text: "Wann kommt der Handwerker?"
+    - id: housing_repairs_a2_15
+      text: "Ich bin nach fünf zu Hause."
+    - id: housing_repairs_a2_16
+      text: "Geht es etwas leiser?"
+    - id: housing_repairs_a2_17
+      text: "In der Wohnung gibt es kein ..."
+    - id: housing_repairs_a2_18
+      text: "Mit ... stimmt etwas nicht."
+    - id: housing_repairs_a2_19
+      text: "Das Problem hat ... angefangen."
+    - id: housing_repairs_a2_20
+      text: "Kann man ... reparieren?"

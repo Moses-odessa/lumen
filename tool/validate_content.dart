@@ -11,18 +11,70 @@
 // assets/content/en.db из-за этого уехали немецкие фразы с пометкой
 // lang="en": 397 ошибок, которые валидатор находил сразу, как только его об
 // этом спрашивали. Спросить было некому.
+//
+// ── Какие проверки ушли с разговорником и что каждая охраняла ─────────────
+//
+// Единицей изучения стала фраза, отдельного слова в игре нет (см. v5 в
+// `content_schema.dart`). Двадцать проверок описывали слово, круг вариантов
+// вокруг слова или сборку предложения из слов, и проверять им стало нечего.
+// Список нужен затем, чтобы удалённое правило не выглядело потерянным: на
+// эти записи ссылается PLAN.md, и по ним видно, какой класс ошибок больше
+// никто не ловит.
+//
+// Словарный слой:
+//
+// * существование форм — отрицательный список делал невозможным возврат
+//   однажды найденной выдумки, положительный сверял форму со словарём и
+//   разбором составных слов;
+// * покрытие лексемами — у запущенного языка лексема есть на каждый концепт;
+// * лексема-сирота — id, которого нет среди концептов (опечатка после
+//   переименования);
+// * служебные слова — `sich` без единой фразы недостижим: строка в базе,
+//   которую игрок не увидит никогда;
+// * пометка лексемы — код из закрытого набора, а не свободный текст: текст
+//   уезжал игроку на языке файла, а не на его собственном (для регистра
+//   фразы эта проверка осталась);
+// * дубли форм внутри созвездия и яруса — иначе в круге два одинаковых
+//   варианта; фразового аналога (две фразы с одинаковым текстом) пока нет;
+// * артикль против рода — «die / n» учит неправде, ничем себя не выдавая;
+// * немецкое множественное — образуется от самого слова, а не от другого;
+// * plurale tantum — у слова только во множественном нет рода;
+// * дистракторы — минимум 2 far и 3 near, и ни один не равен ответу в другом
+//   написании;
+// * созвучность near — вариант, не похожий на ответ на слух, круг не
+//   усложняет;
+// * созвучные на родном языке — 132 написанных и отгруженных дистрактора,
+//   которых игрок не увидел бы никогда: круг на родном всегда просил far;
+// * заглавная у дистрактора — слово с окончанием прилагательного, записанное
+//   существительным, не существует;
+// * разнообразие дистракторов — слово, стоящее вариантом у пяти вопросов,
+//   запоминается как «всегда неверный».
+//
+// Фразовая сборка (пропуск, плитки, порядок слов):
+//
+// * `phrase_orders` — заявленный порядок собран из тех же слов, что и фраза,
+//   и не повторяет заданный шаблоном;
+// * перестановки — считала фразы со свободным передним полем, у которых
+//   второй верный порядок не заявлен: игра объявляла бы его ошибкой;
+// * длина фразы — короче четырёх слов фразовая механика не брала, и круг
+//   молча терялся;
+// * ответ в пропуске — форма того слова, к которому фраза привязана, иначе
+//   круг не пройти честно;
+// * слот и подсказка — в шаблоне есть `{…}`, ответ не стоит в нём открытым
+//   текстом, а число пропусков сходится с числом ответов. Последнее не
+//   исчезло: его теперь проверяет чтение исходников, потому что подстановка
+//   делается там (`_readPhrase`), и до валидатора такая фраза не доходит;
+// * привязка к концепту — фраза без концепта не зажигала ни одной звезды;
+// * черновые концепты — сколько написано и не вычитано; у фразы такой
+//   пометки в исходниках нет, готовность объявляется ярусом.
 
 import 'dart:io';
 
 import 'package:yaml/yaml.dart';
 
 import 'content_schema.dart';
-import 'compound.dart';
 import 'content_sources.dart';
-import 'morphology.dart';
-import 'phonetics.dart';
 import 'translation_lock.dart';
-import 'word_lists.dart';
 
 Future<void> main(List<String> args) async {
   final requested = _argValue(args, '--lang');
@@ -67,8 +119,8 @@ List<String> _targetLanguages(Directory root) {
 /// Возвращает находки, а не печатает их, и это не косметика: до M13 у
 /// валидатора не было ни одного теста — проверить его было нечем, потому что
 /// единственным его выходом был `stdout`. Критерий приёмки M13 требует
-/// обратного: подсадить в контент несуществующее слово и убедиться, что
-/// валидатор его находит.
+/// обратного: подсадить в контент дефект и убедиться, что валидатор его
+/// находит.
 Findings validateContent(Directory root, String lang) {
   final report = Findings();
 
@@ -91,154 +143,15 @@ Findings validateContent(Directory root, String lang) {
   }
 
   _checkLaunchPolicy(sources, report);
-  _checkDraftedConcepts(sources, report);
-  _checkWordExistence(sources, lang, report, root);
   _checkLanguages(sources, report, root);
-  _checkLexemeCoverage(sources, report);
   _checkPhraseTranslations(sources, report, root);
-  _checkFunctionWords(sources, report);
-  _checkLexemeNotes(sources, report);
-  _checkNativeNearDistractors(sources, report);
-  _checkOrphanLexemes(sources, report);
-  _checkDistractors(sources, lang, report);
-  _checkNearSoundalike(sources, lang, report);
   _checkConstellationSizes(sources, report);
-  _checkDuplicateForms(sources, lang, report);
-  _checkPhraseAnswers(sources, lang, report);
-  _checkArticleGender(sources, lang, report);
-  _checkPluralMorphology(sources, lang, report);
-  _checkPluraleTantum(sources, lang, report);
-  _checkDistractorCase(sources, lang, report);
   _checkSingleSentence(sources, report);
-  _checkPhraseLength(sources, report);
-  _checkPhraseOrders(sources, report);
-  _checkRearrangement(sources, report);
   _checkPhraseRegister(sources, report);
-  _checkDistractorVariety(sources, lang, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
 
   return report;
-}
-
-/// Черновые концепты: сколько их и где.
-///
-/// Печатается всегда, потому что это главное число про готовность контента, и
-/// оно не должно требовать запроса. Черновой концепт лежит в базе, но в игру
-/// не идёт — и разница между «916 концептов» и «916 концептов, из них 52
-/// вычитано» слишком велика, чтобы её приходилось вычислять.
-void _checkDraftedConcepts(ContentSources sources, Findings report) {
-  final total = sources.concepts.length;
-  final drafted = sources.concepts.values.where((c) => c.draft).length;
-  if (drafted == 0) return;
-
-  report.note(
-    'концептов $total, из них черновых $drafted '
-    '(${(100 * drafted / total).round()} %) — в игру не идут',
-  );
-
-  for (final tier in tiers) {
-    final onTier = sources.draftedOn(tier);
-    if (onTier == 0) continue;
-    if (!sources.launch.isLaunched(tier)) continue;
-    // Черновое на запущенном ярусе — законно и ожидаемо: словник кладёт
-    // слова на ярусы независимо от того, что уже запущено. Но видеть это
-    // нужно: именно здесь измеряется, сколько осталось вычитать.
-    report.note('ярус $tier запущен, и на нём $onTier черновых концептов');
-  }
-}
-
-/// Существование форм: положительный список и отрицательный.
-///
-/// **Ни одна форма из отрицательного списка не проходит.** Это единственная
-/// часть проверки, которая работает без словаря языка: доказать
-/// существование она не может, но делает невозможным возврат — найденная
-/// однажды выдумка не вернётся в контент никогда.
-///
-/// Положительный список включает вторую половину проверки: каждая форма
-/// обязана либо лежать в нём, либо раскладываться на его слова. Файла в
-/// проекте пока нет, и проверка честно об этом сообщает, а не молчит.
-///
-/// Почему не сгенерировать словарь моделью: список лемм, произведённый тем
-/// же способом, что произвёл контент, содержит те же выдумки — и проверка
-/// начнёт **подтверждать** несуществующие слова. Это хуже отсутствия
-/// проверки: открытый вопрос превращается в закрытый и неверный.
-void _checkWordExistence(
-  ContentSources sources,
-  String lang,
-  Findings report,
-  Directory rootDir,
-) {
-  final root = rootDir.path;
-  final banned = readNonWordReasons(
-    File('${wordListDirectory(root).path}/$lang-nonwords.txt'),
-  );
-  final dictionary = readDictionary(root, lang);
-
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  // Все формы языка, которые игрок может увидеть: леммы, множественные
-  // числа, дистракторы и ответы фраз.
-  final forms = <String, String>{};
-  void note(String form, String where) {
-    if (form.trim().isEmpty) return;
-    forms.putIfAbsent(form, () => where);
-  }
-
-  for (final lex in byConcept.values) {
-    note(lex.form, lex.conceptId);
-    if (lex.plural != null) note(lex.plural!, '${lex.conceptId} (мн. ч.)');
-    for (final d in lex.farDistractors) {
-      note(d, '${lex.conceptId} (far)');
-    }
-    for (final d in lex.nearDistractors) {
-      note(d, '${lex.conceptId} (near)');
-    }
-  }
-  for (final phrase in sources.phrases) {
-    for (final answer in phrase.answers) {
-      note(answer, phrase.id);
-    }
-  }
-
-  // ── отрицательный список: работает всегда ───────────────────────────────
-  for (final entry in forms.entries) {
-    final reason = banned[entry.key.toLowerCase()];
-    if (reason == null) continue;
-    report.error(
-      '${entry.value}: форма "${entry.key}" в отрицательном списке — '
-      '${reason.isEmpty ? "установлено, что её не существует" : reason}',
-    );
-  }
-
-  // ── положительный список: работает, когда он есть ───────────────────────
-  if (dictionary.isEmpty) {
-    report.pending(
-      'словаря $lang нет (content/dictionaries/$lang.txt) — существование '
-      '${forms.length} форм не проверено. Отрицательный список работает: '
-      '${banned.length} запрещённых форм.',
-    );
-    return;
-  }
-
-  final unknown = <String>[];
-  for (final entry in forms.entries) {
-    if (splitsIntoKnown(entry.key, dictionary)) continue;
-    unknown.add('${entry.key} (${entry.value})');
-  }
-  if (unknown.isEmpty) {
-    report.note('все ${forms.length} форм $lang есть в словаре или '
-        'раскладываются на его слова');
-    return;
-  }
-
-  // Незнакомая форма — вопрос человеку, а не приговор: словарь не содержит
-  // всех составных слов немецкого, и разбор их не всегда находит.
-  report.review(
-    'формы $lang не найдены в словаре (${unknown.length} из '
-    '${forms.length}): ${_head(unknown, 10)}',
-  );
 }
 
 /// Языки объявили о себе непротиворечиво, и играть вообще есть чем.
@@ -272,7 +185,7 @@ void _checkLanguages(
   // Расхождение здесь стоило проекту отгруженного бага. Английский был
   // объявлен в launch.yaml языком изучения с запущенным A0, и сборщик
   // штамповал `--lang en` на строки фраз — а фразы немецкие. В
-  // assets/content/en.db лежали немецкие шаблоны с пометкой lang="en", и
+  // assets/content/en.db лежали немецкие фразы с пометкой lang="en", и
   // валидатор находил 397 ошибок ровно в тот момент, когда его об этом
   // спрашивали. Никто не спрашивал: CI собирал только de.
   final launchFile = File('${rootDir.path}/launch.yaml');
@@ -317,59 +230,16 @@ void _checkLanguages(
   }
 }
 
-/// Полнота лексем.
+/// Переводы фраз: без перевода фраза не учит ничему.
 ///
-/// Требуется от `launched`, у `draft` только считается и печатается. Это и
-/// есть механизм добавления языка: файл ложится в каталог со `status: draft`,
-/// валидатор говорит, сколько он покрывает, и ничего не блокирует. Концепт
-/// без лексемы в одном из языков пары планировщик просто не возьмёт — игрок
-/// увидит меньше слов, а не чужое слово вместо своего.
-void _checkLexemeCoverage(ContentSources sources, Findings report) {
-  final total = sources.concepts.length;
-
-  for (final language in sources.languages.values) {
-    final missing = sources.concepts.keys
-        .where((id) => !language.lexemes.containsKey(id))
-        .toList();
-    if (missing.isEmpty) continue;
-
-    if (!language.isLaunched) {
-      report.pending(
-        'язык ${language.code} (draft): лексем '
-        '${language.lexemes.length}/$total, не хватает ${missing.length}',
-      );
-      continue;
-    }
-
-    // У запущенного языка изучения спрос по ярусам: черновой ярус не обязан
-    // быть полным, а запущенный обязан.
-    final blocking = missing
-        .where((id) => !sources.concepts[id]!.draft)
-        .where((id) =>
-            !language.isTarget ||
-            sources.launch.isLaunched(sources.concepts[id]!.tier))
-        .toList();
-
-    if (blocking.isEmpty) {
-      report.pending(
-        'язык ${language.code}: лексем ${language.lexemes.length}/$total — '
-        'не хватает только на незапущенных ярусах',
-      );
-      continue;
-    }
-
-    report.error(
-      'язык ${language.code} объявлен launched, но нет лексем для '
-      '${blocking.length} концептов (${_head(blocking)})',
-    );
-  }
-}
-
-/// Переводы фраз: без них механика «заполни пропуски» нечем закончить.
+/// Фраза звучит, читается — и рядом должен стоять перевод. Это не украшение:
+/// разобранное на слух предложение, смысл которого никто не назвал, учит
+/// только произношению.
 ///
-/// Фраза заполняется, проигрывается — и под ней должен проявиться перевод.
-/// Это не украшение: пропуск, заполненный верно, но так и не объяснённый, не
-/// учит ничему, кроме подбора формы.
+/// Полнота требуется от `launched`, у `draft` только считается и печатается.
+/// Это и есть механизм добавления языка: файл ложится в каталог со
+/// `status: draft`, валидатор говорит, сколько он покрывает, и ничего не
+/// блокирует.
 void _checkPhraseTranslations(
   ContentSources sources,
   Findings report,
@@ -476,165 +346,13 @@ void _checkTranslationFreshness(
   }
 }
 
-/// Служебное слово живёт только во фразе.
-///
-/// У `sich` нет ни перевода одним словом, ни осмысленного набора вариантов:
-/// круг из него собрать нельзя. Поэтому с таких концептов не требуется
-/// дистракторов — но требуется другое: если служебное слово не входит ни в
-/// одну фразу, оно недостижимо. Это не звезда и не задание, а строка в базе,
-/// которая никогда не покажется игроку.
-void _checkFunctionWords(ContentSources sources, Findings report) {
-  final inPhrases = <String>{
-    for (final p in sources.phrases) ...p.conceptIds,
-  };
-
-  final unreachable = <String>[];
-  for (final concept in sources.concepts.values) {
-    if (!concept.isFunctionWord) continue;
-    if (inPhrases.contains(concept.id)) continue;
-    unreachable.add(concept.id);
-  }
-  if (unreachable.isEmpty) return;
-
-  final blocking = unreachable
-      .where((id) => !sources.concepts[id]!.draft)
-      .where((id) => sources.launch.isLaunched(sources.concepts[id]!.tier))
-      .toList();
-  if (blocking.isNotEmpty) {
-    report.error(
-      'служебные слова запущенного яруса не входят ни в одну фразу и потому '
-      'недостижимы: ${_head(blocking)}',
-    );
-  }
-  final drafted = unreachable.length - blocking.length;
-  if (drafted > 0) {
-    report.pending(
-      '$drafted служебных слов незапущенных ярусов пока не входят ни в одну '
-      'фразу — им нужна фраза, а не дистракторы',
-    );
-  }
-}
-
-/// Лексема без концепта — обычно опечатка в id после переименования.
-void _checkOrphanLexemes(ContentSources sources, Findings report) {
-  for (final entry in sources.lexemes.entries) {
-    final orphans = entry.value.keys
-        .where((id) => !sources.concepts.containsKey(id))
-        .toList();
-    if (orphans.isNotEmpty) {
-      report.error(
-        'язык ${entry.key}: лексемы без концепта — ${_head(orphans)}',
-      );
-    }
-  }
-}
-
-/// У каждого концепта минимум 2 дистрактора `far` и 3 `near` на языке
-/// изучения, и ни один не совпадает с ответом.
-///
-/// Полнота требуется только от запущенных ярусов — как и везде: дистракторы
-/// пишутся вместе с вычиткой, и требовать их от чернового яруса значит
-/// блокировать мерж за незаконченную работу, которая и не объявлена
-/// законченной.
-void _checkDistractors(ContentSources sources, String lang, Findings report) {
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  var draftGaps = 0;
-
-  for (final lex in byConcept.values) {
-    final concept = sources.concepts[lex.conceptId];
-    // Со служебного слова дистракторов не требуется: круга из него нет, а
-    // выдумывать «неверные варианты» к `sich` — занятие без смысла и без
-    // конца. Достижимость служебных слов проверяет _checkFunctionWords.
-    if (concept != null && concept.isFunctionWord) continue;
-
-    final tier = concept?.tier;
-    // Черновой концепт в игру не идёт, и требовать от него полноты незачем —
-    // даже если ярус, на который он лёг, запущен.
-    final launched = tier != null &&
-        sources.launch.isLaunched(tier) &&
-        !(concept?.draft ?? false);
-
-    final short = lex.farDistractors.length < minFarDistractors ||
-        lex.nearDistractors.length < minNearDistractors;
-
-    if (short && !launched) {
-      draftGaps++;
-      continue;
-    }
-
-    if (lex.farDistractors.length < minFarDistractors) {
-      report.error(
-        '${lex.conceptId}: дистракторов far ${lex.farDistractors.length}, '
-        'нужно $minFarDistractors',
-      );
-    }
-    if (lex.nearDistractors.length < minNearDistractors) {
-      report.error(
-        '${lex.conceptId}: дистракторов near ${lex.nearDistractors.length}, '
-        'нужно $minNearDistractors',
-      );
-    }
-
-    final all = [...lex.farDistractors, ...lex.nearDistractors];
-    // Сравнение нормализованное: «Grösse» — это швейцарское написание
-    // «Größe», а не другое слово. Вариант написания в роли неверного ответа
-    // учит считать ошибкой правильную форму.
-    final answer = foldSpelling(lex.form);
-    final answerPlural = lex.plural == null ? null : foldSpelling(lex.plural!);
-    for (final d in all) {
-      final folded = foldSpelling(d);
-      if (folded != answer && folded != answerPlural) continue;
-      report.error(
-        '${lex.conceptId}: дистрактор "$d" — это сам ответ '
-        '"${lex.form}" в другом написании',
-      );
-    }
-
-    if (all.toSet().length != all.length) {
-      report.error('${lex.conceptId}: дистракторы дублируются');
-    }
-  }
-
-  if (draftGaps > 0) {
-    report.pending(
-      'дистракторы не дописаны у $draftGaps концептов незапущенных ярусов',
-    );
-  }
-}
-
-/// `near`-дистракторы обязаны быть созвучны. Эвристика грубая и смотрит на
-/// три вещи: общее начало, общее окончание и расстояние Левенштейна — но не
-/// в написании, а в приблизительной звуковой записи (`tool/phonetics.dart`).
-///
-/// Окончание здесь не менее важно, чем начало: в немецком созвучие часто идёт
-/// по суффиксу — и по короткому. Три буквы, а не четыре, потому что рифму
-/// дают именно трёхбуквенные окончания: Diagnose / Narkose, Temperatur /
-/// Struktur, Impfung / Umformung. Всё сомнительное выводится списком на ручную проверку,
-/// а не молча пропускается.
-void _checkNearSoundalike(ContentSources sources, String lang, Findings report) {
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final lex in byConcept.values) {
-    for (final d in lex.nearDistractors) {
-      if (soundsAlike(lex.form, d)) continue;
-      report.review(
-        '${lex.conceptId}: "$d" не выглядит созвучным с "${lex.form}" '
-        '(${soundalikeReport(lex.form, d)})',
-      );
-    }
-  }
-}
-
 /// Созвездие, появившееся на карте, обязано быть созвездием, а не точкой.
 ///
-/// Раньше здесь требовалось точное совпадение с накопительными 12/24/48/72/96.
-/// Это правило годилось для девяти тем, написанных под него, и провалилось бы
-/// на словнике из 6000 лемм: у «денег» и «общества» на A0 по одному слову, и
-/// дотягивать их до двенадцати значило бы придумывать A0-лексику там, где её
-/// нет, — то есть портить содержание ради формы.
+/// Звезда — это фраза, и порог считается по фразам. Раньше здесь требовалось
+/// точное совпадение с накопительными 12/24/48/72/96 концептами. Это правило
+/// годилось для девяти тем, написанных под него, и провалилось бы на любой
+/// теме, которой на A0 сказать почти нечего: дотягивать её до двенадцати
+/// значило бы придумывать A0-содержание там, где его нет.
 ///
 /// Порог вместо равенства. Тема ждёт того яруса, на котором ей есть что
 /// показать, и прогрессия из этого получается сама. Ошибка теперь одна и
@@ -644,24 +362,14 @@ void _checkConstellationSizes(ContentSources sources, Findings report) {
 
   for (final name in sources.constellations) {
     final byTier = <String, int>{};
-    for (final c in sources.playableConcepts) {
-      if (c.constellation != name) continue;
-      byTier[c.tier] = (byTier[c.tier] ?? 0) + 1;
+    for (final phrase in sources.phrases) {
+      if (phrase.constellation != name) continue;
+      byTier[phrase.tier] = (byTier[phrase.tier] ?? 0) + 1;
     }
     if (byTier.isEmpty) {
-      // Тема, написанная целиком в черновике, — законное промежуточное
-      // состояние: ровно его и означает `draft`. Ошибкой это было бы, если
-      // бы файл темы был пуст, — тогда её действительно нет.
-      final written =
-          sources.concepts.values.where((c) => c.constellation == name).length;
-      if (written == 0) {
-        report.error('созвездие $name: файл темы есть, а концептов в нём нет');
-      } else {
-        report.pending(
-          'созвездие $name: все $written концептов черновые — тема написана, '
-          'но не вычитана',
-        );
-      }
+      // Список созвездий берётся из файлов фраз, поэтому пустое созвездие
+      // означает ровно одно: файл темы есть, а фраз в нём нет.
+      report.error('созвездие $name: файл темы есть, а фраз в нём нет');
       continue;
     }
 
@@ -673,7 +381,6 @@ void _checkConstellationSizes(ContentSources sources, Findings report) {
         opened = tier;
         opensAt[name] = tier;
       }
-      if (opened == null) continue;
       // Ярус, на котором созвездие уже видно, а звёзд стало меньше порога,
       // невозможен: накопительный размер только растёт. Проверять тут нечего
       // — важно другое, ниже.
@@ -710,257 +417,6 @@ void _checkConstellationSizes(ContentSources sources, Findings report) {
   }
 }
 
-/// Нет дублей форм внутри одного созвездия и яруса — иначе в круге появятся
-/// два одинаковых варианта.
-///
-/// Регистр не различается, и это не небрежность. Соседи по созвездию и ярусу
-/// — резервный источник вариантов круга, а «essen» и «Essen» звучат
-/// одинаково: в механике «прослушай и выбери» такой круг не проходится
-/// честно, сколько бы заглавных букв в нём ни было.
-///
-/// У черновых слов это замечание, а не ошибка: пара «глагол и
-/// существительное от него» — обычное немецкое явление, и решать, какое из
-/// двух слов остаётся звездой, должна вычитка. В отгруженном контенте — уже
-/// ошибка: там решение принято.
-void _checkDuplicateForms(ContentSources sources, String lang, Findings report) {
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  final seen = <String, ConceptSource>{};
-  for (final concept in sources.concepts.values) {
-    final lex = byConcept[concept.id];
-    if (lex == null) continue;
-    final key = '${concept.constellation}/${concept.tier}/'
-        '${lex.form.toLowerCase()}';
-    final previous = seen[key];
-    if (previous != null) {
-      final message = 'форма "${lex.form}" повторяется в '
-          '${concept.constellation}/${concept.tier}: '
-          '${previous.id} и ${concept.id}';
-      if (previous.draft || concept.draft) {
-        report.review('$message (черновик — решает вычитка)');
-      } else {
-        report.error(message);
-      }
-    }
-    seen[key] = concept;
-  }
-}
-
-/// Ответ фразы — это форма того слова, к которому фраза привязана.
-///
-/// Круг собирается из дистракторов концепта, а верным считается `answer`.
-/// Если это разные слова, игрок видит варианты к одному слову, а угадать
-/// должен другое — пройти такой круг честно нельзя. Склонение при этом
-/// нормально: «Schmerzen» при лексеме «Schmerz» — та же лексема в
-/// множественном, и допуск по длине это учитывает.
-void _checkPhraseAnswers(ContentSources sources, String lang, Findings report) {
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final phrase in sources.phrases) {
-    final forms = <String, String>{
-      for (final id in phrase.conceptIds)
-        if (byConcept[id] != null) id: byConcept[id]!.form,
-    };
-    if (forms.isEmpty) continue;
-
-    // Когда пропусков и концептов одинаково, они соответствуют друг другу по
-    // порядку, и это можно проверить точно. Когда нет — проверяем слабее:
-    // каждый ответ обязан быть формой хоть одного из привязанных слов.
-    final pairwise = phrase.answers.length == phrase.conceptIds.length;
-
-    for (var i = 0; i < phrase.answers.length; i++) {
-      final answer = phrase.answers[i];
-      final candidates = pairwise
-          ? <String, String>{
-              phrase.conceptIds[i]:
-                  forms[phrase.conceptIds[i]] ?? phrase.conceptIds[i],
-            }
-          : forms;
-
-      if (candidates.values.any((form) => _isFormOf(answer, form))) continue;
-
-      report.error(
-        'фраза ${phrase.id}, пропуск ${i + 1}: ответ "$answer" не форма '
-        'слова ${candidates.values.map((f) => '"$f"').join(" / ")} '
-        '(${candidates.keys.join(", ")})',
-      );
-    }
-
-    if (!pairwise && phrase.answers.length > 1) {
-      report.review(
-        'фраза ${phrase.id}: ${phrase.answers.length} пропусков и '
-        '${phrase.conceptIds.length} концептов — соответствие по порядку не '
-        'проверить, перечислите концепты в порядке пропусков',
-      );
-    }
-  }
-}
-
-/// Ответ — словоформа этого слова, а не другое слово.
-///
-/// Словоформа сохраняет основу и меняет хвост: Kartoffel / Kartoffeln. Другое
-/// слово либо теряет основу, либо резко меняет длину.
-bool _isFormOf(String answer, String form) {
-  if (answer == form) return true;
-  final a = form.toLowerCase();
-  final b = answer.toLowerCase();
-  return commonPrefix(a, b) >= a.length - 2 && (a.length - b.length).abs() <= 3;
-}
-
-/// Немецкое множественное образуется от самого слова: суффикс, иногда умлаут,
-/// иногда ничего. Оно не может быть множественным другого, более длинного
-/// слова.
-///
-/// Проверка существует потому, что этот класс ошибок уже случался дважды и
-/// оба раза был найден человеком, а не машиной. Само правило живёт в
-/// `tool/morphology.dart` и покрыто тестом.
-void _checkPluralMorphology(
-  ContentSources sources,
-  String lang,
-  Findings report,
-) {
-  // Правило описывает немецкую морфологию и только её: в английском
-  // множественное бывает внутри словосочетания («contract for work» →
-  // «contracts for work»), и закрытый список суффиксов там неприменим.
-  if (lang != 'de') return;
-
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final lex in byConcept.values) {
-    final plural = lex.plural;
-    if (plural == null) continue;
-    if (isGermanPlural(lex.form, plural)) continue;
-
-    // Частный и узнаваемый случай: субстантивированное прилагательное
-    // записано в сильной форме, хотя рядом стоит определённый артикль.
-    // «der Vorgesetzter» — так игра и покажет его на экране.
-    if (isMisdeclinedAdjectivalNoun(lex.form, plural)) {
-      report.error(
-        '${lex.conceptId}: "${lex.article} ${lex.form}" — субстантивированное '
-        'прилагательное склоняется слабо, нужна форма "$plural"',
-      );
-      continue;
-    }
-
-    report.error(
-      '${lex.conceptId}: "$plural" не образуется от "${lex.form}" — '
-      'это множественное другой лексемы; либо уберите поле, либо дайте '
-      'настоящую форму',
-    );
-  }
-}
-
-/// У слова, которое бывает только во множественном, нет рода.
-///
-/// Артикль `die` во множественном одинаков для всех трёх родов, поэтому
-/// соблазн записать `gender: f` велик — и он учит неправде: «Treuepunkte» это
-/// множественное от «der Treuepunkt».
-void _checkPluraleTantum(ContentSources sources, String lang, Findings report) {
-  // Артикль `die` — немецкий признак; в языках без рода проверять нечего.
-  if (lang != 'de') return;
-
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final lex in byConcept.values) {
-    if (lex.plural != lex.form || lex.article != 'die') continue;
-    if (lex.gender == null) continue;
-    report.error(
-      '${lex.conceptId}: "${lex.form}" — только множественное, '
-      'род "${lex.gender}" здесь означает артикль, а не род леммы',
-    );
-  }
-}
-
-/// Дистрактор с заглавной буквы обязан быть существительным.
-///
-/// Проверяется по концовкам, которые в немецком бывают только у прилагательных
-/// и наречий. Список короткий намеренно: `-schaft` содержит `-haft`, `-wert`
-/// и `-bar` бывают у существительных (Nährwert, Nachbar), и широкий набор
-/// давал бы полсотни ложных срабатываний вместо трёх настоящих.
-void _checkDistractorCase(ContentSources sources, String lang, Findings report) {
-  // Заглавная буква несёт смысл только там, где с неё пишут существительные.
-  if (lang != 'de') return;
-
-  const adjectiveEndings = ['los', 'weit', 'frei', 'sam', 'mäßig', 'voll'];
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final lex in byConcept.values) {
-    for (final d in [...lex.farDistractors, ...lex.nearDistractors]) {
-      if (d.isEmpty || d[0].toLowerCase() == d[0]) continue;
-      if (d.length <= 6) continue;
-      final lower = d.toLowerCase();
-      if (!adjectiveEndings.any(lower.endsWith)) continue;
-      report.error(
-        '${lex.conceptId}: дистрактор "$d" оканчивается как прилагательное, '
-        'а записан с заглавной — такого существительного нет',
-      );
-    }
-  }
-}
-
-/// Артикль и род не противоречат друг другу.
-///
-/// Ошибка тихая и дорогая: игрок заучивает род вместе со словом, и неверная
-/// пара «die / n» учит его неправильно, ничем себя не выдавая. Проверяется
-/// только там, где заданы оба поля.
-void _checkArticleGender(ContentSources sources, String lang, Findings report) {
-  const byArticle = <String, String>{'der': 'm', 'die': 'f', 'das': 'n'};
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  for (final lex in byConcept.values) {
-    final article = lex.article;
-    final gender = lex.gender;
-    if (article == null || gender == null) continue;
-    final expected = byArticle[article];
-    if (expected == null || expected == gender) continue;
-    report.error(
-      '${lex.conceptId}: артикль "$article" не сходится с родом "$gender" '
-      '(ожидается "$expected")',
-    );
-  }
-}
-
-/// Один и тот же дистрактор не повторяется в ярусе слишком часто.
-///
-/// Это не ошибка данных, а вопрос игры: слово, которое стоит вариантом у
-/// пяти разных вопросов, игрок запоминает как «тот, который всегда неверный»,
-/// и перестаёт читать варианты вообще.
-void _checkDistractorVariety(
-  ContentSources sources,
-  String lang,
-  Findings report,
-) {
-  const limit = 2;
-  final byConcept = sources.lexemes[lang];
-  if (byConcept == null) return;
-
-  final byTier = <String, Map<String, List<String>>>{};
-  for (final concept in sources.concepts.values) {
-    final lex = byConcept[concept.id];
-    if (lex == null) continue;
-    final tier = byTier.putIfAbsent(concept.tier, () => {});
-    for (final d in [...lex.farDistractors, ...lex.nearDistractors]) {
-      tier.putIfAbsent(d.toLowerCase(), () => []).add(concept.id);
-    }
-  }
-
-  for (final entry in byTier.entries) {
-    for (final d in entry.value.entries) {
-      if (d.value.length <= limit) continue;
-      report.review(
-        'ярус ${entry.key}: дистрактор "${d.key}" встречается '
-        '${d.value.length} раз (${d.value.take(3).join(", ")}…)',
-      );
-    }
-  }
-}
-
 /// `register: formal` означает обращение на Sie — и ничего больше.
 ///
 /// Определение нужно было выбрать: в docs/CONTENT_PIPELINE.md поле значилось
@@ -971,6 +427,12 @@ void _checkDistractorVariety(
 /// Выбрано грамматическое значение, потому что игрок видит эту пометку как
 /// подсказку и должен по ней что-то уметь. Отличить Sie от du он умеет
 /// проверяемо; угадать, насколько ситуация «официальная», — нет.
+///
+/// Код, а не свободный текст, и это вторая половина проверки. `register:
+/// casual` уезжал на экран как есть, и под каждой из 432 фраз стояло
+/// английское служебное слово. Строку к коду даёт локализация — на языке
+/// интерфейса, — поэтому набор закрыт (`promptTags`), и пометка вне набора
+/// означает строку, которую показать нечем.
 void _checkPhraseRegister(ContentSources sources, Findings report) {
   // Вежливая форма узнаётся по местоимению: Sie, Ihnen, Ihr/Ihre/Ihren…
   final polite = RegExp(r'\b(Sie|Ihnen|Ihr|Ihre|Ihrem|Ihren|Ihrer|Ihres)\b');
@@ -979,22 +441,31 @@ void _checkPhraseRegister(ContentSources sources, Findings report) {
   for (final phrase in sources.phrases) {
     final register = phrase.register;
     if (register == null) continue;
-    if (register != 'formal' && register != 'casual') {
-      report.error('фраза ${phrase.id}: регистр "$register" — нужен '
-          'formal или casual');
+    if (!promptTags.contains(register)) {
+      report.error(
+        'фраза ${phrase.id}: регистр "$register" не код из набора '
+        '${promptTags.join(", ")} — свободный текст показался бы игроку на '
+        'языке файла, а не на его собственном',
+      );
       continue;
     }
 
-    final hasPolite = polite.hasMatch(phrase.template);
-    if (hasPolite == (register == 'formal')) continue;
+    final hasPolite = polite.hasMatch(phrase.text);
 
-    final message = hasPolite
-        ? 'фраза ${phrase.id}: обращение на Sie, а помечена casual'
-        : 'фраза ${phrase.id}: помечена formal, но вежливой формы в ней нет';
-    if (sources.launch.isLaunched(phrase.tier)) {
-      report.error(message);
-    } else {
-      drafted++;
+    // Проверка осталась односторонней, и это не упрощение.
+    //
+    // «Есть Sie, а помечена casual» — настоящий дефект: игрок учит вежливое
+    // обращение с пометкой «так говорят с друзьями». А вот обратное неверно:
+    // вежливость в немецком бывает лексической, без единого местоимения —
+    // «Entschuldigung.», «Könnte ich bitte ...». Пока проверка требовала
+    // `Sie` от каждой формальной фразы, она отвергала именно такие.
+    if (hasPolite && register == 'casual') {
+      final message = 'фраза ${phrase.id}: обращение на Sie, а помечена casual';
+      if (sources.launch.isLaunched(phrase.tier)) {
+        report.error(message);
+      } else {
+        drafted++;
+      }
     }
   }
 
@@ -1006,294 +477,55 @@ void _checkPhraseRegister(ContentSources sources, Findings report) {
   }
 }
 
-/// Пометка лексемы языка изучения — только код из закрытого набора.
-///
-/// У пометки на лексеме языка изучения нет правильного языка. Немецкий файл
-/// читает автор контента, а не игрок; написанное в нём «неисчисляемое»
-/// показывалось на экране как есть — украинцу по-русски, англичанину тоже.
-/// Свободный текст осмыслен только на **родном** языке: там язык файла и есть
-/// язык игрока («Karte» → «банковская»).
-///
-/// Проверка нужна именно машинная. Пометку добавляют по одной, руками, в файл
-/// с тысячами строк, и написать её словом вместо кода — самое естественное
-/// движение из возможных.
-void _checkLexemeNotes(ContentSources sources, Findings report) {
-  var freeText = 0;
-
-  for (final language in sources.languages.values) {
-    final isTarget = language.role == 'target' || language.role == 'both';
-    for (final lex in language.lexemes.values) {
-      final note = lex.note;
-      if (note == null || note.isEmpty) continue;
-
-      if (promptTags.contains(note)) continue;
-      if (!isTarget) {
-        freeText++;
-        continue;
-      }
-      report.error(
-        'лексема ${lex.conceptId} (${language.code}): пометка "$note" не код. '
-        'У языка изучения пометка обязана быть из набора '
-        '${promptTags.join(", ")} — свободный текст показался бы игроку на '
-        'языке файла, а не на его собственном',
-      );
-    }
-  }
-
-  if (freeText > 0) {
-    report.note(
-      'подсказок свободным текстом на родных языках: $freeText — '
-      'показываются как есть, на языке своего файла',
-    );
-  }
-}
-
-
-/// Созвучные дистракторы у родного языка не доходят до игрока никогда.
-///
-/// Сборщик для вариантов на родном языке запрашивает `far` безусловно, а
-/// `near` просит только этап проверки — и он работает на языке изучения.
-/// Достижимой пары «этап + механика», при которой спросили бы `near` на
-/// родном, не существует.
-///
-/// Решение намеренное: созвучные подбираются по звуковой записи, и на родном
-/// языке их не писали. Но 132 слова всё-таки написали, перевели и отгрузили,
-/// и никто их не увидит — потому что из файла этого не видно. Отсюда
-/// проверка: не «так нельзя», а «этого никто не прочитает, не пишите больше».
-void _checkNativeNearDistractors(ContentSources sources, Findings report) {
-  for (final language in sources.languages.values) {
-    if (language.isTarget) continue;
-    final withNear = language.lexemes.values
-        .where((lex) => lex.nearDistractors.isNotEmpty)
-        .map((lex) => lex.conceptId)
-        .toList()
-      ..sort();
-    if (withNear.isEmpty) continue;
-
-    report.error(
-      'язык ${language.code}: созвучные дистракторы у ${withNear.length} '
-      'лексем (${_head(withNear)}) — на родном языке они не доходят до игрока '
-      'никогда, потому что круг с вариантами на родном всегда просит far. '
-      'Либо убрать, либо научить сборщик их спрашивать',
-    );
-  }
-}
-
-
-/// Заявленный порядок слов обязан быть настоящей перестановкой предложения.
-///
-/// Механика собирает предложение из его же слов, поэтому «этот порядок тоже
-/// верен» — заявление про **те же** слова, а не про другое предложение.
-/// Опечатка здесь безобиднее не бывает по виду и злее всех по последствиям:
-/// заявленная сборка, отличающаяся от исходной хоть одним словом, объявила бы
-/// верным то, чего игрок собрать не может, и наоборот.
-///
-/// Проверяется поэтому машинно и точно: набор слов совпадает, а порядок —
-/// нет.
-void _checkPhraseOrders(ContentSources sources, Findings report) {
-  for (final phrase in sources.phrases) {
-    final canonical = phraseSpeech(phrase.template, phrase.answers);
-    final expected = (canonical.split(RegExp(r'\s+')).toList()..sort()).join(' ');
-
-    for (final order in phrase.orders) {
-      final words = order.trim().split(RegExp(r'\s+'));
-      final actual = (words.toList()..sort()).join(' ');
-      if (actual != expected) {
-        report.error(
-          'фраза ${phrase.id}: заявленный порядок «$order» собран не из тех '
-          'слов, что «$canonical» — механика даёт игроку слова предложения, '
-          'и собрать заявленное он не сможет',
-        );
-        continue;
-      }
-      if (order.trim() == canonical) {
-        report.error(
-          'фраза ${phrase.id}: заявленный порядок совпадает с заданным '
-          'шаблоном — записывать его отдельно незачем',
-        );
-      }
-    }
-  }
-}
-
-/// Предложение, которое собирается из своих слов в другом верном порядке.
-///
-/// Единственный источник вторых верных ответов, оставшийся у фразовой
-/// механики после того, как посторонние слова из неё ушли. И он оказался
-/// намного уже, чем выглядел: **из 36 фраз A0 перестановка собирается у
-/// двух**.
-///
-/// Причина — в том, что плитка несёт слово ровно как в предложении. Точка
-/// закрепляет последнее слово. Заглавная закрепляет первое, если это не
-/// существительное: `ich` пишется со строчной везде, кроме начала, поэтому
-/// плитки `ich` для первой позиции просто не существует. А вынос члена в
-/// начало требует поставить что-то в первую позицию — значит при закреплённом
-/// начале он не собирается вовсе.
-///
-/// Свободное переднее поле остаётся у **второго** предложения, после запятой:
-/// там строчная плитка законна. Ровно там и нашлись оба случая: «das kann ich
-/// nicht allein» ↔ «ich kann das nicht allein».
-///
-/// Проверка поэтому спрашивает не «возможен ли вынос по-немецки» (по-немецки
-/// он возможен почти везде, и список из 389 фраз читать никто не станет), а
-/// «есть ли у этой фразы свободное переднее поле». Остальное закреплено
-/// орфографией.
-void _checkRearrangement(ContentSources sources, Findings report) {
-  var open = 0;
-  final examples = <String>[];
-
-  for (final phrase in sources.phrases) {
-    if (phrase.orders.isNotEmpty) continue;
-    // На запущенном ярусе на этот вопрос отвечает запись о вычитке: сплошной
-    // проход прочитал фразу и сказал, что переставить её нельзя. Держать её
-    // в списке «не заявлено» значило бы требовать пустой список как
-    // доказательство прочтения — а пустой список от отсутствующего в YAML не
-    // отличить.
-    if (sources.launch.isLaunched(phrase.tier)) continue;
-
-    final words = phraseSpeech(phrase.template, phrase.answers).split(' ');
-    if (words.length < 3) continue;
-
-    // Запятая внутри предложения: у придаточного или второго главного своё
-    // переднее поле, и оно свободно.
-    final hasFreeFront = words
-        .take(words.length - 1)
-        .any((w) => w.endsWith(','));
-    if (!hasFreeFront) continue;
-
-    open++;
-    if (examples.length < 5) examples.add(phrase.id);
-  }
-
-  if (open == 0) return;
-  report.pending(
-    'у $open фраз есть свободное переднее поле после запятой, а принимаемые '
-    'порядки не заявлены (${examples.join(", ")}…) — «das kann ich nicht '
-    'allein» и «ich kann das nicht allein» верны оба, и второе игра объявит '
-    'ошибкой. Начало и конец закреплены заглавной и точкой, поэтому '
-    'остальные фразы переставить нельзя',
-  );
-}
-
-/// Фраза, которую нельзя показать.
-///
-/// Предложение короче `phraseMinWords` слов фразовая механика не берёт, и до
-/// сих пор это было **невидимо**: сборщик отдавал `null`, загрузчик молча
-/// пропускал круг, и уровень заканчивался без обеих закрывающих фраз.
-/// «Ich trinke Wasser.» — три слова при пороге четыре, то есть каждый
-/// четвёртый уровень «Еды» терял фразовый заход целиком, а слово `water_drink`
-/// не появлялось во фразах никогда. Ошибки при этом нет: просто кругов
-/// меньше.
-///
-/// Порог не в переборе, а в закреплениях: плитка несёт заглавную и точку,
-/// поэтому первое и последнее слово стоят на месте, и внутренних расстановок
-/// у предложения из n слов ровно (n − 2)!. Три слова дают одну — задания нет.
-///
-/// Выбор фразы теперь фильтрует по длине сам, так что круг не теряется. Но
-/// написанная и непоказываемая фраза остаётся тратой, и считать её надо.
-void _checkPhraseLength(ContentSources sources, Findings report) {
-  // Дубль `SessionBalance.phraseMinWords`: tool/ не тянет за собой lib/.
-  const minWords = 4;
-
-  final tooShort = <String, List<String>>{};
-  for (final phrase in sources.phrases) {
-    final words = phraseSpeech(phrase.template, phrase.answers).split(' ');
-    if (words.length >= minWords) continue;
-    (tooShort[phrase.tier] ??= []).add(phrase.id);
-  }
-  if (tooShort.isEmpty) return;
-
-  for (final tier in tiers) {
-    final ids = tooShort[tier];
-    if (ids == null) continue;
-    final message = 'ярус $tier: ${ids.length} фраз короче $minWords слов '
-        '(${_head(ids)}) — фразовая механика их не берёт, и слова, которые '
-        'они закрывают, во фразах не появятся';
-    // На запущенном ярусе это трата, о которой надо знать сразу; на
-    // незапущенном — работа, которая ещё впереди.
-    if (sources.launch.isLaunched(tier)) {
-      report.error(message);
-    } else {
-      report.pending(message);
-    }
-  }
-}
-
 /// Фраза — одно предложение.
 ///
-/// Два предложения в одной фразе свободно меняются местами: «Wo ist die
-/// Post? Ich muss einen Brief schicken» и «Ich muss einen Brief schicken. Wo
-/// ist die Post?» — оба правильные и означают одно и то же. Для механики,
-/// которая просит собрать предложение из его же слов, это готовый ложный
-/// отказ: игрок собрал верно, а игра говорит «неверно».
-///
-/// Все пять таких фраз появились от правки шаблонов ради смыслового
-/// ограничения — придаточное добавить было проще, чем перестроить фразу.
-/// Проверка стоит именно поэтому: соблазн вернётся при следующей такой
-/// правке.
+/// Два предложения в одной фразе — это две единицы изучения, слепленные в
+/// одну звезду: их нельзя ни показать по отдельности, ни спросить по
+/// отдельности, а перевод у них один на двоих. Проверка появилась при
+/// фразовой сборке, где второе предложение давало ещё и ложный отказ
+/// («Wo ist die Post? Ich muss einen Brief schicken» собирается в обратном
+/// порядке и остаётся верным), и осталась после неё: пять таких фраз
+/// появились от правки шаблонов ради смыслового ограничения — придаточное
+/// добавить было проще, чем перестроить фразу, — и соблазн вернётся при
+/// следующей такой правке.
 void _checkSingleSentence(ContentSources sources, Findings report) {
   // Знак конца предложения, за которым ещё что-то есть.
   final inner = RegExp(r'[.!?]\s+\S');
 
+  // Многоточие — не конец предложения, а место для своего слова.
+  //
+  // В разговорнике 239 фраз написаны с пропуском такого рода: «Ich heiße ...»,
+  // «Ich bin ... Jahre alt.». Это одна фраза и одна единица изучения — игрок
+  // подставляет своё имя сам, вслух. Пока проверка читала последнюю точку
+  // многоточия как конец предложения, она давала 84 ложных отказа на 1000
+  // фраз, то есть ровно на том корпусе, для которого игра и делается.
+  final ellipsis = RegExp(r'(\.\.\.|…)');
+
   for (final phrase in sources.phrases) {
-    final assembled = phraseSpeech(phrase.template, phrase.answers);
-    if (!inner.hasMatch(assembled)) continue;
+    if (!inner.hasMatch(phrase.text.replaceAll(ellipsis, '_'))) continue;
     report.error(
-      'фраза ${phrase.id}: два предложения в одной фразе — «$assembled». Они '
-      'меняются местами без потери смысла, и сборка из своих же слов начнёт '
-      'отвергать верный порядок',
+      'фраза ${phrase.id}: два предложения в одной фразе — «${phrase.text}». '
+      'Это две единицы изучения под одной звездой и с одним переводом',
     );
   }
 }
 
-
-/// Фразы ссылаются на существующие концепты, шаблон имеет пропуски, и ответ
-/// в самом шаблоне не подсказан.
+/// Идентификаторы фраз уникальны.
+///
+/// Всё, что раньше проверялось здесь же — есть ли в шаблоне слот, не стоит ли
+/// ответ в шаблоне открытым текстом, привязана ли фраза к концепту, — ушло
+/// вместе с пропуском и словом. Осталась одна проверка, и снять её нельзя:
+/// прогресс игрока привязан к id, а `phrases.id` — первичный ключ, поэтому
+/// дубль либо уронил бы сборку на вставке, либо (при `INSERT OR IGNORE`)
+/// молча потерял бы вторую фразу.
+///
+/// Расхождение шаблона с ответами до валидатора не доходит: подстановку
+/// делает чтение исходников, и фраза, у которой пропусков больше, чем
+/// ответов, не читается вовсе.
 void _checkPhrases(ContentSources sources, Findings report) {
   final ids = <String>{};
   for (final p in sources.phrases) {
     if (!ids.add(p.id)) report.error('фраза ${p.id}: дублирующийся id');
-
-    for (final conceptId in p.conceptIds) {
-      if (!sources.concepts.containsKey(conceptId)) {
-        report.error('фраза ${p.id}: нет концепта $conceptId');
-      }
-    }
-    if (p.conceptIds.isEmpty) {
-      report.error(
-        'фраза ${p.id}: не привязана ни к одному концепту — такая фраза не '
-        'зажигает ни одной звезды и не попадает ни в один уровень',
-      );
-    }
-    if (phraseSlotCount(p.template) == 0) {
-      report.error('фраза ${p.id}: в шаблоне нет слота {…}');
-    }
-
-    // Ответ, стоящий в шаблоне открытым текстом, превращает пропуск в
-    // упражнение на списывание. Проверяется без учёта регистра, но целыми
-    // словами: «Ich habe Hunger und {hunger}» — ошибка, а «Handy» внутри
-    // «Handynummer» — нет.
-    for (final answer in p.answers) {
-      if (answer.length < 4) continue;
-      final visible = phraseWithGaps(p.template);
-      final word = RegExp(
-        r'(?<![\p{L}])' + RegExp.escape(answer) + r'(?![\p{L}])',
-        caseSensitive: false,
-        unicode: true,
-      );
-      if (!word.hasMatch(visible)) continue;
-      report.error(
-        'фраза ${p.id}: ответ "$answer" стоит в шаблоне открытым текстом',
-      );
-    }
-
-    // Пустой слот в собранном предложении означает, что шаблон и ответы
-    // разошлись, а это игрок увидит как «…» посреди фразы.
-    if (phraseSpeech(p.template, p.answers).contains('…')) {
-      report.error(
-        'фраза ${p.id}: пропусков в шаблоне больше, чем ответов',
-      );
-    }
   }
 }
 
@@ -1304,12 +536,12 @@ void _checkCalibration(ContentSources sources, String lang, Findings report) {
     // Считаем, из чего вообще можно собрать набор: 30 позиций на ярус
     // требуют примерно трёх созвездий, одного не хватает физически.
     final possible = <String, int>{};
-    for (final c in sources.concepts.values) {
-      possible[c.tier] = (possible[c.tier] ?? 0) + 1;
+    for (final p in sources.phrases) {
+      possible[p.tier] = (possible[p.tier] ?? 0) + 1;
     }
     final shortage = sources.launch.launched
         .where((t) => (possible[t] ?? 0) < 30)
-        .map((t) => '$t: ${possible[t] ?? 0} концептов')
+        .map((t) => '$t: ${possible[t] ?? 0} фраз')
         .toList();
 
     report.pending(
@@ -1333,11 +565,11 @@ void _checkCalibration(ContentSources sources, String lang, Findings report) {
       report.pending('$message (ярус не запущен)');
     }
   }
+
+  final known = {for (final p in sources.phrases) p.id};
   for (final item in items) {
-    if (item.conceptId != null &&
-        !sources.concepts.containsKey(item.conceptId)) {
-      report.error('калибровка ${item.id}: нет концепта ${item.conceptId}');
-    }
+    if (known.contains(item.phraseId)) continue;
+    report.error('калибровка ${item.id}: нет фразы ${item.phraseId}');
   }
 }
 
@@ -1356,14 +588,7 @@ void _checkLaunchPolicy(ContentSources sources, Findings report) {
       report.error('в launch.yaml неизвестный ярус "$tier"');
       continue;
     }
-    // Черновые концепты в состав яруса не входят.
-    //
-    // Ярус запущен — значит, прочитан. Импортированное и невычитанное слово
-    // в игру не идёт (сборка его не отгружает), поэтому требовать вычитки от
-    // него нельзя: иначе импорт словника снимал бы с запуска уже прочитанный
-    // A0 за то, что рядом с ним положили черновик.
-    final onTier =
-        sources.concepts.values.where((c) => c.tier == tier && !c.draft);
+    final onTier = sources.phrases.where((p) => p.tier == tier);
     if (onTier.isEmpty) {
       report.error('ярус $tier запущен, но контента на нём нет');
       continue;
@@ -1381,7 +606,7 @@ void _checkLaunchPolicy(ContentSources sources, Findings report) {
       continue;
     }
 
-    final present = {for (final c in onTier) c.constellation};
+    final present = {for (final p in onTier) p.constellation};
     final missing = present.difference(review.constellations).toList()..sort();
     if (missing.isNotEmpty) {
       report.error(
@@ -1411,7 +636,7 @@ void _checkLaunchPolicy(ContentSources sources, Findings report) {
 ///
 /// Ограничение названо там же и здесь не забыто: две модели обучены на
 /// пересекающихся данных и ошибаются согласованно. От этого страхует не
-/// второй проход, а словарь языка, которого у проекта пока нет.
+/// второй проход, а носитель языка.
 void _checkReviewPasses(
   ContentSources sources,
   String tier,
@@ -1521,9 +746,6 @@ class Findings {
     }
   }
 }
-
-
-
 
 /// Языки, у которых в `launch.yaml` есть секция.
 ///
