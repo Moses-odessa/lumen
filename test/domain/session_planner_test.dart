@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scheduler/level_stage.dart';
 import 'package:lumen/domain/scheduler/session_planner.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 
@@ -196,113 +197,253 @@ void main() {
     });
   });
 
-  group('уровень', () {
+  group('уровень этапами', () {
     List<StudyItem> reviews(int n) =>
         [for (var i = 0; i < n; i++) word('r$i', lumens: 20 + i)];
     List<StudyItem> fresh(int n) =>
         [for (var i = 0; i < n; i++) word('n$i', lumens: 0, isNew: true)];
 
-    test('состав уровня: шесть новых по три показа плюс двенадцать повторов',
-        () {
-      final plan = SessionPlanner.level(
+    /// Все круги уровня подряд — то, что раньше возвращал сам `level`.
+    List<PlannedCircle> flat(List<StagedRun> runs) =>
+        [for (final run in runs) ...run.circles];
+
+    test('этапы идут в порядке возрастания требований', () {
+      final runs = SessionPlanner.level(
         reviews: reviews(12),
         fresh: fresh(6),
       );
 
-      expect(plan.length,
-          SessionBalance.reviewsPerLevel +
-              SessionBalance.newWordsPerLevel *
-                  SessionBalance.newWordRepeats);
-      // Три забега по десять кругов.
-      expect(plan.length, 30);
-    });
+      expect(runs.map((r) => r.stage), [
+        LevelStage.introduction,
+        LevelStage.consolidation,
+        LevelStage.check,
+        LevelStage.reminder,
+      ]);
 
-    test('первый показ нового слова — понимание без таймера', () {
-      final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
-
-      for (final id in ['n0', 'n1', 'n2', 'n3', 'n4', 'n5']) {
-        final shows = plan.where((c) => c.itemId == id).toList();
-        expect(shows, hasLength(SessionBalance.newWordRepeats));
-        expect(shows.first.isNew, isTrue);
-        expect(shows.first.mode, GameMode.pickNative);
+      // Требования растут: на знакомстве выбирать не из чего, дальше есть.
+      final options = [for (final run in runs) run.circles.first.options];
+      expect(options.first, SessionBalance.introductionOptions);
+      for (var i = 1; i < options.length; i++) {
+        expect(options[i], greaterThan(SessionBalance.introductionOptions),
+            reason: 'этап ${runs[i].stage.name} остался показом');
       }
     });
 
-    test('знакомство идёт с одним вариантом — это показ, а не проверка', () {
-      // Новое: круг с одним вариантом стал законным. Прежний сборщик
-      // возвращал null, если не набралось двух дистракторов, и знакомство
-      // молча исчезало из уровня; теперь вариантность едет на круге.
-      final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
+    test('состав уровня: шесть новых по три показа плюс двенадцать повторов',
+        () {
+      final plan = flat(SessionPlanner.level(
+        reviews: reviews(12),
+        fresh: fresh(6),
+      ));
+
+      expect(
+          plan.length,
+          SessionBalance.reviewsPerLevel +
+              SessionBalance.newWordsPerLevel *
+                  SessionBalance.newWordRepeats);
+      expect(plan.length, 30);
+    });
+
+    test('новое слово встречается по разу на каждом из первых трёх этапов',
+        () {
+      // Раньше показы вплетались между повторами и разводились правилом
+      // «не ближе трёх кругов». Теперь их разводят сами этапы, и разведены
+      // они максимально: между двумя показами лежит целый забег.
+      final runs = SessionPlanner.level(
+        reviews: reviews(12),
+        fresh: fresh(6),
+      );
 
       for (final id in ['n0', 'n1', 'n2', 'n3', 'n4', 'n5']) {
-        final shows = plan.where((c) => c.itemId == id).toList();
-        expect(shows.first.options, SessionBalance.introductionOptions);
-        expect(shows.first.options, ScoreBalance.optionsMin);
-        // Остальные показы того же слова — обычные круги: одна ручка
-        // сложности на круг, а не на слово.
-        for (final show in shows.skip(1)) {
-          expect(show.options, greaterThan(SessionBalance.introductionOptions));
-          expect(show.isNew, isFalse);
+        final stages = [
+          for (final run in runs)
+            if (run.circles.any((c) => c.itemId == id)) run.stage,
+        ];
+        expect(stages, [
+          LevelStage.introduction,
+          LevelStage.consolidation,
+          LevelStage.check,
+        ], reason: id);
+
+        // И ровно по одному кругу на этап: два показа внутри одного забега
+        // проверяли бы буфер кратковременной памяти, а не повторение.
+        for (final run in runs) {
+          expect(run.circles.where((c) => c.itemId == id).length,
+              lessThanOrEqualTo(1),
+              reason: '$id на этапе ${run.stage.name}');
         }
       }
     });
 
-    test('одно слово никогда не идёт двумя кругами подряд', () {
-      final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
-      for (var i = 1; i < plan.length; i++) {
-        expect(plan[i].itemId, isNot(plan[i - 1].itemId),
-            reason: 'позиция $i');
+    test('первый показ нового слова — понимание без таймера', () {
+      final runs = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
+      final introduction =
+          runs.firstWhere((r) => r.stage == LevelStage.introduction);
+
+      for (final circle in introduction.circles) {
+        expect(circle.isNew, isTrue, reason: circle.itemId);
+        expect(StageRules.mechanicsFor(LevelStage.introduction),
+            contains(circle.mode));
+        expect(circle.options, SessionBalance.introductionOptions);
+        expect(circle.options, ScoreBalance.optionsMin);
       }
     });
 
-    test('новые слова разбросаны, а не идут блоком', () {
-      final plan = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
-      final positions = <int>[];
-      for (var i = 0; i < plan.length; i++) {
-        if (plan[i].itemId.startsWith('n')) positions.add(i);
-      }
+    test('дистракторы на проверке созвучные, на закреплении тематические', () {
+      final runs = SessionPlanner.level(reviews: reviews(12), fresh: fresh(6));
 
-      // Новые занимают больше половины плана, но не должны толпиться
-      // в начале: середина их позиций близка к середине уровня.
-      final median = positions[positions.length ~/ 2];
-      expect(median, inInclusiveRange(plan.length ~/ 4, plan.length * 3 ~/ 4));
+      for (final run in runs) {
+        final expected = run.stage == LevelStage.check
+            ? DistractorKind.near
+            : DistractorKind.far;
+        expect(run.circles.map((c) => c.distractorKind).toSet(), {expected},
+            reason: run.stage.name);
+      }
     });
 
-    test('повторы идут от самых тусклых', () {
-      final plan = SessionPlanner.level(
+    test('этап спрашивает только разрешёнными механиками', () {
+      final runs = SessionPlanner.level(
+        reviews: reviews(12),
+        fresh: fresh(6),
+        random: Random(7),
+      );
+
+      for (final run in runs) {
+        final allowed = StageRules.mechanicsFor(run.stage);
+        if (allowed == null) continue;
+        for (final circle in run.circles) {
+          expect(allowed, contains(circle.mode),
+              reason: '${run.stage.name}: ${circle.mode.name}');
+        }
+      }
+    });
+
+    test('напоминанию достаются самые тусклые повторы', () {
+      final runs = SessionPlanner.level(
         reviews: [
-          word('bright', lumens: 80),
-          word('dim', lumens: 10),
+          word('bright', lumens: 90),
+          word('mid', lumens: 50),
+          word('dim', lumens: 5),
         ],
         fresh: const [],
-        reviewWords: 2,
+        reviewWords: 3,
       );
-      expect(plan.map((c) => c.itemId), ['dim', 'bright']);
+
+      // Очередь отсортирована по яркости, и последний этап забирает её
+      // хвост — то, что ближе всего к тому, чтобы быть забытым совсем.
+      final reminder = runs.firstWhere((r) => r.stage == LevelStage.reminder);
+      expect(reminder.circles.map((c) => c.itemId), contains('bright'));
+
+      final consolidation =
+          runs.firstWhere((r) => r.stage == LevelStage.consolidation);
+      expect(consolidation.circles.map((c) => c.itemId), contains('dim'));
     });
 
     test('уровень без новых слов — это просто повторы', () {
-      final plan = SessionPlanner.level(reviews: reviews(12), fresh: const []);
+      final plan = flat(
+        SessionPlanner.level(reviews: reviews(12), fresh: const []),
+      );
       expect(plan, hasLength(12));
       expect(plan.every((c) => !c.isNew), isTrue);
     });
 
-    test('уровень без повторов раскладывает новые по кругу', () {
-      final plan = SessionPlanner.level(reviews: const [], fresh: fresh(3));
+    test('уровень без повторов — три этапа по новым словам', () {
+      final runs = SessionPlanner.level(reviews: const [], fresh: fresh(3));
 
-      expect(plan, hasLength(9));
-      for (var i = 1; i < plan.length; i++) {
-        expect(plan[i].itemId, isNot(plan[i - 1].itemId));
+      expect(runs.map((r) => r.stage), [
+        LevelStage.introduction,
+        LevelStage.consolidation,
+        LevelStage.check,
+      ]);
+      expect(flat(runs), hasLength(9));
+    });
+
+    test('пустой вход даёт пустой уровень', () {
+      expect(
+          SessionPlanner.level(reviews: const [], fresh: const []), isEmpty);
+    });
+
+    test('пустой этап не превращается в пустой забег', () {
+      // Забег из нуля кругов — это экран, который нечем показать.
+      final runs = SessionPlanner.level(reviews: const [], fresh: fresh(2));
+      expect(runs.every((r) => r.circles.isNotEmpty), isTrue);
+    });
+
+    test('материала меньше запрошенного — уровень просто короче', () {
+      final plan = flat(SessionPlanner.level(
+        reviews: reviews(3),
+        fresh: fresh(1),
+      ));
+      expect(plan.length, 3 + 1 * SessionBalance.newWordRepeats);
+    });
+  });
+
+  group('спринт', () {
+    test('берёт только яркие слова', () {
+      final run = SessionPlanner.sprint(
+        candidates: [
+          word('dim', lumens: 10),
+          word('bright', lumens: 90),
+          word('mid', lumens: 60),
+        ],
+        goal: SprintGoal.attempt(0),
+      );
+
+      expect(run, isNotNull);
+      final ids = run!.circles.map((c) => c.itemId).toSet();
+      expect(ids, isNot(contains('dim')),
+          reason: 'гонка на незнакомом материале учит панике, а не языку');
+      expect(ids, containsAll(['bright', 'mid']));
+    });
+
+    test('новых слов не берёт никогда', () {
+      final run = SessionPlanner.sprint(
+        candidates: [
+          word('new', lumens: 90, isNew: true),
+          word('known', lumens: 90),
+        ],
+        goal: SprintGoal.attempt(0),
+      );
+      expect(run!.circles.map((c) => c.itemId).toSet(), {'known'});
+    });
+
+    test('без ярких слов спринта нет', () {
+      expect(
+        SessionPlanner.sprint(
+          candidates: [word('dim', lumens: 10)],
+          goal: SprintGoal.attempt(0),
+        ),
+        isNull,
+      );
+    });
+
+    test('кругов ставится с запасом на ошибки', () {
+      // Ошибка возвращает слово в конец очереди. Упереться в конец списка
+      // раньше, чем взята планка, нельзя.
+      final goal = SprintGoal.attempt(0);
+      final run = SessionPlanner.sprint(
+        candidates: [word('a', lumens: 90), word('b', lumens: 90)],
+        goal: goal,
+      );
+      expect(run!.circles.length, greaterThan(goal.connections));
+    });
+
+    test('планка растёт с попытками, а время не сжимается', () {
+      // Сжатое время превращает спринт в проверку скорости пальца, а не
+      // автоматизма.
+      var previous = SprintGoal.attempt(0);
+      for (var attempt = 1; attempt < 5; attempt++) {
+        final goal = SprintGoal.attempt(attempt);
+        expect(goal.connections, greaterThan(previous.connections));
+        expect(goal.duration, previous.duration);
+        previous = goal;
       }
     });
 
-    test('пустой вход даёт пустой план', () {
-      expect(SessionPlanner.level(reviews: const [], fresh: const []),
-          isEmpty);
-    });
-
-    test('материала меньше запрошенного — план просто короче', () {
-      final plan = SessionPlanner.level(reviews: reviews(2), fresh: fresh(1));
-      expect(plan, hasLength(2 + SessionBalance.newWordRepeats));
+    test('планка считается верными связями, а не ответами', () {
+      final goal = SprintGoal.attempt(0);
+      expect(goal.reachedBy(goal.connections - 1), isFalse);
+      expect(goal.reachedBy(goal.connections), isTrue);
     });
   });
 
@@ -333,13 +474,18 @@ void main() {
 
   group('разбиение на забеги', () {
     test('план режется на забеги заданной длины', () {
-      final plan = SessionPlanner.level(
-        reviews: [for (var i = 0; i < 12; i++) word('r$i', lumens: 30)],
-        fresh: [
-          for (var i = 0; i < 6; i++) word('n$i', lumens: 0, isNew: true),
-        ],
-      );
-      final runs = SessionPlanner.intoRuns(plan);
+      // Уровень теперь приходит этапами, и резать имеет смысл каждый этап
+      // по отдельности: забег обрывается на границе этапа, а не там, где
+      // кончились десять кругов подряд.
+      final circles = [
+        for (var i = 0; i < 30; i++)
+          PlannedCircle(
+              itemId: 'w$i',
+              mode: GameMode.pickTarget,
+              isNew: false,
+              lumens: 50),
+      ];
+      final runs = SessionPlanner.intoRuns(circles);
 
       expect(runs, hasLength(3));
       expect(runs.every((r) => r.length == 10), isTrue);
@@ -412,13 +558,19 @@ void main() {
     });
 
     test('доля новых слов в плане считается по словам, а не по кругам', () {
-      final plan = SessionPlanner.level(
+      final runs = SessionPlanner.level(
         reviews: [for (var i = 0; i < 12; i++) word('r$i', lumens: 30)],
         fresh: [
           for (var i = 0; i < 6; i++) word('n$i', lumens: 0, isNew: true),
         ],
       );
+      final plan = [for (final run in runs) ...run.circles];
       // 6 новых из 18 слов, хотя кругов у новых втрое больше.
+      //
+      // Считается по `isNew`, а тот стоит только на первом показе — то есть
+      // на этапе знакомства. Остальные два показа того же слова идут
+      // обычными кругами, и это верно: доля нужна, чтобы не утопить игрока
+      // в новом материале, а не чтобы посчитать круги.
       expect(SessionPlanner.newWordShare(plan), closeTo(6 / 18, 1e-9));
     });
 

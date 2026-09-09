@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
+import '../../../domain/scoring/balance.dart';
 import '../../../domain/scoring/climb.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/presentation/run_screen.dart';
@@ -55,13 +56,26 @@ class RitualScreen extends ConsumerWidget {
           ),
         RitualPhase.loading =>
           const Center(child: CircularProgressIndicator()),
-        RitualPhase.sunrise || RitualPhase.level => const RunScreen(),
+        RitualPhase.sunrise ||
+        RitualPhase.level ||
+        RitualPhase.sprint =>
+          const RunScreen(),
         RitualPhase.sunriseResult => _SunriseResult(
             l10n: l10n,
             lumens: state.lumensReturned,
             onNext: controller.next,
           ),
         RitualPhase.levelResult => _LevelResult(
+            l10n: l10n,
+            state: state,
+            onNext: controller.next,
+            // Спринт предлагается только там, где ему есть на чём идти:
+            // тема пройдена, и ярких слов достаточно. Кнопки нет, если
+            // предлагать нечего, — предложение, которое не срабатывает,
+            // раздражает сильнее отсутствующего.
+            onSprint: controller.canSprint ? controller.startSprint : null,
+          ),
+        RitualPhase.sprintResult => _SprintResult(
             l10n: l10n,
             state: state,
             onNext: controller.next,
@@ -83,6 +97,7 @@ class RitualScreen extends ConsumerWidget {
         RitualPhase.sunriseResult =>
           l10n.ritualSunrise,
         RitualPhase.level || RitualPhase.levelResult => l10n.ritualLevel,
+        RitualPhase.sprint || RitualPhase.sprintResult => l10n.stageSprint,
         _ => l10n.gameTitle,
       };
 }
@@ -216,11 +231,15 @@ class _LevelResult extends StatelessWidget {
     required this.l10n,
     required this.state,
     required this.onNext,
+    this.onSprint,
   });
 
   final AppLocalizations l10n;
   final RitualState state;
   final VoidCallback onNext;
+
+  /// Спринт по пройденной теме. `null` — предлагать нечего.
+  final VoidCallback? onSprint;
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +283,85 @@ class _LevelResult extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 36),
-            FilledButton(onPressed: onNext, child: Text(l10n.commonNext)),
+            if (onSprint != null) ...[
+              FilledButton.icon(
+                onPressed: onSprint,
+                icon: const Icon(Icons.bolt, size: 18),
+                label: Text(l10n.stageSprint),
+              ),
+              const SizedBox(height: 8),
+              TextButton(onPressed: onNext, child: Text(l10n.commonNext)),
+            ] else
+              FilledButton(onPressed: onNext, child: Text(l10n.commonNext)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Итог попытки спринта: взята планка или нет.
+class _SprintResult extends StatelessWidget {
+  const _SprintResult({
+    required this.l10n,
+    required this.state,
+    required this.onNext,
+  });
+
+  final AppLocalizations l10n;
+  final RitualState state;
+  final VoidCallback onNext;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final goal = state.sprintGoal;
+    final reached = state.sprintReached;
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              reached ? Icons.bolt : Icons.timer_off_outlined,
+              size: 44,
+              color: reached
+                  ? LumenPalette.correct
+                  : theme.colorScheme.onSurfaceVariant,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              reached
+                  ? l10n.sprintReached
+                  : l10n.sprintMissed(
+                      state.sprintDone,
+                      goal?.connections ?? 0,
+                    ),
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.sprintAttempt(
+                state.sprintAttempt + 1,
+                StageBalance.sprintAttempts,
+              ),
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: 36),
+            // Не взятая планка не запирает ничего: следующая попытка есть
+            // только у взятой, потому что расти можно только вверх. Провал
+            // просто заканчивает спринт, не отнимая ни очков, ни доступа.
+            FilledButton(
+              onPressed: onNext,
+              child: Text(
+                state.hasNextSprint ? l10n.commonNext : l10n.commonDone,
+              ),
+            ),
           ],
         ),
       ),

@@ -166,6 +166,12 @@ abstract class AppLocalizations {
   /// **'Undo'**
   String get commonUndo;
 
+  /// No description provided for @commonDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get commonDone;
+
   /// No description provided for @commonNext.
   ///
   /// In en, this message translates to:
@@ -1011,6 +1017,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{hours} h {minutes} min'**
   String unitHoursMinutes(int hours, int minutes);
+
+  /// No description provided for @stageIntroduction.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting new words'**
+  String get stageIntroduction;
+
+  /// No description provided for @stageConsolidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Settling in'**
+  String get stageConsolidation;
+
+  /// No description provided for @stageCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking'**
+  String get stageCheck;
+
+  /// No description provided for @stageReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminding'**
+  String get stageReminder;
+
+  /// No description provided for @stageSprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sprint'**
+  String get stageSprint;
+
+  /// No description provided for @sprintGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {target} in {seconds} s'**
+  String sprintGoal(int done, int target, int seconds);
+
+  /// No description provided for @sprintReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Bar cleared'**
+  String get sprintReached;
+
+  /// No description provided for @sprintMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Bar not cleared: {done} of {target}'**
+  String sprintMissed(int done, int target);
+
+  /// No description provided for @sprintAttempt.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt {attempt} of {total}'**
+  String sprintAttempt(int attempt, int total);
 
   /// No description provided for @aboutPrivacy.
   ///

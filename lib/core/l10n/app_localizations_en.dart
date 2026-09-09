@@ -40,6 +40,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get commonUndo => 'Undo';
 
   @override
+  String get commonDone => 'Done';
+
+  @override
   String get commonNext => 'Next';
 
   @override
@@ -514,6 +517,39 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String unitHoursMinutes(int hours, int minutes) {
     return '$hours h $minutes min';
+  }
+
+  @override
+  String get stageIntroduction => 'Meeting new words';
+
+  @override
+  String get stageConsolidation => 'Settling in';
+
+  @override
+  String get stageCheck => 'Checking';
+
+  @override
+  String get stageReminder => 'Reminding';
+
+  @override
+  String get stageSprint => 'Sprint';
+
+  @override
+  String sprintGoal(int done, int target, int seconds) {
+    return '$done of $target in $seconds s';
+  }
+
+  @override
+  String get sprintReached => 'Bar cleared';
+
+  @override
+  String sprintMissed(int done, int target) {
+    return 'Bar not cleared: $done of $target';
+  }
+
+  @override
+  String sprintAttempt(int attempt, int total) {
+    return 'Attempt $attempt of $total';
   }
 
   @override

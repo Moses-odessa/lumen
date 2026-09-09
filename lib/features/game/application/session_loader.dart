@@ -10,12 +10,30 @@ import '../../../domain/entities/circle_question.dart';
 import '../../../domain/entities/game_mode.dart';
 import '../../../domain/entities/part_of_speech.dart';
 import '../../../domain/entities/tier.dart';
+import '../../../domain/scheduler/level_stage.dart';
 import '../../../domain/scheduler/session_planner.dart';
 import '../../../domain/scoring/balance.dart';
 import '../../../domain/scoring/climb.dart';
 import 'question_builder.dart';
 
-/// Готовый к игре набор кругов, уже разбитый на забеги.
+/// Готовый к игре забег: этап, вопросы и цель, если этап на время.
+class LoadedRun {
+  const LoadedRun({
+    required this.stage,
+    required this.questions,
+    this.goal,
+  });
+
+  final LevelStage stage;
+  final List<CircleQuestion> questions;
+
+  /// Цель спринта. `null` у обычных забегов.
+  final SprintGoal? goal;
+
+  bool get isEmpty => questions.isEmpty;
+}
+
+/// Готовый к игре набор кругов, уже разбитый на забеги по этапам.
 class LoadedSession {
   const LoadedSession({
     required this.runs,
@@ -23,9 +41,14 @@ class LoadedSession {
     required this.reviews,
   });
 
-  /// Забеги по 10–14 кругов. Уровень — это три забега и босс, а не один
-  /// марафон: комбо сбрасывается между забегами, и в этом весь их смысл.
-  final List<List<CircleQuestion>> runs;
+  /// Забеги по этапам: знакомство → закрепление → проверка → напоминание →
+  /// фразы. Уровень — это последовательность забегов, а не один марафон:
+  /// комбо сбрасывается между ними, и в этом весь их смысл.
+  ///
+  /// Раньше здесь лежали безымянные списки по 10–14 кругов, нарезанные из
+  /// однородного плана. Игрок видел, что сложность то растёт, то падает, и
+  /// не мог понять, по какому правилу.
+  final List<LoadedRun> runs;
 
   final int newWords;
   final int reviews;
@@ -33,7 +56,8 @@ class LoadedSession {
   bool get isEmpty => runs.isEmpty;
 
   /// Все круги подряд — для тестов и статистики.
-  List<CircleQuestion> get questions => [for (final run in runs) ...run];
+  List<CircleQuestion> get questions =>
+      [for (final run in runs) ...run.questions];
 }
 
 /// Собирает сессию из двух баз: план — по состоянию памяти из `user.db`,
@@ -76,7 +100,7 @@ class SessionLoader {
       freePace: freePace,
     );
 
-    final plan = SessionPlanner.level(
+    final staged = SessionPlanner.level(
       reviews: reviews,
       fresh: fresh.take(allowed).toList(),
       capabilities: capabilities,
@@ -84,11 +108,18 @@ class SessionLoader {
       difficulty: difficulty,
     );
 
-    final questions = await _build(plan);
-    final runs = SessionPlanner.intoRuns(
-      questions,
-      perRun: difficulty?.circlesPerRun ?? SessionBalance.circlesPerRunMin,
-    ).map((run) => run.toList()).toList();
+    final runs = <LoadedRun>[];
+    for (final stage in staged) {
+      final questions = await _build(stage.circles);
+      if (questions.isEmpty) continue;
+      // Длинный этап режется на забеги: комбо должно сбрасываться, а полоса
+      // прогресса — доходить до конца в обозримое время.
+      final perRun =
+          difficulty?.circlesPerRun ?? SessionBalance.circlesPerRunMin;
+      for (final chunk in SessionPlanner.intoRuns(questions, perRun: perRun)) {
+        runs.add(LoadedRun(stage: stage.stage, questions: chunk.toList()));
+      }
+    }
 
     // Фразы закрывают уровень отдельным коротким забегом: предложение
     // целиком — другой масштаб задачи, и мешать его со словами не стоит.
@@ -97,13 +128,58 @@ class SessionLoader {
     // собрать предложение из слов. Порядок не случаен — вторая механика
     // требует того же предложения по памяти, и увидеть его перед этим
     // полезнее, чем не увидеть.
+    final plan = [for (final s in staged) ...s.circles];
     final phrases = await _phraseRuns(plan, difficulty);
-    if (phrases.isNotEmpty) runs.add(phrases);
+    if (phrases.isNotEmpty) {
+      runs.add(LoadedRun(stage: LevelStage.check, questions: phrases));
+    }
 
     return LoadedSession(
       runs: runs,
       newWords: fresh.take(allowed).length,
       reviews: reviews.length,
+    );
+  }
+
+  /// Спринт: финальная проверка пройденной темы на время.
+  ///
+  /// Отдельный вход, а не этап уровня: спринт появляется на завершении темы,
+  /// а не каждый раз. Возвращает пустую сессию, если ярких слов нет — гонка
+  /// на незнакомом материале учит панике, а не языку.
+  Future<LoadedSession> sprintRun(
+    DateTime now, {
+    required int attempt,
+    ClimbDifficulty? difficulty,
+  }) async {
+    await words.refreshLumens(now);
+    final candidates = await words.candidates(now);
+
+    final staged = SessionPlanner.sprint(
+      candidates: candidates,
+      goal: SprintGoal.attempt(attempt),
+      capabilities: capabilities,
+      random: random,
+      difficulty: difficulty,
+    );
+    if (staged == null) {
+      return const LoadedSession(runs: [], newWords: 0, reviews: 0);
+    }
+
+    final questions = await _build(staged.circles);
+    if (questions.isEmpty) {
+      return const LoadedSession(runs: [], newWords: 0, reviews: 0);
+    }
+
+    return LoadedSession(
+      runs: [
+        LoadedRun(
+          stage: LevelStage.sprint,
+          questions: questions,
+          goal: staged.goal,
+        ),
+      ],
+      newWords: 0,
+      reviews: questions.length,
     );
   }
 
@@ -124,8 +200,12 @@ class SessionLoader {
     final questions = await _build(plan);
     return LoadedSession(
       // Восход ограничен временем, а не числом кругов: он идёт одним
-      // забегом до истечения двух минут.
-      runs: questions.isEmpty ? const [] : [questions],
+      // забегом до истечения двух минут. Этапа у него нет — это не уровень,
+      // а возвращение яркости небу; помечен напоминанием, потому что именно
+      // им и является.
+      runs: questions.isEmpty
+          ? const []
+          : [LoadedRun(stage: LevelStage.reminder, questions: questions)],
       newWords: 0,
       reviews: plan.length,
     );

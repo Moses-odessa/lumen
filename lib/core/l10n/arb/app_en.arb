@@ -16,6 +16,7 @@
   "profileTitle": "Profile",
   "settingsTitle": "Settings",
   "commonUndo": "Undo",
+  "commonDone": "Done",
   "commonNext": "Next",
   "commonCancel": "Cancel",
   "comingSoon": "Coming soon",
@@ -279,6 +280,48 @@
         "type": "int"
       },
       "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "stageIntroduction": "Meeting new words",
+  "stageConsolidation": "Settling in",
+  "stageCheck": "Checking",
+  "stageReminder": "Reminding",
+  "stageSprint": "Sprint",
+  "sprintGoal": "{done} of {target} in {seconds} s",
+  "@sprintGoal": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "sprintReached": "Bar cleared",
+  "sprintMissed": "Bar not cleared: {done} of {target}",
+  "@sprintMissed": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "sprintAttempt": "Attempt {attempt} of {total}",
+  "@sprintAttempt": {
+    "placeholders": {
+      "attempt": {
+        "type": "int"
+      },
+      "total": {
         "type": "int"
       }
     }

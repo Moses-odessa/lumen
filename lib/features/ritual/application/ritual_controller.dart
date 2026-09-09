@@ -7,14 +7,15 @@ import '../../../core/analytics/analytics.dart';
 import '../../../data/local/app_database.dart';
 import '../../../data/local/database_provider.dart';
 import '../../../data/repositories/player_repository.dart';
-import '../../../domain/entities/circle_question.dart';
 import '../../../domain/retention/orbit.dart';
 import '../../../domain/retention/sparks.dart';
 import '../../../domain/scoring/balance.dart';
 import '../../../domain/scoring/climb.dart';
-import '../../settings/application/reminder_scheduler.dart';
+import '../../../domain/scheduler/level_stage.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/application/session_loader.dart';
+import '../../settings/application/reminder_scheduler.dart';
+import '../../sky/application/sky_controller.dart';
 
 /// Фазы дневного ритуала.
 ///
@@ -40,6 +41,12 @@ enum RitualPhase {
   /// Итог уровня.
   levelResult,
 
+  /// Спринт: финальная проверка пройденной темы на время.
+  sprint,
+
+  /// Итог попытки спринта.
+  sprintResult,
+
   /// Ритуал пройден целиком.
   done,
 }
@@ -53,6 +60,12 @@ class RitualState {
     this.playedLevel = 0,
     this.newWords = 0,
     this.reviewed = 0,
+    this.stage,
+    this.levelCorrect = 0,
+    this.levelAnswered = 0,
+    this.sprintAttempt = 0,
+    this.sprintGoal,
+    this.sprintDone = 0,
     this.error,
   });
 
@@ -77,10 +90,44 @@ class RitualState {
   final int newWords;
   final int reviewed;
 
+  /// Этап, который идёт сейчас. `null` вне уровня.
+  final LevelStage? stage;
+
+  /// Верных ответов и всего ответов **за уровень целиком**.
+  ///
+  /// Раньше заход поднимался или сбрасывался по точности последнего забега —
+  /// то есть босса, одного круга. С пятью этапами это стало прямо неверно:
+  /// уровень из сорока кругов оценивался бы по одному последнему, а
+  /// «слабый уровень» означал бы «промахнулся на фразе».
+  final int levelCorrect;
+  final int levelAnswered;
+
+  /// Какая попытка спринта идёт, считая с нуля.
+  final int sprintAttempt;
+
+  /// Планка текущей попытки. `null` вне спринта.
+  final SprintGoal? sprintGoal;
+
+  /// Сколько связей набрано в последней попытке.
+  final int sprintDone;
+
   final String? error;
 
+  /// Планка взята.
+  bool get sprintReached => sprintGoal?.reachedBy(sprintDone) ?? false;
+
+  /// Есть ли ещё попытка. Планка растёт, время — нет.
+  bool get hasNextSprint =>
+      sprintReached && sprintAttempt + 1 < StageBalance.sprintAttempts;
+
   bool get isPlaying =>
-      phase == RitualPhase.sunrise || phase == RitualPhase.level;
+      phase == RitualPhase.sunrise ||
+      phase == RitualPhase.level ||
+      phase == RitualPhase.sprint;
+
+  /// Точность уровня целиком. Пустой уровень — ноль, а не деление на ноль.
+  double get levelAccuracy =>
+      levelAnswered == 0 ? 0 : levelCorrect / levelAnswered;
 
   RitualState copyWith({
     RitualPhase? phase,
@@ -90,6 +137,12 @@ class RitualState {
     int? playedLevel,
     int? newWords,
     int? reviewed,
+    LevelStage? Function()? stage,
+    int? levelCorrect,
+    int? levelAnswered,
+    int? sprintAttempt,
+    SprintGoal? Function()? sprintGoal,
+    int? sprintDone,
     String? Function()? error,
   }) =>
       RitualState(
@@ -100,6 +153,12 @@ class RitualState {
         playedLevel: playedLevel ?? this.playedLevel,
         newWords: newWords ?? this.newWords,
         reviewed: reviewed ?? this.reviewed,
+        stage: stage == null ? this.stage : stage(),
+        levelCorrect: levelCorrect ?? this.levelCorrect,
+        levelAnswered: levelAnswered ?? this.levelAnswered,
+        sprintAttempt: sprintAttempt ?? this.sprintAttempt,
+        sprintGoal: sprintGoal == null ? this.sprintGoal : sprintGoal(),
+        sprintDone: sprintDone ?? this.sprintDone,
         error: error == null ? this.error : error(),
       );
 }
@@ -113,7 +172,7 @@ class RitualController extends Notifier<RitualState> {
 
   /// Забеги уровня, которые ещё не сыграны. Уровень — это три забега и
   /// босс: комбо сбрасывается между ними, и темп задаётся именно так.
-  final List<List<CircleQuestion>> _pendingRuns = [];
+  final List<LoadedRun> _pendingRuns = [];
 
   /// Сколько забегов в уровне всего и какой идёт сейчас — для полосы
   /// прогресса уровня.
@@ -148,7 +207,7 @@ class RitualController extends Notifier<RitualState> {
       }
 
       ref.read(runControllerProvider.notifier).start(
-            session.runs.first,
+            session.runs.first.questions,
             maxDuration: SessionBalance.sunriseDuration,
           );
       state = state.copyWith(
@@ -182,13 +241,20 @@ class RitualController extends Notifier<RitualState> {
         ..addAll(session.runs);
       _totalRuns = _pendingRuns.length;
 
-      ref
-          .read(runControllerProvider.notifier)
-          .start(_pendingRuns.removeAt(0), climb: climb);
+      final first = _pendingRuns.removeAt(0);
+      ref.read(runControllerProvider.notifier).start(
+            first.questions,
+            climb: climb,
+            stage: first.stage,
+            goal: first.goal,
+          );
       state = state.copyWith(
         phase: RitualPhase.level,
         newWords: session.newWords,
         climb: climb,
+        stage: () => first.stage,
+        levelCorrect: 0,
+        levelAnswered: 0,
       );
     } catch (e) {
       state = state.copyWith(phase: RitualPhase.idle, error: () => '$e');
@@ -211,24 +277,36 @@ class RitualController extends Notifier<RitualState> {
           score: state.score + (summary?.total ?? 0),
         );
       case RitualPhase.level:
+        // Точность копится по уровню целиком, а не берётся у последнего
+        // забега: этапов пять, и оценивать сорок кругов по одному
+        // последнему — это оценивать уровень по фразе.
+        final finished = ref.read(runControllerProvider);
         state = state.copyWith(
           score: state.score + (summary?.total ?? 0),
           lumensReturned: state.lumensReturned + run.lumensGained,
+          levelCorrect: state.levelCorrect + finished.correct,
+          levelAnswered: state.levelAnswered + run.circles,
         );
 
         if (_pendingRuns.isNotEmpty) {
           // Следующий забег того же уровня: комбо начинается заново, а
           // сложность и множитель захода те же — уровень ещё не кончился.
-          run.start(_pendingRuns.removeAt(0), climb: state.climb);
+          final next = _pendingRuns.removeAt(0);
+          run.start(
+            next.questions,
+            climb: state.climb,
+            stage: next.stage,
+            goal: next.goal,
+          );
+          state = state.copyWith(stage: () => next.stage);
           return;
         }
 
-        // Заход поднимается или сбрасывается — по точности последнего
-        // забега уровня, то есть босса.
+        // Заход поднимается или сбрасывается по точности **уровня**.
         final climbed = ClimbRules.afterLevel(
           state.climb,
-          score: summary?.total ?? 0,
-          accuracy: summary?.accuracy ?? 0,
+          score: state.score,
+          accuracy: state.levelAccuracy,
           at: DateTime.now(),
         );
         ref.read(analyticsProvider).log(AnalyticsEvents.levelCompleted, {
@@ -247,6 +325,60 @@ class RitualController extends Notifier<RitualState> {
     }
   }
 
+  /// Есть ли смысл предлагать спринт.
+  ///
+  /// Два условия, и оба обязательны. Тема пройдена — иначе гонка идёт по
+  /// материалу, который ещё учат; и ярких слов достаточно — иначе планировщик
+  /// вернёт пустоту, и кнопка окажется обманом.
+  ///
+  /// Читается прямо из неба, а не из отдельного флага: «тема пройдена» это
+  /// зажжённое созвездие, и второе определение того же самого рано или поздно
+  /// разошлось бы с первым.
+  bool get canSprint {
+    final sky = ref.read(skySnapshotProvider).value;
+    return (sky?.litConstellations ?? 0) > 0;
+  }
+
+  /// Начинает спринт: первую попытку или следующую.
+  Future<void> startSprint() async {
+    final attempt = state.phase == RitualPhase.sprintResult
+        ? state.sprintAttempt + 1
+        : 0;
+    state = state.copyWith(phase: RitualPhase.loading, error: () => null);
+
+    try {
+      final session = await ref.read(sessionLoaderProvider).sprintRun(
+            DateTime.now(),
+            attempt: attempt,
+            difficulty: state.climb.difficulty,
+          );
+
+      if (session.isEmpty) {
+        // Ярких слов не нашлось. Это не ошибка: гонка на незнакомом
+        // материале учит панике, и отказаться от неё честнее, чем провести.
+        state = state.copyWith(phase: RitualPhase.done);
+        return;
+      }
+
+      final run = session.runs.first;
+      ref.read(runControllerProvider.notifier).start(
+            run.questions,
+            climb: state.climb,
+            stage: run.stage,
+            goal: run.goal,
+          );
+      state = state.copyWith(
+        phase: RitualPhase.sprint,
+        stage: () => run.stage,
+        sprintAttempt: attempt,
+        sprintGoal: () => run.goal,
+        sprintDone: 0,
+      );
+    } catch (e) {
+      state = state.copyWith(phase: RitualPhase.levelResult, error: () => '$e');
+    }
+  }
+
   /// Переход к следующей фазе с экрана итога.
   Future<void> next() async {
     switch (state.phase) {
@@ -254,6 +386,14 @@ class RitualController extends Notifier<RitualState> {
         await _startLevel();
       case RitualPhase.levelResult:
         state = state.copyWith(phase: RitualPhase.done);
+      case RitualPhase.sprintResult:
+        // Следующая попытка есть только у взятой планки: расти можно
+        // вверх, а не вниз. Не взятая планка просто заканчивает спринт.
+        if (state.hasNextSprint) {
+          await startSprint();
+        } else {
+          state = state.copyWith(phase: RitualPhase.done);
+        }
       case _:
         break;
     }

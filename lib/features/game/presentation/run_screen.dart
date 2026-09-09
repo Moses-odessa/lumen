@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
 import '../../../core/theme/palette.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/scheduler/level_stage.dart';
 import '../application/run_controller.dart';
 import 'circle_arena.dart';
 import 'run_summary_view.dart';
@@ -142,7 +144,7 @@ class _Feedback extends StatelessWidget {
   }
 }
 
-/// Прогресс, комбо и счёт.
+/// Прогресс, этап, комбо и счёт.
 class _RunHeader extends StatelessWidget {
   const _RunHeader({required this.state});
 
@@ -151,7 +153,9 @@ class _RunHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
     final combo = state.combo;
+    final goal = state.goal;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
@@ -166,7 +170,29 @@ class _RunHeader extends StatelessWidget {
                   LumenPalette.constellationLine.withValues(alpha: 0.2),
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 8),
+          // Этап называется словом, а не угадывается по числу вариантов.
+          //
+          // Без подписи игрок видит, что сложность то растёт, то падает, и
+          // не может понять, по какому правилу; а правило есть, и оно
+          // простое. Спринт вместо названия показывает планку: там важна не
+          // фаза, а сколько осталось.
+          if (state.stage != null)
+            Text(
+              goal == null
+                  ? _stageName(l10n, state.stage!)
+                  : l10n.sprintGoal(
+                      state.correct,
+                      goal.connections,
+                      goal.duration.inSeconds,
+                    ),
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: goal == null
+                    ? theme.colorScheme.onSurfaceVariant
+                    : LumenPalette.starlight,
+              ),
+            ),
+          const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -195,3 +221,12 @@ class _RunHeader extends StatelessWidget {
     );
   }
 }
+
+/// Название этапа. Живёт здесь, а не в домене: домен не знает про локали.
+String _stageName(AppLocalizations l10n, LevelStage stage) => switch (stage) {
+      LevelStage.introduction => l10n.stageIntroduction,
+      LevelStage.consolidation => l10n.stageConsolidation,
+      LevelStage.check => l10n.stageCheck,
+      LevelStage.reminder => l10n.stageReminder,
+      LevelStage.sprint => l10n.stageSprint,
+    };

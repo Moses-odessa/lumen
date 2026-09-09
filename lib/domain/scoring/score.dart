@@ -242,7 +242,11 @@ class RunSummary {
 /// Отдельный класс, а не поле экрана, потому что забег — это доменное
 /// понятие со своими правилами, и его надо уметь тестировать без виджетов.
 class RunScore {
-  RunScore({this.difficulty, this.climbMultiplier = 1.0});
+  RunScore({
+    this.difficulty,
+    this.climbMultiplier = 1.0,
+    this.stageFactor = 1.0,
+  });
 
   /// Сложность уровня захода: сжатый порог автоматизма. `null` — обычный
   /// забег вне захода, например Восход.
@@ -250,6 +254,13 @@ class RunScore {
 
   /// Множитель очков уровня захода.
   final double climbMultiplier;
+
+  /// Множитель этапа: показ платит меньше проверки.
+  ///
+  /// Не ноль на знакомстве. Ноль означал бы, что первые шесть кругов уровня
+  /// не считаются игрой, — а это те самые круги, где человек впервые видит
+  /// слово.
+  final double stageFactor;
 
   ComboState _combo = const ComboState();
   int _score = 0;
@@ -278,7 +289,7 @@ class RunScore {
       lumens: lumens,
       combo: _combo,
       difficulty: difficulty,
-      climbMultiplier: climbMultiplier,
+      climbMultiplier: climbMultiplier * stageFactor,
       replayed: replayed,
     );
 

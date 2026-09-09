@@ -82,13 +82,13 @@ void main() {
       }
     });
 
-    test('надбавка вариантов одинакова для всех механик', () {
+    test('надбавка вариантов растёт монотонно', () {
       // Раньше число вариантов решала механика — узнавание 4, остальные 6, —
       // и один и тот же уровень захода означал для разных механик разную
       // вариантность: игрок не мог понять, от чего именно круг стал труднее.
       // Теперь вариантность приходит из плана, а заход добавляет к ней
-      // число сверху. Проверка нужна именно потому, что заход этого не
-      // видит: он не знает механики, и вернуть зависимость легко.
+      // число сверху.
+      //
       // Что вариантность одинакова для всех механик, проверять больше нечем:
       // `defaultOptions` не принимает механику, и вернуть зависимость нельзя
       // без правки подписи. Осталось проверить то, что заход действительно
@@ -110,7 +110,8 @@ void main() {
       // оправдают.
       final ceiling = ScoreBalance.optionsMax + ClimbBalance.extraOptionsMax;
       for (var level = 1; level <= 100; level++) {
-        final options = ScoreBalance.defaultOptions(extra: ClimbRules.difficultyFor(level).extraOptions,
+        final options = ScoreBalance.defaultOptions(
+          extra: ClimbRules.difficultyFor(level).extraOptions,
         );
         expect(options, inInclusiveRange(ScoreBalance.optionsMin, ceiling),
             reason: 'уровень $level: $options вариантов');
@@ -338,24 +339,27 @@ void main() {
   });
 
   group('чего заход не трогает', () {
-    List<PlannedCircle> planAt(int level) => SessionPlanner.level(
-          reviews: [
-            for (var i = 0; i < 3; i++)
-              StudyItem(itemId: 'old$i', tier: Tier.a1, lumens: 70),
-          ],
-          fresh: [
-            for (var i = 0; i < 2; i++)
-              StudyItem(
-                itemId: 'new$i',
-                tier: Tier.a1,
-                lumens: 0,
-                isNew: true,
-              ),
-          ],
-          newWords: 2,
-          reviewWords: 3,
-          difficulty: ClimbRules.difficultyFor(level),
-        );
+    List<PlannedCircle> planAt(int level) => [
+          for (final run in SessionPlanner.level(
+            reviews: [
+              for (var i = 0; i < 3; i++)
+                StudyItem(itemId: 'old$i', tier: Tier.a1, lumens: 70),
+            ],
+            fresh: [
+              for (var i = 0; i < 2; i++)
+                StudyItem(
+                  itemId: 'new$i',
+                  tier: Tier.a1,
+                  lumens: 0,
+                  isNew: true,
+                ),
+            ],
+            newWords: 2,
+            reviewWords: 3,
+            difficulty: ClimbRules.difficultyFor(level),
+          ))
+            ...run.circles,
+        ];
 
     test('знакомство остаётся показом на любом уровне', () {
       // Один вариант — не поблажка, а показ: соединил, услышал, увидел
@@ -388,9 +392,19 @@ void main() {
       // и `distractorKind` среди них нет — раньше это было невыразимо,
       // потому что вид дистракторов был отдельным режимом («Тесный круг»),
       // и «поднять уровень» неизбежно означало бы «сменить механику».
-      for (final circle in planAt(30)) {
-        expect(circle.distractorKind, DistractorKind.far);
-      }
+      // Проверяется не «везде far», а что уровень захода на вид дистракторов
+      // не влияет: на первом уровне и на тридцатом раскладка одна и та же.
+      // Прежняя формулировка требовала far везде и упала бы, как только
+      // появился этап проверки, — правильно упала бы, но не о том.
+      expect(
+        planAt(30).map((c) => c.distractorKind).toList(),
+        planAt(1).map((c) => c.distractorKind).toList(),
+      );
+      // И созвучные всё-таки встречаются: этап проверки для этого и нужен.
+      expect(
+        planAt(1).map((c) => c.distractorKind).toSet(),
+        contains(DistractorKind.near),
+      );
     });
   });
 }

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/audio/speech_service.dart';
 import '../../../domain/entities/circle_question.dart';
+import '../../../domain/scheduler/level_stage.dart';
 import '../../../domain/scoring/climb.dart';
 import '../../../domain/scoring/score.dart';
 import '../../../data/repositories/word_state_repository.dart';
@@ -34,6 +35,8 @@ class RunState {
     required this.total,
     this.lastCorrect,
     this.summary,
+    this.stage,
+    this.goal,
   });
 
   const RunState.empty()
@@ -46,7 +49,9 @@ class RunState {
         answered = 0,
         total = 0,
         lastCorrect = null,
-        summary = null;
+        summary = null,
+        stage = null,
+        goal = null;
 
   /// Очередь кругов. Ошибочные слова возвращаются в её конец, поэтому она
   /// длиннее исходного плана.
@@ -69,6 +74,15 @@ class RunState {
 
   final RunSummary? summary;
 
+  /// Этап уровня, на котором идёт забег. `null` у Восхода.
+  final LevelStage? stage;
+
+  /// Цель спринта. `null` у обычного забега.
+  final SprintGoal? goal;
+
+  /// Спринт: цель достигнута.
+  bool get goalReached => goal?.reachedBy(correct) ?? false;
+
   CircleQuestion? get current =>
       index >= 0 && index < queue.length ? queue[index] : null;
 
@@ -76,6 +90,9 @@ class RunState {
 
   /// Прогресс забега 0..1 — по отвеченным кругам плана, а не по очереди:
   /// иначе полоса ползла бы назад на каждой ошибке.
+  ///
+  /// У спринта та же формула означает путь к планке: `total` там равен числу
+  /// нужных связей, а не длине очереди.
   double get progress => total == 0 ? 0 : (answered / total).clamp(0.0, 1.0);
 
   RunState copyWith({
@@ -89,6 +106,8 @@ class RunState {
     int? total,
     bool? Function()? lastCorrect,
     RunSummary? summary,
+    LevelStage? stage,
+    SprintGoal? goal,
   }) =>
       RunState(
         queue: queue ?? this.queue,
@@ -102,6 +121,8 @@ class RunState {
         lastCorrect:
             lastCorrect == null ? this.lastCorrect : lastCorrect(),
         summary: summary ?? this.summary,
+        stage: stage ?? this.stage,
+        goal: goal ?? this.goal,
       );
 }
 
@@ -132,14 +153,22 @@ class RunController extends Notifier<RunState> {
   /// на середине ответа — это способ научить его не начинать.
   /// [climb] — уровень захода, на котором идёт забег. `null` для Восхода:
   /// он не про очки, а про то, что часть неба снова горит.
+  /// [stage] — этап уровня, на котором идёт забег: от него зависит цена
+  /// круга (показ платит меньше проверки). [goal] задан только у спринта: с
+  /// ним забег кончается по достигнутой планке или по истечению времени, а не
+  /// по концу очереди.
   void start(
     List<CircleQuestion> questions, {
     Duration? maxDuration,
     ClimbState? climb,
+    LevelStage? stage,
+    SprintGoal? goal,
   }) {
     _advanceTimer?.cancel();
     _lmGained = 0;
-    _deadline = maxDuration == null ? null : DateTime.now().add(maxDuration);
+    // У спринта время своё: планка в связях, а срок — в цели.
+    final limit = goal?.duration ?? maxDuration;
+    _deadline = limit == null ? null : DateTime.now().add(limit);
     _startedAt = DateTime.now();
 
     if (questions.isEmpty) {
@@ -150,6 +179,7 @@ class RunController extends Notifier<RunState> {
     _run = RunScore(
       difficulty: climb?.difficulty,
       climbMultiplier: climb?.multiplier ?? 1.0,
+      stageFactor: stage == null ? 1.0 : StageRules.scoreFactorFor(stage),
     );
     state = RunState(
       queue: List.of(questions),
@@ -159,15 +189,23 @@ class RunController extends Notifier<RunState> {
       combo: const ComboState(),
       correct: 0,
       answered: 0,
-      total: questions.length,
+      // У спринта полоса прогресса показывает путь к планке, а не к концу
+      // очереди: кругов в очереди намеренно вдвое больше, чем нужно связей.
+      total: goal?.connections ?? questions.length,
+      stage: stage,
+      goal: goal,
     );
 
     ref.read(analyticsProvider).log(AnalyticsEvents.runStarted, {
       'circles': questions.length,
       'climb_level': climb?.level ?? 0,
+      'stage': stage?.name ?? '',
     });
     _preloadNext();
   }
+
+  /// Сколько кругов задано — для точности уровня целиком.
+  int get circles => _run.circles;
 
   RunScore _run = RunScore();
 
@@ -264,6 +302,15 @@ class RunController extends Notifier<RunState> {
       : const Duration(milliseconds: 1100);
 
   void _advance() {
+    // Спринт кончается на достигнутой планке, а не на конце очереди:
+    // считаются верные связи. Иначе ошибка, возвращающая слово в конец
+    // очереди, продлевала бы забег — то есть наказание за промах
+    // превращалось бы в лишнее время.
+    if (state.goalReached) {
+      _finish();
+      return;
+    }
+
     final next = state.index + 1;
     if (next >= state.queue.length || _isOutOfTime) {
       _finish();

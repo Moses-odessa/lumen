@@ -187,7 +187,7 @@ void main() {
 
     test('уровень закрывается фразовым забегом', () async {
       final session = await loader.level(now);
-      final phrases = session.runs.last;
+      final phrases = session.runs.last.questions;
 
       // Фраза — другой масштаб задачи, и мешать её со словами не стоит:
       // отдельный короткий забег в конце.
@@ -197,7 +197,7 @@ void main() {
       expect(
         session.runs
             .take(session.runs.length - 1)
-            .expand((run) => run)
+            .expand((run) => run.questions)
             .every((q) => q.mode.isWordMode),
         isTrue,
         reason: 'фраза попала в забег со словами',
@@ -226,7 +226,7 @@ void main() {
     test('собранная фраза совпадает с тем, что будет произнесено', () async {
       final session = await loader.level(now);
 
-      for (final q in session.runs.last) {
+      for (final q in session.runs.last.questions) {
         // `assembled` — это то, что игрок услышит, закрыв последний слот.
         // Расхождение с озвучкой значит, что он услышит не ту фразу, которую
         // собрал.

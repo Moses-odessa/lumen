@@ -40,6 +40,9 @@ class AppLocalizationsUk extends AppLocalizations {
   String get commonUndo => 'Скасувати';
 
   @override
+  String get commonDone => 'Готово';
+
+  @override
   String get commonNext => 'Далі';
 
   @override
@@ -515,6 +518,39 @@ class AppLocalizationsUk extends AppLocalizations {
   @override
   String unitHoursMinutes(int hours, int minutes) {
     return '$hours год $minutes хв';
+  }
+
+  @override
+  String get stageIntroduction => 'Знайомство';
+
+  @override
+  String get stageConsolidation => 'Закріплення';
+
+  @override
+  String get stageCheck => 'Перевірка';
+
+  @override
+  String get stageReminder => 'Пригадування';
+
+  @override
+  String get stageSprint => 'Спринт';
+
+  @override
+  String sprintGoal(int done, int target, int seconds) {
+    return '$done з $target за $seconds с';
+  }
+
+  @override
+  String get sprintReached => 'Планку взято';
+
+  @override
+  String sprintMissed(int done, int target) {
+    return 'Планку не взято: $done з $target';
+  }
+
+  @override
+  String sprintAttempt(int attempt, int total) {
+    return 'Спроба $attempt з $total';
   }
 
   @override

@@ -40,6 +40,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get commonUndo => 'Отменить';
 
   @override
+  String get commonDone => 'Готово';
+
+  @override
   String get commonNext => 'Дальше';
 
   @override
@@ -513,6 +516,39 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String unitHoursMinutes(int hours, int minutes) {
     return '$hours ч $minutes мин';
+  }
+
+  @override
+  String get stageIntroduction => 'Знакомство';
+
+  @override
+  String get stageConsolidation => 'Закрепление';
+
+  @override
+  String get stageCheck => 'Проверка';
+
+  @override
+  String get stageReminder => 'Напоминание';
+
+  @override
+  String get stageSprint => 'Спринт';
+
+  @override
+  String sprintGoal(int done, int target, int seconds) {
+    return '$done из $target за $seconds с';
+  }
+
+  @override
+  String get sprintReached => 'Планка взята';
+
+  @override
+  String sprintMissed(int done, int target) {
+    return 'Планка не взята: $done из $target';
+  }
+
+  @override
+  String sprintAttempt(int attempt, int total) {
+    return 'Попытка $attempt из $total';
   }
 
   @override

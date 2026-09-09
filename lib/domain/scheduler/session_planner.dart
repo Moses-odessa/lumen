@@ -11,6 +11,7 @@ import '../entities/game_mode.dart';
 import '../entities/tier.dart';
 import '../scoring/balance.dart';
 import '../scoring/climb.dart';
+import 'level_stage.dart';
 
 /// Слово-кандидат на показ. Всё, что планировщику нужно знать о слове;
 /// перевод и озвучка берутся позже из `content.db` по [itemId].
@@ -92,6 +93,22 @@ class PlannedCircle {
   String toString() =>
       '$itemId (${mode.name}, $lumens lm, $options вар., '
       '${distractorKind.name})';
+}
+
+/// Забег одного этапа: чем спрашивают и что именно.
+class StagedRun {
+  const StagedRun({required this.stage, required this.circles, this.goal});
+
+  final LevelStage stage;
+  final List<PlannedCircle> circles;
+
+  /// Цель, если этап идёт на время. `null` у обычных забегов.
+  final SprintGoal? goal;
+
+  int get length => circles.length;
+
+  @override
+  String toString() => '${stage.name}: ${circles.length} кругов';
 }
 
 /// Что умеет текущая сессия. Механику, которую невозможно показать,
@@ -185,13 +202,17 @@ abstract final class SessionPlanner {
     return _fallback;
   }
 
-  /// Уровень: новые слова вперемешку с повторами.
+  /// Уровень этапами: знакомство → закрепление → проверка → напоминание.
   ///
-  /// Новое слово показывается [SessionBalance.newWordRepeats] раз: первый раз
-  /// без таймера, потом вплетается в забеги. Повтор — по одному разу.
-  /// Отсюда длина уровня: 6 × 3 + 12 = 30 кругов, то есть три забега по
-  /// десять.
-  static List<PlannedCircle> level({
+  /// Новое слово встречается [SessionBalance.newWordRepeats] раза — по разу
+  /// на каждом из первых трёх этапов. Раньше показы вплетались между
+  /// повторами и разводились правилом «не ближе трёх кругов»; теперь их
+  /// разводят сами этапы, и разведены они максимально: между двумя показами
+  /// одного слова лежит целый забег.
+  ///
+  /// Возвращает этапы в порядке прохождения. Пустые этапы отсеиваются: забег
+  /// из нуля кругов — это экран, который нечем показать.
+  static List<StagedRun> level({
     required List<StudyItem> reviews,
     required List<StudyItem> fresh,
     SessionCapabilities capabilities = const SessionCapabilities(),
@@ -206,77 +227,139 @@ abstract final class SessionPlanner {
     final chosenReviews = reviews.toList()
       ..sort((a, b) => a.lumens.compareTo(b.lumens));
 
-    // Надбавка вариантов от захода живёт здесь, а не в сборщике вопросов.
-    //
-    // Сначала она была там, и это ломало знакомство: сборщик прибавлял
-    // `extraOptions` к КАЖДОМУ кругу, включая тот, которому планировщик
-    // намеренно поставил один вариант. С четвёртого уровня захода первый в
-    // жизни показ слова становился выбором из двух, с седьмого — из трёх, то
-    // есть показ превращался в проверку слова, которого игрок ещё не видел.
-    //
-    // Вариантность по новому контракту живёт в плане. Значит и надбавка
-    // должна применяться там, где известно, что за круг: [_markFirstShows]
-    // ставит знакомству свой один вариант последним и надбавку не наследует.
     final extra = difficulty?.extraOptions ?? 0;
+    final draws = difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase;
 
-    PlannedCircle circleFor(StudyItem word) => PlannedCircle(
-          itemId: word.itemId,
-          mode: modeFor(
-            word.lumens,
+    // Повторы делятся между этапами: закрепление, проверка и напоминание
+    // берут по своей доле, а не одни и те же слова трижды. Напоминанию
+    // достаются самые тусклые — те, что ближе всего к тому, чтобы быть
+    // забытыми совсем.
+    final withReviews = [
+      LevelStage.consolidation,
+      LevelStage.check,
+      LevelStage.reminder,
+    ];
+    final perStage = (reviewWords / withReviews.length).ceil();
+    final queue = chosenReviews.take(reviewWords).toList();
+
+    final runs = <StagedRun>[];
+    for (final stage in StageRules.levelOrder) {
+      final circles = <PlannedCircle>[];
+
+      if (stage.takesNewWords) {
+        for (final word in chosenNew) {
+          circles.add(_circleFor(
+            word,
+            stage: stage,
             capabilities: capabilities,
-            hasAudio: word.hasAudio,
             random: random,
-            draws: difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase,
-          ),
-          isNew: false,
-          lumens: word.lumens,
-          options: ScoreBalance.defaultOptions(extra: extra),
-        );
+            draws: draws,
+            extra: extra,
+            // Первый в жизни показ помечается новым: на нём нет таймера.
+            isNew: stage == LevelStage.introduction,
+          ));
+        }
+      }
 
-    final slots = [
-      for (final word in chosenReviews.take(reviewWords)) circleFor(word),
-    ];
+      if (withReviews.contains(stage)) {
+        // Напоминанию идут самые тусклые: очередь отсортирована по яркости,
+        // и последний этап забирает её хвост.
+        final take = stage == LevelStage.reminder
+            ? queue.length
+            : min(perStage, queue.length);
+        for (final word in queue.take(take)) {
+          circles.add(_circleFor(
+            word,
+            stage: stage,
+            capabilities: capabilities,
+            random: random,
+            draws: draws,
+            extra: extra,
+          ));
+        }
+        queue.removeRange(0, take);
+      }
 
-    // Новые слова вплетаются между повторами, а не идут блоком: шесть новых
-    // подряд — это зубрёжка, после которой ни одно не остаётся.
-    final occurrences = <PlannedCircle>[
-      for (final word in chosenNew)
-        for (var i = 0; i < SessionBalance.newWordRepeats; i++)
-          circleFor(word),
-    ];
+      if (circles.isEmpty) continue;
+      // Порядок внутри этапа перемешивается: иначе новые слова всегда
+      // стоят первыми, и игрок узнаёт их по месту в забеге, а не по слову.
+      if (random != null) circles.shuffle(random);
+      runs.add(StagedRun(stage: stage, circles: circles));
+    }
 
-    // Роль показа назначается ПОСЛЕ раскладки, а не до неё: вплетение
-    // раздвигает круги и может поменять их порядок местами, и тогда «первый
-    // показ» перестал бы быть первым.
-    return _markFirstShows(
-      _weave(slots, occurrences),
-      {for (final word in chosenNew) word.itemId},
-    );
+    return runs;
   }
 
-  /// Помечает первый по порядку показ каждого нового слова.
+  /// Спринт: гонка по тому, что уже держится в памяти.
   ///
-  /// Первый показ — это знакомство, а не проверка: механика на понимание,
-  /// один вариант, таймера нет. Один вариант выбран не для лёгкости: выбирать
-  /// не из чего, и круг превращается в показ — соединил, услышал, увидел
-  /// перевод. Остальные показы остаются такими, какими их выбрал [modeFor].
-  static List<PlannedCircle> _markFirstShows(
-    List<PlannedCircle> circles,
-    Set<String> newWordIds,
-  ) {
-    final seen = <String>{};
-    return [
-      for (final circle in circles)
-        if (newWordIds.contains(circle.itemId) && seen.add(circle.itemId))
-          circle.copyWith(
-            mode: GameMode.pickNative,
-            isNew: true,
-            options: SessionBalance.introductionOptions,
-          )
-        else
-          circle,
-    ];
+  /// Слова ниже порога яркости не берутся, даже если просрочены сильнее
+  /// остальных: гонка на незнакомом материале учит панике, а не языку.
+  /// Новых слов здесь нет по построению — [pool] их не возвращает.
+  ///
+  /// Круги повторяются по кругу до конца времени: планка спринта в связях, а
+  /// не в словах, и слов может не хватить на планку.
+  static StagedRun? sprint({
+    required List<StudyItem> candidates,
+    required SprintGoal goal,
+    SessionCapabilities capabilities = const SessionCapabilities(),
+    Random? random,
+    ClimbDifficulty? difficulty,
+  }) {
+    final bright = candidates
+        .where((c) => !c.isNew)
+        .where((c) => c.lumens >= StageRules.minLumensFor(LevelStage.sprint))
+        .toList();
+    if (bright.isEmpty) return null;
+
+    final extra = difficulty?.extraOptions ?? 0;
+    final draws = difficulty?.modeDraws ?? ClimbBalance.modeDrawsBase;
+
+    final order = bright.toList();
+    if (random != null) order.shuffle(random);
+
+    // Кругов ставится с запасом: связей нужно [goal.connections], но ошибка
+    // возвращает слово в конец очереди, и упереться в конец списка раньше
+    // времени нельзя.
+    final circles = <PlannedCircle>[];
+    for (var i = 0; circles.length < goal.connections * 2; i++) {
+      circles.add(_circleFor(
+        order[i % order.length],
+        stage: LevelStage.sprint,
+        capabilities: capabilities,
+        random: random,
+        draws: draws,
+        extra: extra,
+      ));
+    }
+
+    return StagedRun(stage: LevelStage.sprint, circles: circles, goal: goal);
   }
+
+  /// Круг для слова на этапе.
+  static PlannedCircle _circleFor(
+    StudyItem word, {
+    required LevelStage stage,
+    required SessionCapabilities capabilities,
+    required Random? random,
+    required int draws,
+    required int extra,
+    bool isNew = false,
+  }) =>
+      PlannedCircle(
+        itemId: word.itemId,
+        mode: modeFor(
+          word.lumens,
+          capabilities: capabilities,
+          hasAudio: word.hasAudio,
+          random: random,
+          draws: draws,
+          allowed: StageRules.mechanicsFor(stage),
+        ),
+        isNew: isNew,
+        lumens: word.lumens,
+        options: StageRules.optionsFor(stage, extra: extra),
+        distractorKind: StageRules.distractorFor(stage),
+      );
 
   /// Восход: только повторения, самые тусклые первыми, без новых слов.
   ///
@@ -385,77 +468,13 @@ abstract final class SessionPlanner {
     return ad.compareTo(bd);
   }
 
-  /// Вплетает [extra] в [base], раздвигая одинаковые слова.
-  ///
-  /// Алгоритм намеренно простой: раскладываем вставки по равномерным
-  /// позициям, а если два показа одного слова оказались ближе допустимого,
-  /// сдвигаем более поздний дальше. Идеальной раскладки не ищем — важно лишь
-  /// то, чтобы слово не встречалось дважды подряд.
-  static List<PlannedCircle> _weave(
-    List<PlannedCircle> base,
-    List<PlannedCircle> extra,
-  ) {
-    if (extra.isEmpty) return base;
-    if (base.isEmpty) return _spread(extra);
-
-    final result = <PlannedCircle>[...base];
-    final step = (result.length + extra.length) / (extra.length + 1);
-
-    for (var i = 0; i < extra.length; i++) {
-      final target = ((i + 1) * step).round().clamp(0, result.length);
-      result.insert(_freeSlot(result, extra[i].itemId, target), extra[i]);
-    }
-    return result;
-  }
-
-  /// Ближайшая к [target] позиция, где слово не окажется рядом со своим же
-  /// показом.
-  static int _freeSlot(
-    List<PlannedCircle> circles,
-    String itemId,
-    int target,
-  ) {
-    for (var offset = 0; offset <= circles.length; offset++) {
-      for (final position in {target + offset, target - offset}) {
-        if (position < 0 || position > circles.length) continue;
-        if (_gapOk(circles, itemId, position)) return position;
-      }
-    }
-    return target;
-  }
-
-  static bool _gapOk(
-    List<PlannedCircle> circles,
-    String itemId,
-    int position,
-  ) {
-    const gap = SessionBalance.minGapBetweenRepeats;
-    final from = max(0, position - gap);
-    final to = min(circles.length, position + gap);
-    for (var i = from; i < to; i++) {
-      if (circles[i].itemId == itemId) return false;
-    }
-    return true;
-  }
-
-  /// Раскладка, когда повторов нет вообще — только новые слова.
-  static List<PlannedCircle> _spread(List<PlannedCircle> circles) {
-    final byWord = <String, List<PlannedCircle>>{};
-    for (final circle in circles) {
-      byWord.putIfAbsent(circle.itemId, () => []).add(circle);
-    }
-
-    // Круговой обход: по одному показу каждого слова, потом второй круг.
-    final result = <PlannedCircle>[];
-    var added = true;
-    while (added) {
-      added = false;
-      for (final queue in byWord.values) {
-        if (queue.isEmpty) continue;
-        result.add(queue.removeAt(0));
-        added = true;
-      }
-    }
-    return result;
-  }
+  // `_weave`, `_freeSlot`, `_gapOk` и `_spread` удалены вместе с однородным
+  // уровнем.
+  //
+  // Они раздвигали показы одного слова так, чтобы между ними лежало не меньше
+  // трёх кругов: без этого два показа подряд проверяли буфер кратковременной
+  // памяти, а не повторение. Теперь показы разводят сами этапы, и разведены
+  // они максимально — между двумя показами одного слова лежит целый забег.
+  // Держать сто строк раскладки ради задачи, которой больше нет, значит
+  // оставить их следующему читателю как загадку.
 }
