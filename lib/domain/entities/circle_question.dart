@@ -111,6 +111,38 @@ class CircleQuestion {
   /// Артикль верного ответа: показывается вместе с ответом.
   final String? answerArticle;
 
+  /// Тот же вопрос, но другой объект.
+  ///
+  /// Нужен затем, чтобы промах можно было показать заново. Арена сбрасывает
+  /// своё состояние, когда `widget.question` перестаёт быть **тем же
+  /// объектом** — сравнения по значению у вопроса нет и не надо: два круга по
+  /// одному слову это два разных вопроса, и путать их нельзя.
+  ///
+  /// Но забег возвращал промах в конец очереди тем же экземпляром. Пока за
+  /// ним стояли другие круги, разница не проявлялась. А когда промах —
+  /// последний круг забега, следующим показывается он же: объект тот, арена
+  /// не сбрасывается, заполненные слоты и выбранный вариант остаются на
+  /// месте, и она больше не принимает ответов. Забег ждёт вечно.
+  ///
+  /// Закрывающий уровень фразовый заход — ровно два круга на одном
+  /// предложении, так что промах на втором вешал уровень целиком.
+  CircleQuestion again() => CircleQuestion(
+        itemId: itemId,
+        tier: tier,
+        mode: mode,
+        prompt: prompt,
+        options: options,
+        answers: answers,
+        lumens: lumens,
+        isNew: isNew,
+        promptSpeech: promptSpeech,
+        answerSpeech: answerSpeech,
+        promptHint: promptHint,
+        promptTag: promptTag,
+        answerArticle: answerArticle,
+        translation: translation,
+      );
+
   /// Сколько слотов нужно заполнить.
   int get slotCount => answers.length;
 
@@ -145,8 +177,27 @@ class CircleQuestion {
   }
 
   /// Верен ли выбор варианта для слота.
-  bool isCorrectFor(int slot, int optionIndex) =>
-      slot >= 0 && slot < slotCount && answers[slot] == optionIndex;
+  ///
+  /// Сравнивается **текст**, а не только номер варианта, и это починка, а не
+  /// вольность. В пуле фразы лежат слова самого предложения, поэтому два
+  /// одинаковых слова — обычное дело: «Das ist ein guter Preis für so ein
+  /// Auto» несёт `ein` дважды, и это запущенный ярус A0. Игрок видит две
+  /// неотличимые плитки, за каждой стоит свой номер, и слот принимал только
+  /// один из двух. Поставил наоборот — «неверно» на предложении, которое
+  /// читается буква в букву как правильное.
+  ///
+  /// Такое есть у четырёх фраз из 432 точным совпадением слова и у
+  /// девятнадцати — совпадением без учёта регистра.
+  ///
+  /// Номера при этом остаются разными у разных слотов (`_firstUnused` в
+  /// сборщике): иначе два слота заняли бы одну плитку, а вторая осталась бы
+  /// висеть в пуле незакрываемой.
+  bool isCorrectFor(int slot, int optionIndex) {
+    if (slot < 0 || slot >= slotCount) return false;
+    if (answers[slot] == optionIndex) return true;
+    if (optionIndex < 0 || optionIndex >= options.length) return false;
+    return options[optionIndex] == answerFor(slot);
+  }
 
   /// Верен ли выбор, когда слот один.
   bool isCorrectOption(int index) => isCorrectFor(0, index);

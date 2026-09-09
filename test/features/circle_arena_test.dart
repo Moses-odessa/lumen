@@ -229,6 +229,52 @@ void main() {
     expect(find.text('банковская · незлічуване'), findsOneWidget);
   });
 
+  testWidgets('промах, вернувшийся последним, снова принимает ответ',
+      (tester) async {
+    // Забег возвращает промах в конец очереди. Пока за ним стоят другие
+    // круги, следующим показывается другой вопрос и арена сбрасывается. А
+    // когда промах — последний круг, следующим идёт он же: если вернуть тот
+    // же объект, `didUpdateWidget` не увидит смены, `_chosen` останется, и
+    // арена больше не примет ответов. Забег ждёт вечно, уровень висит.
+    //
+    // Закрывающий уровень фразовый заход — ровно два круга на одном
+    // предложении, так что промах на втором вешал уровень целиком. Прежний
+    // тест этого не ловил: он подставлял **другой** вопрос.
+    final answers = <(int, Duration)>[];
+
+    Widget arena(CircleQuestion q) => MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: Scaffold(
+            body: Center(
+              child: SizedBox(
+                width: size,
+                height: size,
+                child: CircleArena(
+                  question: q,
+                  onAnswer: (i, l) => answers.add((i, l)),
+                ),
+              ),
+            ),
+          ),
+        );
+
+    await tester.pumpWidget(arena(question));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Art'));
+    await tester.pump();
+    expect(answers, hasLength(1), reason: 'промах не зарегистрирован');
+
+    // Ровно то, что делает забег: тот же вопрос снова, другим объектом.
+    await tester.pumpWidget(arena(question.again()));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Arzt'));
+    await tester.pump();
+
+    expect(answers, hasLength(2),
+        reason: 'арена не приняла второй ответ — забег завис бы');
+  });
+
   testWidgets('новый вопрос сбрасывает круг', (tester) async {
     final answers = <(int, Duration)>[];
 
