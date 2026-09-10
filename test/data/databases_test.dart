@@ -10,6 +10,7 @@ import 'package:lumen/domain/entities/prompt_tag.dart';
 import 'package:lumen/domain/entities/tier.dart';
 import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/sky/progression.dart';
+import 'package:sqlite3/sqlite3.dart' as raw;
 
 import '../../tool/content_sources.dart';
 
@@ -58,8 +59,9 @@ void main() {
       // фичей, v4 сделала фразы такой же единицей памяти, как слова,
       // v5 добавила аркадные заходы к сессиям, v6 — таблицу отложенного
       // обслуживания, потому что чистку памяти о пропавшем контенте нельзя
-      // сделать внутри миграции: она не видит content.db.
-      expect(db.schemaVersion, 6);
+      // сделать внутри миграции: она не видит content.db, v7 унесла
+      // `custom_concepts` вместе с экраном «Свои слова».
+      expect(db.schemaVersion, 7);
       expect(await db.loadPlayer(), isNull);
 
       await db.savePlayer(Player(
@@ -111,17 +113,55 @@ void main() {
     });
 
     test('wipe удаляет данные полностью', () async {
+      // «Полностью» — это пять таблиц: `custom_concepts` из списка ушла не
+      // потому, что её забыли, а потому, что её больше нет (миграция v7).
       await db.savePlayer(
         const Player(targetLang: 'de', nativeLang: 'ru', tier: Tier.a0),
       );
+      await db.recordReview(
+        state: WordStatesCompanion.insert(
+          itemId: 'food_a0_bread',
+          tier: 'a0',
+          difficulty: 5,
+          stability: 1,
+        ),
+        review: ReviewsCompanion.insert(
+          itemId: 'food_a0_bread',
+          at: DateTime(2026, 9, 9),
+          latencyMs: 900,
+          mode: 'pickTarget',
+          correct: true,
+          grade: 3,
+        ),
+      );
+      await db.saveSession(SessionsCompanion.insert(
+        startedAt: DateTime(2026, 9, 9),
+        durationMs: 60000,
+        lmGained: 5,
+        score: 50,
+        newWords: 0,
+      ));
+      await db.into(db.constellationProgress).insertOnConflictUpdate(
+            ConstellationProgressCompanion.insert(
+              constellation: 'food',
+              tier: 'a0',
+            ),
+          );
+
       await db.wipe();
+
       expect(await db.loadPlayer(), isNull);
+      expect(await db.loadWordStates(), isEmpty);
+      expect(await db.recentReviews(), isEmpty);
+      expect(await db.loadSessions(), isEmpty);
+      expect(await db.select(db.constellationProgress).get(), isEmpty);
     });
 
     group('чистка памяти без контента', () {
-      // Единственная проверенная тестом миграционная работа в проекте. До
-      // неё ни одна ветка `from < N` не была прогнана ни разу: тест создавал
-      // свежую базу и проверял `onCreate`.
+      // Работа, которую попросила миграция v6, но выполняет уже приложение:
+      // `user.db` не видно `content.db`. Саму ветку `from < 6` этот тест не
+      // прогоняет — он создаёт свежую базу; по настоящей старой базе
+      // проходит только «миграция user.db v6 → v7» ниже.
 
       Future<void> seed(String itemId) => db.recordReview(
             state: WordStatesCompanion.insert(
@@ -270,6 +310,159 @@ void main() {
     });
   });
 
+  group('миграция user.db v6 → v7', () {
+    // Проверяется то, что делает игрок: ставит обновление на базу, которая у
+    // него уже лежит. Свежая база этой ветки миграции не касается вовсе —
+    // `onCreate` создаёт схему v7 сразу, и `custom_concepts` в ней нет,
+    // поэтому «удаление таблицы» на пустой базе выглядит зелёным, ничего не
+    // удалив.
+    late raw.Database source;
+    late AppDatabase db;
+
+    /// База по схеме v6 с данными игрока, открытая приложением, — то есть
+    /// первый запуск после обновления.
+    ///
+    /// DDL списан с `sqlite_master` базы, созданной прежним `onCreate`, а не
+    /// написан по памяти: расхождение здесь превратило бы проверку миграции в
+    /// проверку выдуманной схемы. `sqlite_sequence` в списке нет намеренно —
+    /// SQLite создаёт её сам под `AUTOINCREMENT`.
+    void openV6() {
+      source = raw.sqlite3.openInMemory();
+      for (final ddl in const [
+        'CREATE TABLE "players" ("id" INTEGER NOT NULL DEFAULT 1, '
+            '"target_lang" TEXT NOT NULL, "native_lang" TEXT NOT NULL, '
+            '"ui_lang" TEXT NULL, "tier" TEXT NOT NULL, '
+            '"calibrated" INTEGER NOT NULL DEFAULT 0 '
+            'CHECK ("calibrated" IN (0, 1)), '
+            '"orbit" INTEGER NOT NULL DEFAULT 0, '
+            '"sparks" INTEGER NOT NULL DEFAULT 0, '
+            '"last_played_at" INTEGER NULL, '
+            '"missed_in_row" INTEGER NOT NULL DEFAULT 0, '
+            '"free_pace" INTEGER NOT NULL DEFAULT 0 '
+            'CHECK ("free_pace" IN (0, 1)), '
+            '"sound_enabled" INTEGER NOT NULL DEFAULT 1 '
+            'CHECK ("sound_enabled" IN (0, 1)), '
+            '"eclipse_until" INTEGER NULL, "preferred_hour" INTEGER NULL, '
+            '"notifications_enabled" INTEGER NOT NULL DEFAULT 0 '
+            'CHECK ("notifications_enabled" IN (0, 1)), PRIMARY KEY ("id"))',
+        'CREATE TABLE "word_states" ("item_id" TEXT NOT NULL, '
+            '"kind" TEXT NOT NULL DEFAULT \'word\', "tier" TEXT NOT NULL, '
+            '"difficulty" REAL NOT NULL, "stability" REAL NOT NULL, '
+            '"last_review" INTEGER NULL, "due" INTEGER NULL, '
+            '"lm_cached" INTEGER NOT NULL DEFAULT 0, '
+            '"fast_streak" INTEGER NOT NULL DEFAULT 0, '
+            '"burning" INTEGER NOT NULL DEFAULT 0 '
+            'CHECK ("burning" IN (0, 1)), '
+            '"reps" INTEGER NOT NULL DEFAULT 0, '
+            '"lapses" INTEGER NOT NULL DEFAULT 0, PRIMARY KEY ("item_id"))',
+        'CREATE TABLE "reviews" ('
+            '"id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '
+            '"item_id" TEXT NOT NULL, "at" INTEGER NOT NULL, '
+            '"latency_ms" INTEGER NOT NULL, "mode" TEXT NOT NULL, '
+            '"correct" INTEGER NOT NULL CHECK ("correct" IN (0, 1)), '
+            '"grade" INTEGER NOT NULL)',
+        'CREATE TABLE "constellation_progress" ('
+            '"constellation" TEXT NOT NULL, "tier" TEXT NOT NULL, '
+            '"unlocked" INTEGER NOT NULL DEFAULT 0 '
+            'CHECK ("unlocked" IN (0, 1)), '
+            '"lit" INTEGER NOT NULL DEFAULT 0 CHECK ("lit" IN (0, 1)), '
+            '"levels_done" INTEGER NOT NULL DEFAULT 0, '
+            'PRIMARY KEY ("constellation", "tier"))',
+        'CREATE TABLE "sessions" ('
+            '"id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, '
+            '"started_at" INTEGER NOT NULL, "duration_ms" INTEGER NOT NULL, '
+            '"lm_gained" INTEGER NOT NULL, "score" INTEGER NOT NULL, '
+            '"new_words" INTEGER NOT NULL, "climb_id" TEXT NULL, '
+            '"climb_level" INTEGER NULL)',
+        'CREATE TABLE "custom_concepts" ("id" TEXT NOT NULL, '
+            '"target" TEXT NOT NULL, "native" TEXT NOT NULL, '
+            '"deck" TEXT NOT NULL, PRIMARY KEY ("id"))',
+        'CREATE TABLE "maintenance" ("key" TEXT NOT NULL, '
+            '"value" TEXT NOT NULL, PRIMARY KEY ("key"))',
+        'CREATE INDEX word_states_due_lm ON word_states (due, lm_cached)',
+        'CREATE INDEX reviews_at ON reviews (at)',
+      ]) {
+        source.execute(ddl);
+      }
+
+      // Прогресс игрока, который обязан миграцию пережить, и две личные пары
+      // в уносимой таблице: ровно то, что лежит на устройстве у автора.
+      for (final statement in const [
+        "INSERT INTO players (id, target_lang, native_lang, ui_lang, tier, "
+            "calibrated, orbit, sparks) "
+            "VALUES (1, 'de', 'uk', 'en', 'b1', 1, 4, 120)",
+        "INSERT INTO word_states (item_id, tier, difficulty, stability, "
+            "lm_cached, reps) VALUES ('food_a0_bread', 'a0', 5.0, 1.0, 42, 3)",
+        "INSERT INTO reviews (item_id, at, latency_ms, mode, correct, grade) "
+            "VALUES ('food_a0_bread', 1789171200, 900, 'pickTarget', 1, 3)",
+        "INSERT INTO constellation_progress (constellation, tier, unlocked, "
+            "levels_done) VALUES ('food', 'a0', 1, 2)",
+        "INSERT INTO sessions (started_at, duration_ms, lm_gained, score, "
+            "new_words) VALUES (1789171200, 300000, 10, 100, 0)",
+        "INSERT INTO custom_concepts (id, target, native, deck) "
+            "VALUES ('custom_arzt', 'Arzt', 'лікар', 'custom')",
+        "INSERT INTO custom_concepts (id, target, native, deck) "
+            "VALUES ('custom_rechnung', 'Rechnung', 'рахунок', 'custom')",
+        "INSERT INTO maintenance (key, value) "
+            "VALUES ('$pendingItemSweep', 'v6')",
+      ]) {
+        source.execute(statement);
+      }
+
+      // Без этого Drift решит, что база пустая, и вызовет `onCreate` вместо
+      // `onUpgrade`.
+      source.execute('PRAGMA user_version = 6');
+      db = AppDatabase(NativeDatabase.opened(source));
+    }
+
+    setUp(openV6);
+    tearDown(() async => db.close());
+
+    test('таблица своих слов уносится вместе с фичей', () async {
+      // Соединение Drift открывается лениво, и миграцию запускает первый
+      // запрос, а не конструктор.
+      expect(await db.loadPlayer(), isNotNull);
+
+      final tables = await db
+          .customSelect("SELECT name FROM sqlite_master WHERE type = 'table'")
+          .get();
+      expect(tables.map((r) => r.data['name']), isNot(contains('custom_concepts')),
+          reason: 'таблица, которую никто не пишет и не читает, — это '
+              'приглашение дописать фичу обратно');
+
+      final version = await db.customSelect('PRAGMA user_version').getSingle();
+      expect(version.data['user_version'], 7);
+    });
+
+    test('прогресс игрока миграцию переживает', () async {
+      // Резервной копии у игрока нет, и `user.db` — единственный экземпляр
+      // данных: миграция обязана унести ровно одну таблицу, а не задеть
+      // соседние.
+      final player = await db.loadPlayer();
+      expect(player!.targetLang, 'de');
+      expect(player.tier, Tier.b1);
+      expect(player.orbit, 4);
+      expect(player.sparks, 120);
+
+      final state = await db.loadWordState('food_a0_bread');
+      expect(state, isNotNull);
+      expect(state!.reps, 3);
+      expect(state.lmCached, 42);
+
+      expect((await db.recentReviews()).single.itemId, 'food_a0_bread');
+      expect((await db.loadSessions()).single.score, 100);
+      expect(
+        (await db.select(db.constellationProgress).get()).single.levelsDone,
+        2,
+      );
+
+      // Метка отложенного обслуживания не снимается: чистку памяти о
+      // пропавшем контенте делает `sweepUnknownItems`, когда открыта
+      // content.db, и удаление чужой таблицы к ней отношения не имеет.
+      expect(await db.needsItemSweep(), isTrue);
+    });
+  });
+
   group('content.db', () {
     late Directory support;
 
@@ -301,6 +494,10 @@ void main() {
 
       final meta = await db.loadMeta();
       expect(meta['lang'], 'de');
+      // Версия названа числом, а не только сверена с приложением: v7 — это
+      // колонка `phrases.kind`, и сверка «ассет той же версии, что код»
+      // прошла бы и на двух одинаково устаревших шестёрках.
+      expect(db.schemaVersion, 7);
       expect(meta['schema_version'], '${db.schemaVersion}');
       // Метки времени в метаданных нет намеренно: сборка воспроизводима.
       expect(meta.containsKey('built_at'), isFalse);
@@ -308,15 +505,66 @@ void main() {
       // Запущен только вычитанный ярус: играть по черновому контенту нельзя.
       expect(await db.launchedTiers(), {Tier.a0});
 
-      // Созвездие «У врача» написано целиком на всех пяти ярусах. Точных
-      // размеров тест не требует: правило «ровно 12/24/48/72/96» удалено —
-      // на словнике из 6000 лемм его провалили бы десять тем из двадцати
-      // четырёх (PLAN.md, решение 3).
+      // ── Размер корпуса назван числами, а не «больше нуля» ────────────────
       //
-      // Проверяется то, что осталось правдой и после смены правила: выборка
-      // накопительная — ярус добавляет звёзды, а не заменяет их.
-      expect(await db.countPhrases(), greaterThan(0));
+      // Раньше здесь стояло `greaterThan(0)`, и это была не лень, а сдача:
+      // правило «ровно 12/24/48/72/96 звёзд» удалили, потому что на словнике
+      // из 6000 лемм его провалили бы десять тем из двадцати четырёх (PLAN.md,
+      // решение 3). Размер темы зависел от того, сколько слов нашлось, —
+      // проверять было нечего.
+      //
+      // Разговорник вернул числу смысл: корпус не набирается, а приходит
+      // готовым — один лист, 1500 строк, 50 тем ровно по 30 фраз (провенанс в
+      // `content/_import/phrasebook_1500/source.json`). У правильности есть
+      // цена: потерянная при импорте тема или строка выглядит как работающая
+      // игра, и `greaterThan(0)` не заметит этого никогда.
+      //
+      // Числа сверены с базой, собранной из нынешних исходников, а не
+      // выписаны из письма: 1500 строк, 50 файлов по 30 фраз. Если корпус
+      // однажды потеряет строку законно — автор выбросит фразу, которую
+      // отверг валидатор, — правду правят здесь, а не подгоняют сборку под
+      // число.
+      expect(await db.countPhrases(), 1500);
+      expect(await db.countPhrasesUpTo(Tier.b2), 1500,
+          reason: 'верхний ярус накопительно — это весь корпус');
 
+      // По ярусам: 150/270/330/360/390 — то есть 5/9/11/12/13 тем по тридцать.
+      // Числа неравные намеренно: наверху тем больше, потому что речь там
+      // разнообразнее, а не потому что ярус длиннее.
+      const perTier = {
+        Tier.a0: 150,
+        Tier.a1: 270,
+        Tier.a2: 330,
+        Tier.b1: 360,
+        Tier.b2: 390,
+      };
+      for (final tier in Tier.values) {
+        expect((await db.phrasesOn(tier)).length, perTier[tier],
+            reason: 'ярус ${tier.label}');
+      }
+
+      // Пятьдесят тем, и каждая — блок ровно из тридцати фраз одного яруса.
+      // Тема на одном ярусе — это устройство источника, а не совпадение:
+      // «Построение аргумента» не бывает на A0, и слаг темы приходит из
+      // одной строки `constellationSlugs`.
+      final byConstellation = <String, List<PhraseRow>>{};
+      for (final row in await db.phrasesUpTo(Tier.b2)) {
+        byConstellation.putIfAbsent(row.constellation, () => []).add(row);
+      }
+      expect(byConstellation, hasLength(50));
+      for (final entry in byConstellation.entries) {
+        expect(entry.value, hasLength(30), reason: 'тема ${entry.key}');
+        expect(entry.value.map((p) => p.tier).toSet(), hasLength(1),
+            reason: 'тема ${entry.key} размазана по ярусам');
+      }
+
+      // Выборка накопительная: `phrasesFor` берёт ярус и всё, что ниже. На
+      // настоящем ассете проверка мягкая — тема сидит на одном ярусе, и
+      // «Первый контакт» отдаёт одни и те же тридцать фраз на всех пяти
+      // запросах. Мягкая, но не пустая: она ловит `tier = upTo` вместо
+      // `tier IN (...)`, то есть подъём, потерявший нижние ярусы. Накопление
+      // по нескольким ярусам разом проверяет `content_schema_test` — на
+      // синтетической базе, где тема нарочно написана на трёх ярусах.
       var previous = <String>{};
       for (final tier in Tier.values) {
         final ids =
@@ -329,7 +577,7 @@ void main() {
       }
 
       // Порог появления тема берёт **сразу**: в разговорнике тема это блок из
-      // двадцати фраз, и на своём ярусе она видна с первого дня. Прежний
+      // тридцати фраз, и на своём ярусе она видна с первого дня. Прежний
       // контент этого не давал — у «У врача» на A0 было четыре фразы против
       // восьми нужных, то есть запущенный ярус оставался без созвездий вовсе.
       // Проверяется всё равно верхний ярус, а не A0: тема живёт на своём
@@ -418,17 +666,24 @@ void main() {
       addTearDown(db.close);
 
       // Смотрим на все отгруженные фразы, а не на выборку одной темы: текст
-      // читает игрок, и одна недособранная строка из 432 — это один экран, на
+      // читает игрок, и одна недособранная строка из 1500 — это один экран, на
       // котором видно внутренности сборки.
       final phrases = await db.phrasesUpTo(Tier.b2);
       expect(phrases, hasLength(await db.countPhrases()));
       expect(phrases.map((p) => p.lang).toSet(), {'de'},
           reason: 'база собирается под один язык изучения');
 
-      // Подстановка ответа в шаблон сделана сборкой, один раз. У фразы нет ни
-      // пропусков, ни скрытых частей: `{bread}` в отгруженном тексте игрок
-      // увидел бы на экране, а «…» — след того, что ответов было меньше, чем
-      // пропусков, — ещё и услышал бы в синтезе.
+      // У фразы нет ни пропусков, ни скрытых частей, и в одном фильтре здесь
+      // сошлись две разные причины. `{bread}` — след подстановки в шаблон:
+      // сборка делает её один раз, и незакрытая скобка уехала бы игроку прямо
+      // на экран. «…» был следом того, что ответов оказалось меньше, чем
+      // пропусков, а теперь это ещё и решение автора: 239 многоточий прежнего
+      // корпуса убраны из источника руками, потому что «с ним не понятно как
+      // читать» — фразу с многоточием нельзя ни прочитать, ни произнести
+      // синтезом, а на месте шаблонов встали законченные примеры («Ich heiße
+      // Alex.» вместо «Ich heiße ...»). В нынешнем источнике ноль и скобок, и
+      // многоточий; фильтр остаётся, потому что смотрит он на отгруженное, а
+      // не на источник.
       final unfinished = phrases.where(
           (p) => p.sentence.contains('{') || p.sentence.contains('…'));
       expect(unfinished.map((p) => p.id), isEmpty,
@@ -442,6 +697,31 @@ void main() {
       expect(registers, isNotEmpty);
       expect(registers.where((r) => !isPromptTag(r)).toSet(), isEmpty,
           reason: 'у приложения нет перевода для такой пометки');
+    });
+
+    test('вид фразы доезжает из базы, а не угадывается по тексту', () async {
+      final db = ContentDatabase.forLanguage('de');
+      addTearDown(db.close);
+
+      // Колонка `kind` из v7. В игре у неё нет ни одного читателя, и это
+      // записанное решение, а не недоделка (`content_database.dart`,
+      // «Чтение фразы»): все три механики показывают фразу как есть. Читатель
+      // один — проверка текста, и спрашивает она у **отгруженной** базы, а не
+      // у YAML: прежняя вычитка читала исходники, то есть текст, которого
+      // игрок не видит.
+      //
+      // Что охраняет проверка. Идиома по тексту не отличается от фразы ничем,
+      // а перевод у неё смысловой: «Ich habe gerade viel um die Ohren» — это
+      // «у мене зараз багато справ», ни одного общего слова. Потерянная
+      // пометка означает не пустой экран, а тридцать законных находок
+      // буквальности, которых на самом деле нет.
+      final kinds =
+          (await db.phrasesUpTo(Tier.b2)).map((p) => p.kind).toSet();
+      expect(kinds, {'phrase', 'example', 'idiom'},
+          reason: 'вид — закрытый набор кодов, и все три вида в корпусе есть: '
+              '1231 фраза, 239 примеров, 30 идиом. Лишнее значение означает, '
+              'что импорт перенёс пометку источника как есть («Фраза»), а '
+              'пропавшее — что вид потерялся столбцом, а не решением автора');
     });
 
     test('повторное открытие не перезаписывает файл', () async {

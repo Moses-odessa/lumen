@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../data/repositories/player_repository.dart';
 import '../../features/onboarding/presentation/calibration_screen.dart';
-import '../../features/profile/presentation/custom_words_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/ritual/presentation/ritual_screen.dart';
@@ -25,8 +24,8 @@ abstract final class Routes {
   /// О проекте, донаты, лицензии.
   static const about = '/about';
 
-  /// Свои слова: личное созвездие.
-  static const customWords = '/custom-words';
+  /// Свои слова удалены: экран собирал у игрока пары «слово → перевод», а
+  /// единица изучения в разговорнике — фраза, и отдельного слова в игре нет.
 
   /// Перекалибровка: доступна из настроек в любой момент.
   static const recalibrate = '/settings/recalibrate';
@@ -89,10 +88,6 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.onboarding,
         builder: (_, _) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        path: Routes.customWords,
-        builder: (_, _) => const CustomWordsScreen(),
       ),
       GoRoute(
         path: Routes.about,

@@ -49,6 +49,46 @@ final nativeLanguagesProvider = FutureProvider<List<LanguageRow>>((ref) =>
 final targetLanguagesProvider = FutureProvider<List<LanguageRow>>((ref) =>
     ref.watch(currentContentDatabaseProvider).targetLanguages());
 
+/// Имена созвездий на одном языке: `slug → имя`.
+///
+/// Провайдер именно по коду языка, а не «имена для текущего игрока», потому
+/// что правило показа требует **двух** языков сразу — интерфейса и подсказок
+/// (`ConstellationNaming`). Family с одинаковым аргументом Riverpod держит
+/// одним состоянием, поэтому совпадение языков само собой даёт один запрос, а
+/// не два.
+///
+/// Собирать `ConstellationNaming` здесь по-прежнему нельзя, и не из-за
+/// асинхронности: сборке нужен язык интерфейса, а он при
+/// `Player.uiLang == null` — локали системы, сведённые к
+/// `AppLocalizations.supportedLocales`. Это l10n, а `lib/data` не
+/// импортирует `lib/core` нигде. Собранное именование живёт одним
+/// провайдером в `core/l10n/interface_lang.dart`
+/// (`constellationNamingProvider`) — там же, где решается язык интерфейса,
+/// чтобы второму месту, отвечающему «на каком языке подпись», взяться было
+/// неоткуда.
+///
+/// **Повторов у этого запроса нет — и это правило, а не настройка.** Riverpod
+/// сам перезапускает любой упавший провайдер: десять попыток с удвоением
+/// задержки, около сорока секунд в сумме. Пока они идут, элемент стоит в
+/// `AsyncLoading`, а `future` **не завершается** — то есть `try/catch` вокруг
+/// `await ...future` не срабатывает вообще, и откат на слаги, которым
+/// `constellationNamingProvider` защищает экраны, включается только на
+/// одиннадцатой попытке. Небо и профиль держат в это время индикатор
+/// загрузки, а `ReminderScheduler.reschedule()` ждёт те же сорок секунд:
+/// ровно тот исход, который откат должен был предотвратить.
+///
+/// Повторять здесь и нечего. Это `SELECT` из read-only ассета, уже
+/// скопированного на диск; он падает, когда таблицы нет (ассет прошлой
+/// сборки) или база не читается вовсе, — и второе такое же чтение через
+/// двести миллисекунд ответит тем же. Отказ окончателен, а ответ на него
+/// готов и стоит дешевле ожидания: латинские слаги на карте.
+final constellationNamesProvider =
+    FutureProvider.family<Map<String, String>, String>(
+  (ref, lang) =>
+      ref.watch(currentContentDatabaseProvider).constellationNamesFor(lang),
+  retry: (retryCount, error) => null,
+);
+
 /// Самый высокий доступный ярус.
 final maxTierProvider = Provider<Tier>((ref) {
   final tiers = switch (ref.watch(launchedTiersProvider)) {

@@ -129,18 +129,6 @@ class Sessions extends Table {
   IntColumn get climbLevel => integer().nullable()();
 }
 
-/// Свои слова: личное созвездие произвольного размера (M5).
-@DataClassName('CustomConceptRow')
-class CustomConcepts extends Table {
-  TextColumn get id => text()();
-  TextColumn get target => text()();
-  TextColumn get native => text()();
-  TextColumn get deck => text()();
-
-  @override
-  Set<Column> get primaryKey => {id};
-}
-
 /// Отложенное обслуживание базы: что миграция попросила сделать, но сделать
 /// в момент миграции не могла.
 ///
@@ -168,7 +156,6 @@ const String pendingItemSweep = 'pending_item_sweep';
   Reviews,
   ConstellationProgress,
   Sessions,
-  CustomConcepts,
   Maintenance,
 ])
 class AppDatabase extends _$AppDatabase {
@@ -176,7 +163,7 @@ class AppDatabase extends _$AppDatabase {
       : super(executor ?? driftDatabase(name: 'lumen_user'));
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -245,6 +232,20 @@ class AppDatabase extends _$AppDatabase {
                 value: 'v6',
               ),
             );
+          }
+          if (from < 7) {
+            // Свои слова убраны вместе с таблицей. `custom_concepts` держала
+            // личные пары игрока — «слово → перевод», введённые руками на
+            // экране в профиле, — и не читала их ни одна механика: ни
+            // планировщик, ни сборщик вопросов, ни небо. Так было и до
+            // разговорника, а после него экран стал просить у игрока то,
+            // чего в игре нет вовсе: единица изучения — фраза.
+            //
+            // Данные уносятся вместе с фичей, а не оставляются сиротой: как и
+            // `daily_challenge_results` в v3, таблица, которую никто не пишет
+            // и не читает, — это приглашение однажды принять её за рабочие
+            // данные и дописать фичу обратно.
+            await m.deleteTable('custom_concepts');
           }
         },
       );
@@ -490,28 +491,16 @@ class AppDatabase extends _$AppDatabase {
       (delete(reviews)..where((t) => t.at.isSmallerThanValue(now.subtract(keep))))
           .go();
 
-  // ── Свои слова ──────────────────────────────────────────────────────────
-
-  Future<List<CustomConceptRow>> loadCustomConcepts() =>
-      (select(customConcepts)..orderBy([(t) => OrderingTerm(expression: t.id)]))
-          .get();
-
-  Future<void> replaceCustomConcepts(
-    List<CustomConceptsCompanion> items,
-  ) =>
-      batch((b) {
-        b.deleteWhere(customConcepts, (_) => const Constant(true));
-        b.insertAll(customConcepts, items);
-      });
-
   /// Полное удаление данных (настройка приватности, M5).
+  ///
+  /// `custom_concepts` здесь больше нет: таблица унесена миграцией v7 вместе
+  /// с экраном «Свои слова». Остальные пять — всё, что о игроке известно.
   Future<void> wipe() => transaction(() async {
         await delete(players).go();
         await delete(wordStates).go();
         await delete(reviews).go();
         await delete(constellationProgress).go();
         await delete(sessions).go();
-        await delete(customConcepts).go();
       });
 
   Player _toPlayer(PlayerRow row) => Player(

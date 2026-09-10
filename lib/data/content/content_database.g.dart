@@ -428,6 +428,15 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
   static const VerificationMeta _registerMeta = const VerificationMeta(
     'register',
   );
@@ -447,6 +456,7 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     constellation,
     idx,
     sentence,
+    kind,
     register,
   ];
   @override
@@ -509,6 +519,14 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
     } else if (isInserting) {
       context.missing(_sentenceMeta);
     }
+    if (data.containsKey('kind')) {
+      context.handle(
+        _kindMeta,
+        kind.isAcceptableOrUnknown(data['kind']!, _kindMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
     if (data.containsKey('register')) {
       context.handle(
         _registerMeta,
@@ -548,6 +566,10 @@ class $PhrasesTable extends Phrases with TableInfo<$PhrasesTable, PhraseRow> {
         DriftSqlType.string,
         data['${effectivePrefix}text'],
       )!,
+      kind: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}kind'],
+      )!,
       register: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}register'],
@@ -583,6 +605,33 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
   /// себя. Имя колонки в SQL при этом остаётся `text`.
   final String sentence;
 
+  /// Вид фразы: `phrase`, `example` или `idiom`. Закрытый набор кодов, как у
+  /// [register].
+  ///
+  /// Зачем он в схеме, если ни одна из трёх механик его не спрашивает.
+  /// У идиомы перевод **смысловой**: «Ich habe gerade viel um die Ohren» —
+  /// это «у мене зараз багато справ», ни одного общего слова. Проверка
+  /// буквальности перевода — а вычитка просит именно её — обязана идиомы
+  /// пропускать, и пометка единственный способ их узнать: по тексту идиома от
+  /// фразы не отличается ничем. Пример — законченный образец речевой модели,
+  /// занявший место прежнего шаблона с многоточием: «Ich heiße Alex.» вместо
+  /// «Ich heiße ...».
+  ///
+  /// В отличие от соседнего [register] колонка не `nullable`, и разница не в
+  /// аккуратности: регистр у фразы либо есть, либо нет — 1315 строк корпуса
+  /// не несут пометки вовсе, и NULL там правдив, — а чем-то фраза является
+  /// всегда. NULL
+  /// пришлось бы читать «неизвестно чем», то есть третьим ответом на вопрос
+  /// «это идиома?», которого в закрытом наборе нет. Умолчание при этом
+  /// существует, но живёт на входе, а не в базе: `kind:` можно не писать в
+  /// файле фразы (`defaultPhraseKind` в `tool/content_schema.dart`), а в базу
+  /// уезжает явный код у каждой строки — поэтому `DEFAULT` у колонки нет.
+  ///
+  /// Коллизии имён, как у [sentence], здесь нет: билдера колонки `kind` в
+  /// Drift не существует, а [CalibrationItems.kind] в этом же файле живёт с
+  /// первых версий схемы. Проверено генерацией, а не рассуждением.
+  final String kind;
+
   /// Регистр: `casual` или `formal`. Код, а не текст — строку даёт
   /// локализация на языке интерфейса.
   final String? register;
@@ -593,6 +642,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     required this.constellation,
     required this.idx,
     required this.sentence,
+    required this.kind,
     this.register,
   });
   @override
@@ -604,6 +654,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     map['constellation'] = Variable<String>(constellation);
     map['idx'] = Variable<int>(idx);
     map['text'] = Variable<String>(sentence);
+    map['kind'] = Variable<String>(kind);
     if (!nullToAbsent || register != null) {
       map['register'] = Variable<String>(register);
     }
@@ -618,6 +669,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       constellation: Value(constellation),
       idx: Value(idx),
       sentence: Value(sentence),
+      kind: Value(kind),
       register: register == null && nullToAbsent
           ? const Value.absent()
           : Value(register),
@@ -636,6 +688,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       constellation: serializer.fromJson<String>(json['constellation']),
       idx: serializer.fromJson<int>(json['idx']),
       sentence: serializer.fromJson<String>(json['sentence']),
+      kind: serializer.fromJson<String>(json['kind']),
       register: serializer.fromJson<String?>(json['register']),
     );
   }
@@ -649,6 +702,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
       'constellation': serializer.toJson<String>(constellation),
       'idx': serializer.toJson<int>(idx),
       'sentence': serializer.toJson<String>(sentence),
+      'kind': serializer.toJson<String>(kind),
       'register': serializer.toJson<String?>(register),
     };
   }
@@ -660,6 +714,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     String? constellation,
     int? idx,
     String? sentence,
+    String? kind,
     Value<String?> register = const Value.absent(),
   }) => PhraseRow(
     id: id ?? this.id,
@@ -668,6 +723,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
     constellation: constellation ?? this.constellation,
     idx: idx ?? this.idx,
     sentence: sentence ?? this.sentence,
+    kind: kind ?? this.kind,
     register: register.present ? register.value : this.register,
   );
   PhraseRow copyWithCompanion(PhrasesCompanion data) {
@@ -680,6 +736,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           : this.constellation,
       idx: data.idx.present ? data.idx.value : this.idx,
       sentence: data.sentence.present ? data.sentence.value : this.sentence,
+      kind: data.kind.present ? data.kind.value : this.kind,
       register: data.register.present ? data.register.value : this.register,
     );
   }
@@ -693,6 +750,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           ..write('constellation: $constellation, ')
           ..write('idx: $idx, ')
           ..write('sentence: $sentence, ')
+          ..write('kind: $kind, ')
           ..write('register: $register')
           ..write(')'))
         .toString();
@@ -700,7 +758,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
 
   @override
   int get hashCode =>
-      Object.hash(id, lang, tier, constellation, idx, sentence, register);
+      Object.hash(id, lang, tier, constellation, idx, sentence, kind, register);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -711,6 +769,7 @@ class PhraseRow extends DataClass implements Insertable<PhraseRow> {
           other.constellation == this.constellation &&
           other.idx == this.idx &&
           other.sentence == this.sentence &&
+          other.kind == this.kind &&
           other.register == this.register);
 }
 
@@ -721,6 +780,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
   final Value<String> constellation;
   final Value<int> idx;
   final Value<String> sentence;
+  final Value<String> kind;
   final Value<String?> register;
   final Value<int> rowid;
   const PhrasesCompanion({
@@ -730,6 +790,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     this.constellation = const Value.absent(),
     this.idx = const Value.absent(),
     this.sentence = const Value.absent(),
+    this.kind = const Value.absent(),
     this.register = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -740,6 +801,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     required String constellation,
     required int idx,
     required String sentence,
+    required String kind,
     this.register = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
@@ -747,7 +809,8 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
        tier = Value(tier),
        constellation = Value(constellation),
        idx = Value(idx),
-       sentence = Value(sentence);
+       sentence = Value(sentence),
+       kind = Value(kind);
   static Insertable<PhraseRow> custom({
     Expression<String>? id,
     Expression<String>? lang,
@@ -755,6 +818,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     Expression<String>? constellation,
     Expression<int>? idx,
     Expression<String>? sentence,
+    Expression<String>? kind,
     Expression<String>? register,
     Expression<int>? rowid,
   }) {
@@ -765,6 +829,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       if (constellation != null) 'constellation': constellation,
       if (idx != null) 'idx': idx,
       if (sentence != null) 'text': sentence,
+      if (kind != null) 'kind': kind,
       if (register != null) 'register': register,
       if (rowid != null) 'rowid': rowid,
     });
@@ -777,6 +842,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     Value<String>? constellation,
     Value<int>? idx,
     Value<String>? sentence,
+    Value<String>? kind,
     Value<String?>? register,
     Value<int>? rowid,
   }) {
@@ -787,6 +853,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
       constellation: constellation ?? this.constellation,
       idx: idx ?? this.idx,
       sentence: sentence ?? this.sentence,
+      kind: kind ?? this.kind,
       register: register ?? this.register,
       rowid: rowid ?? this.rowid,
     );
@@ -813,6 +880,9 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
     if (sentence.present) {
       map['text'] = Variable<String>(sentence.value);
     }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
     if (register.present) {
       map['register'] = Variable<String>(register.value);
     }
@@ -831,6 +901,7 @@ class PhrasesCompanion extends UpdateCompanion<PhraseRow> {
           ..write('constellation: $constellation, ')
           ..write('idx: $idx, ')
           ..write('sentence: $sentence, ')
+          ..write('kind: $kind, ')
           ..write('register: $register, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -1104,6 +1175,296 @@ class PhraseTranslationsCompanion
           ..write('phraseId: $phraseId, ')
           ..write('lang: $lang, ')
           ..write('sentence: $sentence, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ConstellationNamesTable extends ConstellationNames
+    with TableInfo<$ConstellationNamesTable, ConstellationNameRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ConstellationNamesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _constellationMeta = const VerificationMeta(
+    'constellation',
+  );
+  @override
+  late final GeneratedColumn<String> constellation = GeneratedColumn<String>(
+    'constellation',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _langMeta = const VerificationMeta('lang');
+  @override
+  late final GeneratedColumn<String> lang = GeneratedColumn<String>(
+    'lang',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [constellation, lang, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'constellation_names';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ConstellationNameRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('constellation')) {
+      context.handle(
+        _constellationMeta,
+        constellation.isAcceptableOrUnknown(
+          data['constellation']!,
+          _constellationMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_constellationMeta);
+    }
+    if (data.containsKey('lang')) {
+      context.handle(
+        _langMeta,
+        lang.isAcceptableOrUnknown(data['lang']!, _langMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_langMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {constellation, lang};
+  @override
+  ConstellationNameRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ConstellationNameRow(
+      constellation: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}constellation'],
+      )!,
+      lang: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}lang'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+    );
+  }
+
+  @override
+  $ConstellationNamesTable createAlias(String alias) {
+    return $ConstellationNamesTable(attachedDatabase, alias);
+  }
+}
+
+class ConstellationNameRow extends DataClass
+    implements Insertable<ConstellationNameRow> {
+  /// Slug созвездия — тот же, что в [Phrases.constellation]. Связь по слагу,
+  /// а не по числовому id: созвездие не отдельная сущность контента, а поле
+  /// в шапке файла фразы.
+  final String constellation;
+
+  /// Код языка: `de` (язык изучения) либо язык подсказок — `uk`, `ru`, `en`,
+  /// `it`. Языков интерфейса шесть, а имён пять: французского контента нет,
+  /// и правило показа это учитывает.
+  final String lang;
+
+  /// Имя темы, готовое к подписи на карте.
+  ///
+  /// Геттер назван `name`, и это проверено, а не понадеялось. Шрам
+  /// [Phrases.sentence] выше — про то, что `text` в Drift это **билдер
+  /// колонки**, поэтому `TextColumn get text => text()()` рекурсивно
+  /// возвращает сам себя, а генерация на такой файл молча не даёт ничего.
+  /// Билдера с именем `name` в Drift нет — переименование колонки делает
+  /// `named()` у уже построенной колонки, а не одноимённый геттер таблицы, —
+  /// и [Languages.name] тому свидетель: колонка `name` там существует с
+  /// первого дня схемы. Переименовывать нечего.
+  final String name;
+  const ConstellationNameRow({
+    required this.constellation,
+    required this.lang,
+    required this.name,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['constellation'] = Variable<String>(constellation);
+    map['lang'] = Variable<String>(lang);
+    map['name'] = Variable<String>(name);
+    return map;
+  }
+
+  ConstellationNamesCompanion toCompanion(bool nullToAbsent) {
+    return ConstellationNamesCompanion(
+      constellation: Value(constellation),
+      lang: Value(lang),
+      name: Value(name),
+    );
+  }
+
+  factory ConstellationNameRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ConstellationNameRow(
+      constellation: serializer.fromJson<String>(json['constellation']),
+      lang: serializer.fromJson<String>(json['lang']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'constellation': serializer.toJson<String>(constellation),
+      'lang': serializer.toJson<String>(lang),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  ConstellationNameRow copyWith({
+    String? constellation,
+    String? lang,
+    String? name,
+  }) => ConstellationNameRow(
+    constellation: constellation ?? this.constellation,
+    lang: lang ?? this.lang,
+    name: name ?? this.name,
+  );
+  ConstellationNameRow copyWithCompanion(ConstellationNamesCompanion data) {
+    return ConstellationNameRow(
+      constellation: data.constellation.present
+          ? data.constellation.value
+          : this.constellation,
+      lang: data.lang.present ? data.lang.value : this.lang,
+      name: data.name.present ? data.name.value : this.name,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConstellationNameRow(')
+          ..write('constellation: $constellation, ')
+          ..write('lang: $lang, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(constellation, lang, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ConstellationNameRow &&
+          other.constellation == this.constellation &&
+          other.lang == this.lang &&
+          other.name == this.name);
+}
+
+class ConstellationNamesCompanion
+    extends UpdateCompanion<ConstellationNameRow> {
+  final Value<String> constellation;
+  final Value<String> lang;
+  final Value<String> name;
+  final Value<int> rowid;
+  const ConstellationNamesCompanion({
+    this.constellation = const Value.absent(),
+    this.lang = const Value.absent(),
+    this.name = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ConstellationNamesCompanion.insert({
+    required String constellation,
+    required String lang,
+    required String name,
+    this.rowid = const Value.absent(),
+  }) : constellation = Value(constellation),
+       lang = Value(lang),
+       name = Value(name);
+  static Insertable<ConstellationNameRow> custom({
+    Expression<String>? constellation,
+    Expression<String>? lang,
+    Expression<String>? name,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (constellation != null) 'constellation': constellation,
+      if (lang != null) 'lang': lang,
+      if (name != null) 'name': name,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ConstellationNamesCompanion copyWith({
+    Value<String>? constellation,
+    Value<String>? lang,
+    Value<String>? name,
+    Value<int>? rowid,
+  }) {
+    return ConstellationNamesCompanion(
+      constellation: constellation ?? this.constellation,
+      lang: lang ?? this.lang,
+      name: name ?? this.name,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (constellation.present) {
+      map['constellation'] = Variable<String>(constellation.value);
+    }
+    if (lang.present) {
+      map['lang'] = Variable<String>(lang.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ConstellationNamesCompanion(')
+          ..write('constellation: $constellation, ')
+          ..write('lang: $lang, ')
+          ..write('name: $name, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1634,6 +1995,8 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
   late final $PhrasesTable phrases = $PhrasesTable(this);
   late final $PhraseTranslationsTable phraseTranslations =
       $PhraseTranslationsTable(this);
+  late final $ConstellationNamesTable constellationNames =
+      $ConstellationNamesTable(this);
   late final $CalibrationItemsTable calibrationItems = $CalibrationItemsTable(
     this,
   );
@@ -1646,6 +2009,7 @@ abstract class _$ContentDatabase extends GeneratedDatabase {
     languages,
     phrases,
     phraseTranslations,
+    constellationNames,
     calibrationItems,
     contentMeta,
   ];
@@ -1865,6 +2229,7 @@ typedef $$PhrasesTableCreateCompanionBuilder = PhrasesCompanion Function({
   required String constellation,
   required int idx,
   required String sentence,
+  required String kind,
   Value<String?> register,
   Value<int> rowid,
 });
@@ -1875,6 +2240,7 @@ typedef $$PhrasesTableUpdateCompanionBuilder = PhrasesCompanion Function({
   Value<String> constellation,
   Value<int> idx,
   Value<String> sentence,
+  Value<String> kind,
   Value<String?> register,
   Value<int> rowid,
 });
@@ -1915,6 +2281,11 @@ class $$PhrasesTableFilterComposer
 
   ColumnFilters<String> get sentence => $composableBuilder(
     column: $table.sentence,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get kind => $composableBuilder(
+    column: $table.kind,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -1963,6 +2334,11 @@ class $$PhrasesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get kind => $composableBuilder(
+    column: $table.kind,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get register => $composableBuilder(
     column: $table.register,
     builder: (column) => ColumnOrderings(column),
@@ -1997,6 +2373,9 @@ class $$PhrasesTableAnnotationComposer
 
   GeneratedColumn<String> get sentence =>
       $composableBuilder(column: $table.sentence, builder: (column) => column);
+
+  GeneratedColumn<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => column);
 
   GeneratedColumn<String> get register =>
       $composableBuilder(column: $table.register, builder: (column) => column);
@@ -2039,6 +2418,7 @@ class $$PhrasesTableTableManager
                 Value<String> constellation = const Value.absent(),
                 Value<int> idx = const Value.absent(),
                 Value<String> sentence = const Value.absent(),
+                Value<String> kind = const Value.absent(),
                 Value<String?> register = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion(
@@ -2048,6 +2428,7 @@ class $$PhrasesTableTableManager
                 constellation: constellation,
                 idx: idx,
                 sentence: sentence,
+                kind: kind,
                 register: register,
                 rowid: rowid,
               ),
@@ -2059,6 +2440,7 @@ class $$PhrasesTableTableManager
                 required String constellation,
                 required int idx,
                 required String sentence,
+                required String kind,
                 Value<String?> register = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PhrasesCompanion.insert(
@@ -2068,6 +2450,7 @@ class $$PhrasesTableTableManager
                 constellation: constellation,
                 idx: idx,
                 sentence: sentence,
+                kind: kind,
                 register: register,
                 rowid: rowid,
               ),
@@ -2286,6 +2669,194 @@ typedef $$PhraseTranslationsTableProcessedTableManager =
         >,
       ),
       PhraseTranslationRow,
+      PrefetchHooks Function()
+    >;
+typedef $$ConstellationNamesTableCreateCompanionBuilder =
+    ConstellationNamesCompanion Function({
+      required String constellation,
+      required String lang,
+      required String name,
+      Value<int> rowid,
+    });
+typedef $$ConstellationNamesTableUpdateCompanionBuilder =
+    ConstellationNamesCompanion Function({
+      Value<String> constellation,
+      Value<String> lang,
+      Value<String> name,
+      Value<int> rowid,
+    });
+
+class $$ConstellationNamesTableFilterComposer
+    extends Composer<_$ContentDatabase, $ConstellationNamesTable> {
+  $$ConstellationNamesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get constellation => $composableBuilder(
+    column: $table.constellation,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get lang => $composableBuilder(
+    column: $table.lang,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ConstellationNamesTableOrderingComposer
+    extends Composer<_$ContentDatabase, $ConstellationNamesTable> {
+  $$ConstellationNamesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get constellation => $composableBuilder(
+    column: $table.constellation,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get lang => $composableBuilder(
+    column: $table.lang,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ConstellationNamesTableAnnotationComposer
+    extends Composer<_$ContentDatabase, $ConstellationNamesTable> {
+  $$ConstellationNamesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get constellation => $composableBuilder(
+    column: $table.constellation,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get lang =>
+      $composableBuilder(column: $table.lang, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+}
+
+class $$ConstellationNamesTableTableManager
+    extends
+        RootTableManager<
+          _$ContentDatabase,
+          $ConstellationNamesTable,
+          ConstellationNameRow,
+          $$ConstellationNamesTableFilterComposer,
+          $$ConstellationNamesTableOrderingComposer,
+          $$ConstellationNamesTableAnnotationComposer,
+          $$ConstellationNamesTableCreateCompanionBuilder,
+          $$ConstellationNamesTableUpdateCompanionBuilder,
+          (
+            ConstellationNameRow,
+            BaseReferences<
+              _$ContentDatabase,
+              $ConstellationNamesTable,
+              ConstellationNameRow
+            >,
+          ),
+          ConstellationNameRow,
+          PrefetchHooks Function()
+        > {
+  $$ConstellationNamesTableTableManager(
+    _$ContentDatabase db,
+    $ConstellationNamesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ConstellationNamesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ConstellationNamesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ConstellationNamesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> constellation = const Value.absent(),
+                Value<String> lang = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ConstellationNamesCompanion(
+                constellation: constellation,
+                lang: lang,
+                name: name,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String constellation,
+                required String lang,
+                required String name,
+                Value<int> rowid = const Value.absent(),
+              }) => ConstellationNamesCompanion.insert(
+                constellation: constellation,
+                lang: lang,
+                name: name,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ConstellationNamesTable, ConstellationNameRow>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$ContentDatabase,
+                    $ConstellationNamesTable,
+                    ConstellationNameRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ConstellationNamesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$ContentDatabase,
+      $ConstellationNamesTable,
+      ConstellationNameRow,
+      $$ConstellationNamesTableFilterComposer,
+      $$ConstellationNamesTableOrderingComposer,
+      $$ConstellationNamesTableAnnotationComposer,
+      $$ConstellationNamesTableCreateCompanionBuilder,
+      $$ConstellationNamesTableUpdateCompanionBuilder,
+      (
+        ConstellationNameRow,
+        BaseReferences<
+          _$ContentDatabase,
+          $ConstellationNamesTable,
+          ConstellationNameRow
+        >,
+      ),
+      ConstellationNameRow,
       PrefetchHooks Function()
     >;
 typedef $$CalibrationItemsTableCreateCompanionBuilder =
@@ -2651,6 +3222,8 @@ class $ContentDatabaseManager {
       $$PhrasesTableTableManager(_db, _db.phrases);
   $$PhraseTranslationsTableTableManager get phraseTranslations =>
       $$PhraseTranslationsTableTableManager(_db, _db.phraseTranslations);
+  $$ConstellationNamesTableTableManager get constellationNames =>
+      $$ConstellationNamesTableTableManager(_db, _db.constellationNames);
   $$CalibrationItemsTableTableManager get calibrationItems =>
       $$CalibrationItemsTableTableManager(_db, _db.calibrationItems);
   $$ContentMetaTableTableManager get contentMeta =>
