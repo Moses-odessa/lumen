@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:drift/native.dart';
 import 'package:fake_async/fake_async.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/core/audio/speech_service.dart';
@@ -8,19 +12,35 @@ import 'package:lumen/data/local/database_provider.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
-import 'package:lumen/domain/scoring/balance.dart';
+// `balance.dart` отсюда ушёл вместе с двумя числами, которые тест называл по
+// имени: `ScoreBalance.answerWindow` (одно окно на все круги — теперь его
+// длину даёт сам вопрос) и `RevealBalance` (пауза перед автопереходом —
+// перехода нет, круг ждёт кнопки). Формулу окна проверяет `balance_test.dart`;
+// здесь проверяется, что забег заводит таймер по **своему** кругу.
 import 'package:lumen/domain/srs/review_grade.dart';
 import 'package:lumen/features/game/application/run_controller.dart';
 
 /// Забег — это состояние, а не экран, поэтому проверяется без виджетов.
 ///
 /// Главное правило, которое здесь охраняется, — **окно ответа**. Круг живёт
-/// пять секунд, и молчание закрывает его так же, как промах: фраза тускнеет и
-/// возвращается в очередь. Отличие одно — верный вариант при этом звучит,
-/// потому что промолчавшему игроку его никто не назвал ни выбором, ни
-/// подсветкой выбранного. Единственное исключение — знакомство: там к ответу
-/// приходят исключением, читая пять знакомых строчек, и торопить в этот момент
-/// значит требовать угадать, а не сообразить.
+/// столько, сколько просит его текст, и молчание закрывает его так же, как
+/// промах: фраза тускнеет и возвращается в очередь. Отличие одно — верный
+/// вариант при этом звучит, потому что промолчавшему игроку его никто не назвал
+/// ни выбором, ни подсветкой выбранного. Единственное исключение — знакомство:
+/// там к ответу приходят исключением, читая пять знакомых строчек, и торопить в
+/// этот момент значит требовать угадать, а не сообразить.
+///
+/// Второе правило, и оно новее: **темп круга принадлежит игроку**. Следующий
+/// круг открывает кнопка, а не таймер; окно открывается тогда, когда отвечать
+/// стало возможно (у круга на слух — после озвучки, а не вместе с ней); а пока
+/// приложения нет на экране, не идёт ни один отсчёт и не тратится ни одна
+/// секунда срока. Что было до этого — в комментариях к соответствующим
+/// группам: забег в фоне доигрывал сам себя и тратил звёзды игрока.
+///
+/// Биндинг здесь поднимается нарочно, хотя виджетов нет ни одного: забег
+/// слушает жизненный цикл приложения, а сигнал о нём приходит от платформы
+/// через биндинг. Проверять «услышал ли забег систему» вызовом его же метода
+/// значило бы проверять, что метод существует.
 ///
 /// Что удалено вместе с правилами, которые эти тесты охраняли:
 ///
@@ -53,6 +73,8 @@ void main() {
   late AppDatabase db;
 
   setUp(() {
+    // Забег слушает жизненный цикл, а слушать его без биндинга нельзя.
+    TestWidgetsFlutterBinding.ensureInitialized();
     speech = SilentSpeechService();
     db = AppDatabase(NativeDatabase.memory());
     container = ProviderContainer(overrides: [
@@ -64,7 +86,24 @@ void main() {
   tearDown(() async {
     container.dispose();
     await db.close();
+    // Состояние жизненного цикла живёт на биндинге, а биндинг один на весь
+    // файл: не сбросив его, следующий тест начинал бы забег в фоне.
+    WidgetsBinding.instance.resetInternalState();
   });
+
+  /// Сигнал жизненного цикла — тот самый, что приходит от платформы.
+  ///
+  /// Обработчик синхронный: к возврату из этого вызова забег уже знает, где он.
+  void screen(AppLifecycleState state) {
+    unawaited(
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .handlePlatformMessage(
+        SystemChannels.lifecycle.name,
+        const StringCodec().encodeMessage(state.toString()),
+        (_) {},
+      ),
+    );
+  }
 
   /// Круг разговорника: в центре фраза на родном, вокруг шесть на изучаемом.
   ///
@@ -117,6 +156,13 @@ void main() {
   /// Индекс варианта, которого в ответе быть не может: тексты в круге разные,
   /// а `isCorrectOption` сравнивает именно текст.
   const wrongOption = 3;
+
+  /// Окно круга — то самое число, которым забег заводит таймер.
+  ///
+  /// Спрашивается у вопроса, а не считается здесь заново: окно зависит от
+  /// объёма текста, и своя копия формулы в тесте проверяла бы свою арифметику
+  /// против чужой. Проверять саму формулу — работа `balance_test.dart`.
+  Duration windowOf(CircleQuestion q) => q.answerWindow!;
 
   RunController controller() =>
       container.read(runControllerProvider.notifier);
@@ -220,16 +266,15 @@ void main() {
   });
 
   group('окно ответа', () {
-    test('молчание пять секунд закрывает круг неверным ответом', () {
+    test('молчание закрывает круг неверным ответом', () {
       // Смысл окна — учить отвечать быстро: ответ, который игрок вспоминал
       // двадцать секунд, в разговоре ему не поможет. Просрочка не третий
       // исход, а тот же промах: «не успел» значит «не вспомнил».
       fakeAsync((async) {
-        controller().start([question('a'), question('b')]);
+        final a = question('a');
+        controller().start([a, question('b')]);
 
-        async.elapse(
-          ScoreBalance.answerWindow - const Duration(milliseconds: 1),
-        );
+        async.elapse(windowOf(a) - const Duration(milliseconds: 1));
         expect(state().phase, RunPhase.asking,
             reason: 'круг закрылся раньше срока');
 
@@ -243,10 +288,47 @@ void main() {
       });
     });
 
+    test('окно длиннее там, где текста больше', () {
+      // Плоские пять секунд наказывали за длину фразы, а не за незнание:
+      // пройти круг значит прочитать центр и шесть вариантов, а на старших
+      // ярусах это четыре сотни знаков. Проверяется здесь не формула
+      // (`balance_test.dart`), а то, что забег заводит таймер по **этому**
+      // кругу: с одним числом на всё круг B2 закрывался бы просрочкой всегда.
+      fakeAsync((async) {
+        final short = question('a');
+        final long = CircleQuestion(
+          itemId: 'l',
+          tier: Tier.b2,
+          mode: GameMode.pickTarget,
+          prompt: 'Індивідуальні рішення важливі, але не замінюють '
+              'структурних змін.',
+          options: [
+            for (var i = 0; i < 6; i++)
+              'Individuelle Entscheidungen sind wichtig, ersetzen aber '
+                  'keine strukturellen Veränderungen. $i',
+          ],
+          answerIndex: 0,
+          lumens: 50,
+          answerSpeech: 'Individuelle Entscheidungen',
+        );
+        expect(windowOf(long), greaterThan(windowOf(short)),
+            reason: 'длинному кругу дали столько же, сколько короткому');
+
+        controller().start([long]);
+        async.elapse(windowOf(short));
+        expect(state().phase, RunPhase.asking,
+            reason: 'длинный круг закрыт по чужому, короткому окну');
+
+        async.elapse(windowOf(long) - windowOf(short));
+        expect(state().phase, RunPhase.revealing);
+      });
+    });
+
     test('просроченная фраза возвращается в очередь другим экземпляром', () {
       fakeAsync((async) {
-        controller().start([question('a'), question('b')]);
-        async.elapse(ScoreBalance.answerWindow);
+        final a = question('a');
+        controller().start([a, question('b')]);
+        async.elapse(windowOf(a));
 
         expect(state().queue.map((q) => q.itemId), ['a', 'b', 'a']);
         // Другим объектом, а не тем же, и это не мелочь: арена сбрасывает
@@ -265,8 +347,9 @@ void main() {
       // промолчавшему игроку ответ не назвали ничем — ни выбором, ни
       // подсветкой выбранного, — и услышать его он должен хотя бы раз.
       fakeAsync((async) {
-        controller().start([question('a')]);
-        async.elapse(ScoreBalance.answerWindow);
+        final a = question('a');
+        controller().start([a]);
+        async.elapse(windowOf(a));
 
         expect(speech.spoken, ['Satz a']);
         expect(speech.hapticCount, 0,
@@ -274,20 +357,25 @@ void main() {
       });
     });
 
-    test('просроченный круг стоит открытым столько же, сколько промах', () {
-      // Пауза после промаха длиннее нарочно: надо успеть увидеть и услышать
-      // верный вариант. У просрочки увидеть и услышать надо ровно то же —
-      // короткая пауза «верного ответа» проглотила бы озвучку и подсветку, и
-      // молчаливый круг не научил бы вообще ничему.
+    test('просроченный круг ждёт игрока так же, как промах', () {
+      // Здесь стояла проверка «просрочке дали паузу верного ответа, а не
+      // промаха»: круг стоял открытым 420 мс после верного ответа и 1100 мс
+      // после промаха, и просрочке принадлежала длинная пауза — верный вариант
+      // надо успеть увидеть и услышать. Пауз по таймеру больше нет ни одной, и
+      // разницы между исходами не осталось: круг стоит открытым, пока игрок не
+      // нажмёт, и молчаливый круг ждёт его ровно столько же, сколько
+      // ошибочный. Правило, которое охраняли два числа, исполняет сам игрок.
       fakeAsync((async) {
-        controller().start([question('a'), question('b')]);
-        async.elapse(ScoreBalance.answerWindow);
+        final a = question('a');
+        controller().start([a, question('b')]);
+        async.elapse(windowOf(a));
 
-        async.elapse(RevealBalance.correct);
+        async.elapse(const Duration(minutes: 1));
         expect(state().phase, RunPhase.revealing,
-            reason: 'просрочке дали паузу верного ответа');
+            reason: 'круг сменился сам, без игрока');
+        expect(state().current?.itemId, 'a');
 
-        async.elapse(RevealBalance.wrong - RevealBalance.correct);
+        controller().next();
         expect(state().phase, RunPhase.asking);
         expect(state().current?.itemId, 'b');
       });
@@ -295,12 +383,13 @@ void main() {
 
     test('просрочка уходит в память ответом «не вспомнил»', () {
       // Весь путь целиком: таймер живёт в забеге, оценка — в памяти, и между
-      // ними лежат пять секунд, которых в тесте нет. Поэтому база
-      // опрашивается изнутри фальшивого времени, а не после него: снаружи
-      // ответа не дождаться.
+      // ними лежит окно, которого в тесте нет. Поэтому база опрашивается
+      // изнутри фальшивого времени, а не после него: снаружи ответа не
+      // дождаться.
       fakeAsync((async) {
-        controller().start([question('a')]);
-        async.elapse(ScoreBalance.answerWindow);
+        final a = question('a');
+        controller().start([a]);
+        async.elapse(windowOf(a));
 
         List<ReviewRow>? reviews;
         db.select(db.reviews).get().then((rows) => reviews = rows);
@@ -315,11 +404,9 @@ void main() {
         );
         // В журнале — длина окна, а не ноль: игрок думал ровно столько,
         // сколько ему дали, и запись об этом не должна выглядеть мгновенным
-        // ответом.
-        expect(
-          reviews!.single.latencyMs,
-          ScoreBalance.answerWindow.inMilliseconds,
-        );
+        // ответом. Длина при этом та самая, что у этого круга, а не общая на
+        // все: иначе журнал врал бы про то, сколько времени было у игрока.
+        expect(reviews!.single.latencyMs, windowOf(a).inMilliseconds);
       });
     });
 
@@ -330,27 +417,31 @@ void main() {
         controller().answerOption(0, const Duration(seconds: 1));
         final score = state().score;
 
-        // Пять секунд с начала круга давно прошли — и не случилось ничего.
-        // Иначе верный ответ превратился бы в промах задним числом, фраза
+        // Окно с начала круга давно вышло — и не случилось ничего. Иначе
+        // верный ответ превратился бы в промах задним числом, фраза
         // прозвучала бы дважды, а круг вернулся бы в очередь уже отвеченным.
-        async.elapse(const Duration(seconds: 10));
+        async.elapse(const Duration(seconds: 30));
 
         expect(state().score, score);
         expect(state().correct, 1);
         expect(state().queue, hasLength(1));
         expect(speech.spoken, ['Satz a']);
+        // Забег ещё не кончен: итог придёт по кнопке.
+        expect(state().phase, RunPhase.revealing);
+        controller().next();
         expect(state().summary!.isPerfect, isTrue);
       });
     });
 
     test('окно открывается на каждом круге, а не только на первом', () {
       fakeAsync((async) {
-        controller().start([question('a'), question('b')]);
+        final b = question('b');
+        controller().start([question('a'), b]);
         controller().answerOption(0, const Duration(milliseconds: 900));
-        async.elapse(RevealBalance.correct);
+        controller().next();
         expect(state().current?.itemId, 'b');
 
-        async.elapse(ScoreBalance.answerWindow);
+        async.elapse(windowOf(b));
 
         expect(state().lastCorrect, isFalse);
         expect(state().queue.map((q) => q.itemId), ['a', 'b', 'b']);
@@ -370,6 +461,9 @@ void main() {
         expect(state().queue, hasLength(1));
         expect(state().answered, 0);
         expect(speech.spoken, isEmpty);
+        // Полосе окна брать длину неоткуда — и это то же самое правило,
+        // высказанное состоянием: нет отсчёта, нет и картинки отсчёта.
+        expect(state().window, isNull);
       });
     });
 
@@ -383,7 +477,7 @@ void main() {
         controller().start([question('a'), intro()]);
         async.elapse(const Duration(seconds: 1));
         controller().answerOption(0, const Duration(seconds: 1));
-        async.elapse(RevealBalance.correct);
+        controller().next();
         expect(state().current?.itemId, 'rechnung');
 
         async.elapse(const Duration(seconds: 20));
@@ -394,16 +488,44 @@ void main() {
         expect(state().answered, 1);
       });
     });
+
+    test('открытое окно лежит в состоянии — полосе неоткуда взять своё', () {
+      // Полоса окна над ареной рисует **этот** отсчёт, а не свой: своя
+      // длительность у неё была бы вторым источником одного числа, и разойтись
+      // они могли бы не длиной, а началом — окно круга на слух открывается
+      // после озвучки, а не в кадре появления круга.
+      fakeAsync((async) {
+        final a = question('a');
+        controller().start([a]);
+
+        expect(state().window, windowOf(a));
+        controller().answerOption(0, const Duration(seconds: 1));
+        expect(state().window, isNull,
+            reason: 'полоса осталась бы идти по отвеченному кругу');
+        async.flushTimers();
+      });
+    });
   });
 
   group('переход к следующему кругу', () {
-    test('после паузы открывается следующий круг', () {
+    test('следующий круг открывает кнопка, а не таймер', () {
+      // Решение владельца дословно: «отключаем автоматическое появление
+      // следующего круга, давай после выбора варианта активируем кнопку
+      // Дальше и уже по ней переходим к следующему заниятию».
+      //
+      // Прежде круг стоял открытым 420 мс после верного ответа и 1100 мс после
+      // промаха и сменялся сам. Разница была нужна затем, чтобы игрок успел
+      // увидеть верный вариант; теперь это решает он.
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(0, const Duration(milliseconds: 900));
 
-        expect(state().current?.itemId, 'a');
-        async.elapse(RevealBalance.correct);
+        async.elapse(const Duration(minutes: 5));
+        expect(state().current?.itemId, 'a',
+            reason: 'круг сменился без кнопки');
+        expect(state().phase, RunPhase.revealing);
+
+        controller().next();
 
         expect(state().current?.itemId, 'b');
         expect(state().phase, RunPhase.asking);
@@ -411,16 +533,19 @@ void main() {
       });
     });
 
-    test('на ошибке пауза длиннее — верный вариант надо успеть увидеть', () {
+    test('на ошибке круг ждёт столько же — то есть сколько нужно игроку', () {
+      // Здесь проверялось, что пауза после промаха длиннее паузы после верного
+      // ответа. Двух длин больше нет: обе стали одной — «пока не нажмут».
+      // Ошибка от этого не перестала учить, наоборот: время на верный вариант
+      // больше не отмеряет тот, кто его не читает.
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(wrongOption, const Duration(seconds: 2));
 
-        async.elapse(const Duration(milliseconds: 500));
-        expect(state().phase, RunPhase.revealing,
-            reason: 'на ошибке пауза не может быть такой же короткой');
+        async.elapse(const Duration(minutes: 5));
+        expect(state().phase, RunPhase.revealing);
 
-        async.elapse(const Duration(seconds: 1));
+        controller().next();
         expect(state().phase, RunPhase.asking);
       });
     });
@@ -430,9 +555,10 @@ void main() {
         controller().start([question('a'), question('b')]);
 
         controller().answerOption(0, const Duration(milliseconds: 900));
-        async.elapse(RevealBalance.correct);
+        controller().next();
         controller().answerOption(0, const Duration(milliseconds: 900));
-        async.elapse(RevealBalance.correct);
+        controller().next();
+        async.flushMicrotasks();
 
         expect(state().isFinished, isTrue);
         expect(state().summary, isNotNull);
@@ -446,14 +572,15 @@ void main() {
         controller().start([question('a')]);
 
         controller().answerOption(wrongOption, const Duration(seconds: 2));
-        async.elapse(RevealBalance.wrong);
+        controller().next();
 
         // Фраза вернулась — забег ещё идёт.
         expect(state().isFinished, isFalse);
         expect(state().current?.itemId, 'a');
 
         controller().answerOption(0, const Duration(seconds: 2));
-        async.elapse(RevealBalance.correct);
+        controller().next();
+        async.flushMicrotasks();
 
         expect(state().isFinished, isTrue);
         expect(state().summary!.circles, 2);
@@ -461,16 +588,15 @@ void main() {
       });
     });
 
-    test('нажатие по арене закрывает паузу досрочно', () {
-      // Ждать не обязан никто, пропускать не обязан тоже. Пауза после промаха
-      // длинная нарочно — верный вариант надо услышать, — но заставлять ждать
-      // того, кто уже всё увидел, значит платить его временем за чужую
-      // медлительность.
+    test('нажатие по арене делает то же, что кнопка', () {
+      // `next` — один вход на оба движения. Нажатие по пустому месту круга
+      // было досрочным закрытием паузы, которая шла по таймеру; паузы по
+      // таймеру нет, а движение осталось: палец после ответа уже на арене.
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(wrongOption, const Duration(seconds: 2));
 
-        controller().skipReveal();
+        controller().next();
         async.flushMicrotasks();
 
         expect(state().current?.itemId, 'b');
@@ -478,12 +604,250 @@ void main() {
       });
     });
 
-    test('пропуск паузы до ответа ничего не делает', () {
+    test('кнопка до ответа ничего не делает', () {
+      // Обратная сторона того же правила: «Дальше» не пропускает круг. Иначе
+      // игрок терял бы вопрос вместе с яркостью фразы одним нажатием.
       controller().start([question('a'), question('b')]);
-      controller().skipReveal();
+      controller().next();
 
       expect(state().current?.itemId, 'a');
       expect(state().phase, RunPhase.asking);
+      expect(state().answered, 0);
+    });
+  });
+
+  group('окно ждёт озвучку', () {
+    // Жалоба владельца дословно: «я не замерял, но мне кажется для ответа
+    // дается только 2 секунды а не 5». Ощущение было верным, и причина
+    // измерима: окно открывалось **в тот же миг**, что начиналась озвучка, —
+    // в `_advance` подряд шли `_speakPrompt()` и `_openWindow()`. На круге со
+    // слухом фраза существует только как звук: пока она произносится (две-три
+    // секунды на предложение), отвечать физически не на что, а часы уже
+    // тикают. Просрочка при этом считается «не вспомнил».
+    CircleQuestion heard() => const CircleQuestion(
+          itemId: 'h1',
+          tier: Tier.a0,
+          mode: GameMode.listenNative,
+          prompt: '',
+          options: [
+            'Счёт, пожалуйста',
+            'Где вокзал',
+            'Два кофе, пожалуйста',
+            'Я не понимаю',
+            'Сколько это стоит',
+            'До завтра',
+          ],
+          answerIndex: 0,
+          lumens: 80,
+          promptSpeech: 'Die Rechnung, bitte',
+          answerSpeech: 'Die Rechnung, bitte',
+        );
+
+    /// Сколько звучит предложение на устройстве.
+    const speaking = Duration(seconds: 2);
+
+    test('часы не идут, пока фраза звучит', () {
+      speech.sounds = speaking;
+      fakeAsync((async) {
+        final h = heard();
+        controller().start([h]);
+
+        // Окна нет вовсе, пока звучит центр: отвечать не на что, и полосе
+        // нечего показывать.
+        expect(state().window, isNull);
+        expect(speech.spoken, ['Die Rechnung, bitte']);
+
+        async.elapse(speaking - const Duration(milliseconds: 1));
+        expect(state().window, isNull,
+            reason: 'часы пошли, пока фраза ещё звучала');
+
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().window, windowOf(h),
+            reason: 'окно не открылось после озвучки');
+
+        // Окно целиком принадлежит ответу: от начала озвучки до закрытия
+        // круга проходит озвучка **плюс** окно, а не одно окно на оба.
+        async.elapse(windowOf(h) - const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.asking,
+            reason: 'окно оказалось короче обещанного');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.revealing);
+        async.elapse(const Duration(seconds: 1));
+      });
+    });
+
+    test('текстовый центр окна не ждёт', () {
+      // Обратная сторона: там, где читать можно с первого кадра, ждать нечего.
+      // Одно правило на две механики означало бы, что круг на чтение получает
+      // отсрочку за озвучку, которой у него нет.
+      speech.sounds = speaking;
+      final a = question('a');
+      controller().start([a]);
+      expect(state().window, windowOf(a));
+    });
+
+    test('переслушивание заводит окно заново', () {
+      // Игрок попросил повторить, а не отказался от половины своего окна:
+      // часы, идущие сквозь повтор, — это плата за чужую медлительность.
+      // Платит переслушивание скоростным множителем, а не отобранными
+      // секундами.
+      speech.sounds = speaking;
+      fakeAsync((async) {
+        final h = heard();
+        controller().start([h]);
+        async.elapse(speaking);
+        async.elapse(windowOf(h) - const Duration(seconds: 1));
+
+        controller().replayPrompt();
+        expect(state().window, isNull,
+            reason: 'полоса шла, пока звучал повтор');
+        // Секунда, которая осталась бы от прежнего окна, давно прошла.
+        async.elapse(speaking + const Duration(seconds: 2));
+        expect(state().phase, RunPhase.asking,
+            reason: 'круг закрылся по остатку прежнего окна');
+
+        async.elapse(windowOf(h));
+        expect(state().phase, RunPhase.revealing);
+        expect(speech.spoken.take(2),
+            ['Die Rechnung, bitte', 'Die Rechnung, bitte']);
+      });
+    });
+
+    test('без голоса круг на слух всё равно открывается', () {
+      // Заглушка без голоса отвечает мгновенно, и это условие проверки: ждать
+      // сигнала, которого не будет, значило бы никогда не открыть окно. Круг
+      // со слухом без синтеза непроходим, но повиснуть он не должен.
+      expect(speech.sounds, Duration.zero);
+      fakeAsync((async) {
+        final h = heard();
+        controller().start([h]);
+        async.flushMicrotasks();
+        expect(state().window, windowOf(h));
+        async.elapse(windowOf(h));
+      });
+    });
+  });
+
+  group('забег без игрока', () {
+    // Жалоба владельца дословно: «когда я закрыл окно с игрой — она продолжает
+    // работать в фоне — я слышу текст». Игра не доигрывала звук, она
+    // продолжала играть сама: окно истекало, просрочка уходила в память как
+    // «не вспомнил», звучал верный ответ, срабатывал автопереход, новый круг
+    // произносил свой вопрос — и так по кругу. За минуту в закрытом окне
+    // отыгрывалось десять кругов, каждый просрочкой.
+    test('в фоне не идёт ни один отсчёт', () {
+      fakeAsync((async) {
+        controller().start([question('a'), question('b')]);
+        screen(AppLifecycleState.paused);
+
+        async.elapse(const Duration(minutes: 1));
+
+        expect(speech.spoken, isEmpty, reason: 'игра говорила без игрока');
+        expect(state().queue.map((q) => q.itemId), ['a', 'b']);
+        expect(state().phase, RunPhase.asking);
+        expect(state().answered, 0);
+        expect(state().window, isNull,
+            reason: 'окно осталось открытым в фоне');
+      });
+    });
+
+    test('возвращение открывает окно с полного времени', () {
+      // С остатка было бы наказанием за то, чего игрок не видел: ни фразы, ни
+      // полосы, ни того, сколько времени уже съедено.
+      fakeAsync((async) {
+        final a = question('a');
+        controller().start([a]);
+        async.elapse(windowOf(a) - const Duration(milliseconds: 200));
+
+        screen(AppLifecycleState.paused);
+        async.elapse(const Duration(minutes: 1));
+        screen(AppLifecycleState.resumed);
+
+        expect(state().window, windowOf(a));
+        async.elapse(windowOf(a) - const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.asking,
+            reason: 'круг закрылся по остатку прежнего окна');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.revealing);
+      });
+    });
+
+    test('круг на слух после возвращения звучит заново и не считается '
+        'переслушанным', () {
+      // Звук отобрала игра, а не игрок попросил повторить: снимать за это
+      // скоростной множитель значило бы наказывать за входящий звонок.
+      const listen = CircleQuestion(
+        itemId: 'h1',
+        tier: Tier.a0,
+        mode: GameMode.listenNative,
+        prompt: '',
+        options: [
+          'Счёт, пожалуйста',
+          'Где вокзал',
+          'Два кофе, пожалуйста',
+          'Я не понимаю',
+          'Сколько это стоит',
+          'До завтра',
+        ],
+        answerIndex: 0,
+        // Яркая звезда — условие проверки: скоростного множителя ниже 40 lm
+        // нет вовсе, и «фон не отнял скорость» проверялось бы ни на чём.
+        lumens: 80,
+        promptSpeech: 'Die Rechnung, bitte',
+        answerSpeech: 'Die Rechnung, bitte',
+      );
+      speech.sounds = const Duration(seconds: 2);
+
+      fakeAsync((async) {
+        controller().start([listen]);
+        async.elapse(const Duration(seconds: 3));
+
+        screen(AppLifecycleState.paused);
+        async.elapse(const Duration(seconds: 10));
+        screen(AppLifecycleState.resumed);
+        async.elapse(const Duration(seconds: 3));
+
+        expect(speech.spoken.length, 2, reason: 'центр не прозвучал заново');
+        controller().answerOption(0, const Duration(milliseconds: 500));
+        final afterBackground = state().score;
+        // Секунда фальшивого времени — чтобы фоновая запись в память успела
+        // дойти до диска: незавершённая, она держала бы тест до таймаута.
+        async.elapse(const Duration(seconds: 1));
+
+        // Тот же круг и тот же быстрый ответ, но без ухода с экрана.
+        controller().start([listen]);
+        async.elapse(const Duration(seconds: 3));
+        controller().answerOption(0, const Duration(milliseconds: 500));
+        async.elapse(const Duration(seconds: 1));
+
+        expect(afterBackground, state().score,
+            reason: 'фон обошёлся игроку в скоростной множитель');
+      });
+    });
+
+    test('время вне экрана не съедает срок забега', () async {
+      // Срок Восхода и спринта — настоящие часы, а не таймер: они идут
+      // независимо от игрока, и это замысел. Но время, когда игры не было на
+      // экране, забегу не принадлежит — иначе входящий звонок убивал бы спринт,
+      // а Восход кончался бы, не показав ни одного круга.
+      //
+      // Тест на настоящих часах, а не на фальшивых: срок считается по
+      // `DateTime.now()`, и `fakeAsync` его не двигает — под ним не сдвинулись
+      // бы ни срок, ни время отсутствия, и проверка прошла бы при любом коде.
+      controller().start(
+        [question('a'), question('b')],
+        maxDuration: const Duration(milliseconds: 400),
+      );
+      screen(AppLifecycleState.paused);
+      await Future<void>.delayed(const Duration(milliseconds: 700));
+      screen(AppLifecycleState.resumed);
+
+      controller().answerOption(0, const Duration(milliseconds: 300));
+      controller().next();
+
+      expect(state().isFinished, isFalse, reason: 'фон съел срок забега');
+      expect(state().current?.itemId, 'b');
+      controller().leaveScreen();
     });
   });
 
@@ -642,8 +1006,11 @@ void main() {
       // ставило флаг, быстрый и медленный ответы стоили бы одинаково.
       //
       // «Медленный» — четыре секунды, а не шесть, как было. Ответа длиннее
-      // окна в игре больше не бывает: на пятой секунде круг закрывается сам,
-      // и время, которого не может быть, ничего не проверяет.
+      // окна в игре больше не бывает: круг закрывается сам, и время, которого
+      // не может быть, ничего не проверяет. Четыре секунды в окно круга на
+      // слух укладываются: его длина считается по объёму текста, а шесть
+      // коротких переводов вокруг звучащего центра просят больше четырёх.
+      expect(windowOf(heard()), greaterThan(const Duration(seconds: 4)));
       controller().start([heard()]);
       controller().answerOption(0, const Duration(milliseconds: 500));
       final fast = controller().state.score;
@@ -660,7 +1027,8 @@ void main() {
       fakeAsync((async) {
         controller().start([heard(), heard()]);
         controller().answerOption(0, const Duration(milliseconds: 500));
-        async.elapse(RevealBalance.correct);
+        controller().next();
+        async.flushMicrotasks();
 
         // Три произнесения: центр первого круга, верный ответ, центр второго.
         expect(speech.spoken, [

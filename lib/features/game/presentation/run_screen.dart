@@ -9,11 +9,17 @@ import '../application/run_controller.dart';
 import 'circle_arena.dart';
 import 'run_summary_view.dart';
 
-/// Экран забега: 10–14 кругов подряд без пауз.
+/// Экран забега: 10–14 кругов, темп которых задаёт игрок.
 ///
 /// Верхняя полоса намеренно тихая. Счёт и комбо — это обратная связь, а не
 /// содержание: как только они начинают перетягивать внимание с центра круга,
 /// игра превращается в кликер.
+///
+/// Внизу — «Дальше»: следующий круг открывает игрок, а не таймер. Кнопка
+/// стоит на экране всегда и всегда занимает своё место; появись она только в
+/// паузе, арена меняла бы высоту на каждом ответе и круг пересчитывал бы
+/// раскладку под новый размер — то есть шесть капсул переезжали бы ровно в тот
+/// момент, когда игрок смотрит на верный вариант.
 class RunScreen extends ConsumerWidget {
   const RunScreen({super.key, this.onFinished});
 
@@ -49,31 +55,60 @@ class RunScreen extends ConsumerWidget {
             // механиках отзываться было нечему: там не выбирают вариант, а
             // заполняют слоты. Рамка одна на все механики — реакция не
             // должна зависеть от того, во что играют.
-            // Нажатие по арене во время паузы открывает следующий круг.
+            // Нажатие по арене в паузе открывает следующий круг — то же, что
+            // кнопка «Дальше», и той же ценой.
             //
-            // Фразовая пауза длинная нарочно: предложение надо услышать и
-            // прочитать перевод. Но заставлять ждать того, кто уже всё
-            // прочёл, — значит платить его временем за чужую медлительность.
-            // Ждать не обязан никто, пропускать не обязан тоже.
+            // Прежде это было досрочным закрытием паузы, которая шла по
+            // таймеру; теперь паузу закрывает только игрок, и нажатие по
+            // пустому месту круга осталось вторым способом сказать «дальше».
+            // Отбирать привычное движение ради единственности пути незачем:
+            // палец после ответа уже на арене.
             child: GestureDetector(
-              onTap: state.phase == RunPhase.revealing
-                  ? controller.skipReveal
-                  : null,
+              onTap:
+                  state.phase == RunPhase.revealing ? controller.next : null,
               child: _Feedback(
                 outcome: state.lastCorrect,
                 child: _Arena(
                   question: question,
                   enabled: state.phase == RunPhase.asking,
+                  window: state.window,
                   onOption: controller.answerOption,
-                    onReplay: controller.replayPrompt,
+                  onReplay: controller.replayPrompt,
                 ),
               ),
             ),
           ),
         ),
+        _NextButton(
+          // Кнопка включается ответом: до него открывать нечего, и выключенная
+          // кнопка говорит об этом сама — лучше, чем кнопка, которая нажимается
+          // и ничего не делает.
+          onPressed:
+              state.phase == RunPhase.revealing ? controller.next : null,
+        ),
       ],
     );
   }
+}
+
+/// «Дальше»: следующий круг открывает игрок.
+class _NextButton extends StatelessWidget {
+  const _NextButton({required this.onPressed});
+
+  /// `null` — ответа ещё нет, кнопка выключена.
+  final VoidCallback? onPressed;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 4, 16, 12),
+        child: SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: onPressed,
+            child: Text(AppLocalizations.of(context).runNext),
+          ),
+        ),
+      );
 }
 
 /// Арена круга. Одна на все три механики.
@@ -86,12 +121,17 @@ class _Arena extends StatelessWidget {
   const _Arena({
     required this.question,
     required this.enabled,
+    required this.window,
     required this.onOption,
     required this.onReplay,
   });
 
   final CircleQuestion question;
   final bool enabled;
+
+  /// Окно, открытое забегом прямо сейчас; `null` — окна нет.
+  final Duration? window;
+
   final void Function(int, Duration) onOption;
   final VoidCallback onReplay;
 
@@ -103,16 +143,21 @@ class _Arena extends StatelessWidget {
       enabled: enabled,
       // Динамик в центре вместо текста: нажатие проигрывает заново.
       onReplay: question.mode.needsAudio ? onReplay : null,
-      // Полоса окна идёт только здесь — потому что отсчёт есть только здесь.
+      // Полоса окна берёт длину у забега, а не у вопроса, и это и есть «одни
+      // часы».
       //
-      // Просроченный круг закрывает `RunController`, и отсчитывает он то же
-      // самое время: правило «на знакомстве окна нет, иначе пять секунд»
-      // выписано у вопроса ([CircleQuestion.answerWindow]), а таймер забега
-      // повторяет его половину — до правки по темпу круга, где сойдутся оба.
-      // Арена же не решает ничего: пока решала она (по `!isNew`), полоса шла и
-      // в калибровке, где таймера нет вовсе, — и первым, чему приложение
-      // учило игрока, было не смотреть на полосу.
-      answerWindow: question.answerWindow,
+      // Спросить длину у вопроса ([CircleQuestion.answerWindow]) было бы
+      // вторым источником одного числа: полоса шла бы столько же, сколько
+      // таймер, но **сама по себе** — и уже не совпадала бы с ним по началу.
+      // Окно круга на слух открывается не в кадре появления круга, а когда
+      // фраза дозвучала; окно после переслушивания заводится заново. Полоса,
+      // спросившая вопрос, обещала бы отсчёт, который в этот миг не идёт, а
+      // это то же самое, чем она обманывала в онбординге: там таймера нет
+      // вовсе, а полоса краснела по `!isNew`.
+      //
+      // `RunState.window` — то самое значение, которым заведён таймер: нет
+      // отсчёта — нет и полосы.
+      answerWindow: window,
     );
   }
 }

@@ -1,8 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lumen/core/audio/speech_locale.dart';
 import 'package:lumen/core/audio/speech_service.dart';
+// Корень приложения — там живёт глобальная тишина: голос один на все экраны,
+// которые говорят, и молчать он должен целиком.
+import 'package:lumen/main.dart';
 
 /// Проверка наличия голоса — самое рискованное место перехода на синтез
 /// устройства.
@@ -201,6 +208,72 @@ void main() {
       expect(spoken, ['Zeit', 'Arzt'], reason: 'вытесненное слово прозвучало');
     });
 
+    test('сигнал окончания приходит после произнесения, а не до', () async {
+      // Нужен он ровно одному месту — кругу на слух: пока фраза звучит,
+      // отвечать физически не на что, и окно на ответ открывается по этому
+      // сигналу. Без него часы шли сквозь озвучку, и от пяти секунд игроку
+      // оставалось две.
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        if (call.method == 'speak') {
+          await Future<void>.delayed(const Duration(milliseconds: 80));
+          return true;
+        }
+        return true;
+      });
+
+      final service = DeviceSpeechService(lang: 'de', engine: FlutterTts.new);
+      var done = false;
+      unawaited(service.speakAndWait('Die Rechnung, bitte')
+          .then((_) => done = true));
+
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(done, isFalse, reason: 'сигнал пришёл, пока фраза ещё звучала');
+
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(done, isTrue, reason: 'сигнал окончания не пришёл вовсе');
+    });
+
+    test('ждущий сигнала дожидается и того, что стояло перед ним', () async {
+      // Очередь длиной в один здесь та же: пока говорится прошлая фраза, новый
+      // запрос не обрывает её, а ждёт. Значит «дозвучало» для вытесняющего
+      // запроса — это конец всей цепочки, иначе окно открылось бы посреди
+      // произнесения центра.
+      final spoken = <String>[];
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, (call) async {
+        if (call.method == 'speak') {
+          spoken.add(call.arguments as String);
+          await Future<void>.delayed(const Duration(milliseconds: 80));
+          return true;
+        }
+        return true;
+      });
+
+      final service = DeviceSpeechService(lang: 'de', engine: FlutterTts.new);
+      service.speak('Satz eins');
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+
+      var done = false;
+      unawaited(service.speakAndWait('Satz zwei').then((_) => done = true));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      expect(spoken, ['Satz eins', 'Satz zwei']);
+      expect(done, isFalse, reason: 'сигнал пришёл до второй фразы');
+
+      await Future<void>.delayed(const Duration(milliseconds: 200));
+      expect(done, isTrue);
+    });
+
+    test('без голоса сигнал приходит сразу, а не никогда', () async {
+      // Круг со слухом без синтеза непроходим, но повиснуть он не должен:
+      // ждать сигнала, которого не будет, значило бы никогда не открыть окно.
+      final service = serviceFor(const {});
+      await expectLater(service.speakAndWait('Arzt'), completes);
+      // То же на выключенном звуке: вместо голоса вибрация, но круг живёт.
+      service.enabled = false;
+      await expectLater(service.speakAndWait('Arzt'), completes);
+    });
+
     test('остановка снимает и ждавшее своей очереди', () async {
       final spoken = <String>[];
       TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
@@ -237,6 +310,64 @@ void main() {
       final silent =
           SilentSpeechService(reported: SpeechStatus.languageMissing);
       expect((await silent.status()).canSpeak, isFalse);
+    });
+
+    test('умеет говорить не мгновенно', () async {
+      // Мгновенный голос — умолчание, и он нужен большинству тестов. Но
+      // правило «окно открывается, когда фраза дозвучала» на мгновенном голосе
+      // не проверить: «до» и «после» приходятся на один и тот же миг.
+      final silent = SilentSpeechService(sounds: const Duration(seconds: 2));
+      var done = false;
+      unawaited(silent.speakAndWait('Rechnung').then((_) => done = true));
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(silent.spoken, ['Rechnung']);
+      expect(done, isFalse);
+    });
+  });
+
+  group('тишина вне экрана', () {
+    // Жалоба владельца дословно: «когда я закрыл окно с игрой — она продолжает
+    // работать в фоне — я слышу текст». Таймеры круга останавливает забег, а
+    // голос — приложение: он один на забег и калибровку, и остановка живёт в
+    // корне (`SilenceOffScreen`). Поставь её в забеге, и онбординг продолжал бы
+    // читать фразы в закрытом окне.
+    Future<void> screen(AppLifecycleState state) =>
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .handlePlatformMessage(
+          SystemChannels.lifecycle.name,
+          const StringCodec().encodeMessage(state.toString()),
+          (_) {},
+        );
+
+    tearDown(() => WidgetsBinding.instance.resetInternalState());
+
+    testWidgets('уход с экрана обрывает произнесение', (tester) async {
+      final silent = SilentSpeechService();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [speechServiceProvider.overrideWithValue(silent)],
+          child: const SilenceOffScreen(child: SizedBox()),
+        ),
+      );
+
+      expect(silent.stopCount, 0, reason: 'замолчали, не уходя с экрана');
+
+      await screen(AppLifecycleState.paused);
+      await tester.pump();
+
+      expect(silent.stopCount, greaterThan(0),
+          reason: 'озвучка осталась играть в фоне');
+
+      // Возвращение речь не запускает: что произносить, решает не корень, а
+      // тот, кто ведёт круг. Корень умеет только замолчать.
+      //
+      // Считать сами остановки бессмысленно, и это не небрежность: путь от
+      // `resumed` до `paused` платформа проходит через `inactive` и `hidden`,
+      // и каждое из этих состояний — «игрок не смотрит». Замолчать трижды не
+      // хуже, чем один раз: прерывать во второй раз уже нечего.
+      await screen(AppLifecycleState.resumed);
+      await tester.pump();
+      expect(silent.spoken, isEmpty);
     });
   });
 

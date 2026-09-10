@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
+import 'core/audio/speech_service.dart';
 import 'core/l10n/app_localizations.dart';
 import 'core/l10n/interface_lang.dart';
 import 'core/router/app_router.dart';
@@ -89,16 +90,73 @@ class _LumenAppState extends ConsumerState<LumenApp>
     // независимых разрешения локали — могут.
     final interfaceLang = ref.watch(interfaceLangProvider);
 
-    return MaterialApp.router(
-      onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      // Небо — основное состояние приложения, поэтому тёмная по умолчанию.
-      themeMode: ThemeMode.dark,
-      locale: Locale(interfaceLang),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      routerConfig: router,
+    return SilenceOffScreen(
+      child: MaterialApp.router(
+        onGenerateTitle: (context) => AppLocalizations.of(context).appTitle,
+        theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
+        // Небо — основное состояние приложения, поэтому тёмная по умолчанию.
+        themeMode: ThemeMode.dark,
+        locale: Locale(interfaceLang),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: router,
+      ),
     );
   }
+}
+
+/// Тишина, когда приложения нет на экране.
+///
+/// Стоит в корне, и это не лень найти место поточнее. Голос в игре один — его
+/// делит забег с калибровкой, — и обе говорят одним `SpeechService`. Поставь
+/// остановку в забеге, и онбординг продолжал бы читать фразы в закрытом окне;
+/// поставь в каждом экране, который говорит, и правило разъедется при появлении
+/// третьего. Приложение уходит с экрана целиком, значит и молчать оно должно
+/// целиком.
+///
+/// Что при этом **не** делается здесь: таймеры круга. Они принадлежат забегу
+/// (`RunController.leaveScreen`), и останавливать их должен тот, кто ими
+/// владеет, — иначе появилось бы второе место, знающее, из чего состоит темп
+/// круга.
+///
+/// Жалоба владельца, с которой всё началось: «когда я закрыл окно с игрой — она
+/// продолжает работать в фоне — я слышу текст». Слышен был не остаток фразы, а
+/// забег, который шёл без него; но остановить надо было и его, и голос.
+class SilenceOffScreen extends ConsumerStatefulWidget {
+  const SilenceOffScreen({super.key, required this.child});
+
+  final Widget child;
+
+  @override
+  ConsumerState<SilenceOffScreen> createState() => _SilenceOffScreenState();
+}
+
+class _SilenceOffScreenState extends ConsumerState<SilenceOffScreen> {
+  AppLifecycleListener? _lifecycle;
+
+  @override
+  void initState() {
+    super.initState();
+    // В `initState`, а не полем с `late final`: ленивое поле, к которому не
+    // обращается `build`, не создалось бы никогда — и молчания бы не было.
+    _lifecycle = AppLifecycleListener(onStateChange: _screenChanged);
+  }
+
+  @override
+  void dispose() {
+    _lifecycle?.dispose();
+    super.dispose();
+  }
+
+  void _screenChanged(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) return;
+    // `read`, а не `watch`: сервис нам нужен на мгновение и только чтобы
+    // замолчать. Если его ещё никто не создавал, `stop` до платформы не
+    // дойдёт — движок синтеза создаётся лениво, первым произнесением.
+    ref.read(speechServiceProvider).stop();
+  }
+
+  @override
+  Widget build(BuildContext context) => widget.child;
 }

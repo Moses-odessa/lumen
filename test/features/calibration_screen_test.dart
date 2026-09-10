@@ -223,8 +223,10 @@ void main() {
       matching: find.byType(LinearProgressIndicator),
     );
     expect(windowBar, findsNothing);
-    // И не появляется со временем: окна нет не «пока», а вовсе.
-    await tester.pump(ScoreBalance.answerWindow * 2);
+    // И не появляется со временем: окна нет не «пока», а вовсе. Ждём дольше
+    // самого длинного окна, какое в игре бывает: одного числа на все круги
+    // больше нет — окно считается по объёму текста и упирается в потолок.
+    await tester.pump(ScoreBalance.answerWindowMax * 2);
     expect(windowBar, findsNothing);
 
     // Круг при этом живой: у онбординга отобрали полосу, а не игру.

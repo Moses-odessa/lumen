@@ -409,6 +409,37 @@ void main() {
     expect(answers.single.$2, greaterThan(const Duration(milliseconds: 50)));
   });
 
+  testWidgets('отсчёт отклика начинается с открытого окна', (tester) async {
+    // Продолжение того же правила с другой стороны. Окно круга открывается не
+    // всегда в кадре появления: на круге со слухом хозяин заводит его, когда
+    // фраза дозвучала, а до тех пор отвечать не на что. Считай арена отклик от
+    // появления — две-три секунды озвучки уехали бы в задержку ответа:
+    // скоростной множитель терялся бы на «Слухе» всегда, а FSRS получал бы
+    // «трудно» за ответ, данный мгновенно.
+    //
+    // Задержка считается по `DateTime.now()`, и виртуальные часы теста её не
+    // двигают — поэтому пауза настоящая.
+    final answers = <(int, Duration)>[];
+    void onAnswer(int i, Duration l) => answers.add((i, l));
+
+    // Сперва круг без отсчёта: так приходит круг со звучащим центром.
+    await tester.pumpWidget(arenaApp(question, onAnswer, counted: false));
+    await tester.pump(shown);
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 150)),
+    );
+
+    // Хозяин завёл окно — с этого мгновения игрок может отвечать.
+    await tester.pumpWidget(arenaApp(question, onAnswer));
+    await tester.pump();
+    await tester.tap(find.text(answer));
+    await tester.pump();
+
+    expect(answers, hasLength(1));
+    expect(answers.single.$2, lessThan(const Duration(milliseconds: 100)),
+        reason: 'в отклик уехало время, когда отвечать было не на что');
+  });
+
   testWidgets('до ответа верный вариант ничем не выделен', (tester) async {
     // Подсветка — это и есть ответ. Загорись она заранее, круг стал бы
     // показом, а не вопросом, и никакая механика уже ничего не проверяла бы.
@@ -551,7 +582,7 @@ void main() {
       expect(mid, lessThan(start));
       expect(mid, greaterThan(0), reason: 'окно кончилось раньше срока');
 
-      await tester.pump(ScoreBalance.answerWindow);
+      await tester.pump(question.answerWindow!);
       expect(timeLeft(tester), 0);
     });
 
@@ -570,7 +601,7 @@ void main() {
 
       expect(find.byType(LinearProgressIndicator), findsNothing);
       // И не появляется потом: полосы нет не «пока», а вовсе.
-      await tester.pump(ScoreBalance.answerWindow * 2);
+      await tester.pump(question.answerWindow! * 2);
       expect(find.byType(LinearProgressIndicator), findsNothing);
       // Круг при этом играется как обычно — у него отобрали таймер, а не игру.
       await tester.tap(find.text(answer));

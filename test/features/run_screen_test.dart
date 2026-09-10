@@ -24,9 +24,9 @@ import 'corpus_extremes.dart';
 /// Арена, поднятая в тесте одна (`circle_arena_test.dart`), после ответа
 /// остаётся на экране, и всё выглядит правильно. Под настоящим хозяином она
 /// либо гаснет, либо заменяется — и проверять надо именно это. Экран теперь
-/// умеет уходить вперёд и **без** ответа: круг живёт пять секунд, и молчание
-/// закрывает его так же, как промах. Одна арена на все три механики: второй,
-/// заполнявшей пропуски фразы, больше нет.
+/// умеет закрыть круг и **без** ответа: круг живёт столько, сколько просит его
+/// текст, и молчание закрывает его так же, как промах. Одна арена на все три
+/// механики: второй, заполнявшей пропуски фразы, больше нет.
 ///
 /// Что удалено вместе с фразовой ареной:
 ///
@@ -42,6 +42,14 @@ import 'corpus_extremes.dart';
 /// * «нажатие по арене в паузе открывает следующий круг» — не удалён, а
 ///   перенесён: правило живое, нажимать теперь надо не по проявившемуся
 ///   переводу, а по пустому месту круга.
+///
+/// **Что изменилось вместе с темпом круга.** Экран больше не уходит вперёд сам
+/// ни после ответа, ни после просрочки: следующий круг открывает игрок —
+/// кнопкой «Дальше» или нажатием по арене. Поэтому ожидание паузы
+/// (`RevealBalance`) исчезло из всех тестов файла: паузы, которую можно было
+/// прождать, нет. Длин у неё было две — 420 мс на верном ответе и 1100 мс на
+/// промахе, — и разница охраняла правило «верный вариант надо успеть увидеть».
+/// Теперь его исполняет сам игрок, и охранять числом нечего.
 void main() {
   late ProviderContainer container;
   late SilentSpeechService speech;
@@ -124,9 +132,8 @@ void main() {
     );
     // Ровно один кадр, и это не экономия. `pumpAndSettle` здесь не
     // заканчивается никогда: пока круг открыт, полоса окна анимируется, а
-    // «дождаться, пока всё успокоится» означает промолчать пять секунд,
-    // получить промах, получить с ним ещё один круг в очередь — и так до
-    // таймаута.
+    // «дождаться, пока всё успокоится» означает промолчать всё окно, получить
+    // промах и получить с ним ещё один круг в очередь.
     await tester.pump();
   }
 
@@ -155,6 +162,24 @@ void main() {
   double windowLeft(WidgetTester tester) =>
       tester.widget<LinearProgressIndicator>(windowBar).value!;
 
+  /// Кнопка «Дальше» — то, чем игрок открывает следующий круг.
+  ///
+  /// Ищется по строке локализации, а не по ключу: строка живёт в шести ARB, и
+  /// кнопка, собравшаяся с пустой подписью, была бы кнопкой без имени. Локаль
+  /// здесь английская — язык интерфейса сводится к системной, а в
+  /// `flutter_test` это `en_US`.
+  final nextButton = find.widgetWithText(FilledButton, 'Next');
+
+  /// Открывает следующий круг так, как это делает игрок.
+  Future<void> next(WidgetTester tester) async {
+    await tester.tap(nextButton);
+    await tester.pump();
+  }
+
+  /// Включена ли кнопка «Дальше».
+  bool nextEnabled(WidgetTester tester) =>
+      tester.widget<FilledButton>(nextButton).onPressed != null;
+
   testWidgets('вариант отвечает, и следующий круг встаёт на место арены',
       (tester) async {
     controller().start([bill, time]);
@@ -167,7 +192,7 @@ void main() {
     expect(state().correct, 1);
     expect(speech.spoken, ['Die Rechnung, bitte']);
 
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
 
     // Арена не осталась прежней: в центре другой вопрос, а прежние варианты
     // из дерева ушли. Тот самый дефект, который проект уже пропускал: арена,
@@ -179,42 +204,77 @@ void main() {
     // И второй круг тоже отвечает — забег доходит до итога.
     await tester.tap(find.text('Ich habe Zeit'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
 
     expect(state().isFinished, isTrue);
   });
 
-  testWidgets('молчание закрывает круг, и экран уходит вперёд сам',
-      (tester) async {
-    // Окно на ответ живёт в забеге, полоса окна — в арене, и здесь
-    // проверяется, что экран переживает закрытие круга, к которому игрок не
-    // прикоснулся: следующий вопрос встаёт на место сам, а верный вариант
-    // прозвучал, потому что промолчавшему его никто не назвал.
+  testWidgets('без «Дальше» экран стоит на месте', (tester) async {
+    // Решение владельца дословно: «отключаем автоматическое появление
+    // следующего круга, давай после выбора варианта активируем кнопку Дальше и
+    // уже по ней переходим к следующему заниятию».
+    //
+    // Проверяется здесь именно **экран**: круг, ушедший сам, забирает с собой
+    // и подсветку верного варианта — то, ради чего пауза и существовала.
     controller().start([bill, time]);
     await pumpRun(tester);
 
-    await tester.pump(ScoreBalance.answerWindow);
+    expect(nextEnabled(tester), isFalse,
+        reason: 'кнопка нажимается до ответа — это пропуск круга');
+
+    await tester.tap(find.text('Die Rechnung, bitte'));
+    await tester.pump();
+    expect(nextEnabled(tester), isTrue);
+
+    await tester.pump(const Duration(minutes: 1));
+
+    expect(state().phase, RunPhase.revealing, reason: 'круг сменился сам');
+    expect(find.text('Счёт, пожалуйста'), findsOneWidget);
+    expect(find.text('У меня есть время'), findsNothing);
+
+    await next(tester);
+    expect(find.text('У меня есть время'), findsOneWidget);
+    await tester.tap(find.text('Ich habe Zeit'));
+    await tester.pump();
+    await next(tester);
+    expect(state().isFinished, isTrue);
+  });
+
+  testWidgets('молчание закрывает круг, но вперёд ведёт игрок', (tester) async {
+    // Окно на ответ живёт в забеге, полоса окна — в арене, и здесь
+    // проверяется, что экран переживает закрытие круга, к которому игрок не
+    // прикоснулся: верный вариант прозвучал, потому что промолчавшему его
+    // никто не назвал, а следующий круг всё равно ждёт нажатия.
+    //
+    // До правки экран уходил вперёд сам, и это была та самая петля, которая
+    // играла в фоне: просрочка → озвучка → автопереход → новый вопрос → новое
+    // окно, и так по кругу без игрока.
+    controller().start([bill, time]);
+    await pumpRun(tester);
+
+    await tester.pump(bill.answerWindow!);
 
     expect(state().phase, RunPhase.revealing);
     expect(state().lastCorrect, isFalse);
     expect(speech.spoken, ['Die Rechnung, bitte']);
-
-    await tester.pump(RevealBalance.wrong);
-
-    expect(find.text('У меня есть время'), findsOneWidget);
-    expect(state().phase, RunPhase.asking);
     // Просроченная фраза не пропала, а вернулась в конец очереди.
     expect(state().queue.map((q) => q.itemId).toList(),
         ['money_a0_bill', 'time_a0_have', 'money_a0_bill']);
+    expect(find.text('Счёт, пожалуйста'), findsOneWidget,
+        reason: 'просроченный круг уехал, не показав верный вариант');
+
+    await next(tester);
+    expect(find.text('У меня есть время'), findsOneWidget);
+    expect(state().phase, RunPhase.asking);
 
     // Забег дожимается до конца, иначе окно следующего круга осталось бы
     // висеть после теста.
     await tester.tap(find.text('Ich habe Zeit'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     await tester.tap(find.text('Die Rechnung, bitte'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
 
     expect(state().isFinished, isTrue);
   });
@@ -248,7 +308,7 @@ void main() {
     // Ответ по-прежнему принимается: у знакомства отобрали таймер, а не игру.
     await tester.tap(find.text('Die Rechnung, bitte'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
 
     expect(state().isFinished, isTrue);
     expect(state().correct, 1);
@@ -256,9 +316,9 @@ void main() {
 
   testWidgets('нажатие по арене в паузе открывает следующий круг',
       (tester) async {
-    // Пауза после промаха длинная нарочно: верный вариант надо успеть
-    // увидеть и услышать. Но заставлять ждать того, кто уже всё прочёл, —
-    // значит платить его временем за чужую медлительность.
+    // Второй способ сказать «дальше», и той же ценой: палец после ответа уже
+    // на арене. Прежде это было досрочным закрытием паузы, которая шла по
+    // таймеру; таймера нет, а движение осталось.
     controller().start([bill, time]);
     await pumpRun(tester);
 
@@ -274,12 +334,12 @@ void main() {
 
     await tester.tap(find.text('Ich habe Zeit'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     // Промах вернулся в очередь третьим кругом — забег ещё идёт.
     expect(state().isFinished, isFalse);
     await tester.tap(find.text('Die Rechnung, bitte'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     expect(state().isFinished, isTrue);
   });
 
@@ -299,10 +359,10 @@ void main() {
 
     await tester.tap(find.text('Die Rechnung, bitte'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     await tester.tap(find.text('Ich habe Zeit'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     expect(state().isFinished, isTrue);
   });
 
@@ -319,7 +379,7 @@ void main() {
 
     await tester.tap(find.text(wrongOption));
     await tester.pump();
-    await tester.pump(RevealBalance.wrong);
+    await next(tester);
 
     expect(state().phase, RunPhase.asking);
     expect(state().current?.itemId, 'money_a0_bill');
@@ -330,7 +390,7 @@ void main() {
     expect(state().correct, 1,
         reason: 'арена не сбросилась и ответа не приняла');
 
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
     expect(state().isFinished, isTrue);
   });
 
@@ -340,11 +400,14 @@ void main() {
 
     await tester.tap(find.text('Die Rechnung, bitte'));
     await tester.pump();
-    await tester.pump(RevealBalance.correct);
+    await next(tester);
 
     expect(find.byType(RunSummaryView), findsOneWidget);
     expect(find.byType(CircleArena), findsNothing,
         reason: 'арена осталась на экране поверх итога');
+    // Кнопка «Дальше» ушла вместе с ареной: на итоге ведёт «Продолжить», и
+    // круга, к которому можно было бы перейти, нет.
+    expect(nextButton, findsNothing);
   });
 
   group('окно ответа', () {
@@ -355,13 +418,18 @@ void main() {
       // круг ещё открыт, либо круг закрылся при непустой полосе. Проверяется
       // это только здесь: арена своего таймера не имеет, забег своей полосы
       // не рисует, и разъехаться они могут лишь на этом шве.
+      //
+      // Длину обоим даёт одно число — то, которым заведён таймер забега
+      // (`RunState.window`). Здесь оно спрашивается у вопроса ровно затем,
+      // чтобы тест не повторял ни формулу, ни путь, которым она доходит до
+      // полосы.
       controller().start([bill, time]);
       await pumpRun(tester);
 
       expect(windowBar, findsOneWidget, reason: 'отсчёт идёт, а полосы нет');
 
       const eyeblink = Duration(milliseconds: 100);
-      await tester.pump(ScoreBalance.answerWindow - eyeblink);
+      await tester.pump(bill.answerWindow! - eyeblink);
       expect(state().phase, RunPhase.asking,
           reason: 'забег закрыл круг раньше, чем кончилась полоса');
       expect(windowLeft(tester), greaterThan(0),
@@ -369,17 +437,93 @@ void main() {
 
       await tester.pump(eyeblink);
       expect(state().phase, RunPhase.revealing);
+      // Отсчёта больше нет — нет и полосы. Замершая полоса поверх отвеченного
+      // круга сообщала бы об истечении времени на ответ, который уже дан.
+      expect(windowBar, findsNothing);
 
       // Забег дожимается до конца, иначе окно следующего круга осталось бы
       // висеть после теста.
-      await tester.pump(RevealBalance.wrong);
+      await next(tester);
       await tester.tap(find.text('Ich habe Zeit'));
       await tester.pump();
-      await tester.pump(RevealBalance.correct);
+      await next(tester);
       await tester.tap(find.text('Die Rechnung, bitte'));
       await tester.pump();
-      await tester.pump(RevealBalance.correct);
+      await next(tester);
       expect(state().isFinished, isTrue);
+    });
+
+    testWidgets('на круге со слухом полоса ждёт, пока фраза дозвучит',
+        (tester) async {
+      // Жалоба владельца дословно: «я не замерял, но мне кажется для ответа
+      // дается только 2 секунды а не 5». Окно открывалось в тот же миг, что
+      // начиналась озвучка, а фраза на этом круге существует только как звук:
+      // пока она произносится, отвечать не на что — и от окна оставалась
+      // половина. Полоса при этом честно показывала, как утекает время, в
+      // которое ответить было нельзя.
+      const speaking = Duration(seconds: 2);
+      speech.sounds = speaking;
+      final heard = CircleQuestion(
+        itemId: 'money_a0_bill',
+        tier: Tier.a0,
+        mode: GameMode.listenNative,
+        // Центр звучит: текста в нём нет, и в объём круга он не попадает.
+        prompt: '',
+        options: const [
+          'Счёт, пожалуйста',
+          'Где вокзал',
+          'Два кофе, пожалуйста',
+          'Я не понимаю',
+          'Сколько это стоит',
+          'До завтра',
+        ],
+        answerIndex: 0,
+        lumens: 60,
+        promptSpeech: 'Die Rechnung, bitte',
+        answerSpeech: 'Die Rechnung, bitte',
+      );
+
+      controller().start([heard]);
+      await pumpRun(tester);
+
+      expect(windowBar, findsNothing,
+          reason: 'полоса пошла раньше, чем фраза дозвучала');
+      await tester.pump(speaking);
+
+      expect(windowBar, findsOneWidget, reason: 'полоса не пошла после фразы');
+      expect(windowLeft(tester), closeTo(1, 0.02),
+          reason: 'полоса начала не с полного окна: часы шли сквозь озвучку');
+
+      await tester.pump(heard.answerWindow! - const Duration(milliseconds: 1));
+      expect(state().phase, RunPhase.asking);
+      await tester.pump(const Duration(milliseconds: 1));
+      expect(state().phase, RunPhase.revealing);
+    });
+
+    test('самый тесный круг корпуса всё ещё оставляет медленный ответ', () {
+      // Окно считается по объёму текста, а «медленный верный ответ» —
+      // обещанный исход: ответ медленнее `speedMedium` приносит множитель 1.0,
+      // но приносит. На самом коротком круге, какой корпус способен собрать
+      // (шесть самых коротких переводов вокруг звучащего центра), окно обязано
+      // этот порог перекрывать — иначе исход исчез бы молча на одном ярусе из
+      // пяти.
+      //
+      // Проверяется по ассету, а не по вписанному числу: корпус уже менялся
+      // дважды, и вписанная длина проверяла бы прошлый корпус.
+      final tightest = CircleQuestion(
+        itemId: 'corpus_tightest',
+        tier: Tier.a0,
+        mode: GameMode.listenNative,
+        prompt: '',
+        options: corpus.shortestNative(ScoreBalance.optionsPerCircle),
+        answerIndex: 0,
+        lumens: 60,
+        promptSpeech: 'Danke',
+        answerSpeech: 'Danke',
+      );
+
+      expect(tightest.answerWindow, greaterThan(ScoreBalance.speedMedium));
+      expect(tightest.answerWindow, greaterThan(SrsBalance.gradeGoodBelow));
     });
   });
 
@@ -536,15 +680,16 @@ void main() {
                 reason: 'обрезано на ${screen.label}: '
                     '${paragraph.text.toPlainText()}');
           }
-          // Догонять круг до итога не нужно: следующий `start` отменяет и
-          // паузу, и окно. А вот последний круг дожимается — ниже.
+          // Догонять круг до итога не нужно: следующий `start` отменяет окно.
+          // А вот последний круг дожимается — ниже.
         }
 
-        // Последний круг доигрывается, иначе его таймер остался бы висеть
-        // после теста. Экран возвращается настоящий: итог забега — не про
-        // раскладку круга, и мерить его на модельном экране незачем.
+        // Последний круг доигрывается. Ждать тут больше нечего — ответ уже дан
+        // и окно снято, — поэтому забег закрывает кнопка. Экран возвращается
+        // настоящий: итог забега не про раскладку круга, и мерить его на
+        // модельном экране незачем.
         tester.view.reset();
-        await tester.pump(ScoreBalance.answerWindow + RevealBalance.wrong);
+        await next(tester);
         expect(state().isFinished, isTrue);
       });
     }

@@ -55,6 +55,23 @@ abstract class SpeechService {
   /// последний. См. [DeviceSpeechService.speak].
   void speak(String text);
 
+  /// То же произнесение, но с сигналом окончания.
+  ///
+  /// Нужно ровно одному месту — кругу на слух: там фраза существует только как
+  /// звук, и пока она звучит, отвечать физически не на что. Окно на ответ
+  /// поэтому открывается по этому сигналу, а не вместе с озвучкой (см.
+  /// `RunController`); без него от пяти секунд на ответ игроку оставалось две.
+  ///
+  /// Правило «забег не ждёт звука» цело, и охраняет его подпись [speak]:
+  /// она по-прежнему ничего не возвращает, то есть ждать её нельзя даже
+  /// случайно. Ждать или нет решает тот, кто позвал; все остальные вызывающие
+  /// зовут [speak] и не ждут.
+  ///
+  /// Будущее завершается, когда произнесение кончилось — **договорив и то,
+  /// что стояло перед ним**: очередь длиной в один здесь та же.
+  /// Исключений не бросает: молчание не повод останавливать круг.
+  Future<void> speakAndWait(String text);
+
   /// Прерывает текущее произнесение: игрок ответил раньше, чем оно кончилось.
   void stop();
 
@@ -199,17 +216,27 @@ class DeviceSpeechService implements SpeechService {
 
   @override
   void speak(String text) {
+    // Намеренно теряем будущее: забег не ждёт звука, и подпись `void` — это
+    // единственное, чем это правило можно охранять от случайного `await`.
+    unawaited(speakAndWait(text));
+  }
+
+  @override
+  Future<void> speakAndWait(String text) {
     if (!enabled || text.isEmpty) {
       haptic();
-      return;
+      // Тишина уже кончилась: ждать нечего, и ждущий не должен из-за этого
+      // повиснуть. Круг со слухом без голоса открывает окно сразу — иначе он
+      // не открыл бы его никогда.
+      return Future<void>.value();
     }
     if (_speaking != null) {
       _pending = text;
-      return;
+      // Цепочка договорит начатое, потом это. Возвращается она же: «когда
+      // дозвучит» для вытесняющего запроса и есть конец всей цепочки.
+      return _speaking!;
     }
-    // Намеренно не await: забег не ждёт звука.
-    _speaking = _chain(text);
-    unawaited(_speaking);
+    return _speaking = _chain(text);
   }
 
   /// Договаривает начатое, потом произносит то, что ждало.
@@ -267,10 +294,24 @@ class DeviceSpeechService implements SpeechService {
 /// Нужен тестам и беззвучному режиму, чтобы игровой код не ветвился на
 /// «а есть ли голос».
 class SilentSpeechService implements SpeechService {
-  SilentSpeechService({this.reported = SpeechStatus.ready});
+  SilentSpeechService({
+    this.reported = SpeechStatus.ready,
+    this.sounds = Duration.zero,
+  });
 
   /// Что отвечать на [status] — тестам удобно подменять.
   final SpeechStatus reported;
+
+  /// Сколько «длится» произнесение. Меняется на ходу, как [enabled] у
+  /// устройства: круг на слух и круг на чтение живут в одном тесте.
+  ///
+  /// Ноль по умолчанию, и это не лень: заглушка нужна большинству тестов
+  /// именно мгновенной. Но правило «окно открывается, когда фраза дозвучала»
+  /// на мгновенном голосе не проверить — с ним «до» и «после» приходятся на
+  /// один и тот же миг. Тесты круга на слух ставят здесь настоящую длину
+  /// предложения (две-три секунды), и тогда видно, тикали ли часы сквозь
+  /// озвучку.
+  Duration sounds;
 
   /// Что просили произнести.
   final List<String> spoken = [];
@@ -285,6 +326,17 @@ class SilentSpeechService implements SpeechService {
 
   @override
   void speak(String text) => spoken.add(text);
+
+  @override
+  Future<void> speakAndWait(String text) {
+    speak(text);
+    // Мгновенный голос отвечает мгновенно, а не через микрозадачу: лишняя
+    // микрозадача сдвинула бы порядок событий в десятках тестов, которые про
+    // звук не знают ничего.
+    return sounds == Duration.zero
+        ? Future<void>.value()
+        : Future<void>.delayed(sounds);
+  }
 
   @override
   void stop() => stopCount++;
