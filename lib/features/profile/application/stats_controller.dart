@@ -13,16 +13,44 @@ import '../../../domain/srs/memory_state.dart';
 /// Яркость одного созвездия — строка на экране статистики.
 class ConstellationBrightness {
   const ConstellationBrightness({
-    required this.name,
+    required this.constellation,
     required this.averageLumens,
     required this.stars,
-    required this.burning,
+    required this.bright,
   });
 
-  final String name;
+  /// Slug темы: идентичность, по которой фразы группируются ниже, а **не**
+  /// подпись для игрока.
+  ///
+  /// Поле звалось `name`, и экран печатал его как есть — отсюда
+  /// `place_time_price` в списке яркости. Одно слово значило две вещи
+  /// (идентичность темы и подпись), и промахнуться было нечем: что подписывать
+  /// этим нельзя, нигде не написано. Теперь имя для показа получает экран через
+  /// `ConstellationNaming` — почему именно экран, разобрано у `ProfileScreen`,
+  /// — а поле называется тем, чем является.
+  ///
+  /// Имени для показа в классе нет вовсе, и это тоже решение: положить его сюда
+  /// значило бы сделать язык интерфейса зависимостью статистики — смена языка
+  /// пересчитывала бы состояния слов, сессии, все фразы яруса и медиану
+  /// отклика ради одной строки в каждой строке списка.
+  final String constellation;
+
   final double averageLumens;
   final int stars;
-  final int burning;
+
+  /// Сколько звёзд созвездия яркие — тем же порогом
+  /// [ProgressionBalance.litStarMinLm], которым считает карточка созвездия на
+  /// небе (`ConstellationState.litStars`).
+  ///
+  /// Поле звалось `burning` и считалось по [LumenBand.burning] (85 lm), то
+  /// есть профиль и небо отвечали разными числами на **один и тот же** вопрос
+  /// про одно и то же созвездие: «сколько его звёзд светит достаточно». Порог
+  /// 85 не значил здесь ничего — сравнить это число было не с чем, а полоса
+  /// «горит» и без него видна в подписи яркости рядом. Порог 70 значит
+  /// ровно одно и то же на обоих экранах: столько звёзд идёт в зачёт
+  /// зажжения созвездия, и разница между 70 и 85 больше не выглядит как
+  /// расхождение данных.
+  final int bright;
 }
 
 /// Всё, что показывает профиль.
@@ -43,7 +71,15 @@ class PlayerStats {
   final OrbitState orbit;
   final int weeklyProgress;
 
-  /// Горящие слова — главная цифра профиля, а не XP.
+  /// Фразы «на автомате» — главная цифра профиля, а не XP.
+  ///
+  /// Это флаг `word_states.burning`: три верных ответа подряд быстрее
+  /// [ScoreBalance.burningLatency] в продуктивной механике. Яркостью он не
+  /// является вовсе — потому и подписан на экране словом про скорость, а не
+  /// про свет. Раньше подпись была та же, что у трёх пороговых чисел
+  /// («світять»), и профиль показывал «0 світять» рядом со небом, где светили
+  /// пять: у новичка этого флага быть не может по построению, а яркость у
+  /// него есть с первого дня.
   final int burningWords;
 
   /// Слов, которые игрок хоть раз видел.
@@ -76,10 +112,17 @@ class PlayerStats {
   /// бы, что шкала и карта считают прогресс по-разному, и игрок не смог бы
   /// их сопоставить.
   ///
-  /// Считается по словам, которые игрок **помнит**, а не видел: «сколько
-  /// слов я знаю» в профиле уже показывается тремя разными числами
-  /// (горящие по флагу, яркие по 85 lm, известные по факту показа), и
-  /// четвёртое с тем же названием было бы издевательством.
+  /// Считается по фразам, которые игрок **помнит**, а не видел: «сколько
+  /// фраз я знаю» в профиле показывается тремя разными числами (на автомате
+  /// — по флагу скорости, яркие — по [ProgressionBalance.litStarMinLm],
+  /// известные — по факту показа), и четвёртое с тем же названием было бы
+  /// издевательством.
+  ///
+  /// Три числа остались, но у каждого теперь своё слово на экране. Раньше
+  /// слово было одно, и считалось им четыре разных порога — три здесь и
+  /// сводка неба (`SkySnapshot.litStars`, 15 lm), которая в этот учёт не
+  /// попала. Что с чем развели — записано у [ConstellationBrightness.bright]
+  /// и [burningWords].
   final double tierProgress;
 
   bool get weeklyGoalMet =>
@@ -112,15 +155,17 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
   // Яркость по созвездиям: состав берём из контента, значения — из памяти.
   final tier = player?.tier ?? Tier.a0;
   final byConstellation = <String, List<Lumens>>{};
-  final burningByConstellation = <String, int>{};
+  final brightByConstellation = <String, int>{};
   var onTier = 0;
   var litOnTier = 0;
 
   for (final phrase in await content.phrasesUpTo(tier)) {
     final value = lumens[phrase.id] ?? 0;
     byConstellation.putIfAbsent(phrase.constellation, () => []).add(value);
-    if (value >= LumenBand.burning.minLm) {
-      burningByConstellation.update(
+    // Порог тот же, что у карточки созвездия на небе, а не
+    // `LumenBand.burning`: почему — у `ConstellationBrightness.bright`.
+    if (value >= ProgressionBalance.litStarMinLm) {
+      brightByConstellation.update(
         phrase.constellation,
         (n) => n + 1,
         ifAbsent: () => 1,
@@ -137,12 +182,12 @@ final playerStatsProvider = FutureProvider<PlayerStats>((ref) async {
   final constellations = [
     for (final entry in byConstellation.entries)
       ConstellationBrightness(
-        name: entry.key,
+        constellation: entry.key,
         averageLumens: entry.value.isEmpty
             ? 0
             : entry.value.reduce((a, b) => a + b) / entry.value.length,
         stars: entry.value.length,
-        burning: burningByConstellation[entry.key] ?? 0,
+        bright: brightByConstellation[entry.key] ?? 0,
       ),
   ]..sort((a, b) => b.averageLumens.compareTo(a.averageLumens));
 

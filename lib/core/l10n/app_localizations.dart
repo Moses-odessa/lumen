@@ -283,7 +283,7 @@ abstract class AppLocalizations {
   /// No description provided for @calibrationResultVocabulary.
   ///
   /// In en, this message translates to:
-  /// **'About {count} words of the course lie on this tier and below.'**
+  /// **'About {count} phrases of the course lie on this tier and below.'**
   String calibrationResultVocabulary(int count);
 
   /// No description provided for @calibrationResultCircles.
@@ -295,7 +295,7 @@ abstract class AppLocalizations {
   /// No description provided for @calibrationResultRecognised.
   ///
   /// In en, this message translates to:
-  /// **'Words you recognised'**
+  /// **'Phrases you recognised'**
   String get calibrationResultRecognised;
 
   /// No description provided for @calibrationResultMeasured.
@@ -313,7 +313,7 @@ abstract class AppLocalizations {
   /// No description provided for @calibrationResultSeeded.
   ///
   /// In en, this message translates to:
-  /// **'{count} words from the test are already lit in your sky.'**
+  /// **'{count} phrases from the test are already lit in your sky.'**
   String calibrationResultSeeded(int count);
 
   /// No description provided for @calibrationResultTierChangeable.
@@ -397,7 +397,7 @@ abstract class AppLocalizations {
   /// No description provided for @ritualNewWords.
   ///
   /// In en, this message translates to:
-  /// **'new words'**
+  /// **'new phrases'**
   String get ritualNewWords;
 
   /// No description provided for @ritualLumens.
@@ -412,11 +412,11 @@ abstract class AppLocalizations {
   /// **'Ritual complete'**
   String get ritualDoneTitle;
 
-  /// No description provided for @ritualDoneBody.
+  /// Ritual summary. The unit of study is a phrase, so the placeholder is named for one; the state field behind it is still newWords, a rename debt recorded in docs/DATA_MODEL.md
   ///
   /// In en, this message translates to:
-  /// **'{lumens} lm returned to the sky, {words} new words learned.'**
-  String ritualDoneBody(int lumens, int words);
+  /// **'{lumens} lm returned to the sky, {phrases} new phrases learned.'**
+  String ritualDoneBody(int lumens, int phrases);
 
   /// No description provided for @ritualToSky.
   ///
@@ -466,11 +466,11 @@ abstract class AppLocalizations {
   /// **'stars'**
   String get skyStars;
 
-  /// No description provided for @skyBurning.
+  /// Sky summary: stars that carry any light at all, brightness at or above LumenBand.dimming. The weakest of the two brightness claims and the one that has to agree with the picture on the map.
   ///
   /// In en, this message translates to:
-  /// **'burning'**
-  String get skyBurning;
+  /// **'shining'**
+  String get skyShining;
 
   /// No description provided for @skyConstellations.
   ///
@@ -490,10 +490,10 @@ abstract class AppLocalizations {
   /// **'There are no constellations for this tier in the content database.'**
   String get skyEmptyBody;
 
-  /// No description provided for @constellationLitOf.
+  /// Constellation card: stars bright enough to count towards igniting the constellation, ProgressionBalance.litStarMinLm. The same threshold and the same word as profileBrightOf.
   ///
   /// In en, this message translates to:
-  /// **'{lit} of {total} stars are burning'**
+  /// **'{lit} of {total} stars are bright'**
   String constellationLitOf(int lit, int total);
 
   /// No description provided for @constellationLocked.
@@ -514,10 +514,10 @@ abstract class AppLocalizations {
   /// **'About to light up'**
   String get constellationAboutToLight;
 
-  /// No description provided for @tierSuggestUp.
+  /// Offer to move a tier up. Progression.litShare counts lit constellations among the opened ones, not shining stars, so the sentence names exactly that.
   ///
   /// In en, this message translates to:
-  /// **'Most of the sky is burning. Move to {tier}? Old stars stay where they are.'**
+  /// **'Most of the constellations you have opened are lit. Move to {tier}? Old stars stay where they are.'**
   String tierSuggestUp(String tier);
 
   /// No description provided for @tierSuggestDown.
@@ -525,36 +525,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{current} seems hard. Try {target}?'**
   String tierSuggestDown(String current, String target);
-
-  /// No description provided for @bandBurning.
-  ///
-  /// In en, this message translates to:
-  /// **'burning'**
-  String get bandBurning;
-
-  /// No description provided for @bandSteady.
-  ///
-  /// In en, this message translates to:
-  /// **'steady light'**
-  String get bandSteady;
-
-  /// No description provided for @bandFlickering.
-  ///
-  /// In en, this message translates to:
-  /// **'flickering'**
-  String get bandFlickering;
-
-  /// No description provided for @bandDimming.
-  ///
-  /// In en, this message translates to:
-  /// **'dimming'**
-  String get bandDimming;
-
-  /// No description provided for @bandFading.
-  ///
-  /// In en, this message translates to:
-  /// **'fading'**
-  String get bandFading;
 
   /// No description provided for @profileOrbit.
   ///
@@ -598,16 +568,16 @@ abstract class AppLocalizations {
   /// **'Weekly goal — {days} days out of 7. Two days off are legitimate.'**
   String profileWeeklyGoal(int days);
 
-  /// No description provided for @profileBurning.
+  /// Profile headline number: phrases answered fast three times in a row, word_states.burning. A speed achievement and not a brightness, hence a word of its own.
   ///
   /// In en, this message translates to:
-  /// **'burning'**
-  String get profileBurning;
+  /// **'automatic'**
+  String get profileAutomatic;
 
   /// No description provided for @profileWordsInWork.
   ///
   /// In en, this message translates to:
-  /// **'words in progress'**
+  /// **'phrases in progress'**
   String get profileWordsInWork;
 
   /// No description provided for @profileLatency.
@@ -634,47 +604,11 @@ abstract class AppLocalizations {
   /// **'Nothing yet — play your first level.'**
   String get profileEmpty;
 
-  /// No description provided for @profileBurningOf.
+  /// Profile, one constellation: stars at or above ProgressionBalance.litStarMinLm. The same question and the same threshold as constellationLitOf, so the two screens agree.
   ///
   /// In en, this message translates to:
-  /// **'{burning} of {total} burning'**
-  String profileBurningOf(int burning, int total);
-
-  /// No description provided for @customWordsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your own words'**
-  String get customWordsTitle;
-
-  /// No description provided for @customWordsHint.
-  ///
-  /// In en, this message translates to:
-  /// **'A list from your textbook, a letter or your notes. One pair per line: \"Wort — word\".'**
-  String get customWordsHint;
-
-  /// No description provided for @customWordsAdd.
-  ///
-  /// In en, this message translates to:
-  /// **'Add'**
-  String get customWordsAdd;
-
-  /// No description provided for @customWordsAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'Added: {count}'**
-  String customWordsAdded(int count);
-
-  /// No description provided for @customWordsNoPairs.
-  ///
-  /// In en, this message translates to:
-  /// **'No pairs found. Format: \"Wort — word\", one pair per line.'**
-  String get customWordsNoPairs;
-
-  /// No description provided for @customWordsCount.
-  ///
-  /// In en, this message translates to:
-  /// **'In your own constellation: {count}'**
-  String customWordsCount(int count);
+  /// **'{bright} of {total} bright'**
+  String profileBrightOf(int bright, int total);
 
   /// No description provided for @settingsTier.
   ///
@@ -712,16 +646,16 @@ abstract class AppLocalizations {
   /// **'Your own pace'**
   String get settingsPace;
 
-  /// No description provided for @settingsPaceOn.
+  /// What the free-pace switch really does when on: SessionPlanner.allowedNewWords lifts the per-level count and caps only the share, SessionBalance.maxNewWordShare. It never limited one level a day.
   ///
   /// In en, this message translates to:
-  /// **'New words are not limited to one level per day'**
+  /// **'More new phrases per level — only their share of a session stays capped'**
   String get settingsPaceOn;
 
-  /// No description provided for @settingsPaceOff.
+  /// Free-pace switch off: SessionBalance.newWordsPerLevel new phrases in every level. The number is deliberately not spelled out, it lives in balance.dart.
   ///
   /// In en, this message translates to:
-  /// **'One level a day is a teaching limit, not a paywall'**
+  /// **'The same number of new phrases every level — a teaching limit, not a paywall'**
   String get settingsPaceOff;
 
   /// No description provided for @settingsPaceDialogTitle.
@@ -733,7 +667,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsPaceDialogBody.
   ///
   /// In en, this message translates to:
-  /// **'Every new word comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new words in a session stays limited anyway.'**
+  /// **'Every new phrase comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new phrases in a session stays limited anyway.'**
   String get settingsPaceDialogBody;
 
   /// No description provided for @settingsPaceKeep.
@@ -799,7 +733,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsWipeDialogBody.
   ///
   /// In en, this message translates to:
-  /// **'Progress, answer history and your own words will be erased with no way to restore them. You will start over, including calibration.'**
+  /// **'Progress and answer history will be erased with no way to restore them. You will start over, including calibration.'**
   String get settingsWipeDialogBody;
 
   /// No description provided for @settingsWipeConfirm.
@@ -829,7 +763,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutTagline.
   ///
   /// In en, this message translates to:
-  /// **'A vocabulary as a night sky. A star\'s brightness is the probability of recalling a word right now.'**
+  /// **'A phrasebook as a night sky. A star\'s brightness is the probability of recalling a phrase right now.'**
   String get aboutTagline;
 
   /// No description provided for @aboutFreeTitle.
@@ -943,7 +877,7 @@ abstract class AppLocalizations {
   /// No description provided for @aboutReviewBody.
   ///
   /// In en, this message translates to:
-  /// **'The German phrases and words were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.'**
+  /// **'The German phrases were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.'**
   String get aboutReviewBody;
 
   /// No description provided for @aboutReviewLimit.
@@ -985,7 +919,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileScaleHint.
   ///
   /// In en, this message translates to:
-  /// **'You are on {tier}: {percent}% of its words are held in memory.'**
+  /// **'You are on {tier}: {percent}% of its phrases are held in memory.'**
   String profileScaleHint(String tier, int percent);
 
   /// No description provided for @profileScaleLocked.
@@ -1009,7 +943,7 @@ abstract class AppLocalizations {
   /// No description provided for @stageIntroduction.
   ///
   /// In en, this message translates to:
-  /// **'Meeting new words'**
+  /// **'Meeting new phrases'**
   String get stageIntroduction;
 
   /// No description provided for @stageConsolidation.
@@ -1071,12 +1005,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{value} s'**
   String unitSeconds(String value);
-
-  /// No description provided for @customWordsPlaceholder.
-  ///
-  /// In en, this message translates to:
-  /// **'Rechnung — invoice\nQuittung — receipt'**
-  String get customWordsPlaceholder;
 
   /// Shown when the study language has no installed voice
   ///
@@ -1197,6 +1125,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'formal'**
   String get promptTagFormal;
+
+  /// Reminder, orbit at risk. Wins over dimming stars: an orbit can be lost for good, stars come back.
+  ///
+  /// In en, this message translates to:
+  /// **'Orbit {orbit} is at risk'**
+  String reminderOrbitTitle(int orbit);
+
+  /// Reminder body under reminderOrbitTitle
+  ///
+  /// In en, this message translates to:
+  /// **'One more missed day and it resets. Two minutes will undo that.'**
+  String get reminderOrbitBody;
+
+  /// Reminder, dimming stars. ICU plural forms and not concatenation: Russian and Ukrainian need one/few/many, and concatenation is what produced titles like 1 stars are dimming.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} star is dimming} other{{count} stars are dimming}}'**
+  String reminderDimmingTitle(int count);
+
+  /// Reminder body when one constellation holds most of the dimming stars. The name arrives already translated by ConstellationNaming, so the sentence around it has to be in the same language.
+  ///
+  /// In en, this message translates to:
+  /// **'In the “{constellation}” constellation. Two minutes will bring them back.'**
+  String reminderDimmingIn(String constellation);
+
+  /// Reminder body when no single constellation stands out
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise takes two minutes.'**
+  String get reminderDimmingBody;
+
+  /// Reminder when nothing is dimming: it does not invent a reason to play
+  ///
+  /// In en, this message translates to:
+  /// **'The sky is fine'**
+  String get reminderCalmTitle;
+
+  /// Reminder body under reminderCalmTitle
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to review — you can take something new.'**
+  String get reminderCalmBody;
+
+  /// Android notification channel name, visible in the system settings, so it belongs in the interface language too
+  ///
+  /// In en, this message translates to:
+  /// **'Daily reminder'**
+  String get reminderChannel;
+
+  /// Android notification channel description
+  ///
+  /// In en, this message translates to:
+  /// **'One notification a day about stars that are dimming'**
+  String get reminderChannelBody;
 }
 
 class _AppLocalizationsDelegate

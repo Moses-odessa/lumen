@@ -279,6 +279,16 @@ class _TierTile extends ConsumerWidget {
 }
 
 /// Диагностика обеих баз — критерий приёмки M0 в видимой форме.
+///
+/// **Единственный текст в игре, который сознательно не переведён.** Панель
+/// стоит под `kDebugMode` (см. её место в `build` выше), то есть в собранном
+/// приложении её нет вовсе: её читает разработчик, и читает он на том же
+/// языке, что комментарии и имена таблиц рядом. Заводить под неё шесть
+/// локалей значило бы переводить `user.db v7` и `content.db не открылась`.
+///
+/// А вот «концептов» здесь стояло не сознательно: число считается
+/// `countPhrases()`, и панель говорила «1500 концептов» про 1500 фраз.
+/// Концептов в игре нет — словарный слой удалён, единица изучения фраза.
 class _DiagnosticsTile extends ConsumerWidget {
   const _DiagnosticsTile();
 
@@ -295,7 +305,7 @@ class _DiagnosticsTile extends ConsumerWidget {
           AsyncData(:final value) => value.contentOpened
               ? 'user.db v${value.userSchemaVersion} · '
                   'content.db ${value.contentLang}: '
-                  '${value.contentConcepts} концептов'
+                  '${value.contentPhrases} фраз'
               : 'user.db v${value.userSchemaVersion} · content.db не открылась',
           AsyncError() => 'не удалось прочитать',
           _ => 'проверка…',

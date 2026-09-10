@@ -100,14 +100,14 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String calibrationResultVocabulary(int count) {
-    return 'A questo livello e sotto ci sono circa $count parole del corso.';
+    return 'A questo livello e sotto ci sono circa $count frasi del corso.';
   }
 
   @override
   String get calibrationResultCircles => 'Cerchi nel test';
 
   @override
-  String get calibrationResultRecognised => 'Parole riconosciute';
+  String get calibrationResultRecognised => 'Frasi riconosciute';
 
   @override
   String get calibrationResultMeasured => 'Il test ha misurato';
@@ -119,7 +119,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count parole del test brillano già nel tuo cielo.';
+    return '$count frasi del test brillano già nel tuo cielo.';
   }
 
   @override
@@ -166,7 +166,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get ritualScore => 'punti per il rituale';
 
   @override
-  String get ritualNewWords => 'parole nuove';
+  String get ritualNewWords => 'frasi nuove';
 
   @override
   String get ritualLumens => 'lumen';
@@ -175,8 +175,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get ritualDoneTitle => 'Rituale completato';
 
   @override
-  String ritualDoneBody(int lumens, int words) {
-    return '$lumens lm sono tornati al cielo, $words parole nuove imparate.';
+  String ritualDoneBody(int lumens, int phrases) {
+    return '$lumens lm sono tornati al cielo, $phrases frasi nuove imparate.';
   }
 
   @override
@@ -204,7 +204,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get skyStars => 'stelle';
 
   @override
-  String get skyBurning => 'accese';
+  String get skyShining => 'accese';
 
   @override
   String get skyConstellations => 'costellazioni';
@@ -218,7 +218,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit stelle su $total sono accese';
+    return '$lit stelle su $total sono luminose';
   }
 
   @override
@@ -234,28 +234,13 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String tierSuggestUp(String tier) {
-    return 'Gran parte del cielo è accesa. Passare a $tier? Le vecchie stelle restano dove sono.';
+    return 'Gran parte delle costellazioni aperte è accesa. Passare a $tier? Le vecchie stelle restano dove sono.';
   }
 
   @override
   String tierSuggestDown(String current, String target) {
     return 'Sembra che $current sia difficile. Provare $target?';
   }
-
-  @override
-  String get bandBurning => 'accesa';
-
-  @override
-  String get bandSteady => 'luce stabile';
-
-  @override
-  String get bandFlickering => 'tremola';
-
-  @override
-  String get bandDimming => 'si affievolisce';
-
-  @override
-  String get bandFading => 'si spegne';
 
   @override
   String get profileOrbit => 'orbita';
@@ -283,10 +268,10 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get profileBurning => 'accese';
+  String get profileAutomatic => 'automatiche';
 
   @override
-  String get profileWordsInWork => 'parole in corso';
+  String get profileWordsInWork => 'frasi in corso';
 
   @override
   String get profileLatency => 'risposta';
@@ -301,32 +286,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get profileEmpty => 'Ancora vuoto: gioca il primo livello.';
 
   @override
-  String profileBurningOf(int burning, int total) {
-    return '$burning su $total accese';
-  }
-
-  @override
-  String get customWordsTitle => 'Parole tue';
-
-  @override
-  String get customWordsHint =>
-      'Un elenco dal tuo libro, da una lettera o dai tuoi appunti. Una coppia per riga: «Wort — parola».';
-
-  @override
-  String get customWordsAdd => 'Aggiungi';
-
-  @override
-  String customWordsAdded(int count) {
-    return 'Aggiunte: $count';
-  }
-
-  @override
-  String get customWordsNoPairs =>
-      'Nessuna coppia trovata. Formato: «Wort — parola», una coppia per riga.';
-
-  @override
-  String customWordsCount(int count) {
-    return 'Nella costellazione personale: $count';
+  String profileBrightOf(int bright, int total) {
+    return '$bright su $total luminose';
   }
 
   @override
@@ -353,18 +314,18 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get settingsPaceOn =>
-      'Le parole nuove non sono limitate a un livello al giorno';
+      'Più frasi nuove per livello: resta limitata solo la loro quota per sessione';
 
   @override
   String get settingsPaceOff =>
-      'Un livello al giorno è un limite didattico, non un muro a pagamento';
+      'Sempre lo stesso numero di frasi nuove per livello: un limite didattico, non un muro a pagamento';
 
   @override
   String get settingsPaceDialogTitle => 'Ritmo personale';
 
   @override
   String get settingsPaceDialogBody =>
-      'Ogni parola nuova torna per il ripasso: domani e tra una settimana. Se prendi troppo insieme, la coda dei ripassi cresce più in fretta di quanto riesci a smaltirla.\n\nLa quota di parole nuove per sessione resta comunque limitata.';
+      'Ogni frase nuova torna per il ripasso: domani e tra una settimana. Se prendi troppo insieme, la coda dei ripassi cresce più in fretta di quanto riesci a smaltirla.\n\nLa quota di frasi nuove per sessione resta comunque limitata.';
 
   @override
   String get settingsPaceKeep => 'Lascia com\'è';
@@ -401,7 +362,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get settingsWipeDialogBody =>
-      'Progressi, cronologia delle risposte e parole tue verranno cancellati senza possibilità di recupero. Ricomincerai da capo, calibrazione compresa.';
+      'Progressi e cronologia delle risposte verranno cancellati senza possibilità di recupero. Ricomincerai da capo, calibrazione compresa.';
 
   @override
   String get settingsWipeConfirm => 'Elimina';
@@ -418,7 +379,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aboutTagline =>
-      'Il vocabolario come cielo notturno. La luminosità di una stella è la probabilità di ricordare la parola proprio adesso.';
+      'Il frasario come cielo notturno. La luminosità di una stella è la probabilità di ricordare la frase proprio adesso.';
 
   @override
   String get aboutFreeTitle => 'Del tutto gratuito';
@@ -481,7 +442,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get aboutReviewBody =>
-      'Le parole e le frasi tedesche sono state generate da un modello linguistico e poi rilette da un secondo modello, diverso. Nessun madrelingua le ha verificate.';
+      'Le frasi tedesche sono state generate da un modello linguistico e poi rilette da un secondo modello, diverso. Nessun madrelingua le ha verificate.';
 
   @override
   String get aboutReviewLimit =>
@@ -504,7 +465,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String profileScaleHint(String tier, int percent) {
-    return 'Sei al livello $tier: il $percent% delle sue parole è in memoria.';
+    return 'Sei al livello $tier: il $percent% delle sue frasi è in memoria.';
   }
 
   @override
@@ -563,10 +524,6 @@ class AppLocalizationsIt extends AppLocalizations {
   String unitSeconds(String value) {
     return '$value s';
   }
-
-  @override
-  String get customWordsPlaceholder =>
-      'Rechnung — fattura\nQuittung — ricevuta';
 
   @override
   String voiceMissingTitle(String language) {
@@ -643,4 +600,46 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get promptTagFormal => 'formale';
+
+  @override
+  String reminderOrbitTitle(int orbit) {
+    return 'Orbita $orbit a rischio';
+  }
+
+  @override
+  String get reminderOrbitBody =>
+      'Un altro giorno saltato e torna a zero. Due minuti lo evitano.';
+
+  @override
+  String reminderDimmingTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count stelle si affievoliscono',
+      one: '$count stella si affievolisce',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reminderDimmingIn(String constellation) {
+    return 'Nella costellazione «$constellation». Due minuti le riportano.';
+  }
+
+  @override
+  String get reminderDimmingBody => 'Il sorgere dura due minuti.';
+
+  @override
+  String get reminderCalmTitle => 'Il cielo è in ordine';
+
+  @override
+  String get reminderCalmBody =>
+      'Non c’è nulla da ripassare: puoi prendere qualcosa di nuovo.';
+
+  @override
+  String get reminderChannel => 'Promemoria giornaliero';
+
+  @override
+  String get reminderChannelBody =>
+      'Una notifica al giorno sulle stelle che si affievoliscono';
 }

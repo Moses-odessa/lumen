@@ -100,14 +100,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String calibrationResultVocabulary(int count) {
-    return 'About $count words of the course lie on this tier and below.';
+    return 'About $count phrases of the course lie on this tier and below.';
   }
 
   @override
   String get calibrationResultCircles => 'Circles in the test';
 
   @override
-  String get calibrationResultRecognised => 'Words you recognised';
+  String get calibrationResultRecognised => 'Phrases you recognised';
 
   @override
   String get calibrationResultMeasured => 'The test measured';
@@ -119,7 +119,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count words from the test are already lit in your sky.';
+    return '$count phrases from the test are already lit in your sky.';
   }
 
   @override
@@ -164,7 +164,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ritualScore => 'points for the ritual';
 
   @override
-  String get ritualNewWords => 'new words';
+  String get ritualNewWords => 'new phrases';
 
   @override
   String get ritualLumens => 'lumens';
@@ -173,8 +173,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ritualDoneTitle => 'Ritual complete';
 
   @override
-  String ritualDoneBody(int lumens, int words) {
-    return '$lumens lm returned to the sky, $words new words learned.';
+  String ritualDoneBody(int lumens, int phrases) {
+    return '$lumens lm returned to the sky, $phrases new phrases learned.';
   }
 
   @override
@@ -202,7 +202,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skyStars => 'stars';
 
   @override
-  String get skyBurning => 'burning';
+  String get skyShining => 'shining';
 
   @override
   String get skyConstellations => 'constellations';
@@ -216,7 +216,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit of $total stars are burning';
+    return '$lit of $total stars are bright';
   }
 
   @override
@@ -232,28 +232,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String tierSuggestUp(String tier) {
-    return 'Most of the sky is burning. Move to $tier? Old stars stay where they are.';
+    return 'Most of the constellations you have opened are lit. Move to $tier? Old stars stay where they are.';
   }
 
   @override
   String tierSuggestDown(String current, String target) {
     return '$current seems hard. Try $target?';
   }
-
-  @override
-  String get bandBurning => 'burning';
-
-  @override
-  String get bandSteady => 'steady light';
-
-  @override
-  String get bandFlickering => 'flickering';
-
-  @override
-  String get bandDimming => 'dimming';
-
-  @override
-  String get bandFading => 'fading';
 
   @override
   String get profileOrbit => 'orbit';
@@ -280,10 +265,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get profileBurning => 'burning';
+  String get profileAutomatic => 'automatic';
 
   @override
-  String get profileWordsInWork => 'words in progress';
+  String get profileWordsInWork => 'phrases in progress';
 
   @override
   String get profileLatency => 'response';
@@ -298,32 +283,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileEmpty => 'Nothing yet — play your first level.';
 
   @override
-  String profileBurningOf(int burning, int total) {
-    return '$burning of $total burning';
-  }
-
-  @override
-  String get customWordsTitle => 'Your own words';
-
-  @override
-  String get customWordsHint =>
-      'A list from your textbook, a letter or your notes. One pair per line: \"Wort — word\".';
-
-  @override
-  String get customWordsAdd => 'Add';
-
-  @override
-  String customWordsAdded(int count) {
-    return 'Added: $count';
-  }
-
-  @override
-  String get customWordsNoPairs =>
-      'No pairs found. Format: \"Wort — word\", one pair per line.';
-
-  @override
-  String customWordsCount(int count) {
-    return 'In your own constellation: $count';
+  String profileBrightOf(int bright, int total) {
+    return '$bright of $total bright';
   }
 
   @override
@@ -349,18 +310,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsPace => 'Your own pace';
 
   @override
-  String get settingsPaceOn => 'New words are not limited to one level per day';
+  String get settingsPaceOn =>
+      'More new phrases per level — only their share of a session stays capped';
 
   @override
   String get settingsPaceOff =>
-      'One level a day is a teaching limit, not a paywall';
+      'The same number of new phrases every level — a teaching limit, not a paywall';
 
   @override
   String get settingsPaceDialogTitle => 'Your own pace';
 
   @override
   String get settingsPaceDialogBody =>
-      'Every new word comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new words in a session stays limited anyway.';
+      'Every new phrase comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new phrases in a session stays limited anyway.';
 
   @override
   String get settingsPaceKeep => 'Leave it as is';
@@ -397,7 +359,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsWipeDialogBody =>
-      'Progress, answer history and your own words will be erased with no way to restore them. You will start over, including calibration.';
+      'Progress and answer history will be erased with no way to restore them. You will start over, including calibration.';
 
   @override
   String get settingsWipeConfirm => 'Delete';
@@ -413,7 +375,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutTagline =>
-      'A vocabulary as a night sky. A star\'s brightness is the probability of recalling a word right now.';
+      'A phrasebook as a night sky. A star\'s brightness is the probability of recalling a phrase right now.';
 
   @override
   String get aboutFreeTitle => 'Completely free';
@@ -476,7 +438,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutReviewBody =>
-      'The German phrases and words were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.';
+      'The German phrases were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.';
 
   @override
   String get aboutReviewLimit =>
@@ -499,7 +461,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String profileScaleHint(String tier, int percent) {
-    return 'You are on $tier: $percent% of its words are held in memory.';
+    return 'You are on $tier: $percent% of its phrases are held in memory.';
   }
 
   @override
@@ -518,7 +480,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get stageIntroduction => 'Meeting new words';
+  String get stageIntroduction => 'Meeting new phrases';
 
   @override
   String get stageConsolidation => 'Settling in';
@@ -558,9 +520,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String unitSeconds(String value) {
     return '$value s';
   }
-
-  @override
-  String get customWordsPlaceholder => 'Rechnung — invoice\nQuittung — receipt';
 
   @override
   String voiceMissingTitle(String language) {
@@ -635,4 +594,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get promptTagFormal => 'formal';
+
+  @override
+  String reminderOrbitTitle(int orbit) {
+    return 'Orbit $orbit is at risk';
+  }
+
+  @override
+  String get reminderOrbitBody =>
+      'One more missed day and it resets. Two minutes will undo that.';
+
+  @override
+  String reminderDimmingTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count stars are dimming',
+      one: '$count star is dimming',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reminderDimmingIn(String constellation) {
+    return 'In the “$constellation” constellation. Two minutes will bring them back.';
+  }
+
+  @override
+  String get reminderDimmingBody => 'Sunrise takes two minutes.';
+
+  @override
+  String get reminderCalmTitle => 'The sky is fine';
+
+  @override
+  String get reminderCalmBody =>
+      'Nothing to review — you can take something new.';
+
+  @override
+  String get reminderChannel => 'Daily reminder';
+
+  @override
+  String get reminderChannelBody =>
+      'One notification a day about stars that are dimming';
 }

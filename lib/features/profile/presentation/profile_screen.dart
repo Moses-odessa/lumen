@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
-import '../../../core/router/app_router.dart';
+import '../../../core/l10n/interface_lang.dart';
 import '../../../core/theme/palette.dart';
+import '../../../data/content/constellation_naming.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../domain/entities/tier.dart';
 import '../../../domain/retention/orbit.dart';
@@ -24,20 +24,35 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final stats = ref.watch(playerStatsProvider);
+    // Имя темы подставляется здесь, на экране, а не в `playerStatsProvider`.
+    //
+    // За контроллер говорило то, что экрану не пришлось бы знать про откат по
+    // языкам. Но знать и не приходится: откат — это один вызов
+    // `ConstellationNaming.nameOf`, и правило заведено отдельным классом ровно
+    // затем, чтобы вызывающие его не повторяли. Третьего правила отката в
+    // проекте так и не появилось.
+    //
+    // За экран — два довода потяжелее. Первый: подпись на небе уже собирается в
+    // точке показа (`_ConstellationCard`), и перенос этой работы в слой
+    // приложения дал бы два разных ответа на вопрос «кто превращает slug в
+    // подпись»; расходиться такие ответы начинают тихо. Второй: язык интерфейса
+    // стал бы зависимостью статистики, и его смена пересчитывала бы её
+    // целиком — состояния слов, сессии, все фразы яруса, медиану отклика, —
+    // хотя измениться должна одна строка в каждой строке списка.
+    final naming = ref.watch(constellationNamingProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.profileTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.style_outlined),
-            tooltip: l10n.customWordsTitle,
-            onPressed: () => context.push(Routes.customWords),
-          ),
-        ],
-      ),
-      body: switch (stats) {
-        AsyncData(:final value) => RefreshIndicator(
+      // Кнопки «Свои слова» в шапке больше нет: экран собирал у игрока пары
+      // «слово → перевод», которых не читала ни одна механика.
+      appBar: AppBar(title: Text(l10n.profileTitle)),
+      // Статистика и имена — одно ожидание, как на небе: подпись, меняющаяся
+      // у игрока на глазах со слага на имя, читается как поломка отрисовки.
+      // Плата нулевая, потому что статистика и так ждёт эту же контентную базу
+      // (`phrasesUpTo` по всему ярусу), а имена — двести пятьдесят коротких
+      // рядов из неё же.
+      body: switch ((stats, naming)) {
+        (AsyncData(:final value), AsyncData(value: final names)) =>
+          RefreshIndicator(
             onRefresh: () async {
               ref.invalidate(playerStatsProvider);
               ref.invalidate(recordWallProvider);
@@ -63,7 +78,7 @@ class ProfileScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 8),
                 for (final c in value.constellations)
-                  _ConstellationRow(l10n: l10n, brightness: c),
+                  _ConstellationRow(l10n: l10n, brightness: c, naming: names),
                 if (value.constellations.isEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -72,7 +87,41 @@ class ProfileScreen extends ConsumerWidget {
               ],
             ),
           ),
-        AsyncError(:final error) => Center(child: Text('$error')),
+        // Статистика не прочиталась.
+        //
+        // Здесь стоял `Text('$error')` — `SqliteException(1): no such table:
+        // word_states, SQL logic error` посреди пустого экрана. Игроку это не
+        // говорит ничего: ни исправить схему, ни отличить её от отказа диска
+        // он не может. Сырой текст не потерян — обе базы со своими ошибками
+        // показывает диагностика в настройках.
+        //
+        // Заголовок взят у неба (`skyEmptyTitle`), и это компромисс, а не
+        // находка: профиль — это яркость созвездий и орбита, то есть рассказ
+        // про то же небо, но отдельного ключа под «данные не прочитались» в
+        // arb не заведено. Пока он не заведён, заголовок неба — самое близкое
+        // по смыслу из того, что уже переведено на все шесть языков.
+        //
+        // Имена ошибкой не отвечают (см. `constellationNamingProvider`), но
+        // ветка написана на любую из двух: у экрана «ни данных, ни ошибки» —
+        // это индикатор загрузки, то есть ошибка, не попавшая в эту ветку,
+        // стоила бы игроку вечного ожидания.
+        (AsyncError(), _) || (_, AsyncError()) => Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.cloud_off, size: 44, color: Colors.white38),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.skyEmptyTitle,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
+            ),
+          ),
         _ => const Center(child: CircularProgressIndicator()),
       },
     );
@@ -201,9 +250,12 @@ class _KeyNumbers extends StatelessWidget {
               runSpacing: 18,
               children: [
                 for (final number in [
+                  // Флаг скорости, а не яркость, — и подпись про скорость.
+                  // Прежняя («світять») стояла и здесь, и над тремя порогами
+                  // яркости; разбор — у `PlayerStats.burningWords`.
                   _NumberData(
                     value: '${stats.burningWords}',
-                    label: l10n.profileBurning,
+                    label: l10n.profileAutomatic,
                     highlight: true,
                   ),
                   _NumberData(
@@ -442,10 +494,18 @@ class _Number extends StatelessWidget {
 }
 
 class _ConstellationRow extends StatelessWidget {
-  const _ConstellationRow({required this.l10n, required this.brightness});
+  const _ConstellationRow({
+    required this.l10n,
+    required this.brightness,
+    required this.naming,
+  });
 
   final AppLocalizations l10n;
   final ConstellationBrightness brightness;
+
+  /// Имена тем: единственное место экрана, где созвездие называется
+  /// человеческим словом.
+  final ConstellationNaming naming;
 
   @override
   Widget build(BuildContext context) {
@@ -460,8 +520,13 @@ class _ConstellationRow extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text(brightness.name,
-                    style: theme.textTheme.bodyMedium),
+                // Перевод «идентичность → подпись» в одной строке: список
+                // отсортирован по яркости (`playerStatsProvider`), а не по
+                // имени, поэтому подпись ни на что, кроме чтения, не влияет.
+                child: Text(
+                  naming.nameOf(brightness.constellation),
+                  style: theme.textTheme.bodyMedium,
+                ),
               ),
               Text(
                 '${brightness.averageLumens.round()} lm',
@@ -481,8 +546,11 @@ class _ConstellationRow extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
+          // Тот же порог и то же слово, что на карточке созвездия на небе
+          // (`constellationLitOf`): вопрос у двух экранов один, и разными
+          // числами они на него больше не отвечают.
           Text(
-            l10n.profileBurningOf(brightness.burning, brightness.stars),
+            l10n.profileBrightOf(brightness.bright, brightness.stars),
             style: theme.textTheme.bodySmall?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),

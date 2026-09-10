@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/l10n/app_localizations.dart';
+import '../../../core/l10n/interface_lang.dart';
 import '../../../core/analytics/analytics.dart';
 import '../../../core/theme/palette.dart';
+import '../../../data/content/constellation_naming.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/repositories/player_repository.dart';
 import '../../../domain/sky/progression.dart';
@@ -22,6 +24,9 @@ class SkyScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final snapshot = ref.watch(skySnapshotProvider);
     final selected = ref.watch(selectedConstellationProvider);
+    // Имена созвездий — не строки интерфейса, а контент: они приходят из той
+    // же базы, что и состав неба, и ждутся вместе с ним (см. ниже, у `body`).
+    final naming = ref.watch(constellationNamingProvider);
 
     return Container(
       decoration: const BoxDecoration(
@@ -50,48 +55,74 @@ class SkyScreen extends ConsumerWidget {
             },
           ],
         ),
-        body: switch (snapshot) {
-          AsyncData(:final value) when value.isEmpty => const _EmptySky(),
-          AsyncData(:final value) => Stack(
-            children: [
-              Positioned.fill(
-                child: SkyMap(
-                  constellations: value.placements,
-                  states: value.states,
-                  selected: selected,
-                  onSelect: (name) => ref
-                      .read(selectedConstellationProvider.notifier)
-                      .toggle(name),
-                ),
-              ),
-              if (selected == null)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  top: 0,
-                  child: _TierSuggestionBanner(snapshot: value),
-                ),
-              Positioned(
-                left: 0,
-                right: 0,
-                bottom: 0,
-                child: selected == null
-                    ? _SkySummary(snapshot: value)
-                    : _ConstellationCard(
-                        state: value.states[selected],
-                        onClose: () => ref
-                            .read(selectedConstellationProvider.notifier)
-                            .clear(),
+        // Небо и имена — одно ожидание, а не два.
+        //
+        // Карта могла бы появиться раньше имён: состав неба и имена — разные
+        // запросы. Но подпись, которая на глазах игрока меняется со слага на
+        // имя, читается как поломка отрисовки, а слаг — всего лишь как
+        // непереведённая тема. Поэтому индикатор загрузки держится до обоих
+        // ответов, и первый же кадр карты подписан правильно. Стоит это
+        // почти ничего: обе выборки идут из одной уже открытой базы, а небо
+        // и так ждёт её (`phrasesUpTo`). Подробнее — у
+        // `constellationNamingProvider`, там же про то, почему имена не
+        // умеют отвечать ошибкой.
+        body: switch ((snapshot, naming)) {
+          (AsyncData(:final value), AsyncData(value: final names)) =>
+            value.isEmpty
+                ? const _EmptySky()
+                : Stack(
+                    children: [
+                      Positioned.fill(
+                        child: SkyMap(
+                          constellations: value.placements,
+                          states: value.states,
+                          selected: selected,
+                          onSelect: (name) => ref
+                              .read(selectedConstellationProvider.notifier)
+                              .toggle(name),
+                        ),
                       ),
-              ),
-            ],
-          ),
-          AsyncError(:final error) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Text('$error'),
-            ),
-          ),
+                      if (selected == null)
+                        Positioned(
+                          left: 0,
+                          right: 0,
+                          top: 0,
+                          child: _TierSuggestionBanner(snapshot: value),
+                        ),
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: selected == null
+                            ? _SkySummary(snapshot: value)
+                            : _ConstellationCard(
+                                state: value.states[selected],
+                                naming: names,
+                                onClose: () => ref
+                                    .read(
+                                      selectedConstellationProvider.notifier,
+                                    )
+                                    .clear(),
+                              ),
+                      ),
+                    ],
+                  ),
+          // Небо не прочиталось — и это всё, что игроку можно сказать честно.
+          //
+          // Здесь стоял `Text('$error')`, то есть `SqliteException(1): no
+          // such table: phrases, SQL logic error` на весь экран. Сделать с
+          // этим текстом игрок не может ничего: ни исправить схему, ни
+          // отличить её от отказа диска. Сырой текст при этом не потерян —
+          // обе базы со своими ошибками показывает диагностика в настройках,
+          // то есть он остался там, где его читает разработчик.
+          //
+          // Ошибка имён сюда попасть не может: именование отвечает пустыми
+          // картами, а не исключением, — так обещано у него в докстроке. Но
+          // ветка написана на любую из двух ошибок, потому что цена доверия к
+          // обещанию здесь — вечный индикатор загрузки, а цена недоверия —
+          // одна альтернатива в образце.
+          (AsyncError(), _) || (_, AsyncError()) =>
+            const _EmptySky.unreadable(),
           _ => const Center(child: CircularProgressIndicator()),
         },
       ),
@@ -204,9 +235,19 @@ class _SkySummary extends StatelessWidget {
           children: [
             _Metric(value: '${snapshot.totalStars}', label: l10n.skyStars),
             // Светящие звёзды, а не XP — главная цифра.
+            //
+            // Подпись `skyShining`, а не `skyBurning`, и это не переименование
+            // ради вкуса. Одно слово стояло над четырьмя разными порогами
+            // (здесь — 15 lm, на карточке созвездия — 70, в профиле — 85 и
+            // флаг скорости), и игрок в одну сессию читал «5 світять» в
+            // сводке, «0 із 30 зір світять» на карточке и «0 світять» в
+            // профиле. Всё это была правда, но под одним словом. Здесь
+            // остался самый слабый порог — «звезда вообще светит», тот, что
+            // обязан совпадать с картинкой на карте; порог карточки и профиля
+            // называется «яскраві». Разбор целиком — у `SkySnapshot.litStars`.
             _Metric(
               value: '${snapshot.litStars}',
-              label: l10n.skyBurning,
+              label: l10n.skyShining,
               highlight: true,
             ),
             _Metric(
@@ -256,9 +297,18 @@ class _Metric extends StatelessWidget {
 
 /// Карточка выбранного созвездия.
 class _ConstellationCard extends StatelessWidget {
-  const _ConstellationCard({required this.state, required this.onClose});
+  const _ConstellationCard({
+    required this.state,
+    required this.naming,
+    required this.onClose,
+  });
 
   final ConstellationState? state;
+
+  /// Имена тем: единственное место на этом экране, где созвездие называется
+  /// человеческим словом.
+  final ConstellationNaming naming;
+
   final VoidCallback onClose;
 
   @override
@@ -278,8 +328,13 @@ class _ConstellationCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
+                  // `name` — идентичность темы: по нему ищут состояние,
+                  // раскладку и выбор на карте (`SkyLayout`, `SkyMap`), и
+                  // переименовывать его нельзя. Человек видит имя, машина
+                  // ищет по слагу — это два разных значения, и перевод
+                  // одного в другое происходит здесь, в одной строке.
                   child: Text(
-                    constellation.name,
+                    naming.nameOf(constellation.name),
                     style: theme.textTheme.titleMedium,
                   ),
                 ),
@@ -332,9 +387,26 @@ class _ConstellationCard extends StatelessWidget {
   }
 }
 
-/// Небо пустое: контент ещё не собран.
+/// Неба не видно: контент ещё не собран или база не прочиталась.
+///
+/// Случая два, вид один. Игрок в обоих смотрит на одно и то же — карты нет,
+/// играть не по чему, — и сделать может одно и то же: перезапустить
+/// приложение или обновить сборку. Разная картинка на два состояния, между
+/// которыми игрок не выбирает, только притворялась бы разницей.
 class _EmptySky extends StatelessWidget {
-  const _EmptySky();
+  const _EmptySky() : _explained = true;
+
+  /// База не отдала небо: та же картинка без объяснения, которого нет.
+  const _EmptySky.unreadable() : _explained = false;
+
+  /// Показывать ли причину.
+  ///
+  /// Строка причины — «в контентной базе нет созвездий для этого яруса» — это
+  /// утверждение о данных, а не о чтении. При отказе базы оно было бы
+  /// неправдой: сборка могла быть в полном порядке, а не прочитаться база.
+  /// Своей строки у отказа нет — ключа под «не прочиталось» в arb не
+  /// заведено, — и лучше заголовок без причины, чем причина не та.
+  final bool _explained;
 
   @override
   Widget build(BuildContext context) {
@@ -349,12 +421,14 @@ class _EmptySky extends StatelessWidget {
             const Icon(Icons.cloud_off, size: 44, color: Colors.white38),
             const SizedBox(height: 16),
             Text(l10n.skyEmptyTitle, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 8),
-            Text(
-              l10n.skyEmptyBody,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall,
-            ),
+            if (_explained) ...[
+              const SizedBox(height: 8),
+              Text(
+                l10n.skyEmptyBody,
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodySmall,
+              ),
+            ],
           ],
         ),
       ),

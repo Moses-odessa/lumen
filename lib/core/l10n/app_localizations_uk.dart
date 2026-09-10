@@ -100,14 +100,14 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String calibrationResultVocabulary(int count) {
-    return 'На цьому ярусі й нижче лежить приблизно $count слів курсу.';
+    return 'На цьому ярусі й нижче лежить приблизно $count фраз курсу.';
   }
 
   @override
   String get calibrationResultCircles => 'Кіл у тесті';
 
   @override
-  String get calibrationResultRecognised => 'Слів ви впізнали';
+  String get calibrationResultRecognised => 'Фраз ви впізнали';
 
   @override
   String get calibrationResultMeasured => 'Тест показав';
@@ -119,7 +119,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count слів із тесту вже світять на вашому небі.';
+    return '$count фраз із тесту вже світять на вашому небі.';
   }
 
   @override
@@ -164,7 +164,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get ritualScore => 'очок за ритуал';
 
   @override
-  String get ritualNewWords => 'нових слів';
+  String get ritualNewWords => 'нових фраз';
 
   @override
   String get ritualLumens => 'люменів';
@@ -173,8 +173,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get ritualDoneTitle => 'Ритуал пройдено';
 
   @override
-  String ritualDoneBody(int lumens, int words) {
-    return 'Небу повернулося $lumens lm, вивчено $words нових слів.';
+  String ritualDoneBody(int lumens, int phrases) {
+    return 'Небу повернулося $lumens lm, вивчено $phrases нових фраз.';
   }
 
   @override
@@ -202,7 +202,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get skyStars => 'зір';
 
   @override
-  String get skyBurning => 'світять';
+  String get skyShining => 'світять';
 
   @override
   String get skyConstellations => 'сузір’їв';
@@ -216,7 +216,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit із $total зір світять';
+    return '$lit із $total зір яскраві';
   }
 
   @override
@@ -232,28 +232,13 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String tierSuggestUp(String tier) {
-    return 'Більша частина неба світить. Перейти на $tier? Старі зорі залишаться на місцях.';
+    return 'Більша частина відкритих сузір’їв запалена. Перейти на $tier? Старі зорі залишаться на місцях.';
   }
 
   @override
   String tierSuggestDown(String current, String target) {
     return 'Схоже, $current дається важко. Спробувати $target?';
   }
-
-  @override
-  String get bandBurning => 'світить';
-
-  @override
-  String get bandSteady => 'рівне світло';
-
-  @override
-  String get bandFlickering => 'мерехтить';
-
-  @override
-  String get bandDimming => 'тьмяніє';
-
-  @override
-  String get bandFading => 'гасне';
 
   @override
   String get profileOrbit => 'орбіта';
@@ -280,10 +265,10 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get profileBurning => 'світять';
+  String get profileAutomatic => 'на автоматі';
 
   @override
-  String get profileWordsInWork => 'слів у роботі';
+  String get profileWordsInWork => 'фраз у роботі';
 
   @override
   String get profileLatency => 'відгук';
@@ -298,32 +283,8 @@ class AppLocalizationsUk extends AppLocalizations {
   String get profileEmpty => 'Поки порожньо — зіграйте перший рівень.';
 
   @override
-  String profileBurningOf(int burning, int total) {
-    return '$burning із $total світять';
-  }
-
-  @override
-  String get customWordsTitle => 'Свої слова';
-
-  @override
-  String get customWordsHint =>
-      'Список із вашого підручника, листа або нотаток. По рядку на пару: «Wort — слово».';
-
-  @override
-  String get customWordsAdd => 'Додати';
-
-  @override
-  String customWordsAdded(int count) {
-    return 'Додано: $count';
-  }
-
-  @override
-  String get customWordsNoPairs =>
-      'Не знайшлося жодної пари. Формат: «Wort — слово», по рядку на пару.';
-
-  @override
-  String customWordsCount(int count) {
-    return 'В особистому сузір’ї: $count';
+  String profileBrightOf(int bright, int total) {
+    return '$bright із $total яскраві';
   }
 
   @override
@@ -349,18 +310,19 @@ class AppLocalizationsUk extends AppLocalizations {
   String get settingsPace => 'Свій темп';
 
   @override
-  String get settingsPaceOn => 'Нові слова не обмежені одним рівнем на день';
+  String get settingsPaceOn =>
+      'Нових фраз за рівень більше — обмежена лише їхня частка в сесії';
 
   @override
   String get settingsPaceOff =>
-      'Один рівень на день — дидактичне обмеження, а не платна стіна';
+      'Нових фраз за рівень завжди однаково — дидактичне обмеження, а не платна стіна';
 
   @override
   String get settingsPaceDialogTitle => 'Свій темп';
 
   @override
   String get settingsPaceDialogBody =>
-      'Кожне нове слово повертається на повторення — і завтра, і за тиждень. Якщо брати багато нового одразу, черга повторень зростатиме швидше, ніж ви встигаєте її розбирати.\n\nЧастка нових слів у сесії однаково залишиться обмеженою.';
+      'Кожна нова фраза повертається на повторення — і завтра, і за тиждень. Якщо брати багато нового одразу, черга повторень зростатиме швидше, ніж ви встигаєте її розбирати.\n\nЧастка нових фраз у сесії однаково залишиться обмеженою.';
 
   @override
   String get settingsPaceKeep => 'Залишити як є';
@@ -397,7 +359,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get settingsWipeDialogBody =>
-      'Прогрес, історія відповідей і свої слова будуть стерті без можливості відновити. Доведеться почати спочатку, включно з калібруванням.';
+      'Прогрес та історія відповідей будуть стерті без можливості відновити. Доведеться почати спочатку, включно з калібруванням.';
 
   @override
   String get settingsWipeConfirm => 'Видалити';
@@ -414,7 +376,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get aboutTagline =>
-      'Словник як нічне небо. Яскравість зорі — імовірність згадати слово просто зараз.';
+      'Розмовник як нічне небо. Яскравість зорі — імовірність згадати фразу просто зараз.';
 
   @override
   String get aboutFreeTitle => 'Безкоштовно повністю';
@@ -477,7 +439,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get aboutReviewBody =>
-      'Німецькі слова й фрази згенеровані мовною моделлю, а потім перехресно перевірені другою, іншою моделлю. Носій мови їх не вичитував.';
+      'Німецькі фрази згенеровані мовною моделлю, а потім перехресно перевірені другою, іншою моделлю. Носій мови їх не вичитував.';
 
   @override
   String get aboutReviewLimit =>
@@ -500,7 +462,7 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String profileScaleHint(String tier, int percent) {
-    return 'Ви на $tier: $percent% його слів тримаються в памʼяті.';
+    return 'Ви на $tier: $percent% його фраз тримаються в памʼяті.';
   }
 
   @override
@@ -561,10 +523,6 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get customWordsPlaceholder =>
-      'Rechnung — рахунок\nQuittung — квитанція';
-
-  @override
   String voiceMissingTitle(String language) {
     return 'Голос для $language не встановлено';
   }
@@ -595,7 +553,7 @@ class AppLocalizationsUk extends AppLocalizations {
   }
 
   @override
-  String get recordsTitle => 'Твої рекорди';
+  String get recordsTitle => 'Ваші рекорди';
 
   @override
   String get recordsClimb => 'Найкращий захід';
@@ -626,7 +584,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get recordsBeaten => 'рекорд!';
 
   @override
-  String get recordsEmpty => 'Зіграй рівень — тут з’являться перші рекорди.';
+  String get recordsEmpty => 'Зіграйте рівень — тут з’являться перші рекорди.';
 
   @override
   String recordsClimbLevel(int level, String multiplier) {
@@ -638,4 +596,47 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get promptTagFormal => 'офіційне';
+
+  @override
+  String reminderOrbitTitle(int orbit) {
+    return 'Орбіта $orbit під загрозою';
+  }
+
+  @override
+  String get reminderOrbitBody =>
+      'Ще один пропуск — і вона обнулиться. Дві хвилини це скасують.';
+
+  @override
+  String reminderDimmingTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Тьмяніють $count зорі',
+      many: 'Тьмяніють $count зір',
+      few: 'Тьмяніють $count зорі',
+      one: 'Тьмяніє $count зоря',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reminderDimmingIn(String constellation) {
+    return 'У сузір’ї «$constellation». Дві хвилини їх повернуть.';
+  }
+
+  @override
+  String get reminderDimmingBody => 'Схід займає дві хвилини.';
+
+  @override
+  String get reminderCalmTitle => 'Небо в порядку';
+
+  @override
+  String get reminderCalmBody => 'Повторювати нічого — можна взяти щось нове.';
+
+  @override
+  String get reminderChannel => 'Щоденне нагадування';
+
+  @override
+  String get reminderChannelBody =>
+      'Одне сповіщення на день про зорі, що тьмяніють';
 }

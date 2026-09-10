@@ -33,6 +33,10 @@ dependencies:
   path_provider: ^2.1.6
   url_launcher: ^6.3.2
   flutter_local_notifications: ^18.0.1
+  # Приходит вместе с уведомлениями, но объявлен прямо: `TZDateTime` стоит
+  # в подписи `zonedSchedule`, то есть тип нужен нашему коду. Базы зон игра
+  # не разворачивает — берётся только готовая `UTC`.
+  timezone: ^0.10.1
   flutter_tts: ^4.2.5
 
 dev_dependencies:

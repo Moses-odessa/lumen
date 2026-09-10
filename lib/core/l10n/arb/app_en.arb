@@ -38,7 +38,7 @@
   "calibrationHintConfirm": "Checking once more",
   "calibrationHintDone": "Done",
   "calibrationResultTitle": "Your sky begins here",
-  "calibrationResultVocabulary": "About {count} words of the course lie on this tier and below.",
+  "calibrationResultVocabulary": "About {count} phrases of the course lie on this tier and below.",
   "@calibrationResultVocabulary": {
     "placeholders": {
       "count": {
@@ -47,7 +47,7 @@
     }
   },
   "calibrationResultCircles": "Circles in the test",
-  "calibrationResultRecognised": "Words you recognised",
+  "calibrationResultRecognised": "Phrases you recognised",
   "calibrationResultMeasured": "The test measured",
   "calibrationResultCapped": "Only {tier} has been proofread and launched so far, so the sky begins there. It is not the ceiling of the game: the tier rises as the content does.",
   "@calibrationResultCapped": {
@@ -57,7 +57,7 @@
       }
     }
   },
-  "calibrationResultSeeded": "{count} words from the test are already lit in your sky.",
+  "calibrationResultSeeded": "{count} phrases from the test are already lit in your sky.",
   "@calibrationResultSeeded": {
     "placeholders": {
       "count": {
@@ -78,16 +78,17 @@
   "sunriseNothing": "the sky was already lit — nothing to review",
   "sunriseNext": "On to a new level",
   "ritualScore": "points for the ritual",
-  "ritualNewWords": "new words",
+  "ritualNewWords": "new phrases",
   "ritualLumens": "lumens",
   "ritualDoneTitle": "Ritual complete",
-  "ritualDoneBody": "{lumens} lm returned to the sky, {words} new words learned.",
+  "ritualDoneBody": "{lumens} lm returned to the sky, {phrases} new phrases learned.",
   "@ritualDoneBody": {
+    "description": "Ritual summary. The unit of study is a phrase, so the placeholder is named for one; the state field behind it is still newWords, a rename debt recorded in docs/DATA_MODEL.md",
     "placeholders": {
       "lumens": {
         "type": "int"
       },
-      "words": {
+      "phrases": {
         "type": "int"
       }
     }
@@ -100,12 +101,16 @@
   "runContinue": "Continue",
   "audioReplay": "Listen again",
   "skyStars": "stars",
-  "skyBurning": "burning",
+  "skyShining": "shining",
+  "@skyShining": {
+    "description": "Sky summary: stars that carry any light at all, brightness at or above LumenBand.dimming. The weakest of the two brightness claims and the one that has to agree with the picture on the map."
+  },
   "skyConstellations": "constellations",
   "skyEmptyTitle": "The sky is empty",
   "skyEmptyBody": "There are no constellations for this tier in the content database.",
-  "constellationLitOf": "{lit} of {total} stars are burning",
+  "constellationLitOf": "{lit} of {total} stars are bright",
   "@constellationLitOf": {
+    "description": "Constellation card: stars bright enough to count towards igniting the constellation, ProgressionBalance.litStarMinLm. The same threshold and the same word as profileBrightOf.",
     "placeholders": {
       "lit": {
         "type": "int"
@@ -125,8 +130,9 @@
     }
   },
   "constellationAboutToLight": "About to light up",
-  "tierSuggestUp": "Most of the sky is burning. Move to {tier}? Old stars stay where they are.",
+  "tierSuggestUp": "Most of the constellations you have opened are lit. Move to {tier}? Old stars stay where they are.",
   "@tierSuggestUp": {
+    "description": "Offer to move a tier up. Progression.litShare counts lit constellations among the opened ones, not shining stars, so the sentence names exactly that.",
     "placeholders": {
       "tier": {
         "type": "String"
@@ -144,11 +150,6 @@
       }
     }
   },
-  "bandBurning": "burning",
-  "bandSteady": "steady light",
-  "bandFlickering": "flickering",
-  "bandDimming": "dimming",
-  "bandFading": "fading",
   "profileOrbit": "orbit",
   "profileOrbitExplain": "A missed day lowers it by one. A full reset happens only after three misses in a row.",
   "profileOrbitRisk": "One more miss and the orbit resets.",
@@ -163,39 +164,23 @@
       }
     }
   },
-  "profileBurning": "burning",
-  "profileWordsInWork": "words in progress",
+  "profileAutomatic": "automatic",
+  "@profileAutomatic": {
+    "description": "Profile headline number: phrases answered fast three times in a row, word_states.burning. A speed achievement and not a brightness, hence a word of its own."
+  },
+  "profileWordsInWork": "phrases in progress",
   "profileLatency": "response",
   "profileSparks": "sparks",
   "profileBrightness": "Brightness by constellation",
   "profileEmpty": "Nothing yet — play your first level.",
-  "profileBurningOf": "{burning} of {total} burning",
-  "@profileBurningOf": {
+  "profileBrightOf": "{bright} of {total} bright",
+  "@profileBrightOf": {
+    "description": "Profile, one constellation: stars at or above ProgressionBalance.litStarMinLm. The same question and the same threshold as constellationLitOf, so the two screens agree.",
     "placeholders": {
-      "burning": {
+      "bright": {
         "type": "int"
       },
       "total": {
-        "type": "int"
-      }
-    }
-  },
-  "customWordsTitle": "Your own words",
-  "customWordsHint": "A list from your textbook, a letter or your notes. One pair per line: \"Wort — word\".",
-  "customWordsAdd": "Add",
-  "customWordsAdded": "Added: {count}",
-  "@customWordsAdded": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "customWordsNoPairs": "No pairs found. Format: \"Wort — word\", one pair per line.",
-  "customWordsCount": "In your own constellation: {count}",
-  "@customWordsCount": {
-    "placeholders": {
-      "count": {
         "type": "int"
       }
     }
@@ -213,10 +198,16 @@
   "settingsSound": "Sound",
   "settingsSoundSubtitle": "Without sound a correct answer is marked by vibration",
   "settingsPace": "Your own pace",
-  "settingsPaceOn": "New words are not limited to one level per day",
-  "settingsPaceOff": "One level a day is a teaching limit, not a paywall",
+  "settingsPaceOn": "More new phrases per level — only their share of a session stays capped",
+  "@settingsPaceOn": {
+    "description": "What the free-pace switch really does when on: SessionPlanner.allowedNewWords lifts the per-level count and caps only the share, SessionBalance.maxNewWordShare. It never limited one level a day."
+  },
+  "settingsPaceOff": "The same number of new phrases every level — a teaching limit, not a paywall",
+  "@settingsPaceOff": {
+    "description": "Free-pace switch off: SessionBalance.newWordsPerLevel new phrases in every level. The number is deliberately not spelled out, it lives in balance.dart."
+  },
   "settingsPaceDialogTitle": "Your own pace",
-  "settingsPaceDialogBody": "Every new word comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new words in a session stays limited anyway.",
+  "settingsPaceDialogBody": "Every new phrase comes back for review — tomorrow and next week. Taking too much at once makes the review queue grow faster than you can clear it.\n\nThe share of new phrases in a session stays limited anyway.",
   "settingsPaceKeep": "Leave it as is",
   "settingsPaceEnable": "Turn on",
   "settingsNotifications": "Reminder",
@@ -227,12 +218,12 @@
   "settingsWipe": "Delete all data",
   "settingsWipeSubtitle": "Without any way to restore",
   "settingsWipeDialogTitle": "Delete all data?",
-  "settingsWipeDialogBody": "Progress, answer history and your own words will be erased with no way to restore them. You will start over, including calibration.",
+  "settingsWipeDialogBody": "Progress and answer history will be erased with no way to restore them. You will start over, including calibration.",
   "settingsWipeConfirm": "Delete",
   "settingsAbout": "About",
   "settingsAboutSubtitle": "Completely free · donations · licences",
   "aboutTitle": "About",
-  "aboutTagline": "A vocabulary as a night sky. A star's brightness is the probability of recalling a word right now.",
+  "aboutTagline": "A phrasebook as a night sky. A star's brightness is the probability of recalling a phrase right now.",
   "aboutFreeTitle": "Completely free",
   "aboutFreeBody": "No subscription, no paid tiers, no ads, no currency for money. Everything in the game is available to everyone, always.",
   "aboutCostBody": "This holds because one user costs the project close to nothing: the content lives inside the app, speech is synthesised by the device, and there is no server and no network request at all.",
@@ -251,14 +242,14 @@
   "aboutNoForcedOrder": "A mandatory order of topics",
   "aboutNoAds": "Ads and trackers",
   "aboutReviewTitle": "How the content was checked",
-  "aboutReviewBody": "The German phrases and words were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.",
+  "aboutReviewBody": "The German phrases were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.",
   "aboutReviewLimit": "Two models can be wrong in the same way: they are trained on overlapping data. Cross-checking catches carelessness and contradictions, not a mistake both share. If you spot an error, the content lives in the open repository and a fix is one file away.",
   "profileDays": "days played",
   "profileStreak": "days in a row",
   "profileTimeTotal": "time in the app",
   "profileTimePerDay": "per day played",
   "profileScaleTitle": "From A0 to B2",
-  "profileScaleHint": "You are on {tier}: {percent}% of its words are held in memory.",
+  "profileScaleHint": "You are on {tier}: {percent}% of its phrases are held in memory.",
   "@profileScaleHint": {
     "placeholders": {
       "tier": {
@@ -296,7 +287,7 @@
       }
     }
   },
-  "stageIntroduction": "Meeting new words",
+  "stageIntroduction": "Meeting new phrases",
   "stageConsolidation": "Settling in",
   "stageCheck": "Checking",
   "stageReminder": "Reminding",
@@ -340,7 +331,6 @@
   },
   "aboutPrivacy": "Privacy: Sentry with no personal data and no tracing, no analytics over the network. Export and deletion are in settings.",
   "unitSeconds": "{value} s",
-  "customWordsPlaceholder": "Rechnung — invoice\nQuittung — receipt",
   "@unitSeconds": {
     "placeholders": {
       "value": {
@@ -432,5 +422,56 @@
   "promptTagFormal": "formal",
   "@promptTagFormal": {
     "description": "Register of a phrase: formal speech"
+  },
+  "reminderOrbitTitle": "Orbit {orbit} is at risk",
+  "@reminderOrbitTitle": {
+    "description": "Reminder, orbit at risk. Wins over dimming stars: an orbit can be lost for good, stars come back.",
+    "placeholders": {
+      "orbit": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderOrbitBody": "One more missed day and it resets. Two minutes will undo that.",
+  "@reminderOrbitBody": {
+    "description": "Reminder body under reminderOrbitTitle"
+  },
+  "reminderDimmingTitle": "{count, plural, one{{count} star is dimming} other{{count} stars are dimming}}",
+  "@reminderDimmingTitle": {
+    "description": "Reminder, dimming stars. ICU plural forms and not concatenation: Russian and Ukrainian need one/few/many, and concatenation is what produced titles like 1 stars are dimming.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderDimmingIn": "In the “{constellation}” constellation. Two minutes will bring them back.",
+  "@reminderDimmingIn": {
+    "description": "Reminder body when one constellation holds most of the dimming stars. The name arrives already translated by ConstellationNaming, so the sentence around it has to be in the same language.",
+    "placeholders": {
+      "constellation": {
+        "type": "String"
+      }
+    }
+  },
+  "reminderDimmingBody": "Sunrise takes two minutes.",
+  "@reminderDimmingBody": {
+    "description": "Reminder body when no single constellation stands out"
+  },
+  "reminderCalmTitle": "The sky is fine",
+  "@reminderCalmTitle": {
+    "description": "Reminder when nothing is dimming: it does not invent a reason to play"
+  },
+  "reminderCalmBody": "Nothing to review — you can take something new.",
+  "@reminderCalmBody": {
+    "description": "Reminder body under reminderCalmTitle"
+  },
+  "reminderChannel": "Daily reminder",
+  "@reminderChannel": {
+    "description": "Android notification channel name, visible in the system settings, so it belongs in the interface language too"
+  },
+  "reminderChannelBody": "One notification a day about stars that are dimming",
+  "@reminderChannelBody": {
+    "description": "Android notification channel description"
   }
 }

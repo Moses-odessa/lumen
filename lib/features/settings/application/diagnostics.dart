@@ -11,7 +11,7 @@ class DatabasesDiagnostics {
     required this.userSchemaVersion,
     required this.userTablesOpened,
     required this.contentLang,
-    required this.contentConcepts,
+    required this.contentPhrases,
     required this.contentMeta,
     this.contentError,
   });
@@ -20,7 +20,15 @@ class DatabasesDiagnostics {
   final bool userTablesOpened;
 
   final String contentLang;
-  final int contentConcepts;
+
+  /// Сколько единиц изучения в контентной базе.
+  ///
+  /// Поле звалось `contentConcepts`, а считалось [ContentDatabase.countPhrases]
+  /// — панель говорила «1500 концептов» про 1500 фраз. Концептов в игре нет
+  /// вовсе: словарный слой удалён, единица изучения — фраза, и имя, которое
+  /// лжёт, хуже отсутствующего.
+  final int contentPhrases;
+
   final Map<String, String> contentMeta;
 
   /// Текст ошибки, если контентная база не открылась: на web это ожидаемо,
@@ -52,7 +60,7 @@ final databasesDiagnosticsProvider =
       userSchemaVersion: userDb.schemaVersion,
       userTablesOpened: userTablesOpened,
       contentLang: meta['lang'] ?? '—',
-      contentConcepts: await contentDb.countPhrases(),
+      contentPhrases: await contentDb.countPhrases(),
       contentMeta: meta,
     );
   } catch (e) {
@@ -60,7 +68,7 @@ final databasesDiagnosticsProvider =
       userSchemaVersion: userDb.schemaVersion,
       userTablesOpened: userTablesOpened,
       contentLang: '—',
-      contentConcepts: 0,
+      contentPhrases: 0,
       contentMeta: const {},
       contentError: e.toString(),
     );

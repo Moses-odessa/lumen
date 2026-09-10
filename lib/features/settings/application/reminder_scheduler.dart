@@ -1,6 +1,14 @@
+// `widgets.dart` — не за виджетами: отсюда нужны `Locale` для загрузки строк
+// и `@visibleForTesting`, а `foundation.dart` рядом с ним лишний, потому что
+// он весь в него реэкспортирован. Дерева виджетов планировщику по-прежнему
+// не нужно — см. [ReminderScheduler._localizations].
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/l10n/app_localizations.dart';
+import '../../../core/l10n/interface_lang.dart';
 import '../../../core/notifications/notification_service.dart';
+import '../../../data/content/constellation_naming.dart';
 import '../../../data/content/content_provider.dart';
 import '../../../data/local/database_provider.dart';
 import '../../../data/repositories/player_repository.dart';
@@ -14,6 +22,11 @@ import '../../../domain/srs/memory_state.dart';
 /// «Не забудь позаниматься» игрок отключает после третьего раза. «7 звёзд в
 /// созвездии Врач тускнеют» — читает, потому что это про него и про его
 /// небо. Чтобы так написать, нужно посмотреть в базу, а не в шаблон.
+///
+/// «Врач» в этом обещании — имя темы из контентной базы, и до сих пор оно
+/// было обещанием: в текст уезжал slug созвездия, то есть игрок получал на
+/// телефон «В созвездии «place_time_price»». Откуда берётся имя и почему
+/// именно оттуда — у [composeText].
 class ReminderScheduler {
   const ReminderScheduler(this._ref);
 
@@ -27,12 +40,22 @@ class ReminderScheduler {
     }
 
     try {
-      final text = await _composeText(player.tier);
+      final l10n = await _localizations();
+      final text = await composeText(player.tier);
       await _ref.read(notificationServiceProvider).scheduleDaily(
             title: text.title,
             body: text.body,
+            // Подписи канала — на том же языке, что и текст: их видно в
+            // системных настройках Android, рядом с тумблером «показывать
+            // ли это приложение». Русский литерал стоял и там.
+            channelName: l10n.reminderChannel,
+            channelDescription: l10n.reminderChannelBody,
             // Час игры, а не «удобный нам»: если человек играет вечером,
-            // утреннее напоминание для него — просто шум.
+            // утреннее напоминание для него — просто шум. Час доезжает до
+            // будильника: сервис ставит напоминание на ближайшее его
+            // наступление, а не через сутки от этой минуты, — до чего этот
+            // аргумент принимался и выбрасывался. Чем исполненное обещание
+            // оплачено, записано у `scheduleDaily`.
             hour: player.preferredHour ?? await _guessHour() ?? 20,
           );
     } catch (_) {
@@ -41,7 +64,21 @@ class ReminderScheduler {
   }
 
   /// Сколько звёзд тускнеет и в каком созвездии их больше всего.
-  Future<({String title, String body})> _composeText(Tier tier) async {
+  ///
+  /// Текст собирается **на языке интерфейса целиком**, а не только имя темы:
+  /// строки берутся из `AppLocalizations` (см. [_localizations]), число звёзд
+  /// уезжает в ICU-плюрал. Прежде здесь получалась половина перевода —
+  /// правильно названное созвездие в русской фразе; чем это было плохо,
+  /// записано у `ReminderText`.
+  ///
+  /// Метод открыт ради теста, и это не удобство: у планировщика больше нет
+  /// наблюдаемого результата. [NotificationService] — синглтон с приватным
+  /// конструктором, подменить его в контейнере нечем, а в тестовой среде
+  /// плагин не инициализируется и `scheduleDaily` молча ничего не делает. То
+  /// есть проверить «в текст уехало имя, а не slug» можно только спросив
+  /// текст, не ставя уведомление.
+  @visibleForTesting
+  Future<({String title, String body})> composeText(Tier tier) async {
     final db = _ref.read(appDatabaseProvider);
     final content = _ref.read(currentContentDatabaseProvider);
     final player = _ref.read(playerControllerProvider);
@@ -89,11 +126,69 @@ class ReminderScheduler {
     );
 
     return ReminderText.build(
+      l10n: await _localizations(),
       dimmingStars: total,
-      constellation: worst,
+      constellation: worst == null ? null : await _nameOf(worst),
       orbit: orbit.level,
       missesBeforeReset: Orbit.missesBeforeReset(orbit),
     );
+  }
+
+  /// Строки интерфейса для фонового кода — по языку [interfaceLangProvider].
+  ///
+  /// `AppLocalizations.delegate.load` принимает локаль аргументом и дерева
+  /// виджетов не требует: `BuildContext` нужен только `AppLocalizations.of`,
+  /// который ищет ближайший `Localizations`. Поэтому напоминание может
+  /// говорить на языке интерфейса, хотя ставится оно из провайдера, а не с
+  /// экрана, — и ровно за этим язык интерфейса живёт провайдером, а не
+  /// читается из `Localizations.localeOf`.
+  ///
+  /// Локаль берётся тем же одним источником, что и имя созвездия ниже. Иначе
+  /// обёртка и имя разошлись бы по языкам — то, чем прежние русские литералы
+  /// и были заметны: украинское имя в русской фразе.
+  ///
+  /// Загрузка дешёвая: `lookupAppLocalizations` — это `switch` по коду языка,
+  /// возвращающий готовый объект со строками; `SynchronousFuture` завершается
+  /// в той же микрозадаче. Кешировать её нечего.
+  Future<AppLocalizations> _localizations() =>
+      AppLocalizations.delegate.load(Locale(_ref.read(interfaceLangProvider)));
+
+  /// Имя темы для текста напоминания — по тому же правилу, что подпись на небе.
+  ///
+  /// Slug — идентичность темы, а не подпись, и уведомление — худшее место,
+  /// где ему показываться: это не экран, который игрок открыл сам, а
+  /// сообщение, которое пришло к нему само. Правило показа не пишется здесь
+  /// заново и не берётся выражением `names[lang]`: [ConstellationNaming]
+  /// хранит откат целиком, а собранное именование для нынешнего игрока даёт
+  /// [constellationNamingProvider] — тот же, которым подписано небо. Второго
+  /// ответа на «на каком языке эта подпись» в проекте быть не должно, и
+  /// напоминание — не повод его завести.
+  ///
+  /// **Откат здесь начинается с первого звена, языка интерфейса**, хотя
+  /// дерева виджетов у планировщика нет: язык интерфейса решает
+  /// [interfaceLangProvider] — по настройке игрока и локалям системы через
+  /// биндинг, — и `BuildContext` ему не нужен. Ровно за этим он и живёт
+  /// провайдером, а не читается из `Localizations.localeOf`: иначе фоновому
+  /// коду пришлось бы начинать откат со второго звена, языка подсказок, и
+  /// напоминание называло бы тему не так, как её же подписывает небо.
+  ///
+  /// Отказ базы имён напоминание не отменяет: провайдер отдаёт в этом случае
+  /// [ConstellationNaming.slugsOnly], то есть худшее, что здесь может
+  /// случиться, — прежний slug в тексте, а не пропавшее уведомление. Причина
+  /// записана у самого провайдера.
+  ///
+  /// Спрашивается имя только когда есть что называть: без созвездия текст
+  /// его всё равно не упомянет.
+  ///
+  /// Одно про язык, чего этот метод не решает: текст ставится один раз и
+  /// повторяется каждый день, поэтому имя в нём — на языке, который был у
+  /// игрока в момент постановки. Смену языка интерфейса напоминание догонит
+  /// следующей постановкой — после сессии или переключения тумблера в
+  /// настройках; отдельного пересчёта на смену языка нет, как нет его и на
+  /// изменившееся за день число звёзд.
+  Future<String> _nameOf(String constellation) async {
+    final naming = await _ref.read(constellationNamingProvider.future);
+    return naming.nameOf(constellation);
   }
 
   /// Час, в который игрок обычно играет — по журналу сессий.
