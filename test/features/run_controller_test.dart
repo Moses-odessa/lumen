@@ -713,6 +713,78 @@ void main() {
       });
     });
 
+    test('окно открывает своё произнесение, а не то, что оно вытеснило', () {
+      // Сторож здесь сверял **круг**: «тот же вопрос, что был?» — и на двух
+      // путях из трёх круг тот же, а звучит уже второе чтение. Первый путь —
+      // переслушивание посреди озвучки: игрок нажал динамик на первой секунде,
+      // повтор шёл до четвёртой, а окно открылось на третьей, вместе с концом
+      // первого чтения. Часы пошли под голос — то есть ровно то, от чего окно
+      // и стали ждать.
+      speech.sounds = speaking;
+      fakeAsync((async) {
+        final h = heard();
+        controller().start([h]);
+
+        async.elapse(const Duration(seconds: 1));
+        controller().replayPrompt();
+
+        // Первое чтение договаривает — и в этот самый миг сторож, сверявший
+        // круг, открывал окно.
+        async.elapse(const Duration(seconds: 1));
+        expect(state().window, isNull,
+            reason: 'окно открылось на чтении, которое вытеснил повтор');
+
+        // Окно открывает то чтение, которое игрок слышит последним, — своим
+        // концом.
+        async.elapse(speaking - const Duration(milliseconds: 1));
+        expect(state().window, isNull, reason: 'окно опередило повтор');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().window, windowOf(h),
+            reason: 'после повтора окно не открылось вовсе');
+        expect(speech.uttered, ['Die Rechnung, bitte', 'Die Rechnung, bitte'],
+            reason: 'повтор не прозвучал целиком');
+      });
+    });
+
+    test('возвращение на экран открывает окно новым чтением, а не концом '
+        'отобранного', () {
+      // Второй путь того же сторожа, и замер сверки дословно: озвучка 3 с,
+      // уход в фон на первой секунде, возврат на второй — окно открылось на
+      // третьей, пока второе чтение шло до пятой.
+      //
+      // Голос здесь нарочно не заперт: в приложении его запирает корень
+      // (`SilenceOffScreen`), и отобранное чтение обрывается. Тест держит его
+      // звучащим именно затем, чтобы «чужое произнесение» было чем наблюдать:
+      // забег обязан ждать своё чтение, а не любое на этом круге.
+      speech.sounds = const Duration(seconds: 3);
+      fakeAsync((async) {
+        final h = heard();
+        controller().start([h]);
+
+        async.elapse(const Duration(seconds: 1));
+        screen(AppLifecycleState.paused);
+        async.elapse(const Duration(seconds: 1));
+        screen(AppLifecycleState.resumed);
+
+        // Возвращение читает центр заново: звук отобрала игра, и слышал его
+        // не игрок.
+        expect(speech.spoken.length, 2, reason: 'центр не прозвучал заново');
+
+        async.elapse(const Duration(seconds: 1));
+        expect(state().window, isNull,
+            reason: 'окно открылось на чтении, которое игрок не слышал');
+
+        // Открывает окно второе чтение — и только когда оно кончится. Что
+        // кончилось оно позже, чем началось: первое договаривает, второе идёт
+        // за ним, и это то же правило «начатое договаривается».
+        async.elapse(const Duration(seconds: 3) - const Duration(milliseconds: 1));
+        expect(state().window, isNull, reason: 'окно опередило второе чтение');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().window, windowOf(h),
+            reason: 'после второго чтения окно не открылось вовсе');
+      });
+    });
+
     test('без голоса круг на слух всё равно открывается', () {
       // Заглушка без голоса отвечает мгновенно, и это условие проверки: ждать
       // сигнала, которого не будет, значило бы никогда не открыть окно. Круг

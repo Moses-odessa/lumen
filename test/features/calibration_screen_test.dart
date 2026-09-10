@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lumen/core/audio/speech_service.dart';
 import 'package:lumen/core/l10n/app_localizations.dart';
 import 'package:lumen/domain/calibration/calibration.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
@@ -10,6 +12,9 @@ import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/features/game/presentation/circle_arena.dart';
 import 'package:lumen/features/onboarding/application/calibration_controller.dart';
 import 'package:lumen/features/onboarding/presentation/calibration_screen.dart';
+// Корень приложения: он один знает, где приложение, и он же переводит это в
+// разрешение голосу.
+import 'package:lumen/main.dart';
 
 /// Круг в калибровке — тот самый стык, на котором проект уже пропустил дефект
 /// в продакшен.
@@ -57,6 +62,32 @@ class _FakeCalibration extends CalibrationController {
     lumens: 0,
     translation: 'У меня есть время.',
     answerSpeech: 'Ich habe Zeit.',
+  );
+
+  /// Круг на слух: центр звучит, вокруг переводы.
+  ///
+  /// В калибровке такого круга сегодня нет — `CalibrationStep.mode` всегда
+  /// `pickTarget`, и `promptSpeech` у теста поэтому всегда пуст. Здесь он
+  /// нужен именно затем, чтобы проверить правило, которое сегодня держится
+  /// случайностью: онбординг молчит вне экрана не потому, что помнит об
+  /// экране, а потому, что ему нечего произнести.
+  static const heard = CircleQuestion(
+    itemId: 'money_a0_bill',
+    tier: Tier.a0,
+    mode: GameMode.listenNative,
+    prompt: '',
+    options: [
+      'Счёт, пожалуйста',
+      'Где вокзал',
+      'Два кофе, пожалуйста',
+      'Я не понимаю',
+      'Сколько это стоит',
+      'До завтра',
+    ],
+    answerIndex: 0,
+    lumens: 0,
+    promptSpeech: 'Die Rechnung, bitte',
+    answerSpeech: 'Die Rechnung, bitte',
   );
 
   @override
@@ -347,5 +378,76 @@ void main() {
     );
     expect(bar.value, closeTo(12 / CalibrationBalance.testCircles, 1e-9),
         reason: 'полоса мерит не пробы из двадцати');
+  });
+
+  group('вне экрана', () {
+    // Своей проверки экрана у калибровки нет, и это решение, а не упущение:
+    // тишина вне экрана — состояние службы речи, и накрыты им все, кто
+    // говорит, включая тех, кого ещё не написали.
+    //
+    // Проверяется правило именно здесь по двум причинам. Первая: калибровка —
+    // первый экран приложения, и жалоба владельца («закрыл окно, а она
+    // продолжает говорить») вернулась бы на нём. Вторая: сегодня онбординг
+    // молчит вне экрана по случайности, а не по правилу — у его единственной
+    // механики нет звучащего центра, а `CalibrationController._loadQuestion`
+    // зовёт `_speakPrompt()` без всякой проверки экрана. Добавь тесту шаг на
+    // слух — и без этого правила жалоба вернулась бы вместе с ним.
+    //
+    // Экран здесь не поднимается: проверяется договор корня со службой и то,
+    // что калибровка об экране не знает ничего. Круг ей подставлен звучащий —
+    // тот самый, которого у теста пока нет.
+    Future<void> screen(AppLifecycleState state) =>
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+            .handlePlatformMessage(
+          SystemChannels.lifecycle.name,
+          const StringCodec().encodeMessage(state.toString()),
+          (_) {},
+        );
+
+    tearDown(() => WidgetsBinding.instance.resetInternalState());
+
+    testWidgets('калибровка вне экрана молчит — и не своей заслугой',
+        (tester) async {
+      final speech =
+          SilentSpeechService(sounds: const Duration(milliseconds: 60));
+      fake = _FakeCalibration(
+        initial: CalibrationUiState(
+          calibration: CalibrationState.start(ceiling: Tier.a0),
+          question: _FakeCalibration.heard,
+        ),
+      );
+      container = ProviderContainer(overrides: [
+        calibrationControllerProvider.overrideWith(() => fake),
+        speechServiceProvider.overrideWithValue(speech),
+      ]);
+      await tester.pumpWidget(
+        UncontrolledProviderScope(
+          container: container!,
+          child: const SilenceOffScreen(child: SizedBox()),
+        ),
+      );
+      final calibration =
+          container!.read(calibrationControllerProvider.notifier);
+
+      await screen(AppLifecycleState.paused);
+      await tester.pump();
+      expect(speech.silenced, isTrue, reason: 'корень не запер голос');
+
+      calibration.replayPrompt();
+      await tester.pump(const Duration(milliseconds: 200));
+      expect(speech.uttered, isEmpty,
+          reason: 'онбординг читал фразу в закрытое окно');
+
+      // И молчала калибровка не потому, что ей нечего сказать: на экране та же
+      // фраза звучит. Без этой половины проверка прошла бы и у теста, который
+      // просто не о том — например, у сегодняшнего, где `promptSpeech` пуст.
+      await screen(AppLifecycleState.resumed);
+      await tester.pump();
+
+      calibration.replayPrompt();
+      await tester.pump(const Duration(milliseconds: 200));
+      expect(speech.uttered, ['Die Rechnung, bitte'],
+          reason: 'после возвращения онбординг остался немым');
+    });
   });
 }
