@@ -23,6 +23,7 @@ class CalibrationUiState {
     this.error,
     this.granted,
     this.seeded = 0,
+    this.recognised = 0,
   });
 
   final CalibrationState calibration;
@@ -35,15 +36,24 @@ class CalibrationUiState {
 
   /// Ярус, который игрок получил, — уже урезанный до запущенного.
   ///
-  /// Отдельно от `calibration.result`, и это не дублирование: замеренный ярус
-  /// и выданный — разные числа, и экран результата обязан показать оба.
-  /// Иначе игрок, ответивший на B1, видит «A0» без объяснения и делает
-  /// единственный доступный вывод: тест его не понял.
+  /// Само число считает домен (`CalibrationState.granted`), и потолок стоит
+  /// там же — в чистой функции, под тестом. Поле осталось здесь, и не ради
+  /// дублирования — оно означает не «сколько получилось», а «решение
+  /// записано»: экран калибровки уходит на итог именно по его появлению,
+  /// потому что до записи показывать разбор нечем.
   final Tier? granted;
 
-  /// Сколько слов теста уже засеяно в память — те самые звёзды, которые
-  /// горят на небе с первой минуты.
+  /// Сколько фраз засеяно в память — те самые звёзды, которые горят на небе с
+  /// первой минуты.
+  ///
+  /// Меньше [recognised] на всё, что игрок узнал выше выданного яруса: такая
+  /// фраза лежит на закрытом ярусе, в память не попадает и не светит нигде.
+  /// Пока число было одно на две строки экрана итога, вторая обещала
+  /// «5 слів із тесту вже світять на вашому небі» — при том, что светила одна.
   final int seeded;
+
+  /// Сколько разных фраз игрок узнал за тест — на любом ярусе.
+  final int recognised;
 
   bool get isDone => calibration.isDone;
   double get progress => calibration.progress;
@@ -55,22 +65,64 @@ class CalibrationUiState {
 /// Домен ничего не знает про базы, база ничего не знает про алгоритм — эта
 /// прослойка существует ровно затем, чтобы так и осталось.
 class CalibrationController extends Notifier<CalibrationUiState> {
+  /// До [start] тест не начат, и потолок здесь самый строгий: A0.
+  ///
+  /// Настоящий потолок читается из метаданных в [start] — асинхронно, а
+  /// `build()` синхронен. Заглушка обязана быть строгой, а не щедрой: щедрая
+  /// в этом самом месте уже стоила игроку невычитанного яруса, записанного в
+  /// базу насовсем.
   @override
-  CalibrationUiState build() =>
-      CalibrationUiState(calibration: CalibrationState.start());
+  CalibrationUiState build() => CalibrationUiState(
+        calibration: CalibrationState.start(ceiling: Tier.a0),
+        loading: true,
+      );
 
   final _random = Random();
 
-  /// Фразы, которые игрок подтвердил: из них засевается память.
+  /// Фразы, которые игрок узнал: `id → ярус`. Из них засевается память.
   final Map<String, Tier> _confirmed = {};
+
+  /// Фразы, уже показанные в этом тесте.
+  ///
+  /// Без этой памяти повторы были бы не редкостью, а правилом: жеребьёвка по
+  /// тридцати отобранным вариантам яруса даёт совпадение уже к седьмому кругу
+  /// чаще, чем не даёт. А повторённая фраза в тесте — это круг, который ничего
+  /// не измерил и ничего не засеял: ответ на неё игрок помнит с прошлого раза.
+  ///
+  /// Запаса хватает с большим излишком, и это считается: с одного яруса
+  /// спрашивается не больше `quotaFor(ярус) + maxRepeats` кругов — десять на
+  /// A0 в самом худшем случае, — а отобрано на каждый ярус тридцать
+  /// (`tool/make_calibration.dart`, `_phrasesPerTier`). Домен эту границу
+  /// охраняет тестом «одна фраза дважды за тест не выпадет».
+  final Set<String> _asked = {};
 
   Future<void> start() async {
     _confirmed.clear();
+    _asked.clear();
+    ref.read(analyticsProvider).log(AnalyticsEvents.calibrationStarted);
+
+    // Потолок читается **до первого круга**, а не после последнего.
+    //
+    // Он нужен тесту самому: хвост засева спрашивает фразы выданного яруса и
+    // ниже, а выданный ярус — это измеренный, урезанный потолком. Пока зажим
+    // стоял в конце, в засев пришлось бы отдавать измеренный ярус, то есть
+    // засевать фразами, которых игрок не увидит.
+    //
+    // `launchedTiersProvider` именно **дожидается**: `maxTierProvider` до
+    // ответа метаданных отдаёт A0, и решение по заглушке выдало бы A0 игроку,
+    // ответившему на B1.
+    final launched = await ref.read(launchedTiersProvider.future);
+    // Пустой набор означает сборку, в которой не запущено ничего. Играть по
+    // ней нельзя вовсе, и щедрость тут была бы не милосердием, а
+    // невычитанным текстом: ярус остаётся нижним.
+    final ceiling = launched.isEmpty
+        ? Tier.a0
+        : launched.reduce((a, b) => a.index >= b.index ? a : b);
+
     state = CalibrationUiState(
-      calibration: CalibrationState.start(),
+      calibration: CalibrationState.start(ceiling: ceiling),
       loading: true,
     );
-    ref.read(analyticsProvider).log(AnalyticsEvents.calibrationStarted);
     await _loadQuestion();
   }
 
@@ -209,7 +261,13 @@ class CalibrationController extends Notifier<CalibrationUiState> {
   ///
   /// Пул вариантов здесь свой: игрок ещё не начал играть, знать он ничего не
   /// может, поэтому пять других фраз берутся из того же яруса. Метод
-  /// исключения на калибровке и не нужен — тест мерит, а не учит.
+  /// исключения на калибровке и не нужен — тест мерит, а потом засевает то,
+  /// из чего исключение заработает на первом же уровне игры.
+  ///
+  /// Одна и та же фраза дважды за тест не выпадает: спрошенное копится в
+  /// [_asked] и из жеребьёвки уходит. Отобранных фраз на ярус тридцать, а
+  /// квота яруса — от двух до шести кругов плюс переспросы — без этого повтор
+  /// был бы правилом, а не случайностью.
   Future<CircleQuestion?> _buildQuestion(CalibrationStep step) async {
     final content = ref.read(currentContentDatabaseProvider);
     final player = ref.read(playerControllerProvider);
@@ -225,12 +283,27 @@ class CalibrationController extends Notifier<CalibrationUiState> {
 
     final curated = (await content.calibrationFor(step.tier))
         .map((i) => i.phraseId)
+        .where((id) => !_asked.contains(id))
         .where((id) => onTier.any((p) => p.id == id))
         .toList();
 
-    final itemId = curated.isNotEmpty
-        ? curated[_random.nextInt(curated.length)]
-        : onTier[_random.nextInt(onTier.length)].id;
+    // Три ступени, и порядок в них не случаен. Отобранный набор идёт первым:
+    // решение о ярусе не должно зависеть от жеребьёвки. Кончился набор
+    // (засев на одном ярусе способен выбрать его целиком) — берётся ярус
+    // целиком, но по-прежнему без повторов. И только если непоказанного не
+    // осталось вовсе, повтор разрешается: остановить онбординг из-за
+    // нехватки контента хуже, чем спросить фразу дважды.
+    final fresh = [
+      for (final row in onTier)
+        if (!_asked.contains(row.id)) row.id,
+    ];
+    final pick = curated.isNotEmpty
+        ? curated
+        : fresh.isNotEmpty
+            ? fresh
+            : [for (final row in onTier) row.id];
+    final itemId = pick[_random.nextInt(pick.length)];
+    _asked.add(itemId);
 
     final pool = [for (final row in onTier) row.id]..shuffle(_random);
 
@@ -247,40 +320,51 @@ class CalibrationController extends Notifier<CalibrationUiState> {
 
   /// Тест не выдаёт лицензию — он засевает память.
   ///
-  /// Подтверждённые слова стартуют с 50–60 lm и сразу попадают в очередь
-  /// повторений. Игрок видит небо, где часть звёзд уже горит, а планировщик
-  /// с первого дня работает с реальным словарём человека.
+  /// Узнанные фразы стартуют с 50–60 lm и сразу попадают в очередь
+  /// повторений. Игрок видит небо, где часть звёзд уже горит, планировщик с
+  /// первого дня работает с реальным словарём человека, — а главное, у
+  /// знакомства исключением появляется, из чего исключать
+  /// ([CalibrationBalance.seedLmMin]).
+  ///
+  /// Сколько именно засевается — вопрос квоты, а не этого метода: на сборке с
+  /// одним запущенным A0 засеять можно только верно отвеченное на A0, то есть
+  /// не больше шести фраз. Знакомству нужно пять
+  /// ([ScoreBalance.optionsPerCircle] минус верный ответ), и запас измерен:
+  /// в среднем 5,5 засеянных у игрока, который A0 знает, — см.
+  /// `calibration_diagnostic_test.dart`.
   Future<void> _finish(CalibrationState calibration) async {
-    // Замеренный ярус может оказаться выше запущенного: гребёнка нарочно
-    // спрашивает выше текущего уровня, иначе не найдёт потолок. Но выдать
-    // игроку ярус, который не вычитан и не озвучен, нельзя — правило
-    // «ярус не запускается без вычитки» касается и калибровки.
+    // Оба яруса приходят из состояния, и потолок в нём стоял ещё до первого
+    // круга. Прежде зажим жил здесь, в трёх строчках поверх
+    // `launchedTiersProvider`, не проверялся ничем и не срабатывал вовсе:
+    // провайдер до чтения метаданных отдавал все ярусы, а первым его
+    // читателем была та самая строка зажима.
     final measured = calibration.result ?? Tier.a0;
+    final tier = calibration.granted ?? Tier.a0;
 
-    // Потолок **дожидается**, а не читается на лету.
+    // Засевается только выданный ярус и ниже.
     //
-    // `maxTierProvider` до ответа метаданных не запрещал ничего, а первым
-    // читателем этого потолка была вот эта строка — то есть на первом запуске
-    // ограничение не срабатывало никогда, и измеренный B2 записывался игроку
-    // насовсем на сборке с одним запущенным A0. Провайдер теперь осторожен по
-    // умолчанию, но правильный ответ здесь всё равно один: решение,
-    // записываемое в базу, принимается по готовым данным, а не по заглушке.
-    final launched = await ref.read(launchedTiersProvider.future);
-    final ceiling = launched.isEmpty
-        ? Tier.a0
-        : launched.reduce((a, b) => a.index >= b.index ? a : b);
-    final tier = measured.atMost(ceiling);
+    // План нарочно спрашивает выше того, что игрок получит, — иначе замерять
+    // было бы нечего, — и узнанное там честно попадает в счёт
+    // «сколько фраз вы узнали». Но звезда на закрытом ярусе не светит нигде:
+    // игрок туда не попадёт, планировщик её не выдаст, и запись о ней
+    // означала бы только одно — что экран итога считает её горящей. Он это и
+    // обещал: «5 слів із тесту вже світять на вашому небі», при том, что
+    // светила одна.
+    final seedable = {
+      for (final entry in _confirmed.entries)
+        if (entry.value.index <= tier.index) entry.key: entry.value,
+    };
 
     var seeded = 0;
     try {
       await ref.read(wordStateRepositoryProvider).seed(
-            confirmed: _confirmed,
+            confirmed: seedable,
             lumens: (CalibrationBalance.seedLmMin +
                     CalibrationBalance.seedLmMax) ~/
                 2,
             now: DateTime.now(),
           );
-      seeded = _confirmed.length;
+      seeded = seedable.length;
     } catch (_) {
       // Засев — оптимизация, а не условие игры.
     }
@@ -301,7 +385,10 @@ class CalibrationController extends Notifier<CalibrationUiState> {
     ref.read(analyticsProvider).log(AnalyticsEvents.calibrationCompleted, {
       'tier': tier.code,
       'measured': measured.code,
-      'circles': calibration.asked,
+      // Показанные круги, а не зачётные: длина теста — обещание игроку, и
+      // мерить его выполнение надо тем же, что видит игрок.
+      'circles': calibration.circles,
+      'recognised': _confirmed.length,
       'seeded': seeded,
     });
 
@@ -309,6 +396,7 @@ class CalibrationController extends Notifier<CalibrationUiState> {
       calibration: calibration,
       granted: tier,
       seeded: seeded,
+      recognised: _confirmed.length,
     );
   }
 }

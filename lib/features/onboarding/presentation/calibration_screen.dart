@@ -74,7 +74,7 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      _hint(l10n, state.calibration.phase),
+                      _hint(l10n, state.calibration),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -121,11 +121,21 @@ class _CalibrationScreenState extends ConsumerState<CalibrationScreen> {
     );
   }
 
-  String _hint(AppLocalizations l10n, CalibrationPhase phase) =>
-      switch (phase) {
-        CalibrationPhase.comb => l10n.calibrationHintComb,
-        CalibrationPhase.search => l10n.calibrationHintSearch,
-        CalibrationPhase.confirm => l10n.calibrationHintConfirm,
-        CalibrationPhase.done => l10n.calibrationHintDone,
-      };
+  /// Подпись под полосой: одна на весь тест.
+  ///
+  /// Фаз у калибровки больше нет — все двадцать кругов устроены одинаково, —
+  /// и вместе с ними ушёл `switch` по фазам, который выбирал одну подпись из
+  /// пяти. Он охранял вещь, которую стоит назвать: перечисление фаз руками
+  /// заставляло автора новой фазы придумать ей слова, иначе экран не
+  /// собирался. Различать нечего, и охранять нечего.
+  ///
+  /// Взята подпись «просто соединяйте то, что знаете»: для теста, который
+  /// спрашивает фразы всех пяти ярусов подряд и ничего не сообщает игроку об
+  /// уровне, она верна буквально. Ключ по-прежнему называется
+  /// `calibrationHintComb`, хотя гребёнки нет; переименование ключа и текст
+  /// нового — работа переводчика, а не рефакторинга. Ключи
+  /// `calibrationHintSearch` и `calibrationHintConfirm` не читает больше
+  /// никто: поиска и подтверждения границы в тесте не осталось.
+  String _hint(AppLocalizations l10n, CalibrationState state) =>
+      state.isDone ? l10n.calibrationHintDone : l10n.calibrationHintComb;
 }

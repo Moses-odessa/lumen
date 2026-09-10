@@ -197,11 +197,17 @@ class _Result extends ConsumerWidget {
                 // другое — иначе это строка, повторяющая заголовок.
                 _ResultRow(
                   label: l10n.calibrationResultCircles,
-                  value: '${state.calibration.asked}',
+                  // Показанные круги, а не зачётные: игрок считает экраны, и
+                  // переспрос за подозрительно быстрый ответ был для него
+                  // таким же кругом, как остальные.
+                  value: '${state.calibration.circles}',
                 ),
                 _ResultRow(
+                  // Узнанное — на любом ярусе, включая те, что выше
+                  // выданного: гребёнка нарочно спрашивает выше, и игрок
+                  // действительно их узнал.
                   label: l10n.calibrationResultRecognised,
-                  value: '${state.seeded}',
+                  value: '${state.recognised}',
                 ),
                 if (capped)
                   _ResultRow(
@@ -223,6 +229,13 @@ class _Result extends ConsumerWidget {
                     textAlign: TextAlign.center,
                     style: muted,
                   ),
+                // «Уже светят на вашем небе» — и это теперь правда.
+                //
+                // Строка брала то же число, что строка «фраз вы узнали»,
+                // то есть всё узнанное на всех ярусах: игрок читал «5 слів із
+                // тесту вже світять», а четыре из пяти лежали на закрытых
+                // ярусах и не светили нигде. Здесь только засеянное —
+                // выданный ярус и ниже.
                 if (state.seeded > 0) ...[
                   const SizedBox(height: 8),
                   Text(

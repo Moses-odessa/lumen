@@ -6,6 +6,7 @@ import 'package:lumen/domain/calibration/calibration.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
+import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/features/game/presentation/circle_arena.dart';
 import 'package:lumen/features/onboarding/application/calibration_controller.dart';
 import 'package:lumen/features/onboarding/presentation/calibration_screen.dart';
@@ -62,7 +63,11 @@ class _FakeCalibration extends CalibrationController {
   CalibrationUiState build() =>
       initial ??
       CalibrationUiState(
-        calibration: CalibrationState.start(),
+        // Потолок A0 — тот же, с которым начинает настоящий контроллер до
+        // чтения метаданных. Экрану он безразличен, а вот подставлять здесь
+        // разрешающий B2 значило бы держать в тесте состояние, которого в
+        // приложении не бывает.
+        calibration: CalibrationState.start(ceiling: Tier.a0),
         question: question,
       );
 
@@ -196,6 +201,38 @@ void main() {
         reason: 'экран сменил круг на спиннер в кадре ответа');
   });
 
+  testWidgets('полосы окна ответа в онбординге нет: истечь ей нечем',
+      (tester) async {
+    // Круги калибровки идут с `isNew: false` — онбординг не знакомит, а мерит,
+    // — и ровно по этому признаку арена рисовала полосу окна. Таймера же в
+    // онбординге нет ни одного: и отсчёт, и закрытие просроченного круга
+    // живут в `RunController`. Игрок на первом экране приложения двадцать раз
+    // видел, как полоса добегает до конца и краснеет, а круг оставался
+    // открытым — то есть приложение первым делом учило его **не смотреть на
+    // полосу**, ровно перед тем забегом, где просрочка наказывает.
+    //
+    // Теперь окно заводит хозяин круга, а не арена: `CircleArena.answerWindow`
+    // задаёт и то, идёт ли полоса, и сколько. Калибровка его не заводит,
+    // потому что закрывать круг ей нечем.
+    await pumpScreen(tester);
+    expect(_FakeCalibration.question.isNew, isFalse,
+        reason: 'круг калибровки перестал быть обычным — тест ослаб');
+
+    final windowBar = find.descendant(
+      of: find.byType(CircleArena),
+      matching: find.byType(LinearProgressIndicator),
+    );
+    expect(windowBar, findsNothing);
+    // И не появляется со временем: окна нет не «пока», а вовсе.
+    await tester.pump(ScoreBalance.answerWindow * 2);
+    expect(windowBar, findsNothing);
+
+    // Круг при этом живой: у онбординга отобрали полосу, а не игру.
+    await tester.tap(find.text(options[0]));
+    await tester.pump();
+    expect(fake.submitted, [0]);
+  });
+
   testWidgets('в паузе второй ответ по тому же кругу не уходит',
       (tester) async {
     // Пауза — это ещё тот же круг, и второй ответ по нему был бы ответом за
@@ -235,7 +272,7 @@ void main() {
     await pumpScreen(
       tester,
       initial: CalibrationUiState(
-        calibration: CalibrationState.start(),
+        calibration: CalibrationState.start(ceiling: Tier.a0),
         question: _FakeCalibration.question,
         error: 'нет фраз на A0',
       ),
@@ -244,5 +281,69 @@ void main() {
     expect(find.text('нет фраз на A0'), findsOneWidget);
     expect(find.byType(CircleArena), findsNothing);
     expect(find.byType(CircularProgressIndicator), findsNothing);
+  });
+
+  testWidgets('подпись висит над кругом весь тест, до последней пробы',
+      (tester) async {
+    // Здесь стояла проверка «хвост засева экран показывает как остальной
+    // тест»: подпись выбиралась `switch` по фазе калибровки, и это было
+    // единственное место, где фазы перечислены руками. Пропущенная ветвь там
+    // не компилировалась, а вот ветвь с пустой строкой компилировалась
+    // отлично — игрок последние двадцать кругов смотрел бы на круг без
+    // единого слова о том, что происходит.
+    //
+    // Фаз больше нет, и подпись одна на все двадцать кругов. Охранять
+    // осталось то же самое: слова над кругом обязаны быть, в том числе на
+    // последней пробе, где прежняя схема уже отдала бы «Готово».
+    await pumpScreen(
+      tester,
+      initial: CalibrationUiState(
+        calibration: CalibrationState(
+          ceiling: Tier.a0,
+          asked: CalibrationBalance.testCircles - 1,
+          correct: const {Tier.a0: 6, Tier.a1: 5},
+        ),
+        question: _FakeCalibration.question,
+      ),
+    );
+
+    expect(find.byType(CircleArena), findsOneWidget);
+    expect(find.text('Просто з’єднуйте те, що знаєте'), findsOneWidget,
+        reason: 'над кругом нет ни слова о том, что происходит');
+  });
+
+  testWidgets('полоса прогресса считает пробы из двадцати', (tester) async {
+    // Полоса уже дважды мерила чужую длину: сперва складывалась из долей фаз
+    // и добиралась до конца к двадцатому кругу из тридцати, потом считала
+    // показанные круги из тридцати — при том, что тест стал двадцатью
+    // пробами. Проверка стоит на экране, потому что врала игроку именно она.
+    //
+    // Три переспроса при двенадцати пробах — не выдуманный случай: они идут
+    // сверх квоты, игрок увидел пятнадцать кругов, а тест продвинулся на
+    // двенадцать. Полоса обязана показывать двенадцать из двадцати, иначе
+    // самый быстрый игрок увидел бы полосу за единицей.
+    await pumpScreen(
+      tester,
+      initial: CalibrationUiState(
+        calibration: CalibrationState(
+          ceiling: Tier.a0,
+          asked: 12,
+          repeats: 3,
+          correct: const {Tier.a0: 6, Tier.a1: 5},
+        ),
+        question: _FakeCalibration.question,
+      ),
+    );
+
+    // Полоса на экране одна: своя, над кругом, в том же `Column`. Здесь
+    // стояло «полос две, и вторая — окно ответа внутри арены» — вторая была
+    // как раз той, которая шла в онбординге впустую, и её больше нет (тест
+    // «полосы окна ответа в онбординге нет» выше). `.first` оставлен нарочно:
+    // появись внутри круга ещё одна, брать надо всё равно свою.
+    final bar = tester.widget<LinearProgressIndicator>(
+      find.byType(LinearProgressIndicator).first,
+    );
+    expect(bar.value, closeTo(12 / CalibrationBalance.testCircles, 1e-9),
+        reason: 'полоса мерит не пробы из двадцати');
   });
 }
