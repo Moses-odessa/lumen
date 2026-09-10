@@ -1,18 +1,21 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: clarify_mediate
+name: "Klärung und Wiedergabe"
 tiers:
   b1:
     - id: clarify_mediate_b1_01
       text: "Wenn ich richtig verstehe, haben wir zwei Möglichkeiten."
     - id: clarify_mediate_b1_02
       text: "Meinst du heute oder morgen?"
+      register: casual
     - id: clarify_mediate_b1_03
       text: "Kannst du das mit anderen Worten sagen?"
+      register: casual
     - id: clarify_mediate_b1_04
       text: "Ich versuche, es einfacher zu erklären."
     - id: clarify_mediate_b1_05
@@ -36,15 +39,43 @@ tiers:
       text: "Vielleicht liegt das Problem nur an der Formulierung."
     - id: clarify_mediate_b1_14
       text: "Habe ich deinen Gedanken richtig wiedergegeben?"
+      register: casual
     - id: clarify_mediate_b1_15
       text: "Was genau ist dir unklar?"
+      register: casual
     - id: clarify_mediate_b1_16
       text: "Jetzt verstehen wir es auf die gleiche Weise."
     - id: clarify_mediate_b1_17
-      text: "Anders gesagt, ..."
+      text: "Lassen Sie mich prüfen, ob ich die Zahl richtig verstanden habe."
+      register: formal
     - id: clarify_mediate_b1_18
-      text: "Mit ... meine ich ..."
+      text: "Sie meint den ganzen Monat, nicht nur eine Woche."
     - id: clarify_mediate_b1_19
-      text: "Habe ich richtig verstanden, dass ...?"
+      text: "Ich richte ihm aus, dass das Treffen abgesagt wurde."
     - id: clarify_mediate_b1_20
-      text: "Wenn ich das Gesagte zusammenfasse, ..."
+      text: "Hier hat dieses Wort eine andere Bedeutung."
+    - id: clarify_mediate_b1_21
+      text: "Bei der Übersetzung ist ein wichtiges Detail verloren gegangen."
+    - id: clarify_mediate_b1_22
+      text: "Ich versuche, den Inhalt ohne Fachbegriffe wiederzugeben."
+    - id: clarify_mediate_b1_23
+      text: "Können wir diese Frage in zwei Teile aufteilen?"
+    - id: clarify_mediate_b1_24
+      text: "Erklären Sie es bitte anhand einer konkreten Situation."
+      register: formal
+    - id: clarify_mediate_b1_25
+      text: "Ich frage bei ihr nach, ob sie einverstanden ist."
+    - id: clarify_mediate_b1_26
+      text: "Ich möchte nicht in seinem Namen sprechen."
+    - id: clarify_mediate_b1_27
+      text: "Mit anderen Worten: Wir brauchen noch einen Tag."
+      kind: example
+    - id: clarify_mediate_b1_28
+      text: "Mit „flexiblen Arbeitszeiten“ meine ich die Möglichkeit, später mit der Arbeit anzufangen."
+      kind: example
+    - id: clarify_mediate_b1_29
+      text: "Habe ich richtig verstanden, dass die Gebühr bereits enthalten ist?"
+      kind: example
+    - id: clarify_mediate_b1_30
+      text: "Zusammenfassend halten wir fest: Zuerst prüfen wir die Unterlagen."
+      kind: example

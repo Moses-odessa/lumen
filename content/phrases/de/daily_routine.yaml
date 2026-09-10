@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: daily_routine
+name: "Tagesablauf"
 tiers:
   a1:
     - id: daily_routine_a1_01
@@ -33,17 +34,43 @@ tiers:
       text: "Sonntags arbeite ich nicht."
     - id: daily_routine_a1_13
       text: "Wann frühstückst du?"
+      register: casual
     - id: daily_routine_a1_14
       text: "Wie oft kochst du?"
+      register: casual
     - id: daily_routine_a1_15
       text: "Heute habe ich viel zu tun."
     - id: daily_routine_a1_16
       text: "Ich bin noch nicht fertig."
     - id: daily_routine_a1_17
-      text: "Jeden Morgen ..."
+      text: "Ich muss mein Zimmer aufräumen."
     - id: daily_routine_a1_18
-      text: "Nach der Arbeit ..."
+      text: "Heute bin ich mit dem Abwasch dran."
     - id: daily_routine_a1_19
-      text: "Vor dem Schlafengehen ..."
+      text: "Die Waschmaschine läuft noch."
     - id: daily_routine_a1_20
-      text: "Am Wochenende ..."
+      text: "Ich bringe abends den Müll raus."
+    - id: daily_routine_a1_21
+      text: "Mein Arbeitsweg dauert eine halbe Stunde."
+    - id: daily_routine_a1_22
+      text: "Ich esse mit meinen Kollegen zu Mittag."
+    - id: daily_routine_a1_23
+      text: "Nach dem Mittagessen bin ich oft müde."
+    - id: daily_routine_a1_24
+      text: "Heute habe ich frei."
+    - id: daily_routine_a1_25
+      text: "Beim Essen sehe ich nicht fern."
+    - id: daily_routine_a1_26
+      text: "Der Wecker klingelt um sechs."
+    - id: daily_routine_a1_27
+      text: "Jeden Morgen trinke ich Kaffee."
+      kind: example
+    - id: daily_routine_a1_28
+      text: "Nach der Arbeit gehe ich einkaufen."
+      kind: example
+    - id: daily_routine_a1_29
+      text: "Vor dem Schlafengehen lese ich ein Buch."
+      kind: example
+    - id: daily_routine_a1_30
+      text: "Am Wochenende gehen wir im Park spazieren."
+      kind: example

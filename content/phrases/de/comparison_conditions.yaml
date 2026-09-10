@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: comparison_conditions
+name: "Wahl und Bedingungen"
 tiers:
   a2:
     - id: comparison_conditions_a2_01
@@ -40,10 +41,34 @@ tiers:
     - id: comparison_conditions_a2_16
       text: "Es gibt keine andere Möglichkeit."
     - id: comparison_conditions_a2_17
-      text: "Ich wähle ..., weil ..."
+      text: "Bei der ersten Option ist die Wartezeit kürzer."
     - id: comparison_conditions_a2_18
-      text: "Wenn ..., dann ..."
+      text: "Der Preisunterschied ist gering."
     - id: comparison_conditions_a2_19
-      text: "... ist wichtiger als ..."
+      text: "Das ist nicht für alle geeignet."
     - id: comparison_conditions_a2_20
-      text: "Statt zu ..., kann man ..."
+      text: "Was ist bei der teureren Option enthalten?"
+    - id: comparison_conditions_a2_21
+      text: "Ohne Bestätigung kann ich nicht buchen."
+    - id: comparison_conditions_a2_22
+      text: "Prüfen wir zuerst, ob genug Platz da ist."
+    - id: comparison_conditions_a2_23
+      text: "Beide Fahrkarten gelten für dieselbe Strecke."
+    - id: comparison_conditions_a2_24
+      text: "Je früher wir anfangen, desto früher sind wir fertig."
+    - id: comparison_conditions_a2_25
+      text: "Zum gleichen Preis bekommt man hier mehr."
+    - id: comparison_conditions_a2_26
+      text: "Ich sage zu, wenn sich das Datum ändern lässt."
+    - id: comparison_conditions_a2_27
+      text: "Ich nehme den Zug, weil er schneller ist."
+      kind: example
+    - id: comparison_conditions_a2_28
+      text: "Wenn es morgen regnet, bleiben wir zu Hause."
+      kind: example
+    - id: comparison_conditions_a2_29
+      text: "Für mich ist Gesundheit wichtiger als Arbeit."
+      kind: example
+    - id: comparison_conditions_a2_30
+      text: "Statt anzurufen, kann man eine E-Mail schreiben."
+      kind: example

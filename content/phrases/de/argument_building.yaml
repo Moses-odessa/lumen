@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: argument_building
+name: "Thesen und Argumente"
 tiers:
   b2:
     - id: argument_building_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: argument_building_b2_12
       text: "Es geht nicht darum, zwischen zwei Extremen zu wählen."
     - id: argument_building_b2_13
-      text: "Die These, die ich begründen möchte, lautet, dass ..."
+      text: "Hier liegen zwei getrennte Aussagen vor."
     - id: argument_building_b2_14
-      text: "Die entscheidende Frage ist nicht ..., sondern ..."
+      text: "Eine notwendige Bedingung ist nicht immer hinreichend."
     - id: argument_building_b2_15
-      text: "Selbst wenn man annimmt, dass ..., ..."
+      text: "Dieses Argument setzt voraus, dass alle Zugang zum Internet haben."
     - id: argument_building_b2_16
-      text: "Das trifft insofern zu, als ..."
+      text: "Wie würde dieser Vorschlag in der Praxis funktionieren?"
     - id: argument_building_b2_17
-      text: "Es kommt weniger auf ... als auf ... an."
+      text: "Warum sollte gerade dieser Faktor entscheidend sein?"
     - id: argument_building_b2_18
-      text: "Neben ... sollte man ... betrachten."
+      text: "Kurzfristig mag das zutreffen, langfristig jedoch nicht."
     - id: argument_building_b2_19
-      text: "Daraus folgt nicht ..., sondern ..."
+      text: "Das Beispiel veranschaulicht das Problem, erklärt es aber nicht."
     - id: argument_building_b2_20
-      text: "Bevor man ein Fazit zieht, muss man ..."
+      text: "Betrachten wir den schwerwiegendsten Einwand."
+    - id: argument_building_b2_21
+      text: "Wenn die Ausgangsannahme falsch ist, ist auch die Schlussfolgerung fragwürdig."
+    - id: argument_building_b2_22
+      text: "Wir müssen Vergleichbares miteinander vergleichen."
+    - id: argument_building_b2_23
+      text: "Die These, die ich begründen möchte, lautet: Öffentliche Bibliotheken verdienen mehr Unterstützung."
+      kind: example
+    - id: argument_building_b2_24
+      text: "Die entscheidende Frage ist nicht, ob wir das System ändern, sondern wie wir es gerecht gestalten."
+      kind: example
+    - id: argument_building_b2_25
+      text: "Selbst wenn wir annehmen, dass das Budget steigt, müssen wir dennoch Prioritäten setzen."
+      kind: example
+    - id: argument_building_b2_26
+      text: "Das trifft insofern zu, als die Beteiligten die gleichen Möglichkeiten haben."
+      kind: example
+    - id: argument_building_b2_27
+      text: "Entscheidend ist weniger die Geschwindigkeit der Veränderungen als ihre Qualität."
+      kind: example
+    - id: argument_building_b2_28
+      text: "Neben den Kosten sollten wir die Auswirkungen auf die Beschäftigten berücksichtigen."
+      kind: example
+    - id: argument_building_b2_29
+      text: "Daraus folgt nicht, dass das Projekt sinnlos ist, sondern dass es überarbeitet werden muss."
+      kind: example
+    - id: argument_building_b2_30
+      text: "Bevor wir eine Schlussfolgerung ziehen, müssen wir die Ergebnisse beider Gruppen vergleichen."
+      kind: example

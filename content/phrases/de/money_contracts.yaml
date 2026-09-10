@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: money_contracts
+name: "Geld und Verträge"
 tiers:
   b1:
     - id: money_contracts_b1_01
@@ -27,6 +28,7 @@ tiers:
       text: "Ich möchte zuerst alle Bedingungen lesen."
     - id: money_contracts_b1_10
       text: "Können Sie diese Vertragsklausel erklären?"
+      register: formal
     - id: money_contracts_b1_11
       text: "Mit dieser Gebühr bin ich nicht einverstanden."
     - id: money_contracts_b1_12
@@ -37,13 +39,39 @@ tiers:
       text: "Kann ich in Raten zahlen?"
     - id: money_contracts_b1_15
       text: "Bitte geben Sie mir eine schriftliche Bestätigung."
+      register: formal
     - id: money_contracts_b1_16
       text: "Ich unterschreibe nicht, bevor ich die Bedingungen verstehe."
     - id: money_contracts_b1_17
-      text: "Im Preis enthalten ist ..."
+      text: "Ich kann diese Kontobewegung nicht zuordnen."
     - id: money_contracts_b1_18
-      text: "Ich möchte ... kündigen."
+      text: "Mir wurde nach der Kündigung des Abonnements Geld abgebucht."
     - id: money_contracts_b1_19
-      text: "Laut Vertrag ..."
+      text: "Können Sie eine aufgeschlüsselte Rechnung schicken?"
+      register: formal
     - id: money_contracts_b1_20
-      text: "Bevor ich zustimme, möchte ich ..."
+      text: "Wann bekomme ich meine Kaution zurück?"
+    - id: money_contracts_b1_21
+      text: "Ich möchte ein Ausgabenlimit festlegen."
+    - id: money_contracts_b1_22
+      text: "Die Überweisung ist noch nicht auf dem Konto eingegangen."
+    - id: money_contracts_b1_23
+      text: "Fallen Gebühren für Zahlungen in einer anderen Währung an?"
+    - id: money_contracts_b1_24
+      text: "Ich möchte den Zahlungsnachweis aufbewahren."
+    - id: money_contracts_b1_25
+      text: "Ich muss diese Kosten auf mehrere Monate verteilen."
+    - id: money_contracts_b1_26
+      text: "Der Gesamtbetrag stimmt nicht mit dem Angebot überein."
+    - id: money_contracts_b1_27
+      text: "Der Preis beinhaltet Lieferung und Montage."
+      kind: example
+    - id: money_contracts_b1_28
+      text: "Ich möchte mein Jahresabonnement kündigen."
+      kind: example
+    - id: money_contracts_b1_29
+      text: "Laut Vertrag erfolgt die Zahlung bis zum Fünften jedes Monats."
+      kind: example
+    - id: money_contracts_b1_30
+      text: "Bevor ich zustimme, möchte ich andere Angebote vergleichen."
+      kind: example

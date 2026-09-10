@@ -1,28 +1,37 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: about_me
+name: "Über mich"
 tiers:
   a0:
     - id: about_me_a0_01
-      text: "Ich heiße ..."
+      text: "Ich heiße Alex."
+      kind: example
     - id: about_me_a0_02
       text: "Wie heißt du?"
+      register: casual
     - id: about_me_a0_03
-      text: "Ich komme aus ..."
+      text: "Ich komme aus der Ukraine."
+      kind: example
     - id: about_me_a0_04
       text: "Woher kommst du?"
+      register: casual
     - id: about_me_a0_05
-      text: "Ich wohne in ..."
+      text: "Ich wohne in Berlin."
+      kind: example
     - id: about_me_a0_06
       text: "Wo wohnst du?"
+      register: casual
     - id: about_me_a0_07
-      text: "Ich bin ... Jahre alt."
+      text: "Ich bin dreißig Jahre alt."
+      kind: example
     - id: about_me_a0_08
       text: "Wie alt bist du?"
+      register: casual
     - id: about_me_a0_09
       text: "Ich arbeite hier."
     - id: about_me_a0_10
@@ -42,8 +51,31 @@ tiers:
     - id: about_me_a0_17
       text: "Ich lerne noch."
     - id: about_me_a0_18
-      text: "Meine Adresse ist ..."
+      text: "Meine Adresse ist 10 Park Street."
+      kind: example
     - id: about_me_a0_19
-      text: "Meine Telefonnummer ist ..."
+      text: "Meine Telefonnummer ist 0123 456789."
+      kind: example
     - id: about_me_a0_20
       text: "Und du?"
+      register: casual
+    - id: about_me_a0_21
+      text: "Mein Nachname ist Kovalenko."
+    - id: about_me_a0_22
+      text: "Das ist mein Vorname."
+    - id: about_me_a0_23
+      text: "Ich bin ukrainischer Staatsbürger."
+    - id: about_me_a0_24
+      text: "Ich bin ledig."
+    - id: about_me_a0_25
+      text: "Ich bin hier zu Gast."
+    - id: about_me_a0_26
+      text: "Ich bin geschäftlich hier."
+    - id: about_me_a0_27
+      text: "Ich reise allein."
+    - id: about_me_a0_28
+      text: "Ich bin mit ihr hier."
+    - id: about_me_a0_29
+      text: "Ich bin mit meinem Sohn hier."
+    - id: about_me_a0_30
+      text: "Hier ist mein Ausweis."

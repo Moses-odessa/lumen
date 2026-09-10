@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: sources_evidence
+name: "Quellen und Belege"
 tiers:
   b2:
     - id: sources_evidence_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: sources_evidence_b2_12
       text: "Diese Ergebnisse lassen sich nicht automatisch verallgemeinern."
     - id: sources_evidence_b2_13
-      text: "Den Angaben von ... zufolge ..."
+      text: "War die Stichprobe repräsentativ?"
     - id: sources_evidence_b2_14
-      text: "Der Autor behauptet, dass ..., aber ..."
+      text: "Wer hat diese Studie finanziert?"
     - id: sources_evidence_b2_15
-      text: "Die vorliegenden Daten deuten auf ... hin."
+      text: "Konnten andere Forschende die Ergebnisse reproduzieren?"
     - id: sources_evidence_b2_16
-      text: "Wie zuverlässig ist ...?"
+      text: "Unterscheidet der Bericht zwischen Schätzungen und Messungen?"
     - id: sources_evidence_b2_17
-      text: "Es ist unklar, ob ... berücksichtigt wurde."
+      text: "Fehlende Daten können das Bild verzerren."
     - id: sources_evidence_b2_18
-      text: "Ohne Informationen über ... lässt sich ... schwer beurteilen."
+      text: "Wie wurden die Teilnehmenden ausgewählt?"
     - id: sources_evidence_b2_19
-      text: "Das bestätigt ..., beweist aber nicht ..."
+      text: "Die Quelle wurde nach der Veröffentlichung aktualisiert."
     - id: sources_evidence_b2_20
-      text: "Ich würde überprüfen, ob Folgendes stimmt: ..."
+      text: "Kann die Überschrift irreführend sein, obwohl der Artikel selbst korrekt ist?"
+    - id: sources_evidence_b2_21
+      text: "Ich kann dieses Zitat in der Originalquelle nicht finden."
+    - id: sources_evidence_b2_22
+      text: "Trennen wir überprüfte Fakten von unbestätigten Meldungen."
+    - id: sources_evidence_b2_23
+      text: "Laut den Daten unserer Umfrage bevorzugt die Hälfte der Teilnehmenden Abendkurse."
+      kind: example
+    - id: sources_evidence_b2_24
+      text: "Der Autor behauptet, dass die Methode wirksam ist, legt aber keine Forschungsergebnisse vor."
+      kind: example
+    - id: sources_evidence_b2_25
+      text: "Die verfügbaren Daten deuten auf einen allmählichen Anstieg der Nachfrage hin."
+      kind: example
+    - id: sources_evidence_b2_26
+      text: "Wie zuverlässig ist eine Umfrage mit so wenigen Teilnehmenden?"
+      kind: example
+    - id: sources_evidence_b2_27
+      text: "Es ist unklar, ob das Alter der Teilnehmenden berücksichtigt wurde."
+      kind: example
+    - id: sources_evidence_b2_28
+      text: "Ohne Informationen zur Forschungsmethode lässt sich die Zuverlässigkeit der Schlussfolgerungen schwer beurteilen."
+      kind: example
+    - id: sources_evidence_b2_29
+      text: "Das stützt unsere Annahme, beweist aber keinen ursächlichen Zusammenhang."
+      kind: example
+    - id: sources_evidence_b2_30
+      text: "Ich würde überprüfen, ob Folgendes stimmt: Die Umfrage wurde in allen Regionen durchgeführt."
+      kind: example

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: society_rights
+name: "Gesellschaft und Rechte"
 tiers:
   b2:
     - id: society_rights_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: society_rights_b2_12
       text: "Es braucht nicht nur Regeln, sondern auch Möglichkeiten, sie einzuhalten."
     - id: society_rights_b2_13
-      text: "Aus Sicht der Chancengleichheit ..."
+      text: "Das Formular sollte mit Bildschirmleseprogrammen nutzbar sein."
     - id: society_rights_b2_14
-      text: "Diese Entscheidung wird sich besonders auf ... auswirken."
+      text: "Man darf nicht davon ausgehen, dass alle ein Smartphone benutzen."
     - id: society_rights_b2_15
-      text: "Es muss sichergestellt werden, dass ..."
+      text: "Es muss erklärt werden, wie man Widerspruch einlegen kann."
     - id: society_rights_b2_16
-      text: "Die Frage ist, wer berechtigt ist, ..."
+      text: "Gibt es eine unabhängige Stelle, die solche Beschwerden prüft?"
     - id: society_rights_b2_17
-      text: "Die Freiheit zu ... muss mit ... verbunden sein."
+      text: "Die Diskussion sollte vor der Entscheidung stattfinden."
     - id: society_rights_b2_18
-      text: "Ich unterstütze das Ziel ..., habe aber Zweifel an ..."
+      text: "Die Vertretung einer Gruppe bedeutet nicht, dass alle ihre Mitglieder gleich denken."
     - id: society_rights_b2_19
-      text: "Damit Beteiligung tatsächlich möglich ist, braucht es ..."
+      text: "Gibt es Unterstützung für Menschen, denen das Ausfüllen des Antrags schwerfällt?"
     - id: society_rights_b2_20
-      text: "Es wäre unfair, ..., wenn ..."
+      text: "Transparente Kriterien helfen, willkürliche Entscheidungen zu vermeiden."
+    - id: society_rights_b2_21
+      text: "Die Regeln müssen in verständlicher Sprache formuliert werden."
+    - id: society_rights_b2_22
+      text: "Der Zugang zu dieser Dienstleistung sollte nicht vom Wohnort abhängen."
+    - id: society_rights_b2_23
+      text: "Aus Sicht der Chancengleichheit ist es wichtig, den kostenlosen Zugang zum Kurs zu erhalten."
+      kind: example
+    - id: society_rights_b2_24
+      text: "Diese Entscheidung wird besonders Menschen betreffen, die weit vom Zentrum entfernt wohnen."
+      kind: example
+    - id: society_rights_b2_25
+      text: "Wir müssen sicherstellen, dass die Informationen auch Menschen ohne Internetzugang erreichen."
+      kind: example
+    - id: society_rights_b2_26
+      text: "Die Frage ist, wer das Recht hat, im Namen der Anwohner Entscheidungen zu treffen."
+      kind: example
+    - id: society_rights_b2_27
+      text: "Die Freiheit, seine Meinung zu äußern, muss mit Respekt vor anderen einhergehen."
+      kind: example
+    - id: society_rights_b2_28
+      text: "Ich unterstütze das Ziel, den Lärm zu verringern, habe aber Zweifel an der Zweckmäßigkeit eines vollständigen Verbots."
+      kind: example
+    - id: society_rights_b2_29
+      text: "Damit Beteiligung sinnvoll ist, braucht es die Möglichkeit, Entscheidungen tatsächlich zu beeinflussen."
+      kind: example
+    - id: society_rights_b2_30
+      text: "Es wäre unfair, Menschen von der Diskussion auszuschließen, wenn die Entscheidung sie unmittelbar betrifft."
+      kind: example

@@ -1,50 +1,103 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: idioms_speech
+name: "Redewendungen"
 tiers:
   b2:
     - id: idioms_speech_b2_01
       text: "Ich habe gerade viel um die Ohren."
+      kind: idiom
     - id: idioms_speech_b2_02
       text: "Ich muss das alles unter einen Hut bringen."
+      kind: idiom
     - id: idioms_speech_b2_03
       text: "Ich habe den Faden verloren."
+      kind: idiom
     - id: idioms_speech_b2_04
       text: "Das hat den Nagel auf den Kopf getroffen."
+      kind: idiom
     - id: idioms_speech_b2_05
       text: "Lass uns nicht um den heißen Brei herumreden."
+      kind: idiom
       register: casual
     - id: idioms_speech_b2_06
       text: "Das ist eine ganz andere Sache."
+      kind: idiom
     - id: idioms_speech_b2_07
       text: "Man sollte aus einer Mücke keinen Elefanten machen."
+      kind: idiom
     - id: idioms_speech_b2_08
       text: "Ich drücke dir die Daumen."
+      kind: idiom
+      register: casual
     - id: idioms_speech_b2_09
       text: "Das ist nur die Spitze des Eisbergs."
+      kind: idiom
     - id: idioms_speech_b2_10
       text: "Da liegt das Problem."
+      kind: idiom
     - id: idioms_speech_b2_11
       text: "Ich muss noch eine Nacht darüber schlafen."
+      kind: idiom
     - id: idioms_speech_b2_12
       text: "Ich möchte nichts überstürzen."
+      kind: idiom
     - id: idioms_speech_b2_13
       text: "Wir reden offenbar aneinander vorbei."
+      kind: idiom
     - id: idioms_speech_b2_14
       text: "Jetzt fügt sich alles zusammen."
+      kind: idiom
     - id: idioms_speech_b2_15
       text: "Unsere Pläne sind ins Wasser gefallen."
+      kind: idiom
     - id: idioms_speech_b2_16
       text: "Das lässt mir keine Ruhe."
+      kind: idiom
     - id: idioms_speech_b2_17
       text: "Ich kann davor nicht einfach die Augen verschließen."
+      kind: idiom
     - id: idioms_speech_b2_18
       text: "Wir sind endlich einen Schritt weiter."
+      kind: idiom
     - id: idioms_speech_b2_19
       text: "Das war der Tropfen, der das Fass zum Überlaufen brachte."
+      kind: idiom
     - id: idioms_speech_b2_20
       text: "Das wird sich nach und nach einspielen."
+      kind: idiom
+    - id: idioms_speech_b2_21
+      text: "Wir sitzen im selben Boot."
+      kind: idiom
+    - id: idioms_speech_b2_22
+      text: "Das ist die Mühe nicht wert."
+      kind: idiom
+    - id: idioms_speech_b2_23
+      text: "Ich habe die Nase voll davon."
+      kind: idiom
+    - id: idioms_speech_b2_24
+      text: "Ich nehme dich beim Wort."
+      kind: idiom
+      register: casual
+    - id: idioms_speech_b2_25
+      text: "Das kommt mir bekannt vor."
+      kind: idiom
+    - id: idioms_speech_b2_26
+      text: "Es nützt nichts, vergossener Milch nachzutrauern."
+      kind: idiom
+    - id: idioms_speech_b2_27
+      text: "Eins nach dem anderen."
+      kind: idiom
+    - id: idioms_speech_b2_28
+      text: "Wir drehen uns im Kreis."
+      kind: idiom
+    - id: idioms_speech_b2_29
+      text: "Ich halte mir alle Möglichkeiten offen."
+      kind: idiom
+    - id: idioms_speech_b2_30
+      text: "Die Situation ist aus dem Ruder gelaufen."
+      kind: idiom

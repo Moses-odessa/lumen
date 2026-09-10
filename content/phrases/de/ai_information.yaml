@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: ai_information
+name: "KI und Vertrauen"
 tiers:
   b2:
     - id: ai_information_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: ai_information_b2_12
       text: "Es ist wichtig, die Grenzen dieses Systems zu verstehen."
     - id: ai_information_b2_13
-      text: "Bevor wir ... vertrauen, prüfen wir ..."
+      text: "Sollte angegeben werden, dass der Entwurf mit KI erstellt wurde?"
     - id: ai_information_b2_14
-      text: "Dieses Tool eignet sich für ..., aber nicht für ..."
+      text: "Das System kann ähnliche Namen verwechseln."
     - id: ai_information_b2_15
-      text: "Könnte das Ergebnis durch ... verzerrt sein?"
+      text: "Ich muss verstehen, worauf die Empfehlung beruht."
     - id: ai_information_b2_16
-      text: "Aus Sicht des Datenschutzes ..."
+      text: "Wie kann man eine automatisierte Entscheidung anfechten?"
     - id: ai_information_b2_17
-      text: "Ich würde hier keine ... eingeben."
+      text: "Ich möchte personalisierte Werbung deaktivieren."
     - id: ai_information_b2_18
-      text: "Die Entscheidung sollte bei ... bleiben, weil ..."
+      text: "Kann man die Daten vor der Kontoschließung exportieren?"
     - id: ai_information_b2_19
-      text: "Es muss klar angegeben werden, ob folgende Aussage stimmt: ..."
+      text: "Dieses Bild könnte bearbeitet worden sein."
     - id: ai_information_b2_20
-      text: "Bequemlichkeit sollte nicht auf Kosten von ... gehen."
+      text: "Dieser Beitrag vermischt Fakten und persönliche Bewertungen."
+    - id: ai_information_b2_21
+      text: "Kann man eine Überprüfung der Entscheidung durch einen Menschen verlangen?"
+    - id: ai_information_b2_22
+      text: "Auch eine natürlich klingende Übersetzung kann eine Verneinung falsch wiedergeben."
+    - id: ai_information_b2_23
+      text: "Bevor wir dieser Antwort vertrauen, prüfen wir die Originalquelle."
+      kind: example
+    - id: ai_information_b2_24
+      text: "Dieses Werkzeug ist nützlich, um Entwürfe zu erstellen, aber nicht, um die Prüfung durch einen Redakteur zu ersetzen."
+      kind: example
+    - id: ai_information_b2_25
+      text: "Könnte das Ergebnis aufgrund unvollständiger Trainingsdaten verzerrt sein?"
+      kind: example
+    - id: ai_information_b2_26
+      text: "Aus Datenschutzsicht sollten wir den Zugriff auf dieses Dokument beschränken."
+      kind: example
+    - id: ai_information_b2_27
+      text: "Ich würde hier keine Reisepassdaten eingeben."
+      kind: example
+    - id: ai_information_b2_28
+      text: "Die Entscheidung sollte beim Menschen bleiben, weil er die Verantwortung trägt."
+      kind: example
+    - id: ai_information_b2_29
+      text: "Es muss klar angegeben werden, ob folgende Aussage stimmt: Der Dienst speichert hochgeladene Dokumente."
+      kind: example
+    - id: ai_information_b2_30
+      text: "Bequemlichkeit sollte nicht auf Kosten der Privatsphäre der Nutzer gehen."
+      kind: example

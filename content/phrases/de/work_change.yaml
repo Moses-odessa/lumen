@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: work_change
+name: "Arbeit und Wandel"
 tiers:
   b2:
     - id: work_change_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: work_change_b2_12
       text: "Nicht jede neue Technologie löst ein tatsächliches Problem."
     - id: work_change_b2_13
-      text: "Um uns an ... anzupassen, müssen wir ..."
+      text: "Ich möchte verstehen, wie mein Fortschritt bewertet wird."
     - id: work_change_b2_14
-      text: "Ich möchte ... weiterentwickeln, damit ..."
+      text: "Wird die Lernzeit in den Arbeitsplan aufgenommen?"
     - id: work_change_b2_15
-      text: "Die Herausforderung besteht darin, ... und ... zu vereinbaren."
+      text: "Der neue Ablauf sollte zunächst mit einer kleinen Gruppe getestet werden."
     - id: work_change_b2_16
-      text: "Statt nur ... zu bewerten, sollte man ..."
+      text: "Wir müssen erklären, welche Aufgaben sich ändern und welche bleiben."
     - id: work_change_b2_17
-      text: "Der Erfolg des Übergangs wird von ... abhängen."
+      text: "Widerstand gegen Veränderungen kann auf fehlende Klarheit statt auf mangelnde Motivation hinweisen."
     - id: work_change_b2_18
-      text: "Meine bisherigen Erfahrungen haben gezeigt, dass ..."
+      text: "Ich hätte gern ein Beispiel dafür, was ich verbessern kann."
     - id: work_change_b2_19
-      text: "Für ein dauerhaftes Ergebnis ist es wichtig, ..."
+      text: "Ein einzelner Fehler sollte nicht die gesamte Leistungsbewertung bestimmen."
     - id: work_change_b2_20
-      text: "Bevor man ... einführt, sollte man ... überprüfen."
+      text: "Wissen bleibt im Team, wenn die Abläufe dokumentiert sind."
+    - id: work_change_b2_21
+      text: "Lässt sich Mentoring mit selbstständiger Praxis verbinden?"
+    - id: work_change_b2_22
+      text: "Die ersten Ergebnisse sollten vor der vollständigen Einführung besprochen werden."
+    - id: work_change_b2_23
+      text: "Um uns an die neue Software zu gewöhnen, müssen wir eine kurze Schulung absolvieren."
+      kind: example
+    - id: work_change_b2_24
+      text: "Ich möchte meine Verhandlungsfähigkeiten ausbauen, damit ich Konditionen selbstbewusster besprechen kann."
+      kind: example
+    - id: work_change_b2_25
+      text: "Die Herausforderung besteht darin, die laufenden Aufgaben mit der Zeit fürs Lernen zu vereinbaren."
+      kind: example
+    - id: work_change_b2_26
+      text: "Statt nur die Geschwindigkeit zu bewerten, sollten wir auch die Qualität des Ergebnisses berücksichtigen."
+      kind: example
+    - id: work_change_b2_27
+      text: "Der Erfolg der Umstellung wird davon abhängen, wie verständlich wir die neuen Abläufe erklären."
+      kind: example
+    - id: work_change_b2_28
+      text: "Meine bisherigen Erfahrungen haben gezeigt, dass kleine, regelmäßige Veränderungen besser funktionieren als abrupte."
+      kind: example
+    - id: work_change_b2_29
+      text: "Für ein dauerhaftes Ergebnis ist es wichtig, die neuen Fähigkeiten regelmäßig anzuwenden."
+      kind: example
+    - id: work_change_b2_30
+      text: "Bevor wir ein neues System einführen, sollten wir prüfen, ob das Team darauf vorbereitet ist, es zu nutzen."
+      kind: example

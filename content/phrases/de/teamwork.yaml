@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: teamwork
+name: "Teamarbeit"
 tiers:
   b1:
     - id: teamwork_b1_01
@@ -24,12 +25,15 @@ tiers:
       text: "Ich bin auf ein Problem gestoßen."
     - id: teamwork_b1_08
       text: "Ich brauche Ihre Entscheidung."
+      register: formal
     - id: teamwork_b1_09
       text: "Ohne diese Daten kann ich nicht weitermachen."
     - id: teamwork_b1_10
       text: "Können Sie meinen Vorschlag prüfen?"
+      register: formal
     - id: teamwork_b1_11
       text: "Ich werde Ihre Anmerkungen berücksichtigen."
+      register: formal
     - id: teamwork_b1_12
       text: "Wir müssen den nächsten Schritt abstimmen."
     - id: teamwork_b1_13
@@ -41,10 +45,34 @@ tiers:
     - id: teamwork_b1_16
       text: "Danke für die schnelle Rückmeldung."
     - id: teamwork_b1_17
-      text: "Ich bin für ... verantwortlich."
+      text: "Ich brauche Klarheit über die Prioritäten."
     - id: teamwork_b1_18
-      text: "Zum Abschluss brauche ich ..."
+      text: "Diese Aufgabe hängt von der Antwort des Kunden ab."
     - id: teamwork_b1_19
-      text: "Wir haben vereinbart, dass ..."
+      text: "Ich kann helfen, sobald ich meine aktuelle Arbeit beendet habe."
     - id: teamwork_b1_20
-      text: "Ich schlage vor, zuerst ... und dann ..."
+      text: "Vor meinem Urlaub übergebe ich meine Aufgaben einem Kollegen."
+    - id: teamwork_b1_21
+      text: "Wo ist die neueste Version des Dokuments gespeichert?"
+    - id: teamwork_b1_22
+      text: "Wir haben versehentlich dieselbe Arbeit zweimal erledigt."
+    - id: teamwork_b1_23
+      text: "Ich wurde über die Änderungen nicht informiert."
+    - id: teamwork_b1_24
+      text: "Wir müssen jemanden mit passender Erfahrung hinzuziehen."
+    - id: teamwork_b1_25
+      text: "Ich habe die Stellen markiert, die überprüft werden müssen."
+    - id: teamwork_b1_26
+      text: "Jetzt ist es am wichtigsten, keine Zeit zu verlieren."
+    - id: teamwork_b1_27
+      text: "Ich bin für die Kommunikation mit den Kunden verantwortlich."
+      kind: example
+    - id: teamwork_b1_28
+      text: "Um fertig zu werden, brauche ich die endgültigen Zahlen."
+      kind: example
+    - id: teamwork_b1_29
+      text: "Wir haben vereinbart, dass ich den ersten Entwurf vorbereite."
+      kind: example
+    - id: teamwork_b1_30
+      text: "Ich schlage vor, zuerst die Daten zu prüfen und dann den Bericht zu verschicken."
+      kind: example

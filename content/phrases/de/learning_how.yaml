@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: learning_how
+name: "Lernen und Fortschritt"
 tiers:
   a2:
     - id: learning_how_a2_01
@@ -23,6 +24,7 @@ tiers:
       text: "Wie verwendet man das in einem Satz?"
     - id: learning_how_a2_08
       text: "Bitte korrigieren Sie meine Fehler."
+      register: formal
     - id: learning_how_a2_09
       text: "Ich möchte es zuerst selbst versuchen."
     - id: learning_how_a2_10
@@ -41,10 +43,39 @@ tiers:
     - id: learning_how_a2_16
       text: "Ich sehe schon Fortschritte."
     - id: learning_how_a2_17
-      text: "Es fällt mir schwer, ..."
+      text: "Welche Silbe wird betont?"
     - id: learning_how_a2_18
-      text: "Ich merke es mir besser, wenn ..."
+      text: "Können Sie diese Regel erklären?"
+      register: formal
     - id: learning_how_a2_19
-      text: "Mein Ziel für diese Woche ist ..."
+      text: "Darf ich Ihre Aussprache aufnehmen?"
+      register: formal
     - id: learning_how_a2_20
-      text: "Ich würde gern ... üben."
+      text: "Ich habe die Aufgabe verstanden, kenne aber die Antwort nicht."
+    - id: learning_how_a2_21
+      text: "Ich brauche Hilfe bei der Planung meiner Wiederholungen."
+    - id: learning_how_a2_22
+      text: "Ich verwechsle diese Verbformen."
+    - id: learning_how_a2_23
+      text: "Stellen wir abwechselnd Fragen."
+      register: casual
+    - id: learning_how_a2_24
+      text: "Übersetz bitte noch nicht."
+      register: casual
+    - id: learning_how_a2_25
+      text: "Ich möchte es noch einmal ohne Notizen versuchen."
+    - id: learning_how_a2_26
+      text: "Können Sie einen kurzen Text für mein Niveau empfehlen?"
+      register: formal
+    - id: learning_how_a2_27
+      text: "Es fällt mir schwer, schnell gesprochene Sprache zu verstehen."
+      kind: example
+    - id: learning_how_a2_28
+      text: "Ich kann mir etwas besser merken, wenn ich es mit der Hand aufschreibe."
+      kind: example
+    - id: learning_how_a2_29
+      text: "Mein Ziel für diese Woche ist, zwanzig Sätze zu lernen."
+      kind: example
+    - id: learning_how_a2_30
+      text: "Ich möchte gern die Aussprache üben."
+      kind: example

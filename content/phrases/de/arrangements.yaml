@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: arrangements
+name: "Termine und Fristen"
 tiers:
   a2:
     - id: arrangements_a2_01
@@ -32,6 +33,7 @@ tiers:
       register: formal
     - id: arrangements_a2_11
       text: "Sagen Sie bitte vorher Bescheid."
+      register: formal
     - id: arrangements_a2_12
       text: "Bis wann wird das gebraucht?"
     - id: arrangements_a2_13
@@ -43,10 +45,40 @@ tiers:
     - id: arrangements_a2_16
       text: "Abgemacht."
     - id: arrangements_a2_17
-      text: "Würde Ihnen ... passen?"
+      text: "Ich muss in meinem Kalender nachsehen."
     - id: arrangements_a2_18
-      text: "Ich bin von ... bis ... frei."
+      text: "Ich warte noch auf die Bestätigung."
     - id: arrangements_a2_19
-      text: "Bitte bestätigen Sie ..."
+      text: "Können Sie diesen Termin bis morgen für mich freihalten?"
+      register: formal
     - id: arrangements_a2_20
-      text: "Wenn sich etwas ändert, ..."
+      text: "Das Treffen wurde in einen anderen Raum verlegt."
+    - id: arrangements_a2_21
+      text: "Ich kann nur eine Stunde bleiben."
+    - id: arrangements_a2_22
+      text: "Zählt das Wochenende bei dieser Frist mit?"
+    - id: arrangements_a2_23
+      text: "Erinnern Sie mich bitte am Tag vorher daran."
+      register: formal
+    - id: arrangements_a2_24
+      text: "Können wir regelmäßige Treffen vereinbaren?"
+    - id: arrangements_a2_25
+      text: "Mein vorheriger Termin dauert länger als geplant."
+    - id: arrangements_a2_26
+      text: "Bitte sagen Sie das Treffen nicht ohne Vorankündigung ab."
+      register: formal
+    - id: arrangements_a2_27
+      text: "Würde Ihnen Dienstagnachmittag passen?"
+      kind: example
+      register: formal
+    - id: arrangements_a2_28
+      text: "Ich habe von zwei bis vier Uhr Zeit."
+      kind: example
+    - id: arrangements_a2_29
+      text: "Bitte bestätigen Sie die Uhrzeit des Treffens."
+      kind: example
+      register: formal
+    - id: arrangements_a2_30
+      text: "Wenn sich etwas ändert, schreibe ich Ihnen."
+      kind: example
+      register: formal

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: history_consequences
+name: "Erlebnis und Folgen"
 tiers:
   b1:
     - id: history_consequences_b1_01
@@ -40,10 +41,34 @@ tiers:
     - id: history_consequences_b1_16
       text: "Danach hat sich vieles verändert."
     - id: history_consequences_b1_17
-      text: "Sobald wir ..., wurde klar, dass ..."
+      text: "Gehen wir ein paar Tage zurück."
     - id: history_consequences_b1_18
-      text: "Während ich ..., ..."
+      text: "Zu diesem Zeitpunkt hatten wir bereits das gesamte Budget ausgegeben."
     - id: history_consequences_b1_19
-      text: "Der Grund dafür, dass ..., war ..."
+      text: "Niemand bemerkte den Fehler sofort."
     - id: history_consequences_b1_20
-      text: "Wenn ich damals ... gewusst hätte, ..."
+      text: "Erst am nächsten Tag verstand ich, was passiert war."
+    - id: history_consequences_b1_21
+      text: "Zum Glück hatte ich noch eine Kopie."
+    - id: history_consequences_b1_22
+      text: "Dadurch konnten wir neu anfangen."
+    - id: history_consequences_b1_23
+      text: "Infolgedessen mussten wir die Termine ändern."
+    - id: history_consequences_b1_24
+      text: "Rückblickend verstehe ich, warum es nicht funktioniert hat."
+    - id: history_consequences_b1_25
+      text: "Seitdem überprüfe ich die Adresse immer zweimal."
+    - id: history_consequences_b1_26
+      text: "Am meisten überraschte mich die Reaktion des Teams."
+    - id: history_consequences_b1_27
+      text: "Sobald wir ankamen, wurde klar, dass die Adresse falsch war."
+      kind: example
+    - id: history_consequences_b1_28
+      text: "Während ich die Präsentation vorbereitete, überprüfte mein Kollege die Zahlen."
+      kind: example
+    - id: history_consequences_b1_29
+      text: "Der Grund für unsere Verspätung war, dass die Straße gesperrt war."
+      kind: example
+    - id: history_consequences_b1_30
+      text: "Wenn ich damals von der Verzögerung gewusst hätte, wäre ich früher losgefahren."
+      kind: example

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: place_time_price
+name: "Ort, Zeit und Preis"
 tiers:
   a0:
     - id: place_time_price_a0_01
@@ -42,8 +43,31 @@ tiers:
     - id: place_time_price_a0_17
       text: "Nur einen, bitte."
     - id: place_time_price_a0_18
-      text: "Wo ist ...?"
+      text: "Wo ist die Apotheke?"
+      kind: example
     - id: place_time_price_a0_19
-      text: "Um ... Uhr."
+      text: "Um drei Uhr."
+      kind: example
     - id: place_time_price_a0_20
-      text: "Wie viele ...?"
+      text: "Wie viele Fahrkarten?"
+      kind: example
+    - id: place_time_price_a0_21
+      text: "Geöffnet oder geschlossen?"
+    - id: place_time_price_a0_22
+      text: "Ist der Eintritt frei?"
+    - id: place_time_price_a0_23
+      text: "Welcher Wochentag ist heute?"
+    - id: place_time_price_a0_24
+      text: "Morgens oder abends?"
+    - id: place_time_price_a0_25
+      text: "Ich warte hier."
+    - id: place_time_price_a0_26
+      text: "Das ist meine Haltestelle."
+    - id: place_time_price_a0_27
+      text: "Oben oder unten?"
+    - id: place_time_price_a0_28
+      text: "Da darf man nicht hin."
+    - id: place_time_price_a0_29
+      text: "Ich habe nur fünf Euro."
+    - id: place_time_price_a0_30
+      text: "Sind wir schon da?"

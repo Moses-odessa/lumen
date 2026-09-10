@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: people_family
+name: "Familie und Bekannte"
 tiers:
   a1:
     - id: people_family_a1_01
@@ -17,10 +18,13 @@ tiers:
       text: "Meine Eltern wohnen in der Nähe."
     - id: people_family_a1_05
       text: "Bist du verheiratet?"
+      register: casual
     - id: people_family_a1_06
       text: "Was machst du beruflich?"
+      register: casual
     - id: people_family_a1_07
       text: "Wo arbeitest du?"
+      register: casual
     - id: people_family_a1_08
       text: "Er ist mein Nachbar."
     - id: people_family_a1_09
@@ -35,16 +39,42 @@ tiers:
       text: "Das ist für meine Mutter."
     - id: people_family_a1_14
       text: "Wie heißt dein Sohn?"
+      register: casual
     - id: people_family_a1_15
       text: "Grüß deine Familie von mir."
       register: casual
     - id: people_family_a1_16
       text: "Alles Gute zum Geburtstag!"
     - id: people_family_a1_17
-      text: "Ich arbeite als ..."
+      text: "Wir sind Kollegen."
     - id: people_family_a1_18
-      text: "Wir kennen uns seit ..."
+      text: "Wir sind nicht verwandt."
     - id: people_family_a1_19
-      text: "Mein Freund mag ..."
+      text: "Ich wohne bei meinen Eltern."
     - id: people_family_a1_20
-      text: "In unserer Familie ..."
+      text: "Mein Vater ist schon in Rente."
+    - id: people_family_a1_21
+      text: "Meine Tochter geht zur Schule."
+    - id: people_family_a1_22
+      text: "Du siehst deinem Vater ähnlich."
+      register: casual
+    - id: people_family_a1_23
+      text: "Er ist zwei Jahre jünger als ich."
+    - id: people_family_a1_24
+      text: "Wir arbeiten im selben Büro."
+    - id: people_family_a1_25
+      text: "Ich besuche oft meine Großmutter."
+    - id: people_family_a1_26
+      text: "Wir haben viel gemeinsam."
+    - id: people_family_a1_27
+      text: "Ich arbeite als Koch."
+      kind: example
+    - id: people_family_a1_28
+      text: "Wir kennen uns seit der Schulzeit."
+      kind: example
+    - id: people_family_a1_29
+      text: "Mein Freund mag Fußball."
+      kind: example
+    - id: people_family_a1_30
+      text: "In unserer Familie mögen alle Musik."
+      kind: example

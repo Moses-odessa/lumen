@@ -147,7 +147,9 @@ Findings validateContent(Directory root, String lang) {
   _checkLanguages(sources, report, root);
   _checkPhraseTranslations(sources, report, root);
   _checkConstellationSizes(sources, report);
+  _checkConstellationNames(sources, report);
   _checkSingleSentence(sources, report);
+  _checkPhraseKind(sources, report);
   _checkPhraseRegister(sources, report);
   _checkPhrases(sources, report);
   _checkCalibration(sources, lang, report);
@@ -418,6 +420,208 @@ void _checkConstellationSizes(ContentSources sources, Findings report) {
   }
 }
 
+/// Имя созвездия: у темы, которой его не написали, на карте стоит слаг.
+///
+/// Показывает имя рантайм по откату «язык интерфейса → язык подсказок →
+/// slug», и последний шаг — не падение, а честная подпись `first_contact`
+/// латиницей посреди немецких фраз. Правило поэтому такое: имя обязательно
+/// для языка изучения — его читает каждый игрок независимо от интерфейса — и
+/// для каждого языка подсказок со `status: launched`, потому что `launched`
+/// это и есть обещание полноты. У `draft` имена считаются и печатаются,
+/// ничего не блокируя: так язык и добавляется — файлом, а не правкой Dart.
+///
+/// Пустое имя проверяется отдельно от отсутствующего, хотя игрок увидит одно
+/// и то же. Правки разные: одну строку надо написать, другую — дописать, и
+/// пустая вдобавок выглядит сделанной. Рантайм пустую строку тоже считает
+/// отсутствием имени (`ConstellationNaming._named` делает `trim`), то есть
+/// откат сработает, — но сработает молча, а молчание здесь и есть дефект.
+///
+/// Фигурная скобка — тот же запрет, что у текста фразы с v5: `{…}` осталось
+/// от механики вставки слов, которой больше нет. Подпись показывается как
+/// есть, подстановки в ней никто не делает, поэтому скобка уехала бы на карту
+/// скобкой.
+void _checkConstellationNames(ContentSources sources, Findings report) {
+  final target = sources.targetLang;
+  final known = sources.constellations.toSet();
+  final slugs = known.toList()..sort();
+
+  // Язык изучения: имя в шапке файла фраз, рядом с самим немецким текстом.
+  final missingOwn = <String>[];
+  for (final slug in slugs) {
+    final name = sources.constellationNames[slug];
+    if (name == null) {
+      missingOwn.add(slug);
+      continue;
+    }
+    _checkNameShape('созвездие $slug, язык изучения $target', name, report);
+  }
+  if (missingOwn.isNotEmpty) {
+    report.error(
+      'нет имени на языке изучения $target у ${missingOwn.length} созвездий '
+      '(${_head(missingOwn)}) — на карте их подпишет латинский слаг. Имя '
+      'пишется полем `$constellationNameField:` в шапке '
+      'content/phrases/$target/<тема>.yaml, рядом с `constellation:`: у языка '
+      'изучения нет перевода имени, у него есть текст.',
+    );
+  }
+  _checkDuplicateNames(
+    'язык изучения $target',
+    sources.constellationNames,
+    report,
+  );
+
+  // Раздел `constellations:` у языка изучения — не второй источник, а ошибка.
+  // Сборка его не читает вовсе (см. `_insertConstellationNames`), поэтому
+  // написанное там просто не доедет до игрока — и это самый неприятный вид
+  // расхождения: правка сделана, а эффекта нет.
+  final targetLanguage = sources.languages[target];
+  if (targetLanguage != null && targetLanguage.constellationNames.isNotEmpty) {
+    report.error(
+      'язык изучения $target: раздел `$constellationNamesSection:` в '
+      'content/lang/$target.yaml объявляет имена '
+      '${targetLanguage.constellationNames.length} тем, а у языка изучения '
+      'имя живёт в шапке файла фраз. Сборка этот раздел не читает: два '
+      'источника одного имени разойдутся, и победит невидимо один. Уберите '
+      'раздел, имена перенесите в `$constellationNameField:`.',
+    );
+  }
+
+  for (final language in sources.languages.values) {
+    // Язык изучения пропущен здесь намеренно, а не забыт: его имена уже
+    // проверены выше по шапкам файлов фраз. Роль `both` (язык, который и
+    // учат, и понимают) иначе получила бы два взаимно противоречивых
+    // требования — «напиши раздел» и «убери раздел».
+    if (!language.isNative || language.code == target) continue;
+
+    final unknown = language.constellationNames.keys
+        .where((slug) => !known.contains(slug))
+        .toList()
+      ..sort();
+    if (unknown.isNotEmpty) {
+      report.error(
+        'язык ${language.code}: имя созвездия, которого в курсе нет — '
+        '${_head(unknown)}. Обычно это опечатка в слаге или тема, '
+        'переименованная в файле фраз: имя остаётся висеть, а тема — без '
+        'подписи.',
+      );
+    }
+
+    for (final e in language.constellationNames.entries) {
+      _checkNameShape(
+        'язык ${language.code}, созвездие ${e.key}',
+        e.value,
+        report,
+      );
+    }
+    _checkDuplicateNames('язык ${language.code}', language.constellationNames,
+        report);
+
+    final missing = slugs
+        .where((slug) => !language.constellationNames.containsKey(slug))
+        .toList();
+    if (missing.isEmpty) continue;
+
+    final message = 'язык ${language.code}: нет имён у ${missing.length} '
+        'созвездий (${_head(missing)}) — напишите их в разделе '
+        '`$constellationNamesSection:` файла content/lang/${language.code}.yaml '
+        'строками «slug: "имя"», иначе игрок с подсказками на '
+        '${language.code} увидит на карте латинские слаги';
+    if (language.isLaunched) {
+      report.error(message);
+    } else {
+      report.pending('$message — язык draft');
+    }
+  }
+}
+
+/// Само имя: непустое и без фигурных скобок.
+void _checkNameShape(String where, String name, Findings report) {
+  if (name.trim().isEmpty) {
+    report.error(
+      '$where: имя пустое — ключ есть, подписи нет. На карте останется слаг, '
+      'и останется молча: пустая строка выглядит написанным именем. Либо '
+      'напишите имя, либо уберите ключ — тогда о теме скажет проверка '
+      'полноты.',
+    );
+    return;
+  }
+  if (name.contains('{') || name.contains('}')) {
+    report.error(
+      '$where: в имени «$name» фигурная скобка — подпись показывается как '
+      'есть, подстановки в ней никто не делает. Тот же запрет, что у текста '
+      'фразы с v5: `{…}` осталось от механики вставки слов, которой больше '
+      'нет.',
+    );
+  }
+}
+
+/// Две темы под одной подписью.
+///
+/// Не ошибка, а вопрос к человеку: одинаковое имя технически законно —
+/// первичный ключ таблицы это `(созвездие, язык)`, и карта такое покажет. Но
+/// показывать она будет две разные темы, которые игрок не отличит, а
+/// приходит такое из копипасты соседней строки.
+void _checkDuplicateNames(
+  String where,
+  Map<String, String> names,
+  Findings report,
+) {
+  final bySlug = <String, List<String>>{};
+  for (final e in names.entries) {
+    final name = e.value.trim();
+    if (name.isEmpty) continue;
+    bySlug.putIfAbsent(name, () => []).add(e.key);
+  }
+  for (final e in bySlug.entries) {
+    if (e.value.length < 2) continue;
+    report.review(
+      '$where: имя «${e.key}» стоит у тем ${(e.value..sort()).join(', ')} — '
+      'на карте две разные темы под одной подписью',
+    );
+  }
+}
+
+/// Вид фразы — код из закрытого набора ([phraseKinds]).
+///
+/// Колонка `kind` пришла в v7 из колонки «Тип» листа-источника: готовая
+/// реплика (`phrase`), образец речевой модели (`example`), идиома (`idiom`).
+/// Проверка написана не ради опрятности поля, а ради того, кто на это поле
+/// посмотрит. У идиомы перевод **смысловой**: «Ich habe den Faden verloren.» →
+/// «Я потерял нить мысли.» — и первая же проверка перевода на буквальность
+/// обязана идиомы пропускать. Пометка вне набора означает, что такая проверка
+/// идиому не узнает и объявит дефектом единственно верный перевод.
+///
+/// Вторая половина правила — что проверка **не** ловит, и это сказано здесь,
+/// чтобы не выглядело гарантией. `kind:` можно не писать: чтение подставляет
+/// `phrase` ([defaultPhraseKind]), потому что так написаны 1231 строка из 1500
+/// и требовать поле от каждой значило бы делать ручную правку двухпольной.
+/// Значит опечатка (`idiome`) ловится ошибкой, а **забытая** пометка у идиомы
+/// не ловится ничем: она читается обычной фразой. Единственный способ найти
+/// такое — вычитка темы `idioms_speech`.
+void _checkPhraseKind(ContentSources sources, Findings report) {
+  final counts = <String, int>{};
+
+  for (final phrase in sources.phrases) {
+    counts[phrase.kind] = (counts[phrase.kind] ?? 0) + 1;
+    if (phraseKinds.contains(phrase.kind)) continue;
+    report.error(
+      'фраза ${phrase.id}: вид "${phrase.kind}" не код из набора '
+      '${phraseKinds.join(", ")} — по этой пометке решается, буквальный у '
+      'фразы перевод или смысловой, и код вне набора не значит ничего',
+    );
+  }
+
+  // Состав корпуса по видам — заметкой, а не проверкой: правильного
+  // соотношения тут нет, а видеть его стоит. Если идиом внезапно стало ноль,
+  // это либо потерянная при импорте колонка, либо снятые руками пометки —
+  // и ни то, ни другое ничем больше себя не выдаёт.
+  final shown = phraseKinds
+      .where((kind) => counts.containsKey(kind))
+      .map((kind) => '$kind ${counts[kind]}')
+      .join(', ');
+  if (shown.isNotEmpty) report.note('виды фраз: $shown');
+}
+
 /// `register: formal` означает обращение на Sie — и ничего больше.
 ///
 /// Определение нужно было выбрать: в docs/CONTENT_PIPELINE.md поле значилось
@@ -489,17 +693,34 @@ void _checkPhraseRegister(ContentSources sources, Findings report) {
 /// появились от правки шаблонов ради смыслового ограничения — придаточное
 /// добавить было проще, чем перестроить фразу, — и соблазн вернётся при
 /// следующей такой правке.
+///
+/// Соблазн вернулся с корпусом 1500: две строки листа пришли двумя
+/// предложениями («Ich habe eine Dosis vergessen. Was soll ich tun?» и «Ich
+/// habe die falsche Datei geschickt. Bitte verwenden Sie diese.»). Обошли их
+/// не проверкой, а источником: разрыв заменён тире во всех пяти языках, и
+/// отступление от листа записано в `content/_import/phrasebook_1500/source.json`
+/// ключом `deviations` — рядом лежит sha256 файла, и молчаливая правка сделала
+/// бы это обещание верности ложью.
 void _checkSingleSentence(ContentSources sources, Findings report) {
   // Знак конца предложения, за которым ещё что-то есть.
   final inner = RegExp(r'[.!?]\s+\S');
 
   // Многоточие — не конец предложения, а место для своего слова.
   //
-  // В разговорнике 239 фраз написаны с пропуском такого рода: «Ich heiße ...»,
-  // «Ich bin ... Jahre alt.». Это одна фраза и одна единица изучения — игрок
-  // подставляет своё имя сам, вслух. Пока проверка читала последнюю точку
-  // многоточия как конец предложения, она давала 84 ложных отказа на 1000
-  // фраз, то есть ровно на том корпусе, для которого игра и делается.
+  // **Эта маскировка сегодня дремлет: в корпусе 1500 многоточий ноль.** Автор
+  // листа их убрал («с ним не понятно как читать») и заменил шаблоны готовыми
+  // образцами — «Ich heiße Alex.» вместо «Ich heiße ...». Такие строки помечены
+  // `kind: example`, и по этой пометке видно, где раньше стоял пропуск.
+  //
+  // Удалять её всё равно нельзя, и вот чем она была занята. В прежнем корпусе
+  // 239 фраз были написаны с пропуском такого рода («Ich heiße ...», «Ich bin
+  // ... Jahre alt.») — одна фраза и одна единица изучения, игрок подставлял
+  // своё имя сам, вслух. Пока проверка читала последнюю точку многоточия
+  // концом предложения, она давала **84 ложных отказа на 1000 фраз**, то есть
+  // отвергала ровно тот корпус, для которого игра и делается. Строка с
+  // многоточием — законная форма записи фразы, и вернуть её автор может одной
+  // правкой листа; сняв маскировку как неиспользуемую, мы вернули бы вместе с
+  // ней и все 84 отказа, причём молча.
   final ellipsis = RegExp(r'(\.\.\.|…)');
 
   for (final phrase in sources.phrases) {

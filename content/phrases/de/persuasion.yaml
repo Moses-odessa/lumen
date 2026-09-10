@@ -1,14 +1,16 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: persuasion
+name: "Beschwerde und Forderung"
 tiers:
   b2:
     - id: persuasion_b2_01
       text: "Ich möchte Sie auf einen wiederholten Fehler aufmerksam machen."
+      register: formal
     - id: persuasion_b2_02
       text: "Trotz meiner vorherigen Anfrage wurde das Problem nicht behoben."
     - id: persuasion_b2_03
@@ -17,6 +19,7 @@ tiers:
       text: "Ich erwarte einen konkreten Lösungsvorschlag."
     - id: persuasion_b2_05
       text: "Bitte teilen Sie mir mit, welche Schritte unternommen werden."
+      register: formal
     - id: persuasion_b2_06
       text: "Mir liegt an einer einvernehmlichen Lösung."
     - id: persuasion_b2_07
@@ -25,6 +28,7 @@ tiers:
       text: "Ich bin bereit, eine alternative Lösung zu besprechen."
     - id: persuasion_b2_09
       text: "Bitte begründen Sie diese Ablehnung."
+      register: formal
     - id: persuasion_b2_10
       text: "Kann die Entscheidung angesichts der neuen Informationen überprüft werden?"
     - id: persuasion_b2_11
@@ -32,18 +36,53 @@ tiers:
     - id: persuasion_b2_12
       text: "Ich wäre für eine inhaltliche statt einer rein formellen Antwort dankbar."
     - id: persuasion_b2_13
-      text: "Angesichts ... halte ich es für sinnvoll, ..."
+      text: "Ich stelle das Verfahren selbst nicht infrage, bitte aber um eine Erklärung seiner Anwendung."
     - id: persuasion_b2_14
-      text: "Meine Bitte stützt sich auf ..."
+      text: "Die Antwort geht nicht auf den Hauptpunkt meiner Anfrage ein."
     - id: persuasion_b2_15
-      text: "Bitte berücksichtigen Sie, dass ..."
+      text: "Bitte nennen Sie die konkreten Gründe für diese Schlussfolgerung."
+      register: formal
     - id: persuasion_b2_16
-      text: "Falls ... nicht möglich ist, bitte ich um ..."
+      text: "Ich halte es für wichtig, den Ablauf der Ereignisse festzuhalten."
     - id: persuasion_b2_17
-      text: "Ich wäre bereit, ... zu akzeptieren, wenn ..."
+      text: "Auf Ihre Anfrage hin bin ich bereit, Nachweise vorzulegen."
+      register: formal
     - id: persuasion_b2_18
-      text: "Die vorgeschlagene Lösung würde es ermöglichen, ..."
+      text: "Welche zusätzlichen Informationen werden für eine erneute Prüfung benötigt?"
     - id: persuasion_b2_19
-      text: "Um weitere Missverständnisse zu vermeiden, ..."
+      text: "Können Sie bestätigen, wer für die Bearbeitung des Falls zuständig ist?"
+      register: formal
     - id: persuasion_b2_20
-      text: "Ich hoffe, dass es uns gelingt, ..."
+      text: "Bitte teilen Sie mir mit, wann die Prüfung voraussichtlich abgeschlossen sein wird."
+      register: formal
+    - id: persuasion_b2_21
+      text: "Ich betrachte die Angelegenheit nicht als erledigt, solange diese Unstimmigkeiten ungeklärt sind."
+    - id: persuasion_b2_22
+      text: "Ich schlage ein kurzes Gespräch vor, um eine akzeptable Lösung abzustimmen."
+    - id: persuasion_b2_23
+      text: "Angesichts der wiederholten Verzögerungen halte ich es für angemessen, den Lieferplan zu überarbeiten."
+      kind: example
+    - id: persuasion_b2_24
+      text: "Meine Bitte stützt sich auf die in Ihrer E-Mail bestätigten Bedingungen."
+      kind: example
+      register: formal
+    - id: persuasion_b2_25
+      text: "Bitte berücksichtigen Sie, dass die Verzögerung zusätzliche Kosten verursacht hat."
+      kind: example
+      register: formal
+    - id: persuasion_b2_26
+      text: "Falls eine Reparatur nicht möglich ist, bitte ich um einen Austausch des Artikels."
+      kind: example
+    - id: persuasion_b2_27
+      text: "Ich wäre bereit, eine spätere Lieferung zu akzeptieren, wenn Sie den neuen Termin schriftlich bestätigen."
+      kind: example
+      register: formal
+    - id: persuasion_b2_28
+      text: "Die vorgeschlagene Lösung würde es ermöglichen, die Arbeit ohne zusätzliche Kosten abzuschließen."
+      kind: example
+    - id: persuasion_b2_29
+      text: "Um weitere Missverständnisse zu vermeiden, bitte ich um eine schriftliche Bestätigung aller Bedingungen."
+      kind: example
+    - id: persuasion_b2_30
+      text: "Ich hoffe, dass wir eine für beide Seiten akzeptable Lösung finden können."
+      kind: example

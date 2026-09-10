@@ -106,6 +106,7 @@ class Phrase {
     required this.constellation,
     required this.tier,
     required this.text,
+    required this.kind,
     required this.register,
     required this.file,
     required this.line,
@@ -115,6 +116,17 @@ class Phrase {
   final String constellation;
   final String tier;
   final String text;
+
+  /// Чем фраза является: `phrase`, `example` или `idiom` (схема v7).
+  ///
+  /// Вычитке это поле нужнее, чем игре — игра его сегодня не показывает вовсе.
+  /// Оно называет критерий, по которому судят перевод: у идиомы он смысловой,
+  /// и «Ich habe den Faden verloren.» → «Я потерял нить мысли.» верно ровно
+  /// потому, что фраза помечена `idiom`. Не покажи пометку — и проверяющий
+  /// добросовестно объявит тридцать таких переводов неточными; а у `example`
+  /// он «поправил» бы имя Alex, приняв образец модели за реплику о человеке.
+  final String kind;
+
   final String? register;
   final String file;
   final int line;
@@ -192,6 +204,10 @@ Map<String, Phrase> readPhrases({String root = 'content'}) {
           constellation: constellation,
           tier: '${entry.key}',
           text: '${phrase['text']}',
+          // Умолчание то же, что у чтения исходников: поля нет — фраза
+          // обычная реплика. Читать здесь `null` значило бы отдать
+          // проверяющему «вид неизвестен» у 1231 фразы из 1500.
+          kind: phrase['kind'] as String? ?? _defaultKind,
           register: phrase['register'] as String?,
           file: _posix(file.path),
           line: _lineOf(lines, 'id: $id'),
@@ -248,15 +264,18 @@ void _stats() {
     if (ofTier.isEmpty) continue;
 
     final registers = <String, int>{};
+    final kinds = <String, int>{};
     for (final phrase in ofTier) {
       registers.update(phrase.register ?? 'unset', (n) => n + 1,
           ifAbsent: () => 1);
+      kinds.update(phrase.kind, (n) => n + 1, ifAbsent: () => 1);
     }
 
     stdout.writeln(jsonEncode({
       'tier': tier,
       'phrases': ofTier.length,
       'constellations': ofTier.map((p) => p.constellation).toSet().length,
+      'kinds': kinds,
       'registers': registers,
       'translations': {
         for (final code in translations.keys.toList()..sort())
@@ -297,7 +316,11 @@ void _phrases(List<String> args) {
   }
 
   for (final phrase in selected) {
+    // Вид печатается только необычный, как и регистр: строка «phrase» у 1231
+    // фразы из 1500 не сообщила бы ничего, а глаз перестал бы её замечать —
+    // вместе с теми 269, где она значит «судите этот перевод иначе».
     stdout.writeln('${phrase.id} | ${phrase.text}'
+        '${phrase.kind == _defaultKind ? '' : ' | ${phrase.kind}'}'
         '${phrase.register == null ? '' : ' | ${phrase.register}'}');
     for (final code in translations.keys.toList()..sort()) {
       final translation = translations[code]![phrase.id];
@@ -321,6 +344,7 @@ void _capture() {
         'constellation': phrase.constellation,
         'tier': phrase.tier,
         'text': phrase.text,
+        if (phrase.kind != _defaultKind) 'kind': phrase.kind,
         if (phrase.register != null) 'register': phrase.register,
         'file': phrase.file,
         'line': phrase.line,
@@ -340,6 +364,14 @@ void _capture() {
 /// Закрытый набор пометок регистра. Дублирует `promptTags` в `lib/` и в
 /// `tool/content_schema.dart` по той же причине: `tool/` не тянет `lib/`.
 const _registers = {'casual', 'formal'};
+
+/// Закрытый набор видов фразы. Дублирует `phraseKinds` в
+/// `tool/content_schema.dart`; импортировать его нельзя — там есть свой
+/// `tiers`, и этот файл объявляет ярусы сам.
+const _kinds = {'phrase', 'example', 'idiom'};
+
+/// Вид фразы, если поле не написано. Дублирует `defaultPhraseKind`.
+const _defaultKind = 'phrase';
 
 /// Итог сверки отчёта с контентом.
 ///
@@ -455,6 +487,13 @@ AuditReview reviewReport(String path, {String root = 'content'}) {
     } else if (field == 'register') {
       actual = phrase.register;
       where = '${phrase.file}:${phrase.line}';
+    } else if (field == 'kind') {
+      // Находка «это идиома, а помечено обычной фразой» — законная и, кроме
+      // вычитки, ничем не находимая: забытую пометку валидатор не видит, для
+      // него это обычная реплика. Не прими такую находку — и проверяющему
+      // осталось бы написать о ней прозой, то есть мимо сверки.
+      actual = phrase.kind;
+      where = '${phrase.file}:${phrase.line}';
     } else if (translations.containsKey(field)) {
       final translation = translations[field]![id];
       actual = translation?.text;
@@ -462,8 +501,8 @@ AuditReview reviewReport(String path, {String root = 'content'}) {
           ? 'перевода нет'
           : '${translation.file}:${translation.line}';
     } else {
-      problems.add('$key: поле не text, не register и не код языка подсказок '
-          '(${translations.keys.join(', ')})');
+      problems.add('$key: поле не text, не kind, не register и не код языка '
+          'подсказок (${translations.keys.join(', ')})');
       continue;
     }
 
@@ -494,7 +533,11 @@ AuditReview reviewReport(String path, {String root = 'content'}) {
       } else if (field == 'register' && !_registers.contains(value)) {
         problems.add('$key: регистр «$value» не код из набора '
             '${_registers.join('/')}');
-      } else if (field != 'register' && value.contains('{')) {
+      } else if (field == 'kind' && !_kinds.contains(value)) {
+        problems.add('$key: вид «$value» не код из набора '
+            '${_kinds.join('/')}');
+      } else if (field != 'register' && field != 'kind' &&
+          value.contains('{')) {
         problems.add('$key: фигурная скобка в тексте — остаток шаблонного '
             'формата, читатель исходников на нём падает');
       }

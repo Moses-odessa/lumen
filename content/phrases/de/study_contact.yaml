@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: study_contact
+name: "Unterricht und Kontakt"
 tiers:
   a1:
     - id: study_contact_a1_01
@@ -26,8 +27,10 @@ tiers:
       text: "Ich brauche mehr Zeit."
     - id: study_contact_a1_09
       text: "Ich schicke dir eine Nachricht."
+      register: casual
     - id: study_contact_a1_10
       text: "Kann ich dich anrufen?"
+      register: casual
     - id: study_contact_a1_11
       text: "Mein Handy ist leer."
     - id: study_contact_a1_12
@@ -43,10 +46,40 @@ tiers:
       text: "Speichere das bitte."
       register: casual
     - id: study_contact_a1_17
-      text: "Ich möchte lernen, ..."
+      text: "Kann ich mir deinen Stift ausleihen?"
+      register: casual
     - id: study_contact_a1_18
-      text: "Wie öffne ich ...?"
+      text: "Ich habe mein Heft zu Hause vergessen."
     - id: study_contact_a1_19
-      text: "Kannst du mir ... schicken?"
+      text: "Soll ich allein oder zu zweit arbeiten?"
     - id: study_contact_a1_20
-      text: "Meine E-Mail-Adresse ist ..."
+      text: "Wer ist jetzt dran?"
+    - id: study_contact_a1_21
+      text: "Was haben wir als Hausaufgabe auf?"
+    - id: study_contact_a1_22
+      text: "Kannst du den Ton einschalten?"
+      register: casual
+    - id: study_contact_a1_23
+      text: "Hörst du mich?"
+      register: casual
+    - id: study_contact_a1_24
+      text: "Ich kann gerade nicht sprechen."
+    - id: study_contact_a1_25
+      text: "Ich rufe dich später zurück."
+      register: casual
+    - id: study_contact_a1_26
+      text: "Ich glaube, du hast die falsche Nummer gewählt."
+      register: casual
+    - id: study_contact_a1_27
+      text: "Ich möchte schwimmen lernen."
+      kind: example
+    - id: study_contact_a1_28
+      text: "Wie öffne ich dieses Dokument?"
+      kind: example
+    - id: study_contact_a1_29
+      text: "Kannst du mir den Stundenplan schicken?"
+      kind: example
+      register: casual
+    - id: study_contact_a1_30
+      text: "Meine E-Mail-Adresse ist alex@example.com."
+      kind: example

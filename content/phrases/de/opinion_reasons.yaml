@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: opinion_reasons
+name: "Meinung und Begründung"
 tiers:
   b1:
     - id: opinion_reasons_b1_01
@@ -35,15 +36,41 @@ tiers:
       text: "Mir fehlen Informationen für eine Entscheidung."
     - id: opinion_reasons_b1_14
       text: "Was denkst du darüber?"
+      register: casual
     - id: opinion_reasons_b1_15
       text: "Warum ist dir das so wichtig?"
+      register: casual
     - id: opinion_reasons_b1_16
       text: "Ich sehe sowohl Vorteile als auch Nachteile."
     - id: opinion_reasons_b1_17
-      text: "Ich bin der Meinung, dass ..."
+      text: "Ich beurteile das danach, wie es in der Praxis funktioniert."
     - id: opinion_reasons_b1_18
-      text: "Ein Grund dafür ist, dass ..."
+      text: "Das würde den Alltag erleichtern."
     - id: opinion_reasons_b1_19
-      text: "Entscheidend ist für mich ..."
+      text: "Für mich überwiegen die Vorteile die Nachteile."
     - id: opinion_reasons_b1_20
-      text: "Wenn zum Beispiel ..., ..."
+      text: "Genau deshalb bevorzuge ich eine kleine Gruppe."
+    - id: opinion_reasons_b1_21
+      text: "Ich kann verstehen, warum manche ablehnen."
+    - id: opinion_reasons_b1_22
+      text: "Das erscheint mir unfair."
+    - id: opinion_reasons_b1_23
+      text: "Nachdem ich es ausprobiert hatte, habe ich meine Meinung geändert."
+    - id: opinion_reasons_b1_24
+      text: "Der finanzielle Aspekt ist nicht der einzige Grund."
+    - id: opinion_reasons_b1_25
+      text: "Es gibt keine perfekte Lösung."
+    - id: opinion_reasons_b1_26
+      text: "Als Vater sehe ich das anders."
+    - id: opinion_reasons_b1_27
+      text: "Ich bin der Meinung, dass Bildung für alle zugänglich sein sollte."
+      kind: example
+    - id: opinion_reasons_b1_28
+      text: "Ein Grund ist, dass Menschen unterschiedliche Bedürfnisse haben."
+      kind: example
+    - id: opinion_reasons_b1_29
+      text: "Am wichtigsten ist mir, Zeit für meine Familie zu haben."
+      kind: example
+    - id: opinion_reasons_b1_30
+      text: "Wenn ich zum Beispiel zu Hause arbeite, spare ich Zeit für den Arbeitsweg."
+      kind: example

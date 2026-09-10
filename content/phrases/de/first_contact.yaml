@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: first_contact
+name: "Erste Worte"
 tiers:
   a0:
     - id: first_contact_a0_01
@@ -28,6 +29,7 @@ tiers:
       text: "Gut, danke."
     - id: first_contact_a0_10
       text: "Und dir?"
+      register: casual
     - id: first_contact_a0_11
       text: "Freut mich."
     - id: first_contact_a0_12
@@ -46,6 +48,32 @@ tiers:
     - id: first_contact_a0_18
       text: "Schönen Tag noch!"
     - id: first_contact_a0_19
-      text: "Danke für ..."
+      text: "Danke für das Geschenk."
+      kind: example
     - id: first_contact_a0_20
-      text: "Bis ..."
+      text: "Bis Montag!"
+      kind: example
+    - id: first_contact_a0_21
+      text: "Guten Tag!"
+    - id: first_contact_a0_22
+      text: "Kommen Sie bitte herein."
+      register: formal
+    - id: first_contact_a0_23
+      text: "Nehmen Sie bitte Platz."
+      register: formal
+    - id: first_contact_a0_24
+      text: "Vielen Dank!"
+    - id: first_contact_a0_25
+      text: "Das ist sehr nett von Ihnen."
+      register: formal
+    - id: first_contact_a0_26
+      text: "Schönes Wochenende!"
+    - id: first_contact_a0_27
+      text: "Gute Reise!"
+    - id: first_contact_a0_28
+      text: "Guten Appetit!"
+    - id: first_contact_a0_29
+      text: "Entschuldigen Sie die Verspätung."
+      register: formal
+    - id: first_contact_a0_30
+      text: "Ich muss jetzt gehen."

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: returns_delivery
+name: "Rückgabe und Lieferung"
 tiers:
   a2:
     - id: returns_delivery_a2_01
@@ -40,10 +41,36 @@ tiers:
     - id: returns_delivery_a2_16
       text: "Wer bezahlt den Rückversand?"
     - id: returns_delivery_a2_17
-      text: "Meine Bestellnummer lautet ..."
+      text: "Das Paket wurde bei einem Nachbarn abgegeben."
     - id: returns_delivery_a2_18
-      text: "Statt ... habe ich ... erhalten."
+      text: "Der Sendungsstatus ändert sich nicht."
     - id: returns_delivery_a2_19
-      text: "Ich möchte ... gegen ... umtauschen."
+      text: "Beim Zustellversuch war ich zu Hause."
     - id: returns_delivery_a2_20
-      text: "Bitte schicken Sie mir ..."
+      text: "Kann das Paket an eine Abholstelle umgeleitet werden?"
+    - id: returns_delivery_a2_21
+      text: "Wie lange wird das Paket dort aufbewahrt?"
+    - id: returns_delivery_a2_22
+      text: "Der Karton wurde bereits geöffnet."
+    - id: returns_delivery_a2_23
+      text: "Der Artikel entspricht nicht der Beschreibung."
+    - id: returns_delivery_a2_24
+      text: "Wo finde ich den Garantieschein?"
+    - id: returns_delivery_a2_25
+      text: "Können Sie nur das fehlende Teil schicken?"
+      register: formal
+    - id: returns_delivery_a2_26
+      text: "Die E-Mail enthält keinen Anhang."
+    - id: returns_delivery_a2_27
+      text: "Meine Bestellnummer ist 12345."
+      kind: example
+    - id: returns_delivery_a2_28
+      text: "Ich habe ein blaues Hemd statt eines weißen erhalten."
+      kind: example
+    - id: returns_delivery_a2_29
+      text: "Ich möchte diese Hose gegen eine größere Größe umtauschen."
+      kind: example
+    - id: returns_delivery_a2_30
+      text: "Bitte schicken Sie mir ein Rücksendeetikett."
+      kind: example
+      register: formal

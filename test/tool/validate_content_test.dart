@@ -63,11 +63,13 @@ void main() {
   food_a0_hunger: "Я дуже голодний."
 ''',
     String launch = 'de:\n  launched: []\n  drafted: [a0]\n',
+    String name = 'name: "Essen"\n',
+    String names = 'constellations:\n  food: "Їжа"\n',
   }) {
     File('${root.path}/phrases/de/food.yaml').writeAsStringSync('''
 lang: de
 constellation: food
-tiers:
+${name}tiers:
   a0:
 $phrases''');
     File('${root.path}/lang/de.yaml').writeAsStringSync('''
@@ -81,7 +83,7 @@ lang: uk
 role: native
 status: launched
 name: Українська
-phrases:
+${names}phrases:
 $translations''');
     File('${root.path}/launch.yaml').writeAsStringSync(launch);
   }
@@ -122,10 +124,19 @@ $translations''');
   });
 
   test('многоточие концом предложения не считается', () {
-    // 239 фраз разговорника написаны с местом для своего слова: «Ich heiße
-    // ...», «Ich bin ... Jahre alt.». Пока проверка читала последнюю точку
-    // многоточия как конец предложения, она давала 84 ложных отказа на 1000
-    // фраз — то есть отвергала ровно тот корпус, для которого игра и делается.
+    // **Тест про историю, а не про нынешний корпус: в корпусе 1500
+    // многоточий ноль.** Автор их убрал и заменил шаблоны законченными
+    // образцами — «Ich heiße Alex.» вместо «Ich heiße ...», с пометкой
+    // `kind: example`.
+    //
+    // Тест всё равно остаётся, потому что охраняет он не корпус, а форму
+    // записи. В прежней тысяче 239 фраз были написаны с местом для своего
+    // слова: «Ich heiße ...», «Ich bin ... Jahre alt.». Пока проверка читала
+    // последнюю точку многоточия концом предложения, она давала 84 ложных
+    // отказа на 1000 фраз — то есть отвергала ровно тот корпус, для которого
+    // игра и делается. Вернуть такую строку автор может одной правкой листа;
+    // сняв тест как «проверяющий то, чего в контенте нет», мы вернули бы
+    // вместе с ней и все 84 отказа.
     write(phrases: '''
     - id: food_a0_bread
       text: "Ich heiße ..."
@@ -159,6 +170,38 @@ $translations''');
     expect(findings.errors.join('\n'), contains('помечена casual'));
   });
 
+  test('вид фразы вне закрытого набора — ошибка', () {
+    // По этой пометке решается, буквальный у фразы перевод или смысловой: у
+    // идиомы он смысловой, и первая же проверка перевода на буквальность
+    // обязана идиомы пропускать. Код вне набора не значит ничего — такую
+    // фразу проверка идиомой не признает и объявит дефектом единственно
+    // верный перевод.
+    write(phrases: '''
+    - id: food_a0_bread
+      text: "Zum Frühstück esse ich Brot."
+      kind: idiome
+''');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('не код из набора'));
+    expect(findings.errors.join('\n'), contains('idiome'));
+  });
+
+  test('вид фразы не написан — не ошибка, а обычная реплика', () {
+    // Умолчание держится осознанно: четыре фразы из пяти обычны, и требуй
+    // поле от каждой — добавление одной строки руками стало бы правкой из
+    // двух полей, второе из которых почти всегда одно и то же.
+    //
+    // Обратная сторона названа вслух в `content_schema.dart`: **забытая**
+    // пометка у идиомы не ловится ничем, кроме вычитки. Опечатка ловится
+    // (тест выше), отсутствие — нет.
+    write();
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), isNot(contains('не код из набора')));
+    expect(findings.notes.join('\n'), contains('виды фраз: phrase 3'));
+  });
+
   test('регистр вне закрытого набора — ошибка', () {
     // Свободный текст в пометке показался бы игроку на языке файла, а не на
     // его собственном: `register: casual` уже уезжал на экран как есть.
@@ -170,6 +213,87 @@ $translations''');
 
     final findings = validateContent(root, 'de');
     expect(findings.errors.join('\n'), contains('не код из набора'));
+  });
+
+  test('тема без имени на языке изучения — ошибка', () {
+    // Без имени карта подписывает тему латинским слагом посреди немецких
+    // фраз. Это не падение и не пустая подпись, поэтому найти такое можно
+    // только проверкой: в игре оно выглядит как решение автора.
+    write(name: '');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'),
+        contains('нет имени на языке изучения de'));
+    expect(findings.errors.join('\n'), contains('name:'),
+        reason: 'сообщение должно говорить, куда писать имя');
+  });
+
+  test('launched-язык без имени темы — ошибка, draft — отложенное', () {
+    // Полноты требуем от `launched` и не требуем от `draft`: это и есть
+    // механизм добавления языка — файл ложится в каталог, валидатор говорит,
+    // сколько он покрывает, и ничего не блокирует.
+    write(names: '');
+    expect(validateContent(root, 'de').errors.join('\n'),
+        contains('нет имён у 1 созвездий'));
+
+    File('${root.path}/lang/uk.yaml').writeAsStringSync('''
+lang: uk
+role: native
+status: draft
+name: Українська
+phrases:
+  food_a0_bread: "На сніданок я їм хліб."
+''');
+    final draft = validateContent(root, 'de');
+    expect(draft.errors.join('\n'), isNot(contains('нет имён')));
+    expect(draft.pendings.join('\n'), contains('нет имён у 1 созвездий'));
+  });
+
+  test('пустое имя — ошибка отдельно от отсутствующего', () {
+    // Игрок увидит одно и то же, а правки разные: одну строку надо написать,
+    // другую — дописать. Пустая вдобавок выглядит сделанной работой, и
+    // рантайм откатится на слаг молча.
+    write(names: 'constellations:\n  food: "  "\n');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('имя пустое'));
+  });
+
+  test('фигурная скобка в имени — ошибка', () {
+    // Тот же запрет, что у текста фразы с v5: подстановки в подписи никто не
+    // делает, и `{…}` уехало бы на карту скобками.
+    write(name: 'name: "Essen {tier}"\n');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('фигурная скобка'));
+  });
+
+  test('имя темы, которой в курсе нет, не остаётся висеть', () {
+    // Обычно это опечатка в слаге или тема, переименованная в файле фраз:
+    // имя остаётся в языковом файле, а тема — без подписи.
+    write(names: 'constellations:\n  food: "Їжа"\n  fodo: "Їжа"\n');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'), contains('которого в курсе нет'));
+  });
+
+  test('раздел constellations: у языка изучения — ошибка', () {
+    // Сборка его не читает: у языка изучения имя живёт в шапке файла фраз.
+    // Два источника одного имени разошлись бы, и победил бы невидимо один —
+    // а правка выглядела бы сделанной.
+    write();
+    File('${root.path}/lang/de.yaml').writeAsStringSync('''
+lang: de
+role: target
+status: launched
+name: Deutsch
+constellations:
+  food: "Essen"
+''');
+
+    final findings = validateContent(root, 'de');
+    expect(findings.errors.join('\n'),
+        contains('у языка изучения имя живёт в шапке файла фраз'));
   });
 
   test('вычитка требуется от нынешнего текста, а не от всей истории', () {

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: negotiation
+name: "Verhandlungen"
 tiers:
   b2:
     - id: negotiation_b2_01
@@ -18,10 +19,12 @@ tiers:
       text: "Bei der Qualität können wir jedoch keine Abstriche machen."
     - id: negotiation_b2_05
       text: "Was könnten Sie im Gegenzug anbieten?"
+      register: formal
     - id: negotiation_b2_06
       text: "Unter diesen Bedingungen ist das Angebot für uns nicht akzeptabel."
     - id: negotiation_b2_07
       text: "Ich verstehe Ihre Einschränkungen."
+      register: formal
     - id: negotiation_b2_08
       text: "Wir brauchen eine Lösung, mit der beide Seiten leben können."
     - id: negotiation_b2_09
@@ -33,18 +36,47 @@ tiers:
     - id: negotiation_b2_12
       text: "Halten wir die Vereinbarung schriftlich fest."
     - id: negotiation_b2_13
-      text: "Wir sind bereit, ..., unter der Voraussetzung, dass ..."
+      text: "Unser Angebot gilt bis Ende der Woche."
     - id: negotiation_b2_14
-      text: "Wenn Sie uns bei ... entgegenkommen, werden wir ..."
+      text: "Ich bin nicht befugt, solche Ausnahmen zu genehmigen."
     - id: negotiation_b2_15
-      text: "Unsere wichtigste Bedingung ist, dass ..."
+      text: "Ist diese Frist verbindlich oder lässt sie sich ändern?"
     - id: negotiation_b2_16
-      text: "Zwischen ... und ... lässt sich ein Kompromiss finden."
+      text: "Würde ein längerfristiger Vertrag den Preis beeinflussen?"
     - id: negotiation_b2_17
-      text: "Was hindert uns daran, ...?"
+      text: "Wir können einer Teillieferung zustimmen."
     - id: negotiation_b2_18
-      text: "Welche Garantien gibt es für ...?"
+      text: "Was geschieht, wenn sich die Umstände ändern?"
     - id: negotiation_b2_19
-      text: "Einigen wir uns zunächst auf ..., und ..."
+      text: "Nehmen wir eine Klausel zur Überprüfung der Bedingungen nach sechs Monaten auf."
     - id: negotiation_b2_20
-      text: "Wenn wir bis ... keine Einigung erzielen, ..."
+      text: "Bevor ich eine Zusage mache, muss ich mich mit dem Team beraten."
+    - id: negotiation_b2_21
+      text: "Diese Ausnahme darf keinen Präzedenzfall schaffen."
+    - id: negotiation_b2_22
+      text: "Welche Bedingungen sind nicht verhandelbar?"
+    - id: negotiation_b2_23
+      text: "Wir sind bereit, die Frist zu verlängern, unter der Bedingung, dass der Preis unverändert bleibt."
+      kind: example
+    - id: negotiation_b2_24
+      text: "Wenn Sie uns beim Preis entgegenkommen, werden wir die Bestellung vergrößern."
+      kind: example
+      register: formal
+    - id: negotiation_b2_25
+      text: "Unsere wichtigste Bedingung ist, dass alle Änderungen im Voraus abgestimmt werden."
+      kind: example
+    - id: negotiation_b2_26
+      text: "Zwischen Liefergeschwindigkeit und Lieferkosten lässt sich ein Kompromiss finden."
+      kind: example
+    - id: negotiation_b2_27
+      text: "Was hindert uns daran, mit einer kleinen Testbestellung zu beginnen?"
+      kind: example
+    - id: negotiation_b2_28
+      text: "Welche Garantien gibt es hinsichtlich der Einhaltung der Fristen?"
+      kind: example
+    - id: negotiation_b2_29
+      text: "Einigen wir uns vorerst auf den Arbeitsumfang und besprechen wir den Preis morgen."
+      kind: example
+    - id: negotiation_b2_30
+      text: "Wenn wir bis Freitag keine Einigung erzielen, müssen wir den Arbeitsbeginn verschieben."
+      kind: example

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: travel_trouble
+name: "Reisepannen"
 tiers:
   a2:
     - id: travel_trouble_a2_01
@@ -40,10 +41,36 @@ tiers:
     - id: travel_trouble_a2_16
       text: "Wer kann mir helfen?"
     - id: travel_trouble_a2_17
-      text: "Ich habe ... bei ... verloren."
+      text: "Ich muss meine Karte sperren lassen."
     - id: travel_trouble_a2_18
-      text: "Die Verspätung beträgt ..."
+      text: "Darf ich Ihr Telefon benutzen?"
+      register: formal
     - id: travel_trouble_a2_19
-      text: "Gibt es eine andere Möglichkeit, ...?"
+      text: "Ich muss meine Botschaft kontaktieren."
     - id: travel_trouble_a2_20
-      text: "An wen kann ich mich wegen ... wenden?"
+      text: "Ich habe den Verlust bei der Polizei gemeldet."
+    - id: travel_trouble_a2_21
+      text: "Es gab keine Vorankündigung der Absage."
+    - id: travel_trouble_a2_22
+      text: "Ich komme nach Mitternacht im Hotel an."
+    - id: travel_trouble_a2_23
+      text: "Wird mein Gepäck automatisch umgeladen?"
+    - id: travel_trouble_a2_24
+      text: "Ich habe keinen Zugriff auf mein elektronisches Ticket."
+    - id: travel_trouble_a2_25
+      text: "Können Sie meine Bordkarte ausdrucken?"
+      register: formal
+    - id: travel_trouble_a2_26
+      text: "Muss ich für die Routenänderung extra bezahlen?"
+    - id: travel_trouble_a2_27
+      text: "Ich habe meinen Reisepass in der Nähe des Bahnhofs verloren."
+      kind: example
+    - id: travel_trouble_a2_28
+      text: "Die Verspätung beträgt vierzig Minuten."
+      kind: example
+    - id: travel_trouble_a2_29
+      text: "Gibt es eine andere Möglichkeit, zum Hotel zu kommen?"
+      kind: example
+    - id: travel_trouble_a2_30
+      text: "An wen kann ich mich wegen meines verlorenen Gepäcks wenden?"
+      kind: example

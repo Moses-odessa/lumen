@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: meetings_decisions
+name: "Sitzungen und Beschlüsse"
 tiers:
   b2:
     - id: meetings_decisions_b2_01
@@ -33,18 +34,46 @@ tiers:
     - id: meetings_decisions_b2_12
       text: "Wir müssen eine verantwortliche Person und eine Frist festlegen."
     - id: meetings_decisions_b2_13
-      text: "Bis zum nächsten Treffen sollten wir ..."
+      text: "Lassen wir diejenigen zu Wort kommen, die noch nichts gesagt haben."
     - id: meetings_decisions_b2_14
-      text: "Offen bleibt die Frage ..."
+      text: "Ich nehme das als offene Frage ins Protokoll auf."
     - id: meetings_decisions_b2_15
-      text: "Wir haben uns auf ... geeinigt."
+      text: "Trennen wir die Entscheidung von den Schritten zu ihrer Umsetzung."
     - id: meetings_decisions_b2_16
-      text: "Ich halte fest, dass ..."
+      text: "Die Zeit wird knapp, deshalb schlage ich den nächsten Punkt vor."
     - id: meetings_decisions_b2_17
-      text: "Der erste Schritt besteht darin, ..."
+      text: "Verschieben wir diese Diskussion, bis die Daten vorliegen."
     - id: meetings_decisions_b2_18
-      text: "Überprüfen wir das Ergebnis nach ..."
+      text: "Sind wir befugt, diese Entscheidung heute zu treffen?"
     - id: meetings_decisions_b2_19
-      text: "Habe ich das richtig zusammengefasst: ...?"
+      text: "Wer vertritt die verantwortliche Person in ihrer Abwesenheit?"
     - id: meetings_decisions_b2_20
-      text: "Abschließend möchte ich an ... erinnern."
+      text: "Ich enthalte mich, da ich an der vorherigen Diskussion nicht beteiligt war."
+    - id: meetings_decisions_b2_21
+      text: "Diese Entscheidung muss von der Finanzabteilung genehmigt werden."
+    - id: meetings_decisions_b2_22
+      text: "Was genau wird von mir benötigt, damit die Arbeit weitergehen kann?"
+    - id: meetings_decisions_b2_23
+      text: "Bis zur nächsten Besprechung sollten wir Rückmeldungen von Kunden sammeln."
+      kind: example
+    - id: meetings_decisions_b2_24
+      text: "Die Frage der zusätzlichen Finanzierung bleibt offen."
+      kind: example
+    - id: meetings_decisions_b2_25
+      text: "Wir haben uns auf die Verteilung der Aufgaben geeinigt."
+      kind: example
+    - id: meetings_decisions_b2_26
+      text: "Ich halte im Protokoll fest, dass Anna den Bericht bis Mittwoch vorbereitet."
+      kind: example
+    - id: meetings_decisions_b2_27
+      text: "Der erste Schritt besteht darin, die Bewertungskriterien abzustimmen."
+      kind: example
+    - id: meetings_decisions_b2_28
+      text: "Überprüfen wir das Ergebnis nach einem Monat Arbeit."
+      kind: example
+    - id: meetings_decisions_b2_29
+      text: "Habe ich das richtig zusammengefasst: Wir beginnen am Montag mit der Testphase?"
+      kind: example
+    - id: meetings_decisions_b2_30
+      text: "Zum Abschluss möchte ich alle an die Frist für die Einreichung der Vorschläge erinnern."
+      kind: example

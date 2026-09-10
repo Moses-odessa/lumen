@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: ecology_decisions
+name: "Umwelt und Kosten"
 tiers:
   b2:
     - id: ecology_decisions_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: ecology_decisions_b2_12
       text: "Auch die möglichen Folgen des Nichtstuns haben ihren Preis."
     - id: ecology_decisions_b2_13
-      text: "Beim Vergleich von ... und ... muss man ... berücksichtigen."
+      text: "Wir müssen die Auswirkungen der Herstellung berücksichtigen, nicht nur die der Nutzung."
     - id: ecology_decisions_b2_14
-      text: "Der Umweltvorteil entfällt, wenn ..."
+      text: "Wie lange muss das Produkt halten, damit sich der Ersatz rechtfertigen lässt?"
     - id: ecology_decisions_b2_15
-      text: "Der Übergang zu ... wird ... erfordern."
+      text: "Diese Bewertung berücksichtigt den Transport nicht."
     - id: ecology_decisions_b2_16
-      text: "Um ... nicht zu verschärfen, sollte man ..."
+      text: "Lokale Herstellung garantiert allein noch keine geringeren Auswirkungen."
     - id: ecology_decisions_b2_17
-      text: "Je nach ... kann das Ergebnis ..."
+      text: "Wir sollten prüfen, was dieses Umweltsiegel genau bedeutet."
     - id: ecology_decisions_b2_18
-      text: "Die Kosten für ... sollten mit ... verglichen werden."
+      text: "Die Einsparungen können entfallen, wenn der Verbrauch steigt."
     - id: ecology_decisions_b2_19
-      text: "Ohne Veränderungen bei ... wird es kaum gelingen, ..."
+      text: "Wer wird die Einhaltung der Umweltzusagen überwachen?"
     - id: ecology_decisions_b2_20
-      text: "Diese Maßnahme ist nur sinnvoll, wenn ..."
+      text: "Der Plan sollte überprüfbare Zwischenziele enthalten."
+    - id: ecology_decisions_b2_21
+      text: "Die Veränderungen sollten nicht die gesamte Last auf die Verbraucher verlagern."
+    - id: ecology_decisions_b2_22
+      text: "Der Vergleich muss dieselbe Nutzungsdauer berücksichtigen."
+    - id: ecology_decisions_b2_23
+      text: "Beim Vergleich von Reparatur und Ersatz müssen wir den Ressourcenverbrauch berücksichtigen."
+      kind: example
+    - id: ecology_decisions_b2_24
+      text: "Der Umweltvorteil entfällt, wenn das neue System mehr Ressourcen verbraucht, als es einspart."
+      kind: example
+    - id: ecology_decisions_b2_25
+      text: "Der Umstieg auf Elektrobusse wird eine neue Ladeinfrastruktur erfordern."
+      kind: example
+    - id: ecology_decisions_b2_26
+      text: "Um die Ungleichheit nicht zu verschärfen, sollten wir Familien mit geringem Einkommen unterstützen."
+      kind: example
+    - id: ecology_decisions_b2_27
+      text: "Je nach den örtlichen Bedingungen kann das Ergebnis deutlich unterschiedlich ausfallen."
+      kind: example
+    - id: ecology_decisions_b2_28
+      text: "Die Kosten der Wärmedämmung sollten mit den erwarteten Energieeinsparungen verglichen werden."
+      kind: example
+    - id: ecology_decisions_b2_29
+      text: "Ohne Änderungen am Verkehrssystem werden wir Staus kaum deutlich reduzieren können."
+      kind: example
+    - id: ecology_decisions_b2_30
+      text: "Diese Maßnahme ergibt nur Sinn, wenn die Anwohner die vorgeschlagene Alternative nutzen können."
+      kind: example

@@ -56,12 +56,19 @@ void main() {
     // text()()` вернул бы сам себя. Такое переименование — ровно тот случай,
     // когда база и приложение расходятся молча, поэтому оба текста читаются
     // здесь через Drift-геттеры.
+    //
+    // `kind` (вид фразы, v7) назван в SQL и в Dart одинаково — билдера с таким
+    // именем в Drift нет, — но читается всё равно через геттер, потому что
+    // расходятся молча не только переименованные колонки. Значение в строке
+    // указано явно: `DEFAULT` у колонки нет, умолчание живёт в чтении YAML
+    // (`defaultPhraseKind`), а сборка пишет код у каждой фразы.
     buildAndOpen(seed: [
       "INSERT INTO languages (code, role, status, name, phrases) "
           "VALUES ('uk', 'native', 'launched', 'Українська', 1)",
-      "INSERT INTO phrases (id, lang, tier, constellation, idx, text, register)"
+      "INSERT INTO phrases "
+          "(id, lang, tier, constellation, idx, text, register, kind)"
           " VALUES ('food_a1_bill', 'de', 'a1', 'food', 0, "
-          "'Die Rechnung, bitte.', 'formal')",
+          "'Die Rechnung, bitte.', 'formal', 'phrase')",
       "INSERT INTO phrase_translations (phrase_id, lang, text) "
           "VALUES ('food_a1_bill', 'uk', 'Рахунок, будь ласка.')",
       "INSERT INTO calibration_items (id, tier, phrase_id, kind) "
@@ -75,6 +82,7 @@ void main() {
     final phrase = await db.phrase('food_a1_bill');
     expect(phrase?.sentence, 'Die Rechnung, bitte.');
     expect(phrase?.register, 'formal');
+    expect(phrase?.kind, 'phrase');
 
     expect(await db.translation('food_a1_bill', 'uk'), 'Рахунок, будь ласка.');
     expect((await db.calibrationFor(Tier.a1)).single.phraseId, 'food_a1_bill');
@@ -83,11 +91,13 @@ void main() {
 
   test('выборка фраз включает нижние ярусы, а не только текущий', () async {
     buildAndOpen(seed: [
-      "INSERT INTO phrases (id, lang, tier, constellation, idx, text) VALUES "
-          "('a', 'de', 'a0', 'health', 0, 'Ich bin krank.'), "
-          "('b', 'de', 'a1', 'health', 0, 'Ich habe Fieber.'), "
-          "('c', 'de', 'b2', 'health', 0, 'Die Diagnose steht fest.'), "
-          "('d', 'de', 'a0', 'home', 0, 'Ich wohne hier.')",
+      "INSERT INTO phrases (id, lang, tier, constellation, idx, text, kind) "
+          "VALUES "
+          "('a', 'de', 'a0', 'health', 0, 'Ich bin krank.', 'phrase'), "
+          "('b', 'de', 'a1', 'health', 0, 'Ich habe Fieber.', 'phrase'), "
+          "('c', 'de', 'b2', 'health', 0, 'Die Diagnose steht fest.', "
+          "'phrase'), "
+          "('d', 'de', 'a0', 'home', 0, 'Ich wohne hier.', 'phrase')",
     ]);
 
     // Небо уплотняется, а не переписывается: на A1 фразы A0 остаются
@@ -107,10 +117,11 @@ void main() {
     // не встречается в корпусе ни разу. Если запрос забудет `ORDER BY idx`,
     // знакомство пойдёт в порядке, которым никто не управляет.
     buildAndOpen(seed: [
-      "INSERT INTO phrases (id, lang, tier, constellation, idx, text) VALUES "
-          "('third', 'de', 'a0', 'food', 2, 'Ich habe Hunger.'), "
-          "('first', 'de', 'a0', 'food', 0, 'Ich esse Brot.'), "
-          "('second', 'de', 'a0', 'food', 1, 'Ich trinke Wasser.')",
+      "INSERT INTO phrases (id, lang, tier, constellation, idx, text, kind) "
+          "VALUES "
+          "('third', 'de', 'a0', 'food', 2, 'Ich habe Hunger.', 'phrase'), "
+          "('first', 'de', 'a0', 'food', 0, 'Ich esse Brot.', 'phrase'), "
+          "('second', 'de', 'a0', 'food', 1, 'Ich trinke Wasser.', 'phrase')",
     ]);
 
     expect((await db.phrasesFor('food', Tier.a0)).map((p) => p.id),

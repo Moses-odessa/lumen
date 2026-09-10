@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: presentations_data
+name: "Vortrag und Zahlen"
 tiers:
   b2:
     - id: presentations_data_b2_01
@@ -33,18 +34,46 @@ tiers:
     - id: presentations_data_b2_12
       text: "Am Ende beantworte ich gern Fragen."
     - id: presentations_data_b2_13
-      text: "Wie aus ... hervorgeht, ..."
+      text: "Die senkrechte Achse beginnt nicht bei null."
     - id: presentations_data_b2_14
-      text: "Der Anteil von ... beträgt ..."
+      text: "Geht es um absolute oder relative Werte?"
     - id: presentations_data_b2_15
-      text: "Der Wert ist von ... auf ... gestiegen."
+      text: "Auf welche Ausgangsgröße bezieht sich dieser Prozentsatz?"
     - id: presentations_data_b2_16
-      text: "Das entspricht einem Anstieg um ..."
+      text: "Einige Gruppen sind in diesen Daten nicht vertreten."
     - id: presentations_data_b2_17
-      text: "Während ... zunimmt, ..."
+      text: "Diese Grafik allein beweist keinen ursächlichen Zusammenhang."
     - id: presentations_data_b2_18
-      text: "Die auffälligste Veränderung betrifft ..."
+      text: "Die Werte wurden auf ganze Zahlen gerundet."
     - id: presentations_data_b2_19
-      text: "Diese Daten beziehen sich auf den Zeitraum ..."
+      text: "Dieser Unterschied liegt innerhalb der Fehlermarge."
     - id: presentations_data_b2_20
-      text: "Die wichtigste Aussage meines Vortrags ist: ..."
+      text: "Betrachten wir die Verteilung der Werte, nicht nur den Durchschnitt."
+    - id: presentations_data_b2_21
+      text: "Wir haben denselben Zeitraum des Vorjahres zum Vergleich herangezogen."
+    - id: presentations_data_b2_22
+      text: "Ein einzelner Ausreißer erhöht den Durchschnitt deutlich."
+    - id: presentations_data_b2_23
+      text: "Wie die Grafik zeigt, steigt die Nachfrage im Sommer."
+      kind: example
+    - id: presentations_data_b2_24
+      text: "Der Anteil der Teilnehmenden, die den Onlinekurs gewählt haben, beträgt vierzig Prozent."
+      kind: example
+    - id: presentations_data_b2_25
+      text: "Der Wert stieg von fünfzig auf sechzig Prozent."
+      kind: example
+    - id: presentations_data_b2_26
+      text: "Das entspricht einem Anstieg um zehn Prozentpunkte."
+      kind: example
+    - id: presentations_data_b2_27
+      text: "Während die Zahl der Anträge steigt, verkürzt sich die Wartezeit."
+      kind: example
+    - id: presentations_data_b2_28
+      text: "Die auffälligste Veränderung betrifft die jüngere Altersgruppe."
+      kind: example
+    - id: presentations_data_b2_29
+      text: "Diese Daten beziehen sich auf den Zeitraum von Januar bis Juni."
+      kind: example
+    - id: presentations_data_b2_30
+      text: "Die wichtigste Erkenntnis aus meiner Präsentation lautet: Die Nachfrage steigt, aber die Ressourcen bleiben begrenzt."
+      kind: example

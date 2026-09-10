@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: symptoms_treatment
+name: "Symptome und Behandlung"
 tiers:
   a2:
     - id: symptoms_treatment_a2_01
@@ -39,11 +40,37 @@ tiers:
       text: "Was soll ich tun, wenn es schlimmer wird?"
     - id: symptoms_treatment_a2_16
       text: "Können Sie das einfacher erklären?"
+      register: formal
     - id: symptoms_treatment_a2_17
-      text: "Ich habe seit ... Tagen ..."
+      text: "Der Schmerz strahlt in die Schulter aus."
     - id: symptoms_treatment_a2_18
-      text: "Es tut weh, wenn ich ..."
+      text: "Die Schwellung ist größer geworden."
     - id: symptoms_treatment_a2_19
-      text: "Ich nehme regelmäßig ..."
+      text: "Ich habe einen Ausschlag bekommen."
     - id: symptoms_treatment_a2_20
-      text: "Darf ich ... zusammen mit ... nehmen?"
+      text: "Die Beschwerden haben nach dem Essen begonnen."
+    - id: symptoms_treatment_a2_21
+      text: "Ich habe eine Dosis vergessen — was soll ich tun?"
+    - id: symptoms_treatment_a2_22
+      text: "Darf ich danach Auto fahren?"
+    - id: symptoms_treatment_a2_23
+      text: "Brauche ich eine Blutuntersuchung?"
+    - id: symptoms_treatment_a2_24
+      text: "Brauche ich eine Überweisung zum Facharzt?"
+    - id: symptoms_treatment_a2_25
+      text: "Wie erhalte ich die Untersuchungsergebnisse?"
+    - id: symptoms_treatment_a2_26
+      text: "Können Sie den Namen des Medikaments aufschreiben?"
+      register: formal
+    - id: symptoms_treatment_a2_27
+      text: "Ich habe seit zwei Tagen Halsschmerzen."
+      kind: example
+    - id: symptoms_treatment_a2_28
+      text: "Es tut weh, wenn ich schlucke."
+      kind: example
+    - id: symptoms_treatment_a2_29
+      text: "Ich nehme regelmäßig Medikamente gegen hohen Blutdruck."
+      kind: example
+    - id: symptoms_treatment_a2_30
+      text: "Darf ich dieses Schmerzmittel zusammen mit meinem Allergiemedikament nehmen?"
+      kind: example

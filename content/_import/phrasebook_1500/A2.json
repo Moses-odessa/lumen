@@ -1,0 +1,3027 @@
+[
+ {
+  "title": "Рассказ о прошлом",
+  "rows": [
+   {
+    "uk": "Учора я був удома.",
+    "de": "Gestern war ich zu Hause.",
+    "en": "I was at home yesterday.",
+    "ru": "Вчера я был дома.",
+    "it": "Ieri ero a casa.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На вихідних ми їздили за місто.",
+    "de": "Am Wochenende sind wir aufs Land gefahren.",
+    "en": "We went to the countryside at the weekend.",
+    "ru": "На выходных мы ездили за город.",
+    "it": "Nel fine settimana siamo andati in campagna.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я вже там був.",
+    "de": "Ich bin schon dort gewesen.",
+    "en": "I've been there before.",
+    "ru": "Я уже там был.",
+    "it": "Ci sono già stato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я ніколи цього не пробував.",
+    "de": "Ich habe das noch nie ausprobiert.",
+    "en": "I've never tried that.",
+    "ru": "Я никогда этого не пробовал.",
+    "it": "Non l'ho mai provato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це сталося минулого тижня.",
+    "de": "Das ist letzte Woche passiert.",
+    "en": "That happened last week.",
+    "ru": "Это случилось на прошлой неделе.",
+    "it": "È successo la settimana scorsa.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Спочатку все було добре.",
+    "de": "Am Anfang war alles gut.",
+    "en": "Everything was fine at first.",
+    "ru": "Сначала всё было хорошо.",
+    "it": "All'inizio andava tutto bene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Потім почався дощ.",
+    "de": "Dann hat es angefangen zu regnen.",
+    "en": "Then it started raining.",
+    "ru": "Потом начался дождь.",
+    "it": "Poi ha iniziato a piovere.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Нам довелося повернутися.",
+    "de": "Wir mussten zurückfahren.",
+    "en": "We had to go back.",
+    "ru": "Нам пришлось вернуться.",
+    "it": "Abbiamo dovuto tornare indietro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Попри це, було весело.",
+    "de": "Trotzdem hat es Spaß gemacht.",
+    "en": "It was fun anyway.",
+    "ru": "Несмотря на это, было весело.",
+    "it": "Ci siamo divertiti comunque.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як минули твої вихідні?",
+    "de": "Wie war dein Wochenende?",
+    "en": "How was your weekend?",
+    "ru": "Как прошли твои выходные?",
+    "it": "Com'è andato il tuo fine settimana?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Що сталося потім?",
+    "de": "Was ist danach passiert?",
+    "en": "What happened next?",
+    "ru": "Что случилось потом?",
+    "it": "Che cosa è successo dopo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки часу ти там був?",
+    "de": "Wie lange warst du dort?",
+    "en": "How long were you there?",
+    "ru": "Сколько времени ты там был?",
+    "it": "Quanto tempo sei rimasto lì?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я забув ключі.",
+    "de": "Ich habe meine Schlüssel vergessen.",
+    "en": "I forgot my keys.",
+    "ru": "Я забыл ключи.",
+    "it": "Ho dimenticato le chiavi.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На щастя, все закінчилося добре.",
+    "de": "Zum Glück ist alles gut ausgegangen.",
+    "en": "Luckily, everything turned out well.",
+    "ru": "К счастью, всё закончилось хорошо.",
+    "it": "Per fortuna è finito tutto bene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це був мій перший раз.",
+    "de": "Das war mein erstes Mal.",
+    "en": "That was my first time.",
+    "ru": "Это был мой первый раз.",
+    "it": "Era la mia prima volta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я цього не очікував.",
+    "de": "Das habe ich nicht erwartet.",
+    "en": "I didn't expect that.",
+    "ru": "Я этого не ожидал.",
+    "it": "Non me l'aspettavo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я щойно повернувся з відпустки.",
+    "de": "Ich bin gerade aus dem Urlaub zurückgekommen.",
+    "en": "I've just got back from holiday.",
+    "ru": "Я только что вернулся из отпуска.",
+    "it": "Sono appena tornato dalle vacanze.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Тоді я ще не знав мови.",
+    "de": "Damals konnte ich die Sprache noch nicht.",
+    "en": "I didn't know the language yet at the time.",
+    "ru": "Тогда я ещё не знал языка.",
+    "it": "All'epoca non conoscevo ancora la lingua.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми випадково зустрілися на вокзалі.",
+    "de": "Wir haben uns zufällig am Bahnhof getroffen.",
+    "en": "We met by chance at the station.",
+    "ru": "Мы случайно встретились на вокзале.",
+    "it": "Ci siamo incontrati per caso alla stazione.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я одразу його впізнав.",
+    "de": "Ich habe ihn sofort erkannt.",
+    "en": "I recognised him straight away.",
+    "ru": "Я сразу его узнал.",
+    "it": "L'ho riconosciuto subito.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми давно не бачилися.",
+    "de": "Wir hatten uns lange nicht gesehen.",
+    "en": "We hadn't seen each other for a long time.",
+    "ru": "Мы давно не виделись.",
+    "it": "Non ci vedevamo da molto tempo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не пам'ятаю точної дати.",
+    "de": "Ich erinnere mich nicht an das genaue Datum.",
+    "en": "I don't remember the exact date.",
+    "ru": "Я не помню точной даты.",
+    "it": "Non ricordo la data esatta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Пізніше я знайшов фотографії.",
+    "de": "Später habe ich die Fotos gefunden.",
+    "en": "Later, I found the photos.",
+    "ru": "Позже я нашёл фотографии.",
+    "it": "Più tardi ho trovato le foto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це нагадало мені про школу.",
+    "de": "Das hat mich an die Schulzeit erinnert.",
+    "en": "That reminded me of school.",
+    "ru": "Это напомнило мне о школе.",
+    "it": "Questo mi ha ricordato la scuola.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Раніше тут був кінотеатр.",
+    "de": "Früher war hier ein Kino.",
+    "en": "There used to be a cinema here.",
+    "ru": "Раньше здесь был кинотеатр.",
+    "it": "Una volta qui c'era un cinema.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Відтоді ми підтримуємо зв'язок.",
+    "de": "Seitdem bleiben wir in Kontakt.",
+    "en": "We've kept in touch since then.",
+    "ru": "С тех пор мы поддерживаем связь.",
+    "it": "Da allora siamo rimasti in contatto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли я був дитиною, ми жили біля моря.",
+    "de": "Als ich ein Kind war, haben wir am Meer gewohnt.",
+    "en": "When I was a child, we lived by the sea.",
+    "ru": "Когда я был ребёнком, мы жили у моря.",
+    "it": "Quando ero bambino, vivevamo vicino al mare.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Раніше я багато їздив на велосипеді.",
+    "de": "Früher bin ich viel Fahrrad gefahren.",
+    "en": "I used to cycle a lot.",
+    "ru": "Раньше я много ездил на велосипеде.",
+    "it": "Una volta andavo molto in bicicletta.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Минулого разу ми зупинилися в маленькому готелі.",
+    "de": "Letztes Mal haben wir in einem kleinen Hotel übernachtet.",
+    "en": "Last time, we stayed in a small hotel.",
+    "ru": "В прошлый раз мы остановились в маленьком отеле.",
+    "it": "L'ultima volta abbiamo soggiornato in un piccolo albergo.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Після цього я зателефонував батькам.",
+    "de": "Danach habe ich meine Eltern angerufen.",
+    "en": "After that, I called my parents.",
+    "ru": "После этого я позвонил родителям.",
+    "it": "Dopo ho chiamato i miei genitori.",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Договорённости и сроки",
+  "rows": [
+   {
+    "uk": "Я хочу перенести нашу зустріч.",
+    "de": "Ich möchte unser Treffen verschieben.",
+    "en": "I'd like to reschedule our meeting.",
+    "ru": "Я хочу перенести нашу встречу.",
+    "it": "Vorrei spostare il nostro incontro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Завтра мені зручніше.",
+    "de": "Morgen passt es mir besser.",
+    "en": "Tomorrow works better for me.",
+    "ru": "Завтра мне удобнее.",
+    "it": "Domani mi va meglio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можемо зустрітися на пів години пізніше?",
+    "de": "Können wir uns eine halbe Stunde später treffen?",
+    "en": "Can we meet half an hour later?",
+    "ru": "Можем встретиться на полчаса позже?",
+    "it": "Possiamo vederci mezz'ora più tardi?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На жаль, я маю скасувати зустріч.",
+    "de": "Leider muss ich das Treffen absagen.",
+    "en": "Unfortunately, I have to cancel the meeting.",
+    "ru": "К сожалению, мне нужно отменить встречу.",
+    "it": "Purtroppo devo annullare l'incontro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Дякую за розуміння.",
+    "de": "Danke für Ihr Verständnis.",
+    "en": "Thank you for your understanding.",
+    "ru": "Спасибо за понимание.",
+    "it": "Grazie per la comprensione.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Давайте знайдемо інший час.",
+    "de": "Lassen Sie uns einen anderen Termin finden.",
+    "en": "Let's find another time.",
+    "ru": "Давайте найдём другое время.",
+    "it": "Troviamo un altro orario.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Наші плани ще в силі?",
+    "de": "Bleibt es bei unseren Plänen?",
+    "en": "Are our plans still on?",
+    "ru": "Наши планы ещё в силе?",
+    "it": "I nostri programmi sono confermati?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Підтверджую зустріч у п'ятницю.",
+    "de": "Ich bestätige den Termin am Freitag.",
+    "en": "I'm confirming the appointment on Friday.",
+    "ru": "Подтверждаю встречу в пятницу.",
+    "it": "Confermo l'appuntamento di venerdì.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я запізнюся на десять хвилин.",
+    "de": "Ich verspäte mich um zehn Minuten.",
+    "en": "I'll be ten minutes late.",
+    "ru": "Я опоздаю на десять минут.",
+    "it": "Arriverò con dieci minuti di ritardo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Дякую, що зачекали.",
+    "de": "Danke, dass Sie gewartet haben.",
+    "en": "Thank you for waiting.",
+    "ru": "Спасибо, что подождали.",
+    "it": "Grazie per aver aspettato.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Повідомте, будь ласка, заздалегідь.",
+    "de": "Sagen Sie bitte vorher Bescheid.",
+    "en": "Please let me know in advance.",
+    "ru": "Сообщите, пожалуйста, заранее.",
+    "it": "Mi avvisi in anticipo, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "До якого часу це потрібно?",
+    "de": "Bis wann wird das gebraucht?",
+    "en": "When is this needed by?",
+    "ru": "К какому времени это нужно?",
+    "it": "Per quando serve?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я зроблю це до понеділка.",
+    "de": "Ich erledige das bis Montag.",
+    "en": "I'll get it done by Monday.",
+    "ru": "Я сделаю это до понедельника.",
+    "it": "Lo farò entro lunedì.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На це потрібно більше часу.",
+    "de": "Das braucht mehr Zeit.",
+    "en": "That needs more time.",
+    "ru": "На это нужно больше времени.",
+    "it": "Ci vuole più tempo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене вже є плани.",
+    "de": "Ich habe schon etwas vor.",
+    "en": "I already have plans.",
+    "ru": "У меня уже есть планы.",
+    "it": "Ho già un impegno.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми домовилися.",
+    "de": "Abgemacht.",
+    "en": "It's a deal.",
+    "ru": "Договорились.",
+    "it": "D'accordo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібно перевірити свій календар.",
+    "de": "Ich muss in meinem Kalender nachsehen.",
+    "en": "I need to check my calendar.",
+    "ru": "Мне нужно проверить свой календарь.",
+    "it": "Devo controllare il mio calendario.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я ще чекаю на підтвердження.",
+    "de": "Ich warte noch auf die Bestätigung.",
+    "en": "I'm still waiting for confirmation.",
+    "ru": "Я ещё жду подтверждения.",
+    "it": "Sto ancora aspettando la conferma.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете залишити цей час за мною до завтра?",
+    "de": "Können Sie diesen Termin bis morgen für mich freihalten?",
+    "en": "Can you hold this time slot for me until tomorrow?",
+    "ru": "Можете оставить это время за мной до завтра?",
+    "it": "Può tenere libero questo orario per me fino a domani?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Зустріч перенесли до іншої кімнати.",
+    "de": "Das Treffen wurde in einen anderen Raum verlegt.",
+    "en": "The meeting has been moved to another room.",
+    "ru": "Встречу перенесли в другую комнату.",
+    "it": "L'incontro è stato spostato in un'altra sala.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я можу залишитися лише на годину.",
+    "de": "Ich kann nur eine Stunde bleiben.",
+    "en": "I can only stay for an hour.",
+    "ru": "Я могу остаться только на час.",
+    "it": "Posso fermarmi solo per un'ora.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вихідні входять у цей строк?",
+    "de": "Zählt das Wochenende bei dieser Frist mit?",
+    "en": "Does this deadline include the weekend?",
+    "ru": "Выходные входят в этот срок?",
+    "it": "Il fine settimana rientra in questo termine?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Нагадайте мені, будь ласка, напередодні.",
+    "de": "Erinnern Sie mich bitte am Tag vorher daran.",
+    "en": "Please remind me the day before.",
+    "ru": "Напомните мне, пожалуйста, накануне.",
+    "it": "Me lo ricordi il giorno prima, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Можемо домовитися про регулярні зустрічі?",
+    "de": "Können wir regelmäßige Treffen vereinbaren?",
+    "en": "Can we arrange regular meetings?",
+    "ru": "Можем договориться о регулярных встречах?",
+    "it": "Possiamo concordare incontri regolari?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Моя попередня зустріч затягується.",
+    "de": "Mein vorheriger Termin dauert länger als geplant.",
+    "en": "My previous appointment is running over.",
+    "ru": "Моя предыдущая встреча затягивается.",
+    "it": "Il mio appuntamento precedente sta durando più del previsto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, не скасовуйте зустріч без попередження.",
+    "de": "Bitte sagen Sie das Treffen nicht ohne Vorankündigung ab.",
+    "en": "Please don't cancel the meeting without notice.",
+    "ru": "Пожалуйста, не отменяйте встречу без предупреждения.",
+    "it": "Per favore, non annulli l'incontro senza preavviso.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Вам підійде вівторок після обіду?",
+    "de": "Würde Ihnen Dienstagnachmittag passen?",
+    "en": "Would Tuesday afternoon suit you?",
+    "ru": "Вам подойдёт вторник после обеда?",
+    "it": "Le andrebbe bene martedì pomeriggio?",
+    "type": "Пример",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я вільний з другої до четвертої.",
+    "de": "Ich habe von zwei bis vier Uhr Zeit.",
+    "en": "I'm free from two to four.",
+    "ru": "Я свободен с двух до четырёх.",
+    "it": "Sono libero dalle due alle quattro.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, підтвердьте час зустрічі.",
+    "de": "Bitte bestätigen Sie die Uhrzeit des Treffens.",
+    "en": "Please confirm the meeting time.",
+    "ru": "Пожалуйста, подтвердите время встречи.",
+    "it": "Per favore, confermi l'orario dell'incontro.",
+    "type": "Пример",
+    "register": "Вы"
+   },
+   {
+    "uk": "Якщо щось зміниться, я вам напишу.",
+    "de": "Wenn sich etwas ändert, schreibe ich Ihnen.",
+    "en": "If anything changes, I'll write to you.",
+    "ru": "Если что-то изменится, я вам напишу.",
+    "it": "Se cambia qualcosa, Le scrivo.",
+    "type": "Пример",
+    "register": "Вы"
+   }
+  ]
+ },
+ {
+  "title": "Жильё и неполадки",
+  "rows": [
+   {
+    "uk": "Я шукаю квартиру на тривалий термін.",
+    "de": "Ich suche eine Wohnung für längere Zeit.",
+    "en": "I'm looking for a flat for a long-term stay.",
+    "ru": "Я ищу квартиру на длительный срок.",
+    "it": "Cerco un appartamento per un lungo periodo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки кімнат у квартирі?",
+    "de": "Wie viele Zimmer hat die Wohnung?",
+    "en": "How many rooms does the flat have?",
+    "ru": "Сколько комнат в квартире?",
+    "it": "Quante stanze ha l'appartamento?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Комунальні платежі включені?",
+    "de": "Sind die Nebenkosten inbegriffen?",
+    "en": "Are the service charges included?",
+    "ru": "Коммунальные платежи включены?",
+    "it": "Le spese accessorie sono incluse?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Яка сума застави?",
+    "de": "Wie hoch ist die Kaution?",
+    "en": "How much is the deposit?",
+    "ru": "Какова сумма залога?",
+    "it": "A quanto ammonta la cauzione?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли можна подивитися квартиру?",
+    "de": "Wann kann ich die Wohnung besichtigen?",
+    "en": "When can I view the flat?",
+    "ru": "Когда можно посмотреть квартиру?",
+    "it": "Quando posso visitare l'appartamento?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи дозволені домашні тварини?",
+    "de": "Sind Haustiere erlaubt?",
+    "en": "Are pets allowed?",
+    "ru": "Разрешены ли домашние животные?",
+    "it": "Sono ammessi animali domestici?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я переїжджаю наступного місяця.",
+    "de": "Ich ziehe nächsten Monat um.",
+    "en": "I'm moving next month.",
+    "ru": "Я переезжаю в следующем месяце.",
+    "it": "Mi trasferisco il mese prossimo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Опалення не працює.",
+    "de": "Die Heizung funktioniert nicht.",
+    "en": "The heating isn't working.",
+    "ru": "Отопление не работает.",
+    "it": "Il riscaldamento non funziona.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Немає гарячої води.",
+    "de": "Es gibt kein warmes Wasser.",
+    "en": "There's no hot water.",
+    "ru": "Нет горячей воды.",
+    "it": "Non c'è acqua calda.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "З крана крапає вода.",
+    "de": "Der Wasserhahn tropft.",
+    "en": "The tap is dripping.",
+    "ru": "Из крана капает вода.",
+    "it": "Il rubinetto gocciola.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вікно не зачиняється.",
+    "de": "Das Fenster lässt sich nicht schließen.",
+    "en": "The window won't close.",
+    "ru": "Окно не закрывается.",
+    "it": "La finestra non si chiude.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Світло в коридорі не горить.",
+    "de": "Das Licht im Flur geht nicht.",
+    "en": "The hallway light isn't working.",
+    "ru": "Свет в коридоре не горит.",
+    "it": "La luce del corridoio non funziona.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Кому повідомити про проблему?",
+    "de": "Wem soll ich das Problem melden?",
+    "en": "Who should I report the problem to?",
+    "ru": "Кому сообщить о проблеме?",
+    "it": "A chi devo segnalare il problema?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли прийде майстер?",
+    "de": "Wann kommt der Handwerker?",
+    "en": "When is the repair person coming?",
+    "ru": "Когда придёт мастер?",
+    "it": "Quando viene il tecnico?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я буду вдома після п'ятої.",
+    "de": "Ich bin nach fünf zu Hause.",
+    "en": "I'll be home after five.",
+    "ru": "Я буду дома после пяти.",
+    "it": "Sarò a casa dopo le cinque.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна трохи тихіше?",
+    "de": "Geht es etwas leiser?",
+    "en": "Could you keep it down a little?",
+    "ru": "Можно немного тише?",
+    "it": "Si può fare un po' meno rumore?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Квартира здається з меблями?",
+    "de": "Wird die Wohnung möbliert vermietet?",
+    "en": "Is the flat rented furnished?",
+    "ru": "Квартира сдаётся с мебелью?",
+    "it": "L'appartamento viene affittato arredato?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна зареєструватися за цією адресою?",
+    "de": "Kann ich mich unter dieser Adresse anmelden?",
+    "en": "Can I register at this address?",
+    "ru": "Можно ли зарегистрироваться по этому адресу?",
+    "it": "Posso registrare la residenza a questo indirizzo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми користуємося спільною кухнею.",
+    "de": "Wir teilen uns eine Küche.",
+    "en": "We share a kitchen.",
+    "ru": "Мы пользуемся общей кухней.",
+    "it": "Condividiamo la cucina.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна пофарбувати стіни?",
+    "de": "Darf ich die Wände streichen?",
+    "en": "May I paint the walls?",
+    "ru": "Можно покрасить стены?",
+    "it": "Posso dipingere le pareti?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На стіні з'явилася пліснява.",
+    "de": "An der Wand hat sich Schimmel gebildet.",
+    "en": "Mould has appeared on the wall.",
+    "ru": "На стене появилась плесень.",
+    "it": "È comparsa della muffa sulla parete.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Спрацював запобіжник.",
+    "de": "Die Sicherung ist rausgeflogen.",
+    "en": "The circuit breaker has tripped.",
+    "ru": "Сработал предохранитель.",
+    "it": "È scattato l'interruttore automatico.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я відчуваю запах газу.",
+    "de": "Ich rieche Gas.",
+    "en": "I can smell gas.",
+    "ru": "Я чувствую запах газа.",
+    "it": "Sento odore di gas.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я вже перекрив воду.",
+    "de": "Ich habe das Wasser schon abgestellt.",
+    "en": "I've already turned off the water.",
+    "ru": "Я уже перекрыл воду.",
+    "it": "Ho già chiuso l'acqua.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете спочатку надати кошторис?",
+    "de": "Können Sie mir zuerst einen Kostenvoranschlag geben?",
+    "en": "Can you give me an estimate first?",
+    "ru": "Можете сначала предоставить смету?",
+    "it": "Può farmi prima un preventivo?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Хто має оплачувати цей ремонт?",
+    "de": "Wer muss diese Reparatur bezahlen?",
+    "en": "Who has to pay for this repair?",
+    "ru": "Кто должен оплачивать этот ремонт?",
+    "it": "Chi deve pagare questa riparazione?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У квартирі немає пральної машини.",
+    "de": "In der Wohnung gibt es keine Waschmaschine.",
+    "en": "There is no washing machine in the flat.",
+    "ru": "В квартире нет стиральной машины.",
+    "it": "Nell'appartamento non c'è la lavatrice.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "З холодильником щось не так.",
+    "de": "Mit dem Kühlschrank stimmt etwas nicht.",
+    "en": "Something is wrong with the fridge.",
+    "ru": "С холодильником что-то не так.",
+    "it": "C'è qualcosa che non va con il frigorifero.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Проблема виникла вчора ввечері.",
+    "de": "Das Problem ist gestern Abend aufgetreten.",
+    "en": "The problem started yesterday evening.",
+    "ru": "Проблема возникла вчера вечером.",
+    "it": "Il problema è iniziato ieri sera.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Цей замок можна полагодити?",
+    "de": "Kann dieses Schloss repariert werden?",
+    "en": "Can this lock be repaired?",
+    "ru": "Этот замок можно починить?",
+    "it": "Si può riparare questa serratura?",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Возврат и доставка",
+  "rows": [
+   {
+    "uk": "Я хочу повернути цей товар.",
+    "de": "Ich möchte diesen Artikel zurückgeben.",
+    "en": "I'd like to return this item.",
+    "ru": "Я хочу вернуть этот товар.",
+    "it": "Vorrei restituire questo articolo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене є чек.",
+    "de": "Ich habe den Kassenbon.",
+    "en": "I have the receipt.",
+    "ru": "У меня есть чек.",
+    "it": "Ho lo scontrino.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я купив це вчора.",
+    "de": "Ich habe das gestern gekauft.",
+    "en": "I bought this yesterday.",
+    "ru": "Я купил это вчера.",
+    "it": "L'ho comprato ieri.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Розмір мені не підійшов.",
+    "de": "Die Größe hat mir nicht gepasst.",
+    "en": "The size didn't fit me.",
+    "ru": "Размер мне не подошёл.",
+    "it": "La taglia non mi andava bene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Товар пошкоджений.",
+    "de": "Der Artikel ist beschädigt.",
+    "en": "The item is damaged.",
+    "ru": "Товар повреждён.",
+    "it": "L'articolo è danneggiato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це не те, що я замовляв.",
+    "de": "Das ist nicht das, was ich bestellt habe.",
+    "en": "This isn't what I ordered.",
+    "ru": "Это не то, что я заказывал.",
+    "it": "Non è quello che ho ordinato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна обміняти це?",
+    "de": "Kann ich das umtauschen?",
+    "en": "Can I exchange this?",
+    "ru": "Можно обменять это?",
+    "it": "Posso cambiarlo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хотів би повернення грошей.",
+    "de": "Ich hätte gern eine Rückerstattung.",
+    "en": "I'd like a refund.",
+    "ru": "Я хотел бы возврат денег.",
+    "it": "Vorrei un rimborso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки триває повернення коштів?",
+    "de": "Wie lange dauert die Rückerstattung?",
+    "en": "How long does the refund take?",
+    "ru": "Сколько занимает возврат средств?",
+    "it": "Quanto tempo ci vuole per il rimborso?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Посилка ще не надійшла.",
+    "de": "Das Paket ist noch nicht angekommen.",
+    "en": "The parcel hasn't arrived yet.",
+    "ru": "Посылка ещё не пришла.",
+    "it": "Il pacco non è ancora arrivato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де можна відстежити замовлення?",
+    "de": "Wo kann ich die Bestellung verfolgen?",
+    "en": "Where can I track the order?",
+    "ru": "Где можно отследить заказ?",
+    "it": "Dove posso seguire l'ordine?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Адреса доставки неправильна.",
+    "de": "Die Lieferadresse ist falsch.",
+    "en": "The delivery address is wrong.",
+    "ru": "Адрес доставки неверный.",
+    "it": "L'indirizzo di consegna è sbagliato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У посилці бракує однієї речі.",
+    "de": "Im Paket fehlt ein Artikel.",
+    "en": "One item is missing from the parcel.",
+    "ru": "В посылке не хватает одной вещи.",
+    "it": "Nel pacco manca un articolo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я випадково замовив двічі.",
+    "de": "Ich habe versehentlich zweimal bestellt.",
+    "en": "I accidentally ordered twice.",
+    "ru": "Я случайно заказал дважды.",
+    "it": "Ho ordinato due volte per sbaglio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна скасувати замовлення?",
+    "de": "Kann ich die Bestellung stornieren?",
+    "en": "Can I cancel the order?",
+    "ru": "Можно отменить заказ?",
+    "it": "Posso annullare l'ordine?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Хто оплачує повернення?",
+    "de": "Wer bezahlt den Rückversand?",
+    "en": "Who pays for the return shipping?",
+    "ru": "Кто оплачивает возврат?",
+    "it": "Chi paga la spedizione del reso?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Посилку залишили в сусіда.",
+    "de": "Das Paket wurde bei einem Nachbarn abgegeben.",
+    "en": "The parcel was left with a neighbour.",
+    "ru": "Посылку оставили у соседа.",
+    "it": "Il pacco è stato lasciato a un vicino.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Статус відстеження не змінюється.",
+    "de": "Der Sendungsstatus ändert sich nicht.",
+    "en": "The tracking status isn't changing.",
+    "ru": "Статус отслеживания не меняется.",
+    "it": "Lo stato della spedizione non cambia.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Під час спроби доставки я був удома.",
+    "de": "Beim Zustellversuch war ich zu Hause.",
+    "en": "I was at home when the delivery was attempted.",
+    "ru": "Во время попытки доставки я был дома.",
+    "it": "Ero a casa quando è stata tentata la consegna.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна перенаправити посилку до пункту видачі?",
+    "de": "Kann das Paket an eine Abholstelle umgeleitet werden?",
+    "en": "Can the parcel be redirected to a collection point?",
+    "ru": "Можно перенаправить посылку в пункт выдачи?",
+    "it": "Si può reindirizzare il pacco a un punto di ritiro?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки часу посилка зберігатиметься там?",
+    "de": "Wie lange wird das Paket dort aufbewahrt?",
+    "en": "How long will the parcel be kept there?",
+    "ru": "Сколько времени посылка будет храниться там?",
+    "it": "Per quanto tempo verrà custodito il pacco lì?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коробку вже відкривали.",
+    "de": "Der Karton wurde bereits geöffnet.",
+    "en": "The box has already been opened.",
+    "ru": "Коробку уже открывали.",
+    "it": "La scatola è già stata aperta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Товар не відповідає опису.",
+    "de": "Der Artikel entspricht nicht der Beschreibung.",
+    "en": "The item doesn't match the description.",
+    "ru": "Товар не соответствует описанию.",
+    "it": "L'articolo non corrisponde alla descrizione.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де знайти гарантійний документ?",
+    "de": "Wo finde ich den Garantieschein?",
+    "en": "Where can I find the warranty document?",
+    "ru": "Где найти гарантийный документ?",
+    "it": "Dove trovo il documento di garanzia?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете надіслати лише відсутню деталь?",
+    "de": "Können Sie nur das fehlende Teil schicken?",
+    "en": "Can you send just the missing part?",
+    "ru": "Можете прислать только недостающую деталь?",
+    "it": "Può inviare solo il pezzo mancante?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "У листі немає вкладення.",
+    "de": "Die E-Mail enthält keinen Anhang.",
+    "en": "There's no attachment in the email.",
+    "ru": "В письме нет вложения.",
+    "it": "Nell'email non c'è l'allegato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Номер мого замовлення: 12345.",
+    "de": "Meine Bestellnummer ist 12345.",
+    "en": "My order number is 12345.",
+    "ru": "Номер моего заказа: 12345.",
+    "it": "Il mio numero d'ordine è 12345.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я отримав синю сорочку замість білої.",
+    "de": "Ich habe ein blaues Hemd statt eines weißen erhalten.",
+    "en": "I received a blue shirt instead of a white one.",
+    "ru": "Я получил синюю рубашку вместо белой.",
+    "it": "Ho ricevuto una camicia blu invece di una bianca.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хотів би обміняти ці штани на більший розмір.",
+    "de": "Ich möchte diese Hose gegen eine größere Größe umtauschen.",
+    "en": "I'd like to exchange these trousers for a larger size.",
+    "ru": "Я хотел бы обменять эти брюки на размер больше.",
+    "it": "Vorrei cambiare questi pantaloni con una taglia più grande.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, надішліть мені етикетку для повернення.",
+    "de": "Bitte schicken Sie mir ein Rücksendeetikett.",
+    "en": "Please send me a return label.",
+    "ru": "Пожалуйста, пришлите мне этикетку для возврата.",
+    "it": "Per favore, mi invii un'etichetta per il reso.",
+    "type": "Пример",
+    "register": "Вы"
+   }
+  ]
+ },
+ {
+  "title": "Проблемы в поездке",
+  "rows": [
+   {
+    "uk": "Я пропустив свій поїзд.",
+    "de": "Ich habe meinen Zug verpasst.",
+    "en": "I missed my train.",
+    "ru": "Я пропустил свой поезд.",
+    "it": "Ho perso il treno.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мій рейс скасували.",
+    "de": "Mein Flug wurde gestrichen.",
+    "en": "My flight was cancelled.",
+    "ru": "Мой рейс отменили.",
+    "it": "Il mio volo è stato cancellato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Яка наступна можливість виїхати?",
+    "de": "Was ist die nächste Reisemöglichkeit?",
+    "en": "What's the next travel option?",
+    "ru": "Какая следующая возможность уехать?",
+    "it": "Qual è la prossima possibilità di partire?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Цей квиток ще дійсний?",
+    "de": "Ist diese Fahrkarte noch gültig?",
+    "en": "Is this ticket still valid?",
+    "ru": "Этот билет ещё действителен?",
+    "it": "Questo biglietto è ancora valido?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібен інший маршрут.",
+    "de": "Ich brauche eine andere Route.",
+    "en": "I need another route.",
+    "ru": "Мне нужен другой маршрут.",
+    "it": "Mi serve un altro percorso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де зупиняється автобус замість поїзда?",
+    "de": "Wo hält der Ersatzbus?",
+    "en": "Where does the replacement bus stop?",
+    "ru": "Где останавливается автобус вместо поезда?",
+    "it": "Dove ferma l'autobus sostitutivo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я загубив свій гаманець.",
+    "de": "Ich habe mein Portemonnaie verloren.",
+    "en": "I've lost my wallet.",
+    "ru": "Я потерял свой кошелёк.",
+    "it": "Ho perso il portafoglio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я залишив сумку в автобусі.",
+    "de": "Ich habe meine Tasche im Bus liegen lassen.",
+    "en": "I left my bag on the bus.",
+    "ru": "Я оставил сумку в автобусе.",
+    "it": "Ho lasciato la borsa sull'autobus.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де бюро знахідок?",
+    "de": "Wo ist das Fundbüro?",
+    "en": "Where is the lost property office?",
+    "ru": "Где бюро находок?",
+    "it": "Dov'è l'ufficio oggetti smarriti?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мій багаж не прибув.",
+    "de": "Mein Gepäck ist nicht angekommen.",
+    "en": "My luggage hasn't arrived.",
+    "ru": "Мой багаж не прибыл.",
+    "it": "Il mio bagaglio non è arrivato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ось опис моєї валізи.",
+    "de": "Hier ist die Beschreibung meines Koffers.",
+    "en": "Here's a description of my suitcase.",
+    "ru": "Вот описание моего чемодана.",
+    "it": "Ecco la descrizione della mia valigia.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібне підтвердження затримки.",
+    "de": "Ich brauche eine Verspätungsbestätigung.",
+    "en": "I need confirmation of the delay.",
+    "ru": "Мне нужно подтверждение задержки.",
+    "it": "Mi serve una conferma del ritardo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де можна подати заяву?",
+    "de": "Wo kann ich einen Antrag stellen?",
+    "en": "Where can I submit an application?",
+    "ru": "Где можно подать заявление?",
+    "it": "Dove posso presentare una domanda?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна змінити дату поїздки?",
+    "de": "Kann ich das Reisedatum ändern?",
+    "en": "Can I change the travel date?",
+    "ru": "Можно изменить дату поездки?",
+    "it": "Posso cambiare la data del viaggio?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не встигаю на пересадку.",
+    "de": "Ich erreiche meinen Anschluss nicht.",
+    "en": "I won't make my connection.",
+    "ru": "Я не успеваю на пересадку.",
+    "it": "Non riuscirò a prendere la coincidenza.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Хто може мені допомогти?",
+    "de": "Wer kann mir helfen?",
+    "en": "Who can help me?",
+    "ru": "Кто может мне помочь?",
+    "it": "Chi può aiutarmi?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібно заблокувати картку.",
+    "de": "Ich muss meine Karte sperren lassen.",
+    "en": "I need to block my card.",
+    "ru": "Мне нужно заблокировать карту.",
+    "it": "Devo bloccare la mia carta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна скористатися Вашим телефоном?",
+    "de": "Darf ich Ihr Telefon benutzen?",
+    "en": "May I use your phone?",
+    "ru": "Можно воспользоваться Вашим телефоном?",
+    "it": "Posso usare il Suo telefono?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Мені потрібно зв'язатися з посольством.",
+    "de": "Ich muss meine Botschaft kontaktieren.",
+    "en": "I need to contact my embassy.",
+    "ru": "Мне нужно связаться с посольством.",
+    "it": "Devo contattare la mia ambasciata.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я повідомив поліцію про втрату.",
+    "de": "Ich habe den Verlust bei der Polizei gemeldet.",
+    "en": "I've reported the loss to the police.",
+    "ru": "Я сообщил в полицию о пропаже.",
+    "it": "Ho denunciato lo smarrimento alla polizia.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Про скасування не попереджали.",
+    "de": "Es gab keine Vorankündigung der Absage.",
+    "en": "There was no warning about the cancellation.",
+    "ru": "Об отмене не предупреждали.",
+    "it": "Non c'è stato alcun preavviso della cancellazione.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я прибуду до готелю після півночі.",
+    "de": "Ich komme nach Mitternacht im Hotel an.",
+    "en": "I'll arrive at the hotel after midnight.",
+    "ru": "Я прибуду в отель после полуночи.",
+    "it": "Arriverò in albergo dopo mezzanotte.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мій багаж перевантажать автоматично?",
+    "de": "Wird mein Gepäck automatisch umgeladen?",
+    "en": "Will my luggage be transferred automatically?",
+    "ru": "Мой багаж перегрузят автоматически?",
+    "it": "Il mio bagaglio verrà trasferito automaticamente?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене немає доступу до електронного квитка.",
+    "de": "Ich habe keinen Zugriff auf mein elektronisches Ticket.",
+    "en": "I can't access my electronic ticket.",
+    "ru": "У меня нет доступа к электронному билету.",
+    "it": "Non riesco ad accedere al mio biglietto elettronico.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете роздрукувати посадковий талон?",
+    "de": "Können Sie meine Bordkarte ausdrucken?",
+    "en": "Can you print my boarding pass?",
+    "ru": "Можете распечатать посадочный талон?",
+    "it": "Può stampare la mia carta d'imbarco?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Чи потрібно доплачувати за зміну маршруту?",
+    "de": "Muss ich für die Routenänderung extra bezahlen?",
+    "en": "Do I need to pay extra to change the route?",
+    "ru": "Нужно ли доплачивать за изменение маршрута?",
+    "it": "Devo pagare un supplemento per cambiare percorso?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я загубив паспорт біля вокзалу.",
+    "de": "Ich habe meinen Reisepass in der Nähe des Bahnhofs verloren.",
+    "en": "I lost my passport near the station.",
+    "ru": "Я потерял паспорт возле вокзала.",
+    "it": "Ho perso il passaporto vicino alla stazione.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Затримка становить сорок хвилин.",
+    "de": "Die Verspätung beträgt vierzig Minuten.",
+    "en": "The delay is forty minutes.",
+    "ru": "Задержка составляет сорок минут.",
+    "it": "Il ritardo è di quaranta minuti.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Є інший спосіб дістатися до готелю?",
+    "de": "Gibt es eine andere Möglichkeit, zum Hotel zu kommen?",
+    "en": "Is there another way to get to the hotel?",
+    "ru": "Есть другой способ добраться до отеля?",
+    "it": "C'è un altro modo per arrivare in albergo?",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До кого можна звернутися щодо загубленого багажу?",
+    "de": "An wen kann ich mich wegen meines verlorenen Gepäcks wenden?",
+    "en": "Who can I contact about my lost luggage?",
+    "ru": "К кому можно обратиться по поводу потерянного багажа?",
+    "it": "A chi posso rivolgermi per il bagaglio smarrito?",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Симптомы и лечение",
+  "rows": [
+   {
+    "uk": "Це почалося три дні тому.",
+    "de": "Das hat vor drei Tagen angefangen.",
+    "en": "It started three days ago.",
+    "ru": "Это началось три дня назад.",
+    "it": "È iniziato tre giorni fa.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Біль постійний.",
+    "de": "Die Schmerzen sind ständig da.",
+    "en": "The pain is constant.",
+    "ru": "Боль постоянная.",
+    "it": "Il dolore è costante.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Біль з'являється і зникає.",
+    "de": "Die Schmerzen kommen und gehen.",
+    "en": "The pain comes and goes.",
+    "ru": "Боль появляется и исчезает.",
+    "it": "Il dolore va e viene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли я рухаюся, болить сильніше.",
+    "de": "Wenn ich mich bewege, tut es mehr weh.",
+    "en": "It hurts more when I move.",
+    "ru": "Когда я двигаюсь, болит сильнее.",
+    "it": "Quando mi muovo, fa più male.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Уночі мені стає гірше.",
+    "de": "Nachts geht es mir schlechter.",
+    "en": "I feel worse at night.",
+    "ru": "Ночью мне становится хуже.",
+    "it": "Di notte sto peggio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я вже прийняв знеболювальне.",
+    "de": "Ich habe schon ein Schmerzmittel genommen.",
+    "en": "I've already taken a painkiller.",
+    "ru": "Я уже принял обезболивающее.",
+    "it": "Ho già preso un antidolorifico.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ці ліки мені не допомагають.",
+    "de": "Dieses Medikament hilft mir nicht.",
+    "en": "This medicine isn't helping me.",
+    "ru": "Это лекарство мне не помогает.",
+    "it": "Questo farmaco non mi aiuta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи є побічні ефекти?",
+    "de": "Gibt es Nebenwirkungen?",
+    "en": "Are there any side effects?",
+    "ru": "Есть ли побочные эффекты?",
+    "it": "Ci sono effetti collaterali?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Приймати до чи після їжі?",
+    "de": "Soll ich es vor oder nach dem Essen nehmen?",
+    "en": "Should I take it before or after food?",
+    "ru": "Принимать до или после еды?",
+    "it": "Devo prenderlo prima o dopo i pasti?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна мені працювати?",
+    "de": "Darf ich arbeiten?",
+    "en": "Am I allowed to work?",
+    "ru": "Можно ли мне работать?",
+    "it": "Posso lavorare?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки днів потрібно відпочивати?",
+    "de": "Wie viele Tage soll ich mich ausruhen?",
+    "en": "How many days should I rest?",
+    "ru": "Сколько дней нужно отдыхать?",
+    "it": "Quanti giorni devo riposare?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібна довідка для роботи.",
+    "de": "Ich brauche eine Bescheinigung für die Arbeit.",
+    "en": "I need a certificate for work.",
+    "ru": "Мне нужна справка для работы.",
+    "it": "Mi serve un certificato per il lavoro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли будуть результати?",
+    "de": "Wann sind die Ergebnisse da?",
+    "en": "When will the results be ready?",
+    "ru": "Когда будут результаты?",
+    "it": "Quando saranno pronti i risultati?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Потрібно прийти ще раз?",
+    "de": "Muss ich noch einmal kommen?",
+    "en": "Do I need to come back?",
+    "ru": "Нужно прийти ещё раз?",
+    "it": "Devo tornare un'altra volta?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Що робити, якщо стане гірше?",
+    "de": "Was soll ich tun, wenn es schlimmer wird?",
+    "en": "What should I do if it gets worse?",
+    "ru": "Что делать, если станет хуже?",
+    "it": "Che cosa devo fare se peggiora?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете пояснити це простіше?",
+    "de": "Können Sie das einfacher erklären?",
+    "en": "Could you explain that more simply?",
+    "ru": "Можете объяснить это проще?",
+    "it": "Può spiegarlo in modo più semplice?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Біль поширюється на плече.",
+    "de": "Der Schmerz strahlt in die Schulter aus.",
+    "en": "The pain spreads to my shoulder.",
+    "ru": "Боль отдаёт в плечо.",
+    "it": "Il dolore si estende alla spalla.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Набряк став більшим.",
+    "de": "Die Schwellung ist größer geworden.",
+    "en": "The swelling has got worse.",
+    "ru": "Отёк стал больше.",
+    "it": "Il gonfiore è aumentato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене з'явився висип.",
+    "de": "Ich habe einen Ausschlag bekommen.",
+    "en": "I've developed a rash.",
+    "ru": "У меня появилась сыпь.",
+    "it": "Mi è comparsa un'eruzione cutanea.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Симптоми почалися після їжі.",
+    "de": "Die Beschwerden haben nach dem Essen begonnen.",
+    "en": "The symptoms started after eating.",
+    "ru": "Симптомы начались после еды.",
+    "it": "I sintomi sono iniziati dopo aver mangiato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я пропустив одну дозу — що мені робити?",
+    "de": "Ich habe eine Dosis vergessen — was soll ich tun?",
+    "en": "I missed one dose — what should I do?",
+    "ru": "Я пропустил одну дозу — что мне делать?",
+    "it": "Ho saltato una dose — che cosa devo fare?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна після цього керувати автомобілем?",
+    "de": "Darf ich danach Auto fahren?",
+    "en": "Am I allowed to drive afterwards?",
+    "ru": "Можно ли после этого водить машину?",
+    "it": "Posso guidare dopo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи потрібно здавати аналіз крові?",
+    "de": "Brauche ich eine Blutuntersuchung?",
+    "en": "Do I need a blood test?",
+    "ru": "Нужно ли сдавать анализ крови?",
+    "it": "Devo fare un esame del sangue?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібне направлення до спеціаліста?",
+    "de": "Brauche ich eine Überweisung zum Facharzt?",
+    "en": "Do I need a referral to a specialist?",
+    "ru": "Мне нужно направление к специалисту?",
+    "it": "Mi serve un'impegnativa per lo specialista?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як я отримаю результати аналізів?",
+    "de": "Wie erhalte ich die Untersuchungsergebnisse?",
+    "en": "How will I receive the test results?",
+    "ru": "Как я получу результаты анализов?",
+    "it": "Come riceverò i risultati degli esami?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете записати назву ліків?",
+    "de": "Können Sie den Namen des Medikaments aufschreiben?",
+    "en": "Can you write down the name of the medicine?",
+    "ru": "Можете записать название лекарства?",
+    "it": "Può scrivere il nome del farmaco?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "У мене болить горло вже два дні.",
+    "de": "Ich habe seit zwei Tagen Halsschmerzen.",
+    "en": "I've had a sore throat for two days.",
+    "ru": "У меня болит горло уже два дня.",
+    "it": "Ho mal di gola da due giorni.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені боляче, коли я ковтаю.",
+    "de": "Es tut weh, wenn ich schlucke.",
+    "en": "It hurts when I swallow.",
+    "ru": "Мне больно, когда я глотаю.",
+    "it": "Mi fa male quando deglutisco.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я регулярно приймаю ліки від підвищеного тиску.",
+    "de": "Ich nehme regelmäßig Medikamente gegen hohen Blutdruck.",
+    "en": "I regularly take medication for high blood pressure.",
+    "ru": "Я регулярно принимаю лекарства от повышенного давления.",
+    "it": "Prendo regolarmente farmaci per la pressione alta.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна приймати цей знеболювальний засіб разом із ліками від алергії?",
+    "de": "Darf ich dieses Schmerzmittel zusammen mit meinem Allergiemedikament nehmen?",
+    "en": "Can I take this painkiller together with my allergy medication?",
+    "ru": "Можно ли принимать это обезболивающее вместе с лекарством от аллергии?",
+    "it": "Posso prendere questo antidolorifico insieme al mio farmaco per l'allergia?",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Работа и поиск места",
+  "rows": [
+   {
+    "uk": "Я шукаю роботу.",
+    "de": "Ich suche eine Arbeit.",
+    "en": "I'm looking for a job.",
+    "ru": "Я ищу работу.",
+    "it": "Cerco lavoro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мене цікавить ця вакансія.",
+    "de": "Ich interessiere mich für diese Stelle.",
+    "en": "I'm interested in this vacancy.",
+    "ru": "Меня интересует эта вакансия.",
+    "it": "Mi interessa questa posizione.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де можна надіслати резюме?",
+    "de": "Wohin kann ich meinen Lebenslauf schicken?",
+    "en": "Where can I send my CV?",
+    "ru": "Куда можно отправить резюме?",
+    "it": "Dove posso inviare il mio curriculum?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене є досвід у продажах.",
+    "de": "Ich habe Erfahrung im Verkauf.",
+    "en": "I have experience in sales.",
+    "ru": "У меня есть опыт в продажах.",
+    "it": "Ho esperienza nelle vendite.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я працював у невеликій компанії.",
+    "de": "Ich habe in einer kleinen Firma gearbeitet.",
+    "en": "I worked in a small company.",
+    "ru": "Я работал в небольшой компании.",
+    "it": "Ho lavorato in una piccola azienda.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я швидко вчуся.",
+    "de": "Ich lerne schnell.",
+    "en": "I learn quickly.",
+    "ru": "Я быстро учусь.",
+    "it": "Imparo in fretta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я люблю працювати в команді.",
+    "de": "Ich arbeite gern im Team.",
+    "en": "I enjoy working in a team.",
+    "ru": "Я люблю работать в команде.",
+    "it": "Mi piace lavorare in squadra.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я можу почати наступного місяця.",
+    "de": "Ich kann nächsten Monat anfangen.",
+    "en": "I can start next month.",
+    "ru": "Я могу начать в следующем месяце.",
+    "it": "Posso iniziare il mese prossimo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це повний чи неповний робочий день?",
+    "de": "Ist das eine Vollzeit- oder Teilzeitstelle?",
+    "en": "Is this a full-time or part-time role?",
+    "ru": "Это полный или неполный рабочий день?",
+    "it": "È un lavoro a tempo pieno o parziale?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Який робочий графік?",
+    "de": "Wie sind die Arbeitszeiten?",
+    "en": "What are the working hours?",
+    "ru": "Какой рабочий график?",
+    "it": "Quali sono gli orari di lavoro?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Які мої основні завдання?",
+    "de": "Was sind meine Hauptaufgaben?",
+    "en": "What are my main tasks?",
+    "ru": "Каковы мои основные задачи?",
+    "it": "Quali sono i miei compiti principali?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Хто буде моїм керівником?",
+    "de": "Wer wird mein Vorgesetzter sein?",
+    "en": "Who will be my manager?",
+    "ru": "Кто будет моим руководителем?",
+    "it": "Chi sarà il mio responsabile?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи передбачене навчання?",
+    "de": "Gibt es eine Schulung?",
+    "en": "Is training provided?",
+    "ru": "Предусмотрено ли обучение?",
+    "it": "È prevista una formazione?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли відбудеться співбесіда?",
+    "de": "Wann findet das Vorstellungsgespräch statt?",
+    "en": "When will the interview take place?",
+    "ru": "Когда состоится собеседование?",
+    "it": "Quando si terrà il colloquio?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я надіслав усі документи.",
+    "de": "Ich habe alle Unterlagen geschickt.",
+    "en": "I've sent all the documents.",
+    "ru": "Я отправил все документы.",
+    "it": "Ho inviato tutti i documenti.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли можна очікувати відповідь?",
+    "de": "Wann kann ich mit einer Antwort rechnen?",
+    "en": "When can I expect a reply?",
+    "ru": "Когда можно ожидать ответ?",
+    "it": "Quando posso aspettarmi una risposta?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Випробувальний період оплачується?",
+    "de": "Wird die Probezeit bezahlt?",
+    "en": "Is the trial period paid?",
+    "ru": "Испытательный период оплачивается?",
+    "it": "Il periodo di prova è retribuito?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна іноді працювати дистанційно?",
+    "de": "Kann man gelegentlich von zu Hause aus arbeiten?",
+    "en": "Can I sometimes work remotely?",
+    "ru": "Можно ли иногда работать удалённо?",
+    "it": "È possibile lavorare da remoto ogni tanto?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я можу пройти співбесіду наступного тижня.",
+    "de": "Ich kann nächste Woche zu einem Vorstellungsgespräch kommen.",
+    "en": "I'm available for an interview next week.",
+    "ru": "Я могу пройти собеседование на следующей неделе.",
+    "it": "Sono disponibile per un colloquio la prossima settimana.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете описати типовий робочий день?",
+    "de": "Können Sie einen typischen Arbeitstag beschreiben?",
+    "en": "Can you describe a typical working day?",
+    "ru": "Можете описать типичный рабочий день?",
+    "it": "Può descrivere una giornata lavorativa tipica?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "У мене ще немає цього сертифіката.",
+    "de": "Ich habe dieses Zertifikat noch nicht.",
+    "en": "I don't have this certificate yet.",
+    "ru": "У меня ещё нет этого сертификата.",
+    "it": "Non ho ancora questo certificato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Зараз я проходжу професійний курс.",
+    "de": "Ich besuche gerade einen beruflichen Weiterbildungskurs.",
+    "en": "I'm currently taking a professional training course.",
+    "ru": "Сейчас я прохожу профессиональный курс.",
+    "it": "Attualmente sto frequentando un corso di formazione professionale.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вам потрібні рекомендації від попереднього роботодавця?",
+    "de": "Brauchen Sie Referenzen von meinem früheren Arbeitgeber?",
+    "en": "Do you need references from my previous employer?",
+    "ru": "Вам нужны рекомендации от предыдущего работодателя?",
+    "it": "Le servono referenze del mio precedente datore di lavoro?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Можна отримати відгук щодо моєї заявки?",
+    "de": "Kann ich eine Rückmeldung zu meiner Bewerbung bekommen?",
+    "en": "Can I get feedback on my application?",
+    "ru": "Можно получить отзыв по моей заявке?",
+    "it": "Posso avere un riscontro sulla mia candidatura?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Повідомте, будь ласка, якщо вакансію вже закрито.",
+    "de": "Bitte teilen Sie mir mit, wenn die Stelle bereits besetzt ist.",
+    "en": "Please let me know if the position has already been filled.",
+    "ru": "Сообщите, пожалуйста, если вакансия уже закрыта.",
+    "it": "Mi faccia sapere se il posto è già stato assegnato.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я хотів би прочитати пропозицію перед рішенням.",
+    "de": "Ich möchte das Angebot lesen, bevor ich mich entscheide.",
+    "en": "I'd like to read the offer before deciding.",
+    "ru": "Я хотел бы прочитать предложение перед решением.",
+    "it": "Vorrei leggere l'offerta prima di decidere.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене є досвід роботи з клієнтами.",
+    "de": "Ich habe Erfahrung im Umgang mit Kunden.",
+    "en": "I have experience with customers.",
+    "ru": "У меня есть опыт работы с клиентами.",
+    "it": "Ho esperienza nel rapporto con i clienti.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До моїх обов'язків входило приймання замовлень.",
+    "de": "Zu meinen Aufgaben gehörte es, Bestellungen aufzunehmen.",
+    "en": "My duties included taking orders.",
+    "ru": "В мои обязанности входил приём заказов.",
+    "it": "Tra le mie mansioni c'era la raccolta degli ordini.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хотів би працювати неповний день.",
+    "de": "Ich möchte gern in Teilzeit arbeiten.",
+    "en": "I'd like to work part-time.",
+    "ru": "Я хотел бы работать неполный день.",
+    "it": "Vorrei lavorare part-time.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Для цієї роботи потрібне водійське посвідчення?",
+    "de": "Braucht man für diese Stelle einen Führerschein?",
+    "en": "Do you need a driving licence for this job?",
+    "ru": "Для этой работы нужны водительские права?",
+    "it": "Serve la patente per questo lavoro?",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Как учиться",
+  "rows": [
+   {
+    "uk": "Я вчу мову вже пів року.",
+    "de": "Ich lerne die Sprache seit einem halben Jahr.",
+    "en": "I've been learning the language for six months.",
+    "ru": "Я учу язык уже полгода.",
+    "it": "Studio la lingua da sei mesi.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені легше читати, ніж говорити.",
+    "de": "Lesen fällt mir leichter als Sprechen.",
+    "en": "I find reading easier than speaking.",
+    "ru": "Мне легче читать, чем говорить.",
+    "it": "Per me leggere è più facile che parlare.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я часто забуваю нові слова.",
+    "de": "Ich vergesse neue Wörter oft.",
+    "en": "I often forget new words.",
+    "ru": "Я часто забываю новые слова.",
+    "it": "Dimentico spesso le parole nuove.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хочу краще розуміти на слух.",
+    "de": "Ich möchte mein Hörverstehen verbessern.",
+    "en": "I want to improve my listening comprehension.",
+    "ru": "Я хочу лучше понимать на слух.",
+    "it": "Voglio migliorare la comprensione orale.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна ще один приклад?",
+    "de": "Kann ich noch ein Beispiel bekommen?",
+    "en": "Can I have another example?",
+    "ru": "Можно ещё один пример?",
+    "it": "Posso avere un altro esempio?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У чому різниця між цими словами?",
+    "de": "Was ist der Unterschied zwischen diesen Wörtern?",
+    "en": "What's the difference between these words?",
+    "ru": "В чём разница между этими словами?",
+    "it": "Qual è la differenza tra queste parole?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як використати це в реченні?",
+    "de": "Wie verwendet man das in einem Satz?",
+    "en": "How do you use this in a sentence?",
+    "ru": "Как использовать это в предложении?",
+    "it": "Come si usa in una frase?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, виправляйте мої помилки.",
+    "de": "Bitte korrigieren Sie meine Fehler.",
+    "en": "Please correct my mistakes.",
+    "ru": "Пожалуйста, исправляйте мои ошибки.",
+    "it": "Corregga i miei errori, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я хочу спочатку спробувати сам.",
+    "de": "Ich möchte es zuerst selbst versuchen.",
+    "en": "I'd like to try it myself first.",
+    "ru": "Я хочу сначала попробовать сам.",
+    "it": "Vorrei prima provare da solo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібно це повторити.",
+    "de": "Ich muss das wiederholen.",
+    "en": "I need to revise this.",
+    "ru": "Мне нужно это повторить.",
+    "it": "Devo ripassarlo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я займаюся потроху щодня.",
+    "de": "Ich übe jeden Tag ein bisschen.",
+    "en": "I practise a little every day.",
+    "ru": "Я занимаюсь понемногу каждый день.",
+    "it": "Mi esercito un po' ogni giorno.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Давай говорити без перекладу.",
+    "de": "Lass uns ohne Übersetzung sprechen.",
+    "en": "Let's speak without translating.",
+    "ru": "Давай говорить без перевода.",
+    "it": "Parliamo senza tradurre.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я записую корисні вирази.",
+    "de": "Ich schreibe nützliche Ausdrücke auf.",
+    "en": "I write down useful expressions.",
+    "ru": "Я записываю полезные выражения.",
+    "it": "Mi segno le espressioni utili.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я слухаю це кілька разів.",
+    "de": "Ich höre mir das mehrmals an.",
+    "en": "I listen to it several times.",
+    "ru": "Я слушаю это несколько раз.",
+    "it": "Lo ascolto più volte.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Тепер це стало зрозуміліше.",
+    "de": "Jetzt ist es klarer.",
+    "en": "It's clearer now.",
+    "ru": "Теперь это стало понятнее.",
+    "it": "Adesso è più chiaro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я вже бачу прогрес.",
+    "de": "Ich sehe schon Fortschritte.",
+    "en": "I can already see progress.",
+    "ru": "Я уже вижу прогресс.",
+    "it": "Vedo già dei progressi.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На який склад падає наголос?",
+    "de": "Welche Silbe wird betont?",
+    "en": "Which syllable is stressed?",
+    "ru": "На какой слог падает ударение?",
+    "it": "Quale sillaba è accentata?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете пояснити це правило?",
+    "de": "Können Sie diese Regel erklären?",
+    "en": "Can you explain this rule?",
+    "ru": "Можете объяснить это правило?",
+    "it": "Può spiegare questa regola?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Можна записати Вашу вимову?",
+    "de": "Darf ich Ihre Aussprache aufnehmen?",
+    "en": "May I record your pronunciation?",
+    "ru": "Можно записать Ваше произношение?",
+    "it": "Posso registrare la Sua pronuncia?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я зрозумів завдання, але не знаю відповіді.",
+    "de": "Ich habe die Aufgabe verstanden, kenne aber die Antwort nicht.",
+    "en": "I understood the task, but I don't know the answer.",
+    "ru": "Я понял задание, но не знаю ответа.",
+    "it": "Ho capito il compito, ma non so la risposta.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібна допомога з плануванням повторення.",
+    "de": "Ich brauche Hilfe bei der Planung meiner Wiederholungen.",
+    "en": "I need help planning my revision.",
+    "ru": "Мне нужна помощь с планированием повторения.",
+    "it": "Ho bisogno di aiuto per organizzare il ripasso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я плутаю ці дієслівні форми.",
+    "de": "Ich verwechsle diese Verbformen.",
+    "en": "I mix up these verb forms.",
+    "ru": "Я путаю эти глагольные формы.",
+    "it": "Confondo queste forme verbali.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Давай ставити запитання по черзі.",
+    "de": "Stellen wir abwechselnd Fragen.",
+    "en": "Let's take turns asking questions.",
+    "ru": "Давай задавать вопросы по очереди.",
+    "it": "Facciamoci domande a turno.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Поки що не перекладай, будь ласка.",
+    "de": "Übersetz bitte noch nicht.",
+    "en": "Please don't translate yet.",
+    "ru": "Пока не переводи, пожалуйста.",
+    "it": "Non tradurre ancora, per favore.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я хочу спробувати ще раз без нотаток.",
+    "de": "Ich möchte es noch einmal ohne Notizen versuchen.",
+    "en": "I want to try again without notes.",
+    "ru": "Я хочу попробовать ещё раз без заметок.",
+    "it": "Voglio riprovare senza appunti.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можете порадити короткий текст для мого рівня?",
+    "de": "Können Sie einen kurzen Text für mein Niveau empfehlen?",
+    "en": "Can you recommend a short text for my level?",
+    "ru": "Можете посоветовать короткий текст для моего уровня?",
+    "it": "Può consigliarmi un breve testo adatto al mio livello?",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Мені важко розуміти швидке мовлення.",
+    "de": "Es fällt mir schwer, schnell gesprochene Sprache zu verstehen.",
+    "en": "I find it difficult to understand fast speech.",
+    "ru": "Мне трудно понимать быструю речь.",
+    "it": "Faccio fatica a capire chi parla velocemente.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я краще запам'ятовую, коли пишу від руки.",
+    "de": "Ich kann mir etwas besser merken, wenn ich es mit der Hand aufschreibe.",
+    "en": "I remember things better when I write them by hand.",
+    "ru": "Я лучше запоминаю, когда пишу от руки.",
+    "it": "Ricordo meglio le cose quando le scrivo a mano.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Моя мета на цей тиждень: вивчити двадцять фраз.",
+    "de": "Mein Ziel für diese Woche ist, zwanzig Sätze zu lernen.",
+    "en": "My goal for this week is to learn twenty phrases.",
+    "ru": "Моя цель на эту неделю: выучить двадцать фраз.",
+    "it": "Il mio obiettivo per questa settimana è imparare venti frasi.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хотів би потренувати вимову.",
+    "de": "Ich möchte gern die Aussprache üben.",
+    "en": "I'd like to practise pronunciation.",
+    "ru": "Я хотел бы потренировать произношение.",
+    "it": "Vorrei esercitarmi nella pronuncia.",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Чувства и поддержка",
+  "rows": [
+   {
+    "uk": "Я дуже радий тебе бачити.",
+    "de": "Ich freue mich sehr, dich zu sehen.",
+    "en": "I'm really happy to see you.",
+    "ru": "Я очень рад тебя видеть.",
+    "it": "Sono molto contento di vederti.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я сумую за домом.",
+    "de": "Ich habe Heimweh.",
+    "en": "I miss home.",
+    "ru": "Я скучаю по дому.",
+    "it": "Ho nostalgia di casa.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хвилююся через іспит.",
+    "de": "Ich mache mir Sorgen wegen der Prüfung.",
+    "en": "I'm worried about the exam.",
+    "ru": "Я волнуюсь из-за экзамена.",
+    "it": "Sono preoccupato per l'esame.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені трохи ніяково.",
+    "de": "Das ist mir etwas unangenehm.",
+    "en": "I feel a little awkward about this.",
+    "ru": "Мне немного неловко.",
+    "it": "Mi sento un po' a disagio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я розчарований результатом.",
+    "de": "Ich bin vom Ergebnis enttäuscht.",
+    "en": "I'm disappointed with the result.",
+    "ru": "Я разочарован результатом.",
+    "it": "Sono deluso dal risultato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я пишаюся тобою.",
+    "de": "Ich bin stolz auf dich.",
+    "en": "I'm proud of you.",
+    "ru": "Я горжусь тобой.",
+    "it": "Sono orgoglioso di te.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Що тебе турбує?",
+    "de": "Was macht dir Sorgen?",
+    "en": "What's worrying you?",
+    "ru": "Что тебя беспокоит?",
+    "it": "Che cosa ti preoccupa?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Хочеш про це поговорити?",
+    "de": "Möchtest du darüber reden?",
+    "en": "Would you like to talk about it?",
+    "ru": "Хочешь об этом поговорить?",
+    "it": "Vuoi parlarne?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я тебе слухаю.",
+    "de": "Ich höre dir zu.",
+    "en": "I'm listening to you.",
+    "ru": "Я тебя слушаю.",
+    "it": "Ti ascolto.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я розумію, що ти відчуваєш.",
+    "de": "Ich verstehe, wie du dich fühlst.",
+    "en": "I understand how you feel.",
+    "ru": "Я понимаю, что ты чувствуешь.",
+    "it": "Capisco come ti senti.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Ти не один.",
+    "de": "Du bist nicht allein.",
+    "en": "You're not alone.",
+    "ru": "Ты не один.",
+    "it": "Non sei solo.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Не поспішай.",
+    "de": "Lass dir Zeit.",
+    "en": "Take your time.",
+    "ru": "Не спеши.",
+    "it": "Prenditi il tuo tempo.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Зробімо невелику перерву.",
+    "de": "Machen wir eine kurze Pause.",
+    "en": "Let's take a short break.",
+    "ru": "Давай сделаем небольшой перерыв.",
+    "it": "Facciamo una piccola pausa.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Тобі потрібна допомога чи порада?",
+    "de": "Brauchst du Hilfe oder einen Rat?",
+    "en": "Do you need help or advice?",
+    "ru": "Тебе нужна помощь или совет?",
+    "it": "Hai bisogno di aiuto o di un consiglio?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Мені потрібен час на себе.",
+    "de": "Ich brauche Zeit für mich.",
+    "en": "I need some time for myself.",
+    "ru": "Мне нужно время для себя.",
+    "it": "Ho bisogno di tempo per me.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Дякую, що ти поруч.",
+    "de": "Danke, dass du da bist.",
+    "en": "Thank you for being there.",
+    "ru": "Спасибо, что ты рядом.",
+    "it": "Grazie per essermi vicino.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Це, мабуть, було важко для тебе.",
+    "de": "Das muss schwer für dich gewesen sein.",
+    "en": "That must have been hard for you.",
+    "ru": "Наверное, тебе было тяжело.",
+    "it": "Dev'essere stato difficile per te.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Тобі не обов'язково все пояснювати.",
+    "de": "Du musst nicht alles erklären.",
+    "en": "You don't have to explain everything.",
+    "ru": "Тебе не обязательно всё объяснять.",
+    "it": "Non devi spiegare tutto.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я поруч, якщо тобі потрібна компанія.",
+    "de": "Ich bin da, wenn du Gesellschaft brauchst.",
+    "en": "I'm here if you need company.",
+    "ru": "Я рядом, если тебе нужна компания.",
+    "it": "Sono qui se hai bisogno di compagnia.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Це не твоя провина.",
+    "de": "Das ist nicht deine Schuld.",
+    "en": "It's not your fault.",
+    "ru": "Это не твоя вина.",
+    "it": "Non è colpa tua.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я не розумів, наскільки це було важливо для тебе.",
+    "de": "Ich wusste nicht, wie wichtig dir das war.",
+    "en": "I didn't realise how important it was to you.",
+    "ru": "Я не понимал, насколько это было важно для тебя.",
+    "it": "Non mi rendevo conto di quanto fosse importante per te.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Мені потрібно заспокоїтися.",
+    "de": "Ich muss mich beruhigen.",
+    "en": "I need to calm down.",
+    "ru": "Мне нужно успокоиться.",
+    "it": "Ho bisogno di calmarmi.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я відчуваю полегшення.",
+    "de": "Ich bin erleichtert.",
+    "en": "I feel relieved.",
+    "ru": "Я чувствую облегчение.",
+    "it": "Mi sento sollevato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я на тебе не серджуся.",
+    "de": "Ich bin dir nicht böse.",
+    "en": "I'm not angry with you.",
+    "ru": "Я на тебя не сержусь.",
+    "it": "Non sono arrabbiato con te.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Хочеш, я тебе обійму?",
+    "de": "Möchtest du eine Umarmung?",
+    "en": "Would you like a hug?",
+    "ru": "Хочешь, я тебя обниму?",
+    "it": "Vuoi un abbraccio?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я радий, що ти мені розповів.",
+    "de": "Ich bin froh, dass du es mir erzählt hast.",
+    "en": "I'm glad you told me.",
+    "ru": "Я рад, что ты мне рассказал.",
+    "it": "Sono contento che tu me l'abbia detto.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я радію, коли ми проводимо час разом.",
+    "de": "Ich freue mich, wenn wir Zeit zusammen verbringen.",
+    "en": "I'm happy when we spend time together.",
+    "ru": "Я радуюсь, когда мы проводим время вместе.",
+    "it": "Sono felice quando passiamo del tempo insieme.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені сумно, що ти їдеш.",
+    "de": "Es macht mich traurig, dass du wegfährst.",
+    "en": "It makes me sad that you're leaving.",
+    "ru": "Мне грустно, что ты уезжаешь.",
+    "it": "Mi dispiace che tu parta.",
+    "type": "Пример",
+    "register": "ты"
+   },
+   {
+    "uk": "Я хвилююся за батьків.",
+    "de": "Ich mache mir Sorgen um meine Eltern.",
+    "en": "I'm worried about my parents.",
+    "ru": "Я переживаю за родителей.",
+    "it": "Sono preoccupato per i miei genitori.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Прогулянка допомагає мені розслабитися.",
+    "de": "Ein Spaziergang hilft mir, mich zu entspannen.",
+    "en": "Going for a walk helps me relax.",
+    "ru": "Прогулка помогает мне расслабиться.",
+    "it": "Fare una passeggiata mi aiuta a rilassarmi.",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Аккаунты и цифровой быт",
+  "rows": [
+   {
+    "uk": "Я не можу увійти в акаунт.",
+    "de": "Ich kann mich nicht in meinem Konto anmelden.",
+    "en": "I can't log in to my account.",
+    "ru": "Я не могу войти в аккаунт.",
+    "it": "Non riesco ad accedere al mio account.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я забув пароль.",
+    "de": "Ich habe mein Passwort vergessen.",
+    "en": "I've forgotten my password.",
+    "ru": "Я забыл пароль.",
+    "it": "Ho dimenticato la password.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як скинути пароль?",
+    "de": "Wie setze ich mein Passwort zurück?",
+    "en": "How do I reset my password?",
+    "ru": "Как сбросить пароль?",
+    "it": "Come reimposto la password?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Код підтвердження не надійшов.",
+    "de": "Der Bestätigungscode ist nicht angekommen.",
+    "en": "The verification code hasn't arrived.",
+    "ru": "Код подтверждения не пришёл.",
+    "it": "Il codice di verifica non è arrivato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Посилання більше не працює.",
+    "de": "Der Link funktioniert nicht mehr.",
+    "en": "The link no longer works.",
+    "ru": "Ссылка больше не работает.",
+    "it": "Il link non funziona più.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Файл занадто великий.",
+    "de": "Die Datei ist zu groß.",
+    "en": "The file is too large.",
+    "ru": "Файл слишком большой.",
+    "it": "Il file è troppo grande.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можеш надіслати це як PDF?",
+    "de": "Kannst du das als PDF schicken?",
+    "en": "Can you send it as a PDF?",
+    "ru": "Можешь прислать это как PDF?",
+    "it": "Puoi mandarlo in formato PDF?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Мене добре чути?",
+    "de": "Kann man mich gut hören?",
+    "en": "Can you hear me clearly?",
+    "ru": "Меня хорошо слышно?",
+    "it": "Mi sentite bene?",
+    "type": "Фраза",
+    "register": "группа"
+   },
+   {
+    "uk": "У мене вимкнений мікрофон.",
+    "de": "Mein Mikrofon ist ausgeschaltet.",
+    "en": "My microphone is muted.",
+    "ru": "У меня выключен микрофон.",
+    "it": "Il mio microfono è disattivato.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Зображення зависло.",
+    "de": "Das Bild ist eingefroren.",
+    "en": "The picture has frozen.",
+    "ru": "Изображение зависло.",
+    "it": "L'immagine si è bloccata.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я підключуся ще раз.",
+    "de": "Ich verbinde mich noch einmal.",
+    "en": "I'll reconnect.",
+    "ru": "Я подключусь ещё раз.",
+    "it": "Mi ricollego.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи потрібно встановити оновлення?",
+    "de": "Muss ich das Update installieren?",
+    "en": "Do I need to install the update?",
+    "ru": "Нужно ли установить обновление?",
+    "it": "Devo installare l'aggiornamento?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я зробив резервну копію.",
+    "de": "Ich habe eine Sicherungskopie erstellt.",
+    "en": "I've made a backup.",
+    "ru": "Я сделал резервную копию.",
+    "it": "Ho fatto una copia di backup.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Не надсилай мені свій пароль.",
+    "de": "Schick mir nicht dein Passwort.",
+    "en": "Don't send me your password.",
+    "ru": "Не присылай мне свой пароль.",
+    "it": "Non mandarmi la tua password.",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я не знаю відправника.",
+    "de": "Ich kenne den Absender nicht.",
+    "en": "I don't know the sender.",
+    "ru": "Я не знаю отправителя.",
+    "it": "Non conosco il mittente.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хочу вимкнути сповіщення.",
+    "de": "Ich möchte die Benachrichtigungen ausschalten.",
+    "en": "I'd like to turn off notifications.",
+    "ru": "Я хочу отключить уведомления.",
+    "it": "Vorrei disattivare le notifiche.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я випадково видалив фото.",
+    "de": "Ich habe das Foto versehentlich gelöscht.",
+    "en": "I accidentally deleted the photo.",
+    "ru": "Я случайно удалил фотографию.",
+    "it": "Ho cancellato la foto per sbaglio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чи можна відновити цей файл?",
+    "de": "Kann man diese Datei wiederherstellen?",
+    "en": "Can this file be recovered?",
+    "ru": "Можно ли восстановить этот файл?",
+    "it": "Si può recuperare questo file?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хочу видалити свій обліковий запис.",
+    "de": "Ich möchte mein Konto löschen.",
+    "en": "I want to delete my account.",
+    "ru": "Я хочу удалить свой аккаунт.",
+    "it": "Voglio eliminare il mio account.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як вийти з облікового запису на інших пристроях?",
+    "de": "Wie melde ich mich auf anderen Geräten ab?",
+    "en": "How do I log out on other devices?",
+    "ru": "Как выйти из аккаунта на других устройствах?",
+    "it": "Come faccio a disconnettermi dagli altri dispositivi?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Цей застосунок безкоштовний чи платний?",
+    "de": "Ist diese App kostenlos oder kostenpflichtig?",
+    "en": "Is this app free or paid?",
+    "ru": "Это приложение бесплатное или платное?",
+    "it": "Questa app è gratuita o a pagamento?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не хочу продовжувати пробну підписку.",
+    "de": "Ich möchte das Probeabonnement nicht verlängern.",
+    "en": "I don't want to extend the trial subscription.",
+    "ru": "Я не хочу продлевать пробную подписку.",
+    "it": "Non voglio prolungare l'abbonamento di prova.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чому застосунку потрібен доступ до камери?",
+    "de": "Warum braucht die App Zugriff auf die Kamera?",
+    "en": "Why does the app need access to the camera?",
+    "ru": "Почему приложению нужен доступ к камере?",
+    "it": "Perché l'app ha bisogno di accedere alla fotocamera?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я ввімкнув двофакторну автентифікацію.",
+    "de": "Ich habe die Zwei-Faktor-Authentifizierung aktiviert.",
+    "en": "I've enabled two-factor authentication.",
+    "ru": "Я включил двухфакторную аутентификацию.",
+    "it": "Ho attivato l'autenticazione a due fattori.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені бракує місця на телефоні.",
+    "de": "Ich habe nicht genug Speicherplatz auf dem Handy.",
+    "en": "I don't have enough storage space on my phone.",
+    "ru": "Мне не хватает места на телефоне.",
+    "it": "Non ho abbastanza spazio di memoria sul telefono.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не можу приєднатися до відеодзвінка.",
+    "de": "Ich kann nicht am Videoanruf teilnehmen.",
+    "en": "I can't join the video call.",
+    "ru": "Я не могу присоединиться к видеозвонку.",
+    "it": "Non riesco a partecipare alla videochiamata.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене не виходить завантажити фото.",
+    "de": "Ich schaffe es nicht, das Foto hochzuladen.",
+    "en": "I can't manage to upload the photo.",
+    "ru": "У меня не получается загрузить фотографию.",
+    "it": "Non riesco a caricare la foto.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На екрані написано: «Неправильний пароль».",
+    "de": "Auf dem Bildschirm steht: „Falsches Passwort“.",
+    "en": "The screen says 'Incorrect password'.",
+    "ru": "На экране написано: «Неверный пароль».",
+    "it": "Sullo schermo c'è scritto: «Password errata».",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де можна змінити мову?",
+    "de": "Wo kann ich die Sprache ändern?",
+    "en": "Where can I change the language?",
+    "ru": "Где можно изменить язык?",
+    "it": "Dove posso cambiare la lingua?",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я отримав повідомлення про затримку доставки.",
+    "de": "Ich habe eine Nachricht über eine Lieferverzögerung erhalten.",
+    "en": "I received a message about a delivery delay.",
+    "ru": "Я получил сообщение о задержке доставки.",
+    "it": "Ho ricevuto un messaggio su un ritardo nella consegna.",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Сравнение и условия",
+  "rows": [
+   {
+    "uk": "Цей варіант мені більше підходить.",
+    "de": "Diese Möglichkeit passt besser zu mir.",
+    "en": "This option suits me better.",
+    "ru": "Этот вариант мне больше подходит.",
+    "it": "Questa opzione è più adatta a me.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це дешевше, але далі.",
+    "de": "Es ist günstiger, aber weiter weg.",
+    "en": "It's cheaper but further away.",
+    "ru": "Это дешевле, но дальше.",
+    "it": "Costa meno, ma è più lontano.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Для мене час важливіший за ціну.",
+    "de": "Zeit ist mir wichtiger als der Preis.",
+    "en": "Time matters more to me than the price.",
+    "ru": "Для меня время важнее цены.",
+    "it": "Per me il tempo conta più del prezzo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Обидва варіанти хороші.",
+    "de": "Beide Möglichkeiten sind gut.",
+    "en": "Both options are good.",
+    "ru": "Оба варианта хорошие.",
+    "it": "Entrambe le opzioni sono buone.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я ще не вирішив.",
+    "de": "Ich habe mich noch nicht entschieden.",
+    "en": "I haven't decided yet.",
+    "ru": "Я ещё не решил.",
+    "it": "Non ho ancora deciso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це залежить від погоди.",
+    "de": "Das hängt vom Wetter ab.",
+    "en": "It depends on the weather.",
+    "ru": "Это зависит от погоды.",
+    "it": "Dipende dal tempo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я залишуся вдома, бо йде дощ.",
+    "de": "Ich bleibe zu Hause, weil es regnet.",
+    "en": "I'm staying home because it's raining.",
+    "ru": "Я останусь дома, потому что идёт дождь.",
+    "it": "Resto a casa perché piove.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Якщо буде час, я прийду.",
+    "de": "Wenn ich Zeit habe, komme ich.",
+    "en": "If I have time, I'll come.",
+    "ru": "Если будет время, я приду.",
+    "it": "Se avrò tempo, verrò.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми можемо почати без нього.",
+    "de": "Wir können ohne ihn anfangen.",
+    "en": "We can start without him.",
+    "ru": "Мы можем начать без него.",
+    "it": "Possiamo iniziare senza di lui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Спочатку потрібно запитати.",
+    "de": "Zuerst muss man fragen.",
+    "en": "We need to ask first.",
+    "ru": "Сначала нужно спросить.",
+    "it": "Prima bisogna chiedere.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Краще зробити це зараз.",
+    "de": "Es ist besser, das jetzt zu machen.",
+    "en": "It's better to do it now.",
+    "ru": "Лучше сделать это сейчас.",
+    "it": "È meglio farlo adesso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це не так складно, як здається.",
+    "de": "Es ist nicht so schwierig, wie es aussieht.",
+    "en": "It's not as difficult as it looks.",
+    "ru": "Это не так сложно, как кажется.",
+    "it": "Non è così difficile come sembra.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібне щось простіше.",
+    "de": "Ich brauche etwas Einfacheres.",
+    "en": "I need something simpler.",
+    "ru": "Мне нужно что-то попроще.",
+    "it": "Mi serve qualcosa di più semplice.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я обираю якість, а не кількість.",
+    "de": "Ich wähle Qualität statt Quantität.",
+    "en": "I choose quality rather than quantity.",
+    "ru": "Я выбираю качество, а не количество.",
+    "it": "Scelgo la qualità invece della quantità.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це можливо лише вранці.",
+    "de": "Das ist nur morgens möglich.",
+    "en": "That's only possible in the morning.",
+    "ru": "Это возможно только утром.",
+    "it": "È possibile solo di mattina.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Іншого варіанта немає.",
+    "de": "Es gibt keine andere Möglichkeit.",
+    "en": "There's no other option.",
+    "ru": "Другого варианта нет.",
+    "it": "Non c'è un'altra possibilità.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У першого варіанта коротший строк очікування.",
+    "de": "Bei der ersten Option ist die Wartezeit kürzer.",
+    "en": "The first option has a shorter waiting time.",
+    "ru": "У первого варианта короче срок ожидания.",
+    "it": "La prima opzione prevede un'attesa più breve.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Різниця в ціні невелика.",
+    "de": "Der Preisunterschied ist gering.",
+    "en": "The price difference is small.",
+    "ru": "Разница в цене небольшая.",
+    "it": "La differenza di prezzo è piccola.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це підходить не всім.",
+    "de": "Das ist nicht für alle geeignet.",
+    "en": "This isn't suitable for everyone.",
+    "ru": "Это подходит не всем.",
+    "it": "Questo non è adatto a tutti.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Що входить у дорожчий варіант?",
+    "de": "Was ist bei der teureren Option enthalten?",
+    "en": "What's included in the more expensive option?",
+    "ru": "Что входит в более дорогой вариант?",
+    "it": "Che cosa comprende l'opzione più costosa?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Без підтвердження я не можу бронювати.",
+    "de": "Ohne Bestätigung kann ich nicht buchen.",
+    "en": "Without confirmation, I can't book.",
+    "ru": "Без подтверждения я не могу бронировать.",
+    "it": "Senza conferma non posso prenotare.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Спочатку перевірмо, чи вистачить місця.",
+    "de": "Prüfen wir zuerst, ob genug Platz da ist.",
+    "en": "Let's first check whether there's enough space.",
+    "ru": "Сначала проверим, хватит ли места.",
+    "it": "Controlliamo prima se c'è abbastanza spazio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Обидва квитки діють на той самий маршрут.",
+    "de": "Beide Fahrkarten gelten für dieselbe Strecke.",
+    "en": "Both tickets are valid for the same route.",
+    "ru": "Оба билета действуют на один и тот же маршрут.",
+    "it": "Entrambi i biglietti sono validi per lo stesso percorso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Чим раніше ми почнемо, тим раніше закінчимо.",
+    "de": "Je früher wir anfangen, desto früher sind wir fertig.",
+    "en": "The earlier we start, the earlier we'll finish.",
+    "ru": "Чем раньше мы начнём, тем раньше закончим.",
+    "it": "Prima iniziamo, prima finiamo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "За таку саму ціну тут пропонують більше.",
+    "de": "Zum gleichen Preis bekommt man hier mehr.",
+    "en": "You get more here for the same price.",
+    "ru": "За ту же цену здесь предлагают больше.",
+    "it": "Qui si ottiene di più allo stesso prezzo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я погоджуся, якщо можна буде змінити дату.",
+    "de": "Ich sage zu, wenn sich das Datum ändern lässt.",
+    "en": "I'll agree if the date can be changed.",
+    "ru": "Я соглашусь, если можно будет изменить дату.",
+    "it": "Accetterò se sarà possibile cambiare la data.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я обираю потяг, тому що він швидший.",
+    "de": "Ich nehme den Zug, weil er schneller ist.",
+    "en": "I choose the train because it's faster.",
+    "ru": "Я выбираю поезд, потому что он быстрее.",
+    "it": "Scelgo il treno perché è più veloce.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Якщо завтра буде дощ, ми залишимося вдома.",
+    "de": "Wenn es morgen regnet, bleiben wir zu Hause.",
+    "en": "If it rains tomorrow, we'll stay at home.",
+    "ru": "Если завтра будет дождь, мы останемся дома.",
+    "it": "Se domani piove, restiamo a casa.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Для мене здоров'я важливіше за роботу.",
+    "de": "Für mich ist Gesundheit wichtiger als Arbeit.",
+    "en": "For me, health is more important than work.",
+    "ru": "Для меня здоровье важнее работы.",
+    "it": "Per me la salute è più importante del lavoro.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Замість того щоб телефонувати, можна написати електронного листа.",
+    "de": "Statt anzurufen, kann man eine E-Mail schreiben.",
+    "en": "Instead of calling, you can send an email.",
+    "ru": "Вместо того чтобы звонить, можно написать электронное письмо.",
+    "it": "Invece di telefonare, si può mandare un'email.",
+    "type": "Пример",
+    "register": "нейтр."
+   }
+  ]
+ }
+]

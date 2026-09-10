@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: shopping_payment
+name: "Einkauf und Kasse"
 tiers:
   a1:
     - id: shopping_payment_a1_01
@@ -40,10 +41,36 @@ tiers:
     - id: shopping_payment_a1_16
       text: "Ich brauche keine Tüte."
     - id: shopping_payment_a1_17
-      text: "Ich suche ... für ..."
+      text: "Ist dieser Artikel vorrätig?"
     - id: shopping_payment_a1_18
-      text: "Kann ich ... sehen?"
+      text: "Wo finde ich das Preisschild?"
     - id: shopping_payment_a1_19
-      text: "Das kostet ..."
+      text: "Wie viel kostet ein Kilo?"
     - id: shopping_payment_a1_20
-      text: "Ich bezahle für ..."
+      text: "Kann ich mit dem Handy bezahlen?"
+    - id: shopping_payment_a1_21
+      text: "Meine Karte wurde abgelehnt."
+    - id: shopping_payment_a1_22
+      text: "Ich versuche es mit einer anderen Karte."
+    - id: shopping_payment_a1_23
+      text: "Sie haben mir zu viel Wechselgeld gegeben."
+      register: formal
+    - id: shopping_payment_a1_24
+      text: "Ich nehme es doch nicht, danke."
+    - id: shopping_payment_a1_25
+      text: "Können Sie das als Geschenk einpacken?"
+      register: formal
+    - id: shopping_payment_a1_26
+      text: "Muss ich das selbst wiegen?"
+    - id: shopping_payment_a1_27
+      text: "Ich suche ein Geschenk für meine Schwester."
+      kind: example
+    - id: shopping_payment_a1_28
+      text: "Kann ich die Uhr dort sehen?"
+      kind: example
+    - id: shopping_payment_a1_29
+      text: "Das kostet zwanzig Euro."
+      kind: example
+    - id: shopping_payment_a1_30
+      text: "Ich bezahle beide Fahrkarten."
+      kind: example

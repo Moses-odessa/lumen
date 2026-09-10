@@ -1,0 +1,1377 @@
+[
+ {
+  "title": "Первый контакт",
+  "rows": [
+   {
+    "uk": "Привіт!",
+    "de": "Hallo!",
+    "en": "Hello!",
+    "ru": "Привет!",
+    "it": "Ciao!",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Доброго ранку!",
+    "de": "Guten Morgen!",
+    "en": "Good morning!",
+    "ru": "Доброе утро!",
+    "it": "Buongiorno!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Добрий вечір!",
+    "de": "Guten Abend!",
+    "en": "Good evening!",
+    "ru": "Добрый вечер!",
+    "it": "Buonasera!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "На добраніч!",
+    "de": "Gute Nacht!",
+    "en": "Good night!",
+    "ru": "Спокойной ночи!",
+    "it": "Buonanotte!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До побачення!",
+    "de": "Auf Wiedersehen!",
+    "en": "Goodbye!",
+    "ru": "До свидания!",
+    "it": "Arrivederci!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До завтра!",
+    "de": "Bis morgen!",
+    "en": "See you tomorrow!",
+    "ru": "До завтра!",
+    "it": "A domani!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До зустрічі!",
+    "de": "Bis bald!",
+    "en": "See you soon!",
+    "ru": "До встречи!",
+    "it": "A presto!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як справи?",
+    "de": "Wie geht's?",
+    "en": "How's it going?",
+    "ru": "Как дела?",
+    "it": "Come va?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Добре, дякую.",
+    "de": "Gut, danke.",
+    "en": "Fine, thanks.",
+    "ru": "Хорошо, спасибо.",
+    "it": "Bene, grazie.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "А в тебе?",
+    "de": "Und dir?",
+    "en": "And you?",
+    "ru": "А у тебя?",
+    "it": "E tu?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Дуже приємно.",
+    "de": "Freut mich.",
+    "en": "Nice to meet you.",
+    "ru": "Очень приятно.",
+    "it": "Piacere.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ласкаво просимо!",
+    "de": "Herzlich willkommen!",
+    "en": "Welcome!",
+    "ru": "Добро пожаловать!",
+    "it": "Benvenuto!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Дякую за допомогу.",
+    "de": "Danke für die Hilfe.",
+    "en": "Thanks for the help.",
+    "ru": "Спасибо за помощь.",
+    "it": "Grazie per l'aiuto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Нема за що.",
+    "de": "Gern geschehen.",
+    "en": "You're welcome.",
+    "ru": "Не за что.",
+    "it": "Di niente.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Перепрошую.",
+    "de": "Entschuldigung.",
+    "en": "Excuse me.",
+    "ru": "Извините.",
+    "it": "Mi scusi.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Мені шкода.",
+    "de": "Es tut mir leid.",
+    "en": "I'm sorry.",
+    "ru": "Мне жаль.",
+    "it": "Mi dispiace.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Нічого страшного.",
+    "de": "Kein Problem.",
+    "en": "No problem.",
+    "ru": "Ничего страшного.",
+    "it": "Nessun problema.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Гарного дня!",
+    "de": "Schönen Tag noch!",
+    "en": "Have a nice day!",
+    "ru": "Хорошего дня!",
+    "it": "Buona giornata!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Дякую за подарунок.",
+    "de": "Danke für das Geschenk.",
+    "en": "Thank you for the gift.",
+    "ru": "Спасибо за подарок.",
+    "it": "Grazie per il regalo.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "До понеділка!",
+    "de": "Bis Montag!",
+    "en": "See you on Monday!",
+    "ru": "До понедельника!",
+    "it": "Ci vediamo lunedì!",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Добрий день!",
+    "de": "Guten Tag!",
+    "en": "Good afternoon!",
+    "ru": "Добрый день!",
+    "it": "Buon pomeriggio!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Заходьте, будь ласка.",
+    "de": "Kommen Sie bitte herein.",
+    "en": "Please come in.",
+    "ru": "Заходите, пожалуйста.",
+    "it": "Entri, prego.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Сідайте, будь ласка.",
+    "de": "Nehmen Sie bitte Platz.",
+    "en": "Please have a seat.",
+    "ru": "Садитесь, пожалуйста.",
+    "it": "Si accomodi, prego.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Дуже дякую!",
+    "de": "Vielen Dank!",
+    "en": "Thank you very much!",
+    "ru": "Большое спасибо!",
+    "it": "Grazie mille!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це дуже люб'язно з Вашого боку.",
+    "de": "Das ist sehr nett von Ihnen.",
+    "en": "That's very kind of you.",
+    "ru": "Это очень любезно с Вашей стороны.",
+    "it": "È molto gentile da parte Sua.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Гарних вихідних!",
+    "de": "Schönes Wochenende!",
+    "en": "Have a good weekend!",
+    "ru": "Хороших выходных!",
+    "it": "Buon fine settimana!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Щасливої дороги!",
+    "de": "Gute Reise!",
+    "en": "Have a safe journey!",
+    "ru": "Счастливого пути!",
+    "it": "Buon viaggio!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Смачного!",
+    "de": "Guten Appetit!",
+    "en": "Enjoy your meal!",
+    "ru": "Приятного аппетита!",
+    "it": "Buon appetito!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вибачте за запізнення.",
+    "de": "Entschuldigen Sie die Verspätung.",
+    "en": "Sorry I'm late.",
+    "ru": "Извините за опоздание.",
+    "it": "Mi scusi per il ritardo.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Мені вже час іти.",
+    "de": "Ich muss jetzt gehen.",
+    "en": "I have to go now.",
+    "ru": "Мне уже пора идти.",
+    "it": "Ora devo andare.",
+    "type": "Фраза",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "О себе",
+  "rows": [
+   {
+    "uk": "Мене звати Алекс.",
+    "de": "Ich heiße Alex.",
+    "en": "My name is Alex.",
+    "ru": "Меня зовут Алекс.",
+    "it": "Mi chiamo Alex.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як тебе звати?",
+    "de": "Wie heißt du?",
+    "en": "What's your name?",
+    "ru": "Как тебя зовут?",
+    "it": "Come ti chiami?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я з України.",
+    "de": "Ich komme aus der Ukraine.",
+    "en": "I'm from Ukraine.",
+    "ru": "Я из Украины.",
+    "it": "Vengo dall'Ucraina.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Звідки ти?",
+    "de": "Woher kommst du?",
+    "en": "Where are you from?",
+    "ru": "Откуда ты?",
+    "it": "Da dove vieni?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я живу в Берліні.",
+    "de": "Ich wohne in Berlin.",
+    "en": "I live in Berlin.",
+    "ru": "Я живу в Берлине.",
+    "it": "Abito a Berlino.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де ти живеш?",
+    "de": "Wo wohnst du?",
+    "en": "Where do you live?",
+    "ru": "Где ты живёшь?",
+    "it": "Dove abiti?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Мені тридцять років.",
+    "de": "Ich bin dreißig Jahre alt.",
+    "en": "I'm thirty years old.",
+    "ru": "Мне тридцать лет.",
+    "it": "Ho trent'anni.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки тобі років?",
+    "de": "Wie alt bist du?",
+    "en": "How old are you?",
+    "ru": "Сколько тебе лет?",
+    "it": "Quanti anni hai?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Я працюю тут.",
+    "de": "Ich arbeite hier.",
+    "en": "I work here.",
+    "ru": "Я работаю здесь.",
+    "it": "Lavoro qui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я навчаюся.",
+    "de": "Ich lerne.",
+    "en": "I'm studying.",
+    "ru": "Я учусь.",
+    "it": "Studio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це мій друг.",
+    "de": "Das ist mein Freund.",
+    "en": "This is my friend.",
+    "ru": "Это мой друг.",
+    "it": "Questo è il mio amico.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це моя сім'я.",
+    "de": "Das ist meine Familie.",
+    "en": "This is my family.",
+    "ru": "Это моя семья.",
+    "it": "Questa è la mia famiglia.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут уперше.",
+    "de": "Ich bin zum ersten Mal hier.",
+    "en": "It's my first time here.",
+    "ru": "Я здесь впервые.",
+    "it": "È la mia prima volta qui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут у відпустці.",
+    "de": "Ich bin hier im Urlaub.",
+    "en": "I'm here on holiday.",
+    "ru": "Я здесь в отпуске.",
+    "it": "Sono qui in vacanza.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я розмовляю англійською.",
+    "de": "Ich spreche Englisch.",
+    "en": "I speak English.",
+    "ru": "Я говорю по-английски.",
+    "it": "Parlo inglese.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я трохи розмовляю німецькою.",
+    "de": "Ich spreche ein bisschen Deutsch.",
+    "en": "I speak a little German.",
+    "ru": "Я немного говорю по-немецки.",
+    "it": "Parlo un po' di tedesco.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я ще вчуся.",
+    "de": "Ich lerne noch.",
+    "en": "I'm still learning.",
+    "ru": "Я ещё учусь.",
+    "it": "Sto ancora imparando.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Моя адреса: Park Street, 10.",
+    "de": "Meine Adresse ist 10 Park Street.",
+    "en": "My address is 10 Park Street.",
+    "ru": "Мой адрес: Park Street, 10.",
+    "it": "Il mio indirizzo è 10 Park Street.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мій номер телефону: 0123 456789.",
+    "de": "Meine Telefonnummer ist 0123 456789.",
+    "en": "My phone number is 0123 456789.",
+    "ru": "Мой номер телефона: 0123 456789.",
+    "it": "Il mio numero di telefono è 0123 456789.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "А ти?",
+    "de": "Und du?",
+    "en": "What about you?",
+    "ru": "А ты?",
+    "it": "E tu, invece?",
+    "type": "Фраза",
+    "register": "ты"
+   },
+   {
+    "uk": "Моє прізвище Коваленко.",
+    "de": "Mein Nachname ist Kovalenko.",
+    "en": "My surname is Kovalenko.",
+    "ru": "Моя фамилия Коваленко.",
+    "it": "Il mio cognome è Kovalenko.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це моє ім'я.",
+    "de": "Das ist mein Vorname.",
+    "en": "This is my first name.",
+    "ru": "Это моё имя.",
+    "it": "Questo è il mio nome.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я громадянин України.",
+    "de": "Ich bin ukrainischer Staatsbürger.",
+    "en": "I'm a Ukrainian citizen.",
+    "ru": "Я гражданин Украины.",
+    "it": "Sono cittadino ucraino.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я неодружений.",
+    "de": "Ich bin ledig.",
+    "en": "I'm single.",
+    "ru": "Я не женат.",
+    "it": "Sono single.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут гість.",
+    "de": "Ich bin hier zu Gast.",
+    "en": "I'm a guest here.",
+    "ru": "Я здесь гость.",
+    "it": "Sono un ospite qui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут у справах.",
+    "de": "Ich bin geschäftlich hier.",
+    "en": "I'm here on business.",
+    "ru": "Я здесь по делам.",
+    "it": "Sono qui per lavoro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я подорожую сам.",
+    "de": "Ich reise allein.",
+    "en": "I'm travelling alone.",
+    "ru": "Я путешествую один.",
+    "it": "Viaggio da solo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я з нею.",
+    "de": "Ich bin mit ihr hier.",
+    "en": "I'm here with her.",
+    "ru": "Я с ней.",
+    "it": "Sono qui con lei.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут із сином.",
+    "de": "Ich bin mit meinem Sohn hier.",
+    "en": "I'm here with my son.",
+    "ru": "Я здесь с сыном.",
+    "it": "Sono qui con mio figlio.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ось моє посвідчення особи.",
+    "de": "Hier ist mein Ausweis.",
+    "en": "Here is my ID.",
+    "ru": "Вот моё удостоверение личности.",
+    "it": "Ecco il mio documento d'identità.",
+    "type": "Фраза",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Понимание и переспрос",
+  "rows": [
+   {
+    "uk": "Я не розумію.",
+    "de": "Ich verstehe nicht.",
+    "en": "I don't understand.",
+    "ru": "Я не понимаю.",
+    "it": "Non capisco.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Тепер я розумію.",
+    "de": "Jetzt verstehe ich.",
+    "en": "Now I understand.",
+    "ru": "Теперь я понимаю.",
+    "it": "Adesso capisco.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Повільніше, будь ласка.",
+    "de": "Langsamer, bitte.",
+    "en": "More slowly, please.",
+    "ru": "Помедленнее, пожалуйста.",
+    "it": "Più lentamente, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ще раз, будь ласка.",
+    "de": "Noch einmal, bitte.",
+    "en": "Once more, please.",
+    "ru": "Ещё раз, пожалуйста.",
+    "it": "Ancora una volta, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Повторіть, будь ласка.",
+    "de": "Wiederholen Sie das bitte.",
+    "en": "Please repeat that.",
+    "ru": "Повторите, пожалуйста.",
+    "it": "Ripeta, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Що це означає?",
+    "de": "Was bedeutet das?",
+    "en": "What does that mean?",
+    "ru": "Что это значит?",
+    "it": "Che cosa significa?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як це сказати німецькою?",
+    "de": "Wie sagt man das auf Deutsch?",
+    "en": "How do you say that in German?",
+    "ru": "Как это сказать по-немецки?",
+    "it": "Come si dice in tedesco?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як це пишеться?",
+    "de": "Wie schreibt man das?",
+    "en": "How do you spell that?",
+    "ru": "Как это пишется?",
+    "it": "Come si scrive?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Напишіть це, будь ласка.",
+    "de": "Schreiben Sie das bitte auf.",
+    "en": "Please write it down.",
+    "ru": "Напишите это, пожалуйста.",
+    "it": "Lo scriva, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Покажіть, будь ласка.",
+    "de": "Zeigen Sie es mir bitte.",
+    "en": "Please show me.",
+    "ru": "Покажите, пожалуйста.",
+    "it": "Me lo mostri, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я не знаю.",
+    "de": "Ich weiß nicht.",
+    "en": "I don't know.",
+    "ru": "Я не знаю.",
+    "it": "Non lo so.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не впевнений.",
+    "de": "Ich bin nicht sicher.",
+    "en": "I'm not sure.",
+    "ru": "Я не уверен.",
+    "it": "Non sono sicuro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Так, саме так.",
+    "de": "Ja, genau.",
+    "en": "Yes, exactly.",
+    "ru": "Да, именно так.",
+    "it": "Sì, esatto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ні, не це.",
+    "de": "Nein, nicht das.",
+    "en": "No, not that.",
+    "ru": "Нет, не это.",
+    "it": "No, non quello.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це правильно?",
+    "de": "Ist das richtig?",
+    "en": "Is that right?",
+    "ru": "Это правильно?",
+    "it": "È giusto?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Одну хвилинку, будь ласка.",
+    "de": "Einen Moment, bitte.",
+    "en": "One moment, please.",
+    "ru": "Одну минутку, пожалуйста.",
+    "it": "Un momento, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не чую.",
+    "de": "Ich höre nichts.",
+    "en": "I can't hear anything.",
+    "ru": "Я не слышу.",
+    "it": "Non sento niente.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Голосніше, будь ласка.",
+    "de": "Lauter, bitte.",
+    "en": "Louder, please.",
+    "ru": "Погромче, пожалуйста.",
+    "it": "Più forte, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна англійською?",
+    "de": "Geht es auf Englisch?",
+    "en": "Could we use English?",
+    "ru": "Можно по-английски?",
+    "it": "Possiamo parlare inglese?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як вимовляється слово «готель»?",
+    "de": "Wie spricht man das Wort „Hotel“ aus?",
+    "en": "How do you pronounce the word 'hotel'?",
+    "ru": "Как произносится слово «отель»?",
+    "it": "Come si pronuncia la parola «albergo»?",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Якою мовою?",
+    "de": "In welcher Sprache?",
+    "en": "In which language?",
+    "ru": "На каком языке?",
+    "it": "In quale lingua?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я трохи розумію.",
+    "de": "Ich verstehe ein bisschen.",
+    "en": "I understand a little.",
+    "ru": "Я немного понимаю.",
+    "it": "Capisco un po'.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Як це називається?",
+    "de": "Wie heißt das?",
+    "en": "What is this called?",
+    "ru": "Как это называется?",
+    "it": "Come si chiama questo?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не розмовляю італійською.",
+    "de": "Ich spreche kein Italienisch.",
+    "en": "I don't speak Italian.",
+    "ru": "Я не говорю по-итальянски.",
+    "it": "Non parlo italiano.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Так?",
+    "de": "So?",
+    "en": "Like this?",
+    "ru": "Так?",
+    "it": "Così?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це те саме?",
+    "de": "Ist das dasselbe?",
+    "en": "Is this the same thing?",
+    "ru": "Это то же самое?",
+    "it": "È la stessa cosa?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, використовуйте прості слова.",
+    "de": "Benutzen Sie bitte einfache Wörter.",
+    "en": "Please use simple words.",
+    "ru": "Пожалуйста, используйте простые слова.",
+    "it": "Usi parole semplici, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Будь ласка, покажіть пальцем.",
+    "de": "Zeigen Sie bitte mit dem Finger darauf.",
+    "en": "Please point to it.",
+    "ru": "Пожалуйста, покажите пальцем.",
+    "it": "Lo indichi con il dito, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я не розчув останнього слова.",
+    "de": "Ich habe das letzte Wort nicht verstanden.",
+    "en": "I didn't catch the last word.",
+    "ru": "Я не расслышал последнее слово.",
+    "it": "Non ho capito l'ultima parola.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна скористатися застосунком-перекладачем?",
+    "de": "Darf ich eine Übersetzungs-App benutzen?",
+    "en": "May I use a translation app?",
+    "ru": "Можно воспользоваться приложением-переводчиком?",
+    "it": "Posso usare un'app di traduzione?",
+    "type": "Фраза",
+    "register": "нейтр."
+   }
+  ]
+ },
+ {
+  "title": "Потребности и помощь",
+  "rows": [
+   {
+    "uk": "Мені потрібна допомога.",
+    "de": "Ich brauche Hilfe.",
+    "en": "I need help.",
+    "ru": "Мне нужна помощь.",
+    "it": "Ho bisogno di aiuto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Допоможіть мені, будь ласка.",
+    "de": "Helfen Sie mir bitte.",
+    "en": "Please help me.",
+    "ru": "Помогите мне, пожалуйста.",
+    "it": "Mi aiuti, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Я хочу пити.",
+    "de": "Ich habe Durst.",
+    "en": "I'm thirsty.",
+    "ru": "Я хочу пить.",
+    "it": "Ho sete.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хочу їсти.",
+    "de": "Ich habe Hunger.",
+    "en": "I'm hungry.",
+    "ru": "Я хочу есть.",
+    "it": "Ho fame.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я втомився.",
+    "de": "Ich bin müde.",
+    "en": "I'm tired.",
+    "ru": "Я устал.",
+    "it": "Sono stanco.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені холодно.",
+    "de": "Mir ist kalt.",
+    "en": "I'm cold.",
+    "ru": "Мне холодно.",
+    "it": "Ho freddo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені спекотно.",
+    "de": "Mir ist heiß.",
+    "en": "I'm hot.",
+    "ru": "Мне жарко.",
+    "it": "Ho caldo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені недобре.",
+    "de": "Mir geht es nicht gut.",
+    "en": "I don't feel well.",
+    "ru": "Мне нехорошо.",
+    "it": "Non mi sento bene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Води, будь ласка.",
+    "de": "Wasser, bitte.",
+    "en": "Water, please.",
+    "ru": "Воды, пожалуйста.",
+    "it": "Acqua, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Можна?",
+    "de": "Darf ich?",
+    "en": "May I?",
+    "ru": "Можно?",
+    "it": "Posso?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Так, будь ласка.",
+    "de": "Ja, bitte.",
+    "en": "Yes, please.",
+    "ru": "Да, пожалуйста.",
+    "it": "Sì, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ні, дякую.",
+    "de": "Nein, danke.",
+    "en": "No, thank you.",
+    "ru": "Нет, спасибо.",
+    "it": "No, grazie.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Цього достатньо.",
+    "de": "Das reicht.",
+    "en": "That's enough.",
+    "ru": "Этого достаточно.",
+    "it": "Basta così.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Не зараз.",
+    "de": "Nicht jetzt.",
+    "en": "Not now.",
+    "ru": "Не сейчас.",
+    "it": "Non adesso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я готовий.",
+    "de": "Ich bin bereit.",
+    "en": "I'm ready.",
+    "ru": "Я готов.",
+    "it": "Sono pronto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Обережно!",
+    "de": "Vorsicht!",
+    "en": "Watch out!",
+    "ru": "Осторожно!",
+    "it": "Attenzione!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Зачекайте, будь ласка.",
+    "de": "Warten Sie bitte.",
+    "en": "Please wait.",
+    "ru": "Подождите, пожалуйста.",
+    "it": "Aspetti, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Мені потрібна ручка.",
+    "de": "Ich brauche einen Stift.",
+    "en": "I need a pen.",
+    "ru": "Мне нужна ручка.",
+    "it": "Ho bisogno di una penna.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я хотів би чаю.",
+    "de": "Ich möchte einen Tee.",
+    "en": "I would like some tea.",
+    "ru": "Я хотел бы чаю.",
+    "it": "Vorrei un tè.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене немає готівки.",
+    "de": "Ich habe kein Bargeld.",
+    "en": "I don't have any cash.",
+    "ru": "У меня нет наличных.",
+    "it": "Non ho contanti.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я загубився.",
+    "de": "Ich habe mich verlaufen.",
+    "en": "I'm lost.",
+    "ru": "Я заблудился.",
+    "it": "Mi sono perso.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібно сісти.",
+    "de": "Ich muss mich hinsetzen.",
+    "en": "I need to sit down.",
+    "ru": "Мне нужно сесть.",
+    "it": "Devo sedermi.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені потрібна перерва.",
+    "de": "Ich brauche eine Pause.",
+    "en": "I need a break.",
+    "ru": "Мне нужен перерыв.",
+    "it": "Ho bisogno di una pausa.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Мені страшно.",
+    "de": "Ich habe Angst.",
+    "en": "I'm scared.",
+    "ru": "Мне страшно.",
+    "it": "Ho paura.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я не можу дихати.",
+    "de": "Ich kann nicht atmen.",
+    "en": "I can't breathe.",
+    "ru": "Я не могу дышать.",
+    "it": "Non riesco a respirare.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Пожежа!",
+    "de": "Feuer!",
+    "en": "Fire!",
+    "ru": "Пожар!",
+    "it": "Al fuoco!",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Будь ласка, не торкайтеся мене.",
+    "de": "Fassen Sie mich bitte nicht an.",
+    "en": "Please don't touch me.",
+    "ru": "Пожалуйста, не трогайте меня.",
+    "it": "Non mi tocchi, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   },
+   {
+    "uk": "Тут безпечно?",
+    "de": "Ist es hier sicher?",
+    "en": "Is it safe here?",
+    "ru": "Здесь безопасно?",
+    "it": "È sicuro qui?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я погано бачу.",
+    "de": "Ich sehe schlecht.",
+    "en": "I can't see very well.",
+    "ru": "Я плохо вижу.",
+    "it": "Non ci vedo bene.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Залишайтеся зі мною, будь ласка.",
+    "de": "Bleiben Sie bitte bei mir.",
+    "en": "Please stay with me.",
+    "ru": "Останьтесь со мной, пожалуйста.",
+    "it": "Rimanga con me, per favore.",
+    "type": "Фраза",
+    "register": "Вы"
+   }
+  ]
+ },
+ {
+  "title": "Место, время и цена",
+  "rows": [
+   {
+    "uk": "Де туалет?",
+    "de": "Wo ist die Toilette?",
+    "en": "Where is the toilet?",
+    "ru": "Где туалет?",
+    "it": "Dov'è il bagno?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де вихід?",
+    "de": "Wo ist der Ausgang?",
+    "en": "Where is the exit?",
+    "ru": "Где выход?",
+    "it": "Dov'è l'uscita?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ось тут.",
+    "de": "Hier ist es.",
+    "en": "It's right here.",
+    "ru": "Вот здесь.",
+    "it": "È proprio qui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це там.",
+    "de": "Es ist dort.",
+    "en": "It's over there.",
+    "ru": "Это там.",
+    "it": "È lì.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ліворуч, будь ласка.",
+    "de": "Nach links, bitte.",
+    "en": "To the left, please.",
+    "ru": "Налево, пожалуйста.",
+    "it": "A sinistra, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Праворуч, будь ласка.",
+    "de": "Nach rechts, bitte.",
+    "en": "To the right, please.",
+    "ru": "Направо, пожалуйста.",
+    "it": "A destra, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Прямо.",
+    "de": "Geradeaus.",
+    "en": "Straight ahead.",
+    "ru": "Прямо.",
+    "it": "Sempre dritto.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Це далеко?",
+    "de": "Ist es weit?",
+    "en": "Is it far?",
+    "ru": "Это далеко?",
+    "it": "È lontano?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Котра година?",
+    "de": "Wie spät ist es?",
+    "en": "What time is it?",
+    "ru": "Который час?",
+    "it": "Che ore sono?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Коли?",
+    "de": "Wann?",
+    "en": "When?",
+    "ru": "Когда?",
+    "it": "Quando?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Сьогодні чи завтра?",
+    "de": "Heute oder morgen?",
+    "en": "Today or tomorrow?",
+    "ru": "Сегодня или завтра?",
+    "it": "Oggi o domani?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Зараз чи пізніше?",
+    "de": "Jetzt oder später?",
+    "en": "Now or later?",
+    "ru": "Сейчас или позже?",
+    "it": "Adesso o più tardi?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки це коштує?",
+    "de": "Wie viel kostet das?",
+    "en": "How much does this cost?",
+    "ru": "Сколько это стоит?",
+    "it": "Quanto costa?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я візьму це.",
+    "de": "Ich nehme das.",
+    "en": "I'll take this.",
+    "ru": "Я возьму это.",
+    "it": "Prendo questo.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Рахунок, будь ласка.",
+    "de": "Die Rechnung, bitte.",
+    "en": "The bill, please.",
+    "ru": "Счёт, пожалуйста.",
+    "it": "Il conto, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Один квиток, будь ласка.",
+    "de": "Eine Fahrkarte, bitte.",
+    "en": "One ticket, please.",
+    "ru": "Один билет, пожалуйста.",
+    "it": "Un biglietto, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Лише один, будь ласка.",
+    "de": "Nur einen, bitte.",
+    "en": "Just one, please.",
+    "ru": "Только один, пожалуйста.",
+    "it": "Solo uno, per favore.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Де аптека?",
+    "de": "Wo ist die Apotheke?",
+    "en": "Where is the pharmacy?",
+    "ru": "Где аптека?",
+    "it": "Dov'è la farmacia?",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "О третій годині.",
+    "de": "Um drei Uhr.",
+    "en": "At three o'clock.",
+    "ru": "В три часа.",
+    "it": "Alle tre.",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Скільки квитків?",
+    "de": "Wie viele Fahrkarten?",
+    "en": "How many tickets?",
+    "ru": "Сколько билетов?",
+    "it": "Quanti biglietti?",
+    "type": "Пример",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Відчинено чи зачинено?",
+    "de": "Geöffnet oder geschlossen?",
+    "en": "Open or closed?",
+    "ru": "Открыто или закрыто?",
+    "it": "Aperto o chiuso?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вхід безкоштовний?",
+    "de": "Ist der Eintritt frei?",
+    "en": "Is entry free?",
+    "ru": "Вход бесплатный?",
+    "it": "L'ingresso è gratuito?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Який сьогодні день?",
+    "de": "Welcher Wochentag ist heute?",
+    "en": "What day is it today?",
+    "ru": "Какой сегодня день?",
+    "it": "Che giorno è oggi?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Вранці чи ввечері?",
+    "de": "Morgens oder abends?",
+    "en": "In the morning or in the evening?",
+    "ru": "Утром или вечером?",
+    "it": "Di mattina o di sera?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Я тут чекаю.",
+    "de": "Ich warte hier.",
+    "en": "I'm waiting here.",
+    "ru": "Я здесь жду.",
+    "it": "Aspetto qui.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ось моя зупинка.",
+    "de": "Das ist meine Haltestelle.",
+    "en": "This is my stop.",
+    "ru": "Вот моя остановка.",
+    "it": "Questa è la mia fermata.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Нагорі чи внизу?",
+    "de": "Oben oder unten?",
+    "en": "Upstairs or downstairs?",
+    "ru": "Наверху или внизу?",
+    "it": "Di sopra o di sotto?",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Туди не можна.",
+    "de": "Da darf man nicht hin.",
+    "en": "You can't go that way.",
+    "ru": "Туда нельзя.",
+    "it": "Non si può andare da quella parte.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "У мене лише п'ять євро.",
+    "de": "Ich habe nur fünf Euro.",
+    "en": "I only have five euros.",
+    "ru": "У меня только пять евро.",
+    "it": "Ho solo cinque euro.",
+    "type": "Фраза",
+    "register": "нейтр."
+   },
+   {
+    "uk": "Ми вже на місці?",
+    "de": "Sind wir schon da?",
+    "en": "Are we there yet?",
+    "ru": "Мы уже на месте?",
+    "it": "Siamo già arrivati?",
+    "type": "Фраза",
+    "register": "нейтр."
+   }
+  ]
+ }
+]

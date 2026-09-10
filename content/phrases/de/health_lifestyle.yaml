@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: health_lifestyle
+name: "Gesundheit im Alltag"
 tiers:
   b1:
     - id: health_lifestyle_b1_01
@@ -40,10 +41,34 @@ tiers:
     - id: health_lifestyle_b1_16
       text: "Ich brauche einen Plan, den ich einhalten kann."
     - id: health_lifestyle_b1_17
-      text: "Ich merke, dass nach ..."
+      text: "Ich notiere, wie viele Stunden ich schlafe."
     - id: health_lifestyle_b1_18
-      text: "Mein Zustand verschlechtert sich, wenn ..."
+      text: "Ich trinke abends inzwischen weniger Kaffee."
     - id: health_lifestyle_b1_19
-      text: "Was muss ich bei ... beachten?"
+      text: "Das beeinträchtigt meine Arbeit."
     - id: health_lifestyle_b1_20
-      text: "Könnte das mit ... zusammenhängen?"
+      text: "Ich möchte über meine psychische Gesundheit sprechen."
+    - id: health_lifestyle_b1_21
+      text: "Ich weiß nicht, an welchen Facharzt ich mich wenden soll."
+    - id: health_lifestyle_b1_22
+      text: "Woran erkennen wir, ob die Behandlung hilft?"
+    - id: health_lifestyle_b1_23
+      text: "Kann ich den Behandlungsplan schriftlich bekommen?"
+    - id: health_lifestyle_b1_24
+      text: "Deckt meine Versicherung diese Beratung ab?"
+    - id: health_lifestyle_b1_25
+      text: "Ich brauche einen Tagesablauf, der zu meinen Arbeitszeiten passt."
+    - id: health_lifestyle_b1_26
+      text: "Ich möchte die Untersuchungsergebnisse besser verstehen."
+    - id: health_lifestyle_b1_27
+      text: "Ich merke, dass ich mich nach langen Besprechungen schlecht konzentrieren kann."
+      kind: example
+    - id: health_lifestyle_b1_28
+      text: "Mein Zustand verschlechtert sich, wenn ich wenig schlafe."
+      kind: example
+    - id: health_lifestyle_b1_29
+      text: "Was sollte ich beachten, wenn ich wieder mit dem Training anfange?"
+      kind: example
+    - id: health_lifestyle_b1_30
+      text: "Könnte das mit Stress zusammenhängen?"
+      kind: example

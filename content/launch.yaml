@@ -8,12 +8,18 @@
 # Приложение тоже читает это ограничение: ярус выше запущенного не
 # предлагается ни калибровкой, ни подъёмом.
 #
-# ВНИМАНИЕ: содержимое яруса сменилось целиком. Игра стала разговорником, и
-# корпус импортирован из content/_import/phrasebook_1000 — 1000 фраз на пяти
-# языках, 50 тем по двадцать фраз. Семнадцать прежних записей о вычитке
-# описывали словарный контент (864 слова и 432 предложения с пропусками),
-# которого больше не существует; хранить их означало бы утверждать, что
-# прочитан текст, которого нет. Записи удалены, а не переписаны.
+# ВНИМАНИЕ: содержимое яруса сменилось целиком, и уже дважды. Сначала игра
+# стала разговорником: словарный контент (864 слова и 432 предложения с
+# пропусками) заменила тысяча фраз, и семнадцать записей о вычитке, описывавших
+# несуществующий текст, были удалены, а не переписаны. Затем корпус расширился
+# до 1500 фраз — content/_import/phrasebook_1500, 50 тем по тридцать фраз;
+# состав тем и их раскладка по ярусам не изменились, поэтому списки
+# constellations ниже верны как есть.
+#
+# Расширение не бесплатно, и цена записана в шапке tool/import_phrasebook.dart:
+# 761 фраза сохранила текст и позицию, а 239 идентификаторов несут теперь
+# другой текст — автор заменил хвост каждой темы, дописывая её с 20 фраз до 30.
+# Вычитки это не касается (её ноль проходов), а памяти игрока — касается.
 #
 # TODO(data): вычитка нового корпуса не проводилась. Валидатор об этом
 # говорит прямо — «нынешний текст прочитан целиком 0 разными моделями,
@@ -27,27 +33,27 @@ de:
 
   reviewers:
     a0:
-      by: 'импорт content/_import/phrasebook_1000; вычитка не проводилась'
+      by: 'импорт content/_import/phrasebook_1500; вычитка не проводилась'
       constellations:
         [about_me, first_contact, needs_help, place_time_price, understanding]
       passes: []
     a1:
-      by: 'импорт content/_import/phrasebook_1000; вычитка не проводилась'
+      by: 'импорт content/_import/phrasebook_1500; вычитка не проводилась'
       constellations:
         [cafe_food, daily_routine, health_doctor, people_family, plans_invitations, shopping_payment, study_contact, transport, travel_hotel]
       passes: []
     a2:
-      by: 'импорт content/_import/phrasebook_1000; вычитка не проводилась'
+      by: 'импорт content/_import/phrasebook_1500; вычитка не проводилась'
       constellations:
         [arrangements, comparison_conditions, digital_life, feelings_support, housing_repairs, learning_how, past_stories, returns_delivery, symptoms_treatment, travel_trouble, work_search]
       passes: []
     b1:
-      by: 'импорт content/_import/phrasebook_1000; вычитка не проводилась'
+      by: 'импорт content/_import/phrasebook_1500; вычитка не проводилась'
       constellations:
         [advice_decisions, agree_object, clarify_mediate, culture_impressions, ecology_mobility, health_lifestyle, history_consequences, letters_requests, money_contracts, opinion_reasons, relations_boundaries, teamwork]
       passes: []
     b2:
-      by: 'импорт content/_import/phrasebook_1000; вычитка не проводилась'
+      by: 'импорт content/_import/phrasebook_1500; вычитка не проводилась'
       constellations:
         [ai_information, argument_building, ecology_decisions, hedging, idioms_speech, meetings_decisions, negotiation, persuasion, presentations_data, society_rights, sources_evidence, summary_rethink, work_change]
       passes: []

@@ -6,10 +6,16 @@
 /// * `content/phrases/<код>/<тема>.yaml` — фразы на языке изучения. Фраза и
 ///   есть единица изучения: у неё ярус, созвездие и порядок внутри них.
 ///   Немецкое предложение не может лежать в язык-нейтральном файле, и раньше
-///   лежало.
+///   лежало. Здесь же, в шапке, лежит имя темы на языке изучения (`name:`).
 /// * `content/lang/<код>.yaml` (или каталог `content/lang/<код>/*.yaml`) —
-///   то, что добавляет язык: заголовок, которым он объявляет о себе, и
-///   переводы фраз.
+///   то, что добавляет язык: заголовок, которым он объявляет о себе, переводы
+///   фраз и имена тем на этом языке (раздел `constellations:`).
+///
+/// Имя темы поэтому читается из двух разных мест, и деление то же, что у
+/// фразы: у языка изучения есть **текст** имени, у языка подсказок — его
+/// перевод. Одна карта «slug → имя» на обе роли слепила бы их в одно и
+/// потребовала бы, чтобы немецкий заводил себе секцию переводов на самого
+/// себя.
 ///
 /// Рядом читаются `content/launch.yaml` — какие ярусы запущены и кто их
 /// вычитал — и `content/calibration/<код>.yaml`, набор онбординга.
@@ -47,6 +53,7 @@ class LanguageSource {
     required this.status,
     required this.name,
     required this.phraseTranslations,
+    this.constellationNames = const {},
   });
 
   final String code;
@@ -65,6 +72,15 @@ class LanguageSource {
   /// со словарным слоем ушли и лексемы, которые язык приносил раньше.
   final Map<String, String> phraseTranslations;
 
+  /// slug созвездия → имя темы на этом языке. Раздел `constellations:`.
+  ///
+  /// У языка изучения карта пустая, и это не пробел: его имена лежат в шапках
+  /// файлов фраз ([ContentSources.constellationNames]) — там, где лежит и сам
+  /// немецкий текст. Раздел `constellations:` в файле языка изучения — ошибка,
+  /// а не второй источник: два источника одного имени разойдутся, и победит
+  /// невидимо один. Говорит об этом валидатор.
+  final Map<String, String> constellationNames;
+
   bool get isTarget => role == 'target' || role == 'both';
   bool get isNative => role == 'native' || role == 'both';
   bool get isLaunched => status == 'launched';
@@ -78,6 +94,7 @@ class PhraseSource {
     required this.constellation,
     required this.idx,
     required this.text,
+    this.kind = defaultPhraseKind,
     this.register,
   });
 
@@ -98,6 +115,15 @@ class PhraseSource {
 
   /// Готовая к показу строка: подстановка ответов сделана при чтении.
   final String text;
+
+  /// Чем фраза является: `phrase`, `example` или `idiom` ([phraseKinds]).
+  ///
+  /// Читается полем `kind:`, а без него равно [defaultPhraseKind] — обычной
+  /// реплике. Закрытость набора здесь не проверяется намеренно: чтение падает
+  /// на том, чего не понимает (`{` в тексте фразы), а членство в закрытом
+  /// наборе — вопрос качества, и о нём говорит валидатор. Так же устроен и
+  /// соседний [register].
+  final String kind;
 
   final String? register;
 }
@@ -309,8 +335,9 @@ class LaunchPolicy {
 /// коду.
 ///
 /// Из `content/lang/<код>.yaml` читаются только заголовок языка (`lang`,
-/// `role`, `status`, `name`) и раздел `phrases:` — переводы фраз. Раздел
-/// `lexemes:` игнорируется: он описывает слово, а слова у игры больше нет.
+/// `role`, `status`, `name`), раздел `phrases:` — переводы фраз — и раздел
+/// `constellations:` — имена тем на этом языке. Раздел `lexemes:`
+/// игнорируется: он описывает слово, а слова у игры больше нет.
 /// Из файла фраз по той же причине не читаются `concepts:` (к какому слову
 /// привязана фраза) и `orders:` (какие сборки принимаются верными сверх
 /// шаблона) — вставки слов в предложение больше нет, значит нет и сборок.
@@ -322,6 +349,7 @@ class ContentSources {
     required this.calibration,
     required this.hash,
     required this.targetLang,
+    this.constellationNames = const {},
     this.launch = const LaunchPolicy(),
   });
 
@@ -344,6 +372,16 @@ class ContentSources {
   /// то есть темы, которых в игре нет.
   final List<String> constellations;
 
+  /// slug созвездия → имя темы **на языке изучения**. Поле `name:` из шапки
+  /// файла фраз.
+  ///
+  /// Необязательное при чтении и обязательное по правилу: тема без имени
+  /// читается, собирается и уезжает игроку подписанной слагом. Требует имя
+  /// валидатор, а не чтение, — и это не мягкость, а разделение обязанностей.
+  /// Чтение падает на том, чего не понимает; полноты требует тот, кто знает
+  /// про `launched`, — иначе первый же черновой файл темы уронил бы сборку.
+  final Map<String, String> constellationNames;
+
   /// Языки по коду — со всем, что каждый принёс.
   final Map<String, LanguageSource> languages;
 
@@ -355,9 +393,16 @@ class ContentSources {
   /// Отпечаток содержимого яруса на языке изучения.
   ///
   /// Считается по тому, что видит вычитывающий: тексты фраз яруса, их
-  /// пометки регистра и их переводы на все языки, которые их дали. Порядок
-  /// нормализован сортировкой — переставленные строки YAML не должны означать
-  /// «текст изменился».
+  /// пометки регистра и вида (`kind`) и их переводы на все языки, которые их
+  /// дали. Порядок нормализован сортировкой — переставленные строки YAML не
+  /// должны означать «текст изменился».
+  ///
+  /// `kind` вошёл сюда вместе с v7, и это не для полноты набора полей. Вид
+  /// фразы меняет то, что считается верным переводом: у идиомы он смысловой, и
+  /// «Ich habe den Faden verloren.» → «Я потерял нить.» правильно ровно потому,
+  /// что строка помечена `idiom`. Снять или поставить эту пометку значит
+  /// изменить условие задачи вычитки — то есть устареть её, не тронув ни одной
+  /// буквы текста.
   ///
   /// Не по хешу файлов: файл содержит все ярусы, и правка B2 объявляла бы
   /// устаревшей вычитку A0.
@@ -366,6 +411,13 @@ class ContentSources {
   /// дистракторы — вычитка занималась в основном ими. Со словарным слоем это
   /// ушло, а переводы, наоборот, вошли: перевод — половина того, что читает
   /// вычитывающий, и правка перевода обязана устаревить запись о прочтении.
+  ///
+  /// Имён созвездий здесь **нет**, и это решение, а не пропуск. Отпечаток
+  /// отвечает на вопрос «тот ли текст прочитан», а имя принадлежит теме, а не
+  /// ярусу: одна опечатка в подписи объявила бы устаревшей вычитку всех пяти
+  /// ярусов, на которых тема живёт. Обратная сторона названа честно: имена не
+  /// входят ни в один отпечаток, значит их прочтение ничем не подтверждается
+  /// — это отдельный проход по пятидесяти строкам, и его ещё нет.
   String tierHash(String tier) {
     final parts = <String>[];
     final codes = languages.keys.toList()..sort();
@@ -381,6 +433,7 @@ class ContentSources {
       parts.add([
         phrase.id,
         phrase.text,
+        phrase.kind,
         phrase.register ?? '',
         translations.join('|'),
       ].join(''));
@@ -421,9 +474,10 @@ class ContentSources {
       );
     }
     final constellations = <String>[];
+    final constellationNames = <String, String>{};
     final phrases = <PhraseSource>[];
     for (final file in phraseFiles) {
-      _readPhraseFile(file, lang, constellations, phrases);
+      _readPhraseFile(file, lang, constellations, constellationNames, phrases);
     }
 
     final languages = <String, LanguageSource>{};
@@ -454,6 +508,7 @@ class ContentSources {
 
     return ContentSources(
       constellations: constellations,
+      constellationNames: constellationNames,
       languages: languages,
       phrases: phrases,
       calibration: calibration,
@@ -541,6 +596,7 @@ class ContentSources {
     File file,
     String lang,
     List<String> constellations,
+    Map<String, String> constellationNames,
     List<PhraseSource> phrases,
   ) {
     final doc = _loadMap(file);
@@ -553,6 +609,27 @@ class ContentSources {
     }
     final name = _requireString(doc, 'constellation', file);
     constellations.add(name);
+
+    // Имя темы на языке изучения. Необязательное при чтении — требует его
+    // валидатор (см. `ContentSources.constellationNames`).
+    //
+    // Расхождение между файлами — ошибка, а не «последний победил». Один slug
+    // в двух файлах законен (тему можно разложить по файлам), но два разных
+    // имени у одной темы означают, что подпись на карте зависит от порядка
+    // чтения каталога. Проверка написана как у заголовка языка ниже, и по той
+    // же причине.
+    final own = _optionalString(doc, constellationNameField, file);
+    if (own != null) {
+      final current = constellationNames[name];
+      if (current != null && current != own) {
+        throw ContentSourceException(
+          '${file.path}: имя созвездия "$name" здесь "$own", а в другом файле '
+          'той же темы — "$current". Останьтесь на одном: имя подписывает '
+          'тему на карте, и выбор между двумя сделал бы порядок файлов.',
+        );
+      }
+      constellationNames[name] = own;
+    }
 
     final tierMap = doc['tiers'];
     if (tierMap is! YamlMap) {
@@ -612,12 +689,18 @@ class ContentSources {
       constellation: constellation,
       idx: idx,
       text: text,
+      // Умолчание применяется здесь, а не в базе колонкой DEFAULT: SQL-ное
+      // умолчание видно только тому, кто читает DDL, а всё остальное —
+      // валидатор, отпечаток яруса, замок переводов — работает с прочитанными
+      // исходниками и получило бы пустоту.
+      kind: raw['kind'] as String? ?? defaultPhraseKind,
       register: raw['register'] as String?,
     );
   }
 
   static LanguageSource _readLanguage(_LanguageEntry entry) {
     final translations = <String, String>{};
+    final constellationNames = <String, String>{};
     String? role;
     String? status;
     String? name;
@@ -669,6 +752,25 @@ class ContentSources {
           translations['${e.key}'] = '${e.value}';
         }
       }
+
+      // Имена тем на этом языке. Их пятьдесят против тысячи переводов, но
+      // разбираются они строже: значение обязано быть строкой, а не «чем
+      // угодно в интерполяции», как у переводов выше. Причина — ловушка YAML
+      // (см. [_notAStringMessage]): подпись, которую разбор превратил в
+      // пустоту или в булево, уехала бы на карту молча, а поправить её
+      // кавычками — одно движение на пятидесяти строках.
+      final nameNode = doc[constellationNamesSection];
+      if (nameNode is YamlMap) {
+        for (final e in nameNode.entries) {
+          final value = e.value;
+          if (value is! String) {
+            throw ContentSourceException(
+              _notAStringMessage(file, 'имя созвездия ${e.key}', value),
+            );
+          }
+          constellationNames['${e.key}'] = value;
+        }
+      }
     }
 
     final head = entry.files.first.path;
@@ -700,6 +802,7 @@ class ContentSources {
       status: status,
       name: name,
       phraseTranslations: translations,
+      constellationNames: constellationNames,
     );
   }
 
@@ -751,6 +854,41 @@ class ContentSources {
     if (value is String && value.isNotEmpty) return value;
     throw ContentSourceException('${file.path}: нет обязательного поля "$key"');
   }
+
+  /// Необязательное строковое поле шапки.
+  ///
+  /// Отсутствие ключа и ключ без значения различаются намеренно. Первое —
+  /// законное состояние: поля просто нет, и о полноте говорит валидатор.
+  /// Второе — оборванная правка: строку начали писать и не дописали, и молча
+  /// прочитать её как «поля нет» значило бы сказать человеку, что он не
+  /// сделал того, что он как раз сделал.
+  ///
+  /// Пустую строку (`name: ""`) возвращает как есть: это уже не разбор, а
+  /// содержание, и о нём говорит валидатор — своими словами и про карту.
+  static String? _optionalString(YamlMap map, String key, File file) {
+    if (!map.containsKey(key)) return null;
+    final value = map[key];
+    if (value is String) return value;
+    throw ContentSourceException(
+      _notAStringMessage(file, 'поле "$key"', value),
+    );
+  }
+
+  /// Значение, которое разбор не сделал строкой.
+  ///
+  /// Два случая под одной формулировкой намеренно: «ключ есть, а значения
+  /// нет» и «значение съел разбор» человек не различает, а исправляет
+  /// одинаково — кавычками.
+  ///
+  /// Ловушка настоящая и проверенная на том разборе, который стоит в проекте
+  /// (YAML 1.2): пустое значение, `Null` и `~` он читает отсутствием, а
+  /// `true`, `false` и числа — значениями. Слова `No`, `On`, `Yes` он, в
+  /// отличие от YAML 1.1, оставляет словами — но полагаться на это не надо:
+  /// «die Null» это настоящее немецкое имя, и на нём проект уже стоял.
+  static String _notAStringMessage(File file, String what, Object? value) =>
+      '${file.path}: $what разобрано как ${value.runtimeType}, а не строкой. '
+      'Возьмите значение в кавычки: пустое значение, Null и ~ YAML читает '
+      'отсутствием, а true, false и числа — значениями, а не словами.';
 
   /// Список строк. Пустой элемент — ошибка, а не пустая строка.
   ///

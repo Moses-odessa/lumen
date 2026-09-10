@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: past_stories
+name: "Geschichten von früher"
 tiers:
   a2:
     - id: past_stories_a2_01
@@ -27,10 +28,12 @@ tiers:
       text: "Trotzdem hat es Spaß gemacht."
     - id: past_stories_a2_10
       text: "Wie war dein Wochenende?"
+      register: casual
     - id: past_stories_a2_11
       text: "Was ist danach passiert?"
     - id: past_stories_a2_12
       text: "Wie lange warst du dort?"
+      register: casual
     - id: past_stories_a2_13
       text: "Ich habe meine Schlüssel vergessen."
     - id: past_stories_a2_14
@@ -40,10 +43,34 @@ tiers:
     - id: past_stories_a2_16
       text: "Das habe ich nicht erwartet."
     - id: past_stories_a2_17
-      text: "Als ich ein Kind war, ..."
+      text: "Ich bin gerade aus dem Urlaub zurückgekommen."
     - id: past_stories_a2_18
-      text: "Früher habe ich oft ..."
+      text: "Damals konnte ich die Sprache noch nicht."
     - id: past_stories_a2_19
-      text: "Letztes Mal haben wir ..."
+      text: "Wir haben uns zufällig am Bahnhof getroffen."
     - id: past_stories_a2_20
-      text: "Danach habe ich ..."
+      text: "Ich habe ihn sofort erkannt."
+    - id: past_stories_a2_21
+      text: "Wir hatten uns lange nicht gesehen."
+    - id: past_stories_a2_22
+      text: "Ich erinnere mich nicht an das genaue Datum."
+    - id: past_stories_a2_23
+      text: "Später habe ich die Fotos gefunden."
+    - id: past_stories_a2_24
+      text: "Das hat mich an die Schulzeit erinnert."
+    - id: past_stories_a2_25
+      text: "Früher war hier ein Kino."
+    - id: past_stories_a2_26
+      text: "Seitdem bleiben wir in Kontakt."
+    - id: past_stories_a2_27
+      text: "Als ich ein Kind war, haben wir am Meer gewohnt."
+      kind: example
+    - id: past_stories_a2_28
+      text: "Früher bin ich viel Fahrrad gefahren."
+      kind: example
+    - id: past_stories_a2_29
+      text: "Letztes Mal haben wir in einem kleinen Hotel übernachtet."
+      kind: example
+    - id: past_stories_a2_30
+      text: "Danach habe ich meine Eltern angerufen."
+      kind: example

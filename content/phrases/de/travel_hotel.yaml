@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: travel_hotel
+name: "Hotel und Ausflüge"
 tiers:
   a1:
     - id: travel_hotel_a1_01
@@ -40,10 +41,35 @@ tiers:
     - id: travel_hotel_a1_16
       text: "Hier ist es sehr schön."
     - id: travel_hotel_a1_17
-      text: "Ich möchte ... buchen."
+      text: "Kann ich früher einchecken?"
     - id: travel_hotel_a1_18
-      text: "Die Reservierung gilt für ... Nächte."
+      text: "Ist die Rezeption rund um die Uhr besetzt?"
     - id: travel_hotel_a1_19
-      text: "Was kostet ... pro Nacht?"
+      text: "Ich hätte gern ein ruhiges Zimmer."
     - id: travel_hotel_a1_20
-      text: "Kann man hier ...?"
+      text: "Haben Sie einen Aufzug?"
+      register: formal
+    - id: travel_hotel_a1_21
+      text: "Wo wird das Frühstück serviert?"
+    - id: travel_hotel_a1_22
+      text: "Die Bettwäsche ist schmutzig."
+    - id: travel_hotel_a1_23
+      text: "Wie schalte ich die Klimaanlage ein?"
+    - id: travel_hotel_a1_24
+      text: "Ist die Touristensteuer inbegriffen?"
+    - id: travel_hotel_a1_25
+      text: "Gibt es eine Führung auf Englisch?"
+    - id: travel_hotel_a1_26
+      text: "Wo bekomme ich einen Stadtplan?"
+    - id: travel_hotel_a1_27
+      text: "Ich möchte ein Einzelzimmer buchen."
+      kind: example
+    - id: travel_hotel_a1_28
+      text: "Die Reservierung gilt für zwei Nächte."
+      kind: example
+    - id: travel_hotel_a1_29
+      text: "Wie viel kostet ein Familienzimmer pro Nacht?"
+      kind: example
+    - id: travel_hotel_a1_30
+      text: "Kann man hier ein Fahrrad mieten?"
+      kind: example

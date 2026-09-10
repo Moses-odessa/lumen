@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: transport
+name: "Bus und Bahn"
 tiers:
   a1:
     - id: transport_a1_01
@@ -40,10 +41,37 @@ tiers:
     - id: transport_a1_16
       text: "Ich gehe in die falsche Richtung."
     - id: transport_a1_17
-      text: "Wie komme ich zu ...?"
+      text: "Wie viele Haltestellen sind es noch?"
     - id: transport_a1_18
-      text: "Das ist neben ..."
+      text: "Auf welcher Straßenseite ist die Haltestelle?"
     - id: transport_a1_19
-      text: "Ich fahre nach ..."
+      text: "Sagen Sie mir bitte, wann ich aussteigen muss."
+      register: formal
     - id: transport_a1_20
-      text: "Ich brauche eine Fahrkarte nach ..."
+      text: "Muss man hier den Knopf drücken?"
+    - id: transport_a1_21
+      text: "Wo muss ich die Fahrkarte entwerten?"
+    - id: transport_a1_22
+      text: "Gilt diese Fahrkarte den ganzen Tag?"
+    - id: transport_a1_23
+      text: "Wo ist der Taxistand?"
+    - id: transport_a1_24
+      text: "Halten Sie bitte am Eingang."
+      register: formal
+    - id: transport_a1_25
+      text: "Ich gehe zu Fuß, es ist nicht weit."
+    - id: transport_a1_26
+      text: "Biegen Sie am Fußgängerüberweg links ab."
+      register: formal
+    - id: transport_a1_27
+      text: "Wie komme ich zum Flughafen?"
+      kind: example
+    - id: transport_a1_28
+      text: "Es ist neben dem Supermarkt."
+      kind: example
+    - id: transport_a1_29
+      text: "Ich fahre nach München."
+      kind: example
+    - id: transport_a1_30
+      text: "Ich brauche eine Fahrkarte nach Hamburg."
+      kind: example

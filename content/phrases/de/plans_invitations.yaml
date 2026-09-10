@@ -1,21 +1,25 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: plans_invitations
+name: "Pläne und Einladungen"
 tiers:
   a1:
     - id: plans_invitations_a1_01
       text: "Hast du heute Zeit?"
+      register: casual
     - id: plans_invitations_a1_02
       text: "Was machst du heute Abend?"
+      register: casual
     - id: plans_invitations_a1_03
       text: "Lass uns einen Kaffee trinken gehen."
       register: casual
     - id: plans_invitations_a1_04
       text: "Möchtest du mitkommen?"
+      register: casual
     - id: plans_invitations_a1_05
       text: "Sehr gern."
     - id: plans_invitations_a1_06
@@ -41,10 +45,37 @@ tiers:
     - id: plans_invitations_a1_16
       text: "Danke für die Einladung."
     - id: plans_invitations_a1_17
-      text: "Möchtest du ...?"
+      text: "Wer kommt noch?"
     - id: plans_invitations_a1_18
-      text: "Mein Vorschlag ist: ..."
+      text: "Kann ich einen Freund mitbringen?"
     - id: plans_invitations_a1_19
-      text: "Ich bin am ... um ... frei."
+      text: "Was sollen wir mitbringen?"
     - id: plans_invitations_a1_20
-      text: "Wir treffen uns bei ..."
+      text: "Ich hole dich ab."
+      register: casual
+    - id: plans_invitations_a1_21
+      text: "Ich bleibe lieber zu Hause."
+    - id: plans_invitations_a1_22
+      text: "Hier ist es zu voll."
+    - id: plans_invitations_a1_23
+      text: "Wir müssen nicht reservieren."
+    - id: plans_invitations_a1_24
+      text: "Schreib mir, wenn du zu Hause bist."
+      register: casual
+    - id: plans_invitations_a1_25
+      text: "Ich freue mich auf unser Treffen."
+    - id: plans_invitations_a1_26
+      text: "Wie viele Personen passen ins Auto?"
+    - id: plans_invitations_a1_27
+      text: "Möchtest du ins Kino gehen?"
+      kind: example
+      register: casual
+    - id: plans_invitations_a1_28
+      text: "Mein Vorschlag ist: Wir essen zuerst."
+      kind: example
+    - id: plans_invitations_a1_29
+      text: "Am Freitagabend habe ich um sieben Zeit."
+      kind: example
+    - id: plans_invitations_a1_30
+      text: "Treffen wir uns beim Museum."
+      kind: example

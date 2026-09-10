@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: understanding
+name: "Verstehen und Nachfragen"
 tiers:
   a0:
     - id: understanding_a0_01
@@ -17,6 +18,7 @@ tiers:
       text: "Noch einmal, bitte."
     - id: understanding_a0_05
       text: "Wiederholen Sie das bitte."
+      register: formal
     - id: understanding_a0_06
       text: "Was bedeutet das?"
     - id: understanding_a0_07
@@ -25,8 +27,10 @@ tiers:
       text: "Wie schreibt man das?"
     - id: understanding_a0_09
       text: "Schreiben Sie das bitte auf."
+      register: formal
     - id: understanding_a0_10
       text: "Zeigen Sie es mir bitte."
+      register: formal
     - id: understanding_a0_11
       text: "Ich weiß nicht."
     - id: understanding_a0_12
@@ -46,4 +50,27 @@ tiers:
     - id: understanding_a0_19
       text: "Geht es auf Englisch?"
     - id: understanding_a0_20
-      text: "Wie spricht man ... aus?"
+      text: "Wie spricht man das Wort „Hotel“ aus?"
+      kind: example
+    - id: understanding_a0_21
+      text: "In welcher Sprache?"
+    - id: understanding_a0_22
+      text: "Ich verstehe ein bisschen."
+    - id: understanding_a0_23
+      text: "Wie heißt das?"
+    - id: understanding_a0_24
+      text: "Ich spreche kein Italienisch."
+    - id: understanding_a0_25
+      text: "So?"
+    - id: understanding_a0_26
+      text: "Ist das dasselbe?"
+    - id: understanding_a0_27
+      text: "Benutzen Sie bitte einfache Wörter."
+      register: formal
+    - id: understanding_a0_28
+      text: "Zeigen Sie bitte mit dem Finger darauf."
+      register: formal
+    - id: understanding_a0_29
+      text: "Ich habe das letzte Wort nicht verstanden."
+    - id: understanding_a0_30
+      text: "Darf ich eine Übersetzungs-App benutzen?"

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: culture_impressions
+name: "Filme und Bücher"
 tiers:
   b1:
     - id: culture_impressions_b1_01
@@ -40,10 +41,34 @@ tiers:
     - id: culture_impressions_b1_16
       text: "Jeder kann das anders verstehen."
     - id: culture_impressions_b1_17
-      text: "In dem Film geht es um ..."
+      text: "Ich entscheide mich meistens für Dokumentarfilme."
     - id: culture_impressions_b1_18
-      text: "Am meisten hat mich ... beeindruckt."
+      text: "Diese Szene fand ich besonders glaubwürdig."
     - id: culture_impressions_b1_19
-      text: "Anders als im Buch ..."
+      text: "Ich habe den Humor nicht sofort verstanden."
     - id: culture_impressions_b1_20
-      text: "Ich würde das denen empfehlen, die ..."
+      text: "Mir fehlte eine Erklärung des Hintergrunds."
+    - id: culture_impressions_b1_21
+      text: "Nach der Vorstellung kann man den Schauspielern Fragen stellen."
+    - id: culture_impressions_b1_22
+      text: "Diese Ausstellung hat mich die Stadt anders sehen lassen."
+    - id: culture_impressions_b1_23
+      text: "Ich möchte die Rezension erst nach dem Film lesen."
+    - id: culture_impressions_b1_24
+      text: "Ein Liveauftritt macht einen ganz anderen Eindruck."
+    - id: culture_impressions_b1_25
+      text: "Einige kulturelle Anspielungen waren mir unbekannt."
+    - id: culture_impressions_b1_26
+      text: "Wir haben die letzte Szene unterschiedlich verstanden."
+    - id: culture_impressions_b1_27
+      text: "Der Film handelt von einer Familie, die in ein anderes Land zieht."
+      kind: example
+    - id: culture_impressions_b1_28
+      text: "Am meisten hat mich das Spiel der Hauptdarstellerin beeindruckt."
+      kind: example
+    - id: culture_impressions_b1_29
+      text: "Anders als im Buch spielt die Handlung im Film im Winter."
+      kind: example
+    - id: culture_impressions_b1_30
+      text: "Ich würde dieses Buch Menschen empfehlen, die Reisegeschichten mögen."
+      kind: example

@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: work_search
+name: "Jobsuche und Bewerbung"
 tiers:
   a2:
     - id: work_search_a2_01
@@ -40,10 +41,37 @@ tiers:
     - id: work_search_a2_16
       text: "Wann kann ich mit einer Antwort rechnen?"
     - id: work_search_a2_17
-      text: "Ich habe Erfahrung mit ..."
+      text: "Wird die Probezeit bezahlt?"
     - id: work_search_a2_18
-      text: "Zu meinen Aufgaben gehörte ..."
+      text: "Kann man gelegentlich von zu Hause aus arbeiten?"
     - id: work_search_a2_19
-      text: "Ich würde gern ... arbeiten."
+      text: "Ich kann nächste Woche zu einem Vorstellungsgespräch kommen."
     - id: work_search_a2_20
-      text: "Braucht man für diese Arbeit ...?"
+      text: "Können Sie einen typischen Arbeitstag beschreiben?"
+      register: formal
+    - id: work_search_a2_21
+      text: "Ich habe dieses Zertifikat noch nicht."
+    - id: work_search_a2_22
+      text: "Ich besuche gerade einen beruflichen Weiterbildungskurs."
+    - id: work_search_a2_23
+      text: "Brauchen Sie Referenzen von meinem früheren Arbeitgeber?"
+      register: formal
+    - id: work_search_a2_24
+      text: "Kann ich eine Rückmeldung zu meiner Bewerbung bekommen?"
+    - id: work_search_a2_25
+      text: "Bitte teilen Sie mir mit, wenn die Stelle bereits besetzt ist."
+      register: formal
+    - id: work_search_a2_26
+      text: "Ich möchte das Angebot lesen, bevor ich mich entscheide."
+    - id: work_search_a2_27
+      text: "Ich habe Erfahrung im Umgang mit Kunden."
+      kind: example
+    - id: work_search_a2_28
+      text: "Zu meinen Aufgaben gehörte es, Bestellungen aufzunehmen."
+      kind: example
+    - id: work_search_a2_29
+      text: "Ich möchte gern in Teilzeit arbeiten."
+      kind: example
+    - id: work_search_a2_30
+      text: "Braucht man für diese Stelle einen Führerschein?"
+      kind: example

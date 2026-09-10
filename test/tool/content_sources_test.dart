@@ -204,6 +204,60 @@ phrases:
       expect(sources.phrases.map((p) => p.idx), [0, 1]);
     });
 
+    test('вид фразы читается полем, а без поля это обычная реплика', () {
+      // Колонка `kind` пришла в v7 из листа-источника: готовая реплика,
+      // образец речевой модели, идиома. Проверяется здесь именно умолчание:
+      // 1231 фраза корпуса из 1500 обычна, поле у них не написано, и если
+      // чтение вернёт для них пустоту, сборка упадёт на `NOT NULL` — но уже
+      // в самом конце пайплайна и с сообщением про SQL.
+      //
+      // Закрытости набора чтение не требует, и это не пробел: `kind:
+      // idiome` читается как есть и становится ошибкой валидатора. Так же
+      // устроен `register` — чтение падает на том, чего не понимает
+      // (`{` в тексте), полноты и качества требует валидатор.
+      _writePhrases(root, '''
+  a0:
+    - id: food_a0_bread
+      text: "Ich kaufe Brot."
+    - id: food_a0_name
+      text: "Ich heiße Alex."
+      kind: example
+    - id: food_a0_faden
+      text: "Ich habe den Faden verloren."
+      kind: idiom
+''');
+      final sources = ContentSources.load(root, lang: 'de');
+      expect(sources.phrases.map((p) => p.kind),
+          [defaultPhraseKind, 'example', 'idiom']);
+      expect(defaultPhraseKind, 'phrase');
+    });
+
+    test('вид фразы входит в отпечаток яруса', () {
+      // Отпечаток отвечает на вопрос «тот ли текст прочитан», и вид фразы —
+      // часть условия задачи вычитки, а не украшение: у идиомы перевод
+      // смысловой, и «Ich habe den Faden verloren.» → «Я потерял нить.»
+      // правильно ровно потому, что строка помечена `idiom`. Снять пометку —
+      // значит устареть вычитку, не тронув ни одной буквы.
+      final before = ContentSources.load(root, lang: 'de').tierHash('a0');
+
+      _writePhrases(root, '''
+  a0:
+    - id: food_a0_bread
+      text: "Zum Frühstück esse ich Brot."
+      kind: example
+      register: casual
+    - id: food_a0_water
+      text: "Ich trinke jeden Tag Wasser."
+      register: casual
+    - id: food_a0_hunger
+      text: "Ich habe großen Hunger."
+      register: casual
+''');
+
+      expect(ContentSources.load(root, lang: 'de').tierHash('a0'),
+          isNot(before));
+    });
+
     test('пропуск в тексте фразы — ошибка чтения', () {
       // `{…}` в тексте означает, что фраза написана по старой форме, для
       // механики вставки слов. Прочитать её как готовую строку значит отдать
@@ -266,6 +320,111 @@ tiers:
     });
   });
 
+  group('имя созвездия', () {
+    late Directory root;
+
+    setUp(() {
+      root = Directory.systemTemp.createTempSync('lumen_content');
+      _writeMinimalCourse(root);
+    });
+
+    tearDown(() => root.deleteSync(recursive: true));
+
+    test('имя приходит из двух мест, и это разные вещи', () {
+      // Деление то же, что у самой фразы: у языка изучения есть **текст**
+      // имени (шапка файла фраз, рядом с немецкими предложениями), у языка
+      // подсказок — его перевод (раздел `constellations:` в своём файле).
+      // Одна общая карта «slug → имя» слепила бы их и потребовала бы, чтобы
+      // немецкий переводил имя на самого себя.
+      final sources = ContentSources.load(root, lang: 'de');
+      expect(sources.constellationNames, {'food': 'Essen'});
+      expect(sources.languages['uk']!.constellationNames, {'food': 'Їжа'});
+      expect(sources.languages['de']!.constellationNames, isEmpty,
+          reason: 'у языка изучения имя лежит в файле фраз, а не в языковом');
+    });
+
+    test('язык добавляет имена тем тем же одним файлом', () {
+      // Это и есть причина, по которой имя — контент, а не строка ARB: язык
+      // приходит одним файлом и приносит с собой всё, включая подписи на
+      // карте. В ARB имя вдобавок не положить технически — gen-l10n не умеет
+      // достать строку по вычисляемому ключу.
+      File('${root.path}/lang/fr.yaml').writeAsStringSync('''
+lang: fr
+role: native
+status: draft
+name: Français
+constellations:
+  food: "Nourriture"
+phrases:
+  food_a0_bread: "Au petit déjeuner, je mange du pain."
+''');
+      final sources = ContentSources.load(root, lang: 'de');
+      expect(sources.languages['fr']!.constellationNames['food'],
+          'Nourriture');
+    });
+
+    test('тема без имени читается: полноты требует валидатор', () {
+      // Чтение падает на том, чего не понимает, а полноты требует тот, кто
+      // знает про `launched`. Иначе первый же черновой файл темы уронил бы
+      // сборку — и добавление темы перестало бы быть «положить один файл».
+      _writePhrases(root, '''
+  a0:
+    - id: food_a0_bread
+      text: "Ich kaufe Brot."
+''');
+      final sources = ContentSources.load(root, lang: 'de');
+      expect(sources.constellations, ['food']);
+      expect(sources.constellationNames, isEmpty);
+    });
+
+    test('два файла одной темы с разными именами — ошибка чтения', () {
+      // Один slug в двух файлах законен: тему можно разложить по файлам. Два
+      // разных имени у неё — нет: подпись на карте зависела бы от порядка
+      // листинга каталога, то есть от имени файла.
+      File('${root.path}/phrases/de/food_b2.yaml').writeAsStringSync('''
+lang: de
+constellation: food
+name: "Essen und Trinken"
+tiers:
+  b2:
+    - id: food_b2_menu
+      text: "Die Speisekarte ist saisonal abgestimmt."
+''');
+      expect(
+        () => ContentSources.load(root, lang: 'de'),
+        throwsA(isA<ContentSourceException>().having(
+          (e) => e.message,
+          'message',
+          contains('в другом файле той же темы'),
+        )),
+      );
+    });
+
+    test('имя, съеденное разбором YAML, — ошибка про кавычки', () {
+      // Ловушка, на которой этот проект уже стоял: `Null` — настоящее
+      // немецкое слово (die Null), а разбор читает его отсутствием, как и `~`
+      // и пустое значение. Интерполяция сделала бы из такого подпись «null»
+      // — на карте и молча. Имён пятьдесят, поправить кавычками легко,
+      // поэтому чтение требует, а не угадывает.
+      File('${root.path}/lang/uk.yaml').writeAsStringSync('''
+lang: uk
+role: native
+status: launched
+name: Українська
+constellations:
+  food: Null
+''');
+      expect(
+        () => ContentSources.load(root, lang: 'de'),
+        throwsA(isA<ContentSourceException>().having(
+          (e) => e.message,
+          'message',
+          contains('кавычки'),
+        )),
+      );
+    });
+  });
+
   group('порог появления созвездия', () {
     test('число в пайплайне и в приложении — одно и то же', () {
       // Дубль намеренный: tool/ не тянет за собой lib/. Проверка живёт в
@@ -298,6 +457,7 @@ void _writeMinimalCourse(Directory root) {
   File('${root.path}/phrases/de/food.yaml').writeAsStringSync('''
 lang: de
 constellation: food
+name: "Essen"
 tiers:
   a0:
     - id: food_a0_bread
@@ -323,6 +483,8 @@ lang: uk
 role: native
 status: launched
 name: Українська
+constellations:
+  food: "Їжа"
 phrases:
   food_a0_bread: "На сніданок я їм хліб."
   food_a0_water: "Я п'ю воду щодня."

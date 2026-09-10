@@ -1,14 +1,16 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: feelings_support
+name: "Gefühle und Trost"
 tiers:
   a2:
     - id: feelings_support_a2_01
       text: "Ich freue mich sehr, dich zu sehen."
+      register: casual
     - id: feelings_support_a2_02
       text: "Ich habe Heimweh."
     - id: feelings_support_a2_03
@@ -19,16 +21,22 @@ tiers:
       text: "Ich bin vom Ergebnis enttäuscht."
     - id: feelings_support_a2_06
       text: "Ich bin stolz auf dich."
+      register: casual
     - id: feelings_support_a2_07
       text: "Was macht dir Sorgen?"
+      register: casual
     - id: feelings_support_a2_08
       text: "Möchtest du darüber reden?"
+      register: casual
     - id: feelings_support_a2_09
       text: "Ich höre dir zu."
+      register: casual
     - id: feelings_support_a2_10
       text: "Ich verstehe, wie du dich fühlst."
+      register: casual
     - id: feelings_support_a2_11
       text: "Du bist nicht allein."
+      register: casual
     - id: feelings_support_a2_12
       text: "Lass dir Zeit."
       register: casual
@@ -37,15 +45,50 @@ tiers:
       register: casual
     - id: feelings_support_a2_14
       text: "Brauchst du Hilfe oder einen Rat?"
+      register: casual
     - id: feelings_support_a2_15
       text: "Ich brauche Zeit für mich."
     - id: feelings_support_a2_16
       text: "Danke, dass du da bist."
+      register: casual
     - id: feelings_support_a2_17
-      text: "Ich freue mich, wenn ..."
+      text: "Das muss schwer für dich gewesen sein."
+      register: casual
     - id: feelings_support_a2_18
-      text: "Es macht mich traurig, dass ..."
+      text: "Du musst nicht alles erklären."
+      register: casual
     - id: feelings_support_a2_19
-      text: "Ich mache mir Sorgen um ..."
+      text: "Ich bin da, wenn du Gesellschaft brauchst."
+      register: casual
     - id: feelings_support_a2_20
-      text: "Mir hilft ..."
+      text: "Das ist nicht deine Schuld."
+      register: casual
+    - id: feelings_support_a2_21
+      text: "Ich wusste nicht, wie wichtig dir das war."
+      register: casual
+    - id: feelings_support_a2_22
+      text: "Ich muss mich beruhigen."
+    - id: feelings_support_a2_23
+      text: "Ich bin erleichtert."
+    - id: feelings_support_a2_24
+      text: "Ich bin dir nicht böse."
+      register: casual
+    - id: feelings_support_a2_25
+      text: "Möchtest du eine Umarmung?"
+      register: casual
+    - id: feelings_support_a2_26
+      text: "Ich bin froh, dass du es mir erzählt hast."
+      register: casual
+    - id: feelings_support_a2_27
+      text: "Ich freue mich, wenn wir Zeit zusammen verbringen."
+      kind: example
+    - id: feelings_support_a2_28
+      text: "Es macht mich traurig, dass du wegfährst."
+      kind: example
+      register: casual
+    - id: feelings_support_a2_29
+      text: "Ich mache mir Sorgen um meine Eltern."
+      kind: example
+    - id: feelings_support_a2_30
+      text: "Ein Spaziergang hilft mir, mich zu entspannen."
+      kind: example

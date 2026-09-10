@@ -1,22 +1,27 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: letters_requests
+name: "Briefe und Anfragen"
 tiers:
   b1:
     - id: letters_requests_b1_01
       text: "Sehr geehrte Frau Müller,"
     - id: letters_requests_b1_02
       text: "Ich schreibe Ihnen wegen meiner Bestellung."
+      register: formal
     - id: letters_requests_b1_03
       text: "Vielen Dank für Ihre E-Mail."
+      register: formal
     - id: letters_requests_b1_04
       text: "Im Anhang finden Sie die Unterlagen."
+      register: formal
     - id: letters_requests_b1_05
       text: "Bitte bestätigen Sie den Eingang."
+      register: formal
     - id: letters_requests_b1_06
       text: "Ich benötige weitere Informationen."
     - id: letters_requests_b1_07
@@ -27,23 +32,57 @@ tiers:
       text: "Ich beziehe mich auf unser Telefongespräch."
     - id: letters_requests_b1_10
       text: "Können Sie mir die Bearbeitungsdauer nennen?"
+      register: formal
     - id: letters_requests_b1_11
       text: "Ich reiche fehlende Unterlagen gern nach."
     - id: letters_requests_b1_12
       text: "Das Formular enthält einen Fehler."
     - id: letters_requests_b1_13
       text: "Bitte korrigieren Sie meine Adresse."
+      register: formal
     - id: letters_requests_b1_14
       text: "Entschuldigen Sie die späte Antwort."
+      register: formal
     - id: letters_requests_b1_15
       text: "Über eine Antwort bis Freitag würde ich mich freuen."
     - id: letters_requests_b1_16
       text: "Mit freundlichen Grüßen"
     - id: letters_requests_b1_17
-      text: "Ich wende mich mit der Bitte an Sie, ..."
+      text: "Haben Sie meine vorherige Nachricht erhalten?"
+      register: formal
     - id: letters_requests_b1_18
-      text: "Wie besprochen, ..."
+      text: "Ich habe die falsche Datei geschickt — bitte verwenden Sie diese."
+      register: formal
     - id: letters_requests_b1_19
-      text: "Wegen ... bitte ich um ..."
+      text: "Ich sende Ihnen die korrigierte Version des Dokuments."
+      register: formal
     - id: letters_requests_b1_20
-      text: "Falls Rückfragen bestehen, ..."
+      text: "Wird dafür das Original benötigt oder reicht eine Kopie?"
+    - id: letters_requests_b1_21
+      text: "Ich bitte um eine Verlängerung der Frist zur Einreichung der Unterlagen."
+    - id: letters_requests_b1_22
+      text: "Wofür werden diese Informationen benötigt?"
+    - id: letters_requests_b1_23
+      text: "Kann der Antrag online gestellt werden?"
+    - id: letters_requests_b1_24
+      text: "Ich füge eine Kopie des Zahlungsbelegs bei."
+    - id: letters_requests_b1_25
+      text: "Meine Kontaktdaten finden Sie unten."
+      register: formal
+    - id: letters_requests_b1_26
+      text: "Vielen Dank im Voraus für Ihre Hilfe in dieser Angelegenheit."
+      register: formal
+    - id: letters_requests_b1_27
+      text: "Ich wende mich an Sie mit der Bitte um eine Kopie des Vertrags."
+      kind: example
+      register: formal
+    - id: letters_requests_b1_28
+      text: "Wie besprochen, findet das Treffen online statt."
+      kind: example
+    - id: letters_requests_b1_29
+      text: "Im Zusammenhang mit meinem Umzug bitte ich um die Aktualisierung meiner Kontaktdaten."
+      kind: example
+    - id: letters_requests_b1_30
+      text: "Falls Sie weitere Erklärungen benötigen, beantworte ich gern Ihre Fragen."
+      kind: example
+      register: formal

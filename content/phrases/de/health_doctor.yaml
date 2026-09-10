@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: health_doctor
+name: "Arzt und Apotheke"
 tiers:
   a1:
     - id: health_doctor_a1_01
@@ -39,11 +40,37 @@ tiers:
       text: "Mir geht es schon besser."
     - id: health_doctor_a1_16
       text: "Rufen Sie bitte einen Krankenwagen."
+      register: formal
     - id: health_doctor_a1_17
-      text: "Mein ... tut weh."
+      text: "Ich habe um zehn einen Termin."
     - id: health_doctor_a1_18
-      text: "Ich bin gegen ... allergisch."
+      text: "Brauchen Sie meine Versicherungskarte?"
+      register: formal
     - id: health_doctor_a1_19
-      text: "Ich brauche einen Termin bei ..."
+      text: "Mir ist übel."
     - id: health_doctor_a1_20
-      text: "Wie lange muss ich ...?"
+      text: "Ich habe mir die Hand verletzt."
+    - id: health_doctor_a1_21
+      text: "Ich bin schwanger."
+    - id: health_doctor_a1_22
+      text: "Ich trage Kontaktlinsen."
+    - id: health_doctor_a1_23
+      text: "Darf mich jemand begleiten?"
+    - id: health_doctor_a1_24
+      text: "Muss ich nüchtern sein?"
+    - id: health_doctor_a1_25
+      text: "Kann ich eine Kopie des Rezepts bekommen?"
+    - id: health_doctor_a1_26
+      text: "Gibt es einen Arzt, der Ukrainisch spricht?"
+    - id: health_doctor_a1_27
+      text: "Mein Rücken tut weh."
+      kind: example
+    - id: health_doctor_a1_28
+      text: "Ich bin allergisch gegen Penicillin."
+      kind: example
+    - id: health_doctor_a1_29
+      text: "Ich brauche einen Termin beim Zahnarzt."
+      kind: example
+    - id: health_doctor_a1_30
+      text: "Wie lange muss ich zu Hause bleiben?"
+      kind: example

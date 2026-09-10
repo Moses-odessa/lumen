@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: summary_rethink
+name: "Fazit und Rückblick"
 tiers:
   b2:
     - id: summary_rethink_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: summary_rethink_b2_12
       text: "Das wertvollste Ergebnis war Klarheit über die nächsten Schritte."
     - id: summary_rethink_b2_13
-      text: "Unterm Strich lässt sich sagen, dass ..."
+      text: "Ich würde die Schlussfolgerungen in praktische und langfristige aufteilen."
     - id: summary_rethink_b2_14
-      text: "Obwohl wir uns bei ... nicht einig geworden sind, ..."
+      text: "Wir haben eine gemeinsame Grundlage gefunden, auch wenn die Einzelheiten noch offen sind."
     - id: summary_rethink_b2_15
-      text: "Die wichtigste Erkenntnis für mich ist ..."
+      text: "Es ist wichtig, ein vorübergehendes Ergebnis von einer dauerhaften Verbesserung zu unterscheiden."
     - id: summary_rethink_b2_16
-      text: "Wenn wir früher ... hätten, wäre jetzt ..."
+      text: "Ich gebe zu, dass ich die Schwierigkeit der Aufgabe unterschätzt habe."
     - id: summary_rethink_b2_17
-      text: "Statt zu fragen, wer schuld ist, sollte man ..."
+      text: "Das hebt unsere Entscheidung nicht auf, verändert aber die Bedingungen ihrer Umsetzung."
     - id: summary_rethink_b2_18
-      text: "Unabhängig davon, was ..., ..."
+      text: "Jetzt müssen wir prüfen, ob wir die Ursache richtig erkannt haben."
     - id: summary_rethink_b2_19
-      text: "Wir werden auf diese Frage zurückkommen, wenn ..."
+      text: "Beim nächsten Mal sollten wir die Beteiligten früher einbeziehen."
     - id: summary_rethink_b2_20
-      text: "Ich schlage vor, mit einer konkreten Vereinbarung abzuschließen: ..."
+      text: "Die Vereinbarung muss auch für Personen verständlich sein, die beim Treffen nicht dabei waren."
+    - id: summary_rethink_b2_21
+      text: "Ich bin für die Einwände dankbar: Sie haben geholfen, den Vorschlag zu präzisieren."
+    - id: summary_rethink_b2_22
+      text: "Nach Abschluss der Testphase entscheiden wir, was wir beibehalten und was wir ändern."
+    - id: summary_rethink_b2_23
+      text: "Alles in allem lässt sich sagen, dass die Testphase nützlich war."
+      kind: example
+    - id: summary_rethink_b2_24
+      text: "Obwohl wir uns beim Budget nicht geeinigt haben, haben wir gemeinsame Prioritäten festgelegt."
+      kind: example
+    - id: summary_rethink_b2_25
+      text: "Das Wichtigste, was ich gelernt habe, ist, Annahmen vor Beginn der Arbeit zu überprüfen."
+      kind: example
+    - id: summary_rethink_b2_26
+      text: "Wenn wir die Anforderungen früher geklärt hätten, wäre die Arbeit jetzt schon abgeschlossen."
+      kind: example
+    - id: summary_rethink_b2_27
+      text: "Statt zu fragen, wer schuld ist, sollten wir klären, wie sich der Fehler künftig vermeiden lässt."
+      kind: example
+    - id: summary_rethink_b2_28
+      text: "Unabhängig davon, was die Prüfung ergibt, werden wir die Ergebnisse veröffentlichen."
+      kind: example
+    - id: summary_rethink_b2_29
+      text: "Wir kommen auf diese Frage zurück, sobald wir Rückmeldungen der Teilnehmenden erhalten haben."
+      kind: example
+    - id: summary_rethink_b2_30
+      text: "Ich schlage vor, mit einer konkreten Vereinbarung zu enden: Am Freitag prüfen wir gemeinsam die ersten Ergebnisse."
+      kind: example

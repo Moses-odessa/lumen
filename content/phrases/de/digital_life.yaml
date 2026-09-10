@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: digital_life
+name: "Digitaler Alltag"
 tiers:
   a2:
     - id: digital_life_a2_01
@@ -21,6 +22,7 @@ tiers:
       text: "Die Datei ist zu groß."
     - id: digital_life_a2_07
       text: "Kannst du das als PDF schicken?"
+      register: casual
     - id: digital_life_a2_08
       text: "Kann man mich gut hören?"
     - id: digital_life_a2_09
@@ -41,10 +43,34 @@ tiers:
     - id: digital_life_a2_16
       text: "Ich möchte die Benachrichtigungen ausschalten."
     - id: digital_life_a2_17
-      text: "Es gelingt mir nicht, ..."
+      text: "Ich habe das Foto versehentlich gelöscht."
     - id: digital_life_a2_18
-      text: "Auf dem Bildschirm steht ..."
+      text: "Kann man diese Datei wiederherstellen?"
     - id: digital_life_a2_19
-      text: "Wo kann ich ... ändern?"
+      text: "Ich möchte mein Konto löschen."
     - id: digital_life_a2_20
-      text: "Ich habe eine Nachricht über ... erhalten."
+      text: "Wie melde ich mich auf anderen Geräten ab?"
+    - id: digital_life_a2_21
+      text: "Ist diese App kostenlos oder kostenpflichtig?"
+    - id: digital_life_a2_22
+      text: "Ich möchte das Probeabonnement nicht verlängern."
+    - id: digital_life_a2_23
+      text: "Warum braucht die App Zugriff auf die Kamera?"
+    - id: digital_life_a2_24
+      text: "Ich habe die Zwei-Faktor-Authentifizierung aktiviert."
+    - id: digital_life_a2_25
+      text: "Ich habe nicht genug Speicherplatz auf dem Handy."
+    - id: digital_life_a2_26
+      text: "Ich kann nicht am Videoanruf teilnehmen."
+    - id: digital_life_a2_27
+      text: "Ich schaffe es nicht, das Foto hochzuladen."
+      kind: example
+    - id: digital_life_a2_28
+      text: "Auf dem Bildschirm steht: „Falsches Passwort“."
+      kind: example
+    - id: digital_life_a2_29
+      text: "Wo kann ich die Sprache ändern?"
+      kind: example
+    - id: digital_life_a2_30
+      text: "Ich habe eine Nachricht über eine Lieferverzögerung erhalten."
+      kind: example

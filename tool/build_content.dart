@@ -53,9 +53,18 @@ Future<void> main(List<String> args) async {
   for (final l in sources.languages.values) {
     // Покрытие печатается всегда: язык, который покрывает половину, должен
     // быть виден при сборке, а не обнаружиться в игре фразами без перевода.
+    //
+    // Имена тем считаются отдельной строкой и по своему источнику: у языка
+    // изучения они в шапках файлов фраз, у остальных — в разделе
+    // `constellations:`. Ноль здесь означает карту, подписанную латиницей, —
+    // это видно при каждой сборке, а не после запуска.
+    final names = l.code == lang
+        ? sources.constellationNames.length
+        : l.constellationNames.length;
     stdout.writeln(
       '  ${l.code}: ${l.role}/${l.status}, '
-      'переводов фраз ${l.phraseTranslations.length}/${sources.phrases.length}',
+      'переводов фраз ${l.phraseTranslations.length}/${sources.phrases.length}, '
+      'имён созвездий $names/${sources.constellations.length}',
     );
   }
 
@@ -84,6 +93,7 @@ Future<void> main(List<String> args) async {
     _insertLanguages(db, sources);
     final shippedPhrases = _insertPhrases(db, sources, lang);
     _insertPhraseTranslations(db, sources, shippedPhrases);
+    _insertConstellationNames(db, sources, lang);
     _insertCalibration(db, sources, lang, shippedPhrases);
     _insertMeta(db, sources, lang, sources.hash);
     db.execute('COMMIT');
@@ -137,8 +147,8 @@ Set<String> _insertPhrases(
 
   final stmt = db.prepare(
     'INSERT INTO phrases '
-    '(id, lang, tier, constellation, idx, text, register) '
-    'VALUES (?, ?, ?, ?, ?, ?, ?)',
+    '(id, lang, tier, constellation, idx, text, kind, register) '
+    'VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
   );
   try {
     for (final p in sources.phrases) {
@@ -150,6 +160,10 @@ Set<String> _insertPhrases(
         p.constellation,
         p.idx,
         p.text,
+        // Вид фразы (v7): `phrase`, `example` или `idiom`. Умолчание
+        // подставляет чтение исходников, поэтому здесь пустоты не бывает —
+        // колонка NOT NULL и приняла бы NULL отказом на вставке, а не молча.
+        p.kind,
         p.register,
       ]);
     }
@@ -181,6 +195,56 @@ void _insertPhraseTranslations(
         // французской сборке — не ошибка, а просто не про неё.
         if (!known.contains(e.key)) continue;
         stmt.execute([e.key, l.code, e.value]);
+      }
+    }
+  } finally {
+    stmt.close();
+  }
+}
+
+/// Имена созвездий: по ряду на тему и язык.
+///
+/// Приходят из двух мест, и порядок вставки задан здесь целиком, а не
+/// наследуется от порядка чтения. Сборка обязана быть воспроизводимой
+/// байт-в-байт, а «порядок, в котором получилось» — это порядок листинга
+/// каталога и порядок ключей YAML: две вещи, которые меняются от правки
+/// файла, не меняя содержимого.
+///
+/// Поэтому внешний цикл идёт по созвездиям в порядке файлов — том же, что
+/// определяет порядок фраз, — а внутренний по кодам языков по алфавиту.
+///
+/// Язык изучения вставляется первым и **только** из шапок файлов фраз: его
+/// раздел `constellations:` в языковом файле здесь не читается вовсе. Молчать
+/// об этом нельзя, и не молчит валидатор: он такой раздел считает ошибкой.
+/// `INSERT OR IGNORE` — про другое: один slug законно встречается в двух
+/// файлах темы, и тогда одно и то же имя приедет дважды.
+void _insertConstellationNames(
+  Database db,
+  ContentSources sources,
+  String lang,
+) {
+  final stmt = db.prepare(
+    'INSERT OR IGNORE INTO constellation_names (constellation, lang, name) '
+    'VALUES (?, ?, ?)',
+  );
+  final codes = sources.languages.keys.where((c) => c != lang).toList()..sort();
+
+  try {
+    for (final slug in sources.constellations) {
+      final own = sources.constellationNames[slug];
+      if (own != null) stmt.execute([slug, lang, own]);
+
+      for (final code in codes) {
+        // Язык, не назвавший эту тему, ряда не даёт — и это не ошибка сборки:
+        // на карте сработает откат (язык интерфейса → язык подсказок → slug),
+        // а сказать, что тема осталась без имени, обязан валидатор.
+        //
+        // Обратный случай — имя темы, которой в этой сборке нет — сюда не
+        // доходит вовсе: внешний цикл идёт по созвездиям курса. Так же
+        // устроены и переводы фраз: базы собираются по одному языку изучения.
+        final name = sources.languages[code]!.constellationNames[slug];
+        if (name == null) continue;
+        stmt.execute([slug, code, name]);
       }
     }
   } finally {

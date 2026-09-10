@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: housing_repairs
+name: "Wohnung und Mängel"
 tiers:
   a2:
     - id: housing_repairs_a2_01
@@ -40,10 +41,35 @@ tiers:
     - id: housing_repairs_a2_16
       text: "Geht es etwas leiser?"
     - id: housing_repairs_a2_17
-      text: "In der Wohnung gibt es kein ..."
+      text: "Wird die Wohnung möbliert vermietet?"
     - id: housing_repairs_a2_18
-      text: "Mit ... stimmt etwas nicht."
+      text: "Kann ich mich unter dieser Adresse anmelden?"
     - id: housing_repairs_a2_19
-      text: "Das Problem hat ... angefangen."
+      text: "Wir teilen uns eine Küche."
     - id: housing_repairs_a2_20
-      text: "Kann man ... reparieren?"
+      text: "Darf ich die Wände streichen?"
+    - id: housing_repairs_a2_21
+      text: "An der Wand hat sich Schimmel gebildet."
+    - id: housing_repairs_a2_22
+      text: "Die Sicherung ist rausgeflogen."
+    - id: housing_repairs_a2_23
+      text: "Ich rieche Gas."
+    - id: housing_repairs_a2_24
+      text: "Ich habe das Wasser schon abgestellt."
+    - id: housing_repairs_a2_25
+      text: "Können Sie mir zuerst einen Kostenvoranschlag geben?"
+      register: formal
+    - id: housing_repairs_a2_26
+      text: "Wer muss diese Reparatur bezahlen?"
+    - id: housing_repairs_a2_27
+      text: "In der Wohnung gibt es keine Waschmaschine."
+      kind: example
+    - id: housing_repairs_a2_28
+      text: "Mit dem Kühlschrank stimmt etwas nicht."
+      kind: example
+    - id: housing_repairs_a2_29
+      text: "Das Problem ist gestern Abend aufgetreten."
+      kind: example
+    - id: housing_repairs_a2_30
+      text: "Kann dieses Schloss repariert werden?"
+      kind: example

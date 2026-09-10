@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: cafe_food
+name: "Café und Restaurant"
 tiers:
   a1:
     - id: cafe_food_a1_01
@@ -13,6 +14,7 @@ tiers:
       text: "Kann ich die Speisekarte haben?"
     - id: cafe_food_a1_03
       text: "Was empfehlen Sie?"
+      register: formal
     - id: cafe_food_a1_04
       text: "Ich überlege noch."
     - id: cafe_food_a1_05
@@ -40,11 +42,35 @@ tiers:
     - id: cafe_food_a1_16
       text: "Ist das Trinkgeld inbegriffen?"
     - id: cafe_food_a1_17
-      text: "Ich hätte gern ... ohne ..."
+      text: "Können wir draußen sitzen?"
     - id: cafe_food_a1_18
-      text: "Haben Sie ...?"
-      register: formal
+      text: "Wir warten noch auf einen Freund."
     - id: cafe_food_a1_19
-      text: "Zum Frühstück esse ich ..."
+      text: "Was ist in diesem Gericht?"
     - id: cafe_food_a1_20
-      text: "Ich mag ... lieber."
+      text: "Kann ich eine kleinere Portion haben?"
+    - id: cafe_food_a1_21
+      text: "Die Soße bitte extra."
+    - id: cafe_food_a1_22
+      text: "Das ist nicht meine Bestellung."
+    - id: cafe_food_a1_23
+      text: "Meine Suppe ist kalt."
+    - id: cafe_food_a1_24
+      text: "Kann ich eine Serviette haben?"
+    - id: cafe_food_a1_25
+      text: "Wir haben zwei Getränke bestellt, nicht drei."
+    - id: cafe_food_a1_26
+      text: "Können wir den Rest mitnehmen?"
+    - id: cafe_food_a1_27
+      text: "Ich hätte gern einen Kaffee ohne Milch."
+      kind: example
+    - id: cafe_food_a1_28
+      text: "Haben Sie Hafermilch?"
+      kind: example
+      register: formal
+    - id: cafe_food_a1_29
+      text: "Zum Frühstück esse ich Brot mit Käse."
+      kind: example
+    - id: cafe_food_a1_30
+      text: "Ich trinke lieber stilles Wasser."
+      kind: example

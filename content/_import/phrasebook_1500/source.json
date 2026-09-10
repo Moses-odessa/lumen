@@ -1,0 +1,64 @@
+{
+ "file": "docs/Core_Phrases_A0_B2_1500_5_Languages.xlsx",
+ "sha256": "857fb300c2d1c10eaec3bad8c24ee61cbaf68d613de0b4aa47061350db697cba",
+ "sheet": "Core_Phrases_A0_B2",
+ "rows": 1500,
+ "themes": 50,
+ "columns": [
+  "Уровень",
+  "Категория",
+  "Українська",
+  "Deutsch",
+  "English",
+  "Русский",
+  "Italiano",
+  "№",
+  "Тип",
+  "Обращение"
+ ],
+ "note": "Выгружено из листа: номер темы отрезан от заголовка, остальные поля не тронуты — кроме того, что перечислено в deviations. Проверка: sha256 файла в docs/. Отступления перечислены построчно и с прежним текстом именно потому, что sha256 обещает верность листу: правка, сделанная молча, превратила бы это обещание в ложь, и сверка с листом показывала бы расхождение без объяснения.",
+ "deviations": [
+  {
+   "tier": "A2",
+   "theme": "Симптомы и лечение",
+   "row": 21,
+   "changed": "точка с пробелом → тире, во всех пяти языках",
+   "why": "Фраза — одна единица изучения и одна звезда. Два предложения под одной звездой нельзя ни показать, ни спросить по отдельности, а перевод у них один на двоих; валидатор такую строку законно отвергает (tool/validate_content.dart, _checkSingleSentence). Убран разрыв, а не половина строки: тире держит обе части вместе и сохраняет смысл — жалоба и вопрос остаются одной репликой.",
+   "was": {
+    "uk": "Я пропустив одну дозу. Що мені робити?",
+    "de": "Ich habe eine Dosis vergessen. Was soll ich tun?",
+    "en": "I missed one dose. What should I do?",
+    "ru": "Я пропустил одну дозу. Что мне делать?",
+    "it": "Ho saltato una dose. Che cosa devo fare?"
+   },
+   "now": {
+    "uk": "Я пропустив одну дозу — що мені робити?",
+    "de": "Ich habe eine Dosis vergessen — was soll ich tun?",
+    "en": "I missed one dose — what should I do?",
+    "ru": "Я пропустил одну дозу — что мне делать?",
+    "it": "Ho saltato una dose — che cosa devo fare?"
+   }
+  },
+  {
+   "tier": "B1",
+   "theme": "Письма и обращения",
+   "row": 18,
+   "changed": "точка с пробелом → тире, во всех пяти языках",
+   "why": "То же, что и у строки выше: одна звезда — одна фраза. Признание ошибки и просьба остаются одной репликой письма.",
+   "was": {
+    "uk": "Я надіслав не той файл. Будь ласка, використовуйте цей.",
+    "de": "Ich habe die falsche Datei geschickt. Bitte verwenden Sie diese.",
+    "en": "I sent the wrong file. Please use this one.",
+    "ru": "Я отправил не тот файл. Пожалуйста, используйте этот.",
+    "it": "Ho inviato il file sbagliato. Per favore, usi questo."
+   },
+   "now": {
+    "uk": "Я надіслав не той файл — будь ласка, використовуйте цей.",
+    "de": "Ich habe die falsche Datei geschickt — bitte verwenden Sie diese.",
+    "en": "I sent the wrong file — please use this one.",
+    "ru": "Я отправил не тот файл — пожалуйста, используйте этот.",
+    "it": "Ho inviato il file sbagliato — per favore, usi questo."
+   }
+  }
+ ]
+}

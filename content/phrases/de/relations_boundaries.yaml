@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: relations_boundaries
+name: "Beziehung und Grenzen"
 tiers:
   b1:
     - id: relations_boundaries_b1_01
@@ -13,8 +14,10 @@ tiers:
       text: "Ich würde das gern in Ruhe besprechen."
     - id: relations_boundaries_b1_03
       text: "Dein Ton macht mich traurig."
+      register: casual
     - id: relations_boundaries_b1_04
       text: "Ich mache dir keinen Vorwurf."
+      register: casual
     - id: relations_boundaries_b1_05
       text: "Ich brauche etwas Zeit allein."
     - id: relations_boundaries_b1_06
@@ -23,6 +26,7 @@ tiers:
       text: "Kommen wir morgen darauf zurück."
     - id: relations_boundaries_b1_08
       text: "Ich respektiere deine Entscheidung."
+      register: casual
     - id: relations_boundaries_b1_09
       text: "Aber meine Entscheidung ist auch wichtig."
     - id: relations_boundaries_b1_10
@@ -34,6 +38,7 @@ tiers:
       register: casual
     - id: relations_boundaries_b1_13
       text: "Was erwartest du von mir?"
+      register: casual
     - id: relations_boundaries_b1_14
       text: "Lass uns gemeinsame Regeln vereinbaren."
       register: casual
@@ -42,10 +47,38 @@ tiers:
     - id: relations_boundaries_b1_16
       text: "Unsere Beziehung ist mir wichtiger als der Streit."
     - id: relations_boundaries_b1_17
-      text: "Wenn du ..., fühle ich mich ..."
+      text: "Frag mich, bevor du meine Fotos teilst."
+      register: casual
     - id: relations_boundaries_b1_18
-      text: "Ich würde mir wünschen, dass wir ..."
+      text: "Ich möchte das lieber für mich behalten."
     - id: relations_boundaries_b1_19
-      text: "Ich bin bereit, ..., aber nicht ..."
+      text: "Ich möchte nicht vor anderen über Geld sprechen."
     - id: relations_boundaries_b1_20
-      text: "Meine Grenze ist ..."
+      text: "Mir ist wichtig, dass du meine Antwort respektierst."
+      register: casual
+    - id: relations_boundaries_b1_21
+      text: "Dieser Witz ist mir unangenehm."
+    - id: relations_boundaries_b1_22
+      text: "Können wir die Hausarbeit gerechter aufteilen?"
+    - id: relations_boundaries_b1_23
+      text: "Dem habe ich nicht zugestimmt."
+    - id: relations_boundaries_b1_24
+      text: "Ich kann jetzt zuhören, habe aber nur zehn Minuten Zeit."
+    - id: relations_boundaries_b1_25
+      text: "Ich würde das lieber persönlich besprechen."
+    - id: relations_boundaries_b1_26
+      text: "Entschuldige, dass ich laut geworden bin."
+      register: casual
+    - id: relations_boundaries_b1_27
+      text: "Wenn du mich unterbrichst, fühle ich mich nicht gehört."
+      kind: example
+      register: casual
+    - id: relations_boundaries_b1_28
+      text: "Ich möchte, dass wir wichtige Entscheidungen gemeinsam besprechen."
+      kind: example
+    - id: relations_boundaries_b1_29
+      text: "Ich bin bereit, beim Umzug zu helfen, aber nicht, ihn zu bezahlen."
+      kind: example
+    - id: relations_boundaries_b1_30
+      text: "Meine Grenze ist: Nach neun Uhr abends nehme ich keine beruflichen Anrufe an."
+      kind: example

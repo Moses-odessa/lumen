@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: hedging
+name: "Vorsichtige Aussagen"
 tiers:
   b2:
     - id: hedging_b2_01
@@ -32,18 +33,46 @@ tiers:
     - id: hedging_b2_12
       text: "Ich würde das vorsichtiger formulieren."
     - id: hedging_b2_13
-      text: "Soweit mir bekannt ist, ..."
+      text: "Das kann ich im Moment noch nicht beurteilen."
     - id: hedging_b2_14
-      text: "Es gibt Gründe anzunehmen, dass ..."
+      text: "Das lässt sich ebenso durch saisonale Veränderungen erklären."
     - id: hedging_b2_15
-      text: "Es lässt sich nicht ausschließen, dass ..."
+      text: "Dass wir es nicht beobachtet haben, bedeutet nicht, dass es nicht existiert."
     - id: hedging_b2_16
-      text: "Vorausgesetzt, dass ..., ..."
+      text: "Ich kann nicht mit Sicherheit sagen, wie lange das dauern wird."
     - id: hedging_b2_17
-      text: "Das betrifft überwiegend ... und nicht ..."
+      text: "Ich würde diese Frage vorerst offenlassen."
     - id: hedging_b2_18
-      text: "Unter den jetzigen Umständen neige ich zu ..."
+      text: "Das klingt plausibel, ist aber noch nicht überprüft."
     - id: hedging_b2_19
-      text: "Sofern keine neuen Daten vorliegen, ..."
+      text: "Die Einschätzung hängt davon ab, welche Annahmen wir zugrunde legen."
     - id: hedging_b2_20
-      text: "Ich würde nicht behaupten, dass ..., jedoch ..."
+      text: "Ich spreche nur über Fälle, die ich persönlich kenne."
+    - id: hedging_b2_21
+      text: "Es wäre verfrüht, das als Trend zu bezeichnen."
+    - id: hedging_b2_22
+      text: "Vorläufig unterstütze ich den Vorschlag, warte aber auf weitere Klärungen."
+    - id: hedging_b2_23
+      text: "Soweit ich weiß, gibt es noch keine endgültige Entscheidung."
+      kind: example
+    - id: hedging_b2_24
+      text: "Es gibt Gründe anzunehmen, dass der neue Stundenplan praktischer sein wird."
+      kind: example
+    - id: hedging_b2_25
+      text: "Es lässt sich nicht ausschließen, dass die Kosten steigen."
+      kind: example
+    - id: hedging_b2_26
+      text: "Vorausgesetzt, dass die Finanzierung bestätigt wird, können wir im Oktober anfangen."
+      kind: example
+    - id: hedging_b2_27
+      text: "Das betrifft hauptsächlich neue Nutzer und nicht die erfahrenen."
+      kind: example
+    - id: hedging_b2_28
+      text: "Unter den gegenwärtigen Umständen tendiere ich zu einer kurzen Testphase."
+      kind: example
+    - id: hedging_b2_29
+      text: "Sofern keine neuen Daten vorliegen, bleiben wir beim aktuellen Plan."
+      kind: example
+    - id: hedging_b2_30
+      text: "Ich würde nicht behaupten, dass das Problem gelöst ist, dennoch sind bereits Fortschritte erkennbar."
+      kind: example

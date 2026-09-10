@@ -1,10 +1,11 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: ecology_mobility
+name: "Grüne Gewohnheiten"
 tiers:
   b1:
     - id: ecology_mobility_b1_01
@@ -40,10 +41,34 @@ tiers:
     - id: ecology_mobility_b1_16
       text: "Es ist wichtig, nicht nur an heute zu denken."
     - id: ecology_mobility_b1_17
-      text: "Um ... zu sparen, ..."
+      text: "Ich plane meine Einkäufe, damit ich weniger wegwerfe."
     - id: ecology_mobility_b1_18
-      text: "Wenn es mehr ... gäbe, könnten die Menschen ..."
+      text: "Diese Verpackung kann wiederverwendet werden."
     - id: ecology_mobility_b1_19
-      text: "Das Problem liegt nicht nur an ..., sondern auch an ..."
+      text: "Wo kann ich alte Batterien abgeben?"
     - id: ecology_mobility_b1_20
-      text: "In unserer Stadt fehlt ..."
+      text: "Wir organisieren eine Tauschaktion in unserem Viertel."
+    - id: ecology_mobility_b1_21
+      text: "Ich versuche, mehrere Erledigungen mit einer Fahrt zu verbinden."
+    - id: ecology_mobility_b1_22
+      text: "Abends fahren die Busse zu selten."
+    - id: ecology_mobility_b1_23
+      text: "Wir brauchen einen sicheren Fahrradabstellplatz."
+    - id: ecology_mobility_b1_24
+      text: "Die Reparatur kostet fast so viel wie ein neuer Artikel."
+    - id: ecology_mobility_b1_25
+      text: "Ich möchte weniger vom Auto abhängig sein."
+    - id: ecology_mobility_b1_26
+      text: "Kann man das Werkzeug ausleihen, statt es zu kaufen?"
+    - id: ecology_mobility_b1_27
+      text: "Um Wasser zu sparen, dusche ich kürzer."
+      kind: example
+    - id: ecology_mobility_b1_28
+      text: "Wenn es mehr Radwege gäbe, könnten die Menschen sicherer Fahrrad fahren."
+      kind: example
+    - id: ecology_mobility_b1_29
+      text: "Das Problem liegt nicht nur im Preis, sondern auch in der Verfügbarkeit von Verkehrsmitteln."
+      kind: example
+    - id: ecology_mobility_b1_30
+      text: "In unserer Stadt fehlen sichere Fußgängerüberwege."
+      kind: example

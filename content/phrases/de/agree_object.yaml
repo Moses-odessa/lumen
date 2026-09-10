@@ -1,16 +1,18 @@
 # Сгенерировано: dart run tool/import_phrasebook.dart
-# Источник: content/_import/phrasebook_1000
+# Источник: content/_import/phrasebook_1500
 #
 # Правки руками не запрещены, но следующий импорт их снесёт:
 # правь источник, а не этот файл.
 lang: de
 constellation: agree_object
+name: "Zustimmung und Einwand"
 tiers:
   b1:
     - id: agree_object_b1_01
       text: "Damit bin ich einverstanden."
     - id: agree_object_b1_02
       text: "In diesem Punkt hast du recht."
+      register: casual
     - id: agree_object_b1_03
       text: "Das ist ein guter Punkt."
     - id: agree_object_b1_04
@@ -36,16 +38,45 @@ tiers:
       text: "Wir können unterschiedlicher Meinung sein."
     - id: agree_object_b1_14
       text: "Ich wollte dich nicht unterbrechen."
+      register: casual
     - id: agree_object_b1_15
       text: "Lass mich bitte meinen Gedanken zu Ende führen."
       register: casual
     - id: agree_object_b1_16
       text: "Gut, jetzt verstehe ich deinen Standpunkt."
+      register: casual
     - id: agree_object_b1_17
-      text: "Bei ... stimme ich zu, aber ..."
+      text: "Grundsätzlich bin ich einverstanden."
     - id: agree_object_b1_18
-      text: "Einerseits ..., andererseits ..."
+      text: "Beim Ziel sind wir uns einig, aber nicht beim Vorgehen."
     - id: agree_object_b1_19
-      text: "Das stimmt, allerdings ..."
+      text: "Das ist nicht das ganze Bild."
     - id: agree_object_b1_20
-      text: "Sollte man nicht auch ... berücksichtigen?"
+      text: "Bisher hat mich das nicht überzeugt."
+    - id: agree_object_b1_21
+      text: "Können Sie ein Gegenbeispiel nennen?"
+      register: formal
+    - id: agree_object_b1_22
+      text: "Was bringt dich zu dieser Annahme?"
+      register: casual
+    - id: agree_object_b1_23
+      text: "Ich sehe nicht, wie sich das aus dem Gesagten ergibt."
+    - id: agree_object_b1_24
+      text: "Vergleichen wir unsere Ausgangsannahmen."
+    - id: agree_object_b1_25
+      text: "Ich respektiere deine Meinung, auch wenn ich sie nicht teile."
+      register: casual
+    - id: agree_object_b1_26
+      text: "Dieses Beispiel bezieht sich auf eine andere Situation."
+    - id: agree_object_b1_27
+      text: "Beim Preis stimme ich zu, aber die Qualität überzeugt mich nicht."
+      kind: example
+    - id: agree_object_b1_28
+      text: "Einerseits ist die Wohnung geräumig, andererseits liegt sie weit von der Arbeit entfernt."
+      kind: example
+    - id: agree_object_b1_29
+      text: "Das stimmt, allerdings fehlen uns noch die nötigen Daten."
+      kind: example
+    - id: agree_object_b1_30
+      text: "Sollten wir nicht auch die Lieferkosten berücksichtigen?"
+      kind: example
