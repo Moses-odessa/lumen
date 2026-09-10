@@ -160,6 +160,19 @@ class AppLocalizationsRu extends AppLocalizations {
   String get ritualLevel => 'Уровень';
 
   @override
+  String get ritualQuitTitle => 'Прервать ритуал?';
+
+  @override
+  String get ritualQuitBody =>
+      'Ответы уже записаны: яркость фраз и очередь повторений сохранятся. Незаконченный уровень не зачтётся: очки пропадут, записи сессии не будет, орбита и искры не сдвинутся.';
+
+  @override
+  String get ritualQuitConfirm => 'Прервать';
+
+  @override
+  String get ritualQuitResume => 'Вернуться к игре';
+
+  @override
   String get sunriseReturned => 'вернулось небу';
 
   @override
@@ -210,9 +223,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get runContinue => 'Дальше';
-
-  @override
-  String get runNext => 'Дальше';
 
   @override
   String get audioReplay => 'Прослушать ещё раз';

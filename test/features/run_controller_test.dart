@@ -12,11 +12,12 @@ import 'package:lumen/data/local/database_provider.dart';
 import 'package:lumen/domain/entities/circle_question.dart';
 import 'package:lumen/domain/entities/game_mode.dart';
 import 'package:lumen/domain/entities/tier.dart';
-// `balance.dart` отсюда ушёл вместе с двумя числами, которые тест называл по
-// имени: `ScoreBalance.answerWindow` (одно окно на все круги — теперь его
-// длину даёт сам вопрос) и `RevealBalance` (пауза перед автопереходом —
-// перехода нет, круг ждёт кнопки). Формулу окна проверяет `balance_test.dart`;
-// здесь проверяется, что забег заводит таймер по **своему** кругу.
+// `balance.dart` вернулся, и ровно за одним — низом паузы (`RevealBalance`).
+// Окно тест по-прежнему не считает: `ScoreBalance.answerWindow` — одного числа
+// на все круги — не существует, длину даёт сам вопрос, а формулу проверяет
+// `balance_test.dart`. Здесь проверяется, что забег заводит таймер по
+// **своему** кругу, а паузу — по своей озвучке.
+import 'package:lumen/domain/scoring/balance.dart';
 import 'package:lumen/domain/srs/review_grade.dart';
 import 'package:lumen/features/game/application/run_controller.dart';
 
@@ -30,12 +31,13 @@ import 'package:lumen/features/game/application/run_controller.dart';
 /// там к ответу приходят исключением, читая пять знакомых строчек, и торопить в
 /// этот момент значит требовать угадать, а не сообразить.
 ///
-/// Второе правило, и оно новее: **темп круга принадлежит игроку**. Следующий
-/// круг открывает кнопка, а не таймер; окно открывается тогда, когда отвечать
-/// стало возможно (у круга на слух — после озвучки, а не вместе с ней); а пока
-/// приложения нет на экране, не идёт ни один отсчёт и не тратится ни одна
-/// секунда срока. Что было до этого — в комментариях к соответствующим
-/// группам: забег в фоне доигрывал сам себя и тратил звёзды игрока.
+/// Второе правило, и оно новее: **темп круга задаёт озвучка**. Оба конца круга
+/// стоят по звуку — окно открывается, когда дозвучал центр (до него отвечать не
+/// на что), а круг закрывается, когда дозвучал ответ; нажатие по арене
+/// закрывает эту паузу досрочно; а пока приложения нет на экране, не идёт ни
+/// один отсчёт и не тратится ни одна секунда срока. Что было до этого — в
+/// комментариях к соответствующим группам: забег в фоне доигрывал сам себя и
+/// тратил звёзды игрока, а пауза-число обрывала ответ на середине.
 ///
 /// Биндинг здесь поднимается нарочно, хотя виджетов нет ни одного: забег
 /// слушает жизненный цикл приложения, а сигнал о нём приходит от платформы
@@ -163,6 +165,21 @@ void main() {
   /// объёма текста, и своя копия формулы в тесте проверяла бы свою арифметику
   /// против чужой. Проверять саму формулу — работа `balance_test.dart`.
   Duration windowOf(CircleQuestion q) => q.answerWindow!;
+
+  /// Низ паузы после ответа — столько круг стоит открытым, когда говорить
+  /// нечем.
+  ///
+  /// Заглушка речи по умолчанию мгновенна (`sounds` == 0), то есть отвечает
+  /// «дозвучало» в ту же микрозадачу: пауза на таком голосе равна ровно низу.
+  /// Спрашивается он у баланса, а не вписан сюда числом, потому что здесь
+  /// проверяется **не величина**, а то, что низ у паузы есть и что на промахе
+  /// он длиннее. Величину сторожит `balance_test.dart`.
+  Duration floorOf({required bool correct}) =>
+      RevealBalance.forMode(GameMode.pickTarget, correct: correct);
+
+  /// Ждёт, пока пауза кончится сама, — так круг закрывается без игрока.
+  void waitPause(FakeAsync async, {required bool correct}) =>
+      async.elapse(floorOf(correct: correct) + const Duration(milliseconds: 1));
 
   RunController controller() =>
       container.read(runControllerProvider.notifier);
@@ -357,25 +374,33 @@ void main() {
       });
     });
 
-    test('просроченный круг ждёт игрока так же, как промах', () {
-      // Здесь стояла проверка «просрочке дали паузу верного ответа, а не
-      // промаха»: круг стоял открытым 420 мс после верного ответа и 1100 мс
-      // после промаха, и просрочке принадлежала длинная пауза — верный вариант
-      // надо успеть увидеть и услышать. Пауз по таймеру больше нет ни одной, и
-      // разницы между исходами не осталось: круг стоит открытым, пока игрок не
-      // нажмёт, и молчаливый круг ждёт его ровно столько же, сколько
-      // ошибочный. Правило, которое охраняли два числа, исполняет сам игрок.
+    test('просроченному кругу достаётся долгий низ паузы, как промаху', () {
+      // Просрочка — тот же промах, и пауза у неё та же: верный вариант надо
+      // успеть увидеть, а промолчавшему игроку его не назвали ни выбором, ни
+      // подсветкой выбранного. Проверяется это низом паузы, потому что
+      // говорить заглушке нечем — при мгновенном голосе пауза равна ровно
+      // низу, и разница между исходами видна.
+      //
+      // Здесь дважды стояло другое. Сперва — «просрочке дали паузу верного
+      // ответа, а не промаха»: пауза была числом, и числа было два. Потом —
+      // «круг ждёт игрока»: пауз по таймеру не осталось вовсе, следующий круг
+      // открывала кнопка. Правило пережило оба захода, а исполнитель у него
+      // теперь третий: пауза, чью длину задаёт озвучка, но не короче низа.
       fakeAsync((async) {
         final a = question('a');
         controller().start([a, question('b')]);
         async.elapse(windowOf(a));
 
-        async.elapse(const Duration(minutes: 1));
+        async.elapse(floorOf(correct: true));
         expect(state().phase, RunPhase.revealing,
-            reason: 'круг сменился сам, без игрока');
+            reason: 'просрочке дали короткую паузу верного ответа');
         expect(state().current?.itemId, 'a');
 
-        controller().next();
+        async.elapse(
+          floorOf(correct: false) -
+              floorOf(correct: true) +
+              const Duration(milliseconds: 1),
+        );
         expect(state().phase, RunPhase.asking);
         expect(state().current?.itemId, 'b');
       });
@@ -426,9 +451,8 @@ void main() {
         expect(state().correct, 1);
         expect(state().queue, hasLength(1));
         expect(speech.spoken, ['Satz a']);
-        // Забег ещё не кончен: итог придёт по кнопке.
-        expect(state().phase, RunPhase.revealing);
-        controller().next();
+        // Круг был последним, и пауза за эти тридцать секунд успела его
+        // закрыть: забег кончился сам, итогом.
         expect(state().summary!.isPerfect, isTrue);
       });
     });
@@ -438,7 +462,7 @@ void main() {
         final b = question('b');
         controller().start([question('a'), b]);
         controller().answerOption(0, const Duration(milliseconds: 900));
-        controller().next();
+        waitPause(async, correct: true);
         expect(state().current?.itemId, 'b');
 
         async.elapse(windowOf(b));
@@ -477,7 +501,7 @@ void main() {
         controller().start([question('a'), intro()]);
         async.elapse(const Duration(seconds: 1));
         controller().answerOption(0, const Duration(seconds: 1));
-        controller().next();
+        waitPause(async, correct: true);
         expect(state().current?.itemId, 'rechnung');
 
         async.elapse(const Duration(seconds: 20));
@@ -507,46 +531,127 @@ void main() {
     });
   });
 
-  group('переход к следующему кругу', () {
-    test('следующий круг открывает кнопка, а не таймер', () {
-      // Решение владельца дословно: «отключаем автоматическое появление
-      // следующего круга, давай после выбора варианта активируем кнопку
-      // Дальше и уже по ней переходим к следующему заниятию».
-      //
-      // Прежде круг стоял открытым 420 мс после верного ответа и 1100 мс после
-      // промаха и сменялся сам. Разница была нужна затем, чтобы игрок успел
-      // увидеть верный вариант; теперь это решает он.
+  group('пауза после ответа', () {
+    // Жалоба владельца дословно: «слово обрывается на середине, а если
+    // следующее задание с динамиком, то сразу звучит новое». Пауза была
+    // числом (420 мс на верном ответе, 1100 на промахе), а сколько звучит
+    // фраза, знает устройство: голос чужой, скорость своя, длина фразы от A0
+    // до B2 разная втрое. Лечили это кнопкой «Дальше» — игрок сам решал, когда
+    // круг кончился, — и это стоило касания на каждом из десяти-четырнадцати
+    // кругов. Решение владельца, дословно: «давай обратно уберем кнопку
+    // Дальше, просто дадим время для проигрывания предыдущего ответа».
+    //
+    // Ждать озвучку стало возможно только с `SpeechOutcome`: служба умеет
+    // сказать, что кончилось именно **её** произнесение. Ниже сторожатся все
+    // четыре края этого ожидания — низ, верх, вытеснение и досрочное закрытие;
+    // без любого из них пауза либо мигает мимо глаз, либо висит.
+
+    /// Сколько «звучит» ответ. Заведомо длиннее обоих низов паузы: на низе
+    /// проверка не отличила бы ожидание озвучки от прежнего числа.
+    const speaking = Duration(seconds: 3);
+
+    test('пауза ждёт, пока ответ дозвучит', () {
+      speech.sounds = speaking;
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(0, const Duration(milliseconds: 900));
+        expect(speech.spoken, ['Satz a']);
 
-        async.elapse(const Duration(minutes: 5));
+        async.elapse(speaking - const Duration(milliseconds: 1));
         expect(state().current?.itemId, 'a',
-            reason: 'круг сменился без кнопки');
+            reason: 'круг ушёл, не дав ответу дозвучать');
         expect(state().phase, RunPhase.revealing);
 
-        controller().next();
-
+        async.elapse(const Duration(milliseconds: 1));
         expect(state().current?.itemId, 'b');
         expect(state().phase, RunPhase.asking);
         expect(state().lastCorrect, isNull);
       });
     });
 
-    test('на ошибке круг ждёт столько же — то есть сколько нужно игроку', () {
-      // Здесь проверялось, что пауза после промаха длиннее паузы после верного
-      // ответа. Двух длин больше нет: обе стали одной — «пока не нажмут».
-      // Ошибка от этого не перестала учить, наоборот: время на верный вариант
-      // больше не отмеряет тот, кто его не читает.
+    test('у паузы есть низ: круг не мигает мимо глаз, когда говорить нечем',
+        () {
+      // «Дозвучало» приходит сразу и тогда, когда говорить было нечем: звук
+      // выключен, голоса на устройстве нет, текста нет. Пауза длиной в озвучку
+      // и только в озвучку означала бы на таком телефоне отсутствие паузы —
+      // круг сменился бы в том же кадре, в котором игрок нажал.
+      expect(speech.sounds, Duration.zero, reason: 'голос заглушки не мгновенен');
+      fakeAsync((async) {
+        controller().start([question('a'), question('b')]);
+        controller().answerOption(0, const Duration(milliseconds: 900));
+
+        async.elapse(floorOf(correct: true) - const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'круг закрылся раньше низа паузы');
+
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().current?.itemId, 'b');
+      });
+    });
+
+    test('на промахе низ длиннее, чем на верном ответе', () {
+      // Верный ответ читать не надо — он подсвечен и прозвучал. Промах надо:
+      // единственный момент, когда промахнувшийся видит правильный ответ, —
+      // вот этот, потому что круг закрывается и фраза уходит в конец очереди.
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(wrongOption, const Duration(seconds: 2));
 
-        async.elapse(const Duration(minutes: 5));
-        expect(state().phase, RunPhase.revealing);
+        async.elapse(floorOf(correct: true));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'промаху дали паузу верного ответа');
 
-        controller().next();
+        async.elapse(
+          floorOf(correct: false) -
+              floorOf(correct: true) +
+              const Duration(milliseconds: 1),
+        );
         expect(state().phase, RunPhase.asking);
+        expect(state().current?.itemId, 'b');
+      });
+    });
+
+    test('у паузы есть верх: молчащая платформа забег не держит', () {
+      // Синтез обязан сообщить об окончании, но обещание это чужое. Поверь
+      // забег ему на слово — и на движке, который не отвечает, следующий круг
+      // не развернулся бы никогда: выйти из забега игрок мог бы только закрыв
+      // приложение. Здесь платформа «зависла» на десять минут.
+      speech.sounds = const Duration(minutes: 10);
+      fakeAsync((async) {
+        controller().start([question('a'), question('b')]);
+        controller().answerOption(0, const Duration(milliseconds: 900));
+
+        async.elapse(RevealBalance.ceiling - const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'круг закрылся раньше верха паузы');
+
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().current?.itemId, 'b',
+            reason: 'забег остался ждать сигнал, которого не будет');
+      });
+    });
+
+    test('вытесненное произнесение паузу не держит', () {
+      // Вытеснение — это «моего произнесения больше нет»: его оборвал `stop`,
+      // вытеснил новый запрос или служба замолчала. В приложении так и
+      // случается — голос запирает корень при уходе с экрана
+      // (`SilenceOffScreen`), — и ждать после этого нечего: сигнала «дозвучало»
+      // не будет вовсе. Пауза, ждущая вытесненного, простояла бы до своего
+      // верха, то есть шесть секунд вместо низа.
+      speech.sounds = const Duration(minutes: 10);
+      fakeAsync((async) {
+        controller().start([question('a'), question('b')]);
+        controller().answerOption(0, const Duration(milliseconds: 900));
+
+        async.elapse(const Duration(milliseconds: 100));
+        speech.stop();
+
+        async.elapse(floorOf(correct: true) - const Duration(milliseconds: 101));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'вытеснение съело низ паузы');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().current?.itemId, 'b',
+            reason: 'пауза ждёт произнесение, которого больше нет');
       });
     });
 
@@ -555,10 +660,9 @@ void main() {
         controller().start([question('a'), question('b')]);
 
         controller().answerOption(0, const Duration(milliseconds: 900));
-        controller().next();
+        waitPause(async, correct: true);
         controller().answerOption(0, const Duration(milliseconds: 900));
-        controller().next();
-        async.flushMicrotasks();
+        waitPause(async, correct: true);
 
         expect(state().isFinished, isTrue);
         expect(state().summary, isNotNull);
@@ -572,15 +676,14 @@ void main() {
         controller().start([question('a')]);
 
         controller().answerOption(wrongOption, const Duration(seconds: 2));
-        controller().next();
+        waitPause(async, correct: false);
 
         // Фраза вернулась — забег ещё идёт.
         expect(state().isFinished, isFalse);
         expect(state().current?.itemId, 'a');
 
         controller().answerOption(0, const Duration(seconds: 2));
-        controller().next();
-        async.flushMicrotasks();
+        waitPause(async, correct: true);
 
         expect(state().isFinished, isTrue);
         expect(state().summary!.circles, 2);
@@ -588,15 +691,20 @@ void main() {
       });
     });
 
-    test('нажатие по арене делает то же, что кнопка', () {
-      // `next` — один вход на оба движения. Нажатие по пустому месту круга
-      // было досрочным закрытием паузы, которая шла по таймеру; паузы по
-      // таймеру нет, а движение осталось: палец после ответа уже на арене.
+    test('нажатие по арене закрывает паузу досрочно', () {
+      // Ждать не обязан тот, кто уже всё прочёл и услышал. Правило старше
+      // автоперехода и переживает его во второй раз: было досрочным закрытием
+      // паузы-числа, стало основным путём при кнопке, снова стало досрочным.
+      // Палец после ответа и так на арене, так что движение бесплатно.
+      //
+      // Озвучка здесь длинная нарочно: закрыть паузу досрочно значит закрыть
+      // её раньше и низа, и звука.
+      speech.sounds = speaking;
       fakeAsync((async) {
         controller().start([question('a'), question('b')]);
         controller().answerOption(wrongOption, const Duration(seconds: 2));
 
-        controller().next();
+        controller().skipReveal();
         async.flushMicrotasks();
 
         expect(state().current?.itemId, 'b');
@@ -604,11 +712,11 @@ void main() {
       });
     });
 
-    test('кнопка до ответа ничего не делает', () {
-      // Обратная сторона того же правила: «Дальше» не пропускает круг. Иначе
-      // игрок терял бы вопрос вместе с яркостью фразы одним нажатием.
+    test('до ответа нажатие по арене круг не пропускает', () {
+      // Обратная сторона того же правила. Иначе игрок, промахнувшийся мимо
+      // варианта, терял бы вопрос вместе с яркостью фразы одним нажатием.
       controller().start([question('a'), question('b')]);
-      controller().next();
+      controller().skipReveal();
 
       expect(state().current?.itemId, 'a');
       expect(state().phase, RunPhase.asking);
@@ -706,7 +814,17 @@ void main() {
         expect(state().phase, RunPhase.asking,
             reason: 'круг закрылся по остатку прежнего окна');
 
-        async.elapse(windowOf(h));
+        // Окно заведено с полного времени, и две его секунды уже прошли —
+        // значит до просрочки осталось ровно столько. Считать остаток здесь
+        // приходится точно, а не «с запасом»: круг после просрочки уходит
+        // сам, паузой, и лишняя секунда прогона показала бы уже следующий
+        // круг вместо закрытого.
+        async.elapse(windowOf(h) -
+            const Duration(seconds: 2) -
+            const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.asking,
+            reason: 'окно оказалось короче полного');
+        async.elapse(const Duration(milliseconds: 1));
         expect(state().phase, RunPhase.revealing);
         expect(speech.spoken.take(2),
             ['Die Rechnung, bitte', 'Die Rechnung, bitte']);
@@ -844,6 +962,36 @@ void main() {
       });
     });
 
+    test('пауза в фоне не идёт, а после возвращения начинается заново', () {
+      // Пауза — такой же отсчёт круга, как окно, и в фоне ей идти нельзя:
+      // иначе вернулась бы вся петля целиком — пауза дотикала бы в закрытом
+      // окне, открыла следующий круг, тот произнёс бы свой вопрос и завёл
+      // своё окно.
+      //
+      // Заново, а не с остатка, и по той же причине, по которой заново
+      // открывается окно: игрок не видел ни подсвеченного ответа, ни того,
+      // сколько паузы уже съедено. А ждать ей после возвращения нечего —
+      // произнесение ответа оборвал корень приложения вместе с уходом
+      // (`SilenceOffScreen`), — поэтому пауза равна своему низу.
+      fakeAsync((async) {
+        controller().start([question('a'), question('b')]);
+        controller().answerOption(0, const Duration(milliseconds: 900));
+        screen(AppLifecycleState.paused);
+
+        async.elapse(const Duration(minutes: 1));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'пауза дотикала в закрытом окне');
+        expect(state().current?.itemId, 'a');
+
+        screen(AppLifecycleState.resumed);
+        async.elapse(floorOf(correct: true) - const Duration(milliseconds: 1));
+        expect(state().phase, RunPhase.revealing,
+            reason: 'после возвращения паузе достался остаток, а не полный низ');
+        async.elapse(const Duration(milliseconds: 1));
+        expect(state().current?.itemId, 'b');
+      });
+    });
+
     test('круг на слух после возвращения звучит заново и не считается '
         'переслушанным', () {
       // Звук отобрала игра, а не игрок попросил повторить: снимать за это
@@ -915,11 +1063,11 @@ void main() {
       screen(AppLifecycleState.resumed);
 
       controller().answerOption(0, const Duration(milliseconds: 300));
-      controller().next();
+      controller().skipReveal();
 
       expect(state().isFinished, isFalse, reason: 'фон съел срок забега');
       expect(state().current?.itemId, 'b');
-      controller().leaveScreen();
+      controller().freeze();
     });
   });
 
@@ -1099,8 +1247,8 @@ void main() {
       fakeAsync((async) {
         controller().start([heard(), heard()]);
         controller().answerOption(0, const Duration(milliseconds: 500));
-        controller().next();
-        async.flushMicrotasks();
+        // Круг закрывает пауза: на мгновенном голосе она равна своему низу.
+        async.elapse(RevealBalance.correct + const Duration(milliseconds: 1));
 
         // Три произнесения: центр первого круга, верный ответ, центр второго.
         expect(speech.spoken, [

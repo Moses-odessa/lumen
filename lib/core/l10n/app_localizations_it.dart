@@ -159,6 +159,19 @@ class AppLocalizationsIt extends AppLocalizations {
   String get ritualLevel => 'Livello';
 
   @override
+  String get ritualQuitTitle => 'Interrompere il rituale?';
+
+  @override
+  String get ritualQuitBody =>
+      'Le risposte sono già salvate: la luminosità delle frasi e la coda dei ripassi restano. Il livello non finito non conta: i suoi punti vanno persi, nessuna sessione viene registrata, orbita e scintille non si muovono.';
+
+  @override
+  String get ritualQuitConfirm => 'Interrompi';
+
+  @override
+  String get ritualQuitResume => 'Torna al gioco';
+
+  @override
   String get sunriseReturned => 'tornati al cielo';
 
   @override
@@ -208,9 +221,6 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get runContinue => 'Avanti';
-
-  @override
-  String get runNext => 'Avanti';
 
   @override
   String get audioReplay => 'Ascolta di nuovo';

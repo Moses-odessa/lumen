@@ -9,7 +9,9 @@ import '../../../domain/scoring/balance.dart';
 import '../../../domain/scoring/climb.dart';
 import '../../game/application/run_controller.dart';
 import '../../game/presentation/run_screen.dart';
-import '../../sky/application/sky_controller.dart';
+// Небо экран больше не пересобирает сам: пересборка стоит там, где ритуал
+// закрывается ([RitualController.close]), — оба выхода с этого экрана ведут
+// через неё, и забыть её на одном из них теперь нельзя.
 import '../application/ritual_controller.dart';
 
 /// Дневной ритуал: Восход → уровень.
@@ -33,63 +35,142 @@ class RitualScreen extends ConsumerWidget {
       }
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(_title(l10n, state.phase)),
-        leading: state.phase == RitualPhase.idle
-            ? null
-            : IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  controller.reset();
-                  // Небо пересобирается: после сессии яркость изменилась.
-                  ref.invalidate(skySnapshotProvider);
-                },
-              ),
-      ),
-      body: switch (state.phase) {
-        RitualPhase.idle => _RitualHome(
-            l10n: l10n,
-            error: state.error,
-            onStart: controller.startRitual,
-            onLevelOnly: controller.startLevelOnly,
-          ),
-        RitualPhase.loading =>
-          const Center(child: CircularProgressIndicator()),
-        RitualPhase.sunrise ||
-        RitualPhase.level ||
-        RitualPhase.sprint =>
-          const RunScreen(),
-        RitualPhase.sunriseResult => _SunriseResult(
-            l10n: l10n,
-            lumens: state.lumensReturned,
-            onNext: controller.next,
-          ),
-        RitualPhase.levelResult => _LevelResult(
-            l10n: l10n,
-            state: state,
-            onNext: controller.next,
-            // Спринт предлагается только там, где ему есть на чём идти:
-            // тема пройдена, и ярких слов достаточно. Кнопки нет, если
-            // предлагать нечего, — предложение, которое не срабатывает,
-            // раздражает сильнее отсутствующего.
-            onSprint: controller.canSprint ? controller.startSprint : null,
-          ),
-        RitualPhase.sprintResult => _SprintResult(
-            l10n: l10n,
-            state: state,
-            onNext: controller.next,
-          ),
-        RitualPhase.done => _RitualDone(
-            l10n: l10n,
-            state: state,
-            onFinish: () {
-              controller.reset();
-              ref.invalidate(skySnapshotProvider);
-            },
-          ),
+    // Спрашивать есть о чём только пока забег идёт. На экранах итога
+    // прерывать нечего — уровень уже зачтён и записан, — и вопрос там был бы
+    // обрядом: игрок привыкает отвечать «да» не читая, и в тот единственный
+    // раз, когда терять было что, он ответит так же.
+    final playing = state.isPlaying;
+
+    return PopScope(
+      // Системная «назад» — та же дверь, что крестик. Защитить один вход,
+      // оставив второй открытым, значит не защитить ничего: тем же
+      // единственным действием, только жестом, игрок терял бы то же самое.
+      canPop: !playing,
+      onPopInvokedWithResult: (didPop, _) {
+        if (didPop) return;
+        _askToQuit(context, ref, l10n);
       },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_title(l10n, state.phase)),
+          leading: state.phase == RitualPhase.idle
+              ? null
+              : IconButton(
+                  icon: const Icon(Icons.close),
+                  // Пока идёт забег — вопрос; на экранах итога крестик
+                  // закрывает ритуал сразу, как закрывал всегда.
+                  onPressed: () {
+                    if (playing) {
+                      _askToQuit(context, ref, l10n);
+                    } else {
+                      controller.close();
+                    }
+                  },
+                ),
+        ),
+        body: switch (state.phase) {
+          RitualPhase.idle => _RitualHome(
+              l10n: l10n,
+              error: state.error,
+              onStart: controller.startRitual,
+              onLevelOnly: controller.startLevelOnly,
+            ),
+          RitualPhase.loading =>
+            const Center(child: CircularProgressIndicator()),
+          RitualPhase.sunrise ||
+          RitualPhase.level ||
+          RitualPhase.sprint =>
+            const RunScreen(),
+          RitualPhase.sunriseResult => _SunriseResult(
+              l10n: l10n,
+              lumens: state.lumensReturned,
+              onNext: controller.next,
+            ),
+          RitualPhase.levelResult => _LevelResult(
+              l10n: l10n,
+              state: state,
+              onNext: controller.next,
+              // Спринт предлагается только там, где ему есть на чём идти:
+              // тема пройдена, и ярких слов достаточно. Кнопки нет, если
+              // предлагать нечего, — предложение, которое не срабатывает,
+              // раздражает сильнее отсутствующего.
+              onSprint: controller.canSprint ? controller.startSprint : null,
+            ),
+          RitualPhase.sprintResult => _SprintResult(
+              l10n: l10n,
+              state: state,
+              onNext: controller.next,
+            ),
+          // Тот же выход, что у прерывания, и это не совпадение: снаружи
+          // «прервал» и «дошёл до конца» — одно и то же, экран возвращается
+          // домой, а ритуал перестаёт что-либо отсчитывать.
+          RitualPhase.done => _RitualDone(
+              l10n: l10n,
+              state: state,
+              onFinish: controller.close,
+            ),
+        },
+      ),
     );
+  }
+
+  /// Спрашивает, прерывать ли ритуал, и держит забег остановленным, пока
+  /// вопрос на экране.
+  ///
+  /// Останавливает забег тот же путь, которым он останавливается на уходе с
+  /// экрана ([RunController.freeze]), и второго механизма для диалога нет
+  /// намеренно: открытый вопрос — это тот же «игрок не смотрит на круг», и
+  /// нужно от него ровно то же самое, что от закрытого окна. Не тратить окно
+  /// ответа, не считать просрочку, не двигать срок Восхода и спринта, а на
+  /// возвращении открыть круг заново с полного времени — четыре правила,
+  /// которые уже написаны один раз.
+  ///
+  /// Заморозка и разморозка стоят парой на **обоих** ответах, и на прерывании
+  /// это не лишний вызов: забег к тому моменту уже пустой, размораживать в нём
+  /// нечего, — а вот поднятый флаг заморозки достался бы следующему забегу и
+  /// не дал бы ему открыть первый круг.
+  Future<void> _askToQuit(
+    BuildContext context,
+    WidgetRef ref,
+    AppLocalizations l10n,
+  ) async {
+    // Оба контроллера читаются до вопроса, а не после: `ref` за время
+    // диалога может перестать принадлежать живому виджету, а ответ игрока
+    // обязан дойти в любом случае.
+    final run = ref.read(runControllerProvider.notifier);
+    final ritual = ref.read(ritualControllerProvider.notifier);
+
+    run.freeze();
+    final quit = await showDialog<bool>(
+          context: context,
+          // Мимо вопроса выйти нельзя: касание по фону закрыло бы его
+          // «никак», а у прерывания забега есть ровно два ответа, и оба
+          // названы кнопками.
+          barrierDismissible: false,
+          builder: (context) => AlertDialog(
+            title: Text(l10n.ritualQuitTitle),
+            content: Text(l10n.ritualQuitBody),
+            // Выделен возврат, а не прерывание, и это не вежливость:
+            // подсвеченная кнопка — та, которую нажимают не глядя, и стоять
+            // ею должно то действие, которое ничего не отменяет.
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: Text(l10n.ritualQuitConfirm),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(l10n.ritualQuitResume),
+              ),
+            ],
+          ),
+        ) ??
+        // Диалог закрылся не кнопкой (маршрут сняли, система закрыла окно) —
+        // согласием это не считается: забег продолжается.
+        false;
+
+    if (quit) ritual.close();
+    run.unfreeze();
   }
 
   String _title(AppLocalizations l10n, RitualPhase phase) => switch (phase) {

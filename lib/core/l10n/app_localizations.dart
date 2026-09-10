@@ -370,6 +370,30 @@ abstract class AppLocalizations {
   /// **'Level'**
   String get ritualLevel;
 
+  /// No description provided for @ritualQuitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the ritual?'**
+  String get ritualQuitTitle;
+
+  /// Asked by the close button and by the Android back button while a run is going, and every clause of it is checked against the code — a soothing 'your progress is kept' would be the worst kind of untruth here, because the player agrees while leaning on it. What is kept: answers are written through on every circle (WordStateRepository.applyAnswer stores the FSRS triple, the due date and the cached brightness, plus a row in reviews), so brightness and the review queue survive the interruption. What is lost: the session row is written only when the level ends (RitualController._saveSession), and orbit, sparks and the preferred hour are granted from that same place and nowhere else, so an interrupted level grants none of them; the climb does not rise either, because ClimbRules.afterLevel runs at the end of the level too. Move either of those and this text plus its five translations are what has to be rewritten.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers are already saved: phrase brightness and the review queue stay. The unfinished level counts for nothing — its points are lost, no session is recorded, and orbit and sparks do not move.'**
+  String get ritualQuitBody;
+
+  /// No description provided for @ritualQuitConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get ritualQuitConfirm;
+
+  /// The second exit, and it is not 'close this dialog': the run goes on from the same circle with a full answer window, because it was frozen while the question stood (RunController.freeze).
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the game'**
+  String get ritualQuitResume;
+
   /// No description provided for @sunriseReturned.
   ///
   /// In en, this message translates to:
@@ -453,12 +477,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue'**
   String get runContinue;
-
-  /// No description provided for @runNext.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get runNext;
 
   /// No description provided for @audioReplay.
   ///

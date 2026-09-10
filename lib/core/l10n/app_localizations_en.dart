@@ -158,6 +158,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ritualLevel => 'Level';
 
   @override
+  String get ritualQuitTitle => 'Leave the ritual?';
+
+  @override
+  String get ritualQuitBody =>
+      'Your answers are already saved: phrase brightness and the review queue stay. The unfinished level counts for nothing — its points are lost, no session is recorded, and orbit and sparks do not move.';
+
+  @override
+  String get ritualQuitConfirm => 'Leave';
+
+  @override
+  String get ritualQuitResume => 'Back to the game';
+
+  @override
   String get sunriseReturned => 'returned to the sky';
 
   @override
@@ -206,9 +219,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get runContinue => 'Continue';
-
-  @override
-  String get runNext => 'Next';
 
   @override
   String get audioReplay => 'Listen again';
