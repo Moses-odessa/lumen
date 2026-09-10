@@ -1,5 +1,6 @@
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/core/audio/speech_service.dart';
@@ -14,6 +15,8 @@ import 'package:lumen/features/game/application/run_controller.dart';
 import 'package:lumen/features/game/presentation/circle_arena.dart';
 import 'package:lumen/features/game/presentation/run_screen.dart';
 import 'package:lumen/features/game/presentation/run_summary_view.dart';
+
+import 'corpus_extremes.dart';
 
 /// Забег вместе со своим экраном — тот самый стык, на котором проект уже
 /// пропустил дефект в продакшен.
@@ -43,6 +46,12 @@ void main() {
   late ProviderContainer container;
   late SilentSpeechService speech;
   late AppDatabase db;
+
+  /// Худшие строки корпуса — из ассета. Читаются в `setUpAll`, потому что
+  /// внутри `testWidgets` живут поддельные часы и настоящее чтение файла под
+  /// ними не завершается.
+  late CorpusExtremes corpus;
+  setUpAll(() async => corpus = await CorpusExtremes.load());
 
   setUp(() {
     speech = SilentSpeechService();
@@ -132,6 +141,20 @@ void main() {
     return Offset(arena.left + 8, arena.center.dy);
   }
 
+  /// Полоса окна ответа — та, что внутри круга.
+  ///
+  /// Полос на экране забега две, и путать их нельзя: своя полоса шапки мерит
+  /// пройденные круги и живёт всегда, полоса окна показывает отсчёт до
+  /// закрытия круга и обязана быть ровно там, где этот отсчёт идёт.
+  final windowBar = find.descendant(
+    of: find.byType(CircleArena),
+    matching: find.byType(LinearProgressIndicator),
+  );
+
+  /// Сколько времени осталось по полосе окна: 1 — только открылся, 0 — вышло.
+  double windowLeft(WidgetTester tester) =>
+      tester.widget<LinearProgressIndicator>(windowBar).value!;
+
   testWidgets('вариант отвечает, и следующий круг встаёт на место арены',
       (tester) async {
     controller().start([bill, time]);
@@ -217,6 +240,10 @@ void main() {
     expect(find.text('Счёт, пожалуйста'), findsOneWidget);
     expect(state().answered, 0);
     expect(speech.spoken, isEmpty);
+    // И полосы окна тоже нет: она обещает отсчёт, а отсчёта здесь не завели.
+    // Полоса, идущая там, где круг не закроется, — обещание наказания,
+    // которого не будет, и учит она не смотреть на полосу вообще.
+    expect(windowBar, findsNothing);
 
     // Ответ по-прежнему принимается: у знакомства отобрали таймер, а не игру.
     await tester.tap(find.text('Die Rechnung, bitte'));
@@ -318,5 +345,208 @@ void main() {
     expect(find.byType(RunSummaryView), findsOneWidget);
     expect(find.byType(CircleArena), findsNothing,
         reason: 'арена осталась на экране поверх итога');
+  });
+
+  group('окно ответа', () {
+    testWidgets('полоса кончается тем же мгновением, что и окно забега',
+        (tester) async {
+      // Полоса — картинка отсчёта, а закрывает круг таймер забега. Разойдись
+      // они, и полоса стала бы врать в одну из двух сторон: либо краснеет, а
+      // круг ещё открыт, либо круг закрылся при непустой полосе. Проверяется
+      // это только здесь: арена своего таймера не имеет, забег своей полосы
+      // не рисует, и разъехаться они могут лишь на этом шве.
+      controller().start([bill, time]);
+      await pumpRun(tester);
+
+      expect(windowBar, findsOneWidget, reason: 'отсчёт идёт, а полосы нет');
+
+      const eyeblink = Duration(milliseconds: 100);
+      await tester.pump(ScoreBalance.answerWindow - eyeblink);
+      expect(state().phase, RunPhase.asking,
+          reason: 'забег закрыл круг раньше, чем кончилась полоса');
+      expect(windowLeft(tester), greaterThan(0),
+          reason: 'полоса кончилась раньше, чем забег закрыл круг');
+
+      await tester.pump(eyeblink);
+      expect(state().phase, RunPhase.revealing);
+
+      // Забег дожимается до конца, иначе окно следующего круга осталось бы
+      // висеть после теста.
+      await tester.pump(RevealBalance.wrong);
+      await tester.tap(find.text('Ich habe Zeit'));
+      await tester.pump();
+      await tester.pump(RevealBalance.correct);
+      await tester.tap(find.text('Die Rechnung, bitte'));
+      await tester.pump();
+      await tester.pump(RevealBalance.correct);
+      expect(state().isFinished, isTrue);
+    });
+  });
+
+  group('арена влезает на любом экране', () {
+    // ── Зачем это здесь, а не в тестах арены ─────────────────────────────
+    //
+    // Арену, поднятую в тесте одну, размер ей задаёт сам тест — и тест же
+    // решает, какой он щедрости. Проверка, зеленеющая от удвоенной арены,
+    // охраняет ровно ничего. Здесь арену выдаёт настоящий `RunScreen`: шапка,
+    // отступы забега и рамка реакции забирают своё, и остаётся столько,
+    // сколько останется у игрока.
+    //
+    // Дефект, из-за которого группа появилась: подбор кегля выходил по
+    // достижении предела читаемости, ничего не проверив, и полосы уезжали за
+    // низ арены. Уехавшая капсула не подрезается — она перестаёт нажиматься:
+    // `Stack` клипует, hit-test за границы не идёт. Замер на прежнем корпусе
+    // (максимум 90 знаков): арена 284×386 — три варианта из шести не
+    // отвечали, лежащая 604×266 — один. С корпусом 1500 стало хуже: немецкая
+    // фраза доросла до 118 знаков, украинский перевод до 97.
+
+    /// Экран, на котором арена выйдет **вдвое шире** настоящей.
+    ///
+    /// В окружении flutter_test каждый знак шириной ровно с кегль, в жизни
+    /// средний знак примерно вдвое уже: одна и та же фраза занимает вдвое
+    /// больше ширины, а число строк и высота совпадают — высота строки задана
+    /// кеглем и там, и здесь. Поэтому ширина модели удвоена, а высота взята
+    /// настоящей.
+    ///
+    /// Удваивается **арена**, а не экран: шапка и отступы забега шириной не
+    /// растягиваются, и удвоив экран, мы подарили бы кругу лишние точки — то
+    /// есть проверяли бы телефон пошире того, который в руках. Ширину рамки
+    /// тест **меряет**: она живёт в `RunScreen`, и вписанное сюда число
+    /// устарело бы молча при первой же правке шапки.
+    Future<Size> modelOf(WidgetTester tester, Size screen) async {
+      tester.view.devicePixelRatio = 1;
+      tester.view.physicalSize = screen;
+      controller().start([bill]);
+      await pumpRun(tester);
+      final arena = tester.getRect(find.byType(CircleArena));
+      final chrome = screen.width - arena.width;
+      return Size(arena.width * 2 + chrome, screen.height);
+    }
+
+    /// Лежит ли [inner] целиком внутри [outer]. Допуск — на округление
+    /// замера: раскладка мерит текст сама и округляет размеры вверх.
+    bool inside(Rect outer, Rect inner) =>
+        inner.left >= outer.left - 0.5 &&
+        inner.top >= outer.top - 0.5 &&
+        inner.right <= outer.right + 0.5 &&
+        inner.bottom <= outer.bottom + 0.5;
+
+    /// Круг худшего случая: шесть самых длинных фраз корпуса вокруг самого
+    /// длинного перевода, верный — [answerIndex].
+    ///
+    /// Верный вариант переставляется по всем шести местам нарочно: круг
+    /// принимает один ответ, а проверить надо каждую капсулу — и проверка
+    /// «нажатие дошло» возможна только через «ответ оказался верным».
+    CircleQuestion worst(int answerIndex) {
+      final options = corpus.longestTarget(ScoreBalance.optionsPerCircle);
+      final prompt = corpus.longestNative(1).single;
+      return CircleQuestion(
+        itemId: 'corpus_worst',
+        tier: Tier.b2,
+        mode: GameMode.pickTarget,
+        prompt: prompt,
+        // Пометка добавляет под центром вторую строку — худший случай
+        // становится ещё на строку выше.
+        promptTag: 'formal',
+        options: options,
+        answerIndex: answerIndex,
+        lumens: 60,
+        answerSpeech: options[answerIndex],
+        translation: prompt,
+      );
+    }
+
+    // Экраны: телефон, на котором игра держалась, и те, на которых она
+    // ломалась. Ландшафт здесь потому, что ориентация в приложении не
+    // заблокирована: повернув телефон, игрок получал непроходимый круг.
+    const screens = [
+      (label: '360×640', size: Size(360, 640)),
+      (label: '320×568', size: Size(320, 568)),
+      (label: '320×480', size: Size(320, 480)),
+      (label: '640×360 ландшафт', size: Size(640, 360)),
+      (label: '412×915', size: Size(412, 915)),
+    ];
+
+    for (final screen in screens) {
+      testWidgets('${screen.label}: нажимается каждый из шести',
+          (tester) async {
+        addTearDown(tester.view.reset);
+        final model = await modelOf(tester, screen.size);
+        tester.view.physicalSize = model;
+
+        for (var i = 0; i < ScoreBalance.optionsPerCircle; i++) {
+          controller().start([worst(i)]);
+          await pumpRun(tester);
+
+          final arena = tester.getRect(find.byType(CircleArena));
+          final boxes = [
+            for (var j = 0; j < ScoreBalance.optionsPerCircle; j++)
+              tester.getRect(find.byKey(CircleArena.optionKey(j))),
+          ];
+
+          // 1. Главное — нажатие, и проверяется оно первым.
+          //
+          // Нажатие, а не потяг: потяг, начавшийся внутри арены, доставляет
+          // свои точки той же арене и за её краем — жест уже захвачен, а
+          // `hitTest` раскладки отвечает по своим прямоугольникам, где бы они
+          // ни лежали. Поэтому дефект, из-за которого написана эта группа,
+          // тест на потяге не видел, а критик нашёл его первым же нажатием.
+          // Целимся в середину капсулы — туда, куда смотрит и жмёт игрок.
+          //
+          // «Дошло» означает «дошло **до своей** капсулы»: верный вариант
+          // переставлен на место $i, и верным ответ окажется только если
+          // нажатие попало именно туда, а не в соседа и не в пустоту.
+          await tester.tapAt(boxes[i].center);
+          await tester.pump();
+          expect(state().lastCorrect, isTrue,
+              reason: 'нажатие по центру капсулы $i не дошло до ответа '
+                  'на ${screen.label}');
+
+          // 2. Всё внутри арены. Прежняя раскладка ставила капсулы и за её
+          //    низом — молча, потому что `Stack` не жалуется, а рамка вокруг
+          //    арены рисуется всё равно.
+          for (var j = 0; j < boxes.length; j++) {
+            expect(inside(arena, boxes[j]), isTrue,
+                reason: 'капсула $j вышла за арену на ${screen.label}');
+          }
+          expect(
+            inside(arena, tester.getRect(find.byKey(CircleArena.promptKey))),
+            isTrue,
+            reason: 'центр вышел за арену на ${screen.label}',
+          );
+
+          // 3. Ничто ни на что не налезает: круг из шести наложенных капсул
+          //    тоже «влезает», и это не то, что нужно.
+          for (var a = 0; a < boxes.length; a++) {
+            for (var b = a + 1; b < boxes.length; b++) {
+              expect(boxes[a].overlaps(boxes[b]), isFalse,
+                  reason: 'капсулы $a и $b налезли на ${screen.label}');
+            }
+          }
+
+          // 4. Ни одна фраза не обрезана многоточием.
+          for (final element in find
+              .descendant(
+                of: find.byType(CircleArena),
+                matching: find.byType(Text),
+              )
+              .evaluate()) {
+            final paragraph = element.renderObject! as RenderParagraph;
+            expect(paragraph.didExceedMaxLines, isFalse,
+                reason: 'обрезано на ${screen.label}: '
+                    '${paragraph.text.toPlainText()}');
+          }
+          // Догонять круг до итога не нужно: следующий `start` отменяет и
+          // паузу, и окно. А вот последний круг дожимается — ниже.
+        }
+
+        // Последний круг доигрывается, иначе его таймер остался бы висеть
+        // после теста. Экран возвращается настоящий: итог забега — не про
+        // раскладку круга, и мерить его на модельном экране незачем.
+        tester.view.reset();
+        await tester.pump(ScoreBalance.answerWindow + RevealBalance.wrong);
+        expect(state().isFinished, isTrue);
+      });
+    }
   });
 }
