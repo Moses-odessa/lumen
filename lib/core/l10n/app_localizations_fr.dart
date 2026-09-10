@@ -114,12 +114,18 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String calibrationResultCapped(String tier) {
-    return 'Seul $tier est relu et lancé pour l\'instant : le ciel commence là. Ce n\'est pas le plafond du jeu : le niveau montera avec le contenu.';
+    return 'Seul $tier est ouvert pour l\'instant : le ciel commence là. Ce n\'est pas le plafond du jeu : le niveau montera avec le contenu.';
   }
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count phrases du test brillent déjà dans votre ciel.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phrases du test brillent déjà dans votre ciel.',
+      one: '$count phrase du test brille déjà dans votre ciel.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -174,7 +180,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String ritualDoneBody(int lumens, int phrases) {
-    return '$lumens lm sont revenus au ciel, $phrases nouvelles phrases apprises.';
+    String _temp0 = intl.Intl.pluralLogic(
+      phrases,
+      locale: localeName,
+      other:
+          '$lumens lm de retour au ciel, $phrases nouvelles phrases apprises.',
+      one: '$lumens lm de retour au ciel, $phrases nouvelle phrase apprise.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -194,6 +207,9 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get runContinue => 'Suivant';
+
+  @override
+  String get runNext => 'Suivant';
 
   @override
   String get audioReplay => 'Réécouter';
@@ -216,7 +232,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit étoiles sur $total sont brillantes';
+    String _temp0 = intl.Intl.pluralLogic(
+      lit,
+      locale: localeName,
+      other: '$lit étoiles sur $total sont brillantes',
+      one: '$lit étoile sur $total est brillante',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -224,7 +246,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String constellationToLight(int count) {
-    return 'Encore $count étoiles avant l\'allumage';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Encore $count étoiles avant l\'allumage',
+      one: 'Encore $count étoile avant l\'allumage',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -285,7 +313,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String profileBrightOf(int bright, int total) {
-    return '$bright sur $total brillantes';
+    String _temp0 = intl.Intl.pluralLogic(
+      bright,
+      locale: localeName,
+      other: '$bright sur $total brillantes',
+      one: '$bright sur $total brillante',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -293,11 +327,11 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get settingsTierExplain =>
-      'Les constellations grandissent avec le palier. Les anciennes étoiles restent en place.';
+      'Un palier plus haut ajoute des constellations, pas des étoiles à chacune : une constellation a la même taille à tous les paliers. Les anciennes étoiles restent en place.';
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Les paliers au-dessus de $tier n\'ont pas encore été relus et ne sont pas disponibles.';
+    return 'Les paliers au-dessus de $tier sont encore des brouillons et ne sont pas disponibles.';
   }
 
   @override
@@ -435,15 +469,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get aboutNoAds => 'Publicité et traqueurs';
 
   @override
-  String get aboutReviewTitle => 'Comment le contenu a été vérifié';
+  String get aboutReviewTitle => 'Qui a écrit ces phrases';
 
   @override
   String get aboutReviewBody =>
-      'Les phrases allemandes ont été générées par un modèle de langue, puis relues par un second modèle, différent. Aucun locuteur natif ne les a vérifiées.';
+      'Les phrases allemandes et leurs traductions ont été écrites par un modèle de langue. Personne ne les a relues depuis : ni un second modèle, ni un locuteur natif. Cela ne veut pas dire qu\'elles sont sans erreurs, mais que personne ne les a encore cherchées.';
 
   @override
   String get aboutReviewLimit =>
-      'Deux modèles peuvent se tromper de la même façon : leurs données d\'entraînement se recoupent. La relecture croisée repère les inattentions et les contradictions, pas l\'erreur qu\'ils partagent. Si vous en repérez une, le contenu est dans le dépôt ouvert et la correction tient dans un fichier.';
+      'Alors si vous repérez quelque chose, dites-le : le contenu est dans un dépôt ouvert, une correction tient dans un fichier, et elle arrive chez tout le monde à la mise à jour suivante. Une erreur que personne ne signale reste dans le jeu et continue d\'être apprise.';
 
   @override
   String get profileDays => 'jours joués';
@@ -467,7 +501,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String profileScaleLocked(String tier) {
-    return 'Les paliers au-dessus de $tier ne sont pas encore relus, le jeu ne les propose donc pas.';
+    return 'Les paliers au-dessus de $tier sont encore des brouillons, le jeu ne les propose donc pas.';
   }
 
   @override

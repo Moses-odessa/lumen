@@ -304,16 +304,16 @@ abstract class AppLocalizations {
   /// **'The test measured'**
   String get calibrationResultMeasured;
 
-  /// No description provided for @calibrationResultCapped.
+  /// The tier the sky is capped to. It says open and not proofread on purpose: the cap comes from content_meta.launched_tiers, and a tier is launched by the author's decision, which A0 shows — it is launched with passes: [] in content/launch.yaml. See aboutReviewBody.
   ///
   /// In en, this message translates to:
-  /// **'Only {tier} has been proofread and launched so far, so the sky begins there. It is not the ceiling of the game: the tier rises as the content does.'**
+  /// **'Only {tier} is open so far, so the sky begins there. It is not the ceiling of the game: the tier rises as the content does.'**
   String calibrationResultCapped(String tier);
 
-  /// No description provided for @calibrationResultSeeded.
+  /// ICU plural forms and not a bare number: Russian and Ukrainian need one/few/many, and a bare number is what produced lines like 1 phrases are already lit.
   ///
   /// In en, this message translates to:
-  /// **'{count} phrases from the test are already lit in your sky.'**
+  /// **'{count, plural, one{{count} phrase from the test is already lit in your sky.} other{{count} phrases from the test are already lit in your sky.}}'**
   String calibrationResultSeeded(int count);
 
   /// No description provided for @calibrationResultTierChangeable.
@@ -412,10 +412,10 @@ abstract class AppLocalizations {
   /// **'Ritual complete'**
   String get ritualDoneTitle;
 
-  /// Ritual summary. The unit of study is a phrase, so the placeholder is named for one; the state field behind it is still newWords, a rename debt recorded in docs/DATA_MODEL.md
+  /// Ritual summary. The unit of study is a phrase, so the placeholder is named for one; the state field behind it is still newWords, a rename debt recorded in docs/DATA_MODEL.md. The plural is on phrases only: lm is a unit symbol that does not inflect, and the lumens clause is built without a verb that would have to agree with it (de, fr, it), so one lumen does not need a form of its own.
   ///
   /// In en, this message translates to:
-  /// **'{lumens} lm returned to the sky, {phrases} new phrases learned.'**
+  /// **'{phrases, plural, one{{lumens} lm returned to the sky, {phrases} new phrase learned.} other{{lumens} lm returned to the sky, {phrases} new phrases learned.}}'**
   String ritualDoneBody(int lumens, int phrases);
 
   /// No description provided for @ritualToSky.
@@ -454,6 +454,12 @@ abstract class AppLocalizations {
   /// **'Continue'**
   String get runContinue;
 
+  /// No description provided for @runNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get runNext;
+
   /// No description provided for @audioReplay.
   ///
   /// In en, this message translates to:
@@ -490,10 +496,10 @@ abstract class AppLocalizations {
   /// **'There are no constellations for this tier in the content database.'**
   String get skyEmptyBody;
 
-  /// Constellation card: stars bright enough to count towards igniting the constellation, ProgressionBalance.litStarMinLm. The same threshold and the same word as profileBrightOf.
+  /// Constellation card: stars bright enough to count towards igniting the constellation, ProgressionBalance.litStarMinLm. The same threshold and the same word as profileBrightOf. The plural is on lit, the number the adjective and the verb agree with; total only counts the constellation and never governs the sentence.
   ///
   /// In en, this message translates to:
-  /// **'{lit} of {total} stars are bright'**
+  /// **'{lit, plural, one{{lit} of {total} stars is bright} other{{lit} of {total} stars are bright}}'**
   String constellationLitOf(int lit, int total);
 
   /// No description provided for @constellationLocked.
@@ -502,10 +508,10 @@ abstract class AppLocalizations {
   /// **'Not unlocked yet'**
   String get constellationLocked;
 
-  /// No description provided for @constellationToLight.
+  /// How many stars are missing before the constellation lights up. Zero is a different line, constellationAboutToLight, so the one form here is a real one and not a rounding of nothing left.
   ///
   /// In en, this message translates to:
-  /// **'{count} more stars until it lights up'**
+  /// **'{count, plural, one{{count} more star until it lights up} other{{count} more stars until it lights up}}'**
   String constellationToLight(int count);
 
   /// No description provided for @constellationAboutToLight.
@@ -604,10 +610,10 @@ abstract class AppLocalizations {
   /// **'Nothing yet — play your first level.'**
   String get profileEmpty;
 
-  /// Profile, one constellation: stars at or above ProgressionBalance.litStarMinLm. The same question and the same threshold as constellationLitOf, so the two screens agree.
+  /// Profile, one constellation: stars at or above ProgressionBalance.litStarMinLm. The same question and the same threshold as constellationLitOf, so the two screens agree. English has no separate form for one here, and the two branches are identical on purpose: the template is where the test plural is not lost in translation reads which messages carry a count that governs the sentence, so a plain string here would declare that ru, uk, fr and it need no forms either. gen-l10n itself would accept a plural in one locale only.
   ///
   /// In en, this message translates to:
-  /// **'{bright} of {total} bright'**
+  /// **'{bright, plural, one{{bright} of {total} bright} other{{bright} of {total} bright}}'**
   String profileBrightOf(int bright, int total);
 
   /// No description provided for @settingsTier.
@@ -616,16 +622,16 @@ abstract class AppLocalizations {
   /// **'Tier'**
   String get settingsTier;
 
-  /// No description provided for @settingsTierExplain.
+  /// What a tier changes. It used to say the constellations grow with the tier, and that was simply not true: the corpus is 50 topics of 30 phrases each, and what a higher tier adds is topics (5 on A0, 9 on A1, 11 on A2, 12 on B1, 13 on B2), never stars inside one. The line names the growth without naming 30: the uniform size is a fact of the current corpus and not a rule, so a number here would go stale on the next import (see SkyLayout.courseConstellations).
   ///
   /// In en, this message translates to:
-  /// **'Constellations grow with the tier. Old stars stay where they are.'**
+  /// **'A higher tier adds constellations, not stars to them — a constellation is the same size on every tier. Old stars stay where they are.'**
   String get settingsTierExplain;
 
-  /// No description provided for @settingsTierLocked.
+  /// Why the higher segments are disabled. Drafts and not unproofread: the boundary is content_meta.launched_tiers, which says launched, and launched does not mean read by anyone — A0 is launched with passes: [] (see aboutReviewBody). Drafted is the word content/launch.yaml uses for a1..b2 itself.
   ///
   /// In en, this message translates to:
-  /// **'Tiers above {tier} have not been proofread yet and are unavailable.'**
+  /// **'Tiers above {tier} are still drafts and are not available yet.'**
   String settingsTierLocked(String tier);
 
   /// No description provided for @settingsSound.
@@ -868,22 +874,22 @@ abstract class AppLocalizations {
   /// **'Ads and trackers'**
   String get aboutNoAds;
 
-  /// No description provided for @aboutReviewTitle.
+  /// Heading of the content section on the About screen. It used to read How the content was checked, and a heading that promises a check is a claim of its own — the section under it says the content was not checked. The heading now says what the section actually answers.
   ///
   /// In en, this message translates to:
-  /// **'How the content was checked'**
+  /// **'Who wrote these phrases'**
   String get aboutReviewTitle;
 
-  /// No description provided for @aboutReviewBody.
+  /// What the player is learning from. This text said the phrases were cross-checked by a second, different model, and that was untrue: content/launch.yaml carries passes: [] on all five tiers, zero readings of the current corpus, and the corpus itself was replaced twice within two days, so the earlier passes described text that no longer exists. THIS SENTENCE IS NOT BOUND TO ANY DATA, AND IT CANNOT HONESTLY BE. The only review-shaped fact that reaches the app is content_meta.launched_tiers, and it is exactly the field that lies here: A0 is launched with no passes at all, by the author's decision to test the mechanics on a live player. Binding the sentence to launched_tiers would restate the same untruth by machine. An honest binding needs a new content_meta field fed from the passes lists (tool/build_content.dart plus lib/data/content/content_database.dart), which no screen can add on its own. Until then the guard is a test: test/l10n_test.dart reads content/launch.yaml and fails the moment a pass appears, naming these three keys. WHOEVER ENTERS THE FIRST PASS: this text, aboutReviewTitle and aboutReviewLimit stop being true at that moment and are what has to be rewritten, in all six locales.
   ///
   /// In en, this message translates to:
-  /// **'The German phrases were generated by a language model and then cross-checked by a second, different model. A native speaker has not reviewed them.'**
+  /// **'The German phrases and their translations were written by a language model. Nobody has proofread them since — no second model, no native speaker. That does not mean there are no mistakes in them; it means nobody has looked for them yet.'**
   String get aboutReviewBody;
 
-  /// No description provided for @aboutReviewLimit.
+  /// The part of the old paragraph that was true and is the only part that works for the player: the content is open, a fix is one file, and reporting an error is worth doing. What went with the paragraph was an explanation of the limits of a cross-check that never happened — it was holding the same promise a second time.
   ///
   /// In en, this message translates to:
-  /// **'Two models can be wrong in the same way: they are trained on overlapping data. Cross-checking catches carelessness and contradictions, not a mistake both share. If you spot an error, the content lives in the open repository and a fix is one file away.'**
+  /// **'So if you spot something, say so: the content lives in an open repository, a fix is one file away, and it reaches everyone with the next update. A mistake nobody reports stays in the game and goes on being learned.'**
   String get aboutReviewLimit;
 
   /// No description provided for @profileDays.
@@ -922,10 +928,10 @@ abstract class AppLocalizations {
   /// **'You are on {tier}: {percent}% of its phrases are held in memory.'**
   String profileScaleHint(String tier, int percent);
 
-  /// No description provided for @profileScaleLocked.
+  /// Why the scale stops. Same correction as settingsTierLocked: the reason is that those tiers are not launched, not that they are unproofread — nothing in the corpus is proofread, this tier included.
   ///
   /// In en, this message translates to:
-  /// **'Tiers above {tier} are not proofread yet, so the game does not offer them.'**
+  /// **'Tiers above {tier} are still drafts, so the game does not offer them.'**
   String profileScaleLocked(String tier);
 
   /// No description provided for @unitMinutes.

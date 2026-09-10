@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lumen/core/l10n/app_localizations.dart';
+import 'package:yaml/yaml.dart';
 
 /// Локализация ломается тихо: недостающий ключ просто откатывается к
 /// английскому, и англоязычный разработчик этого не замечает никогда.
@@ -115,6 +116,74 @@ void main() {
     }
   });
 
+  test('плюрал не теряется при переводе', () {
+    // «1 фраз із тесту вже світять» — так это выглядело на экране. Число
+    // подставлялось в строку с существительным в одной готовой форме, и на
+    // единице фраза ломалась сразу во всех шести локалях. Формы ICU были
+    // ровно у одного сообщения из шести, которым они нужны
+    // (`reminderDimmingTitle`), — у остальных пяти стояла голая подстановка.
+    //
+    // Формы живут в ARB, а не в склейке на Dart, по той же причине, по
+    // которой здесь вообще есть тест: склейка требует, чтобы каждое место
+    // показа знало правила своего языка, а правил шесть разных — русский и
+    // украинский различают one/few/many, остальные четыре языка one/other.
+    // Одно место показа, забывшее об этом, возвращает «1 фраз».
+    //
+    // Шаблон здесь — объявление: `plural` у ключа в `app_en.arb` значит
+    // «число в этом сообщении управляет согласованием», и тогда формы
+    // обязаны быть во всех локалях. Английские ветки `profileBrightOf`
+    // поэтому одинаковы («1 of 30 bright» и «3 of 30 bright» по-английски
+    // не различаются) — они и есть объявление, а не забытая правка;
+    // gen-l10n сам принял бы плюрал в одной локали и без шаблона.
+    final declaration = RegExp(r'\{(\w+), plural,');
+    final branch = RegExp(r'(?:^|[\s{])(zero|one|two|few|many|other)\{');
+
+    // Формы, без которых язык врёт на каком-нибудь числе. `other` нужен
+    // везде: на него ICU падает, когда подходящей ветки нет.
+    const required = {
+      'en': {'one', 'other'},
+      'de': {'one', 'other'},
+      'fr': {'one', 'other'},
+      'it': {'one', 'other'},
+      'ru': {'one', 'few', 'many', 'other'},
+      'uk': {'one', 'few', 'many', 'other'},
+    };
+
+    // Ключ → по какому числу считается плюрал. Число именно одно: в
+    // `ritualDoneBody` их два, но склоняется только счёт фраз, а `lm` —
+    // символ единицы, который не изменяется ни в одном из шести языков.
+    final plural = {
+      for (final key in templateKeys)
+        if (declaration.firstMatch(template[key]! as String) case final m?)
+          key: m.group(1)!,
+    };
+    expect(plural, isNotEmpty,
+        reason: 'в шаблоне не осталось ни одного плюрала — либо ключи '
+            'переименованы, либо формы потеряли, и тест сторожит пустоту');
+
+    for (final locale in AppLocalizations.supportedLocales) {
+      final lang = locale.languageCode;
+      final arb = read(lang);
+
+      for (final entry in plural.entries) {
+        final value = arb[entry.key]! as String;
+        final match = declaration.firstMatch(value);
+        expect(match, isNotNull,
+            reason: '$lang/${entry.key}: число подставлено без плюрала — '
+                'на единице получится «1 фраз»');
+        expect(match!.group(1), entry.value,
+            reason: '$lang/${entry.key}: плюрал считается по «${match.group(1)}», '
+                'а согласование в шаблоне ведёт «${entry.value}»');
+
+        final forms = branch.allMatches(value).map((m) => m.group(1)!).toSet();
+        final missing = required[lang]!.difference(forms);
+        expect(missing, isEmpty,
+            reason: '$lang/${entry.key}: не хватает форм — '
+                '${missing.join(', ')}');
+      }
+    }
+  });
+
   test('нет пустых переводов', () {
     for (final locale in AppLocalizations.supportedLocales) {
       final arb = read(locale.languageCode);
@@ -214,5 +283,52 @@ void main() {
           reason: '$lang: ${(share * 100).round()} % строк совпадают с '
               'английскими — похоже, локаль не переведена');
     }
+  });
+
+  test('текст о контенте опирается на ноль проходов вычитки', () {
+    // Экран «О приложении» говорит игроку: фразы написала языковая модель, и
+    // после неё их не читал никто. Это утверждение о качестве того, по чему
+    // человек учит язык, и держится оно на одном факте — `passes` в
+    // `content/launch.yaml` пусты у всех ярусов.
+    //
+    // Раньше там стояло обратное («перекрёстно проверены второй моделью»), и
+    // ничего не покраснело, когда это перестало быть правдой: текст не был
+    // связан ни с чем. Связать его с данными честно нельзя и сейчас —
+    // единственное, что доезжает до приложения, это
+    // `content_meta.launched_tiers`, а launched не значит «прочитан»: A0
+    // запущен решением автора при `passes: []`. Поэтому сторожем стоит тест,
+    // и сторожит он не формулировку (отрицание словами не проверить: у
+    // немецкого «niemand gegengelesen» те же слова, что у обещания), а тот
+    // самый факт, на который формулировка опирается.
+    //
+    // Ходить приходится по YAML напрямую, а не через `LaunchPolicy.read`:
+    // тот читает один язык по имени, а обещание на экране — про весь корпус,
+    // включая язык, которого в файле ещё нет.
+    final file = File('content/launch.yaml');
+    expect(file.existsSync(), isTrue,
+        reason: 'нет content/launch.yaml — подтвердить, что вычитки не '
+            'было, стало нечем, а текст на экране это утверждает');
+
+    final doc = loadYaml(file.readAsStringSync());
+    final found = <String>[];
+    if (doc is YamlMap) {
+      for (final lang in doc.entries) {
+        final reviewers = (lang.value as YamlMap?)?['reviewers'];
+        if (reviewers is! YamlMap) continue;
+        for (final tier in reviewers.entries) {
+          final passes = (tier.value as YamlMap?)?['passes'];
+          if (passes is YamlList && passes.isNotEmpty) {
+            found.add('${lang.key}/${tier.key}: ${passes.length}');
+          }
+        }
+      }
+    }
+
+    expect(found, isEmpty,
+        reason: 'в launch.yaml появились проходы вычитки (${found.join('; ')}) '
+            '— значит «после неё их не вычитывал никто» на экране «О '
+            'приложении» больше не правда. Переписать в шести локалях '
+            'aboutReviewTitle, aboutReviewBody и aboutReviewLimit, а этот '
+            'тест — на то, что там теперь сказано');
   });
 }

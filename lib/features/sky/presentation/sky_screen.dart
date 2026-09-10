@@ -155,7 +155,10 @@ class _TierSuggestionBanner extends ConsumerWidget {
         : snapshot.tier.down;
     if (target == null) return const SizedBox.shrink();
 
-    // Подниматься некуда, если верхний ярус ещё не вычитан.
+    // Подниматься некуда, если верхний ярус ещё не запущен: в
+    // `content_meta.launched_tiers` его нет, значит он черновой. Не
+    // «вычитан» — вычитки нет ни у одного яруса, включая нижний
+    // (`aboutReviewBody`).
     if (suggestion == TierSuggestion.up &&
         target.index > ref.watch(maxTierProvider).index) {
       return const SizedBox.shrink();

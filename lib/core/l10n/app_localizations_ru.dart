@@ -114,12 +114,20 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String calibrationResultCapped(String tier) {
-    return 'Вычитан и запущен пока только $tier — небо начинается с него. Это не потолок игры: ярус поднимется вместе с контентом.';
+    return 'Открыт пока только $tier — небо начинается с него. Это не потолок игры: ярус поднимется вместе с контентом.';
   }
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count фраз из теста уже горят на вашем небе.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count фразы из теста уже горят на вашем небе.',
+      many: '$count фраз из теста уже горят на вашем небе.',
+      few: '$count фразы из теста уже горят на вашем небе.',
+      one: '$count фраза из теста уже горит на вашем небе.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -174,7 +182,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String ritualDoneBody(int lumens, int phrases) {
-    return 'Небу вернулось $lumens lm, выучено $phrases новых фраз.';
+    String _temp0 = intl.Intl.pluralLogic(
+      phrases,
+      locale: localeName,
+      other: 'Небу вернулось $lumens lm, выучено $phrases новых фраз.',
+      many: 'Небу вернулось $lumens lm, выучено $phrases новых фраз.',
+      few: 'Небу вернулось $lumens lm, выучено $phrases новые фразы.',
+      one: 'Небу вернулось $lumens lm, выучена $phrases новая фраза.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -196,6 +212,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get runContinue => 'Дальше';
 
   @override
+  String get runNext => 'Дальше';
+
+  @override
   String get audioReplay => 'Прослушать ещё раз';
 
   @override
@@ -215,7 +234,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit из $total звёзд яркие';
+    String _temp0 = intl.Intl.pluralLogic(
+      lit,
+      locale: localeName,
+      other: '$lit из $total звёзд яркие',
+      many: '$lit из $total звёзд яркие',
+      few: '$lit из $total звёзд яркие',
+      one: '$lit из $total звёзд яркая',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -223,7 +250,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String constellationToLight(int count) {
-    return 'До зажжения — ещё $count звёзд';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'До зажжения — ещё $count звёзд',
+      many: 'До зажжения — ещё $count звёзд',
+      few: 'До зажжения — ещё $count звезды',
+      one: 'До зажжения — ещё $count звезда',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -283,7 +318,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String profileBrightOf(int bright, int total) {
-    return '$bright из $total яркие';
+    String _temp0 = intl.Intl.pluralLogic(
+      bright,
+      locale: localeName,
+      other: '$bright из $total яркие',
+      many: '$bright из $total яркие',
+      few: '$bright из $total яркие',
+      one: '$bright из $total яркая',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -291,11 +334,11 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsTierExplain =>
-      'Размер созвездий растёт вместе с ярусом. Старые звёзды остаются на местах.';
+      'Выше ярус — больше созвездий, а не звёзд в каждом: размер созвездия на всех ярусах один. Старые звёзды остаются на местах.';
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Ярусы выше $tier ещё не вычитаны и недоступны.';
+    return 'Ярусы выше $tier пока черновые и недоступны.';
   }
 
   @override
@@ -433,15 +476,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutNoAds => 'Рекламы и трекеров';
 
   @override
-  String get aboutReviewTitle => 'Как проверялся контент';
+  String get aboutReviewTitle => 'Кто написал эти фразы';
 
   @override
   String get aboutReviewBody =>
-      'Немецкие фразы сгенерированы языковой моделью, а затем перекрёстно проверены второй, другой моделью. Носитель языка их не вычитывал.';
+      'Немецкие фразы и переводы к ним написала языковая модель. После неё их не вычитывал никто — ни вторая модель, ни носитель языка. Это значит не то, что ошибок нет, а то, что их пока никто не искал.';
 
   @override
   String get aboutReviewLimit =>
-      'Две модели могут ошибаться одинаково: они обучены на пересекающихся данных. Перекрёстная проверка ловит невнимательность и противоречия, но не общую для обеих ошибку. Если вы заметили неточность — контент лежит в открытом репозитории, и правка это один файл.';
+      'Поэтому скажите, если что-то заметили: контент лежит в открытом репозитории, правка это один файл, и она приходит всем со следующим обновлением. Ошибка, о которой не сказали, остаётся в игре, и её продолжают заучивать.';
 
   @override
   String get profileDays => 'дней играл';
@@ -465,7 +508,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String profileScaleLocked(String tier) {
-    return 'Ярусы выше $tier ещё не вычитаны, и игра их не предлагает.';
+    return 'Ярусы выше $tier пока черновые, и игра их не предлагает.';
   }
 
   @override

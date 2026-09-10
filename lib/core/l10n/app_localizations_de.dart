@@ -114,12 +114,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String calibrationResultCapped(String tier) {
-    return 'Bisher ist nur $tier Korrektur gelesen und freigegeben — dort beginnt der Himmel. Das ist keine Obergrenze des Spiels: die Stufe steigt mit den Inhalten.';
+    return 'Bisher ist nur $tier freigegeben — dort beginnt der Himmel. Das ist keine Obergrenze des Spiels: die Stufe steigt mit den Inhalten.';
   }
 
   @override
   String calibrationResultSeeded(int count) {
-    return '$count Sätze aus dem Test leuchten schon an deinem Himmel.';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Sätze aus dem Test leuchten schon an deinem Himmel.',
+      one: '$count Satz aus dem Test leuchtet schon an deinem Himmel.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -176,7 +182,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String ritualDoneBody(int lumens, int phrases) {
-    return '$lumens lm sind dem Himmel zurückgekehrt, $phrases neue Sätze gelernt.';
+    String _temp0 = intl.Intl.pluralLogic(
+      phrases,
+      locale: localeName,
+      other: '$lumens lm zurück am Himmel, $phrases neue Sätze gelernt.',
+      one: '$lumens lm zurück am Himmel, $phrases neuer Satz gelernt.',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -196,6 +208,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get runContinue => 'Weiter';
+
+  @override
+  String get runNext => 'Weiter';
 
   @override
   String get audioReplay => 'Noch einmal anhören';
@@ -218,7 +233,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String constellationLitOf(int lit, int total) {
-    return '$lit von $total Sternen sind hell';
+    String _temp0 = intl.Intl.pluralLogic(
+      lit,
+      locale: localeName,
+      other: '$lit von $total Sternen sind hell',
+      one: '$lit von $total Sternen ist hell',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -226,7 +247,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String constellationToLight(int count) {
-    return 'Noch $count Sterne bis zum Entzünden';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Noch $count Sterne bis zum Entzünden',
+      one: 'Noch $count Stern bis zum Entzünden',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -287,7 +314,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String profileBrightOf(int bright, int total) {
-    return '$bright von $total hell';
+    String _temp0 = intl.Intl.pluralLogic(
+      bright,
+      locale: localeName,
+      other: '$bright von $total hell',
+      one: '$bright von $total hell',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -295,11 +328,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get settingsTierExplain =>
-      'Sternbilder wachsen mit der Stufe. Alte Sterne bleiben, wo sie sind.';
+      'Eine höhere Stufe bringt mehr Sternbilder, nicht mehr Sterne pro Sternbild — ein Sternbild ist auf jeder Stufe gleich groß. Alte Sterne bleiben, wo sie sind.';
 
   @override
   String settingsTierLocked(String tier) {
-    return 'Stufen über $tier sind noch nicht geprüft und daher nicht verfügbar.';
+    return 'Stufen über $tier sind noch Entwürfe und daher nicht verfügbar.';
   }
 
   @override
@@ -438,15 +471,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get aboutNoAds => 'Werbung und Tracker';
 
   @override
-  String get aboutReviewTitle => 'Wie die Inhalte geprüft wurden';
+  String get aboutReviewTitle => 'Wer diese Sätze geschrieben hat';
 
   @override
   String get aboutReviewBody =>
-      'Die deutschen Sätze wurden von einem Sprachmodell erzeugt und danach von einem zweiten, anderen Modell gegengelesen. Eine Muttersprachlerin oder ein Muttersprachler hat sie nicht geprüft.';
+      'Die deutschen Sätze und ihre Übersetzungen stammen von einem Sprachmodell. Danach hat sie niemand gegengelesen — kein zweites Modell, keine Muttersprachlerin, kein Muttersprachler. Das heißt nicht, dass keine Fehler drin sind, sondern dass bisher niemand nach ihnen gesucht hat.';
 
   @override
   String get aboutReviewLimit =>
-      'Zwei Modelle können denselben Fehler machen: ihre Trainingsdaten überschneiden sich. Das Gegenlesen findet Unachtsamkeit und Widersprüche, nicht den Fehler, den beide teilen. Wenn dir etwas auffällt: die Inhalte liegen im offenen Repository, eine Korrektur ist eine Datei.';
+      'Wenn dir also etwas auffällt, sag es: die Inhalte liegen in einem offenen Repository, eine Korrektur ist eine Datei, und sie kommt mit dem nächsten Update bei allen an. Ein Fehler, den niemand meldet, bleibt im Spiel und wird weiter mitgelernt.';
 
   @override
   String get profileDays => 'Tage gespielt';
@@ -470,7 +503,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String profileScaleLocked(String tier) {
-    return 'Stufen über $tier sind noch nicht geprüft, deshalb bietet das Spiel sie nicht an.';
+    return 'Stufen über $tier sind noch Entwürfe, deshalb bietet das Spiel sie nicht an.';
   }
 
   @override

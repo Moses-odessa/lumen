@@ -252,7 +252,11 @@ class _TierTile extends ConsumerWidget {
                   ButtonSegment(
                     value: tier,
                     label: Text(tier.label),
-                    // Выше вычитанного играть нельзя: контент там черновой.
+                    // Выше запущенного играть нельзя: там черновик. Граница
+                    // приходит из `content_meta.launched_tiers`, и слово
+                    // «запущенный» здесь не синоним «вычитанного»: A0
+                    // запущен решением автора при `passes: []`, то есть
+                    // непрочитанным (см. `aboutReviewBody`).
                     enabled: tier.index <= maxTier.index,
                   ),
               ],
